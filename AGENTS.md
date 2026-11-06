@@ -2,6 +2,51 @@
 
 see `docs/project-info.md` for projekt details
 
+Working Project Folder: /opt/Investalo_Trading-Platform
+
+## Project state and navigation
+
+- Current phase: planning and `SKILLS/grill-me/SKILL.md` interview.
+- Confirmed Q1–Q5: private invitation pilot, cockpit/backtests/paper before live,
+  independent hard risk limits, controlled AI promotion, and free external
+  tools/accounts first. TradingView Essentials is the existing paid subscription.
+  Do not book additional paid services without a new concrete decision.
+- Confirmed Q6–Q8: plan both Bitget and MT5 for the first release; modular
+  monolith with separate workers, Python/FastAPI, Next.js/TypeScript and PostgreSQL;
+  separate cockpit login with MFA. Specific strategy variants, risk values,
+  identity provider and deployment tools still require decisions.
+- Original requirements: `docs/project-info.md`; complete draft: `docs/concept.md`.
+- Architecture/stack proposals: `docs/architecture.md`; trading: `docs/trading.md`.
+- Track work in `docs/tasks/board.md`, milestones in `docs/roadmap.md`,
+  deferred work in `docs/backlog.md`, and user decisions in `docs/interview.md`.
+- Read `docs/memories/decision-log.md` and `docs/memories/gotchas.md` before
+  implementation; consult `docs/inventory.md` before reusing legacy code.
+- Preserve the original project prompt. Label unresolved requirements and
+  proposed defaults explicitly; an unanswered interview question is not approval.
+- The first authorized deliverable is structure and planning. Do not silently
+  bootstrap before interview agreement, activate live trading, or deploy production.
+- Existing reference repositories: `/opt/investalo-trading-system` and
+  `/opt/investalo-autotrader`. Treat them as read-only references unless work there
+  is explicitly authorized. Their strategies need independent net-cost validation.
+
+## Trading and implementation invariants
+
+- Profitability is a measurable research objective, never a guarantee.
+- Use one versioned deterministic strategy core for backtest, paper, and live.
+- Risk limits are enforced independently of strategy/AI and before order dispatch.
+- Model quote budget, position notional, usable margin, and account equity separately.
+- Never retry an uncertain broker order blindly; reconcile before resubmission.
+- Require authenticated tenant context for requests, jobs, files, caches, and streams.
+- Broker credentials must never reach browser storage, research workers, AI, or logs.
+- Default to private access and disabled live execution. Real-money activation
+  requires explicit account/strategy/risk approval in addition to deployment approval.
+- Never inherit loose dependency ranges or floating images from the legacy systems.
+  Verify supported versions, pin exact releases/digests, and commit lockfiles.
+- Keep original strategy images in `strategies/`; executable rules belong in a
+  reviewed specification and immutable strategy versions.
+- `secrets/` is ignored. Removing a file from tracking does not remove its history;
+  potential credentials need rotation and separately authorized history remediation.
+
 ## Subagents
 - wenn du deine Arbeit an spezialisten abgeben kannst, spawne Subagents mit einem für die Aufgabe passenden Modell
 - dir steht zusätzlich die GEMINI CLI auf dem System zur Verfügung
@@ -74,3 +119,6 @@ Capture what matters. Decisions, context, things to remember. Skip the secrets u
 
 Skills provide your tools. When you need one, check its `SKILL.md`. Keep local notes (SSH details, commands, jobs, etc.) in `TOOLS.md`.
 
+
+## CODEX USE
+- If you need to use other Codex CLI Modells you must start codex with the AWS Bedrock Modell: example for GPT-Astra = codex --model global.openai.gpt-6-astra

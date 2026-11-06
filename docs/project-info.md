@@ -3,7 +3,7 @@ Du bist Expert Developer und spezialisiert auf Finanzthemen und automatisierte p
 
 # Projekt
 Ziel dieses Projektes ist die vollständige Entwicklung und Betrieb eines vollständig autark laufenden Handelssystems. Das System soll selbstlernend sein und sich stetig weiter verbessern um die gesetzten Trades dauerhaft profitabel zu halten.
-Das System soll ein modernes, interaktives und responsives Dashboard bereit stellen. Das Dashboard soll unter anderem Trading Statistiken der jeweiligen Konto anzeigen. Ebenso soll eine Darstellung des Gesamtportfolios vorhanden sein. Ebenso soll die Möglichkeit geschaffen werden Assets einem Backtest mit den vorhandenen Strategien unterziehen zu können. Die Backtest Ergebnisse sollen grafisch aufbereitet dargestellt werden. Das Dashboard soll Overlays enthalten um detailinfos anzeigen zu können. Es soll einen Setup Userbereich geben wo der User seine API Keys eintragen kann. Das gesamte System soll Mandantenfähig sein und perspektivisch vielen Usern bereit gestellt werden.
+Das System soll ein modernes, interaktives und responsives Dashboard/Cockpit bereit stellen. Das Dashboard/Cockpit soll unter anderem Trading Statistiken der jeweiligen Konto anzeigen. Ebenso soll eine Darstellung des Gesamtportfolios vorhanden sein. Ebenso soll die Möglichkeit geschaffen werden Assets einem Backtest mit den vorhandenen Strategien unterziehen zu können. Die Backtest Ergebnisse sollen grafisch aufbereitet dargestellt werden. Das Dashboard soll Overlays enthalten um detailinfos anzeigen zu können. Es soll einen Setup Userbereich geben wo der User seine API Keys eintragen kann. Das gesamte System soll Mandantenfähig sein und perspektivisch vielen Usern bereit gestellt werden.
 Es soll mit mehreren Platformen handeln können. Darunter Metatrader 5 für zb eine FTMO Challange aber auch mit der Crypto Börse Bitget.
 Auf dem Dashboard sollen auch Marktinfos angezeigt werden. Darunter je nach Marktbereich unterteilt daten wie "Fear & Greed Index", "COT Daten", "Zentralbank Zinsen", etc. Ein Newsfeed und Wirtschaftskalender runden die Info Darstellung ab.
 Der Wunsch ist ein profitabeles Handelssystem mit Dashboardübersicht zu haben was die wichtigsten Märkte bedienen kann.
@@ -18,12 +18,64 @@ Dieses System kann als Vorlage und Datenquelle genutzt werden. Ein vollständige
 
 Rohstoffe, Indizes, etc. = weitere Strategie Ideen sind gern gesehen und können zusammen erarbeitet werden.
 
+Wenn Handelssignale entstehen können diese wenn sinnvoll zusätzlich von einem AI Agent geprüft werden ob es ein valides Signal ist. Es könnten zum Beispiel Signale anhand von schnellen Bewegungen durch News oder Fakeouts entstehen. AI soll hier helfen die Signale mit der Realität und Plausibilität zu prüfen und somit das System weiter lernen zu lassen.
+
+# Cockpit Features
+- Multiuser fähig
+- Darstellung von Live Daten zb. offene Positionen, Asset Daten, News, Portfolio, etc.
+- absolut sicheres System - Best practice IT Security
+- modernes, responsives Design mit induitiver UX/UI
+- Styling angelehnt an www.investalo.de
+- Wirtschaftskalender
+- übersichtlicher Asset News Feed
+- KI unterstütze Handelssignale
+- einfaches Backtesting innerhalb des Cockpits möglich
+- automatisches Trading Journal mit zusätzlicher grafischer Portfolioentwicklung
+- voll automatisches Handelssystem
+- Unterstützung von Bitget und Metatrader 5
+- weitere sinnvolle Features können wir erarbeiten
+
+# Taskplanung
+Plane und verwalte deine Aufgaben in einem Task/Ticket System. Erledige diese Aufgaben selbst oder weise diese Subagents zu.
+Erstelle eine Roadmap und arbeite diese suggesive ab. Themen, Findungs, offene Punkte die wärend der Arbeit aufkommen sammelst du in einem Backlog.
+Die Backlog Items werden zur passenden Zeit ebenfalls Tasks und sollen abgearbeitet werden.
+
+
 # System Setup
 Du läufst in Codex auf einem dedizierten Ubuntu 26.04 virtuellen Server.
-Du kannst Subagents erstellen und das System vollständig nach den Anforderungen einrichten. Tools Installieren und mit externen APIs sprechen und die benötigten Infos zu bekommen.
+Du kannst Subagents erstellen und das System vollständig nach den Anforderungen einrichten. Tools Installieren und mit externen APIs sprechen und die benötigten Infos zu bekommen. Du kannst als Root User auf dem System argieren.
+Als Public Domain steht "cockpit.investalo.de" zur Verfügung. Sobald Dienste public erreichbar gestellt werden müssen diese entsprechend abgesichert werden und dem neusten Stand der Technik entsprechen. Sensible Daten wie API Keys, Kundendaten, Logins müssen zwingend besonders geschützt werden!
+
+
+# Tools
+Es stehen aktuell folgende externe Tools zum Beispiel als Datenquellen zur Verfügung:
+- TradingView Essentials Abo
+- AlphaVantage Free API
+- TwelveData Free Account
+- MetaTrader 5 Expert Advice um Broker Livedaten zu erhalten
+
+Weitere Tools und Datenquellen können auf Wunsch gern ergänzt und eingerichtet werden. Dies kann ich auch nach deiner Anweisung vornehmen.
+
 
 # Interview
 Stelle mir Fragen um ein gemeinsames Verständnis zu dem Projekt zu schaffen. Nutze dafür den "grill-me" Skill.
 
 # Task
 Wir starten mit der Planung. Erstelle ein vollständiges und umfängliches Konzept um das Projekt umsetzen zu können. Von der Architektur über den Techstack bis hin zur Umsetzung und realen Betrieb. Ebenso sollte ein stetiges Feintuning und Optimierung des Systems berücksichtigt werden um die Trades dauerhaft profitabel zu halten.
+Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGENTS.md, etc.) Files mit den relevanten Projektinfos. Halte diese dokumentationen und Anweisungen immer aktuell.
+
+# Arbeitsstand und ergänzende Dokumentation
+
+Stand 2026-11-06: Der Auftrag oben bleibt als ursprünglicher Projektprompt erhalten.
+Die erste Umsetzung besteht aus Projektstruktur, Konzept, Roadmap, Tickets und
+einem Interview nach `SKILLS/grill-me/SKILL.md`.
+
+- Gesamtkonzept: [concept.md](concept.md)
+- Technischer Entwurf: [architecture.md](architecture.md)
+- Strategien, Risiko und Nachweisverfahren: [trading.md](trading.md)
+- Meilensteine: [roadmap.md](roadmap.md), Aufgaben: [tasks/board.md](tasks/board.md)
+- Bestätigte und offene Entscheidungen: [interview.md](interview.md)
+
+Noch nicht bestätigte Vorschläge sind ausdrücklich als solche gekennzeichnet.
+Langfristige Profitabilität kann nicht zugesichert werden; sie wird anhand
+reproduzierbarer Nettoergebnisse und festgelegter Risikogrenzen bewertet.
