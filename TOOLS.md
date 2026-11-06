@@ -34,5 +34,7 @@ _Add whatever helps you do your job. This is your cheat sheet._
 - User domain: `cockpit.investalo.de`; no DNS, ingress or production changes made.
 - Planning tasks: `docs/tasks/board.md`; documentation index: `docs/README.md`.
 - Never store access keys, passwords or tokens in these notes.
+- Deployment decision 2026-11-07: Docker Compose plus local Authelia OIDC/MFA.
+  Nothing installed yet; private access, SMTP and recovery remain open.
 - `.git` is read-protected by the workspace sandbox; Git mutations may need
   tool escalation even when editing project files is allowed.

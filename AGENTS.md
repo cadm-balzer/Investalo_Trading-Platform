@@ -13,8 +13,14 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   Do not book additional paid services without a new concrete decision.
 - Confirmed Q6–Q8: plan both Bitget and MT5 for the first release; modular
   monolith with separate workers, Python/FastAPI, Next.js/TypeScript and PostgreSQL;
-  separate cockpit login with MFA. Specific strategy variants, risk values,
-  identity provider and deployment tools still require decisions.
+  separate cockpit login with MFA.
+- Confirmed Q9–Q14: BTC/USDT and ETH/USDT spot without leverage on H4;
+  XAUUSD trend/pullback with H1 regime and M15 entries after validation;
+  written crypto prompt over older images; 25% growing quote amounts, 5% drop
+  from the last actual entry, -50% stress from the first entry; Docker Compose
+  from the start; local Authelia OIDC/MFA with administratively provisioned users.
+  Indicator/exit details, paper risk values, private access and MFA recovery
+  remain open. Do not infer approval for systemd deployment.
 - Original requirements: `docs/project-info.md`; complete draft: `docs/concept.md`.
 - Architecture/stack proposals: `docs/architecture.md`; trading: `docs/trading.md`.
 - Track work in `docs/tasks/board.md`, milestones in `docs/roadmap.md`,

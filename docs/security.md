@@ -1,8 +1,9 @@
 # Sicherheitskonzept
 
-Stand 2026-11-06. Verbindliche Leitlinien aus AGENTS.md:
+Stand 2026-11-07. Verbindliche Leitlinien aus AGENTS.md:
 private Bereitstellung, Verschlüsselung und minimale Rechte.
-Konkrete Identity-/Secret-/Deploymentwerkzeuge sind noch offen.
+Docker Compose und lokales Authelia sind in Q13/Q14 bestätigt;
+konkrete Pins, Schlüsselbereitstellung und Recoveryabläufe bleiben offen.
 
 ## Bedrohungen und Kontrollen
 
@@ -34,11 +35,17 @@ wesentliche Risikoänderung erfordern Step-up. Mitgliedschaft und Kontorechte
 werden serverseitig geprüft; Entzug beendet auch Streams und Jobs, soweit
 deren Ausführung entsprechende Rechte voraussetzt.
 
-Für Q14 ist lokales Authelia vorgeschlagen, mit stabiler Passwort-plus-
+In Q14 ist lokales Authelia bestätigt, mit stabiler Passwort-plus-
 TOTP/WebAuthn-Policy. Benutzerprovisionierung und Recovery erfolgen kontrolliert.
 Ein alleiniger Passkey-Login ist dort nicht automatisch ein belegter Zwei-Faktor-
 Login. Die Cloudalternative ZITADEL braucht eine Datenverarbeitungsentscheidung
 und einen belastbaren Mail-/Recoveryweg auch im Free-Tarif.
+
+Für bereits eingerichtete MFA-Nutzer verlangen Faktoränderungen zusätzlich
+den vorhandenen zweiten Faktor; Mail-only-Elevation ist keine gleichwertige
+phishingresistente Prüfung. Unabhängiger Ersatz und Recoveryweg folgen Q22.
+File-Notifier ist nur für Entwicklung, produktiver SMTP-Weg folgt Q21.
+Konkrete Grenzen: [deployment-plan.md](deployment-plan.md).
 
 RLS-/Cache-/Workergrenzen stehen in [architecture.md](architecture.md).
 Unauthentifizierte Healthchecks enthalten keine Konten, Schlüssel oder
@@ -92,7 +99,7 @@ Datenbank, Secrets, Metriken und interne Worker sind nicht öffentlich.
 Der spätere Domainzugang `cockpit.investalo.de` braucht eigene
 Produktionsfreigabe und bewusste Zugangsentscheidung.
 
-Bei einer späteren Dockerwahl interne Ports nicht öffentlich publishen:
+Bei der bestätigten Dockerbereitstellung interne Ports nicht öffentlich publishen:
 Docker-Portregeln können UFW-/firewalld-Regeln umgehen. Keine Docker-Socket-
 Mounts im Cockpit/API; tatsächliche externe Erreichbarkeit prüfen.
 

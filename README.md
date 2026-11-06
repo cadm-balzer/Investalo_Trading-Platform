@@ -3,9 +3,11 @@
 Mandantenfähiges Trading-Cockpit mit Portfolio, Journal, Backtests und
 automatisiertem Handel über Bitget und MetaTrader 5.
 
-**Stand: 2026-11-06 — Planung und Interview.** Es gibt noch keine lauffähige
+**Stand: 2026-11-07 — Planung und Interview.** Es gibt noch keine lauffähige
 Anwendung. Der grundlegende Stack und beide Broker im ersten Release sind
-bestätigt; Detailregeln, Risikoparameter und Betriebswerkzeuge bleiben offen.
+bestätigt, ebenso Docker Compose und lokales Authelia für MFA.
+Crypto startet mit BTC/ETH Spot ohne Hebel auf H4; MT5 mit XAUUSD Trend/Pullback.
+Detailregeln, Paper-Risikolimits und Zugangs-/Recoveryabläufe bleiben offen.
 Bestätigt sind privater Start, Cockpit/Backtests/Paper vor Echtgeld,
 verbindliche Risikolimits, kontrollierte KI und zunächst kostenlose externe Dienste.
 
@@ -16,6 +18,7 @@ verbindliche Risikolimits, kontrollierte KI und zunächst kostenlose externe Die
 - [Architektur und Technologieauswahl](docs/architecture.md)
 - [Handelslogik und Validierung](docs/trading.md)
 - [Sicherheit](docs/security.md) und [Betrieb](docs/operations.md)
+- [Privater Compose-/Authelia-Plan](docs/deployment-plan.md)
 - [Roadmap](docs/roadmap.md), [Ticketboard](docs/tasks/board.md) und
   [Backlog](docs/backlog.md)
 - [Interview und offene Entscheidungen](docs/interview.md)

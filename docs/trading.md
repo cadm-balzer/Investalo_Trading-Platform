@@ -1,18 +1,19 @@
 # Handelskonzept, Risiko und Nachweis
 
-Stand: 2026-11-06. Der Originalauftrag beschreibt Strategieideen.
+Stand: 2026-11-07. Der Originalauftrag beschreibt Strategieideen.
 Folgende Formalisierung ist ein **prüfbarer Vorschlag**, keine bestätigte
 Strategieänderung. Q3/Q4 bestätigen unabhängige Risikogrenzen und kontrollierte
 Optimierung; konkrete Parameter bleiben offen. Q6 plant beide Broker im MVP.
-Die jeweiligen Startvarianten sind noch offen.
+Q9/Q10 bestätigen BTC/ETH Spot H4 ohne Hebel und XAUUSD Trend/Pullback H1/M15.
 
 Die Crypto-Abbildung ist keine identische Fassung des schriftlichen Auftrags:
 Sie nennt unter anderem drei/fünf Einstiege und vereinfachte Exitregeln.
-Q11 entscheidet ausdrücklich, welche Vorlage maßgeblich ist.
+Q11 bestätigt den schriftlichen Prompt als maßgebliche Vorlage.
 
 ## Crypto Basket
 
-H1 oder H4 pro Strategieversion; Long-Basket mit fünf regulären Einstiegen
+Bestätigt für den Start: BTC/USDT und ETH/USDT Spot ohne Hebel auf H4.
+Long-Basket mit fünf regulären Einstiegen
 und einem separat definierten Puffereinstieg.
 
 Vorgeschlagene Zustände: `FLAT → FIRST_ENTRY_PENDING → ACCUMULATING →
@@ -24,12 +25,12 @@ Teilfüllungen werden mit tatsächlichem Fill-VWAP verbucht.
 |---|---|
 | Erster Kauf bei zweiter Kerze mit RSI unter 30 | Zwei unmittelbar aufeinanderfolgende abgeschlossene Kerzen mit RSI strikt `<30`; Ausführung erst danach |
 | RSI kurz über 30, danach wieder unter 30 | Mindestens eine geschlossene Kerze `>30` seit letztem Fill; Verhalten bei genau 30 offen |
-| Weiterer Kauf nach mindestens 5 % Preisrückgang | Bezug auf letzten tatsächlichen Einstieg vorgeschlagen; Schlusskurs/intrabar und erneute zwei Kerzen offen |
-| Jeweils 25 % mehr Volumen | Quote-Budget vorgeschlagen; Basisassetmenge wäre eine andere Strategie |
+| Weiterer Kauf nach mindestens 5 % Preisrückgang | Q12 bestätigt letzten tatsächlichen Fill als Referenz; Schlusskurs/intrabar und Bestätigungskerzen offen |
+| Jeweils 25 % mehr Volumen | Q12 bestätigt Quote-Beträge; Gebührenreserve innerhalb des Gesamtbudgets |
 | Fünf Käufe plus Puffer | Pufferbudget reservieren; eigene Auslöseregel noch offen |
 | Schutz ab +5 % vom Durchschnitt | Kursrendite vorgeschlagen, nicht Margin-ROI; netto/brutto und erster Stop offen |
 | Supertrend-Trailing | Nur nach oben verschieben bei Long; ATR-Verfahren, Länge/Faktor und Flipregel offen |
-| −50 % Kursrückgang abfangen | Referenzpreis und erlaubter Kontoverlust klären; jedes Füllstadium stresstesten |
+| −50 % Kursrückgang abfangen | Q12 bestätigt ersten Fill als Referenz; erlaubter Kontoverlust offen, jedes Füllstadium stresstesten |
 
 Pro abgeschlossenem Signalereignis höchstens ein neuer Einstieg vorgeschlagen.
 Rearm-Zustand, Strategieversion und Fillstand müssen Neustarts überleben.
@@ -93,8 +94,8 @@ Cross-/Isolated-Modus und weitere Positionen ersetzen diese Näherung.
 Reserve zählt nur, soweit sie tatsächlich verfügbar ist; Nachschießen darf
 die bestätigte Kapitalgrenze nicht umgehen.
 
-**Empfehlung zur Entscheidung:** zuerst ungehebeltes Spot-Papertrading,
-Derivate erst nach separat bestätigtem Marginmodell.
+**In Q9 bestätigt:** zuerst ungehebeltes Spot-Papertrading.
+Derivate sind späterer Ausbau mit separat bestätigtem Marginmodell.
 
 ### Schutz und Exit
 
@@ -122,7 +123,7 @@ Im inventarisierten Registrycode ist XAUUSD mit `trend_pullback` freigeschaltet
 (H1-Trendregime, M15-Einstieg/ATR); die betrachteten Forexensembles sind leer.
 Das ist ein Codebefund, kein Nachweis aktueller Gewinne oder Kontoperformance.
 Die Gold-CBS-Bilder zeigen andere Basketregeln und haben kein entsprechendes
-Plugin. Q10 wählt die erste MT5-Strategie ausdrücklich.
+Plugin. Q10 bestätigt Trend/Pullback ausdrücklich als erste MT5-Strategie.
 
 Die H1-Zeitindexverschiebung im vorhandenen Trend/Pullback-Plugin kann historische
 Information vorziehen. Timestampsemantik und strikte Kausalität müssen vor
@@ -196,6 +197,38 @@ Stressmatrix: −50 % als Sprung/langer Trend, −70/−90 %, keine weiteren
 RSI-Signale, korrelierte Baskets, Spread-/Fundinganstieg, fehlende Daten,
 Teilfills, verpasste Stops, Neustart, Doppelzustellung und Tageswechsel.
 Resampling/Monte-Carlo ersetzt keinen strukturellen Marginstress.
+
+## Aktuelle Entscheidungsrunde: nur Vorschläge
+
+Q15–Q19 sind gestellt, noch nicht bestätigt. Sie konkretisieren den Start mit
+RSI14/Wilder, geschlossenem H4-Rearm, einem regulär ausgelösten sechsten Einstieg
+und Supertrend ATR10/Wilder ×3. Schutzbeginn am verkaufbaren +5%-Kurs,
+Nettoeinstand-Untergrenze und keine weiteren Nachkäufe nach Schutzaktivierung
+werden ausdrücklich als Entscheidungen geführt, nicht vorweg implementiert.
+
+| Profil | Vorgeschlagene Basis und Limits | Abgrenzung |
+|---|---|---|
+| Crypto Paper | 10.000 virtuelle USDT; BTC/ETH je 500 Kaufprincipal +5 Kostenreserve; täglich 6 %, insgesamt 8 %, Preisnotausstieg −55 % zum ersten Fill | Tagesbasis Equity 00:00 UTC, Gesamtbasis Startkapital; offene PnL/Kosten inklusive, keine automatische Budgeterhöhung |
+| MT5 Demo | 0,25 % modelliertes Risiko pro Idee, höchstens eine Idee, täglich 1 %, insgesamt 5 % | Tagesbasis Equity 00:00 Europe/Prague, Gesamtbasis ursprüngliche Demoequity; Brokervertrag und Stopabstand erforderlich |
+
+Mit 1.000 USDT gemeinsamem Kaufprincipal und 10 USDT Kostenreserve bleiben
+8.990 USDT ungebunden. Bei beiden vollständigen 5%-Beispielleitern beträgt der
+−50%-Stress etwa 410,84 USDT Principalverlust, vor Kosten.
+Konservativ verliert ein Kauf bei einem Preis höchstens gleich dem ersten Fill
+im Stresszustand `0,5 × erster Fill` höchstens 50 % seines Principals.
+Für beide Baskets: maximal 500 USDT in diesem Zustand plus angenommene
+10 USDT Kostenreserve, also 5,1 % des frischen Startkapitals.
+
+Das ist keine maximale Verlustgarantie. Vorherige Verluste, höhere Kosten,
+Gaps und USDT-Abweichungen verändern die Rechnung. Ein enger 2%-Tagesstop würde
+einen abrupten Stresspfad vorzeitig abbrechen, wenn genügend Verlust innerhalb
+desselben Tages entsteht. Bei einem langsamen Rückgang über mehrere Tage muss
+er nicht auslösen. Deshalb wird 6 % als
+**Paper-Vorschlag** zur Entscheidung gestellt; Livewerte sind davon getrennt.
+
+Die −55%-Preisregel wäre eine zusätzliche Verkaufsregel und bleibt ausdrücklich
+offen. Auch die Wirkung ausgelöster Kontogrenzen auf Positionen und Wiederaufnahme
+bedarf Q18/Q19. „Modelliertes Risiko“ bei MT5 garantiert bei Gaps keinen Fillpreis.
 
 ## Kontinuierliche Verbesserung
 

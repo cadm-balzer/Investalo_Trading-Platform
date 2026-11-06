@@ -1,7 +1,8 @@
 # Projektkonzept
 
-Stand: 2026-11-06. **Vollständiger Planungsentwurf, noch nicht zur Implementierung
-freigegeben.** Der Grundstack und beide Broker im MVP sind in Q6–Q8 bestätigt.
+Stand: 2026-11-07. **Vollständiger Planungsentwurf, noch nicht zur Implementierung
+freigegeben.** Grundstack, beide Broker im MVP, Startvarianten,
+Docker Compose und lokales Authelia sind in Q6–Q14 bestätigt.
 Ausgangspunkt ist [project-info.md](project-info.md). Bestätigte
 Anforderungen und noch offene Entscheidungen werden getrennt geführt.
 
@@ -40,9 +41,10 @@ Bitget/MT5, KI-Unterstützung und autonome Ausführung.
 
 **In Q1/Q2 bestätigt für den ersten Release:** private Einladung, Mandantentrennung von
 Beginn an, Cockpit mit echter lesender Kontenanbindung, eine vollständig
-spezifizierte Strategie, reproduzierbare Backtests und Paperbetrieb.
+spezifizierte Strategie je Brokerpfad, reproduzierbare Backtests und Paperbetrieb.
 Q6 bestätigt Bitget und MT5 parallel im ersten Release.
-Konkrete Crypto- und Gold-/Forex-Varianten bleiben bis zum Folgeinterview offen.
+Q9/Q10 bestätigen BTC/ETH Spot ohne Hebel auf H4 und XAUUSD Trend/Pullback
+mit H1-Trendregime/M15-Einstiegen. Detailregeln und Paperlimits bleiben offen.
 
 Öffentliches Kundenangebot, Abrechnung, mehrere Regionen, weitere Broker und
 vollautomatische Strategiepromotion folgen nach separater Entscheidung.

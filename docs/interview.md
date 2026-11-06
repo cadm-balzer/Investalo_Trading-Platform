@@ -4,7 +4,7 @@ Skill: [grill-me](../SKILLS/grill-me/SKILL.md). Fragen werden in Runden entlang
 bereits geklärter Voraussetzungen gestellt. „Ja“ akzeptiert die jeweils
 genannte Empfehlung. Unbeantwortete Fragen bleiben offen.
 
-Stand 2026-11-06: Runden 1 und 2 beantwortet; Runde 3 gestellt.
+Stand 2026-11-07: Runden 1–3 beantwortet; Runde 4 (Q15–Q22) gestellt.
 Eine Abschlussbestätigung des gemeinsamen Verständnisses steht noch aus.
 Struktur und Planungsdokumente sind ausdrücklich beauftragt; Implementierung
 des Entwurfs beginnt erst nach den erforderlichen Entscheidungen.
@@ -26,23 +26,43 @@ Echtgeldorders, destruktive Änderungen oder weitere kostenpflichtige Accounts.
 
 | Frage | Nutzerentscheidung | Konsequenz |
 |---|---|---|
-| Q6 Brokerumfang | Beide gleichzeitig für den ersten Release planen | Bitget und MT5 im MVP; erste konkrete Varianten noch wählen |
+| Q6 Brokerumfang | Beide gleichzeitig für den ersten Release planen | Bitget und MT5 im MVP; Varianten in Q9/Q10 bestätigt |
 | Q7 Architektur/Stack | Ja zum vorgeschlagenen Stack | Modularer Monolith, getrennte Worker, Python/FastAPI, Next.js/TypeScript, PostgreSQL/Jobs |
-| Q8 Identitygrenze | Ja zur eigenen MFA-Anmeldung | Website-SSO später; Providerwahl noch offen |
+| Q8 Identitygrenze | Ja zur eigenen MFA-Anmeldung | Website-SSO später; lokales Authelia in Q14 bestätigt |
 
-## Aktuelle Frontier — Runde 3
+## Bestätigte Entscheidungen — Runde 3
 
-| Frage | Konkrete Empfehlung | Status |
+| Frage | Nutzerentscheidung | Konsequenz |
 |---|---|---|
-| Q9 Crypto-Startumfang | BTC/USDT und ETH/USDT, Bitget Spot ohne Hebel, H4 | Offen |
-| Q10 MT5-Startstrategie | XAUUSD Trend/Pullback, H1-Regime/M15-Entry nach Risk-/Kosten-/Kausalitätsprüfung | Offen |
-| Q11 Crypto-Vorlage | Schriftlicher Prompt geht vor älterer Bildreferenz | Offen |
-| Q12 Staffel/Preisbezug | Quote-Budget +25 %, Abstand zum letzten Fill, −50 % zum ersten Fill | Offen |
-| Q13 Prozessmodell | Gehärtete systemd-Dienste statt anfänglicher Dockerinstallation | Offen |
-| Q14 Identityprovider | Lokal Authelia mit Passwort + TOTP/WebAuthn, Privatnutzer administriert | Offen |
+| Q9 Crypto-Startumfang | Ja: BTC/USDT und ETH/USDT, Spot ohne Hebel, H4 | H1/Derivate spätere eigene Varianten |
+| Q10 MT5-Startstrategie | Ja: vorhandenes XAUUSD Trend/Pullback | H1-Regime/M15-Entry; Risk-/Kosten-/Kausalitätsprüfung vor Übernahme |
+| Q11 Crypto-Vorlage | Ja: schriftlicher Projektprompt maßgeblich | Abweichende Bildregeln nicht übernehmen |
+| Q12 Staffel/Preisbezug | Ja: Geldbeträge und vorgeschlagene Preisbezüge | Quote-Budget +25 %, Abstand letzter tatsächlicher Fill, −50 % erster Fill |
+| Q13 Prozessmodell | Docker Compose von Beginn an | systemd-Vorschlag verworfen; keine Dockerinstallation erfolgt |
+| Q14 Identityprovider | Ja: lokale MFA aus der angebotenen Variante | Authelia OIDC, Passwort + TOTP/WebAuthn, administrierte Privatnutzer |
 
 Antworten über das Interview übernehmen; keine implizite Zustimmung aus
 Zeitablauf oder aus einer Zustimmung zu anderen Fragen ableiten.
+
+## Aktuelle Frontier — Runde 4
+
+Die aktuelle Runde enthält diese noch offenen Empfehlungen. Zahlen sind
+**keine** genehmigten Echtgeld-/Demolimits.
+
+| Frage | Konkrete Empfehlung | Status |
+|---|---|---|
+| Q15 Crypto-Signale | RSI14/Wilder, H4-Schlusswerte; zwei Kerzen erster Kauf; Rearm über 30, eine Kerze Nachkauf unter 30 plus Preisbedingung | Offen |
+| Q16 Puffereinstieg | Gleiche Signal-/Preisbedingungen wie reguläre Nachkäufe, keine RSI-Umgehung | Offen |
+| Q17 Gewinnschutz | Supertrend ATR10/Wilder ×3; ab +5 % verkaufbarem Kurs, Nettoeinstand-Untergrenze, monotones Trailing, keine Nachkäufe danach | Offen |
+| Q18 Crypto-Paperprofil | 10.000 virtuelle USDT; je 500 Kaufbudget +5 Kostenreserve; 6 % Tages-/8 % Startkapitalverlust, −55 % Preisnotausstieg | Offen |
+| Q19 MT5-Demoprofil | Getrenntes Brokerdemo; 0,25 % Handelsideenrisiko, eine Idee, 1 % Tages-/5 % Startkapitalverlust | Offen |
+| Q20 Privater Zugriff | Entwicklung über Tunnel/privates Netz mit stabilen TLS-Domainnamen; öffentlicher Einstieg später | Offen |
+| Q21 MFA-Mailweg | Vorhandener kostenfreier SMTP mit TLS, zunächst nur planen/prüfen | Offen |
+| Q22 MFA-Recovery | Unabhängiger Ersatzfaktor, kein Mail-only-Wechsel, administrativer Identitätsnachweis | Offen |
+
+Q16 entscheidet die Wiederverwendung der normalen Nachkaufbedingungen unabhängig
+von der genauen Q15-Bestätigungskerzenzahl. Q17 betrifft den getrennten Schutzpfad.
+Q18 ist ein expliziter Paper-Vorschlag, keine stillschweigende Strategieänderung.
 
 ## Entscheidungsbaum
 
@@ -53,12 +73,12 @@ flowchart TD
   ROOT --> LOGIN[Eigene MFA bestätigt]
   ROOT --> COST[Free-only bestätigt]
   ROOT --> AI[Kontrollierte KI bestätigt]
-  MARKET --> RULES[Q9-12: Startvarianten und Strategiegrundlagen]
-  MARKET --> ACCOUNT[Kontotyp, Assets, Kapital und Risikoprofil]
+  MARKET --> RULES[Q15-17: Signale, Puffer und Gewinnschutz]
+  MARKET --> ACCOUNT[Q18-19: getrennte Paper-/Demorisiken]
   RULES --> VALID[Validierung und erste Abnahmeschwellen]
   ACCOUNT --> VALID
-  STACK --> DEPLOY[Q13: Prozesse und Ressourcen]
-  LOGIN --> PROVIDER[Q14: Provider und Recovery]
+  STACK --> DEPLOY[Q20: privater TLS-Zugriff]
+  LOGIN --> PROVIDER[Q21-22: Mailweg und MFA-Recovery]
   COST --> PROVIDER
   COST --> BACKUP[Externe Backups und Schlüsselgrenze]
   AI --> AIPOLICY[Shadoweinsatz, Provider und Fehlerpolicy]
@@ -73,18 +93,19 @@ flowchart TD
 
 ## Folgefragen nach Voraussetzung
 
-Diese Punkte sind **noch nicht gestellte, abhängige Fragen**:
+Nach der aktuellen Runde bleiben diese abhängigen Punkte:
 
-- Nach Q9/Q11/Q12: RSI-/ATR-/Supertrendparameter, Rearm, Pufferauslöser,
-  erster Schutzstop, Notausstieg und konkrete Kapital-/Risikogrenzen.
-- Nach Q10: Broker-/Kontoprofil, FTMO-Phase falls relevant,
+- Nach Q15–Q19: Warm-up-/Kosten-/Fillmodell, konkrete Broker-/Kontoprofile,
+  Testhistorien und vor Optimierung festgelegte Abnahmeschwellen.
+- Nach Q19: FTMO-Phase falls relevant,
   Terminalhosting, lokaler Betrieb und Datenhistorie.
 - Nach Markt-/Kontotyp: erste Paperkapitalbasis und konkrete Risikolimits.
   Echtgeldbetrag/Livekriterien können nur ausdrücklich an ein späteres Gate
   delegiert werden, niemals stillschweigend angenommen.
-- Nach Q13: gepinnte Laufzeiten, Hostressourcen und
+- Nach Betriebswahl: gepinnte Laufzeiten, Hostressourcen und
   Priorisierung von Entwicklung/Research/Live.
-- Nach Q14: MFA-Recovery, Datenverarbeitung und späterer SSO-Pfad.
+- Nach Q20–Q22: konkrete Zugangs-/Mail-/Recoverytests; keine externen Nachrichten
+  oder Host-/DNSänderungen ohne den notwendigen konkreten Auftrag.
 - Nach Betriebswahl: tolerierbare Ausfälle, kostenlose externe Sicherung,
   Schlüsselwiederherstellung und Alarmierungswege.
 - Nach erstem Strategiepfad: AI zunächst deaktiviert/Shadow/Veto,

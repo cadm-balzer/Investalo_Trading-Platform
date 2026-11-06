@@ -50,9 +50,32 @@ damit verworfen. Konkrete Assets, Spot/Derivate und Strategievarianten folgen.
 **Status: bestätigt, Q8.** Eigene MFA-Anmeldung für das Cockpit.
 Website-SSO ist späterer Ausbau; kostenloser Provider/Eigenbetrieb noch offen.
 
+Provider konkretisiert durch Q14/D-012, Deployment durch Q13/D-011.
+
 ## 2026-11-06 — D-008: Secretcontainment
 
 **Status: Sicherheitsmaßnahme im beauftragten Repository.** Vorhandener
 Credentialpfad wird ignoriert und aus neuen Snapshots entfernt, lokale Datei
 erhalten. Keine Inhalte gelesen. Rotation falls echte Keys und Historyrewrite
 sind getrennte Arbeit; keine ungeprüfte Veröffentlichung.
+
+## 2026-11-07 — D-010: Startstrategien und Crypto-Vorlage
+
+**Status: bestätigt, Q9–Q12.** BTC/ETH USDT Spot ohne Hebel auf H4.
+MT5 startet mit vorhandenem XAUUSD Trend/Pullback H1-Regime/M15-Entry nach
+Risk-/Kosten-/Kausalitätsprüfung. Schriftlicher Crypto-Prompt maßgeblich:
+Quote-Beträge wachsen 25 %, 5%-Preisabstand zum letzten tatsächlichen Fill,
+−50%-Stress zum ersten Fill. Bildabweichungen werden nicht übernommen.
+
+## 2026-11-07 — D-011: Compose statt systemd
+
+**Status: bestätigt, Q13.** Docker Compose von Beginn an.
+Der systemd-Vorschlag ist verworfen. Nonroot, interne Ports, exakte Pins
+und gemessene Ressourcen bleiben Anforderungen; keine Installation erfolgt.
+
+## 2026-11-07 — D-012: Lokales Authelia
+
+**Status: bestätigt, Q14.** Lokale MFA der angebotenen Authelia-OIDC-Variante
+mit administrierten Privatnutzern und Passwort plus TOTP/WebAuthn.
+Kein Cloud-Identityprovider zum Start. SMTP, privater TLS-Zugriff und
+Wiederherstellung bleiben Q20–Q22.

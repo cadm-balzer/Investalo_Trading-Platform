@@ -1,16 +1,18 @@
 # Roadmap
 
-Stand 2026-11-06. Q1–Q5 bestätigen privaten Pilot, Paper zuerst, feste
+Stand 2026-11-07. Q1–Q5 bestätigen privaten Pilot, Paper zuerst, feste
 Risikolimits, kontrollierte KI und kostenlose externe Dienste.
 Q6–Q8 bestätigen beide Handelsintegrationen im MVP, Grundstack und eigene MFA.
-Strategievarianten, Detailparameter und Betriebswerkzeuge bleiben offen.
+Q9–Q14 bestätigen BTC/ETH Spot H4, XAUUSD Trend/Pullback H1/M15,
+schriftliche Crypto-Vorlage, Quote-/Preisbezüge, Docker Compose und Authelia.
+Detailparameter, Paperlimits und Zugangs-/Recoverywege bleiben offen.
 Keine festen Termine ohne Umfangs- und Kapazitätsentscheidung.
 
 | Phase | Ergebnis | Abnahmekriterium / Gate |
 |---|---|---|
 | P0 Planung | Struktur, Inventur, Konzept, Interview, Ticketboard | Gemeinsames Verständnis bestätigt; zentrale Entscheidungen und offene Forschungsfragen dokumentiert |
 | P1 Fundament | Gepinnte Laufzeiten, private Entwicklungsumgebung, Auth/Tenants, DB | Reproduzierbarer Start; Isolationstests; keine Secrets im Repository; keine ausführenden Echtgeldrechte |
-| P2 Daten und Tradingkern | Eine spezifizierte Strategie, Historienimport, Risiko-/Kostenmodelle | Datenqualität; deterministische Regeln; konsistente Budget-/Lotrechnung |
+| P2 Daten und Tradingkern | Crypto Basket und XAUUSD Trend/Pullback, Historienimport, Risiko-/Kostenmodelle | Datenqualität; deterministische Regeln; konsistente Budget-/Lotrechnung |
 | P3 Backtest und Cockpit | Konto-/Portfoliosicht, Journal, Backtestworkflow und Charts | End-to-End-Backtest mit immutable Ergebnis, Provenienz und negativen Risikofällen |
 | P4 Paper/Demo | Bitget und MT5, Dispatch, Reconciliation und Schutz | Beide Adapter mit Crash/Timeout/Teilfill/Replay geprüft; Paperkriterien vorher festgelegt |
 | P5 Begrenzter Livepilot | Separat freigegebenes Konto/Strategie/Budget | Nettonachweis, Limits, Backuprestore, Alarmierung und ausdrückliche Produktions-/Livefreigabe |
@@ -25,10 +27,10 @@ gleichzeitig implementierter Features verkürzt.
 ## Meilenstein M1: privates Cockpit mit Backtests und Paper
 
 Enthält: MFA-Anmeldung nach ausgewähltem Identitykonzept, Tenant-/Kontobindung,
-Portfolio und offene Positionen mit Datenalter, Journal, eine erste Strategie,
+Portfolio und offene Positionen mit Datenalter, Journal, eine Strategie je Brokerpfad,
 Backteststart/-abbruch und grafische Auswertung, Paperstatus und Riskanzeigen.
-Bitget und MT5 gehören beide zum MVP. Startassets und konkrete Strategievarianten
-werden in der nächsten Interviewrunde festgelegt.
+Bitget und MT5 gehören beide zum MVP: BTC/ETH Spot H4 und XAUUSD Trend/Pullback
+H1/M15 sind bestätigt. Detailregeln und Paperlimits folgen im Interview.
 
 Abnahme:
 

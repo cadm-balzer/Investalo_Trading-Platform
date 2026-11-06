@@ -3,6 +3,7 @@
 Prüfdatum: 2026-11-06. Nur öffentliche Dokumentation recherchiert; keine
 Credentials oder privaten Kontodaten an Anbieter übermittelt.
 Anbieterregeln/Quoten vor Implementierung und Livefreigabe erneut prüfen.
+Die folgenden Compose-/Authelia-/Indikatorergänzungen wurden am 2026-11-07 geprüft.
 
 | Thema | Offizielle Quelle | Relevanz |
 |---|---|---|
@@ -27,6 +28,21 @@ Anbieterregeln/Quoten vor Implementierung und Livefreigabe erneut prüfen.
 | Authelia OIDC | https://www.authelia.com/configuration/identity-providers/openid-connect/clients/ | Zwei-Faktor-Clientpolicy und PKCE |
 | Authelia Sessions | https://www.authelia.com/configuration/session/introduction/ | Memory-/Redis-Sessionoptionen |
 | Authelia WebAuthn | https://www.authelia.com/configuration/second-factor/webauthn/ | Alleiniger Passkey nicht pauschal als stabile MFA werten |
+| Authelia Docker | https://www.authelia.com/integration/deployment/docker/ | Explizite Nonroot-UID statt nur PUID/PGID |
+| Authelia PostgreSQL | https://www.authelia.com/configuration/storage/postgres/ | Eigene IdP-Datenbank und Rolle |
+| Authelia Migrationen | https://www.authelia.com/configuration/storage/migrations/ | Automatische eigene Schemamigration beim Start |
+| Authelia Notifier | https://www.authelia.com/configuration/notifications/introduction/ | Genau ein Notifier erforderlich |
+| Authelia File-Notifier | https://www.authelia.com/configuration/notifications/file/ | Nur Tests; Codes/Links geschützt halten |
+| Authelia SMTP | https://www.authelia.com/configuration/notifications/smtp/ | TLS und geeigneter produktiver Mailweg |
+| Authelia Elevation | https://www.authelia.com/configuration/identity-validation/elevated-session/ | Zweitfaktorpflicht nicht per Default gegeben |
+| Compose Secrets | https://docs.docker.com/compose/how-tos/use-secrets/ | Dateimounts, keine verschlüsselte Schlüsselverwaltung |
+| Docker Portbindung | https://docs.docker.com/engine/network/port-publishing/ | Loopback explizit statt allgemeiner Hostbindung |
+| Docker Compose Netze | https://docs.docker.com/compose/how-tos/networking/ | Private Netze ersetzen keine korrekten Published-Port-Regeln |
+| PostgreSQL Rechte | https://www.postgresql.org/docs/current/sql-grant.html | Datenbank-/CONNECT-/PUBLIC-Rechte begrenzen |
+| RSI | https://www.tradingview.com/support/solutions/43000502338-relative-strength-index-rsi/ | Indikatorgrundlage, keine Freigabe zur Nutzung von TradingView-Marktfeeds |
+| ATR | https://www.tradingview.com/support/solutions/43000501823-average-true-range-atr/ | Wilder/RMA als Berechnungsvariante |
+| Supertrend | https://www.tradingview.com/support/solutions/43000634738-supertrend/ | Formel/Fliplogik; Implementierung mit eigenen Daten |
+| Supertrend-Standardvergleich | https://help.ctrader.com/indicators/built-in/trend/supertrend/ | 10/3 als Vergleichsparameter, kein nachgewiesenes Optimum |
 | ZITADEL Free | https://zitadel.com/pricing/detail | Freefeatures, Quoten und kurze Log-/Auditfristen |
 | ZITADEL Mail | https://zitadel.com/docs/guides/manage/console/default-settings | Eingebauter SMTP für Evaluation, produktiven Mailweg klären |
 | ZITADEL Datenschutz | https://zitadel.com/docs/legal/data-processing-agreement | Externe Verarbeitung vor Providerwahl prüfen |

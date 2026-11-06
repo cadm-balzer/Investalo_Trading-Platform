@@ -8,6 +8,7 @@
 | [trading.md](trading.md) | Strategieformalisation, Risiko, Backtests und Optimierung |
 | [security.md](security.md) | Bedrohungen, Schutzmaßnahmen und Freigabekriterien |
 | [operations.md](operations.md) | Deployment, Monitoring, Backup und Wiederanlauf |
+| [deployment-plan.md](deployment-plan.md) | Bestätigter Compose-/Authelia-Entwurf, privater TLS-Zugriff und Recovery |
 | [inventory.md](inventory.md) | Host und Wiederverwendung der Referenzsysteme |
 | [roadmap.md](roadmap.md) | Phasen, Abhängigkeiten und Abnahme |
 | [tasks/board.md](tasks/board.md) | Git-basiertes Ticketsystem |

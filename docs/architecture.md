@@ -1,7 +1,8 @@
 # Architektur- und Stackentwurf
 
-Stand 2026-11-06. Q7 bestätigt den Grundstack aus Python/FastAPI,
+Stand 2026-11-07. Q7 bestätigt den Grundstack aus Python/FastAPI,
 Next.js/TypeScript, PostgreSQL und getrennten Workern im modularen Monolithen.
+Q13/Q14 bestätigen Docker Compose und lokales Authelia.
 Weitere Technologieauswahlen hier sind **Vorschläge**.
 Keine Frameworks, Images, Datenbanken oder CI/CD-Dienste wurden eingerichtet.
 Begründungen und offizielle Belege: [sources.md](sources.md).
@@ -36,7 +37,8 @@ Simulator und Brokeradapter rufen denselben versionierten Strategievertrag auf.
 ## Technologieauswahl
 
 API/Cockpit/Trading/PostgreSQL/persistente PostgreSQL-Jobs sind grundsätzlich
-bestätigt. Konkrete Pins, Provider und alle übrigen Werkzeuge bleiben offen.
+bestätigt. Docker Compose und Authelia ebenfalls bestätigt;
+konkrete Pins und weitere Werkzeuge bleiben offen.
 Q8 bestätigt eigene MFA-Anmeldung statt anfänglichem Website-SSO.
 
 | Ebene | Vorschlag | Grund / Alternative |
@@ -49,9 +51,9 @@ Q8 bestätigt eigene MFA-Anmeldung statt anfänglichem Website-SSO.
 | Jobs | PostgreSQL-Jobtabelle/Outbox mit Leasing | Wenige Dienste; Redis/RabbitMQ erst bei nachgewiesenem Bedarf |
 | Historien | PostgreSQL für operative Daten, Parquet für große immutable Forschungssnapshots | Retention und Lizenzen prüfen; TimescaleDB vorerst keine Pflicht |
 | Charting | Bibliothek für eigene Daten, z. B. Lightweight Charts | Lizenz/Attribution und Exportbedarf vor Auswahl prüfen |
-| Auth | OIDC mit MFA/Passkeys | Provider und SSO mit bestehendem Investalo-Login noch offen |
+| Auth | Lokales Authelia OIDC mit Passwort + TOTP/WebAuthn | Q14 bestätigt; administrierte Privatnutzer, SSO später |
 | Secrets | Envelope Encryption, unabhängige Schlüsselverwaltung | Provider/KMS/Tresor und Budget noch offen |
-| Deployment | Reproduzierbare Container oder gehärtete systemd-Dienste | Entscheidung nach Kapazitätsprüfung; Docker fehlt derzeit |
+| Deployment | Docker Engine + Compose | Q13 bestätigt; exakte Pins und Ressourcenprüfung vor Installation |
 | Monitoring | Strukturierte Logs, fachliche Metriken und Healthchecks | Konkrete Werkzeuge nach Ressourcen-/Betriebsentscheidung |
 | CI/CD | Noch offen | Neue Toolabhängigkeiten erst nach Nutzerfreigabe |
 
@@ -59,21 +61,23 @@ Der kleine Host spricht gegen einen gleichzeitig laufenden großen Identity-,
 Monitoring- und Researchstack. Externe Dienste sind ebenso wenig stillschweigend
 freigegeben wie zusätzliche lokale Dienste.
 
-### Konkrete Vorschläge für den privaten Start
+### Bestätigte Auswahl für den privaten Start
 
-Q13 schlägt gehärtete systemd-Dienste vor; Docker Engine/Compose ist auf
-Ubuntu 26.04 offiziell unterstützt und bleibt eine unabhängige Alternative.
-Beide brauchen getrennte Identitäten, Ressourcenlimits und einen zentralen
+Q13 wählt Docker Compose ausdrücklich statt des systemd-Vorschlags.
+Docker Engine/Compose ist auf Ubuntu 26.04 offiziell unterstützt.
+Container brauchen getrennte Identitäten, Ressourcenlimits und einen zentralen
 Einstieg. Containerisierung spart nicht automatisch Anwendungsspeicher.
 
-Q14 schlägt Authelia lokal als fertigen OIDC-Provider vor: administrierte
+Q14 bestätigt Authelia lokal als fertigen OIDC-Provider: administrierte
 Privatnutzer, Passwort plus TOTP/WebAuthn und `two_factor`-Clientpolicy.
 Keine öffentliche Selbstregistrierung. In-Memory-Sessions für einen einzelnen
 Host und eigene PostgreSQL-Rolle/-DB sind mögliche kleine Konfigurationen.
-Ein Neustart kann Sessions beenden; Argon2 benötigt zusätzlichen Speicher je
+Ein Neustart verliert IdP-Memorysessions, widerruft aber nicht automatisch
+alle Cockpit-/BFF-Sessions oder bereits ausgegebenen Tokens.
+Argon2 benötigt zusätzlichen Speicher je
 parallelem Login. Herstellerwerte ersetzen keinen gemeinsamen Lasttest.
 
-ZITADEL Cloud Free ist eine geprüfte Alternative mit MFA, aber externer
+ZITADEL Cloud Free bleibt eine verworfene Startalternative mit MFA, aber externer
 Identitätsverarbeitung, Quoten und kurzen Logs. Der eingebaute
 SMTP-Weg ist für Test/Evaluation, deshalb muss produktiver Recovery-/Mailbetrieb
 separat gelöst werden. Keinen Provideraccount einrichten, bevor die Variante
@@ -97,6 +101,16 @@ Der ausgewählte Stand wird mit Supportende, Quelle und Prüfdatum dokumentiert.
 Updates gehen durch Änderungsprüfung und relevante Tests; Sicherheitsfixes
 werden nicht durch unbegrenzt eingefrorene Pins verhindert.
 Eine Softwarestückliste und Lizenzinventur sind spätere Abnahmeartefakte.
+
+### Getrennte IdP-Datenbank und Runtimeausnahme
+
+Authelia erhält eine eigene PostgreSQL-Datenbank/-Rolle ohne Zugriff auf
+Tradingdaten. `PUBLIC`-/`CONNECT`-Rechte ebenfalls begrenzen.
+Authelia migriert sein Schema beim Start: DDL ist dort ausschließlich innerhalb
+der eigenen IdP-Datenbank erlaubt. Die Trading-Runtime bleibt ohne DDL.
+Upgrade-/Restoreplanung muss diese Fremddienstausnahme berücksichtigen.
+
+Compose-, TLS-, Session- und Recoverydetails: [deployment-plan.md](deployment-plan.md).
 
 ## Fachmodule und Datenmodell
 

@@ -1,6 +1,6 @@
 # Betrieb, Deployment und Wiederherstellung
 
-Stand 2026-11-06. Bestätigt: vorhandenen Server nutzen, zunächst kostenlose
+Stand 2026-11-07. Bestätigt: vorhandenen Server nutzen, zunächst kostenlose
 externe Dienste/Accounts; TradingView Essentials besteht bereits.
 Keine Installation oder Änderung von Firewall, SSH, DNS oder Diensten erfolgt.
 
@@ -26,9 +26,12 @@ und eine autonome MT5-Bridge können Risiken reduzieren; sie ersetzen kein HA.
 
 ## Bereitstellung
 
-Container oder systemd werden nach Stack-/Betriebsentscheidung gewählt.
+Q13 bestätigt Docker Engine mit Compose von Beginn an.
 Runtimeversionen exakt pinnen, Images mit Digest, Lockdateien und reproduzierbarem
 Build. Serviceidentitäten von Root und voneinander trennen.
+Keine privilegierten Container oder Docker-Socket-Mounts, interne Ports nicht
+öffentlich publishen. Externe Erreichbarkeit ausdrücklich prüfen, da Docker
+veröffentlichte Ports Hostfirewallregeln umgehen können.
 
 Ein zentraler Reverse Proxy/TLS-Einstieg; zunächst privater Zugriff.
 Datenbank und interne Dienste ausschließlich lokal/intern.
@@ -45,6 +48,9 @@ Ticketboard und manuelle geprüfte Abläufe sind für die Planungsphase ausreich
 Ein späteres automatisiertes Releaseverfahren wird konkret vorgeschlagen.
 
 ## Gesundheits- und Fachmetriken
+
+Privater Compose-/Authelia-Serviceplan und noch offene Zugangs-/Recoverywege:
+[deployment-plan.md](deployment-plan.md).
 
 | Signal | Reaktion / Zweck |
 |---|---|

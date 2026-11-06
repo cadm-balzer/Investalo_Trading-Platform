@@ -1,6 +1,17 @@
 # Technische Fallstricke
 
-Stand 2026-11-06. Befunde sind dokumentiert, nicht automatisch im Altsystem behoben.
+Stand 2026-11-07. Befunde sind dokumentiert, nicht automatisch im Altsystem behoben.
+
+- **Authelia/TLS:** Sessiondomain weder localhost noch reine IP.
+  Private Domainauflösung, Browserhostname und TLS müssen zusammenpassen;
+  interne CA auch in den OIDC-beteiligten Containern vertrauen.
+- **Notifier/Recovery:** File-Notifier nur Tests, SMTP mit TLS für echte Nutzer.
+  Elevation verlangt zweiten Faktor nicht per Default; ausdrücklich absichern.
+- **IdP-Migrationen:** Authelia braucht eigene begrenzte DDL-Rechte für automatische
+  Migrationen. Keine Übertragung dieser Ausnahme auf Trading-Runtime.
+- **Compose-Secrets:** Dateimounts sind kein verschlüsselter Tresor.
+- **IdP-Neustart:** Memorysessions verschwinden, BFF-/Tokens werden dadurch nicht
+  automatisch widerrufen.
 
 - **Identitybedarf:** Ein großer IdP kann allein den 2-GB-Host beanspruchen.
   Auch leichtes Authelia benötigt zusätzliche Argon2-Ressourcen pro Login.
