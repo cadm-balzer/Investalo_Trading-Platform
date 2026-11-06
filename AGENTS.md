@@ -20,6 +20,7 @@ Always do
 - Add deferred follow-ups to `docs/backlog.md` and remove items once done.
 - Follow best practice. If a requirement goes against best practice, point this out. Consult official documentation to verify best practice.
 - use SKILLS to get more specialist skills, if you need more SKILLs get the right one from https://www.skills.sh/
+- work with git and save your work. you can also push your feature branches and main branch to github.com by yourself.
 
 Ask first
 
