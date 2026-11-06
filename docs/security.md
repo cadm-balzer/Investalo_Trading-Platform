@@ -4,7 +4,8 @@ Stand 2026-11-07. Verbindliche Leitlinien aus AGENTS.md:
 privater Nutzerkreis, Verschlüsselung und minimale Rechte. Q20 konkretisiert
 den Zugang als öffentlichen zentralen HTTPS-Einstieg schon im Privatpilot.
 Docker Compose und lokales Authelia sind in Q13/Q14 bestätigt;
-konkrete Pins, Schlüsselbereitstellung und Recoveryabläufe bleiben offen.
+Administratives E-Mail-Recovery ist in Q24 bestätigt; konkrete Pins,
+Schlüsselbereitstellung und Laufzeitnachweise bleiben zu erledigen.
 
 ## Bedrohungen und Kontrollen
 
@@ -46,9 +47,9 @@ Für bereits eingerichtete MFA-Nutzer verlangen reguläre Faktoränderungen zus�
 den vorhandenen zweiten Faktor; Mail-only-Elevation ist keine gleichwertige
 phishingresistente Prüfung. Q22 bevorzugt E-Mail als ausreichenden
 Recoverynachweis; die damit vom Postfach abhängige Sicherheitsgrenze wird
-ausdrücklich dokumentiert. Q24 schlägt einen gesonderten administrativen
-Reset mit Einmalchallenge, Sitzungssperre und anschließender MFA-Neuregistrierung
-vor; noch keine Zustimmung zu diesem Ablauf.
+ausdrücklich dokumentiert. Q24 bestätigt gesonderten administrativen
+Reset mit Einmalchallenge, Sitzungssperre und anschließender MFA-Neuregistrierung.
+Der Ablauf benötigt noch Implementierung und nachgewiesene Laufzeitabnahme.
 File-Notifier ist nur für Entwicklung; Q21 bestätigt vorhandenen kostenlosen
 SMTP mit TLS, Zustellung noch ungeprüft.
 Konkrete Grenzen: [deployment-plan.md](deployment-plan.md).
@@ -71,7 +72,10 @@ benötigten konto-/zeitgebundenen Rechte.
 Bitget: Lese-/Tradingrechte nur nach Bedarf, keine Withdrawal-/Transferrechte.
 Feste Egress-IP und IP-Bindung prüfen. Demo-/Livekeys strikt getrennt.
 MT5: geschützte Geräteidentität, festes Konto, Ablauf-/Replayprüfung und
-privater ausgehender Kanal.
+ausgehendes HTTPS vom separaten Heimnetzserver zum zentralen Einstieg.
+Keine eingehenden Heimnetzports. Maschinenidentität und feste Tenant-/Demo-
+Kontobindung ersetzen dort den interaktiven Browserlogin; es gibt keinen
+unauthentifizierten Bridgepfad. Details: [mt5-bridge.md](mt5-bridge.md).
 
 Im ersten Paperrelease besitzen reale Kontoverbindungen nur Leserechte.
 Paper simuliert lokal, Demo verwendet eigene Konten/Keys. Echtgeld-Dispatch

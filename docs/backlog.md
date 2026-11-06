@@ -7,7 +7,7 @@ Keine erledigten Punkte in dieser Liste halten.
 |---|---|---|
 | BL-001 | Geheimnisse in bestehender Git-Historie | IP-005: mögliche Keys rotieren, Rewrite-/Remotekoordination abstimmen |
 | BL-002 | Hostkapazität und kritischer Handel | Vor P4 messen; RAMerweiterung oder getrennte Researchkapazität entscheiden |
-| BL-003 | Free-only Recovery-/Secrets-/Backupgrenzen | Authelia/SMTP gewählt; Q24/Q27 sowie vor P1/P4 Zustellung, Schlüssel, externes Ziel und Restrisiken prüfen |
+| BL-003 | Free-only Secrets-/Backup- und Laufzeitnachweise | Authelia/SMTP/administratives Recovery/Backupziele bestätigt; vor P1/P4 Zustellung, Schlüssel, externes Ziel und Restore prüfen |
 | BL-004 | Rechtliche Zulässigkeit von FTMO-Multiuserausführung | Vor MT5-Demo-/Livefreigabe beziehungsweise P8 Kontovertrag, Personal Use und mögliche Zustimmung prüfen |
 | BL-005 | Datenrechte für News, Kalender und Mehrnutzeranzeige | Vor IP-021 Lizenz/Quota/Anbieter festlegen |
 | BL-006 | Legacy-RiskGuard, Kosten und mögliche Zeit-Leaks | Bei IP-012/020 strikte Limits, Fillkosten und historische Kausalität nachweisen |

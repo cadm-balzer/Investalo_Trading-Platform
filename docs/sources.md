@@ -58,6 +58,9 @@ Die folgenden Compose-/Authelia-/Indikatorergänzungen wurden am 2026-11-07 gepr
 | MT5 Python | https://www.mql5.com/en/docs/python_metatrader5/mt5initialize_py | Bindung an Terminalprozess |
 | MT5 OrderSend | https://www.mql5.com/en/docs/trading/ordersend | Annahme ist kein vollständiger Fillnachweis |
 | MT5 Events | https://www.mql5.com/en/docs/event_handlers/ontradetransaction | Tradeevents für Ausführungsabgleich |
+| MT5 WebRequest | https://www.mql5.com/en/docs/network/webrequest | Synchron, erlaubte URL nötig, nicht im Strategy Tester |
+| MT5 OnTimer | https://www.mql5.com/en/docs/event_handlers/ontimer | Laufende Timer blockieren neue Timerereignisse, keine garantierte Pollfrequenz |
+| MT5 Account Properties | https://www.mql5.com/en/docs/constants/environment_state/accountinformation | Broker-Server/Login/Demomodus vor Dispatch prüfen |
 | MT5 Symbolregeln | https://www.mql5.com/en/docs/constants/environment_state/marketinfoconstants | Lots, Stops, Handelsstatus und Kontrakte |
 | Bitget Rechte | https://www.bitget.com/docs/classic/rest-api | Keyrechte, Passphrase und IP-Bindung |
 | Bitget UTA | https://www.bitget.com/docs/uta/uta-intro | Accountmodi nicht implizit festlegen |

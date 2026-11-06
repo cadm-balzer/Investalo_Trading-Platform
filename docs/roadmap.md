@@ -6,9 +6,11 @@ Q6–Q8 bestätigen beide Handelsintegrationen im MVP, Grundstack und eigene MFA
 Q9–Q14 bestätigen BTC/ETH Spot H4, XAUUSD Trend/Pullback H1/M15,
 schriftliche Crypto-Vorlage, Quote-/Preisbezüge, Docker Compose und Authelia.
 Q15/Q17–Q19 bestätigen RSI-/Supertrend-Regeln und Paper-/Demolimits.
-Q16 reserviert die sechste Tranche ausschließlich für einen Notfall; Auslöser offen.
+Q23 reserviert die sechste Tranche ausschließlich für manuellen Einstieg;
+Freigaberegeln und Cockpit-/optionalem Mailkanal in Q29/Q30 bestätigt.
 Q20 plant öffentlichen HTTPS-Einstieg für privaten Nutzerkreis, Q21 vorhandenen
-SMTP, Q22 bevorzugt E-Mail-Recovery. Q23–Q28 bleiben offen.
+SMTP; Q24 bestätigt administratives E-Mail-Recovery. Q25 MT5-Heimnetzhost,
+Q26 Forschungsfilter, Q27 Pilotbackupziele und Q28 Releasegrenze bestätigt.
 Keine festen Termine ohne Umfangs- und Kapazitätsentscheidung.
 
 | Phase | Ergebnis | Abnahmekriterium / Gate |
@@ -34,9 +36,9 @@ Portfolio und offene Positionen mit Datenalter, Journal, eine Strategie je Broke
 Backteststart/-abbruch und grafische Auswertung, Paperstatus und Riskanzeigen.
 Bitget und MT5 gehören beide zum MVP: BTC/ETH Spot H4 und XAUUSD Trend/Pullback
 H1/M15 sind bestätigt, ebenso reguläre Crypto-Signale, Schutz und Risikoprofile.
-Notfallpuffer und E-Mail-Recovery werden in Q23/Q24 konkretisiert.
-Q28 stellt die M1-Abgrenzung von vollständigen KI-/News-/Kalenderfeeds ausdrücklich
-zur Entscheidung; spätere Phasen sind insoweit noch eine vorgeschlagene Reihenfolge.
+Q23/Q29/Q30 bestätigen manuellen Puffer mit Nutzerinformation und Schutzgates.
+Q24 bestätigt administratives E-Mail-Recovery; Q25 den separaten Heimnetzhost.
+Q28 bestätigt vollständige KI-/News-/Kalenderfeeds als späteren Ausbau.
 
 Abnahme:
 
@@ -46,6 +48,10 @@ Abnahme:
 - Paper verarbeitet doppelte Zustellung und unklare Ausführung ohne Blind-Resend.
 - Budget-, Drawdown- und Datenfrischeverletzungen sperren neue Exposition.
 - Kontostände, Cashflows und PnL werden nachvollziehbar getrennt.
+- Manueller Paperpuffer mit Vorschau/Bestätigung durchläuft dieselben Risiko-
+  und Ausführungsgrenzen; Benachrichtigungen lösen keine Orders aus.
+- Q27: externe/offline verschlüsselte Sicherung, getrennte Schlüssel,
+  RPO 24 Stunden/RTO vier Stunden im Restoretest nachgewiesen.
 
 Kein neuer kostenpflichtiger Dienst ist Voraussetzung ohne eigene Abstimmung.
 Wenn Free-Quoten oder Hostkapazität nicht ausreichen, wird Umfang/Rechenfenster

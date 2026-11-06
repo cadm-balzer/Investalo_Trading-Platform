@@ -8,9 +8,14 @@ Anwendung. Der grundlegende Stack und beide Broker im ersten Release sind
 bestätigt, ebenso Docker Compose und lokales Authelia für MFA.
 Crypto startet mit BTC/ETH Spot ohne Hebel auf H4; MT5 mit XAUUSD Trend/Pullback.
 RSI-/Supertrend-Regeln sowie Paper-/Demolimits sind bestätigt.
-Die sechste Crypto-Tranche bleibt ausschließlich Notfallreserve; deren Auslöser
-ist noch offen. Für den privaten Nutzerkreis ist ein öffentlicher zentraler
-HTTPS-Einstieg vorgesehen. E-Mail-Recovery ist gewünscht; der Ablauf bleibt offen.
+Die sechste Crypto-Tranche bleibt ausschließlich für einen manuellen Einstieg
+reserviert: nach fünf Stufen, 5%-Preisabstand, Vorschau/MFA/Risk Gate;
+Cockpitmeldung mit optionaler E-Mail. MT5 läuft laut Nutzer
+auf einem separaten Heimnetzserver und wird über eine ausgehende HTTPS-Bridge
+angebunden. Öffentlicher zentraler HTTPS-Einstieg für private Nutzer und
+administratives E-Mail-Recovery sind bestätigt, ebenso Validierungsmaßstab,
+Pilotbackupziele und M1-Umfang.
+Alle Sachentscheidungen Q1–Q30 sind geklärt; die Abschlussbestätigung steht aus.
 Bestätigt sind privater Start, Cockpit/Backtests/Paper vor Echtgeld,
 verbindliche Risikolimits, kontrollierte KI und zunächst kostenlose externe Dienste.
 
@@ -18,10 +23,12 @@ verbindliche Risikolimits, kontrollierte KI und zunächst kostenlose externe Die
 
 - [Originaler Projektauftrag](docs/project-info.md)
 - [Gesamtkonzept](docs/concept.md)
+- [Konkreter M1-Umsetzungsstand zur Abschlussbestätigung](docs/implementation-brief.md)
 - [Architektur und Technologieauswahl](docs/architecture.md)
 - [Handelslogik und Validierung](docs/trading.md)
 - [Sicherheit](docs/security.md) und [Betrieb](docs/operations.md)
 - [Compose-/Authelia-Plan für den Privatpilot](docs/deployment-plan.md)
+- [MT5-Bridge zum Heimnetzserver](docs/mt5-bridge.md)
 - [Roadmap](docs/roadmap.md), [Ticketboard](docs/tasks/board.md) und
   [Backlog](docs/backlog.md)
 - [Interview und offene Entscheidungen](docs/interview.md)

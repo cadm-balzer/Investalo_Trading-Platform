@@ -6,3 +6,5 @@ Ausführung und Kostenmodelle kommen über explizite Schnittstellen.
 
 Kein Broker-I/O, kein Secretzugriff, keine autonome AI-Risikoerhöhung.
 Spezifikation und offene Parameter: `docs/trading.md`.
+Referenzbacktests nutzen fünf reguläre Crypto-Stufen mit ungenutzter manueller
+Reserve. Diskretionäre Paperentscheidungen werden gesondert ausgewertet.

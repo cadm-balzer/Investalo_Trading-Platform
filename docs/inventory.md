@@ -76,6 +76,11 @@ Die Goldbilder zeigen andere CBS-Basketvarianten: H1 mit einer RSI-Kerze,
 CBS-/Basket- oder H4-Plugin. Ein nutzereigener Terminalhost ist aus den erlaubten
 technischen README-Fakten nicht identifizierbar und muss noch zugeordnet werden.
 
+**Ergänzung 2026-11-07, Nutzerangabe Q25:** MT5 läuft auf einem separaten
+Server im Heimnetz. Betriebssystem, Terminalbuild und konkrete Demo-Instanz
+sind damit noch nicht technisch geprüft. Der neue Verbindungsplan steht in
+[mt5-bridge.md](mt5-bridge.md); keine Remoteänderungen erfolgt.
+
 ## Vorhandene Strategieabbildungen
 
 `strategies/` enthält Crypto Basket, Gold H1/H4 CBS, Coffee CBS und Öl Swing.

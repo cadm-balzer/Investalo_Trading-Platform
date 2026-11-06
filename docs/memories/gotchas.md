@@ -51,8 +51,12 @@ Stand 2026-11-07. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   Beispiel nur als Vergleich; sechste Tranche ist ausschließlich Notfallreserve.
   Stress jeden Füllstand, auch dauerhaft ausbleibendes Rearm.
 - **Notfallreserve:** Einsatz senkt Einstand, erhöht aber Verlustexposition
-  gegenüber Cash. Bei spätem fünften Fill kann der Kaufbereich zwischen
-  5%-Abstand und −55%-Exit leer sein; dann keine Ausnahme erzwingen.
+  gegenüber Cash. Q23 macht den Einstieg manuell; der −40%-Automatikvorschlag
+  ist verworfen. Bei beibehaltenem 5%-Abstand kann das Kaufpreisfenster
+  oberhalb des −55%-Exit leer sein; keine Ausnahme von Risk-/Schutzgates erzwingen.
+- **Diskretionärer Backtest:** Keine rückblickend günstigen manuellen Käufe
+  erfinden. Fünf automatische Stufen plus Cash sind der Referenzpfad;
+  tatsächlich protokollierte manuelle Paperaktionen getrennt auswerten.
 - **Hebel:** Nominal, Margin, Basketbudget und Kontoequity nicht verwechseln.
   Vereinfacht reicht 2× bei −50 % gegenüber Einstand mit Maintenance nicht aus.
 - **Supertrend:** Ein Stop ab +5 % kann trotzdem unter Nettobreakeven liegen.
@@ -74,6 +78,12 @@ Stand 2026-11-07. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   TradingView Essentials ist kein allgemeiner Datenfeed für automatischen Handel.
 - **MT5:** Pythonintegration hängt an einem laufenden Terminal.
   Terminalkonto fest binden, Journale und Geräteauth vorsehen.
+- **Heimnetz-Bridge:** Ausgehendes HTTPS braucht keine Routerportweiterleitung.
+  Maschinenendpoint benötigt eigene Authentifizierung statt Browser-MFA.
+- **MT5 WebRequest:** Synchron, URL-Allowlist nötig, nicht im Strategy Tester.
+  Lange Requests blockieren den EA; OnTimer holt Timer nicht unbegrenzt nach.
+- **Demoaccount:** Server/Login/Demomodus beim Start und vor Dispatch prüfen;
+  kein automatischer Kontowechsel als Fehlerbehebung.
 - **FTMO:** Kontotyp/Phase/Vertragsdatum verändern Regeln. Tageswechsel mit
   IANA-Zeitzone; fremde Konten nicht ohne Vertragsprüfung zentral handeln.
 - **Bitget Docs:** Alte URLs können auf neue API-Familien umleiten.

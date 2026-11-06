@@ -89,8 +89,8 @@ Supertrend ATR10/Wilder ×3, Schutz ab +5 % verkaufbarem Kurs zum Einstand,
 Netto-Untergrenze und monotones Trailing, keine Käufe nach Schutz, kein Flipexit.
 
 Q16 verwirft den regulär ausgelösten sechsten Kauf: ausschließlich Notfallreserve.
-Die −40%-Schwelle, Freigabe nach fünf Stufen und RSI-Ausnahme in Q23 sind
-**noch nicht bestätigt**. Ohne Auslöseregel bleibt diese Tranche unberührt.
+Der damalige −40%-Vorschlag war nicht bestätigt und wird in Q23/D-017
+durch die manuelle Reserve ersetzt.
 
 ## 2026-11-07 — D-014: Paper-/Demoprofile
 
@@ -115,10 +115,77 @@ Veröffentlichung und Mailversand bleiben gesondert geprüfte Aktionen.
 
 ## 2026-11-07 — D-016: E-Mail als gewünschter Recoverynachweis
 
-**Status: Präferenz bestätigt, Q22; Ablauf in Q24 offen.** Nutzer möchte
+**Status: Präferenz bestätigt, Q22; Ablauf später in Q24/D-018 bestätigt.** Nutzer möchte
 E-Mail als ausreichenden Nachweis statt verpflichtendem unabhängigem Ersatzfaktor.
 Best-Practice-Abweichung festhalten: Die Postfachübernahme könnte dann den
 MFA-Reset ermöglichen. Authelia erlaubt kontobezogene administrative Faktorresets;
 bei normaler Pflicht zum vorhandenen Faktor kein fertiger Mail-only-Selbstservice.
-Q24 schlägt getrennte administrative Einmalchallenge, Sitzung-/Tokenentzug
-und erneute MFA-Registrierung vor. Keine stillschweigende Automatisierung.
+Der zunächst vorgeschlagene Ablauf wird durch D-018 konkretisiert.
+
+## 2026-11-07 — D-017: Puffer ausschließlich manuell
+
+**Status: bestätigt, Q23.** Nutzer behält den Puffer für einen manuellen
+Einstieg und möchte darüber informiert werden. Kein automatischer −40%-Kauf
+und keine daraus abgeleitete Alarmgrenze. Ursprüngliches Quote-Budget und
+unabhängige Risk-/Schutzgates bleiben verbindlich.
+
+Freigaberegeln und Meldekanal später in Q29/Q30/D-023 bestätigt.
+Der deterministische Referenzbacktest lässt den Puffer Cash; tatsächliche
+diskretionäre Entscheidungen separat journalisieren und auswerten.
+
+## 2026-11-07 — D-018: Administratives E-Mail-Recovery
+
+**Status: bestätigt, Q24.** Kurze Einmalchallenge an bestehende Adresse,
+kein gleichzeitiger Adresswechsel; administrativer kontobezogener Faktorreset,
+Sitzungs-/Tokenentzug, erneute Passwortanmeldung und MFA-Neuregistrierung.
+Normale Faktoränderungen weiterhin mit MFA. Postfachabhängiges Restrisiko
+aus D-016 bleibt bestehen; Laufzeitabnahme vor Pilotbetrieb.
+
+## 2026-11-07 — D-019: MT5 auf separatem Heimnetzserver
+
+**Status: Nutzerangabe und Integrationsauftrag, Q25.** MT5 läuft auf einem
+anderen Server im Heimnetz. Neue Bridge ausgehend per authentifiziertem HTTPS
+zu diesem System, keine eingehenden Routerports. Getrenntes Brokerdemo,
+Tenant-/Geräte-/Kontobindung, ein Writer und persistentes lokales Journal.
+Konkretes OS/Terminalbuild/Instanz nicht remote geprüft. Keine Hoständerung erfolgt.
+Plan: [mt5-bridge.md](../mt5-bridge.md).
+
+## 2026-11-07 — D-020: Validierungsmaßstab
+
+**Status: bestätigt, Q26.** Mindestens drei Jahre Crypto und zwei Jahre
+brokerpassendes Gold als Datenziel; chronologische getrennte Fenster und
+ungeöffneter unabhängiger Holdout. Wirtschaftlicher Filter im Holdout:
+positiver Nettoertrag, PF ≥1,2, mindestens 30 geschlossene Baskets je
+Crypto-Asset beziehungsweise 100 Goldtrades. Historienlücken und zu geringe
+Stichprobe sind kein bestandener Nachweis; technische Paperbeobachtung möglich.
+Verfahren vor Optimierung einfrieren. Kein statistischer Gewinnbeweis.
+
+## 2026-11-07 — D-021: Pilotbackupziele
+
+**Status: bestätigt, Q27.** RPO 24 Stunden/RTO vier Stunden; tägliche
+verschlüsselte externe Sicherung auf kostenloses kontrolliertes Ziel,
+zusätzliche geschützte Offlinekopie und getrennte Schlüsselaufbewahrung.
+Konkretes Ziel und Restoretest vor Pilotfreigabe; noch kein Laufzeitnachweis.
+Echtgeldanforderungen an späterem Gate gesondert entscheiden.
+
+## 2026-11-07 — D-022: Erster Release und Ausbaugrenzen
+
+**Status: bestätigt, Q28.** M1 Cockpit/MFA/Tenants/Portfolio/Journal/Backtests
+und beide Paper-/Demopfade. Echte KI-Bewertung und vollständige News-/
+Kalenderfeeds folgen als Ausbau, Schnittstellen vorsehen.
+Echtgeldbudgets, FTMO-Kontoregeln, externe AI-Provider und Kundenbetrieb
+ausdrücklich erst vor ihrem späteren Gate entscheiden.
+
+## 2026-11-07 — D-023: Manuelle Pufferfreigabe und Nutzerinformation
+
+**Status: bestätigt, Q29/Q30.** Nach fünf abgeschlossenen regulären Stufen
+maximal eine manuell bestätigte zusätzliche Stufe innerhalb ursprünglicher
+Reserve; kein RSI-Signal erforderlich, Kaufpreis höchstens 95 % des letzten
+regulären Fill-VWAP. Vorschau und frische MFA; Kontolimits, −55%-Exit,
+Gewinnschutz, Datenfehler und ungeklärte Orders können den Kauf sperren.
+135,53 USDT gerundete Reserve im 500-USDT-Kaufprincipal, 5 USDT Kostenreserve
+für den ganzen Basket. Einmalige Cockpitmeldung plus einschaltbare E-Mail;
+keine automatische Order oder −40%-Alarmgrenze.
+
+Alle M1-Sachentscheidungen sind damit geklärt. Q31 gemeinsame Abschlussbestätigung
+und Übergang zur lokalen Implementierung steht noch aus.

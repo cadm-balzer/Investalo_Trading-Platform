@@ -113,7 +113,7 @@ Upgrade-/Restoreplanung muss diese Fremddienstausnahme berücksichtigen.
 Compose-, TLS-, Session- und Recoverydetails: [deployment-plan.md](deployment-plan.md).
 Q20 bestätigt öffentlichen HTTPS-Zugang schon im Privatpilot; interne Dienste
 bleiben unveröffentlicht. Q21 bestätigt vorhandenen kostenlosen SMTP.
-Q22 bevorzugt E-Mail-Recovery; Q24 konkretisiert den noch offenen Ablauf.
+Q24 bestätigt administratives E-Mail-Recovery; Laufzeitnachweise stehen aus.
 
 ## Fachmodule und Datenmodell
 
@@ -237,10 +237,13 @@ Schutzaktionen dürfen nicht hinter Backtestjobs in einer gemeinsamen Queue wart
 ## Integrationsgrenzen
 
 **MT5:** Die offizielle Pythonintegration verbindet mit einem laufenden Terminal.
-Es ist keine direkte Ubuntu-Broker-REST-API. Hosting auf geeignetem nutzereigenem
-Terminalhost, Geräteidentität und ausgehendem privaten Kanal klären.
+Es ist keine direkte Ubuntu-Broker-REST-API. Q25 benennt einen separaten
+Server im Heimnetz als MT5-Host. Die Bridge baut ausgehendes authentifiziertes
+HTTPS zum zentralen Einstieg auf; keine Heimnetz-Portweiterleitung.
+Konkreter OS-/Terminal-/Demostand ist noch zu inventarisieren.
 Jedes Terminal ist fest an seinen Brokeraccount gebunden; kein unkontrolliertes
-Kontoumschalten zwischen Tenantjobs.
+Kontoumschalten zwischen Tenantjobs. [mt5-bridge.md](mt5-bridge.md) spezifiziert
+Maschinenidentität, Polling, lokale Journale und Abnahmefälle.
 
 **Bitget:** Classic/UTA, Spot/Derivate, Netting/Hedge, Cross/Isolated, Region,
 Demo-/Livezugang und API-Familie müssen vor Implementierung bekannt sein.

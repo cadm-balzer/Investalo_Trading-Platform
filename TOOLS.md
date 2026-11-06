@@ -36,7 +36,9 @@ _Add whatever helps you do your job. This is your cheat sheet._
 - Never store access keys, passwords or tokens in these notes.
 - Deployment decision 2026-11-07: Docker Compose plus local Authelia OIDC/MFA.
   Nothing installed yet. Q20 plans a public central HTTPS entry for invited pilot
-  users; Q21 selects existing free SMTP. Email recovery is preferred, flow open.
-  Terminal host/build and actual history extent are not verified from safe files.
+  users; Q21 selects existing free SMTP; Q24 selects administrative email recovery.
+  Q25 user-provided fact: MT5 runs on a separate server in the home network.
+  Its OS/build, demo instance and actual history extent are not remotely verified.
+  Plan outbound HTTPS; no home-network ingress or router port forwarding.
 - `.git` is read-protected by the workspace sandbox; Git mutations may need
   tool escalation even when editing project files is allowed.

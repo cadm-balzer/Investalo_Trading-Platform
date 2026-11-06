@@ -5,6 +5,8 @@ freigegeben.** Grundstack, beide Broker im MVP, Startvarianten,
 Docker Compose und lokales Authelia sind in Q6–Q14 bestätigt.
 Q15–Q22 konkretisieren Signale, Schutz, Paper-/Demolimits,
 öffentlichen HTTPS-Einstieg für Privatnutzer und vorhandenen SMTP.
+Q23–Q28 bestätigen manuellen Puffer, administratives E-Mail-Recovery,
+MT5-Heimnetzhost, Forschungsmaßstab, Backupziele und Releasegrenze.
 Ausgangspunkt ist [project-info.md](project-info.md). Bestätigte
 Anforderungen und noch offene Entscheidungen werden getrennt geführt.
 
@@ -30,8 +32,9 @@ Erfolg wird getrennt bewertet:
 | Produkt | Verständliche Portfolio-/Risikodarstellung und vollständiger Backtestablauf |
 | Betrieb | Messbare Datenfrische, Alarmierung, Backup und dokumentierter Wiederanlauf |
 
-Konkrete Schwellen, Stichprobengrößen und SLOs entstehen im Interview und werden
-vor Optimierung eingefroren. Ein gutes Backtestergebnis allein ist keine
+Der Forschungsfilter Q26 und Pilotbackupziele Q27 sind bestätigt; technische
+Nachweise und spätere Echtgeldkriterien stehen aus. Das Auswertungsverfahren
+wird vor Optimierung eingefroren. Ein gutes Backtestergebnis allein ist keine
 Freigabe für echten Handel.
 
 ## Umfang und vorgeschlagene Reihenfolge
@@ -48,13 +51,16 @@ Q6 bestätigt Bitget und MT5 parallel im ersten Release.
 Q9/Q10 bestätigen BTC/ETH Spot ohne Hebel auf H4 und XAUUSD Trend/Pullback
 mit H1-Trendregime/M15-Einstiegen. RSI14/Wilder, Supertrend ATR10/Wilder ×3
 und Paper-/Demolimits sind in Q15/Q17–Q19 bestätigt.
-Die sechste Crypto-Tranche bleibt ausschließlich gesonderte Notfallreserve;
-deren Auslöser ist Q23. Q20 plant öffentlichen HTTPS-Zugang schon für den
+Die sechste Crypto-Tranche bleibt laut Q23 ausschließlich für einen manuellen
+Einstieg reserviert. Q29 bestätigt nach fünf Stufen, ohne RSI aber 5%-Preisabstand,
+Vorschau/MFA/Risk Gate. Q30 Cockpitmeldung plus optionale E-Mail.
+Q20 plant öffentlichen HTTPS-Zugang schon für den
 Privatpilot, ohne öffentliche Registrierung oder interne Serviceports.
 
-Die genaue M1-Abgrenzung von echten KI-/News-/Kalenderfeeds und die ausdrückliche
-Verlagerung späterer Echtgeld-/FTMO-/Providerentscheidungen stehen in Q28
-zur Bestätigung. Keine stille Kürzung des ursprünglichen Gesamtauftrags.
+Q28 bestätigt M1 mit Cockpit/MFA/Tenants/Portfolio/Journal/Backtests und
+beiden Paper-/Demopfaden. Echte KI und vollständige News-/Kalenderfeeds folgen
+als Ausbau; Schnittstellen werden vorgesehen. Echtgeld-/FTMO-/AI-Provider-/
+Kundenentscheidungen liegen ausdrücklich an späteren Gates.
 
 Öffentliches Kundenangebot, Abrechnung, mehrere Regionen, weitere Broker und
 vollautomatische Strategiepromotion folgen nach separater Entscheidung.
@@ -105,6 +111,9 @@ Darstellung berücksichtigt Nutzer- und Brokerzeitzonen.
 Detailoverlays zeigen die zugrunde liegenden Fills und Risikoprüfungen, ohne die
 Übersicht zu überladen. Mobile Ansichten erhalten dieselben Schutzmaßnahmen.
 Live-/Paper-/Backtestmodus und Datenalter sind überall eindeutig sichtbar.
+Der manuelle Puffer bekommt einen bewussten Prüf-/Bestätigungsablauf und
+Nutzerinformation. Konto-/Budget-/Schutzprüfungen gelten auch für manuelle
+Absichten; Q29/Q30 bestätigen Freigabe und Meldekanal.
 Tastaturbedienung, Kontrast und nicht ausschließlich farbliche Statusanzeigen
 gehören zur Abnahme.
 
@@ -187,6 +196,8 @@ Vertragstests und neu gepinnten Abhängigkeiten. Alte und neue Ausführung dürf
 nie gleichzeitig dasselbe Konto steuern. Eine spätere Umschaltung braucht
 Schattenvergleich, vollständigen Brokerabgleich und Rückfallplan.
 Siehe [inventory.md](inventory.md).
+Q25 verortet MT5 auf einem separaten Heimnetzserver; neue ausgehende
+HTTPS-Bridge und Demo-/Kontobindung: [mt5-bridge.md](mt5-bridge.md).
 
 ## Lernen, Optimierung und Governance
 

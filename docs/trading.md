@@ -4,8 +4,9 @@ Stand: 2026-11-07. Der Originalauftrag beschreibt Strategieideen.
 Q3/Q4 bestätigen unabhängige Risikogrenzen und kontrollierte Optimierung.
 Q6 plant beide Broker im MVP; Q9/Q10 bestätigen BTC/ETH Spot H4 ohne Hebel
 und XAUUSD Trend/Pullback H1/M15. Q15/Q17–Q19 bestätigen Signale,
-Gewinnschutz und Paper-/Demoprofile. Die gesonderte Notfalltranche ist in Q16
-gewählt; ihre konkrete Regel bleibt ein **Vorschlag in Q23**.
+Gewinnschutz und Paper-/Demoprofile. Q23 reserviert die sechste Tranche
+für einen manuellen Einstieg mit Nutzerinformation. Q26 bestätigt den
+Validierungsmaßstab; Q29/Q30 bestätigen manuelle Freigabe und Meldekanal.
 
 Die Crypto-Abbildung ist keine identische Fassung des schriftlichen Auftrags:
 Sie nennt unter anderem drei/fünf Einstiege und vereinfachte Exitregeln.
@@ -28,7 +29,7 @@ Teilfüllungen werden mit tatsächlichem Fill-VWAP verbucht.
 | RSI kurz über 30, danach wieder unter 30 | Q15: mindestens eine geschlossene H4-Kerze `>30` seit letztem Einstieg, dann eine `<30`; genau 30 weder Rearm noch Trigger |
 | Weiterer regulärer Kauf nach mindestens 5 % Preisrückgang | Q12/Q15: H4-Schlusskurs ≤95 % des letzten tatsächlichen Einstiegsfills, zusätzlich Rearm/RSI; maximal fünf reguläre Stufen |
 | Jeweils 25 % mehr Volumen | Q12 bestätigt Quote-Beträge; Gebührenreserve innerhalb des Gesamtbudgets |
-| Fünf Käufe plus Puffer | Q16: sechste Tranche ausschließlich gesonderter Notfall; Schwelle/RSI-Ausnahme in Q23 offen |
+| Fünf Käufe plus Puffer | Q23/Q29: sechste Tranche ausschließlich manuell nach fünf Stufen, ohne RSI, aber weiterhin 5%-Preisabstand; Vorschau/MFA/Risk Gate |
 | Schutz ab +5 % vom Durchschnitt | Q17: verkaufbarer Kurs ≥1,05× tatsächlichem Durchschnitt; erster Stop mindestens Nettobreakeven |
 | Supertrend-Trailing | Q17: ATR10/Wilder ×3 aus abgeschlossenen H4-Kerzen; nur gültige bullische Linie; monotones Long-Trailing, kein zusätzlicher Flipexit |
 | −50 % Kursrückgang abfangen | Q12: erster tatsächlicher Fill als Referenz; jedes Füllstadium stresstesten; Q18: unabhängige Paperkontolimits und zusätzlicher −55%-Notausstieg |
@@ -71,8 +72,8 @@ wären das etwa 4,11 % Kontoverlust vor Kosten.
 
 Nach Q16 bleiben regulär fünf Stufen: **72,89444 %** Kaufprincipal,
 also rund **364,47 USDT** je 500-USDT-Basket. Die **135,53 USDT**
-Notfallreserve wird ausschließlich durch die noch festzulegende Notfallregel
-verfügbar. Sie darf weder als sechster regulärer Kauf noch zur
+Reserve bleibt ausschließlich für einen bewussten manuellen Einstieg erhalten.
+Q29 bestätigt ihre Freigaberegeln. Sie darf weder als sechster regulärer Kauf noch zur
 automatischen Erhöhung des Gesamtbudgets verwendet werden.
 
 „Sechs Einstiege“ und „5 % Abstand“ sichern daher keinen maximalen Drawdown.
@@ -214,14 +215,23 @@ RSI-Signale, korrelierte Baskets, Spread-/Fundinganstieg, fehlende Daten,
 Teilfills, verpasste Stops, Neustart, Doppelzustellung und Tageswechsel.
 Resampling/Monte-Carlo ersetzt keinen strukturellen Marginstress.
 
-Q26 stellt Datenziele und einen wirtschaftlichen Forschungsfilter zur Entscheidung:
+Q26 bestätigt Datenziele und einen wirtschaftlichen Forschungsfilter:
 mindestens drei Jahre Crypto beziehungsweise zwei Jahre brokerpassendes Gold
 anstreben; im unabhängigen Holdout positiven Nettoertrag, PF ≥1,2 und mindestens
 30 geschlossene Baskets je Crypto-Asset beziehungsweise 100 Goldtrades.
-Diese Werte sind **noch offen**. Fehlende Daten/Stichprobe verhindern den
+Fehlende Daten/Stichprobe verhindern den
 wirtschaftlichen Nachweis, nicht technische Paperbeobachtung zur Datensammlung.
 Trainingszahlen ersetzen den Holdout nicht. Vor Optimierung werden Fenster,
 Warm-up, Kosten-/Fillmodell und Vergleichsprotokoll eingefroren.
+Diese Schwellen sind kein statistischer Gewinnbeweis.
+
+Der deterministische Referenzbacktest umfasst **fünf reguläre Einstiegsstufen
+mit unangetasteter manueller Reserve**. Er darf keine rückblickend günstig
+gewählten manuellen Käufe erfinden. Tatsächliche Paperentscheidungen werden
+mit Nutzer, Zeitpunkt, damaliger Quote, Riskentscheidung und Fill journalisiert.
+Ein Replay dieser Ereignisse ist eine gesonderte diskretionäre Auswertung,
+kein Nachweis automatischer Strategieperformance. Gleiche Daten-/Kostenbasis
+und Auswahlwirkung bei Vergleichen offenlegen.
 
 ## Bestätigte Paper-/Demoprofile
 
@@ -255,40 +265,46 @@ Kosten abgerundet; unter Broker-Mindestlot wird die Idee ausgelassen, niemals
 über das bestätigte Risiko aufgerundet.
 „Modelliertes Risiko“ bei MT5 garantiert bei Gaps keinen Fillpreis.
 
-## Offener Vorschlag Q23: gesonderter Notfallpuffer
+## Manuelle Reserve und Nutzerinformation
 
-Dieser Pfad ist **noch nicht bestätigt**. Er wäre erst nach fünf abgeschlossenen
-regulären Einstiegsstufen verfügbar, höchstens einmal je Basket, und dürfte
-ausdrücklich RSI/Rearm umgehen. Er verändert keine normalen Signalregeln.
+**Bestätigt, Q23:** Puffer ausschließlich für manuellen Einstieg behalten und
+den Nutzer informieren. Die automatische −40%-Regel ist verworfen; keine
+automatische Order und keine daraus abgeleitete Alarmgrenze.
 
-Mit `P0` als tatsächlichem Fill-VWAP der ersten Stufe und `P5` als dem der fünften:
+**Bestätigt, Q29:** Freigabe erst nach fünf abgeschlossenen regulären Stufen;
+höchstens eine manuell bestätigte zusätzliche Stufe je Basket; kein RSI-Signal
+erforderlich, aber Kaufpreis höchstens 95 % des letzten regulären Fill-VWAP.
+Die vorhandene 5%-Regel bleibt damit ausdrücklich erhalten.
 
-`T = min(0,60 × P0, 0,95 × P5)`.
+Unverändertes Maximum: ursprüngliche sechste Quote-Tranche von rund
+135,53 USDT im 500-USDT-Kaufprincipal. Tatsächliche Rundung, Teilfills und
+Restbudget gehen vor Anzeige; 5 USDT Kostenreserve für den **ganzen Basket**.
+Reservierter Betrag ist kein zusätzliches Kontokapital.
 
-Ein abgeschlossener H4-Kurs `≤T` erzeugt eine begrenzte Kaufabsicht.
-Ausführung höchstens bei `T`, Schutz inaktiv, keine ungeklärte Order und
-aktuelle Daten/Budget/Risiko zulässig. Vor Dispatch nochmals prüfen.
-Bei verkaufbarem Kurs `≤0,45 × P0` hat Exit Vorrang, auch bei einem direkten
-Gap: keinen Puffer kaufen; offene Kaufabsichten stornieren beziehungsweise
-abgleichen. Nicht automatisch Reserve auffüllen oder nach Exit neu starten.
+Vorgesehener Bedienablauf: berechtigter Owner/Trader → Vorschau mit Konto,
+Asset, Reserve, Quote, Preislimit, Menge, Gebühren und Risikowirkung →
+frische MFA-Bestätigung → kurz gültige, an die Vorschau gebundene Freigabe →
+idempotenter Orderintent → erneute Risikoprüfung vor Dispatch.
+Eine veraltete Vorschau muss aktualisiert werden; Preis/Budget nicht still erhöhen.
 
-Das Preisfenster oberhalb des Notausstiegs kann leer sein:
-Bei `P5≤0,47368421×P0` liegt die 5%-Kaufgrenze bereits am/unter Exit.
-Dann bleibt die Reserve unangetastet. Ebenso bei weniger als fünf Stufen,
-aktivem Gewinnschutz oder verletztem Kontolimit.
+Der manuelle Weg beginnt im bestätigten Crypto-Papermodus. Kontolimits,
+−55%-Exit, aktiver Gewinnschutz, Datenfehler oder ungeklärte Orders sperren
+den Kauf. Schutz und Exit haben Vorrang. Teilfills verbuchen, Restreserve
+während offener Order sperren; Doppelbestätigung/Neustart erzeugen keinen
+zweiten Einstieg. Keine automatische Reserveauffüllung.
 
-Illustration ohne Kosten: fünf reguläre Fills bei
-`100; 95; 90,25; 85,7375; 81,450625`, Notfallfill `60`.
-Durchschnitt `≈78,13834`, +5%-Marke `≈82,04526`.
-Beide 500-USDT-Baskets verlieren bei Preis 50 zusammen `≈360,11 USDT`,
-bei Preis 45 `≈424,10 USDT`. Ohne Einsatz der Reserve beträgt der Verlust
-bei Preis 50 nur `≈314,93 USDT`: Die Notfalltranche erhöht ihn um `≈45,18 USDT`.
-Sie senkt den Einstand, schützt aber nicht die Equity gegenüber Cash.
+**Bestätigt, Q30:** einmalige Cockpitmeldung nach Abschluss der fünften Stufe,
+ergänzt um vom Nutzer einschaltbare E-Mail. Meldung: „Fünf Einstiegsstufen
+abgeschlossen; Reserve zur manuellen Prüfung verfügbar.“ Dazu aktuellen
+Risikostatus und Sperrgründe zeigen. Verfügbare Reserve bedeutet nicht, dass
+ein Kauf gerade zulässig ist; Meldung ist keine automatische Kaufentscheidung.
 
-Die −40%-Schwelle ist eine zu prüfende Versuchsanordnung mit Abstand zum
-−55%-Exit, kein belegtes Optimum. Abnahmefälle: Quote über Kaufcap,
-Gap direkt unter Exit, leerer Preisbereich, fehlender RSI-Rearm,
-Teilfill/Neustart/Doppelzustellung, nachträglicher Schutz-/Kontolimittrigger.
+Stressvergleich ohne Kosten bei fünf regulären Fills
+`100; 95; 90,25; 85,7375; 81,450625`: Beide Baskets verlieren bei Preis 50
+zusammen rund **314,93 USDT**, während die Reserve Cash bleibt.
+Ein möglicher manueller Kauf senkt den Einstand, erhöht aber Verlustexposition
+gegenüber Cash. Dieser Vergleich ist eine Rechenillustration, kein
+rückblickend ausgewählter manueller Signalpfad.
 
 ## Kontinuierliche Verbesserung
 

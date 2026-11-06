@@ -4,8 +4,8 @@ Stand 2026-11-07. Q13 bestätigt Docker Compose, Q14 lokales Authelia.
 Dieser Plan konkretisiert die Auswahl; es gibt noch keine ausführbare
 Composekonfiguration oder Installation. Q20 bestätigt einen öffentlichen
 zentralen HTTPS-Einstieg für den privaten Nutzerkreis; Q21 bestehenden
-kostenlosen SMTP. Q22 wünscht E-Mail als ausreichenden Recoverynachweis;
-der konkrete Ablauf in Q24 bleibt offen. Siehe [architecture.md](architecture.md).
+kostenlosen SMTP. Q24 bestätigt administratives E-Mail-Recovery; Q27
+Pilotbackupziele. Siehe [architecture.md](architecture.md).
 
 ## Services und Berechtigungen
 
@@ -100,7 +100,7 @@ Die normale Policy `require_second_factor: true` soll bestehen bleiben;
 damit gibt es bei vollständigem Faktorverlust keinen zugesicherten
 Mail-only-Selbstservice in Authelia.
 
-**Offener Vorschlag Q24 — gesonderter administrativer E-Mail-Recoveryweg:**
+**Bestätigt, Q24 — gesonderter administrativer E-Mail-Recoveryweg:**
 
 1. Kurz gültige Einmalchallenge ausschließlich an die bereits hinterlegte
    Adresse; beispielsweise fünf Minuten. Keine Adressänderung im selben Vorgang.
@@ -137,6 +137,12 @@ gemeinsames Ressourcenbudget festlegen. Argon2 braucht zusätzlichen Speicher je
 parallelem Login. Standardprofile bleiben klein; Research und Builds werden
 begrenzt/serialisiert. Ein Containerlimit erzeugt keinen zusätzlichen RAM.
 Bei unzureichender Kapazität Umfang reduzieren oder Erweiterung abstimmen.
+
+Q27 bestätigt tägliche verschlüsselte Backups auf ein kostenloses kontrolliertes
+Ziel außerhalb der VM, zusätzliche geschützte Offlinekopie und getrennte
+Schlüsselaufbewahrung. Pilotziele RPO 24 Stunden/RTO vier Stunden.
+Konkretes Ziel und Restoretest müssen vor Pilotfreigabe nachgewiesen werden.
+Die Topologie der Heimnetz-Bridge steht in [mt5-bridge.md](mt5-bridge.md).
 
 ## Abnahme vor privatem Nutzerbetrieb
 

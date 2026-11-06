@@ -24,10 +24,24 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   protection with net-breakeven floor and no further buys; crypto paper 10,000 USDT,
   each basket 500 principal +5 costs, 6% daily/8% initial loss and -55% first-fill
   exit; independent MT5 broker demo, 0.25% idea risk, one idea, 1% daily/5% initial loss.
-  The sixth tranche is exclusively an emergency reserve, its trigger is not settled.
+  The sixth tranche is a reserved manual entry as clarified by Q23.
   Plan a public central HTTPS entry for the invitation-only pilot and existing free
-  SMTP. User prefers email recovery; its concrete reset flow is still open.
-  Q23–Q28 are proposals, not approval. Public rollout still needs approval.
+  SMTP. Public rollout still needs approval.
+- Confirmed Q23–Q28: keep the buffer exclusively for a manual entry and inform
+  the user; no automatic -40% trigger. Administrative MFA reset after email
+  confirmation; MT5 is on a separate home-network server, using an outbound
+  authenticated HTTPS bridge. Research targets: 3 years crypto/2 years gold,
+  positive independent net holdout, PF >=1.2 and 30 baskets per crypto asset/
+  100 gold trades in holdout. Pilot backup targets RPO 24h/RTO 4h with encrypted
+  external and protected offline copies. M1 scope is confirmed; actual AI,
+  full news/calendar feeds, live/FTMO/customer decisions follow later gates.
+  Q29–Q30 confirmed: buffer after five regular stages, one manually confirmed
+  entry, no RSI required but price <=95% last regular fill; preview/MFA and all
+  risk/protection gates. Once-only cockpit notice plus optional user-enabled email.
+  Do not simulate hindsight-selected manual fills as automated performance.
+- M1 substantive interview decisions Q1–Q30 are settled; Q31 final shared
+  understanding and transition to local implementation is pending.
+  Reviewable summary: `docs/implementation-brief.md`.
 - Original requirements: `docs/project-info.md`; complete draft: `docs/concept.md`.
 - Architecture/stack proposals: `docs/architecture.md`; trading: `docs/trading.md`.
 - Track work in `docs/tasks/board.md`, milestones in `docs/roadmap.md`,

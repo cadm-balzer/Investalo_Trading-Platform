@@ -50,7 +50,7 @@ Ein späteres automatisiertes Releaseverfahren wird konkret vorgeschlagen.
 
 ## Gesundheits- und Fachmetriken
 
-Compose-/Authelia-Serviceplan mit öffentlichem Pilotzugang und offenem Recoveryablauf:
+Compose-/Authelia-Serviceplan mit öffentlichem Pilotzugang und bestätigtem Recoveryablauf:
 [deployment-plan.md](deployment-plan.md).
 
 | Signal | Reaktion / Zweck |
@@ -70,14 +70,13 @@ minimierter Form, ohne Credentials oder unnötige Personendaten.
 Alarmierungsdienst und Empfänger werden separat gewählt; es werden keine
 externen Nachrichten oder Accounts ohne Freigabe eingerichtet.
 
-SLO/RPO/RTO sind offene Interviewentscheidungen. Beispielziele wie minutengenaue
-Kontoaktualisierung oder kurze Wiederherstellung sind erst nach Messung,
-Brokerfähigkeit und bestätigtem Betriebsbudget verbindlich.
-Q27 stellt für den Paper-/Demopilot RPO 24 Stunden und RTO vier Stunden zur
-Entscheidung, mit täglicher verschlüsselter externer Sicherung, zusätzlicher
+Q27 bestätigt für den Paper-/Demopilot RPO 24 Stunden und RTO vier Stunden
+als Planungsziele, mit täglicher verschlüsselter externer Sicherung, zusätzlicher
 geschützter Offlinekopie und getrennter Schlüsselaufbewahrung.
 Das konkrete kostenlose Ziel und ein Restoretest sind vor Pilotfreigabe
-erforderlich. Kein bereits nachgewiesenes SLO und keine Echtgeldfreigabe.
+erforderlich. Weitere SLOs wie Kontoaktualisierung werden anhand der
+Brokerfähigkeit und Hostmessung konkretisiert. Kein bereits nachgewiesenes
+SLO und keine Echtgeldfreigabe.
 
 ## Backups und Disaster Recovery
 
