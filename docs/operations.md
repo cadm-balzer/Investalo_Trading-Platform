@@ -33,10 +33,11 @@ Keine privilegierten Container oder Docker-Socket-Mounts, interne Ports nicht
 öffentlich publishen. Externe Erreichbarkeit ausdrücklich prüfen, da Docker
 veröffentlichte Ports Hostfirewallregeln umgehen können.
 
-Ein zentraler Reverse Proxy/TLS-Einstieg; zunächst privater Zugriff.
+Ein zentraler Reverse Proxy/TLS-Einstieg. Q20 plant ihn öffentlich schon für
+den eingeladenen Privatpilot; keine öffentliche Registrierung.
 Datenbank und interne Dienste ausschließlich lokal/intern.
-DNS und `cockpit.investalo.de` werden erst mit freigegebener Zugangs- und
-Produktionskonfiguration aktiviert.
+DNS und `cockpit.investalo.de` werden erst mit konkret freigegebener
+Pilot-/Produktionskonfiguration aktiviert.
 
 Deploymentablauf: geprüfter Code/Lockstand → Build/Artefakt →
 relevante Tests → verschlüsselte Sicherung → Migration mit Rückfallplanung →
@@ -49,7 +50,7 @@ Ein späteres automatisiertes Releaseverfahren wird konkret vorgeschlagen.
 
 ## Gesundheits- und Fachmetriken
 
-Privater Compose-/Authelia-Serviceplan und noch offene Zugangs-/Recoverywege:
+Compose-/Authelia-Serviceplan mit öffentlichem Pilotzugang und offenem Recoveryablauf:
 [deployment-plan.md](deployment-plan.md).
 
 | Signal | Reaktion / Zweck |
@@ -72,6 +73,11 @@ externen Nachrichten oder Accounts ohne Freigabe eingerichtet.
 SLO/RPO/RTO sind offene Interviewentscheidungen. Beispielziele wie minutengenaue
 Kontoaktualisierung oder kurze Wiederherstellung sind erst nach Messung,
 Brokerfähigkeit und bestätigtem Betriebsbudget verbindlich.
+Q27 stellt für den Paper-/Demopilot RPO 24 Stunden und RTO vier Stunden zur
+Entscheidung, mit täglicher verschlüsselter externer Sicherung, zusätzlicher
+geschützter Offlinekopie und getrennter Schlüsselaufbewahrung.
+Das konkrete kostenlose Ziel und ein Restoretest sind vor Pilotfreigabe
+erforderlich. Kein bereits nachgewiesenes SLO und keine Echtgeldfreigabe.
 
 ## Backups und Disaster Recovery
 

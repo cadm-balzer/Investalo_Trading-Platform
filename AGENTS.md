@@ -19,8 +19,15 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   written crypto prompt over older images; 25% growing quote amounts, 5% drop
   from the last actual entry, -50% stress from the first entry; Docker Compose
   from the start; local Authelia OIDC/MFA with administratively provisioned users.
-  Indicator/exit details, paper risk values, private access and MFA recovery
-  remain open. Do not infer approval for systemd deployment.
+  Do not infer approval for systemd deployment.
+- Confirmed Q15–Q22: RSI14/Wilder closed-H4 signals; Supertrend ATR10/Wilder ×3
+  protection with net-breakeven floor and no further buys; crypto paper 10,000 USDT,
+  each basket 500 principal +5 costs, 6% daily/8% initial loss and -55% first-fill
+  exit; independent MT5 broker demo, 0.25% idea risk, one idea, 1% daily/5% initial loss.
+  The sixth tranche is exclusively an emergency reserve, its trigger is not settled.
+  Plan a public central HTTPS entry for the invitation-only pilot and existing free
+  SMTP. User prefers email recovery; its concrete reset flow is still open.
+  Q23–Q28 are proposals, not approval. Public rollout still needs approval.
 - Original requirements: `docs/project-info.md`; complete draft: `docs/concept.md`.
 - Architecture/stack proposals: `docs/architecture.md`; trading: `docs/trading.md`.
 - Track work in `docs/tasks/board.md`, milestones in `docs/roadmap.md`,
@@ -44,7 +51,8 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 - Never retry an uncertain broker order blindly; reconcile before resubmission.
 - Require authenticated tenant context for requests, jobs, files, caches, and streams.
 - Broker credentials must never reach browser storage, research workers, AI, or logs.
-- Default to private access and disabled live execution. Real-money activation
+- Default to a private user base and disabled live execution. Q20 permits planning
+  a public central HTTPS pilot entry; databases/workers stay internal. Real-money activation
   requires explicit account/strategy/risk approval in addition to deployment approval.
 - Never inherit loose dependency ranges or floating images from the legacy systems.
   Verify supported versions, pin exact releases/digests, and commit lockfiles.

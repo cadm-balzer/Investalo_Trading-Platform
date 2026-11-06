@@ -3,6 +3,8 @@
 Stand: 2026-11-07. **Vollständiger Planungsentwurf, noch nicht zur Implementierung
 freigegeben.** Grundstack, beide Broker im MVP, Startvarianten,
 Docker Compose und lokales Authelia sind in Q6–Q14 bestätigt.
+Q15–Q22 konkretisieren Signale, Schutz, Paper-/Demolimits,
+öffentlichen HTTPS-Einstieg für Privatnutzer und vorhandenen SMTP.
 Ausgangspunkt ist [project-info.md](project-info.md). Bestätigte
 Anforderungen und noch offene Entscheidungen werden getrennt geführt.
 
@@ -44,7 +46,15 @@ Beginn an, Cockpit mit echter lesender Kontenanbindung, eine vollständig
 spezifizierte Strategie je Brokerpfad, reproduzierbare Backtests und Paperbetrieb.
 Q6 bestätigt Bitget und MT5 parallel im ersten Release.
 Q9/Q10 bestätigen BTC/ETH Spot ohne Hebel auf H4 und XAUUSD Trend/Pullback
-mit H1-Trendregime/M15-Einstiegen. Detailregeln und Paperlimits bleiben offen.
+mit H1-Trendregime/M15-Einstiegen. RSI14/Wilder, Supertrend ATR10/Wilder ×3
+und Paper-/Demolimits sind in Q15/Q17–Q19 bestätigt.
+Die sechste Crypto-Tranche bleibt ausschließlich gesonderte Notfallreserve;
+deren Auslöser ist Q23. Q20 plant öffentlichen HTTPS-Zugang schon für den
+Privatpilot, ohne öffentliche Registrierung oder interne Serviceports.
+
+Die genaue M1-Abgrenzung von echten KI-/News-/Kalenderfeeds und die ausdrückliche
+Verlagerung späterer Echtgeld-/FTMO-/Providerentscheidungen stehen in Q28
+zur Bestätigung. Keine stille Kürzung des ursprünglichen Gesamtauftrags.
 
 Öffentliches Kundenangebot, Abrechnung, mehrere Regionen, weitere Broker und
 vollautomatische Strategiepromotion folgen nach separater Entscheidung.

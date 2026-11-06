@@ -5,7 +5,10 @@ Risikolimits, kontrollierte KI und kostenlose externe Dienste.
 Q6–Q8 bestätigen beide Handelsintegrationen im MVP, Grundstack und eigene MFA.
 Q9–Q14 bestätigen BTC/ETH Spot H4, XAUUSD Trend/Pullback H1/M15,
 schriftliche Crypto-Vorlage, Quote-/Preisbezüge, Docker Compose und Authelia.
-Detailparameter, Paperlimits und Zugangs-/Recoverywege bleiben offen.
+Q15/Q17–Q19 bestätigen RSI-/Supertrend-Regeln und Paper-/Demolimits.
+Q16 reserviert die sechste Tranche ausschließlich für einen Notfall; Auslöser offen.
+Q20 plant öffentlichen HTTPS-Einstieg für privaten Nutzerkreis, Q21 vorhandenen
+SMTP, Q22 bevorzugt E-Mail-Recovery. Q23–Q28 bleiben offen.
 Keine festen Termine ohne Umfangs- und Kapazitätsentscheidung.
 
 | Phase | Ergebnis | Abnahmekriterium / Gate |
@@ -30,7 +33,10 @@ Enthält: MFA-Anmeldung nach ausgewähltem Identitykonzept, Tenant-/Kontobindung
 Portfolio und offene Positionen mit Datenalter, Journal, eine Strategie je Brokerpfad,
 Backteststart/-abbruch und grafische Auswertung, Paperstatus und Riskanzeigen.
 Bitget und MT5 gehören beide zum MVP: BTC/ETH Spot H4 und XAUUSD Trend/Pullback
-H1/M15 sind bestätigt. Detailregeln und Paperlimits folgen im Interview.
+H1/M15 sind bestätigt, ebenso reguläre Crypto-Signale, Schutz und Risikoprofile.
+Notfallpuffer und E-Mail-Recovery werden in Q23/Q24 konkretisiert.
+Q28 stellt die M1-Abgrenzung von vollständigen KI-/News-/Kalenderfeeds ausdrücklich
+zur Entscheidung; spätere Phasen sind insoweit noch eine vorgeschlagene Reihenfolge.
 
 Abnahme:
 

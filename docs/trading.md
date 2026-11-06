@@ -1,10 +1,11 @@
 # Handelskonzept, Risiko und Nachweis
 
 Stand: 2026-11-07. Der Originalauftrag beschreibt Strategieideen.
-Folgende Formalisierung ist ein **prüfbarer Vorschlag**, keine bestätigte
-Strategieänderung. Q3/Q4 bestätigen unabhängige Risikogrenzen und kontrollierte
-Optimierung; konkrete Parameter bleiben offen. Q6 plant beide Broker im MVP.
-Q9/Q10 bestätigen BTC/ETH Spot H4 ohne Hebel und XAUUSD Trend/Pullback H1/M15.
+Q3/Q4 bestätigen unabhängige Risikogrenzen und kontrollierte Optimierung.
+Q6 plant beide Broker im MVP; Q9/Q10 bestätigen BTC/ETH Spot H4 ohne Hebel
+und XAUUSD Trend/Pullback H1/M15. Q15/Q17–Q19 bestätigen Signale,
+Gewinnschutz und Paper-/Demoprofile. Die gesonderte Notfalltranche ist in Q16
+gewählt; ihre konkrete Regel bleibt ein **Vorschlag in Q23**.
 
 Die Crypto-Abbildung ist keine identische Fassung des schriftlichen Auftrags:
 Sie nennt unter anderem drei/fünf Einstiege und vereinfachte Exitregeln.
@@ -21,20 +22,21 @@ PROFIT_PROTECTION → EXIT_PENDING → FLAT`, ergänzt um `PAUSED` und
 ungeklärte Orderzustände. Nur bestätigte Fills verändern Mengen und Einstieg.
 Teilfüllungen werden mit tatsächlichem Fill-VWAP verbucht.
 
-| Regel aus Auftrag | Noch zu bestätigende Formalisierung |
+| Regel aus Auftrag | Bestätigte Formalisierung / offene Grenze |
 |---|---|
-| Erster Kauf bei zweiter Kerze mit RSI unter 30 | Zwei unmittelbar aufeinanderfolgende abgeschlossene Kerzen mit RSI strikt `<30`; Ausführung erst danach |
-| RSI kurz über 30, danach wieder unter 30 | Mindestens eine geschlossene Kerze `>30` seit letztem Fill; Verhalten bei genau 30 offen |
-| Weiterer Kauf nach mindestens 5 % Preisrückgang | Q12 bestätigt letzten tatsächlichen Fill als Referenz; Schlusskurs/intrabar und Bestätigungskerzen offen |
+| Erster Kauf bei zweiter Kerze mit RSI unter 30 | Q15: RSI14/Wilder; zwei unmittelbar aufeinanderfolgende abgeschlossene H4-Kerzen strikt `<30`; Ausführung erst danach |
+| RSI kurz über 30, danach wieder unter 30 | Q15: mindestens eine geschlossene H4-Kerze `>30` seit letztem Einstieg, dann eine `<30`; genau 30 weder Rearm noch Trigger |
+| Weiterer regulärer Kauf nach mindestens 5 % Preisrückgang | Q12/Q15: H4-Schlusskurs ≤95 % des letzten tatsächlichen Einstiegsfills, zusätzlich Rearm/RSI; maximal fünf reguläre Stufen |
 | Jeweils 25 % mehr Volumen | Q12 bestätigt Quote-Beträge; Gebührenreserve innerhalb des Gesamtbudgets |
-| Fünf Käufe plus Puffer | Pufferbudget reservieren; eigene Auslöseregel noch offen |
-| Schutz ab +5 % vom Durchschnitt | Kursrendite vorgeschlagen, nicht Margin-ROI; netto/brutto und erster Stop offen |
-| Supertrend-Trailing | Nur nach oben verschieben bei Long; ATR-Verfahren, Länge/Faktor und Flipregel offen |
-| −50 % Kursrückgang abfangen | Q12 bestätigt ersten Fill als Referenz; erlaubter Kontoverlust offen, jedes Füllstadium stresstesten |
+| Fünf Käufe plus Puffer | Q16: sechste Tranche ausschließlich gesonderter Notfall; Schwelle/RSI-Ausnahme in Q23 offen |
+| Schutz ab +5 % vom Durchschnitt | Q17: verkaufbarer Kurs ≥1,05× tatsächlichem Durchschnitt; erster Stop mindestens Nettobreakeven |
+| Supertrend-Trailing | Q17: ATR10/Wilder ×3 aus abgeschlossenen H4-Kerzen; nur gültige bullische Linie; monotones Long-Trailing, kein zusätzlicher Flipexit |
+| −50 % Kursrückgang abfangen | Q12: erster tatsächlicher Fill als Referenz; jedes Füllstadium stresstesten; Q18: unabhängige Paperkontolimits und zusätzlicher −55%-Notausstieg |
 
-Pro abgeschlossenem Signalereignis höchstens ein neuer Einstieg vorgeschlagen.
+Q15 bestätigt höchstens einen neuen Einstieg pro abgeschlossenem Kerzenereignis.
 Rearm-Zustand, Strategieversion und Fillstand müssen Neustarts überleben.
-Bei dauerhaft RSI `<30` entsteht nach dieser Rearm-Regel kein weiterer Einstieg.
+Bei dauerhaft RSI `<30` entsteht nach dieser Rearm-Regel kein weiterer regulärer Einstieg.
+Orderannahme ohne Fill schaltet keine Stufe frei.
 
 ### Budgetberechnung
 
@@ -59,13 +61,19 @@ Der tatsächliche Einstand ist `A = Σ(Kaufkosten) / Σ(Basisassetmenge)`.
 Ein arithmetischer Durchschnitt der Einstiegspreise ist falsch.
 Nettobreakeven berücksichtigt Gebühren, Funding/Swap und erwartete Exitkosten.
 
-**Illustration, kein prognostizierter Signalpfad:** sechs Fills bei
+**Vergleichsillustration, keine zulässige reguläre Sechserstaffel:** sechs Fills bei
 `100; 95; 90,25; 85,7375; 81,450625; 77,37809375`.
 Das ganze Budget ist bereits nach −22,62 % gegenüber Einstieg 1 investiert.
 Ohne Kosten beträgt `A ≈ 84,86642`, die +5%-Kursmarke etwa `89,10974`.
 Beim Stresspreis 50 entsteht ein Buchverlust von rund **41,08 % des
 eingesetzten Quote-Budgets/Einstiegsnominals**. Mit ungehebeltem Basketbudget von 10 % der Kontoequity
 wären das etwa 4,11 % Kontoverlust vor Kosten.
+
+Nach Q16 bleiben regulär fünf Stufen: **72,89444 %** Kaufprincipal,
+also rund **364,47 USDT** je 500-USDT-Basket. Die **135,53 USDT**
+Notfallreserve wird ausschließlich durch die noch festzulegende Notfallregel
+verfügbar. Sie darf weder als sechster regulärer Kauf noch zur
+automatischen Erhöhung des Gesamtbudgets verwendet werden.
 
 „Sechs Einstiege“ und „5 % Abstand“ sichern daher keinen maximalen Drawdown.
 Ein Asset kann weiter fallen, Reserve kann bereits verbraucht sein, und spätere
@@ -99,16 +107,24 @@ Derivate sind späterer Ausbau mit separat bestätigtem Marginmodell.
 
 ### Schutz und Exit
 
-Supertrend allein sichert keine Gewinne: Seine Linie kann bei Aktivierung
-unter dem Nettobreakeven oder auf der ungültigen Seite liegen.
-Erster Schutzstop, Netto-Untergrenze, Trendflip, Mindestabstände,
-Gapverhalten und Nachkäufe nach Schutzaktivierung müssen festgelegt werden.
-Ein Long-Trailingstop darf nicht durch Nachkäufe stillschweigend sinken.
+Q17 bestätigt: Schutz aktivieren, sobald der verkaufbare Kurs mindestens
+`1,05 × tatsächlicher Durchschnitt` erreicht. ATR10 nutzt Wilders Glättung;
+Supertrend-Faktor 3, Standardbasis `(high + low) / 2`, geschlossene H4-Daten.
+Nur eine gültige bullische Linie für einen Longstop verwenden.
 
-Der Auftrag definiert keinen Notausstieg vor +5 %. Das ist eine offene
-Risikofrage; ein konventioneller enger Stop würde die Idee des Abfangens großer
-Rückgänge verändern und wird deshalb nicht ungefragt ergänzt.
-Die unabhängigen Kontolimits bleiben trotzdem verbindlich.
+`neuer Stop = max(alter Stop, Nettobreakeven, gültige Supertrend-Linie)`.
+
+Nettobreakeven enthält tatsächliche Einstiegskosten und modellierte Exitkosten.
+Bei fehlender/ungültiger Linie bleibt die Netto-Untergrenze beziehungsweise
+der bisherige Stop bestehen. Keine Lockerung des Stops, keine Nachkäufe
+nach Aktivierung und kein zusätzlicher Ausstieg allein wegen Trendflip.
+Broker-Mindestabstände, Tickrundung und Platzierbarkeit prüfen; eine nicht
+platzierbare Schutzabsicht darf nicht als bestätigter Brokerstop angezeigt werden.
+
+Q18 ergänzt ausdrücklich den Preisnotausstieg: verkaufbarer Kurs
+`≤0,45 × erster tatsächlicher Fill`. Kontogrenzen und dieser Ausstieg werden
+laufend geprüft, nicht erst zum H4-Schluss. Exit und Risikosperre gehen vor
+jeder regulären oder Notfall-Kaufabsicht.
 Brokerseitige Stops schützen bei Plattformausfall, können aber bei Gaps und
 Liquiditätsmangel keinen Ausführungspreis garantieren.
 
@@ -198,15 +214,21 @@ RSI-Signale, korrelierte Baskets, Spread-/Fundinganstieg, fehlende Daten,
 Teilfills, verpasste Stops, Neustart, Doppelzustellung und Tageswechsel.
 Resampling/Monte-Carlo ersetzt keinen strukturellen Marginstress.
 
-## Aktuelle Entscheidungsrunde: nur Vorschläge
+Q26 stellt Datenziele und einen wirtschaftlichen Forschungsfilter zur Entscheidung:
+mindestens drei Jahre Crypto beziehungsweise zwei Jahre brokerpassendes Gold
+anstreben; im unabhängigen Holdout positiven Nettoertrag, PF ≥1,2 und mindestens
+30 geschlossene Baskets je Crypto-Asset beziehungsweise 100 Goldtrades.
+Diese Werte sind **noch offen**. Fehlende Daten/Stichprobe verhindern den
+wirtschaftlichen Nachweis, nicht technische Paperbeobachtung zur Datensammlung.
+Trainingszahlen ersetzen den Holdout nicht. Vor Optimierung werden Fenster,
+Warm-up, Kosten-/Fillmodell und Vergleichsprotokoll eingefroren.
 
-Q15–Q19 sind gestellt, noch nicht bestätigt. Sie konkretisieren den Start mit
-RSI14/Wilder, geschlossenem H4-Rearm, einem regulär ausgelösten sechsten Einstieg
-und Supertrend ATR10/Wilder ×3. Schutzbeginn am verkaufbaren +5%-Kurs,
-Nettoeinstand-Untergrenze und keine weiteren Nachkäufe nach Schutzaktivierung
-werden ausdrücklich als Entscheidungen geführt, nicht vorweg implementiert.
+## Bestätigte Paper-/Demoprofile
 
-| Profil | Vorgeschlagene Basis und Limits | Abgrenzung |
+Q18/Q19 sind bestätigt. Zahlen gelten ausschließlich für die beschriebenen
+simulierten beziehungsweise getrennten Demokonten, nicht für Echtgeld.
+
+| Profil | Bestätigte Basis und Limits | Abgrenzung |
 |---|---|---|
 | Crypto Paper | 10.000 virtuelle USDT; BTC/ETH je 500 Kaufprincipal +5 Kostenreserve; täglich 6 %, insgesamt 8 %, Preisnotausstieg −55 % zum ersten Fill | Tagesbasis Equity 00:00 UTC, Gesamtbasis Startkapital; offene PnL/Kosten inklusive, keine automatische Budgeterhöhung |
 | MT5 Demo | 0,25 % modelliertes Risiko pro Idee, höchstens eine Idee, täglich 1 %, insgesamt 5 % | Tagesbasis Equity 00:00 Europe/Prague, Gesamtbasis ursprüngliche Demoequity; Brokervertrag und Stopabstand erforderlich |
@@ -224,11 +246,49 @@ Gaps und USDT-Abweichungen verändern die Rechnung. Ein enger 2%-Tagesstop würd
 einen abrupten Stresspfad vorzeitig abbrechen, wenn genügend Verlust innerhalb
 desselben Tages entsteht. Bei einem langsamen Rückgang über mehrere Tage muss
 er nicht auslösen. Deshalb wird 6 % als
-**Paper-Vorschlag** zur Entscheidung gestellt; Livewerte sind davon getrennt.
+**Paperwert** in Q18 bestätigt; Livewerte sind davon getrennt.
 
-Die −55%-Preisregel wäre eine zusätzliche Verkaufsregel und bleibt ausdrücklich
-offen. Auch die Wirkung ausgelöster Kontogrenzen auf Positionen und Wiederaufnahme
-bedarf Q18/Q19. „Modelliertes Risiko“ bei MT5 garantiert bei Gaps keinen Fillpreis.
+Ausgelöste Crypto-Kontolimits schließen simulierte Positionen und sperren neue
+Käufe bis zu bewusster Wiederaufnahme. Keine automatische Budgeterhöhung oder
+Kompensation früherer Verluste. MT5-Lots werden unter Einbeziehung modellierter
+Kosten abgerundet; unter Broker-Mindestlot wird die Idee ausgelassen, niemals
+über das bestätigte Risiko aufgerundet.
+„Modelliertes Risiko“ bei MT5 garantiert bei Gaps keinen Fillpreis.
+
+## Offener Vorschlag Q23: gesonderter Notfallpuffer
+
+Dieser Pfad ist **noch nicht bestätigt**. Er wäre erst nach fünf abgeschlossenen
+regulären Einstiegsstufen verfügbar, höchstens einmal je Basket, und dürfte
+ausdrücklich RSI/Rearm umgehen. Er verändert keine normalen Signalregeln.
+
+Mit `P0` als tatsächlichem Fill-VWAP der ersten Stufe und `P5` als dem der fünften:
+
+`T = min(0,60 × P0, 0,95 × P5)`.
+
+Ein abgeschlossener H4-Kurs `≤T` erzeugt eine begrenzte Kaufabsicht.
+Ausführung höchstens bei `T`, Schutz inaktiv, keine ungeklärte Order und
+aktuelle Daten/Budget/Risiko zulässig. Vor Dispatch nochmals prüfen.
+Bei verkaufbarem Kurs `≤0,45 × P0` hat Exit Vorrang, auch bei einem direkten
+Gap: keinen Puffer kaufen; offene Kaufabsichten stornieren beziehungsweise
+abgleichen. Nicht automatisch Reserve auffüllen oder nach Exit neu starten.
+
+Das Preisfenster oberhalb des Notausstiegs kann leer sein:
+Bei `P5≤0,47368421×P0` liegt die 5%-Kaufgrenze bereits am/unter Exit.
+Dann bleibt die Reserve unangetastet. Ebenso bei weniger als fünf Stufen,
+aktivem Gewinnschutz oder verletztem Kontolimit.
+
+Illustration ohne Kosten: fünf reguläre Fills bei
+`100; 95; 90,25; 85,7375; 81,450625`, Notfallfill `60`.
+Durchschnitt `≈78,13834`, +5%-Marke `≈82,04526`.
+Beide 500-USDT-Baskets verlieren bei Preis 50 zusammen `≈360,11 USDT`,
+bei Preis 45 `≈424,10 USDT`. Ohne Einsatz der Reserve beträgt der Verlust
+bei Preis 50 nur `≈314,93 USDT`: Die Notfalltranche erhöht ihn um `≈45,18 USDT`.
+Sie senkt den Einstand, schützt aber nicht die Equity gegenüber Cash.
+
+Die −40%-Schwelle ist eine zu prüfende Versuchsanordnung mit Abstand zum
+−55%-Exit, kein belegtes Optimum. Abnahmefälle: Quote über Kaufcap,
+Gap direkt unter Exit, leerer Preisbereich, fehlender RSI-Rearm,
+Teilfill/Neustart/Doppelzustellung, nachträglicher Schutz-/Kontolimittrigger.
 
 ## Kontinuierliche Verbesserung
 

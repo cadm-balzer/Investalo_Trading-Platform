@@ -1,9 +1,11 @@
-# Privater Compose- und Identityplan
+# Compose- und Identityplan für den Privatpilot
 
 Stand 2026-11-07. Q13 bestätigt Docker Compose, Q14 lokales Authelia.
 Dieser Plan konkretisiert die Auswahl; es gibt noch keine ausführbare
-Composekonfiguration oder Installation. Zugang, Mail und Recovery sind in
-Q20–Q22 offen. Siehe [architecture.md](architecture.md).
+Composekonfiguration oder Installation. Q20 bestätigt einen öffentlichen
+zentralen HTTPS-Einstieg für den privaten Nutzerkreis; Q21 bestehenden
+kostenlosen SMTP. Q22 wünscht E-Mail als ausreichenden Recoverynachweis;
+der konkrete Ablauf in Q24 bleibt offen. Siehe [architecture.md](architecture.md).
 
 ## Services und Berechtigungen
 
@@ -31,22 +33,28 @@ Exakte Versionen/Digests und Lockdateien werden vor Bootstrap geprüft.
 ## Netze und TLS
 
 Nur der Proxy erhält eine explizite Hostbindung. Interne Services haben keine
-öffentlich veröffentlichten Ports. Bei privatem Development ist Loopback plus
-Tunnel eine Variante; tatsächliche Erreichbarkeit wird geprüft.
+öffentlich veröffentlichten Ports. Q20 plant bereits für den eingeladenen
+Privatpilot einen öffentlichen HTTPS-Einstieg; Entwicklung kann weiterhin über
+Loopback/Tunnel erfolgen. Kein öffentlicher Signup oder freier Kontozugriff.
+Eingehende Forwarded-Headers entfernen und ausschließlich den Proxy als
+vertrauenswürdige Quelle behandeln. Tatsächliche Erreichbarkeit wird geprüft.
 Docker-Portregeln können Hostfirewallregeln umgehen.
 
 Authelia benötigt einen Standarddomainnamen mit Punkt und HTTPS; `localhost`
 oder eine reine IP als Sessiondomain reichen nicht.
 Vorgeschlagen sind kontrollierte Namen unter `cockpit.investalo.de`,
 beispielsweise `auth.cockpit.investalo.de`, ohne DNSänderung in dieser Phase.
-Private Auflösung, Zertifikat, Browsername und OIDC-Redirect müssen zusammenpassen.
+Auflösung, Zertifikat, Browsername und OIDC-Redirect müssen zusammenpassen.
 Eine Domainwahl darf Sessioncookies nicht unnötig an die bestehende Website
 weiterreichen.
 
 Bei interner CA müssen Browser und OIDC-/API-beteiligte Container ihr vertrauen.
 Keine deaktivierte Zertifikatsprüfung. Für WebAuthn stabile RP-/Hostnamen
 festlegen, damit spätere Umbenennungen nicht unbemerkt Neuregistrierung erfordern.
-Die konkrete Zugangsvariante folgt Q20; öffentliche Produktion bleibt separat.
+Für öffentliche Zertifikate Challenge festlegen: HTTP-01 benötigt Port 80;
+DNS-01 einen TXT-Eintrag. Zusatzports oder DNS-Änderungen nicht ungeprüft
+vornehmen. Q20 ist eine Planentscheidung; der tatsächliche öffentliche
+Pilot-/Produktionsrollout braucht weiterhin separate Freigabe.
 
 ## Authelia, Sessions und Datenbank
 
@@ -73,9 +81,11 @@ und geprüften Schema-Rückfallpfad; ein älteres Image allein ist kein Rollback
 
 Authelia benötigt genau einen Notifier. File-Notifier nur mit
 Entwicklungs-Testidentitäten und geschütztem Pfad; Codes und Links sind sensible
-Daten und dürfen nicht in Git/Logs landen. Echter Privatbetrieb braucht den
-in Q21 zu wählenden SMTP-Weg mit TLS und geprüften Absenderrechten.
+Daten und dürfen nicht in Git/Logs landen. Q21 bestätigt vorhandenen kostenlosen
+SMTP mit TLS und zu prüfenden Absenderrechten.
 Noch werden keine externen Nachrichten versendet.
+Ein erfolgreicher SMTP-Startupcheck versendet keine Mail und beweist keine
+Zustellung. Empfänger und konkreter Testversand sind vor Pilotbetrieb zu prüfen.
 
 Stabile MFA: Passwort plus TOTP oder WebAuthn. Passkey allein wird nicht als
 belegte Zwei-Faktor-Anmeldung behandelt. Für eingerichtete MFA-Nutzer soll
@@ -83,11 +93,36 @@ Elevation zusätzlich den vorhandenen zweiten Faktor verlangen;
 Authelias Default `require_second_factor: false` ist hierfür nicht ausreichend.
 Der erste Faktoraufbau braucht gesondert den vorgesehenen Initialisierungsnachweis.
 
-Q22 entscheidet unabhängigen Ersatz und administrativen Recoveryweg.
-Keine unbestätigten „Authelia-Recoverycodes“ zusagen. Bei vollständigem
-Faktorverlust: Identität prüfen, konkrete Wiederherstellung freigeben, auditieren
-und bestehende IdP-/Anwendungssitzungen behandeln. Kein automatischer Reset
-über eine normale Cockpitaktion.
+Q22 verwirft den verpflichtenden unabhängigen Ersatzfaktor und bevorzugt
+E-Mail als ausreichenden Identitätsnachweis. Das Sicherheitsniveau hängt dann
+auch am Postfach: Seine Übernahme kann einen Faktorreset ermöglichen.
+Die normale Policy `require_second_factor: true` soll bestehen bleiben;
+damit gibt es bei vollständigem Faktorverlust keinen zugesicherten
+Mail-only-Selbstservice in Authelia.
+
+**Offener Vorschlag Q24 — gesonderter administrativer E-Mail-Recoveryweg:**
+
+1. Kurz gültige Einmalchallenge ausschließlich an die bereits hinterlegte
+   Adresse; beispielsweise fünf Minuten. Keine Adressänderung im selben Vorgang.
+   Diese Recoverychallenge ist gesondert zu implementieren/prüfen; Authelias
+   Elevationcode ist unter der strengen Policy kein fertiger Ersatz.
+2. Nutzerbezogene Cockpitsitzungen/sensible Aktionen sperren. Neue Exposition
+   durch dessen Aktionen verhindern; Schutz und Reconciliation weiter ausführen.
+3. Nach bestätigter Challenge den konkreten Faktorreset administrativ durchführen
+   und auditieren. Authelia dokumentiert kontobezogene TOTP- und WebAuthn-
+   Löschbefehle; keine allgemeine DB-Löschung und kein öffentliches CLI-Resettool.
+4. Cockpit-Authentifizierungsgeneration erhöhen, Streams beenden, betroffene
+   Tokens widerrufen und IdP-Sessions behandeln. Ein geplanter Neustart leert
+   alle In-Memory-IdP-Sessions, widerruft aber nicht persistierte OAuth-Tokens.
+   Authelia unterstützt laut aktueller Tabelle keinen RP-/Front-/Backchannel-
+   Logout; jede Schicht gesondert nachweisen. Bis erfolgreicher Prüfung sperren.
+5. Erneute Passwortanmeldung und Registrierung eines neuen MFA-Faktors über den
+   regulären Bootstrap; erst danach Freigabe. Reset/Neuregistrierung melden,
+   tatsächlichen Benachrichtigungsweg testen.
+
+Authelias Elevation ist standardmäßig zehn Minuten gültig, der Mailcode fünf.
+Ein Code-Widerruf sperrt den unbenutzten Code, hebt aber keine bereits erteilte
+Elevation auf. Keine unbestätigten „Authelia-Recoverycodes“ zusagen.
 
 ## Secrets und Ressourcen
 
@@ -106,7 +141,7 @@ Bei unzureichender Kapazität Umfang reduzieren oder Erweiterung abstimmen.
 ## Abnahme vor privatem Nutzerbetrieb
 
 - Frischer Checkout reproduzierbar, Pins/Locks/Digests nachvollziehbar.
-- Keine unbeabsichtigt extern erreichbaren Serviceports; TLS in Browser/BFF geprüft.
+- Ausschließlich freigegebener zentraler HTTPS-Einstieg extern; TLS in Browser/BFF geprüft.
 - MFA am OIDC-Client, Session-/Logout-/Entzugpfade und Recovery nachgewiesen.
 - IdP-/Trading-DB-Zugriffe und Tenant-Negativtests getrennt geprüft.
 - Mailweg und tatsächlicher Nachrichtenversand konkret autorisiert/geprüft.

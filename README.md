@@ -7,7 +7,10 @@ automatisiertem Handel über Bitget und MetaTrader 5.
 Anwendung. Der grundlegende Stack und beide Broker im ersten Release sind
 bestätigt, ebenso Docker Compose und lokales Authelia für MFA.
 Crypto startet mit BTC/ETH Spot ohne Hebel auf H4; MT5 mit XAUUSD Trend/Pullback.
-Detailregeln, Paper-Risikolimits und Zugangs-/Recoveryabläufe bleiben offen.
+RSI-/Supertrend-Regeln sowie Paper-/Demolimits sind bestätigt.
+Die sechste Crypto-Tranche bleibt ausschließlich Notfallreserve; deren Auslöser
+ist noch offen. Für den privaten Nutzerkreis ist ein öffentlicher zentraler
+HTTPS-Einstieg vorgesehen. E-Mail-Recovery ist gewünscht; der Ablauf bleibt offen.
 Bestätigt sind privater Start, Cockpit/Backtests/Paper vor Echtgeld,
 verbindliche Risikolimits, kontrollierte KI und zunächst kostenlose externe Dienste.
 
@@ -18,7 +21,7 @@ verbindliche Risikolimits, kontrollierte KI und zunächst kostenlose externe Die
 - [Architektur und Technologieauswahl](docs/architecture.md)
 - [Handelslogik und Validierung](docs/trading.md)
 - [Sicherheit](docs/security.md) und [Betrieb](docs/operations.md)
-- [Privater Compose-/Authelia-Plan](docs/deployment-plan.md)
+- [Compose-/Authelia-Plan für den Privatpilot](docs/deployment-plan.md)
 - [Roadmap](docs/roadmap.md), [Ticketboard](docs/tasks/board.md) und
   [Backlog](docs/backlog.md)
 - [Interview und offene Entscheidungen](docs/interview.md)

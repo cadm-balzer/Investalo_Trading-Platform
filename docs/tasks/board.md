@@ -11,15 +11,15 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | ID | Prio / Phase | Status | Aufgabe | Abhängigkeit / Abnahme |
 |---|---|---|---|---|
 | IP-001 | P0 / P0 | DONE | Originalauftrag, Skills, Host und Referenzrepos inventarisieren | Vollständig gelesen; read-only Quellenstände in inventory.md |
-| IP-002 | P0 / P0 | IN_PROGRESS | grill-me-Interview und gemeinsames Verständnis | Q1–Q14 bestätigt; Q15–Q22 gestellt, Abschlussbestätigung offen |
+| IP-002 | P0 / P0 | IN_PROGRESS | grill-me-Interview und gemeinsames Verständnis | Q1–Q22 beantwortet; Q23–Q28 gestellt, Abschlussbestätigung offen |
 | IP-003 | P0 / P0 | DONE | Struktur, Konzept und Projektdokumentation | Vollständiger Entwurf; Links/Tickets/Beispiele/Diff geprüft, im Planungsbranch gesichert |
 | IP-004 | P0 / P0 | DONE | Git-Containment für Credentialpfad | Ignore + aus Tracking entfernt, lokale Datei erhalten; Resthistory dokumentiert |
 | IP-005 | P0 / P0 | WAITING_DECISION | Credentialrotation und Historyremediation koordinieren | Inhalte nicht ausgeben; Rotation falls echte Keys; Rewrite/Force-Push nur explizit |
-| IP-006 | P0 / P1 | IN_PROGRESS | Runtimepins und bestätigten Betriebsentwurf konkretisieren | Grundstack/Compose/Authelia bestätigt; Zugriff/Recovery offen, Pins vor Bootstrap |
+| IP-006 | P0 / P1 | IN_PROGRESS | Runtimepins und bestätigten Betriebsentwurf konkretisieren | Compose/Authelia/öffentlicher Pilotzugang/SMTP bestätigt; Recovery/Pilotbackupziele offen, Pins vor Bootstrap |
 | IP-007 | P1 / P1 | BLOCKED | Gepinntes Bootstrap und reproduzierbarer privater Start | IP-006; exakte Locks/Hashes/Digests, dokumentierter Clean-Checkout-Start |
 | IP-008 | P0 / P1 | BLOCKED | Auth, Tenants, RBAC und DB-Isolation | IP-007; unautorisierte Requests/Jobs/Streams/Relations abgewiesen |
 | IP-009 | P0 / P1 | BLOCKED | Credentialverschlüsselung und minimale Serviceidentitäten | IP-006/008; kein Secret in Browser/Logs/Research, Rotation/Restore geprüft |
-| IP-010 | P1 / P2 | WAITING_DECISION | Crypto- und MT5-Strategien vollständig spezifizieren | BTC/ETH Spot H4 und Gold H1/M15 bestätigt; Q15–Q19 offen |
+| IP-010 | P1 / P2 | WAITING_DECISION | Crypto- und MT5-Strategien vollständig spezifizieren | Signale/Schutz/Paper-/Demolimits bestätigt; Q23 Notfallregel/Q26 Validierung offen |
 | IP-011 | P1 / P2 | BLOCKED | Marktdatenimport, Instrumentmetadaten und Snapshots | IP-010; Lizenz/Quota, Lücken, Zeit-/Preisquelle und Provenienz geprüft |
 | IP-012 | P0 / P2 | BLOCKED | Tradingkern und unabhängige Risk Engine | IP-010; harte Grenzen inkl. Reservierungen/Teilfills/Zeitwechsel getestet |
 | IP-013 | P1 / P3 | BLOCKED | Kosten-/Fillmodell und reproduzierbare Backtests | IP-011/012; keine Future-Leaks, reale Lots/Fees/Spread/Slippage |
@@ -52,7 +52,16 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
   konkretisiert Compose/Authelia. Offizieller Quellenabgleich und Architekturreview
   ohne weitere Befunde; keine Installation oder Laufzeitabnahme.
   Aktueller Check: 32 Projekt-Markdown-Dateien inklusive Agentpointer,
-  keine defekten Links/Ticketreferenzen; Q9–Q14 bestätigt, Q15–Q22 offen.
+  keine defekten Links/Ticketreferenzen; damaliger Stand Q9–Q14 bestätigt,
+  Q15–Q22 offen, inzwischen durch Runde 4 beantwortet.
+- **Runde 4, 2026-11-07:** Signale/Schutz und Risikoprofile übernommen;
+  Notfallreserve, öffentlicher HTTPS-Pilot und E-Mail-Recoverypräferenz ausdrücklich
+  als Abweichungen dokumentiert. Offizieller Authelia-Abgleich: administrative
+  Faktorresets möglich, Mail-only-Selbstservice/Logout nicht pauschal zusagen.
+  Q23–Q28 bleiben Vorschläge; keine Dienste, Orders oder Nachrichten ausgeführt.
+  Architektur-/Tradingreview eingearbeitet; 32 Markdown-Dateien/23 Tickets ohne
+  defekte Links/Referenzen. Antwortstatus und Notfallbudget-/Stress-/Cashvergleich
+  unabhängig geprüft, `git diff --check` sauber.
 
 ## Routine
 

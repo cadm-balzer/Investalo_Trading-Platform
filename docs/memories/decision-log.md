@@ -77,5 +77,48 @@ und gemessene Ressourcen bleiben Anforderungen; keine Installation erfolgt.
 
 **Status: bestätigt, Q14.** Lokale MFA der angebotenen Authelia-OIDC-Variante
 mit administrierten Privatnutzern und Passwort plus TOTP/WebAuthn.
-Kein Cloud-Identityprovider zum Start. SMTP, privater TLS-Zugriff und
-Wiederherstellung bleiben Q20–Q22.
+Kein Cloud-Identityprovider zum Start. Damals offene Zugangs-/SMTP-/
+Recoveryentscheidungen werden durch D-015 und D-016 konkretisiert.
+
+## 2026-11-07 — D-013: Signale, Gewinnschutz und gesonderte Notfallreserve
+
+**Status: bestätigt, Q15–Q17.** RSI14/Wilder aus geschlossenen H4-Kerzen,
+zwei `<30`-Kerzen erster Kauf, anschließend Rearm `>30` und eine `<30`-Kerze
+plus 5%-Preisabstand. Genau 30 kein Trigger; höchstens eine Stufe je Kerzenereignis.
+Supertrend ATR10/Wilder ×3, Schutz ab +5 % verkaufbarem Kurs zum Einstand,
+Netto-Untergrenze und monotones Trailing, keine Käufe nach Schutz, kein Flipexit.
+
+Q16 verwirft den regulär ausgelösten sechsten Kauf: ausschließlich Notfallreserve.
+Die −40%-Schwelle, Freigabe nach fünf Stufen und RSI-Ausnahme in Q23 sind
+**noch nicht bestätigt**. Ohne Auslöseregel bleibt diese Tranche unberührt.
+
+## 2026-11-07 — D-014: Paper-/Demoprofile
+
+**Status: bestätigt, Q18/Q19.** Crypto 10.000 virtuelle USDT, BTC/ETH je
+500 Kaufprincipal +5 Kostenreserve, 6 % Tagesverlust gegen Equity 00:00 UTC,
+8 % Verlust gegen Startkapital; offene Ergebnisse/Kosten inklusive.
+Zusätzlicher −55%-Exit relativ zum ersten Fill; Limits schließen simulierte
+Positionen und sperren neue Käufe bis bewusster Wiederaufnahme.
+
+MT5 getrenntes Brokerdemo, 0,25 % modelliertes Risiko je Idee einschließlich
+Kosten, maximal eine offene Idee; 1 % Tagesverlust gegen Equity 00:00
+Europe/Prague und 5 % gegen Startdemoequity. Lots abrunden, unter Mindestlot
+auslassen. Keine Echtgeldfreigabe und keine Garantie gegen Gapüberschreitungen.
+
+## 2026-11-07 — D-015: Öffentlicher Einstieg für den Privatpilot
+
+**Status: bestätigt, Q20/Q21.** Nutzer verwirft tunnel-only Pilotzugang:
+öffentlichen zentralen HTTPS-Einstieg bereits im Privatpilot planen.
+Nutzerkreis bleibt eingeladen, DB/Worker intern. Vorhandenen kostenlosen
+SMTP mit TLS vorsehen. Keine öffentliche Selbstregistrierung, tatsächliche
+Veröffentlichung und Mailversand bleiben gesondert geprüfte Aktionen.
+
+## 2026-11-07 — D-016: E-Mail als gewünschter Recoverynachweis
+
+**Status: Präferenz bestätigt, Q22; Ablauf in Q24 offen.** Nutzer möchte
+E-Mail als ausreichenden Nachweis statt verpflichtendem unabhängigem Ersatzfaktor.
+Best-Practice-Abweichung festhalten: Die Postfachübernahme könnte dann den
+MFA-Reset ermöglichen. Authelia erlaubt kontobezogene administrative Faktorresets;
+bei normaler Pflicht zum vorhandenen Faktor kein fertiger Mail-only-Selbstservice.
+Q24 schlägt getrennte administrative Einmalchallenge, Sitzung-/Tokenentzug
+und erneute MFA-Registrierung vor. Keine stillschweigende Automatisierung.

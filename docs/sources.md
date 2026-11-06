@@ -35,6 +35,13 @@ Die folgenden Compose-/Authelia-/Indikatorergänzungen wurden am 2026-11-07 gepr
 | Authelia File-Notifier | https://www.authelia.com/configuration/notifications/file/ | Nur Tests; Codes/Links geschützt halten |
 | Authelia SMTP | https://www.authelia.com/configuration/notifications/smtp/ | TLS und geeigneter produktiver Mailweg |
 | Authelia Elevation | https://www.authelia.com/configuration/identity-validation/elevated-session/ | Zweitfaktorpflicht nicht per Default gegeben |
+| Authelia TOTP-Reset | https://www.authelia.com/reference/cli/authelia/authelia_storage_user_totp_delete/ | Kontobezogener administrativer Faktorreset |
+| Authelia WebAuthn-Reset | https://www.authelia.com/reference/cli/authelia/authelia_storage_user_webauthn_delete/ | Kontobezogenes Entfernen verlorener Geräte |
+| Authelia OIDC-Support | https://www.authelia.com/integration/openid-connect/introduction/ | Logout-/Session-Management-Limits, keine pauschale Sitzungsrevocation |
+| Authelia Token-API | https://github.com/authelia/authelia/blob/master/api/openapi.yml | Dokumentierte Tokenrevocation; konkrete Version erneut prüfen |
+| Authelia Ereignismail | https://www.authelia.com/configuration/notifications/events/ | Sicherheitsereignisse an bestehende Adresse, tatsächliche Zustellung testen |
+| Authelia Proxyheaders | https://www.authelia.com/integration/proxies/forwarded-headers/ | Forwarded-Headers ausschließlich vom eigenen Proxy übernehmen |
+| Let's Encrypt Challenges | https://letsencrypt.org/docs/challenge-types/ | HTTP-01 Port 80, DNS-01 TXT-Eintrag; konkrete Wahl vor Rollout |
 | Compose Secrets | https://docs.docker.com/compose/how-tos/use-secrets/ | Dateimounts, keine verschlüsselte Schlüsselverwaltung |
 | Docker Portbindung | https://docs.docker.com/engine/network/port-publishing/ | Loopback explizit statt allgemeiner Hostbindung |
 | Docker Compose Netze | https://docs.docker.com/compose/how-tos/networking/ | Private Netze ersetzen keine korrekten Published-Port-Regeln |

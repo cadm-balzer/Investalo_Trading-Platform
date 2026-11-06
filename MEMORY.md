@@ -15,7 +15,15 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   Trend/Pullback H1/M15, schriftlicher Prompt maßgeblich, 25% Quote-Staffel,
   Preisabstand zum letzten Fill und −50% zum ersten Fill bestätigt.
   Docker Compose ausdrücklich gewählt, lokales Authelia/MFA bestätigt.
-  Details zu Indikatoren, Ausstieg, Paper-Risiko und Zugang/Recovery noch offen.
+- 2026-11-07, Q15–Q22: RSI14/Wilder H4 und Supertrend ATR10/Wilder ×3 bestätigt.
+  Sechste Tranche ausschließlich gesonderte Notfallreserve; Auslöser noch offen.
+  Crypto Paper: 10.000 USDT, je 500 Kaufprincipal +5 Kostenreserve, 6 % täglich/
+  8 % Startkapitalverlust, −55%-Notausstieg zum ersten Fill. MT5 getrenntes
+  Brokerdemo: 0,25 % Ideenrisiko, maximal eine Idee, 1 % täglich/5 % initial.
+  Öffentlicher zentraler HTTPS-Einstieg schon für eingeladenen Privatpilot,
+  bestehender kostenloser SMTP und E-Mail als gewünschter Recoverynachweis.
+  Q23–Q28 konkretisieren Notfallregel, Recovery, Terminal, Validierung,
+  Pilotbackupziele und Releasegrenze; noch nicht bestätigt.
 - Referenzsysteme liegen lokal unter `/opt/investalo-trading-system` und
   `/opt/investalo-autotrader`. Read-only Wiederverwendungsprüfung, keine Änderung
   laufender Systeme. Befunde: `docs/inventory.md`.

@@ -15,7 +15,7 @@ Microservice-Infrastruktur; fachliche Verträge erlauben spätere Trennung.
 
 ```mermaid
 flowchart TB
-  USER[Nutzer] --> INGRESS[Privater zentraler TLS-Einstieg]
+  USER[Eingeladener Nutzer] --> INGRESS[Öffentlicher zentraler HTTPS-Einstieg]
   INGRESS --> WEB[Cockpit]
   INGRESS --> API[API und Autorisierung]
   IDP[OIDC mit MFA] --> API
@@ -111,6 +111,9 @@ der eigenen IdP-Datenbank erlaubt. Die Trading-Runtime bleibt ohne DDL.
 Upgrade-/Restoreplanung muss diese Fremddienstausnahme berücksichtigen.
 
 Compose-, TLS-, Session- und Recoverydetails: [deployment-plan.md](deployment-plan.md).
+Q20 bestätigt öffentlichen HTTPS-Zugang schon im Privatpilot; interne Dienste
+bleiben unveröffentlicht. Q21 bestätigt vorhandenen kostenlosen SMTP.
+Q22 bevorzugt E-Mail-Recovery; Q24 konkretisiert den noch offenen Ablauf.
 
 ## Fachmodule und Datenmodell
 

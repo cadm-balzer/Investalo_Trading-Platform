@@ -12,6 +12,15 @@ Stand 2026-11-07. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
 - **Compose-Secrets:** Dateimounts sind kein verschlüsselter Tresor.
 - **IdP-Neustart:** Memorysessions verschwinden, BFF-/Tokens werden dadurch nicht
   automatisch widerrufen.
+- **E-Mail-Recovery:** Gewünschte Mail-only-Identitätsprüfung hängt am Schutz
+  des Postfachs. Strenge normale Elevation bedeutet keinen fertigen Mail-only-
+  Selbstservice; administrativer Reset und anschließende MFA sind gesondert.
+- **Authelia-Logout:** RP-/Front-/Backchannel-Logout laut aktueller Tabelle
+  nicht unterstützt. BFF-Authentifizierungsgeneration, Streams, Tokenrevocation
+  und IdP-Sessions ausdrücklich behandeln; Codewiderruf beendet keine Elevation.
+- **SMTP-Startupcheck:** Kein Nachrichtenversand und kein Zustellungsnachweis.
+- **Privatpilot:** Privater Nutzerkreis kann einen öffentlichen zentralen
+  HTTPS-Einstieg haben. Nicht mit öffentlicher Registrierung gleichsetzen.
 
 - **Identitybedarf:** Ein großer IdP kann allein den 2-GB-Host beanspruchen.
   Auch leichtes Authelia benötigt zusätzliche Argon2-Ressourcen pro Login.
@@ -38,7 +47,12 @@ Stand 2026-11-07. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
 - **Gold-CBS ist nicht Trend/Pullback.** Bildvarianten sind nicht als CBS-Plugin
   implementiert; im Registrycode ist Gold mit H1/M15 Trend/Pullback freigeschaltet.
 - **Kaufstaffel:** Sechs 1,25×-Quote-Budgets bei 5%-Preisabständen verbrauchen das
-  Budget schon nach etwa −22,62 %, nicht erst −50 %. Stress jeden Füllstand.
+  Budget schon nach etwa −22,62 %, nicht erst −50 %. Nach Q16 dient dieses
+  Beispiel nur als Vergleich; sechste Tranche ist ausschließlich Notfallreserve.
+  Stress jeden Füllstand, auch dauerhaft ausbleibendes Rearm.
+- **Notfallreserve:** Einsatz senkt Einstand, erhöht aber Verlustexposition
+  gegenüber Cash. Bei spätem fünften Fill kann der Kaufbereich zwischen
+  5%-Abstand und −55%-Exit leer sein; dann keine Ausnahme erzwingen.
 - **Hebel:** Nominal, Margin, Basketbudget und Kontoequity nicht verwechseln.
   Vereinfacht reicht 2× bei −50 % gegenüber Einstand mit Maintenance nicht aus.
 - **Supertrend:** Ein Stop ab +5 % kann trotzdem unter Nettobreakeven liegen.

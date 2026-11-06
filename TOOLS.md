@@ -35,6 +35,8 @@ _Add whatever helps you do your job. This is your cheat sheet._
 - Planning tasks: `docs/tasks/board.md`; documentation index: `docs/README.md`.
 - Never store access keys, passwords or tokens in these notes.
 - Deployment decision 2026-11-07: Docker Compose plus local Authelia OIDC/MFA.
-  Nothing installed yet; private access, SMTP and recovery remain open.
+  Nothing installed yet. Q20 plans a public central HTTPS entry for invited pilot
+  users; Q21 selects existing free SMTP. Email recovery is preferred, flow open.
+  Terminal host/build and actual history extent are not verified from safe files.
 - `.git` is read-protected by the workspace sandbox; Git mutations may need
   tool escalation even when editing project files is allowed.

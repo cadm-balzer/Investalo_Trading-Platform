@@ -4,7 +4,7 @@ Skill: [grill-me](../SKILLS/grill-me/SKILL.md). Fragen werden in Runden entlang
 bereits geklärter Voraussetzungen gestellt. „Ja“ akzeptiert die jeweils
 genannte Empfehlung. Unbeantwortete Fragen bleiben offen.
 
-Stand 2026-11-07: Runden 1–3 beantwortet; Runde 4 (Q15–Q22) gestellt.
+Stand 2026-11-07: Runden 1–4 beantwortet; Runde 5 (Q23–Q28) gestellt.
 Eine Abschlussbestätigung des gemeinsamen Verständnisses steht noch aus.
 Struktur und Planungsdokumente sind ausdrücklich beauftragt; Implementierung
 des Entwurfs beginnt erst nach den erforderlichen Entscheidungen.
@@ -14,7 +14,7 @@ des Entwurfs beginnt erst nach den erforderlichen Entscheidungen.
 | Frage | Nutzerentscheidung | Konsequenz |
 |---|---|---|
 | Q1 Erster Meilenstein | Ja: Cockpit, reproduzierbare Backtests und Paper zuerst | Kein Echtgeld als MVP-Abnahme; spätere Livefreigabe |
-| Q2 Nutzerkreis | Ja: erst privat starten | Einladung/privater Zugriff; Tenantmodell von Beginn an |
+| Q2 Nutzerkreis | Ja: erst privat starten | Privater Nutzerkreis per Einladung; Tenantmodell von Beginn an; öffentlicher HTTPS-Einstieg in Q20 gewählt |
 | Q3 Risikogrenzen | Ja, unbedingt | Tages-/Gesamt-/Positions-/Hebellimits unabhängig von Strategie/AI |
 | Q4 KI/Selbstlernen | Ja | Offlineverbesserung und geprüfte Promotion statt unkontrollierter Liveänderung |
 | Q5 Betrieb/Kosten | Vorhandener Server, Free-Tools/-Accounts; nur TradingView Essentials bezahlt | Keine neuen bezahlten Dienste buchen; Gratisquoten/Rechte und Kapazität prüfen |
@@ -44,25 +44,51 @@ Echtgeldorders, destruktive Änderungen oder weitere kostenpflichtige Accounts.
 Antworten über das Interview übernehmen; keine implizite Zustimmung aus
 Zeitablauf oder aus einer Zustimmung zu anderen Fragen ableiten.
 
-## Aktuelle Frontier — Runde 4
+## Bestätigte Entscheidungen — Runde 4
 
-Die aktuelle Runde enthält diese noch offenen Empfehlungen. Zahlen sind
-**keine** genehmigten Echtgeld-/Demolimits.
+Die Antworten bestätigen Paper-/Demowerte, keine Echtgeldlimits.
+Abweichungen von Empfehlungen werden ausdrücklich übernommen.
+
+| Frage | Nutzerentscheidung | Konsequenz |
+|---|---|---|
+| Q15 Crypto-Signale | Ja: RSI14/Wilder, abgeschlossene H4-Kerzen | Erster Kauf nach zwei `<30`-Kerzen; danach Rearm `>30` und eine `<30`-Kerze plus 5%-Preisbedingung; genau 30 kein Trigger |
+| Q16 Puffereinstieg | Abweichung: ausschließlich gesonderter Notfall | Fünf reguläre Stufen; sechste Reserve nicht als normaler Nachkauf; Schwelle und RSI-Ausnahme erst Q23 |
+| Q17 Gewinnschutz | Ja: Supertrend ATR10/Wilder ×3 und vorgeschlagene Schutzregeln | Aktivierung ab +5 % verkaufbarem Kurs zum tatsächlichen Durchschnitt; Nettobreakeven-Untergrenze, monotones Trailing, keine Nachkäufe danach, kein zusätzlicher Flipexit |
+| Q18 Crypto-Paperprofil | Ja einschließlich −55%-Notausstieg | 10.000 virtuelle USDT; je 500 Kaufprincipal +5 Kostenreserve; 6 % Tages-/8 % Startkapitalverlust; Tagesbasis Equity 00:00 UTC, Gesamtbasis Startkapital |
+| Q19 MT5-Demoprofil | Ja: getrenntes Brokerdemo mit vorgeschlagenen Limits | 0,25 % modelliertes Ideenrisiko, höchstens eine Idee, 1 % Tages-/5 % Startkapitalverlust; Tageswechsel Europe/Prague; Lots abrunden |
+| Q20 Pilotzugriff | Abweichung: öffentlicher zentraler HTTPS-Einstieg schon im Privatpilot | Privater Nutzerkreis, öffentlicher Proxy; interne DB/Worker; tatsächlicher Rollout separat freigeben |
+| Q21 MFA-Mailweg | Ja: vorhandener kostenloser SMTP-Zugang | TLS, Absenderrechte und Zustellung prüfen; noch keine externen Nachrichten |
+| Q22 MFA-Recovery | Abweichung: andere Methode, z. B. E-Mail reicht | E-Mail als gewünschter ausreichender Identitätsnachweis; konkrete administrative Umsetzung und Einschränkungen Q24 |
+
+Q16 genehmigt **keine** bestimmte Notfallschwelle und keine automatische
+RSI-Umgehung. Q22 genehmigt **keinen** beliebigen automatischen Reset oder
+Adresswechsel. Die gewünschte E-Mail-Recovery ist schwächer als ein unabhängiger
+Ersatzfaktor: Ein kompromittiertes Postfach könnte einen Reset ermöglichen.
+Authelia bietet bei strenger Faktoränderungspolicy keinen fertigen
+Mail-only-Selbstservice; Quellen und vorgeschlagener Ablauf stehen in
+[deployment-plan.md](deployment-plan.md).
+
+## Aktuelle Frontier — Runde 5
+
+Q23–Q28 sind gestellt, noch nicht beantwortet. Die Empfehlungen bleiben offen.
 
 | Frage | Konkrete Empfehlung | Status |
 |---|---|---|
-| Q15 Crypto-Signale | RSI14/Wilder, H4-Schlusswerte; zwei Kerzen erster Kauf; Rearm über 30, eine Kerze Nachkauf unter 30 plus Preisbedingung | Offen |
-| Q16 Puffereinstieg | Gleiche Signal-/Preisbedingungen wie reguläre Nachkäufe, keine RSI-Umgehung | Offen |
-| Q17 Gewinnschutz | Supertrend ATR10/Wilder ×3; ab +5 % verkaufbarem Kurs, Nettoeinstand-Untergrenze, monotones Trailing, keine Nachkäufe danach | Offen |
-| Q18 Crypto-Paperprofil | 10.000 virtuelle USDT; je 500 Kaufbudget +5 Kostenreserve; 6 % Tages-/8 % Startkapitalverlust, −55 % Preisnotausstieg | Offen |
-| Q19 MT5-Demoprofil | Getrenntes Brokerdemo; 0,25 % Handelsideenrisiko, eine Idee, 1 % Tages-/5 % Startkapitalverlust | Offen |
-| Q20 Privater Zugriff | Entwicklung über Tunnel/privates Netz mit stabilen TLS-Domainnamen; öffentlicher Einstieg später | Offen |
-| Q21 MFA-Mailweg | Vorhandener kostenfreier SMTP mit TLS, zunächst nur planen/prüfen | Offen |
-| Q22 MFA-Recovery | Unabhängiger Ersatzfaktor, kein Mail-only-Wechsel, administrativer Identitätsnachweis | Offen |
+| Q23 Gesonderter Notfallpuffer | Erst nach fünf regulären Stufen, einmalig bei geschlossenem H4-Kurs ≤60 % erster Fill und ≤95 % fünfter Fill; ausdrücklich ohne RSI/Rearm, begrenzter Kaufpreis; −55%-Exit und Risiko gehen vor | Offen |
+| Q24 E-Mail-Recoveryablauf | Administrativer Reset nach kurzer Einmalchallenge an bestehende Adresse; keine Adressänderung; Sitzungen/Token entziehen, neuen MFA-Faktor erzwingen; normale Faktoränderung weiterhin mit MFA | Offen |
+| Q25 MT5-Terminalbetrieb | Zusätzliche Demo-Terminalinstanz auf vorhandenem MT5-Rechner mit neuer ausgehender HTTPS-EA-Bridge; bestehendes System in eigener Instanz | Offen |
+| Q26 Validierungsmaßstab | Ziel ≥3 Jahre Crypto/≥2 Jahre brokerpassendes Gold; chronologische getrennte Fenster/ungeöffneter Holdout; im unabhängigen Holdout positiver Nettoertrag, PF ≥1,2, ≥30 geschlossene Baskets je Crypto-Asset bzw. ≥100 Goldtrades für wirtschaftliche Eignung | Offen |
+| Q27 Pilot-Sicherungsziele | RPO 24 Stunden/RTO 4 Stunden; tägliche verschlüsselte externe Sicherung, zusätzliche geschützte Offlinekopie und getrennte Schlüssel; Ziel vor Pilotfreigabe konkret prüfen | Offen |
+| Q28 Releasegrenze und spätere Gates | M1 Cockpit/MFA/Tenants/Portfolio/Journal/Backtests/beide Paper-/Demopfade; echte KI und vollständige News-/Kalenderfeeds danach; Echtgeld/FTMO/AI-Provider/Kundenbetrieb ausdrücklich später entscheiden | Offen |
 
-Q16 entscheidet die Wiederverwendung der normalen Nachkaufbedingungen unabhängig
-von der genauen Q15-Bestätigungskerzenzahl. Q17 betrifft den getrennten Schutzpfad.
-Q18 ist ein expliziter Paper-Vorschlag, keine stillschweigende Strategieänderung.
+Q23 ist eine neue Versuchsanordnung, kein nachgewiesenes Optimum. Der Puffer
+senkt den Einstand, erhöht aber Verlustexposition gegenüber ungenutztem Cash.
+Q26 trennt technische Paperbeobachtung von wirtschaftlicher Eignung; zu wenig
+Historie/Trades ist kein bestandenes Ergebnis. Trainings-/Validierungszahlen
+ersetzen die Mindeststichprobe im unabhängigen Holdout nicht. Diese Schwellen
+sind ein vereinbarbarer Forschungsfilter, kein statistischer Gewinnbeweis.
+Tatsächliche verfügbare Historie
+und Terminalhost sind nicht aus den inventarisierten Dateien belegt.
 
 ## Entscheidungsbaum
 
@@ -73,45 +99,38 @@ flowchart TD
   ROOT --> LOGIN[Eigene MFA bestätigt]
   ROOT --> COST[Free-only bestätigt]
   ROOT --> AI[Kontrollierte KI bestätigt]
-  MARKET --> RULES[Q15-17: Signale, Puffer und Gewinnschutz]
-  MARKET --> ACCOUNT[Q18-19: getrennte Paper-/Demorisiken]
-  RULES --> VALID[Validierung und erste Abnahmeschwellen]
+  MARKET --> RULES[Signale und Schutz bestätigt; Q23 Notfallpuffer]
+  MARKET --> ACCOUNT[Paper-/Demorisiken bestätigt]
+  RULES --> VALID[Q26 Validierung und Nachweise]
   ACCOUNT --> VALID
-  STACK --> DEPLOY[Q20: privater TLS-Zugriff]
-  LOGIN --> PROVIDER[Q21-22: Mailweg und MFA-Recovery]
+  STACK --> DEPLOY[Öffentlicher HTTPS-Pilot bestätigt]
+  LOGIN --> PROVIDER[SMTP bestätigt; Q24 E-Mail-Recoveryablauf]
   COST --> PROVIDER
-  COST --> BACKUP[Externe Backups und Schlüsselgrenze]
-  AI --> AIPOLICY[Shadoweinsatz, Provider und Fehlerpolicy]
-  MARKET --> AIPOLICY
+  COST --> BACKUP[Q27 Pilot-Backupziele]
+  MARKET --> TERMINAL[Q25 separate Demo-Terminalinstanz]
+  AI --> SCOPE[Q28 Releasegrenze und spätere Gates]
+  MARKET --> SCOPE
   VALID --> AGREEMENT[Gemeinsames Verständnis bestätigen]
   DEPLOY --> AGREEMENT
   PROVIDER --> AGREEMENT
   BACKUP --> AGREEMENT
-  AIPOLICY --> AGREEMENT
+  TERMINAL --> AGREEMENT
+  SCOPE --> AGREEMENT
   AGREEMENT --> BUILD[Implementierung]
 ```
 
 ## Folgefragen nach Voraussetzung
 
-Nach der aktuellen Runde bleiben diese abhängigen Punkte:
+Nach der aktuellen Runde werden nur von den Antworten abhängige Entscheidungen
+weitergeführt. Bei Zustimmung zu Q28 liegen Echtgeld-/FTMO-/AI-Provider- und
+Kundenentscheidungen ausdrücklich an späteren Gates. Der Interviewabschluss
+braucht weiterhin die Bestätigung des gemeinsamen Verständnisses.
 
-- Nach Q15–Q19: Warm-up-/Kosten-/Fillmodell, konkrete Broker-/Kontoprofile,
-  Testhistorien und vor Optimierung festgelegte Abnahmeschwellen.
-- Nach Q19: FTMO-Phase falls relevant,
-  Terminalhosting, lokaler Betrieb und Datenhistorie.
-- Nach Markt-/Kontotyp: erste Paperkapitalbasis und konkrete Risikolimits.
-  Echtgeldbetrag/Livekriterien können nur ausdrücklich an ein späteres Gate
-  delegiert werden, niemals stillschweigend angenommen.
-- Nach Betriebswahl: gepinnte Laufzeiten, Hostressourcen und
-  Priorisierung von Entwicklung/Research/Live.
-- Nach Q20–Q22: konkrete Zugangs-/Mail-/Recoverytests; keine externen Nachrichten
-  oder Host-/DNSänderungen ohne den notwendigen konkreten Auftrag.
-- Nach Betriebswahl: tolerierbare Ausfälle, kostenlose externe Sicherung,
-  Schlüsselwiederherstellung und Alarmierungswege.
-- Nach erstem Strategiepfad: AI zunächst deaktiviert/Shadow/Veto,
-  erlaubte Daten, kostenloser Provider und Timeoutpolicy.
-- Nach formaler Strategie: Mindestdatenmenge, Kostenmodell,
-  Benchmark und Abnahmekriterien vor Optimierung.
+Konkrete Umsetzungsfakten recherchieren wir: unterstützte Versionen exakt pinnen,
+Historienlänge/-qualität prüfen, Brokerkosten/Metadaten und Hostlast messen.
+Vor Pilotrollout müssen Domain/TLS, SMTP/Empfänger, Terminalbindung,
+externes Backupziel/Schlüssel und Recoverytests konkret geprüft sein. Eine
+Planentscheidung veröffentlicht keine Dienste und versendet keine Nachrichten.
 
 Umweltfakten recherchieren die Agents selbst. Entscheidungen und Risikotoleranz
 gehören dem Nutzer. Offene Fakten dürfen abhängige Fragen verzögern, aber

@@ -1,7 +1,8 @@
 # Sicherheitskonzept
 
 Stand 2026-11-07. Verbindliche Leitlinien aus AGENTS.md:
-private Bereitstellung, Verschlüsselung und minimale Rechte.
+privater Nutzerkreis, Verschlüsselung und minimale Rechte. Q20 konkretisiert
+den Zugang als öffentlichen zentralen HTTPS-Einstieg schon im Privatpilot.
 Docker Compose und lokales Authelia sind in Q13/Q14 bestätigt;
 konkrete Pins, Schlüsselbereitstellung und Recoveryabläufe bleiben offen.
 
@@ -41,10 +42,15 @@ Ein alleiniger Passkey-Login ist dort nicht automatisch ein belegter Zwei-Faktor
 Login. Die Cloudalternative ZITADEL braucht eine Datenverarbeitungsentscheidung
 und einen belastbaren Mail-/Recoveryweg auch im Free-Tarif.
 
-Für bereits eingerichtete MFA-Nutzer verlangen Faktoränderungen zusätzlich
+Für bereits eingerichtete MFA-Nutzer verlangen reguläre Faktoränderungen zusätzlich
 den vorhandenen zweiten Faktor; Mail-only-Elevation ist keine gleichwertige
-phishingresistente Prüfung. Unabhängiger Ersatz und Recoveryweg folgen Q22.
-File-Notifier ist nur für Entwicklung, produktiver SMTP-Weg folgt Q21.
+phishingresistente Prüfung. Q22 bevorzugt E-Mail als ausreichenden
+Recoverynachweis; die damit vom Postfach abhängige Sicherheitsgrenze wird
+ausdrücklich dokumentiert. Q24 schlägt einen gesonderten administrativen
+Reset mit Einmalchallenge, Sitzungssperre und anschließender MFA-Neuregistrierung
+vor; noch keine Zustimmung zu diesem Ablauf.
+File-Notifier ist nur für Entwicklung; Q21 bestätigt vorhandenen kostenlosen
+SMTP mit TLS, Zustellung noch ungeprüft.
 Konkrete Grenzen: [deployment-plan.md](deployment-plan.md).
 
 RLS-/Cache-/Workergrenzen stehen in [architecture.md](architecture.md).
@@ -94,10 +100,13 @@ lokal committed und nicht ungeprüft gepusht.
 
 ## Netz und Dienste
 
-Ein zentraler TLS-Einstieg; private Einladung und zunächst privater Zugang.
+Ein zentraler TLS-Einstieg; private Einladung, keine öffentliche Registrierung.
+Q20 plant den HTTPS-Einstieg bereits für diesen Privatpilot öffentlich.
 Datenbank, Secrets, Metriken und interne Worker sind nicht öffentlich.
-Der spätere Domainzugang `cockpit.investalo.de` braucht eigene
-Produktionsfreigabe und bewusste Zugangsentscheidung.
+Die Domain `cockpit.investalo.de` erhält erst nach konkreter
+Pilot-/Produktionsfreigabe einen tatsächlichen Rollout.
+Forwarded-Headers nur vom eigenen Proxy übernehmen; Rate Limits und
+unauthentifizierte Login-/Recoverypfade bei der öffentlichen Abnahme prüfen.
 
 Bei der bestätigten Dockerbereitstellung interne Ports nicht öffentlich publishen:
 Docker-Portregeln können UFW-/firewalld-Regeln umgehen. Keine Docker-Socket-
