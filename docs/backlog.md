@@ -22,7 +22,7 @@ Keine erledigten Punkte in dieser Liste halten.
 | BL-015 | Kundenbetrieb, Abrechnung und Compliance | IP-023; neue Product-/Rechts-/Privacyphase |
 | BL-016 | Brandtokens und bestehendes UX-System | Vor IP-014 Websitevorgaben erfassen und Logoverwendung/Design abstimmen |
 | BL-017 | Auth-Retention und Ratenbegrenzung | Nonce-/Sitzungsbereinigung, begrenzte Jobannahme und Recoveryoperator vor Pilot nachweisen |
-| BL-018 | Researchdaten und Executionidentitäten | Reale Fees/Spread/Instrumentregeln kalibrieren, Dreijahresdaten und Holdoutprotokoll nachweisen; separate Executionrollen bei IP-016. Researchrolle und immutable Snapshots umgesetzt |
+| BL-018 | Researchdaten und Executionidentitäten | Reale Fees/Spread/Instrumentregeln kalibrieren, Dreijahresdaten und Holdoutprotokoll nachweisen; separate Executionrollen bei IP-016 |
 | BL-019 | Manueller Auftrag ohne Fill | Bei IP-024 expliziten abgeglichenen Wiederholungsweg für reservierte manuelle Intents ergänzen; keine blinde neue Order |
 | BL-020 | Tatsächliche MFA-Schrittbestätigung | Für manuellen Einstieg verified Fresh-MFA-Auditreferenz, Faktorregistrierung/WebAuthn und pilotstabile RP-Domain prüfen |
 

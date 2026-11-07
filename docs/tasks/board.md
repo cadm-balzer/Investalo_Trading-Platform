@@ -109,6 +109,7 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
   tatsächliche Berechnung, persistierten Datenhash und Equitydarstellung.
   Ergebnis bleibt ausdrücklich nicht wirtschaftlich validiert; Dreijahresziel,
   Kostenkalibrierung und unabhängiger Holdout nicht erfüllt.
+  Implementierungscommit `3a73c12` auf `origin/feat/m1-foundation` gepusht.
   [Startanleitung](../../infra/README.md), [Tests](../../tests/README.md).
 
 ## Routine
