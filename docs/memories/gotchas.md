@@ -285,3 +285,8 @@ Stand 2026-11-07. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   während einer längeren PG-Suite zu einer gültigen Gegenwartszeit werden.
   Future-Claims erst bei Ausführung erzeugen; die produktive Zukunftsprüfung
   bleibt unverändert. Der erweiterte84s-Lauf hat diese alte Testschwäche sichtbar gemacht.
+- **SSH-Agent nach Wiederverbindung:** Git/SSH warteten ohne Ausgabe am
+  Agent-Socket; `ConnectTimeout` begrenzt diese Agentabfrage nicht.
+  Mit vorhandenem Deploy-Key und `IdentityAgent=none` gelang der Push sofort.
+  `IdentitiesOnly`, `BatchMode` und strikte Hostkeyprüfung erhalten; nur die
+  eigenen hängenden Verbindungen beenden, keine Schlüssel ausgeben oder ersetzen.

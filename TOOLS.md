@@ -67,8 +67,10 @@ _Add whatever helps you do your job. This is your cheat sheet._
 - GitHub intermediate pushes explicitly authorized. Origin:
   `github.com:cadm-balzer/Investalo_Trading-Platform.git`.
   Existing host Deploy-Key `/opt/github-project-ssh-key` is used via
-  `git -c 'core.sshCommand=ssh -i /opt/github-project-ssh-key -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes' push -u origin feat/m1-passkey-action-proof`.
+  `git -c 'core.sshCommand=ssh -i /opt/github-project-ssh-key -o IdentityAgent=none -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=15 -o ServerAliveInterval=15 -o ServerAliveCountMax=2' push -u origin feat/m1-passkey-action-proof`.
   Never copy the private key into the repository or print its contents.
+  The inherited SSH agent stalled while enumerating identities on2026-11-07;
+  using the already authorized deploy identity directly completed the push.
 - Remote main was verified as already containing the historical credential-path
   commit. IP-005 remains open; no history rewrite/force-push was performed.
 - Credential fixture preparation: `infra/scripts/provision-local-credentials-tests.py`.

@@ -166,6 +166,9 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   not recreated. Full BFF enrollment, hardware/browser acceptance and credential
   integration remain IP-033; retention/rate operation BL-017, recovery BL-025.
   See `docs/passkey-action-proofs.md`.
+  Implementation checkpoint `9b47ae1` pushed and remote-verified; main remains
+  `e741c6b`. If the inherited SSH agent stalls, use the existing deploy identity
+  with IdentityAgent=none and strict host-key checking (see `TOOLS.md`).
 
 ## Trading and implementation invariants
 
