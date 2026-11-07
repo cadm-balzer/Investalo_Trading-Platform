@@ -1,0 +1,324 @@
+name: investalo-local
+
+x-hardened: &hardened
+  restart: unless-stopped
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+  read_only: true
+  tmpfs: ["/tmp:rw,noexec,nosuid,size=32m"]
+  logging:
+    driver: json-file
+    options:
+      max-size: 5m
+      max-file: "2"
+
+services:
+  postgres:
+    <<: *hardened
+    image: ${POSTGRES_IMAGE:?Pinned image required}
+    user: "999:999"
+    mem_limit: 256m
+    shm_size: 64m
+    cpus: 0.75
+    environment:
+      POSTGRES_USER: investalo_admin
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_admin_password
+      PGDATA: /var/lib/postgresql/18/docker
+      POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256 --auth-local=trust"
+    command:
+      - postgres
+      - -c
+      - ssl=on
+      - -c
+      - ssl_cert_file=/run/secrets/postgres_tls_cert
+      - -c
+      - ssl_key_file=/run/secrets/postgres_tls_key
+      - -c
+      - ssl_min_protocol_version=TLSv1.2
+      - -c
+      - hba_file=/etc/postgresql/pg_hba.conf
+      - -c
+      - shared_buffers=64MB
+      - -c
+      - max_connections=30
+      - -c
+      - log_statement=none
+      - -c
+      - log_min_error_statement=panic
+      - -c
+      - log_parameter_max_length_on_error=0
+    volumes:
+      - ./local/postgres-data:/var/lib/postgresql
+      - ./postgres/10-bootstrap.sh:/docker-entrypoint-initdb.d/10-bootstrap.sh:ro
+      - ./postgres/pg_hba.conf:/etc/postgresql/pg_hba.conf:ro
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=32m
+      - /var/run/postgresql:rw,nosuid,size=8m,uid=999,gid=999
+    secrets:
+      - postgres_admin_password
+      - postgres_tls_cert
+      - postgres_tls_key
+      - bootstrap_platform_migration_password
+      - bootstrap_platform_runtime_password
+      - bootstrap_authelia_db_password
+    networks: [database]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -q -U investalo_admin -d postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  authelia:
+    <<: *hardened
+    image: ${AUTHELIA_IMAGE:?Pinned image required}
+    user: "10004:10004"
+    # Headroom for repeated Argon2 password and OIDC client checks.
+    mem_limit: 320m
+    cpus: 0.75
+    command: [authelia, --config, /config/configuration.yml]
+    environment:
+      AUTHELIA_SESSION_SECRET_FILE: /run/secrets/authelia_session_secret
+      AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE: /run/secrets/authelia_storage_key
+      AUTHELIA_STORAGE_POSTGRES_PASSWORD_FILE: /run/secrets/authelia_db_password
+      AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET_FILE: /run/secrets/authelia_oidc_hmac_secret
+    volumes:
+      - ./local/authelia.yml:/config/configuration.yml:ro
+      - ./local/users.yml:/config/users.yml:ro
+      - ./local/local_ca_cert:/config/certificates/local-ca.crt:ro
+      - ./local/authelia-data:/var/lib/authelia
+    secrets:
+      - authelia_session_secret
+      - authelia_storage_key
+      - authelia_db_password
+      - authelia_oidc_hmac_secret
+      - authelia_tls_cert
+      - authelia_tls_key
+      - local_ca_cert
+    networks: [identity, database]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: [CMD, wget, --quiet, --no-proxy, --no-hsts, "--ca-certificate=/run/secrets/local_ca_cert", --output-document=/dev/null, "https://authelia:9091/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  caddy:
+    <<: *hardened
+    image: ${CADDY_IMAGE:?Pinned image required}
+    user: "10001:10001"
+    mem_limit: 64m
+    cpus: 0.25
+    ports:
+      - "127.0.0.1:8443:8443"
+    environment:
+      XDG_DATA_HOME: /data
+      XDG_CONFIG_HOME: /tmp
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./local/caddy-data:/data
+    secrets:
+      - ingress_tls_cert
+      - ingress_tls_key
+      - local_ca_cert
+    networks:
+      ingress: {}
+      front:
+        aliases: [cockpit.local.test]
+      identity:
+        aliases: [auth.cockpit.local.test]
+
+  api:
+    <<: *hardened
+    image: investalo-api:0.1.0-local
+    build:
+      context: ..
+      dockerfile: infra/docker/api.Dockerfile
+      target: runtime
+      args:
+        PYTHON_IMAGE: ${PYTHON_IMAGE:?Pinned image required}
+    user: "10003:10003"
+    group_add: ["10010"]
+    mem_limit: 192m
+    cpus: 0.5
+    environment: &api-environment
+      PGHOST: postgres
+      PGPORT: "5432"
+      PGDATABASE: investalo
+      PGUSER: investalo_runtime
+      PGPASSWORD_FILE: /run/secrets/platform_runtime_password
+      PGSSLMODE: verify-full
+      PGSSLROOTCERT: /run/secrets/local_ca_cert
+      API_INTERNAL_AUTH_SECRET_FILE: /run/secrets/internal_api_key
+      API_OIDC_ISSUER: https://auth.cockpit.local.test:8443
+    secrets:
+      - platform_runtime_password
+      - internal_api_key
+      - local_ca_cert
+      - api_tls_key
+      - api_tls_cert
+    networks: [application, database]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import ssl,urllib.request; urllib.request.urlopen('https://api:8000/health/ready',context=ssl.create_default_context(cafile='/run/secrets/local_ca_cert'),timeout=3).read()"
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  cockpit:
+    <<: *hardened
+    image: investalo-cockpit:0.1.0-local
+    build:
+      context: ..
+      dockerfile: infra/docker/cockpit.Dockerfile
+      args:
+        NODE_IMAGE: ${NODE_IMAGE:?Pinned image required}
+    user: "10002:10002"
+    group_add: ["10010"]
+    mem_limit: 256m
+    cpus: 0.5
+    environment:
+      COCKPIT_ORIGIN: https://cockpit.local.test:8443
+      OIDC_ISSUER: https://auth.cockpit.local.test:8443
+      OIDC_CLIENT_ID: investalo-cockpit
+      OIDC_CLIENT_SECRET_FILE: /run/secrets/oidc_client_secret
+      COCKPIT_SESSION_SECRET_FILE: /run/secrets/cockpit_session_key
+      BFF_INTERNAL_AUTH_SECRET_FILE: /run/secrets/internal_api_key
+      API_BASE_URL: https://api:8000
+      COCKPIT_STATE_DIR: /app/state
+      NODE_EXTRA_CA_CERTS: /run/secrets/local_ca_cert
+    volumes:
+      - ./local/cockpit-data:/app/state
+    secrets:
+      - oidc_client_secret
+      - cockpit_session_key
+      - internal_api_key
+      - local_ca_cert
+    networks: [front, identity, application]
+    depends_on:
+      api:
+        condition: service_healthy
+      authelia:
+        condition: service_healthy
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:3000/api/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  migrate:
+    <<: *hardened
+    profiles: [tools]
+    restart: "no"
+    image: investalo-migration:0.1.0-local
+    build:
+      context: ..
+      dockerfile: infra/docker/api.Dockerfile
+      target: migration
+      args:
+        PYTHON_IMAGE: ${PYTHON_IMAGE:?Pinned image required}
+    user: "10003:10003"
+    mem_limit: 192m
+    environment:
+      <<: *api-environment
+      PGUSER: investalo_migration
+      PGPASSWORD_FILE: /run/secrets/platform_migration_password
+      API_INTERNAL_AUTH_SECRET_FILE: ""
+    secrets: [platform_migration_password, local_ca_cert]
+    networks: [database]
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  api-checks:
+    <<: *hardened
+    profiles: [checks]
+    restart: "no"
+    image: investalo-api-checks:0.1.0-local
+    build:
+      context: ..
+      dockerfile: infra/docker/api.Dockerfile
+      target: checks
+      args:
+        PYTHON_IMAGE: ${PYTHON_IMAGE:?Pinned image required}
+    user: "10003:10003"
+    group_add: ["10010"]
+    mem_limit: 256m
+    environment:
+      <<: *api-environment
+      API_TEST_ADMIN_USER: investalo_migration
+      API_TEST_ADMIN_PASSWORD_FILE: /run/secrets/platform_migration_password
+    secrets: [platform_runtime_password, platform_migration_password, internal_api_key, local_ca_cert]
+    networks: [database]
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+networks:
+  # Only the proxy has a host-facing bridge: Docker 29 does not publish ports
+  # when a container is attached exclusively to internal networks.
+  ingress: {}
+  # Application services have no outbound Internet access in this foundation.
+  # Broker/data workers receive separately scoped egress when implemented.
+  front:
+    internal: true
+  identity:
+    internal: true
+  database:
+    internal: true
+  application:
+    internal: true
+
+secrets:
+  postgres_admin_password:
+    file: ./local/postgres_admin_password
+  bootstrap_platform_migration_password:
+    file: ./local/bootstrap_platform_migration_password
+  bootstrap_platform_runtime_password:
+    file: ./local/bootstrap_platform_runtime_password
+  bootstrap_authelia_db_password:
+    file: ./local/bootstrap_authelia_db_password
+  postgres_tls_cert:
+    file: ./local/postgres_tls_cert
+  postgres_tls_key:
+    file: ./local/postgres_tls_key
+  authelia_session_secret:
+    file: ./local/authelia_session_secret
+  authelia_storage_key:
+    file: ./local/authelia_storage_key
+  authelia_db_password:
+    file: ./local/authelia_db_password
+  authelia_oidc_hmac_secret:
+    file: ./local/authelia_oidc_hmac_secret
+  authelia_tls_cert:
+    file: ./local/authelia_tls_cert
+  authelia_tls_key:
+    file: ./local/authelia_tls_key
+  ingress_tls_cert:
+    file: ./local/ingress_tls_cert
+  ingress_tls_key:
+    file: ./local/ingress_tls_key
+  local_ca_cert:
+    file: ./local/local_ca_cert
+  platform_runtime_password:
+    file: ./local/platform_runtime_password
+  platform_migration_password:
+    file: ./local/platform_migration_password
+  internal_api_key:
+    file: ./local/internal_api_key
+  api_tls_key:
+    file: ./local/api_tls_key
+  api_tls_cert:
+    file: ./local/api_tls_cert
+  oidc_client_secret:
+    file: ./local/oidc_client_secret
+  cockpit_session_key:
+    file: ./local/cockpit_session_key

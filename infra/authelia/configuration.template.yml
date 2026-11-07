@@ -1,0 +1,94 @@
+# Rendered only for isolated local development. Never use this test identity/notifier
+# in the public pilot. Sensitive strings are supplied as per-service file secrets.
+server:
+  address: 'tcp://:9091/'
+  disable_healthcheck: true
+  tls:
+    key: '/run/secrets/authelia_tls_key'
+    certificate: '/run/secrets/authelia_tls_cert'
+log:
+  level: 'warn'
+certificates_directory: '/config/certificates'
+authentication_backend:
+  password_reset:
+    disable: true
+  file:
+    path: '/config/users.yml'
+    watch: false
+    password:
+      algorithm: 'argon2'
+      argon2:
+        variant: 'argon2id'
+        iterations: 3
+        memory: 65536
+        parallelism: 2
+identity_validation:
+  elevated_session:
+    require_second_factor: true
+    skip_second_factor: false
+session:
+  name: 'investalo_idp'
+  same_site: 'lax'
+  inactivity: '10m'
+  expiration: '1h'
+  remember_me: '0'
+  cookies:
+    - domain: 'auth.cockpit.local.test'
+      authelia_url: 'https://auth.cockpit.local.test:8443'
+access_control:
+  default_policy: 'deny'
+  rules:
+    - domain: 'cockpit.local.test'
+      policy: 'two_factor'
+regulation:
+  max_retries: 5
+  find_time: '2m'
+  ban_time: '10m'
+totp:
+  issuer: 'Investalo Local Test'
+  period: 30
+  skew: 1
+webauthn:
+  display_name: 'Investalo Local Test'
+  enable_passkey_login: false
+storage:
+  postgres:
+    address: 'tcp://postgres:5432'
+    database: 'investalo_identity'
+    username: 'investalo_identity'
+    tls:
+      server_name: 'postgres'
+      skip_verify: false
+      minimum_version: 'TLS1.2'
+notifier:
+  filesystem:
+    filename: '/var/lib/authelia/notification.txt'
+identity_providers:
+  oidc:
+    jwks:
+      - key_id: 'investalo-local'
+        algorithm: 'RS256'
+        use: 'sig'
+        key: |
+@OIDC_SIGNING_KEY@
+    enforce_pkce: 'always'
+    enable_pkce_plain_challenge: false
+    lifespans:
+      authorize_code: '1m'
+      access_token: '5m'
+      id_token: '5m'
+      refresh_token: '15m'
+    clients:
+      - client_id: 'investalo-cockpit'
+        client_name: 'Investalo Local Cockpit'
+        client_secret: @OIDC_CLIENT_HASH@
+        public: false
+        authorization_policy: 'two_factor'
+        require_pkce: true
+        pkce_challenge_method: 'S256'
+        redirect_uris:
+          - 'https://cockpit.local.test:8443/api/auth/callback'
+        scopes: ['openid', 'profile', 'email']
+        grant_types: ['authorization_code']
+        response_types: ['code']
+        token_endpoint_auth_method: 'client_secret_basic'

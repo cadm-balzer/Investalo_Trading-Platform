@@ -1,0 +1,46 @@
+{
+	admin off
+	auto_https off
+	log {
+		format filter {
+			wrap json
+			fields {
+				request delete
+			}
+		}
+	}
+}
+
+(security_headers) {
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "no-referrer"
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+	}
+}
+
+https://cockpit.local.test:8443 {
+	tls /run/secrets/ingress_tls_cert /run/secrets/ingress_tls_key
+	import security_headers
+	reverse_proxy cockpit:3000 {
+		header_up -Forwarded
+		header_up -X-Forwarded-For
+		header_up X-Forwarded-Proto https
+		header_up X-Forwarded-Host cockpit.local.test:8443
+	}
+}
+
+https://auth.cockpit.local.test:8443 {
+	tls /run/secrets/ingress_tls_cert /run/secrets/ingress_tls_key
+	import security_headers
+	reverse_proxy https://authelia:9091 {
+		header_up -Forwarded
+		header_up -X-Forwarded-For
+		header_up X-Forwarded-Proto https
+		header_up X-Forwarded-Host auth.cockpit.local.test:8443
+		transport http {
+			tls_trust_pool file /run/secrets/local_ca_cert
+		}
+	}
+}

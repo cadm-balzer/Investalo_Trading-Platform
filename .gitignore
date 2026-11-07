@@ -1,0 +1,35 @@
+# Credentials and local configuration; tracked history needs separate remediation.
+/secrets/
+.env
+.env.*
+!.env.example
+*.keys
+*.pem
+*.key
+*.p12
+*.pfx
+/.aws/
+/.codex/
+/.agents/
+
+# Private account data and generated research artifacts.
+/data/
+/artifacts/
+/backups/
+*.log
+
+# Development and operating-system output.
+.DS_Store
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+node_modules/
+.next/
+dist/
+coverage/
+/infra/local/
+.cache/
+*.tsbuildinfo
