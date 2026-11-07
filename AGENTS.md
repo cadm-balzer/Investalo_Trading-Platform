@@ -76,6 +76,8 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   Isolated stdlib Classic read core: `integrations/bitget/README.md`, 24 offline
   tests in `tests/bitget`. No actual user keys, vault, DB/API/UI integration or
   broker calls yet; these remain IP-009/IP-015. Only three fixed GET paths.
+  User accepted checkpoint `3052560` and will merge it themselves.
+  GitHub default branch is `main`; verify merge state before changing branches.
 
 ## Trading and implementation invariants
 

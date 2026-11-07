@@ -123,6 +123,9 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
   Keine neuen Abhängigkeiten, echten Nutzerkeys oder Brokeraufrufe.
   Vault, tatsächliche Egress-/Kontoabnahme, atomare DB-Bindung, globale UID-Quota
   und API-/Cockpiteinbindung bleiben IP-009/IP-015.
+  Implementierungscommit `3052560` auf `origin/feat/m1-foundation` gepusht;
+  Nutzer hat die Zwischenabnahme ausdrücklich akzeptiert und übernimmt den
+  Merge in den Hauptbranch selbst. Keine Produktions-/Echtgeldfreigabe.
 
 ## Routine
 

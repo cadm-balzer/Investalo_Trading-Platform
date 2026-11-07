@@ -64,5 +64,8 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
 - 2026-11-07: isolierter Classic-V2-Readkern mit UID-Lernprobe und gebundenen
   Walletabfragen implementiert. 24 Offline-Tests plus unabhängiger Review grün.
   Keine tatsächliche Verbindung; Vault/API/UI und Egress-/DB-/Quotaabnahme offen.
+- 2026-11-07: Nutzer akzeptiert Classic-Bitget-Zwischenabnahme `3052560`
+  und übernimmt den Hauptbranchmerge selbst. Tatsächlicher GitHub-Hauptbranch
+  heißt `main`; Mergezusage nicht als bereits erfolgten Merge behandeln.
 - Git-getrackter Credentialpfad bei Projektstart gefunden, Inhalte nicht gelesen.
   Historien-/Rotationsarbeit bleibt gesondert; siehe `docs/security.md`.
