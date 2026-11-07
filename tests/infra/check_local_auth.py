@@ -279,6 +279,34 @@ def main() -> None:
     status, _, _ = request(opener, APP + "/api/credentials/confirm",
                            data={"confirmed": True}, headers=credential_headers)
     check(status == 400, "confirmation without the displayed grant token rejected")
+    STEP = "passkey enrollment HTTP boundary"
+    status, passkey_headers, passkey_page = request(opener, APP + "/security/passkeys")
+    check(status == 200 and b'id="passkey-ticket"' in passkey_page,
+          "authenticated passkey page offers administrative invitation enrollment")
+    check("no-store" in passkey_headers.get("Cache-Control", ""),
+          "passkey status page is not cached")
+    enrollment = {"token": base64.urlsafe_b64encode(hashlib.sha256(uuid4().bytes).digest()).rstrip(b"=").decode()}
+    start_path = APP + "/api/passkeys/enrollment/start"
+    finish_path = APP + "/api/passkeys/enrollment/finish"
+    status, _, _ = request(opener, start_path, data=enrollment)
+    check(status == 400, "passkey enrollment without CSRF rejected")
+    status, _, result = request(opener, start_path, data=enrollment, headers=credential_headers)
+    check(status == 400 and b"options" not in result and b"attempt_id" not in result,
+          "unissued invitation creates no browser challenge")
+    status, _, _ = request(opener, start_path, data=enrollment,
+                           headers={**credential_headers, "Origin": "https://foreign.invalid"})
+    check(status == 400, "passkey enrollment from another origin rejected")
+    status, _, _ = request(opener, start_path,
+                           raw=b'{"token":"' + enrollment["token"].encode() + b'","token":"duplicate"}',
+                           headers={**credential_headers, "Content-Type": "application/json"})
+    check(status == 400, "duplicate enrollment fields rejected")
+    status, _, result = request(opener, finish_path, data={
+        "attempt_id": enrollment["token"], "credential": {},
+    }, headers=credential_headers)
+    check(status == 400 and b"registered" not in result,
+          "unstarted enrollment cannot persist a credential")
+    status, _, _ = request(client(), start_path, data=enrollment)
+    check(status == 401, "unauthenticated enrollment rejected")
     STEP = "BFF job acceptance and idempotency"
     job_headers = {"X-CSRF-Token": csrf.group(1).decode(),
                    "Idempotency-Key": str(uuid4())}

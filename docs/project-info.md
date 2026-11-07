@@ -78,8 +78,9 @@ Geschützte echte Keyeingabe, BFF-MFA-Schrittflow und Betriebsschlüssel befinde
 sich weiter in Umsetzung.
 Geschützte Konto-/Verbindungsmetadaten sind im Cockpit verfügbar. Der Nutzer
 hat einen zusätzlichen Cockpit-Passkey bestätigt, weil Authelia-Reauth keinen
-frischen zweiten Faktor belegt. Isolierter Verifier ist implementiert;
-Registrierung/Browser-Schrittflow bleiben gesperrt bis zur Integrationsabnahme.
+frischen zweiten Faktor belegt. Dauerhafte Registry und lokales Browser-
+Enrollment mit administrativem Einmalticket sind implementiert. Kontoänderungen
+bleiben bis zur zielgebundenen Assertionfreigabe und Geräteabnahme gesperrt.
 Details: [passkey-step-up.md](passkey-step-up.md).
 
 - Gesamtkonzept: [concept.md](concept.md)

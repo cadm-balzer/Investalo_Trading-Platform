@@ -13,7 +13,9 @@ Das lokale Fundament besitzt ausführbare Tests:
   immutable Snapshots und Holdoutschutz.
   Zusätzlich36 reine und20 tatsächliche PG-Fälle für die005-Metadatenprojektion:
   fremde Nutzerbindung/Role/Epoch/GUC, Projection und unveränderte private ACLs.
-  Insgesamt112 API-/Workerprüfungen nach005 grün.
+  Additive006 ergänzt dauerhafte Passkeyregistry, Ticketclaim, CAS, Widerruf
+  und Audit: insgesamt293 API-/Workerprüfungen grün, darunter67 tatsächliche
+  Registry-/Passkey-API-PG-Fälle.
 - `tests/marketdata`: Zeit-/OHLC-/Digest-/Coveragevalidierung, sichere CSV-
   Kennzeichnung und deterministische öffentliche Bitget-Pagination.
 - `tests/bitget`: 24 Offline-Tests für Classic-V2-Signaturen, feste GET-Pfade,
@@ -42,9 +44,11 @@ Das lokale Fundament besitzt ausführbare Tests:
   Negativfälle mit eigener tatsächlicher Research-Testrolle.
 - `apps/cockpit/tests`: OIDC-Token/Freshness, Cookies/Sitzungen, CSRF,
   Mandantenantworten, Ergebnis-/Datasetverträge und requestgebundene Assertions.
-  78 Tests grün, einschließlich25 vorbereiteter Actionzustände,
-  13 Contract-/Signerfälle und19 echter synthetischer P256-Passkeyprüfungen.
-  Kein aktivierter Passkey-HTTP-/Registrierungs-/Counter-CAS-Nachweis.
+  115 Tests grün, einschließlich25 vorbereiteter Actionzustände,
+  13 Contract-/Signerfälle,19 echter synthetischer P256-Passkeyprüfungen
+  und37 Enrollmentzustands-/Registrierungsfälle.
+  Die Tests prüfen Zustand und Kryptografie getrennt; ein erfolgreicher
+  vollständiger BFF-Enrollmentablauf und reale Browser-/Geräteabnahme fehlen.
 - `tests/infra/check_local_auth.py`: tatsächlicher HTTPS-Passwort-/TOTP-/
   OIDC-Durchlauf einschließlich BFF, Mandanten-API und Abmeldung.
   Jobannahme/Wiederholung, Parameterkonflikt und frischer Login trotz bestehender
@@ -54,7 +58,9 @@ Das lokale Fundament besitzt ausführbare Tests:
   Ausschließlich generierte lokale `.invalid`-Identität; keine Faktorwerte ausgeben.
   Erweiterte Prüfungen zeigen gesperrte Credentialrouten und belegen,
   dass die bestehende IdP-MFA durch Passwort-Reauth wiederverwendet werden kann.
-  Insgesamt40 tatsächliche HTTPS-Prüfpunkte bestanden.
+  Enrollmentseite, Sitzung/Origin/CSRF, unbekanntes Ticket, doppelte Felder
+  und fehlender Versuch sind ebenfalls geprüft.
+  Insgesamt48 tatsächliche HTTPS-Prüfpunkte bestanden.
 - `tests/infra/test_research_provisioning.py`: atomare Rollenprovisionierung,
   Eingabegrenzen und sichere SQL-/Passwortbehandlung.
 - `tests/infra/test_credentials_provisioning.py`: vier Tests für feste
@@ -70,6 +76,6 @@ Fixturebindung, niemals die Identität des laufenden Researchworkers.
 Das Credential-Prüfprofil besitzt bewusst Migrationscredentials; nur seine
 Credential-Testlogins sind auf die Fixture-DB beschränkt. Synthetische
 Testverbindungen bleiben dort append-only, Testrollenbindungen werden neu gesetzt.
-Echter BFF-MFA-Schrittflow, Recovery, WebAuthn-Erstregistrierung, Broker-Crashfälle und
+Echter BFF-MFA-Schrittflow, Recovery, Browser-/Geräte-Erstregistrierung, Broker-Crashfälle und
 verschlüsselter externer Restore sind damit noch nicht abgenommen.
 Abnahmekriterien: [Roadmap](../docs/roadmap.md), [Ticketboard](../docs/tasks/board.md).

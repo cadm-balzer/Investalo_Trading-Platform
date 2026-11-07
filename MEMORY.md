@@ -114,3 +114,13 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   Typecheck, gepinnte Builds, Migrationsprüfsummen und sechs gesunde lokale
   Dienste geprüft; weiterhin nur127.0.0.1:8443. IP-031/032 abgeschlossen,
   dauerhafte Passkeyverwaltung und Browserflow bleiben IP-033.
+- 2026-11-07: Schrittflowcheckpoint d57bd56 auf mainb6198f7 verifiziert;
+  Branch feat/m1-passkey-registry. Additive006 und lokales BFF/UI-Enrollment
+  mit administrativ E-Mail-bestätigtem Einmalticket implementiert. Claim vor
+  Crypto committed, session-/CSRF-/Origin-/Actor-/Epoch-/RP-gebundene Versuche,
+  dauerhafte FORCE-RLS-Registry/CAS/Audit. Widerruf invalidiert globale Epoch.
+  Beide DBs001–006 immutable.528 Tests und48 HTTPS-Prüfpunkte grün,
+  Typecheck/Builds/Migrationsprüfung und zwei Reviews bestanden.
+  fmt=none bleibt Kandidat; Kontoänderungen gesperrt. Positiver kompletter
+  BFF-Enrollmentablauf, echte Browser-/Geräteabnahme und frische zielgebundene
+  Assertions/Grants folgen IP-033; terminales Recovery bleibt BL-025.

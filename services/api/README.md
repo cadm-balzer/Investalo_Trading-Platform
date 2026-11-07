@@ -12,7 +12,8 @@ Die Lockfiles enthalten exakte Releases und SHA256-Wheelhashes für CPython 3.14
 Projekt-Metadaten erlauben Python 3.13–3.14; Python 3.13 ist hier nicht getestet.
 
 Konfiguration: `PGHOST`, `PGPORT`, `PGDATABASE`, `PGUSER`, `PGPASSWORD_FILE`,
-`PGSSLMODE`, `PGSSLROOTCERT`, `API_INTERNAL_AUTH_SECRET_FILE`, `API_OIDC_ISSUER`.
+`PGSSLMODE`, `PGSSLROOTCERT`, `API_INTERNAL_AUTH_SECRET_FILE`, `API_OIDC_ISSUER`,
+`API_PASSKEY_RP_ID` (lokal `cockpit.local.test`, Hostname ohne Port).
 TLS bleibt über libpq konfiguriert. Passwörter und der mindestens 32 Byte lange
 interne Schlüssel kommen aus Dateien; es gibt keine Entwicklungs-Standardwerte.
 
@@ -23,10 +24,12 @@ geschützt. Vor `002_research` muss der Administrator die NOLOGIN-Gruppe
 Vor `003_credentials` benötigt PostgreSQL zusätzlich die NOLOGIN-Gruppe
 `investalo_credentials_worker`. Neuinitialisierung legt beide Gruppen an;
 für vorhandene lokale Entwicklung provisioniert der Credential-Testhelper die
-zweite Gruppe. Lokal sind001–005 in `investalo` und
+zweite Gruppe. Lokal sind001–006 in `investalo` und
 `investalo_credentials_checks` angewendet und unveränderlich. Die normale
 API benötigt mindestens002; der additive Metadatenendpunkt benötigt005 und
-bricht ohne diese Migration geschlossen ab. Kein Keyeingabeendpunkt.
+bricht ohne diese Migration geschlossen ab. Passkeyendpunkte benötigen006
+und einen festen RP-Hostnamen; fehlende Konfiguration wird abgewiesen.
+Kein Brokerkeyeingabeendpunkt.
 Alte Aufträge ohne eingefrorene Daten werden als `dataset_missing` beendet;
 es erfolgt keine automatische Zuordnung neuer oder synthetischer Daten.
 Runtime ist ausschließlich `investalo_runtime`, ohne DDL, RLS-Bypass,
@@ -71,6 +74,17 @@ Die feste005-Funktion erlaubt nur dem Runtime-LOGIN diese Projektion.
 Broker-UID, Parent, Envelope und KEK-ID werden nicht gelesen oder veröffentlicht.
 Private Tabellen und die003/004-Credentialfunktionen bleiben für API/Research
 gesperrt; diese Metadaten sind keine MFA- oder Schreibfreigabe.
+
+`GET /v1/passkeys/context` liefert nur die eigene Publickeyregistrierung mit
+autoritativer Nutzer-/Tenant-/Epochbindung. Die internen BFF-POST-Endpunkte
+`/v1/passkeys/enrollment/claim` und `/v1/passkeys/enrollment/finish` verlangen
+strenge, begrenzte Bodies ohne doppelte JSON-Felder. Claim wird vor der Antwort
+committed; Abschluss prüft aktuelle Identität, Sitzungshash, Frist und RP und
+speichert Registry und Audit atomar. Die API vertraut der WebAuthn-Prüfung
+des BFF. Kein HTTP-Assertion-CAS oder sensitive Actionfreigabe.
+Adminmodul `investalo_api.passkey_admin` stellt nach manueller E-Mail-Prüfung
+Tickets aus und widerruft Passkeys mit globaler Sitzungssperre.
+[Bedienung und Grenzen](../../infra/README.md#passkey-enrollment-und-widerruf).
 
 Jobdetail liefert `result` oder `null` und einen begrenzten `failure_code`.
 Listen liefern `result_summary` ohne Equitykurve. Ergebnisbeträge sind

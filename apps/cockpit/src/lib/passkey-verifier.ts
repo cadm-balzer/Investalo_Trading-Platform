@@ -115,15 +115,15 @@ function context(value: PasskeyExpectedContext, now: number): PasskeyExpectedCon
   if (!(stored.publicKey instanceof Uint8Array) || stored.publicKey.byteLength < 1 || stored.publicKey.byteLength > 2048) throw rejected();
   // Snapshot all mutable caller-owned bytes before asynchronous verification.
   return { tenantId, userId, rpId: expected.rpId, origin: expected.origin, challenge, startedAt, expiresAt,
-    credential: { tenantId, userId, id: base64url(stored.id, 1, 1024).text,
+    credential: { tenantId, userId, id: base64url(stored.id, 1, 1023).text,
       publicKey: new Uint8Array(stored.publicKey), counter: integer(stored.counter, 0, 0xffff_ffff),
       userHandle: base64url(stored.userHandle, 1, 64).text } };
 }
 
 function assertion(value: unknown): AuthenticationResponseJSON {
   const item = record(value, ["id", "rawId", "type", "response", "clientExtensionResults"], ["authenticatorAttachment"]);
-  const id = base64url(item.id, 1, 1024).text;
-  if (base64url(item.rawId, 1, 1024).text !== id || item.type !== "public-key" ||
+  const id = base64url(item.id, 1, 1023).text;
+  if (base64url(item.rawId, 1, 1023).text !== id || item.type !== "public-key" ||
     (item.authenticatorAttachment !== undefined && item.authenticatorAttachment !== "platform" &&
       item.authenticatorAttachment !== "cross-platform")) throw rejected();
   // We request no client extensions. Never pass arbitrary nested extension input to the library.

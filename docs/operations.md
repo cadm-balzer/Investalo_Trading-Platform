@@ -132,6 +132,12 @@ Die Policy darf keine Schutzmaßnahme auf eine AI-Antwort verschieben.
 **Schlüsselkompromittierung:** Betroffene Verbindung sperren, Key widerrufen,
 Zugriffe prüfen, neuen Key minimal berechtigen, Accountzustand reconciliieren.
 
+**Passkeywiderruf:** Nach manuell bestätigter E-Mail über den Migrationsoperator
+mit aktueller Speicherversion widerrufen. Dabei werden alle Tenant-Sitzungen
+des Nutzers ungültig; Registry und Credential-ID bleiben terminal reserviert.
+Ersatz-/Recoveryweg ist noch offen. Unbekannte Commits vor Wiederholung
+abgleichen. [Lokale Bedienung](../infra/README.md#passkey-enrollment-und-widerruf).
+
 **Migration vom Altsystem:** Ein Writer je Konto, offene Commands/Fills abgleichen,
 Shadowvergleich, alten Writer deaktivieren, neuen begrenzt freigeben.
 Rollback ebenfalls mit Brokerabgleich; kein paralleles Steuern.
