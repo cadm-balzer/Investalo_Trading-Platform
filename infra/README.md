@@ -13,14 +13,17 @@ Vom Repositoryroot auf dem überprüften Ubuntu-26.04-amd64-Host:
 sudo bash infra/scripts/install-docker.sh
 # Erst bei absichtlichem Runtimeupdate: python3 infra/scripts/resolve-images.py
 sudo python3 infra/scripts/bootstrap-local.py
-sudo bash infra/scripts/compose.sh --profile tools --profile checks build api migrate api-checks
+sudo bash infra/scripts/compose.sh --profile tools --profile checks --profile research build api migrate api-checks research
 sudo bash infra/scripts/compose.sh build cockpit
 sudo bash infra/scripts/compose.sh up -d postgres authelia
+# Eigene Researchrolle und ausschließlich für Fixtures verwendete Testrolle.
+sudo python3 infra/scripts/provision-local-research.py
+sudo python3 infra/scripts/provision-local-research.py --test-role
 sudo bash infra/scripts/compose.sh --profile tools run --rm migrate
 # Nur generierten .invalid-Testnutzer samt TOTP und Tenant anlegen.
 sudo python3 infra/scripts/provision-local-test.py
+sudo python3 infra/scripts/provision-local-research.py --bind-local-test
 sudo bash infra/scripts/compose.sh up -d api cockpit caddy
-sudo python3 tests/infra/check_local_auth.py
 ```
 
 Builds auf diesem kleinen Host nacheinander ausführen. Migrationen haben
@@ -67,18 +70,70 @@ dienstbezogen berechtigt, Compose-Dateisecrets ersetzen keine Hostverschlüsselu
 Backup/Restore, realer SMTP, administratives Recovery und MT5-Demobridge bleiben
 eigene Abnahmen. Runtimequellen: [runtime-pins.md](../docs/runtime-pins.md).
 
+## Öffentliche Forschungsdaten und Offlineworker
+
+Ein Snapshot muss vor Jobannahme importiert sein. Der folgende lokale
+Funktionsnachweis verwendet 90 Tage BTC-H4, keine Kontocredentials. Datumsgrenzen
+müssen bereits geschlossene H4-Intervalle sein; vorhandene Ausgaben werden nicht
+überschrieben. Für spätere Testläufe das Intervall und einen neuen Dateinamen
+bewusst wählen.
+
+```sh
+PYTHONPATH=packages/marketdata/src:packages/trading/src python3 -m investalo_marketdata \
+  bitget --symbol BTC/USDT --start 2026-08-09T08:00:00Z \
+  --end 2026-11-07T08:00:00Z --output /tmp/btc-research.json
+sudo python3 infra/scripts/stage-research-snapshot.py \
+  --file /tmp/btc-research.json --name btc-research.json --import-local
+sudo bash infra/scripts/compose.sh --profile research up -d research
+sudo python3 tests/infra/check_local_auth.py
+```
+
+Das geprüfte Intervall enthält 540 lückenlose Kerzen. Vollständigkeit bezieht sich
+nur auf dieses Intervall, nicht auf das Dreijahresziel. Jedes Ergebnis bleibt
+**nicht wirtschaftlich validiert**; der unabhängige Holdout ist nicht ausgewertet.
+Gebühren/Spread/Slippage sind sichtbare Modellannahmen, noch keine kalibrierten
+Brokerkosten. CSV und synthetische Fixtures: [marketdata](../packages/marketdata/README.md).
+Synthetische Daten dürfen ausschließlich als `--purpose test` importiert werden.
+
+Der Staginghelper validiert und kopiert create-only in den ignorierten
+`infra/local/research-data/`-Ordner. Nur der Migrationscontainer erhält ihn
+schreibgeschützt. Importidentität, Tenant und Zweck sind ausdrücklich festgelegt;
+gleicher Datenhash mit geändertem vollständigem Snapshot wird abgewiesen.
+Kein Import erfolgt automatisch durch Cockpit oder Worker.
+
+Research läuft als UID10005 mit 192 MiB/0,3 CPU, ausschließlich im internen
+DB-Netz. Eine eigene LOGIN-Rolle ist über `SESSION_USER` fest einem Tenant
+zugeordnet; keine API-/BFF-/IdP-/Brokersecrets. Snapshots und Jobinputs sind
+unveränderlich, Claims besitzen Attempttoken, Lease und Heartbeat. Alte
+Jobabschlüsse werden abgewiesen. Holdouts sind vom gewöhnlichen Researchpfad
+ausgeschlossen. Details: [Worker](../services/workers/README.md).
+
+Für einen anderen ausdrücklich autorisierten Tenant:
+`sudo python3 infra/scripts/provision-local-research.py --bind-tenant UUID`.
+Eine vorhandene andere Bindung wird nicht überschrieben. Eine Researchrolle
+ist keine allgemeine Mehrtenant-Workeridentität.
+
 Verifikation und Betrieb:
 
 ```sh
-sudo bash infra/scripts/compose.sh ps
+sudo bash infra/scripts/compose.sh --profile research ps
 sudo bash infra/scripts/compose.sh --profile checks run --rm api-checks
 PYTHONPATH=packages/trading/src python3 -m unittest discover -s tests/trading
+PYTHONPATH=packages/marketdata/src:packages/trading/src python3 -m unittest discover -s tests/marketdata
+python3 -m unittest discover -s tests/infra -p 'test_*.py'
 npm --prefix apps/cockpit test
 npm --prefix apps/cockpit run typecheck
 ```
 
 Cockpitmeldungen zeigen fehlende Konten/Positionen ausdrücklich als leeren
-Datenbestand. Backtestanforderungen werden dauerhaft eingereiht; Datenimport und
-ausführender Worker folgen. Es gibt noch keine nutzbaren Brokerverbindungen.
+Datenbestand. Backtestanforderungen frieren Dataset, Strategie und Kosten ein;
+der Offlineworker speichert Nettoergebnisse und begrenzte Equitykurven.
+Der HTTPS-Test prüft tatsächliche Ausführung und Darstellung eines importierten
+öffentlichen BTC-Snapshots. Abweichender Pfad: `--snapshot-file PATH`.
+Es gibt noch keine nutzbaren Brokerverbindungen.
 Lokale BFF-Abmeldung löscht die Cockpitsitzung; die IdP-Sitzung bleibt bestehen.
 Jeder neue Cockpitlogin erzwingt dennoch eine frische Anmeldung.
+
+Mit laufendem Researchprofil stoppt
+`sudo bash infra/scripts/compose.sh --profile research stop` alle sechs Dienste
+und behält Daten. Der Standardbefehl ohne Profil umfasst nur die Basisdienste.

@@ -58,10 +58,12 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 - The user explicitly authorized intermediate commits and GitHub pushes.
   Push reviewed feature checkpoints with the existing repository deploy identity;
   this does not authorize production deployment, history rewrite or force-push.
-- Current foundation: `infra/README.md` starts the five loopback-only services;
-  executable tests cover API/RLS, cockpit security and the deterministic crypto
-  core. Queued backtests still lack their execution/data worker. Do not call this
-  a released M1 pilot. Generated `infra/local/` is ignored and never a build context.
+- Current foundation: `infra/README.md` starts five loopback-only services and
+  the optional offline research worker. Immutable H4 snapshots, frozen jobs and
+  persisted net results/equity charts are implemented. A real 90-day BTC import
+  tests the workflow; it does not satisfy the three-year/holdout validation gate.
+  Broker execution, recovery and pilot operation remain unfinished.
+  Generated `infra/local/` is ignored and never a build context.
 - Existing reference repositories: `/opt/investalo-trading-system` and
   `/opt/investalo-autotrader`. Treat them as read-only references unless work there
   is explicitly authorized. Their strategies need independent net-cost validation.
@@ -75,6 +77,11 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 - Never retry an uncertain broker order blindly; reconcile before resubmission.
 - Require authenticated tenant context for requests, jobs, files, caches, and streams.
 - Broker credentials must never reach browser storage, research workers, AI, or logs.
+- Research workers use a dedicated LOGIN role bound to one tenant through
+  `SESSION_USER`, bounded fenced leases and restricted database functions.
+  Never give them API/migration credentials or evaluate protected holdout datasets.
+  Snapshots, frozen job inputs and terminal results are immutable. Applied SQL
+  migrations are checksum-protected; extend them with a new numbered migration.
 - Default to a private user base and disabled live execution. Q20 permits planning
   a public central HTTPS pilot entry; databases/workers stay internal. Real-money activation
   requires explicit account/strategy/risk approval in addition to deployment approval.

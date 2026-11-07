@@ -20,6 +20,9 @@
 | [sources.md](sources.md) | Verifizierte offizielle Dokumentation |
 | [memories/decision-log.md](memories/decision-log.md) | Entscheidungen und ihr Status |
 | [memories/gotchas.md](memories/gotchas.md) | Technische Fallstricke |
+| [Lokaler Start](../infra/README.md) | Compose, Operatorimport, Researchprofil und HTTPS-Abnahme |
+| [Marktdaten](../packages/marketdata/README.md) | Snapshotvertrag, Coverage, CSV und öffentliche Bitget-Historie |
+| [Researchworker](../services/workers/README.md) | Tenantrolle, Leasing, Ergebnisvertrag und Health |
 
 Anforderungen werden im Interview bestätigt. Das Konzept verweist auf vertiefende
 Dokumente, statt Risiko- und Betriebsvorgaben mehrfach zu definieren.

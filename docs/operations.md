@@ -2,8 +2,9 @@
 
 Stand 2026-11-07. Bestätigt: vorhandenen Server nutzen, zunächst kostenlose
 externe Dienste/Accounts; TradingView Essentials besteht bereits.
-Q31 bestätigt die lokale Umsetzung. Docker ist installiert; fünf lokale
-Compose-Dienste laufen über einen einzigen Loopback-HTTPS-Port.
+Q31 bestätigt die lokale Umsetzung. Docker ist installiert; fünf Basisdienste
+und ein optionaler Offline-Researchworker laufen über Compose. Nur ein
+Loopback-HTTPS-Port ist veröffentlicht.
 Host-SSH und DNS wurden nicht verändert. Docker verwaltet seine lokalen
 Netzregeln. Öffentliche Pilot-/Produktionsfreigabe bleibt separat.
 Start und Grenzen: [infra/README.md](../infra/README.md).
@@ -73,6 +74,14 @@ Structured Logs tragen Correlation-, Tenant- und Accountreferenzen in
 minimierter Form, ohne Credentials oder unnötige Personendaten.
 Alarmierungsdienst und Empfänger werden separat gewählt; es werden keine
 externen Nachrichten oder Accounts ohne Freigabe eingerichtet.
+
+Der Researchworker hat 192 MiB/0,3 CPU als lokale Grenze und ein eigenes Profil.
+Sein Healthcheck verlangt aktuellen erfolgreichen DB-/Heartbeatfortschritt.
+Leaseverlust verwirft Ergebnisse; höchstens drei Attempts, danach sichtbarer
+Fehler. Das ist kein Brokerretryverfahren. Datasetimport erfolgt separat mit
+Operator-/Migrationsidentität, niemals durch den Researchworker.
+Ein 90-Tage-Lauf prüft Funktion; Dreijahreslast, Retention und Mehrnutzerlast
+sind vor dem Pilot gesondert zu messen.
 
 Q27 bestätigt für den Paper-/Demopilot RPO 24 Stunden und RTO vier Stunden
 als Planungsziele, mit täglicher verschlüsselter externer Sicherung, zusätzlicher

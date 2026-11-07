@@ -233,6 +233,8 @@ services:
       PGPASSWORD_FILE: /run/secrets/platform_migration_password
       API_INTERNAL_AUTH_SECRET_FILE: ""
     secrets: [platform_migration_password, local_ca_cert]
+    volumes:
+      - ./local/research-data:/app/import-data:ro
     networks: [database]
     depends_on:
       postgres:
@@ -256,11 +258,47 @@ services:
       <<: *api-environment
       API_TEST_ADMIN_USER: investalo_migration
       API_TEST_ADMIN_PASSWORD_FILE: /run/secrets/platform_migration_password
-    secrets: [platform_runtime_password, platform_migration_password, internal_api_key, local_ca_cert]
+      API_TEST_RESEARCH_USER: investalo_research_tests
+      API_TEST_RESEARCH_PASSWORD_FILE: /run/secrets/research_test_password
+    secrets: [platform_runtime_password, platform_migration_password, internal_api_key, local_ca_cert, research_test_password]
     networks: [database]
     depends_on:
       postgres:
         condition: service_healthy
+
+  research:
+    <<: *hardened
+    profiles: [research]
+    image: investalo-research:0.1.0-local
+    build:
+      context: ..
+      dockerfile: infra/docker/api.Dockerfile
+      target: worker
+      args:
+        PYTHON_IMAGE: ${PYTHON_IMAGE:?Pinned image required}
+    user: "10005:10005"
+    mem_limit: 192m
+    cpus: 0.3
+    environment:
+      PGHOST: postgres
+      PGPORT: "5432"
+      PGDATABASE: investalo
+      PGUSER: investalo_research_local
+      PGPASSWORD_FILE: /run/secrets/research_password
+      PGSSLMODE: verify-full
+      PGSSLROOTCERT: /run/secrets/local_ca_cert
+      WORKER_HEALTH_FILE: /tmp/worker-health
+    secrets: [research_password, local_ca_cert]
+    networks: [database]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: [CMD, python, -m, investalo_workers.health]
+      interval: 20s
+      timeout: 5s
+      retries: 6
+      start_period: 30s
 
 networks:
   # Only the proxy has a host-facing bridge: Docker 29 does not publish ports
@@ -322,3 +360,7 @@ secrets:
     file: ./local/oidc_client_secret
   cockpit_session_key:
     file: ./local/cockpit_session_key
+  research_password:
+    file: ./local/research_password
+  research_test_password:
+    file: ./local/research_test_password

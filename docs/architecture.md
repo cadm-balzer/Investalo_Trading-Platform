@@ -4,9 +4,10 @@ Stand 2026-11-07. Q7 bestätigt den Grundstack aus Python/FastAPI,
 Next.js/TypeScript, PostgreSQL und getrennten Workern im modularen Monolithen.
 Q13/Q14 bestätigen Docker Compose und lokales Authelia.
 Q31 bestätigt den Umsetzungsstart. Cockpit, API, PostgreSQL und Authelia laufen
-lokal über Compose; Crypto-Kern, RLS und persistente Aufträge sind implementiert.
+lokal über Compose; Crypto-Kern, RLS, immutable Snapshots und ein tenantgebundener
+Offline-Researchworker mit gespeicherten Ergebnissen sind implementiert.
 Konkrete Pins: [runtime-pins.md](runtime-pins.md). Noch nicht implementierte
-Worker-/Broker-/Betriebskomponenten bleiben Zielarchitektur. CI/CD ist offen.
+Execution-/Broker-/Betriebskomponenten bleiben Zielarchitektur. CI/CD ist offen.
 Begründungen und offizielle Belege: [sources.md](sources.md).
 
 ## Systemgrenzen
@@ -50,10 +51,10 @@ Q8 bestätigt eigene MFA-Anmeldung statt anfänglichem Website-SSO.
 | API | Python, FastAPI, Pydantic | Trading-/Researchökosystem und vorhandene Komponenten |
 | Tradingkern | Typisiertes Python, dezimale Orderrechnung | Wiederverwendung; Performance gezielt messen statt verfrüht neu schreiben |
 | Datenbank | PostgreSQL | Transaktionen, RLS, Outbox und PITR |
-| Migrationen | Versionierte SQL-/Pythonmigrationen, Werkzeug noch prüfen | Keine automatischen destruktiven Schemaänderungen |
+| Migrationen | Nummerierte SQLmigrationen mit Prüfsummen und eigenem Pythonrunner | Angewendete Dateien unveränderlich, separate Migrationsrolle |
 | Jobs | PostgreSQL-Jobtabelle/Outbox mit Leasing | Wenige Dienste; Redis/RabbitMQ erst bei nachgewiesenem Bedarf |
-| Historien | PostgreSQL für operative Daten, Parquet für große immutable Forschungssnapshots | Retention und Lizenzen prüfen; TimescaleDB vorerst keine Pflicht |
-| Charting | Bibliothek für eigene Daten, z. B. Lightweight Charts | Lizenz/Attribution und Exportbedarf vor Auswahl prüfen |
+| Historien | Begrenzte kanonische JSONsnapshots in PostgreSQL; Parquet später bei gemessener Größe | Retention und Lizenzen prüfen; TimescaleDB vorerst keine Pflicht |
+| Charting | Eigenes SVG für begrenzte Equitykurven | Keine zusätzliche Bibliothek; umfangreichere Charts später bewerten |
 | Auth | Lokales Authelia OIDC mit Passwort + TOTP/WebAuthn | Q14 bestätigt; administrierte Privatnutzer, SSO später |
 | Secrets | Envelope Encryption, unabhängige Schlüsselverwaltung | Provider/KMS/Tresor und Budget noch offen |
 | Deployment | Docker Engine + Compose | Q13 bestätigt; exakte Pins und Ressourcenprüfung vor Installation |
@@ -167,6 +168,15 @@ veränderbarem Tenantparameter. Parametrisierte Abfragen, begrenzte Rollen und
 Isolations-/Negativtests bleiben notwendig. Höherer Isolationsbedarf kann später
 eigene Datenbanken oder spezifische Rollen rechtfertigen.
 
+Research hat bereits diese spezifische Grenze: je Tenant eine eigene LOGIN-
+Rolle, Zuordnung über `SESSION_USER`, keine frei wählbare Tenant-GUC.
+Nur begrenzte SELECT- und Security-Definer-Funktionsrechte; kein direkter
+Tabellenwrite, Mitgliedschafts- oder Credentialzugriff. Jobs frieren Snapshot,
+Strategie und Kosten bei Annahme ein. Claim mit `SKIP LOCKED`, Attempttoken,
+Heartbeat und begrenzten Wiederholungen verhindert veraltete Abschlüsse.
+Holdout ist vom gewöhnlichen Researchpfad ausgeschlossen. Details:
+[Worker](../services/workers/README.md), [Daten](../packages/marketdata/README.md).
+
 Private API-/Cockpitantworten erhalten private Cachevorgaben.
 WebSocket/SSE-Abonnements werden nach Authwechsel, Entzug oder Sessionende
 neu geprüft beziehungsweise beendet.
@@ -175,8 +185,9 @@ neu geprüft beziehungsweise beendet.
 
 Vorschlag: versionierte HTTP-API für Benutzeraktionen; SSE für
 Dashboardaktualisierungen, WebSockets nur wenn bidirektional erforderlich.
-Ein Backteststart liefert Job-ID, Status und Abbruchmöglichkeit.
-OpenAPI-/Schemaartefakte entstehen aus `packages/contracts/`.
+Ein Backteststart liefert Job-ID und Status; der Abbruchpfad steht noch aus.
+Snapshot-/Ergebnisverträge sind versioniert und beidseitig geprüft.
+Gemeinsame Export-/Schemaartefakte unter `packages/contracts/` folgen bei Bedarf.
 
 Brokeradapter bieten Capabilities und Aktionen für Market Data, Account,
 Orders, Fills, Positions, Protection und Reconciliation. Nicht unterstützte

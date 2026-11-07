@@ -7,9 +7,12 @@ Entscheidungsverlauf: [interview.md](interview.md).
 
 Das erste lokale Fundament umfasst gepinnte Compose-Dienste, HTTPS,
 MFA/OIDC-BFF, DB-Mandantenisolation, ein Cockpit mit ehrlichen Leerzuständen
-und den deterministischen Crypto-/Paperkern. Persistente Backtestjobs werden
-angenommen; Datenimport, ausführende Worker, Brokerpfade, manueller UI-Einstieg,
-Recovery und Backupabnahme folgen. Dies ist eine Zwischenabnahme, kein fertiger
+und den deterministischen Crypto-/Paperkern. Validierte H4-Snapshots werden
+importiert; tenantgebundene Offlineworker berechnen eingefrorene Backtestjobs.
+Das Cockpit zeigt tatsächliche Nettoergebnisse und Equitykurven mit Provenienz.
+Brokerpfade, manueller UI-Einstieg, Recovery und Backupabnahme folgen.
+Der lokale 90-Tage-BTC-Lauf erfüllt keine wirtschaftliche Holdoutabnahme.
+Dies ist eine Zwischenabnahme, kein fertiger
 M1-Pilot. Start/Prüfung: [infra/README.md](../infra/README.md).
 
 ## Erster Release

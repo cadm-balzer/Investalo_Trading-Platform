@@ -68,6 +68,7 @@ Die folgenden Compose-/Authelia-/Indikatorergänzungen wurden am 2026-11-07 gepr
 | Bitget Positionen | https://www.bitget.com/docs/catalog/classic-contract-position/classic-contract-position | Margin, Liquidation und Positionsdaten |
 | Bitget Liquidation | https://www.bitget.com/futures/introduction/liquidation-summarize | Markpreis und Maintenance-Risiko |
 | Bitget Market | https://www.bitget.com/docs/catalog/classic-contract-market/classic-contract-market | Instrumentregeln und Fundingdaten |
+| Bitget V3 Historie | https://www.bitget.com/docs/catalog/market/market-data#get-klinecandlestick-history | Öffentliches SPOT-H4: 100 Bars/Seite, maximal 90 Tage je Request, 20 Requests/s/IP; tatsächliche Zeitgrenzen am 2026-11-07 geprüft |
 | FTMO Objectives | https://ftmo.com/en/trading-objectives/ | Kontoprofile/Phasen unterscheiden sich bei Verlustregeln |
 | FTMO News | https://ftmo.com/en/faq/can-i-trade-news/ | Restriktionen abhängig von Phase/Konto |
 | FTMO Swing | https://ftmo.com/en/faq/ftmo-swing-account-type/ | Separates Profil nötig |

@@ -1,6 +1,7 @@
 import "server-only";
 import { getConfig, type Config } from "./config.ts";
 import { internalToken, type Principal } from "./internal-token.ts";
+import { limitedBody } from "./security.ts";
 
 export type Membership = { tenant_id: string; tenant_name: string; role: string };
 export type { Account, Position, JournalEntry, Job, Overview } from "./contracts.ts";
@@ -22,5 +23,11 @@ export async function apiRequest<T>(principal: Principal, path: string, options:
     ...(body ? { body } : {}),
   });
   if (!response.ok) throw new BackendError(response.status);
-  return await response.json() as T;
+  // Bound bytes before JSON parsing; a remote result cannot exhaust the BFF
+  // while waiting for field/curve validation.
+  const raw = await limitedBody(new Request("https://response.invalid", {
+    method: "POST", body: response.body, duplex: "half",
+    headers: response.headers.get("content-length") ? { "content-length": response.headers.get("content-length")! } : {},
+  } as RequestInit), 2 * 1024 * 1024);
+  return JSON.parse(raw) as T;
 }

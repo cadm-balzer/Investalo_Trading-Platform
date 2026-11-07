@@ -6,8 +6,9 @@ den Zugang als öffentlichen zentralen HTTPS-Einstieg schon im Privatpilot.
 Docker Compose und lokales Authelia sind in Q13/Q14 bestätigt;
 Administratives E-Mail-Recovery ist in Q24 bestätigt. Q31 beauftragt Umsetzung:
 Pins, dienstbezogene lokale Testsecrets, TLS, BFF-Assertions und RLS sind im
-Fundament umgesetzt. 39 APIprüfungen einschließlich echter PostgreSQL-
-Mandantentrennung sind grün. Recovery, Brokercredentials, Step-up und
+Fundament umgesetzt. API-/Workertests prüfen echte PostgreSQL-Mandantentrennung,
+geschützte Holdouts, Rollen und abgelaufene Claims. Research besitzt eine eigene
+tenantgebundene DB-Identität ohne Broker-/BFF-Secrets. Recovery, Brokercredentials, Step-up und
 Pilotbackup bleiben weitere Abnahmen.
 
 ## Bedrohungen und Kontrollen
@@ -102,8 +103,9 @@ Das beseitigt vorhandene Commits nicht. Falls echte Credentials enthalten sind:
 betroffene Zugänge identifizieren, widerrufen/rotieren, Berechtigungen und
 Zugriffsprotokolle prüfen. Keine Schlüssel in Tickets oder Chats kopieren.
 Anschließend Historybereinigung, Remote-/Clonekoordination und gegebenenfalls
-Force-Push ausdrücklich abstimmen. Die Planung wird deshalb zunächst nur
-lokal committed und nicht ungeprüft gepusht.
+Force-Push ausdrücklich abstimmen. Der Nutzer hat Zwischenstand-Pushes inzwischen
+beauftragt; die historische Datei lag bereits auf remote main. Neue Snapshots
+schließen Secrets aus. Rotation und Historyremediation bleiben IP-005.
 
 ## Netz und Dienste
 

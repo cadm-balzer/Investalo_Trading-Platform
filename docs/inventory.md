@@ -100,9 +100,12 @@ Containment und verbleibender Historienbefund: [security.md](security.md).
 ## Lokale Umsetzung 2026-11-07
 
 Q31 bestätigt; Branch `feat/m1-foundation`. Docker Engine 29.9.3,
-Compose 5.7.0 und gepinnte Runtimeimages installiert. Fünf lokale Dienste
-PostgreSQL/Authelia/API/Cockpit/Caddy; ausschließlich Caddy veröffentlicht
+Compose 5.7.0 und gepinnte Runtimeimages installiert. Fünf lokale Basisdienste
+PostgreSQL/Authelia/API/Cockpit/Caddy plus optionaler Offline-Researchworker;
+ausschließlich Caddy veröffentlicht
 `127.0.0.1:8443`. TLS/CA, separate DB-Rollen und Service-UIDs eingerichtet.
-Strategie-/API-/Cockpittests vorhanden; Datenjobs bislang ohne ausführenden
-Worker, keine Brokerkonten verbunden. Die Referenzrepos blieben unverändert.
+Strategie-/API-/Worker-/Daten-/Cockpittests vorhanden. Öffentliche BTC-H4-Daten
+wurden als unveränderlicher 90-Tage-Snapshot importiert. Kostenkalibrierung,
+Dreijahresdaten und Holdoutnachweis bleiben offen; keine Brokerkonten verbunden.
+Die Referenzrepos blieben unverändert.
 Runtimepins: [runtime-pins.md](runtime-pins.md); Start: [infra/README.md](../infra/README.md).

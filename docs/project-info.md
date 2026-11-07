@@ -69,7 +69,8 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 Stand 2026-11-07: Der Auftrag oben bleibt als ursprünglicher Projektprompt erhalten.
 Planung und Interview nach `SKILLS/grill-me/SKILL.md` sind durch Q31 bestätigt.
 Die lokale M1-Umsetzung läuft: Compose, MFA-/API-/Cockpitfundament und
-Crypto-Kern. Aktueller Start: [infra/README.md](../infra/README.md).
+Crypto-Kern sowie immutable Marktdaten und tenantgebundene Offlinebacktests
+mit grafischen Ergebnissen. Aktueller Start: [infra/README.md](../infra/README.md).
 
 - Gesamtkonzept: [concept.md](concept.md)
 - Technischer Entwurf: [architecture.md](architecture.md)
