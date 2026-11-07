@@ -178,6 +178,17 @@ Holdout ist vom gewöhnlichen Researchpfad ausgeschlossen. Details:
 [Worker](../services/workers/README.md), [Daten](../packages/marketdata/README.md).
 
 Private API-/Cockpitantworten erhalten private Cachevorgaben.
+Credentialzugriff verwendet ebenfalls dedizierte LOGINs, hier je Tenant und
+Plattformnutzer. Migration003 bindet `SESSION_USER` an aktive Mitgliedschaft;
+keine frei wählbare Tenant-GUC und keine direkten Tabellenrechte. Nur feste
+Security-Definer-Funktionen mit sicherem `search_path` sind freigegeben.
+Der getrennte Pythonstore rekonstruiert aktuelle AEAD-Bindungsdaten aus der DB
+und prüft Credentialrevision sowie Speicherversion vor atomaren Änderungen.
+API und Research dürfen diese Funktionen nicht ausführen.
+Die lokale Abnahme erfolgt in einer getrennten Fixture-DB; ein Betriebs-
+Schlüsselprovider und die geschützte HTTP-Anbindung fehlen noch.
+Details: [Credentialstore](../services/credentials/README.md).
+
 WebSocket/SSE-Abonnements werden nach Authwechsel, Entzug oder Sessionende
 neu geprüft beziehungsweise beendet.
 

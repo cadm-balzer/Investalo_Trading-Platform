@@ -20,6 +20,13 @@ Migration: `python -m investalo_api.migrate` ausschließlich als
 `investalo_migration`. Die SQL-Dateien werden nach Anwendung per Prüfsumme
 geschützt. Vor `002_research` muss der Administrator die NOLOGIN-Gruppe
 `investalo_research_worker` anlegen. `001_foundation` bleibt unverändert.
+Vor `003_credentials` benötigt PostgreSQL zusätzlich die NOLOGIN-Gruppe
+`investalo_credentials_worker`. Neuinitialisierung legt beide Gruppen an;
+für vorhandene lokale Entwicklung provisioniert der Credential-Testhelper die
+zweite Gruppe. Die Abnahme von003 erfolgte ausschließlich in
+`investalo_credentials_checks`; die gewöhnliche Entwicklungsdatenbank steht
+weiter bei002. Die API benötigt derzeit mindestens002 und hat keinen
+Credentialzugriff oder Keyeingabeendpunkt.
 Alte Aufträge ohne eingefrorene Daten werden als `dataset_missing` beendet;
 es erfolgt keine automatische Zuordnung neuer oder synthetischer Daten.
 Runtime ist ausschließlich `investalo_runtime`, ohne DDL, RLS-Bypass,

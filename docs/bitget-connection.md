@@ -101,7 +101,7 @@ ermittelt die UID; Walletabfragen benötigen danach eine feste Nutzer-/Kontobind
 und erneute Rechte-/IP-Prüfung. Der Adapter prüft die erwartete ausgehende IP
 in der gemeldeten Whitelist; die tatsächliche Server-IP und eine ausschließlich
 auf Plattformadressen begrenzte Whitelist sind damit noch nicht nachgewiesen.
-Geschützte Speicherung, Cockpiteingabe, persistente Bindung und tatsächliche
+Cockpiteingabe, geschützter Schlüsselbetrieb und tatsächliche
 Brokerprüfung folgen IP-009/IP-015. Es wurde kein echter Nutzerkey entgegengenommen
 oder Konto verbunden. Fach- und Betriebsgates:
 [Security](security.md), [Trading](trading.md), [Ticketboard](tasks/board.md).
@@ -109,9 +109,14 @@ oder Konto verbunden. Fach- und Betriebsgates:
 Der getrennte [Credential-Envelopekern](../packages/credentials/README.md)
 ist mit 20 echten AES-GCM-Tests geprüft. Er bindet verschlüsselte Daten an
 Tenant, Nutzer, Plattformkonto, Verbindung, Broker-UID/Parent, Classic-Leseprofil
-und Credentialrevision. KEK-Wechsel und lokale Wiederherstellung sind geprüft;
-persistente DB-Bindung, Schlüsselbereitstellung und Autorisierung sind weitere
-Integrationsschritte. Der Kern ersetzt weder frische MFA noch einen Vaultdienst.
+und Credentialrevision. KEK-Wechsel und lokale Wiederherstellung sind geprüft.
+Der [Credentialstore](../services/credentials/README.md) ergänzt persistente
+DB-Bindung und Autorisierung mit aktuellen Revisionen, CAS, Rotation und
+terminalem Widerruf. 37 Store-/PostgreSQL-Tests bestanden mit erfundenen Daten.
+Eine Broker-UID ist global je Broker eindeutig, auch nach Widerruf; automatische
+Übertragung oder Neueinrichtung derselben UID ist ausgeschlossen.
+Tatsächliche signierte UID-Prüfung, frische MFA, Schlüsselprovider und
+Cockpiteingabe müssen vor echter Keyannahme gemeinsam integriert werden.
 
 ## Offizielle Grundlagen
 

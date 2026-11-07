@@ -179,3 +179,18 @@ Stand 2026-11-07. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
 - **Nonces und Speicher:** Zufällige 96-Bit-Nonces haben ein Kollisionsrisiko;
   Nutzungslimits/Rotation gemeinsam pro KEK überwachen. Python bietet keine
   garantierte Speicherlöschung; redigierte Objekte verhindern keine Prozessinspektion.
+- **Psycopg-Rowfactory:** Der Credentialclient prüft einen festen 13-spaltigen
+  Tuplevertrag. `dict_row` ist für administrative Fixtures erlaubt, nicht für
+  seine Connectionfactory. Frische Nonautocommit-Verbindungen verwenden.
+- **Versionskonflikt:** Credentialrevision ändert sich bei Payloadwechsel,
+  Speicherversion zusätzlich bei Rewrap/Widerruf. Beide prüfen; unbekannten
+  Commitausgang zunächst abgleichen, keine blinde Wiederholung.
+- **Fixture-DB und Adminrechte:** Getrennte Testdatenbank begrenzt Daten,
+  nicht die Rechte eines mit Migrationscredentials laufenden Prüfcontainers.
+  Credential-Testlogins selbst nur per HBA/CONNECT zur Fixture-DB zulassen.
+- **Delegationstest:** Ein 42501 allein beweist keine Rollen-Driftabwehr.
+  Zuerst erlaubte aktuelle Nutzerbindung nachweisen, Setupabschluss markieren
+  und nach abgebrochener Testtransaktion ursprüngliche Membership prüfen.
+- **Widerruf:** Sperrt künftige DB-Abfragen, löscht keinen bereits ausgegebenen
+  Klartext. Brokerdispatch braucht erneute Autorisierung. UID bleibt reserviert;
+  keine automatische Wiederanbindung oder Benutzerübertragung.

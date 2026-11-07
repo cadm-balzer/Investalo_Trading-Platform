@@ -74,3 +74,11 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   aktuelle Revisionsquelle und externer Restore bleiben IP-009/BL-022.
 - Git-getrackter Credentialpfad bei Projektstart gefunden, Inhalte nicht gelesen.
   Historien-/Rotationsarbeit bleibt gesondert; siehe `docs/security.md`.
+- 2026-11-07: Envelopecheckpoint `7f83b33` auf main71e57f1 verifiziert.
+  Neuer Branch `feat/m1-credential-storage`: private gebundene LOGINs,
+  aktuelle DB-AAD, CAS, authentifizierter Rewrap und terminaler Widerruf.
+  19 Client +18 echte PG-Tests, vier Provisionierungstests und zurückgerollte
+  Driftprobe bestanden. 003 ausschließlich in investalo_credentials_checks
+  angewendet; gewöhnliche investaloDB bleibt002. Checkprofil besitzt bewusst
+  Migrationscredentials, kein Betriebsdienst. Noch kein Provider/HTTP/MFA-
+  Keyeingang oder echter Brokerkey. IP-029 abgeschlossen, IP-009 bleibt aktiv.

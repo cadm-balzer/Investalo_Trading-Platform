@@ -46,9 +46,11 @@ verbindliche Risikolimits, kontrollierte KI und zunächst kostenlose externe Die
 |---|---|
 | `apps/cockpit/` | Dashboard und Bedienoberfläche |
 | `services/api/` | Autorisierte API und fachliche Anwendungsfälle |
+| `services/credentials/` | Gebundener Credentialstore mit privaten PostgreSQL-Funktionen |
 | `services/workers/` | Datenimport, Backtests, Execution und Abgleich |
 | `packages/trading/` | Gemeinsamer deterministischer Strategie- und Risikokern |
 | `packages/marketdata/` | Validierte H4-Snapshots, öffentlicher Bitget-Import und CSV |
+| `packages/credentials/` | AES-GCM-Envelopes und authentifizierte Kontobindung |
 | `packages/contracts/` | Versionierte API-, Ereignis- und Bridgeverträge |
 | `integrations/` | Bitget-Adapter und nutzereigene MT5-Bridge |
 | `infra/` | Lokale Composeumgebung, TLS, Bootstrap und Werkzeugprofile |
@@ -64,7 +66,10 @@ Researchablauf; wirtschaftliche Validierung bleibt offen. Der isolierte
 [Classic-Bitget-Readadapter](integrations/bitget/README.md) ist mit 24 Offline-Tests
 geprüft. Der isolierte [Credential-Envelopekern](packages/credentials/README.md)
 verschlüsselt gebundene Daten und ist mit 20 Manipulations-/Rotations-/Restoretests
-geprüft. Persistente Speicherung, geschützte Keyeingabe und Brokeranbindung,
+geprüft. Der [Credentialstore](services/credentials/README.md) ergänzt persistente
+Nutzer-/Kontobindung, Versionsprüfung, Rotation und Widerruf. 37 Store-/PostgreSQL-
+Tests in einer getrennten Fixture-DB sowie vier Provisionierungstests und eine
+zurückgerollte Rollenprüfung bestanden. Geschützte Keyeingabe, Schlüsselbetrieb und Brokeranbindung,
 manuelle MFA-Reservefreigabe
 und Pilotbetrieb sind weitere M1-Aufgaben.
 Öffentlicher Rollout und Echtgeld benötigen eigene

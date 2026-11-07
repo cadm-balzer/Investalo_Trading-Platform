@@ -43,6 +43,11 @@ Der isolierte Credentialkern besitzt einen separaten
 `cffi==2.1.1`, `pycparser==3.12`. Offizielle PyPI-Wheelhashes für CPython
 3.13/3.14 auf Linux x86-64, glibc >=2.34. Der tatsächliche Nonroot-Checkcontainer
 nutzt Python 3.14.10 mit diesem Lock; API-/Researchabhängigkeiten sind unverändert.
+Der getrennte [Credentialstore-Lock](../services/credentials/requirements.lock)
+ergänzt `psycopg[binary]==3.3.8` aus dem bestehenden API-Lock. Der Testlock nutzt
+die bereits festgelegten pytest9.2.0-Pins und Wheelhashes. Sein Nonroot-
+PostgreSQL-Checkimage baut ebenfalls auf Python3.14.10 mit festem Digest.
+Keine neue CI/CD-Abhängigkeit oder Paketversion eingeführt.
 
 Offizielle Quellen:
 

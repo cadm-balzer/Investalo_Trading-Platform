@@ -25,8 +25,9 @@ Keine erledigten Punkte in dieser Liste halten.
 | BL-018 | Researchdaten und Executionidentitäten | Reale Fees/Spread/Instrumentregeln kalibrieren, Dreijahresdaten und Holdoutprotokoll nachweisen; separate Executionrollen bei IP-016 |
 | BL-019 | Manueller Auftrag ohne Fill | Bei IP-024 expliziten abgeglichenen Wiederholungsweg für reservierte manuelle Intents ergänzen; keine blinde neue Order |
 | BL-020 | Tatsächliche MFA-Schrittbestätigung | Für manuellen Einstieg verified Fresh-MFA-Auditreferenz, Faktorregistrierung/WebAuthn und pilotstabile RP-Domain prüfen |
-| BL-021 | Bitget-Keyeinrichtung und Walletgrenzen | Isolierter Classic-Readkern geprüft; tatsächliche Egress-IP, verschlüsselte Triple-Speicherung, persistente Rechte-/UID-/Parentbindung, Keyrotation, atomare doppelte-UID-Sperre und gemeinsame UID-Quota vor echter Verbindung prüfen; UTA/Futuresausführung später gesondert |
-| BL-022 | Credential-Schlüsselbetrieb und Rollbackschutz | Isolierter AEAD-Kern geprüft; externe Schlüsselgrenze, stabile KEK-ID/Materialzuordnung, gemeinsame Nutzungs-/Noncebudgets, autoritative Credentialrevision, getrennte Service-/DB-Rechte und verschlüsselter externer Restore vor echter Keyannahme nachweisen |
+| BL-021 | Bitget-Keyeinrichtung und Walletgrenzen | AEAD-Store, persistente UID-/Parentbindung und atomare UID-Eindeutigkeit geprüft; tatsächliche Egress-IP, geschützte Triple-Eingabe, signierte Identitäts-/Rechteprüfung beim Einrichten/Keywechsel und gemeinsame UID-Quota vor echter Verbindung integrieren; UTA/Futuresausführung später gesondert |
+| BL-022 | Credential-Schlüsselbetrieb und Rollbackschutz | Aktuelle DB-Revision, CAS und getrennte Credentialrollen geprüft; externe Schlüsselgrenze, stabile KEK-ID/Materialzuordnung, gemeinsame Nutzungs-/Noncebudgets, Schutz gegen vollständigen DB-Rollback und verschlüsselter externer Restore vor echter Keyannahme nachweisen |
+| BL-023 | Wiederanbindung nach Credentialwiderruf | UID und Plattformkonto bleiben terminal reserviert; kontrollierten admin-/MFA-/Brokerprüfweg für erneute Einrichtung oder Übertragung entwerfen, keine automatische Reaktivierung oder Löschung |
 
 RSI-/Supertrend-/Budget-/Exitentscheidungen Q1–Q31 sind bestätigt.
 Offen sind Umsetzung und Nachweise, keine stillschweigend vertagten Strategiefragen.

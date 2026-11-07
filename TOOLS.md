@@ -23,7 +23,8 @@ _Add whatever helps you do your job. This is your cheat sheet._
 ## Investalo — verified 2026-11-07
 
 - Working checkout: `/opt/Investalo_Trading-Platform`.
-- Implementation branch: `feat/m1-foundation`; local Git saves, no production deployment.
+- Implementation branch: `feat/m1-credential-storage`, based on main71e57f1;
+  local implementation and authorized checkpoint pushes, no production deployment.
 - Read-only references: `/opt/investalo-trading-system`,
   `/opt/investalo-autotrader`. HEADs and reuse limits: `docs/inventory.md`.
 - Host: Ubuntu 26.04.1 LTS, 2 vCPU, 1.9 GiB RAM, no swap.
@@ -56,7 +57,8 @@ _Add whatever helps you do your job. This is your cheat sheet._
   Public snapshots stage/import via `infra/scripts/stage-research-snapshot.py`.
   Never give the worker migration/API secrets or change its tenant binding during
   tests. Fixtures use the separate research test role.
-  Applied migrations 001/002 are immutable; extend with a new numbered migration.
+  Applied migrations001/002 are immutable.003 is applied only in
+  `investalo_credentials_checks`, and is also immutable. Ordinary DB remains002.
   Local full HTTPS test requires an imported public BTC snapshot, default
   `infra/local/research-data/btc-research.json`, alternative `--snapshot-file PATH`.
 - GitHub intermediate pushes explicitly authorized. Origin:
@@ -66,3 +68,9 @@ _Add whatever helps you do your job. This is your cheat sheet._
   Never copy the private key into the repository or print its contents.
 - Remote main was verified as already containing the historical credential-path
   commit. IP-005 remains open; no history rewrite/force-push was performed.
+- Credential fixture preparation: `infra/scripts/provision-local-credentials-tests.py`.
+  Testprofile `credential-storage-checks` deliberately mounts migration credentials.
+  Three own credential LOGINs only connect to the fixture DB; the administrative
+  checkcontainer has broader development DB rights. No broker or KEK secrets.
+  `tests/infra/check_credentials_role_drift.py` requires valid bindings from
+  preceding PG tests, verifies a permitted baseline and rolls back its test grant.
