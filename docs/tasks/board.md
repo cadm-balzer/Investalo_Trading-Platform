@@ -18,7 +18,7 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-006 | P0 / P1 | IN_PROGRESS | Runtimepins und bestätigten Betriebsentwurf konkretisieren | Pins/Locks/Digests und lokaler Lauf geprüft; SMTP/Recovery/Backup/Pilot noch offen |
 | IP-007 | P1 / P1 | IN_PROGRESS | Gepinntes Bootstrap und reproduzierbarer privater Start | Fünf Basisdienste plus Researchprofil aufgebaut; unabhängiger Clean-Checkout-Nachweis vor Pilot |
 | IP-008 | P0 / P1 | IN_PROGRESS | Auth, Tenants, RBAC und DB-Isolation | OIDC/MFA, BFF, Einladungsprovisionierung und FORCE RLS getestet; Recovery/Registrierung/Streams folgen |
-| IP-009 | P0 / P1 | BLOCKED | Credentialverschlüsselung und minimale Serviceidentitäten | IP-006/008; kein Secret in Browser/Logs/Research, Rotation/Restore geprüft |
+| IP-009 | P0 / P1 | IN_PROGRESS | Credentialverschlüsselung und minimale Serviceidentitäten | Isolierter AEAD-Kern mit 20 Bindungs-/Rotations-/Restoretests geprüft; Serviceidentität, persistente Speicherung und echte Keyannahme folgen |
 | IP-010 | P1 / P2 | IN_PROGRESS | Crypto- und MT5-Strategien vollständig spezifizieren | Sachentscheidungen bestätigt; Regeln dokumentiert, technische Kern-/Broker-/Kausalitätsabnahme folgt |
 | IP-011 | P1 / P2 | IN_PROGRESS | Marktdatenimport, Instrumentmetadaten und Snapshots | Strikte H4-Snapshots/CSV/Bitgetpagination und 90-Tage-BTC-Import geprüft; Dreijahresumfang, Datenrechte und historische Instrumentregeln offen |
 | IP-012 | P0 / P2 | IN_PROGRESS | Tradingkern und unabhängige Risk Engine | Crypto-Core: 31 Tests; Offlineworker nutzt denselben Kern; MT5, Broker-/Paper-Riskintegration folgen |
@@ -37,6 +37,7 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-025 | P1 / P1–P3 | DONE | Lokales Fundament zur Zwischenabnahme bereitstellen | Gepinnte Builds, 82 automatisierte Tests und 28 reale HTTPS-/MFA-/BFF-Prüfpunkte bestanden; kein fertiger M1-Pilot |
 | IP-026 | P1 / P2–P3 | DONE | Lokalen Daten-/Research-/Ergebnisablauf schließen | 540 reale BTC-H4-Kerzen importiert; 132 Tests und 32 reale HTTPS-Prüfpunkte bestanden, einschließlich Offlineworker und Equitykurve |
 | IP-027 | P0 / P4 | DONE | Classic-Bitget-Verbindungsplan und isolierten Readkern prüfen | Eigene Nutzerkeys und Classic bestätigt; 24 Offline-Tests plus unabhängiger Review; echte Keyeingabe und Serviceanbindung bleiben IP-009/IP-015 |
+| IP-028 | P0 / P1 | DONE | Isolierten Credential-Envelopekern prüfen | 20 AES-GCM-Tests mit gepinnten Wheels, unabhängiger Review und gehärteter Offline-Checkcontainer; echte Keyannahme und persistente Integration bleiben IP-009 |
 
 ## Abschlussbelege
 
@@ -126,6 +127,22 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
   Implementierungscommit `3052560` auf `origin/feat/m1-foundation` gepusht;
   Nutzer hat die Zwischenabnahme ausdrücklich akzeptiert und übernimmt den
   Merge in den Hauptbranch selbst. Keine Produktions-/Echtgeldfreigabe.
+
+- **IP-028, 2026-11-07:** [Credentialkern](../../packages/credentials/README.md)
+  implementiert. Versionierte AES-256-GCM-Envelopes mit zufälligen DEKs,
+  getrennten Payload-/Wrap-AAD-Domänen und authentifizierter Tenant-/Nutzer-/
+  Konto-/UID-/Profil-/Revisionsbindung. KEK-Rewrap authentifiziert beide
+  bestehenden AEAD-Schichten; ursprüngliche Ciphertexte bleiben unverändert.
+  20 Tests mit erfundenen Schlüsseln bestanden, einschließlich Referenzvektor,
+  Manipulationsabwehr, Rotation und lokaler Wiederherstellung.
+  Unabhängiger Review ohne verbleibende Blocker. Offizielle Version-/Wheelhashpins;
+  tatsächlicher Python-3.14.10-Checkcontainer Nonroot, ohne Netzwerk/Secrets,
+  schreibgeschütztes Rootdateisystem und keine Capabilities.
+  API-/Researchlocks und angewendete Migrationen unverändert.
+  Kein Vaultdienst, Runtime-Schlüsselprovider, DB/API/UI oder echte Keyannahme.
+  Root-of-Trust, Serviceidentitäten, Revisions-/Usagegates und externer Restore
+  bleiben IP-009/BL-022. Hauptbranchmerge bis `3fd95b1` verifiziert;
+  neue Arbeit auf `feat/m1-credential-envelope`.
 
 ## Routine
 

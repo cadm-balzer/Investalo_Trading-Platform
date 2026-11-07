@@ -165,3 +165,17 @@ Stand 2026-11-07. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
 - **Headerredaktion:** Ein gewöhnliches Mapping kann Authheader im `repr` ausgeben.
   Credential- und Requestobjekte samt Headermapping redigieren; keine generische
   Serialisierung oder rohe Providerexceptions in Logs übernehmen.
+
+## Credential-Envelopes
+
+- **AEAD ist keine Autorisierung:** Authentifizierte Tenant-/Kontobindung ersetzt
+  weder serverseitige Nutzerrechte noch DB-RLS oder eine getrennte Schlüsselidentität.
+- **Revision und Restore:** Ein alter Ciphertext bleibt mit seinem alten Kontext
+  kryptografisch gültig. Aktuelle erwartete Revision aus autoritativer DB beziehen;
+  lokale Wiederherstellung mit Testkeys ist kein externer Backup-/Restorebeleg.
+- **KEK-Wechsel:** Vor Rewrap auch den Payloadtag prüfen. KEK-ID darf historisch
+  nicht auf anderes Material zeigen; gleiche KEKbytes unter mehreren IDs abweisen.
+  Alte Schlüssel erst nach geprüfter Migration und Recoveryretention ausmustern.
+- **Nonces und Speicher:** Zufällige 96-Bit-Nonces haben ein Kollisionsrisiko;
+  Nutzungslimits/Rotation gemeinsam pro KEK überwachen. Python bietet keine
+  garantierte Speicherlöschung; redigierte Objekte verhindern keine Prozessinspektion.

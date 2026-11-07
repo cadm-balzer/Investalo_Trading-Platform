@@ -287,3 +287,16 @@ erzeugen kein gemeinsames Handelsbudget. 24 erfundene Offline-Tests und
 unabhängiger Review bestanden. Kein echter Key angenommen oder Konto verbunden.
 Vault, API/UI, tatsächliche Egress-IP, atomare DB-Bindung und gemeinsame UID-Quota
 bleiben Integrationsvoraussetzungen. Keine neue Paketabhängigkeit.
+
+## 2026-11-07 — D-033: Isolierte AEAD-Envelopes im Credentialentwurf
+
+**Status: umgesetzt innerhalb des bestätigten AEAD-/Tenant-/Kontoplans.**
+AES-256-GCM aus exakt/hashgepinntem `cryptography==50.0.2`, eigene zufällige
+DEKs pro Credentialpayload und versionierte KEKs. Getrennte AAD-Domänen binden
+Tenant/Nutzer/Konto/Verbindung/Broker-UID/Parent/Classic-Leseprofil/Revision;
+die KEK-ID gehört zusätzlich zur Wrap-AAD. Rewrap prüft beide alten AEAD-Schichten
+und erhält Payloadciphertext/-nonce. Nur explizite Ciphertextserialisierung;
+keine eigene Kryptografie und keine Entschlüsselung in Research.
+20 Tests und unabhängiger Review bestanden. Separater Hashlock/Offline-
+Checkcontainer; keine API-/Researchdependencyänderung. Betriebsschlüsselprovider,
+DB-/Serviceautorisierung, Antirollback und externer Restore sind noch offen.

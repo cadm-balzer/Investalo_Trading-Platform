@@ -125,6 +125,19 @@ npm --prefix apps/cockpit test
 npm --prefix apps/cockpit run typecheck
 ```
 
+Der isolierte Credentialkern hat einen eigenen Hashlock und ein eigenes
+Checkimage; API-/Researchlocks bleiben davon unabhängig:
+
+```sh
+sudo bash infra/scripts/compose.sh --profile checks build credentials-checks
+sudo bash infra/scripts/compose.sh --profile checks run --rm --no-deps credentials-checks
+```
+
+Das Checkprofil läuft als UID 10006, ohne Netzwerk, Secrets oder Diensteabhängigkeit,
+mit schreibgeschütztem Rootdateisystem und ohne Linuxcapabilities. 20 echte
+AES-GCM-Tests mit erfundenen Schlüsseln bestanden. Es stellt keinen Vaultdienst
+bereit; tatsächliche Nutzerkeys werden noch nicht angenommen.
+
 Cockpitmeldungen zeigen fehlende Konten/Positionen ausdrücklich als leeren
 Datenbestand. Backtestanforderungen frieren Dataset, Strategie und Kosten ein;
 der Offlineworker speichert Nettoergebnisse und begrenzte Equitykurven.

@@ -38,6 +38,12 @@ Neue Releases erfordern bewusste Pinänderung, Digestauflösung und relevante
 Regressionstests. Ein Pin darf notwendige Sicherheitsupdates nicht unbegrenzt
 verhindern. Betrieb/Supporttermine vor jedem Pilotupgrade erneut prüfen.
 
+Der isolierte Credentialkern besitzt einen separaten
+[Hashlock](../packages/credentials/requirements.lock): `cryptography==50.0.2`,
+`cffi==2.1.1`, `pycparser==3.12`. Offizielle PyPI-Wheelhashes für CPython
+3.13/3.14 auf Linux x86-64, glibc >=2.34. Der tatsächliche Nonroot-Checkcontainer
+nutzt Python 3.14.10 mit diesem Lock; API-/Researchabhängigkeiten sind unverändert.
+
 Offizielle Quellen:
 
 - [Docker auf Ubuntu](https://docs.docker.com/engine/install/ubuntu/)

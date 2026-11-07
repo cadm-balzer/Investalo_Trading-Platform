@@ -26,6 +26,7 @@ Keine erledigten Punkte in dieser Liste halten.
 | BL-019 | Manueller Auftrag ohne Fill | Bei IP-024 expliziten abgeglichenen Wiederholungsweg für reservierte manuelle Intents ergänzen; keine blinde neue Order |
 | BL-020 | Tatsächliche MFA-Schrittbestätigung | Für manuellen Einstieg verified Fresh-MFA-Auditreferenz, Faktorregistrierung/WebAuthn und pilotstabile RP-Domain prüfen |
 | BL-021 | Bitget-Keyeinrichtung und Walletgrenzen | Isolierter Classic-Readkern geprüft; tatsächliche Egress-IP, verschlüsselte Triple-Speicherung, persistente Rechte-/UID-/Parentbindung, Keyrotation, atomare doppelte-UID-Sperre und gemeinsame UID-Quota vor echter Verbindung prüfen; UTA/Futuresausführung später gesondert |
+| BL-022 | Credential-Schlüsselbetrieb und Rollbackschutz | Isolierter AEAD-Kern geprüft; externe Schlüsselgrenze, stabile KEK-ID/Materialzuordnung, gemeinsame Nutzungs-/Noncebudgets, autoritative Credentialrevision, getrennte Service-/DB-Rechte und verschlüsselter externer Restore vor echter Keyannahme nachweisen |
 
 RSI-/Supertrend-/Budget-/Exitentscheidungen Q1–Q31 sind bestätigt.
 Offen sind Umsetzung und Nachweise, keine stillschweigend vertagten Strategiefragen.
