@@ -23,11 +23,15 @@ test("unsafe origins, absent CSRF and cross-site mutations fail closed", () => {
   assert.throws(() => requireCsrf("expected", null));
   assert.throws(() => requireCsrf("expected", "forged"));
 });
-test("only nonce-bound MFA with fresh authenticated ID claims creates identity", () => {
+test("nonce-bound ID claims require an MFA context and recent login, not a fresh second factor", () => {
   const now = Math.floor(Date.now() / 1000);
   const claims = { sub: "opaque-user", nonce: "nonce", amr: ["pwd", "otp", "mfa"], auth_time: now, exp: now + 300, iat: now, aud: "cockpit" };
   assert.equal(verifiedIdentity(claims, "nonce", "cockpit", now, now).subject, "opaque-user");
-  for (const patch of [{ amr: ["pwd"] }, { nonce: "forged" }, { auth_time: now + 20 }, { auth_time: now - 4000 }, { iat: now + 20 }, { exp: now - 1 }, { sub: "" }, { aud: ["cockpit", "another"] }, { azp: "another" }]) {
+  for (const patch of [{ amr: ["pwd"] }, { amr: ["mfa", "mfa"] }, { amr: ["mfa", 1] },
+    { amr: ["mfa", "OTP"] }, { amr: Array.from({ length: 9 }, (_, i) => `f${i}`).concat("mfa") },
+    { nonce: "forged" }, { auth_time: now + 20 }, { auth_time: now - 4000 }, { iat: now + 20 },
+    { exp: now - 1 }, { sub: "" }, { sub: "a".repeat(256) }, { sub: "a\u0000" },
+    { aud: ["cockpit", "another"] }, { azp: "another" }]) {
     assert.throws(() => verifiedIdentity({ ...claims, ...patch }, "nonce", "cockpit", now, now));
   }
 });

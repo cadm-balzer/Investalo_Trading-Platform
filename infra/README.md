@@ -164,9 +164,14 @@ Bitget-/AEAD-Abläufe). Einrichtung, Keywechsel und Widerruf, Replay, Ablauf
 während Sperrwartezeiten/Probe/Write, geänderte Rechte und CAS sind abgedeckt.
 Vier Helpertests und die Rollen-Driftprobe waren im vorigen Storecheckpoint grün.
 Der Drift-Test weist erlaubten Ausgangszustand, Ablehnung von Delegationsrechten
-und deren vollständigen Transaktionsrollback nach. Migration003/004 sind nur in
-`investalo_credentials_checks` angewendet; die gewöhnliche Entwicklungsdatenbank
-blieb bei002. Angewendete Dateien auch nach Fixturetests nicht ändern.
+und deren vollständigen Transaktionsrollback nach. Seit dem Metadatencheckpoint
+sind001–005 in beiden lokalen Datenbanken angewendet und unveränderlich.
+Bei vorhandener Entwicklung nach dem Credential-Gruppenhelper auch
+`sudo bash infra/scripts/compose.sh --profile tools run --rm --no-deps migrate`
+für die gewöhnliche Datenbank ausführen.005 ergänzt ausschließlich eine
+autorisierte öffentliche Metadatenprojektion für den Runtime-LOGIN;
+direkter Tabellen-/Credentialfunktionszugriff bleibt gesperrt.
+112 API-/Worker-Tests und erneut alle120 Credentialprüfungen bestanden.
 
 Das Prüfprofil läuft als UID10003 mit TLS im internen DB-Netz, ohne veröffentlichte
 Ports und ohne Broker-/BFF-/IdP-/KEKsecrets. Es besitzt bewusst administrative
@@ -185,7 +190,12 @@ Der HTTPS-Test prüft tatsächliche Ausführung und Darstellung eines importiert
 öffentlichen BTC-Snapshots. Abweichender Pfad: `--snapshot-file PATH`.
 Es gibt noch keine nutzbaren Brokerverbindungen.
 Lokale BFF-Abmeldung löscht die Cockpitsitzung; die IdP-Sitzung bleibt bestehen.
-Jeder neue Cockpitlogin erzwingt dennoch eine frische Anmeldung.
+Jeder neue Cockpitlogin erzwingt dennoch eine frische Anmeldung. Authelia kann
+dabei den alten zweiten Faktor erhalten; dies ist keine frische sensitive
+Actionfreigabe. Der erweiterte HTTPS-Test prüft diese Grenze und die gesperrten
+Credentialrouten. Zusatzpasskey ist bestätigt und wird integriert:
+[Passkeyplan](../docs/passkey-step-up.md). Kein neuer OIDC-Callback registriert.
+40 tatsächliche HTTPS-Prüfpunkte bestanden; alle sechs lokalen Dienste gesund.
 
 Mit laufendem Researchprofil stoppt
 `sudo bash infra/scripts/compose.sh --profile research stop` alle sechs Dienste

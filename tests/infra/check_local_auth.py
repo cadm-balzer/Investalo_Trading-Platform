@@ -257,6 +257,28 @@ def main() -> None:
     csrf = re.search(rb'name="csrf"[^>]*value="([^"]+)"', body)
     if not csrf:
         raise RuntimeError("Logout CSRF missing from authenticated page")
+    STEP = "credential metadata and unavailable fresh factor"
+    status, credential_headers, credential_page = request(opener, APP + "/security/credentials")
+    check(status == 200 and "Bestätigungsschritt bleibt gesperrt".encode() in credential_page,
+          "credential page honestly displays the unavailable fresh factor")
+    check("no-store" in credential_headers.get("Cache-Control", ""),
+          "credential metadata page is not cached")
+    credential_payload = {"platform_account_id": str(uuid4()), "action": "register"}
+    status, _, _ = request(opener, APP + "/api/credentials/step-up", data=credential_payload)
+    check(status == 400, "credential initiation without CSRF rejected")
+    credential_headers = {"X-CSRF-Token": csrf.group(1).decode()}
+    status, blocked_headers, result = request(opener, APP + "/api/credentials/step-up",
+                                             data=credential_payload, headers=credential_headers)
+    check(status == 503 and b"authorization_url" not in result and "no-store" in blocked_headers.get("Cache-Control", ""),
+          "credential step-up cannot redirect or grant without fresh factor proof")
+    status, _, result = request(opener, APP + "/api/credentials/confirm",
+                                data={"confirmed": True, "confirmation_token": "a" * 43},
+                                headers=credential_headers)
+    check(status == 503 and b"verified" not in result,
+          "credential confirmation cannot claim successful fresh MFA")
+    status, _, _ = request(opener, APP + "/api/credentials/confirm",
+                           data={"confirmed": True}, headers=credential_headers)
+    check(status == 400, "confirmation without the displayed grant token rejected")
     STEP = "BFF job acceptance and idempotency"
     job_headers = {"X-CSRF-Token": csrf.group(1).decode(),
                    "Idempotency-Key": str(uuid4())}
@@ -311,6 +333,21 @@ def main() -> None:
     status, _, result = request(opener, IDP + "/api/oidc/consent?flow_id=" + existing_flow)
     check(status == 200 and json.loads(result).get("data", {}).get("require_login") is True,
           "existing IdP session cannot bypass fresh application login")
+    STEP = "provider factor freshness limitation"
+    # The provider's dedicated reauthentication endpoint preserves MFA;
+    # ordinary /firstfactor instead resets the session and would test login.
+    # Its request time has fractions but authentication timestamps have whole
+    # seconds. Cross that boundary so prompt=login does not obscure this check.
+    time.sleep(1.05)
+    status, _, result = request(opener, IDP + "/api/firstfactor/reauthenticate", data={
+        "password": password,
+        "flow": "openid_connect", "flowID": existing_flow,
+    })
+    check(status == 200 and json.loads(result).get("status") == "OK",
+          "existing MFA session accepts password reauthentication")
+    status, _, result = request(opener, IDP + "/api/oidc/consent?flow_id=" + existing_flow)
+    check(status == 200 and json.loads(result).get("data", {}).get("require_login") is False,
+          "provider can reuse the old second factor, requiring a separate action proof")
 
 
 if __name__ == "__main__":

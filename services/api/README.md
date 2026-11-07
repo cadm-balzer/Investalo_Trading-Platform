@@ -23,10 +23,10 @@ geschützt. Vor `002_research` muss der Administrator die NOLOGIN-Gruppe
 Vor `003_credentials` benötigt PostgreSQL zusätzlich die NOLOGIN-Gruppe
 `investalo_credentials_worker`. Neuinitialisierung legt beide Gruppen an;
 für vorhandene lokale Entwicklung provisioniert der Credential-Testhelper die
-zweite Gruppe. Die Abnahme von003 erfolgte ausschließlich in
-`investalo_credentials_checks`; die gewöhnliche Entwicklungsdatenbank steht
-weiter bei002. Die API benötigt derzeit mindestens002 und hat keinen
-Credentialzugriff oder Keyeingabeendpunkt.
+zweite Gruppe. Lokal sind001–005 in `investalo` und
+`investalo_credentials_checks` angewendet und unveränderlich. Die normale
+API benötigt mindestens002; der additive Metadatenendpunkt benötigt005 und
+bricht ohne diese Migration geschlossen ab. Kein Keyeingabeendpunkt.
 Alte Aufträge ohne eingefrorene Daten werden als `dataset_missing` beendet;
 es erfolgt keine automatische Zuordnung neuer oder synthetischer Daten.
 Runtime ist ausschließlich `investalo_runtime`, ohne DDL, RLS-Bypass,
@@ -61,6 +61,16 @@ Der identische Import ist idempotent. Abweichende Provenienz oder Abdeckung bei
 gleichem Kerzendigest wird verweigert; ein bestehender Snapshot wird nie umgedeutet.
 Die API gibt Metadaten mit Herkunft, Digest, Zeitraum und nullable
 `coverage_complete` aus, keine Rohkerzen oder privaten CSV-URLs.
+
+`GET /v1/credential-actions/{UUID}` veröffentlicht nur Konto-ID/-name/-modus/
+status, eigene opaque Verbindungs-ID, Credentialrevision und Speicherversion.
+Aktive owner/trader und aktuelle Identität/Epoch werden in derselben Transaktion
+erneut geprüft. Fremde Konten und Verbindungen anderer Nutzer bleiben403, auch
+im selben Tenant; pausierte eigene Konten bleiben für späteren Widerruf sichtbar.
+Die feste005-Funktion erlaubt nur dem Runtime-LOGIN diese Projektion.
+Broker-UID, Parent, Envelope und KEK-ID werden nicht gelesen oder veröffentlicht.
+Private Tabellen und die003/004-Credentialfunktionen bleiben für API/Research
+gesperrt; diese Metadaten sind keine MFA- oder Schreibfreigabe.
 
 Jobdetail liefert `result` oder `null` und einen begrenzten `failure_code`.
 Listen liefern `result_summary` ohne Equitykurve. Ergebnisbeträge sind

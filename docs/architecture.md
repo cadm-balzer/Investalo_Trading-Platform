@@ -121,6 +121,18 @@ Q24 bestätigt administratives E-Mail-Recovery; Laufzeitnachweise stehen aus.
 
 ## Fachmodule und Datenmodell
 
+Kontoänderungen erhalten einen bestätigten zusätzlichen Cockpit-Passkey:
+Authelia-Reauth liefert keinen belastbaren Nachweis einer neuen Faktorverwendung.
+Isolierter Verifier mit SimpleWebAuthn14.1.0; dauerhafte Faktorverwaltung und
+aktionsgebundener Browserflow folgen IP-033. Der Session-TTL-Store speichert
+keine dauerhafte Passkeyregistry. OIDC-Originalclaims bleiben erhalten.
+[Entwurf/Gates](passkey-step-up.md).
+
+Additive005 veröffentlicht nur autorisierte eigene Konto-/Verbindungsmetadaten;
+API und Research haben weiterhin keinen direkten Zugriff auf Credentialtabellen
+oder003/004-Funktionen. Der API-Metadatenweg nutzt vertrauenswürdige
+transaktionslokale GUCs, nicht die spezifische Credential-LOGIN-Bindung.
+
 | Modul | Zentrale Objekte |
 |---|---|
 | Identity/Tenants | Tenant, User, Membership, Role, Session-/Providerreferenz |

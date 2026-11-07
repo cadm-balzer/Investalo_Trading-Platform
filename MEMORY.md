@@ -94,3 +94,23 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   SQL prüft keine JWTs; direkte003-Funktionen sind Trusted-Service-Primitiven.
   Kein echter BFF-MFA-Schrittflow, HTTP-Keyeingang, Betriebsprovider oder
   Brokerkontakt. IP-030 abgeschlossen; BL-021/022 und BL-024 bleiben offen.
+- 2026-11-07: Onboardingmerge69a1f8b auf main56070ba verifiziert;
+  Branch `feat/m1-credential-step-up`. Additive005 bietet autorisierte
+  eigene Konto-/Verbindungsmetadaten ohne UID/Envelope/Keymaterial.
+  001–005 jetzt in beiden lokalen DBs angewendet und unveränderlich.
+  112 API-/Worker- und erneut120 Credentialtests bestanden.
+  Vorbereitete Sitzung-/CSRF-/Actor-/Epoch-/Target-/CAS-Bindung und eigener
+  Grant-Previewtoken; alle sensitiven Server-/UI-Schritte bleiben gesperrt.
+- Authelia4.39.28 erhält beim Passwort-Reauth den alten zweiten Faktor.
+  `auth_time`/`amr=mfa` beweisen keine frisch verwendete MFA; D-027 gilt nur
+  für frische Anmeldung. Nutzer hat zusätzlichen kostenlosen Cockpit-Passkey
+  ausdrücklich bestätigt. Isolierter SimpleWebAuthn14.1.0-Verifier mit19
+  echten synthetischen P256-Signaturtests; volle Cockpitsuite78 grün.
+  Dauerhafte Faktorregistrierung/CAS/Counter/Widerruf/Audit und Browserflow
+  folgen IP-033. Session-TTL-Store nicht als Passkeyregistry verwenden;
+  lokale Prüfzeit niemals als IdP-Claim ausgeben. Keine echte Keyannahme.
+- Abschließend310 automatisierte Prüfungen und40 echte HTTPS-Prüfpunkte grün;
+  letztere belegen dedizierte Passwort-Reauth mit altem zweiten Faktor.
+  Typecheck, gepinnte Builds, Migrationsprüfsummen und sechs gesunde lokale
+  Dienste geprüft; weiterhin nur127.0.0.1:8443. IP-031/032 abgeschlossen,
+  dauerhafte Passkeyverwaltung und Browserflow bleiben IP-033.

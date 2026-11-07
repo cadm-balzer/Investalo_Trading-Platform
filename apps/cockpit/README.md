@@ -73,6 +73,36 @@ mit Code/State nicht speichern. Logout widerruft lokal die Cockpitsitzung;
 Authelia unterstützt keinen RP-Logout. Administrative Recovery muss API-
 Authentifizierungsgeneration und alte Sessions separat widerrufen.
 
+## Kontometadaten und zusätzlicher Passkey
+
+`/security/credentials` zeigt administrativ zugeordnete Bitget-Lesekonten und
+vorgesehene Aktionen. Die Antwort wird gegen Tenant, Account und aktuelle
+Auth-Epoch geprüft; fremde Nutzerverbindungen bleiben unsichtbar. Keine
+Schlüsseleingabe. Beginn und Bestätigung sind sowohl im Server als auch in der
+Oberfläche gesperrt; die beiden POST-Routen liefern auch mit gültiger Sitzung
+und CSRF503. Ohne CSRF oder angezeigte Bestätigungskennung erfolgt Ablehnung.
+
+Authelia4.39.28 erhält bei Passwort-Reauth den alten zweiten Faktor.
+`auth_time` ist die letzte Zeit irgendeines Faktors; `amr=mfa` beweist deshalb
+keine neue Faktorverwendung. Dies ist durch offizielle Quellen und den echten
+lokalen HTTPS-Test bestätigt. Der normale Login bleibt zulässig, sensitive
+Actionfreigaben dürfen sich nicht allein darauf stützen.
+
+Der Nutzer hat eine zusätzliche Cockpit-Passkey-Bestätigung bestätigt.
+Der isolierte Verifier nutzt `@simplewebauthn/server==14.1.0` mit UV/UP,
+festem RP/HTTPS-Origin, serverseitiger Challenge und gespeichertem Publickey.
+Er wird noch von keiner HTTP-Route aufgerufen. Dauerhafte Registrierung mit
+administrativem Einmalticket, Versions-CAS, Widerruf/Recovery und ein echter
+Browser-/Gerätetest fehlen. Der kurzlebige verschlüsselte Sessionstore ist
+kein dauerhafter Passkeystore. Lokale Passkeyzeiten ersetzen keine IdP-Claims.
+Details und Aktivierungsgates: [Passkeys](../../docs/passkey-step-up.md).
+
+Vorbereitete Actionzustände frieren Ziel und Versionen serverseitig ein, binden
+Handle/CSRF/Issuer/Sub/Tenant/Epoch, prüfen aktuelle Metadaten erneut und
+verbrauchen Callback/Grant einmalig. Eine eigene opaque Bestätigungskennung
+bindet die Vorschau gegen Tabverwechslungen. Diese Primitive und der getrennte
+Credential-Assertion-Signer sind keine aktivierte MFA-/Credentialroute.
+
 ## Forschungsaufträge und Ergebnisse
 
 `/backtests` liest ausschließlich authentifizierte Dataset-Metadaten und

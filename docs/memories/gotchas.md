@@ -207,3 +207,21 @@ Stand 2026-11-07. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
 - **Datei-KEK:** Fingerprintkonfiguration muss unabhängig vertrauenswürdig bleiben;
   Modus0700/0400 und NOFOLLOW ersetzen weder externe Schlüsselisolation noch
   Schutz gegen VM-root. Keine Entwicklungsschlüssel für reale Nutzerkeys verwenden.
+- **Authelia-Faktorfrische:** Passwort-Reauth erhält den alten zweiten Faktor.
+  `auth_time`/`amr=mfa` und `prompt=login` beweisen keine neu verwendete MFA.
+  Sensitive Aktionen benötigen zusätzlich die bestätigte Cockpit-Passkeyprüfung.
+  Erzwungener Browserlogout ist kein serverseitig belastbarer Nachweis.
+  Native `/api/firstfactor` setzt die Sitzung neu auf; zum Nachweis bestehender
+  Faktorwiederverwendung den dedizierten `/api/firstfactor/reauthenticate` prüfen.
+  Bei sofortigen CLI-Flows kann die Sekundenpräzision der Authzeit vor der
+  gebrochenen OIDC-Requestzeit liegen; im Test die Sekundengrenze überqueren.
+- **Mehrere Tabs:** Session-CSRF allein bindet eine Bestätigung nicht an die
+  angezeigte Aktion. Grant-eigenen Token vor Consume vergleichen; ein alter
+  Tab darf den neuen Cookie-Grant nicht bestätigen.
+- **Passkeystore:** Session-TTL-/Sweepstore ist nicht für dauerhafte Publickeys
+  und Counter geeignet. CAS/Ownerbindung/Widerruf und Audit atomar halten,
+  niemals Credential consume→verify→put. Synced-Counter0→0 ist zulässig;
+  Replay verhindern einmalige Challenge und persistierte Version.
+- **Passkeyclaims:** UV und UP serverseitig erzwingen, Beispiele können UV
+  ausschalten. Lokale Passkeyzeit niemals als OIDC-`auth_time` ausgeben.
+  RP-Hostname ohne Port, HTTPS-Origin mit Port; andere Domain erfordert Enrollment.

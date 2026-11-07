@@ -15,6 +15,7 @@ from psycopg.types.json import Jsonb
 
 from .auth import Assertion, authenticate
 from .body_limit import BodyLimitMiddleware
+from .credential_action import action_context
 from .database import SCHEMA_VERSION, assert_runtime, connect, transaction
 from .settings import Settings
 from .research_result import publish_result
@@ -157,6 +158,13 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 "role": user["role"], "accounts": accounts, "positions": positions,
                 "journal": [_journal(row) for row in journal], "jobs": [_job(row) for row in jobs],
             }, custom_encoder={Decimal: str})
+
+    @application.get("/v1/credential-actions/{account_id}")
+    def credential_actions(account_id: UUID, identity: Identity):
+        with transaction(application.state.settings, identity) as (db, user):
+            if user["role"] not in ("owner", "trader"):
+                raise HTTPException(403, "Access denied")
+            return action_context(db, account_id, identity)
 
     @application.get("/v1/jobs")
     def jobs(identity: Identity, limit: Annotated[int, Query(ge=1, le=100)] = 20):

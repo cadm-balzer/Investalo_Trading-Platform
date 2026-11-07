@@ -51,6 +51,12 @@ Keine neue CI/CD-Abhängigkeit oder Paketversion eingeführt.
 
 Offizielle Quellen:
 
+Der zusätzliche Cockpit-Passkey-Verifier verwendet exakt
+`@simplewebauthn/server@14.1.0` (Node>=22), festgeschrieben im npm-Integritätslock.
+Node24.22.2 bleibt die Containerbasis. Keine neue CI/CD-Toolabhängigkeit.
+Quelle: [Serverdokumentation](https://simplewebauthn.dev/docs/packages/server),
+[npm-Metadaten](https://registry.npmjs.org/@simplewebauthn/server/14.1.0).
+
 - [Docker auf Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
 - [Python Releases](https://www.python.org/downloads/)
 - [Node Releases und Wartung](https://nodejs.org/en/about/previous-releases/)

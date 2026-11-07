@@ -11,6 +11,9 @@ Das lokale Fundament besitzt ausführbare Tests:
 - `tests/api`: API-Authentifizierung, Payloadgrenzen und echte PostgreSQL-
   Integration für Rollen, FORCE RLS, Relationstrennung, Jobidempotenz,
   immutable Snapshots und Holdoutschutz.
+  Zusätzlich36 reine und20 tatsächliche PG-Fälle für die005-Metadatenprojektion:
+  fremde Nutzerbindung/Role/Epoch/GUC, Projection und unveränderte private ACLs.
+  Insgesamt112 API-/Workerprüfungen nach005 grün.
 - `tests/marketdata`: Zeit-/OHLC-/Digest-/Coveragevalidierung, sichere CSV-
   Kennzeichnung und deterministische öffentliche Bitget-Pagination.
 - `tests/bitget`: 24 Offline-Tests für Classic-V2-Signaturen, feste GET-Pfade,
@@ -39,6 +42,9 @@ Das lokale Fundament besitzt ausführbare Tests:
   Negativfälle mit eigener tatsächlicher Research-Testrolle.
 - `apps/cockpit/tests`: OIDC-Token/Freshness, Cookies/Sitzungen, CSRF,
   Mandantenantworten, Ergebnis-/Datasetverträge und requestgebundene Assertions.
+  78 Tests grün, einschließlich25 vorbereiteter Actionzustände,
+  13 Contract-/Signerfälle und19 echter synthetischer P256-Passkeyprüfungen.
+  Kein aktivierter Passkey-HTTP-/Registrierungs-/Counter-CAS-Nachweis.
 - `tests/infra/check_local_auth.py`: tatsächlicher HTTPS-Passwort-/TOTP-/
   OIDC-Durchlauf einschließlich BFF, Mandanten-API und Abmeldung.
   Jobannahme/Wiederholung, Parameterkonflikt und frischer Login trotz bestehender
@@ -46,6 +52,9 @@ Das lokale Fundament besitzt ausführbare Tests:
   Ein importierter öffentlicher BTC-Snapshot wird ausgewählt und vom tatsächlichen
   Worker verarbeitet; Ergebnisdigest, Nettoauswertung und SVGkurve werden geprüft.
   Ausschließlich generierte lokale `.invalid`-Identität; keine Faktorwerte ausgeben.
+  Erweiterte Prüfungen zeigen gesperrte Credentialrouten und belegen,
+  dass die bestehende IdP-MFA durch Passwort-Reauth wiederverwendet werden kann.
+  Insgesamt40 tatsächliche HTTPS-Prüfpunkte bestanden.
 - `tests/infra/test_research_provisioning.py`: atomare Rollenprovisionierung,
   Eingabegrenzen und sichere SQL-/Passwortbehandlung.
 - `tests/infra/test_credentials_provisioning.py`: vier Tests für feste

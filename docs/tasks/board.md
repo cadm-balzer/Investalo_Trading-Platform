@@ -38,8 +38,11 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-026 | P1 / P2–P3 | DONE | Lokalen Daten-/Research-/Ergebnisablauf schließen | 540 reale BTC-H4-Kerzen importiert; 132 Tests und 32 reale HTTPS-Prüfpunkte bestanden, einschließlich Offlineworker und Equitykurve |
 | IP-027 | P0 / P4 | DONE | Classic-Bitget-Verbindungsplan und isolierten Readkern prüfen | Eigene Nutzerkeys und Classic bestätigt; 24 Offline-Tests plus unabhängiger Review; echte Keyeingabe und Serviceanbindung bleiben IP-009/IP-015 |
 | IP-028 | P0 / P1 | DONE | Isolierten Credential-Envelopekern prüfen | 20 AES-GCM-Tests mit gepinnten Wheels, unabhängiger Review und gehärteter Offline-Checkcontainer; echte Keyannahme und persistente Integration bleiben IP-009 |
-| IP-029 | P0 / P1 | DONE | Gebundene persistente Credential-Speicherung prüfen | 19 Client +18 echte PG-Tests, vier Provisionierungstests und Rollen-Driftprobe;003 nur Fixture-DB, Betriebsprovider/HTTP/MFA bleiben IP-009 |
-| IP-030 | P0 / P1–P4 | DONE | Bitget-Prüfung, Triple-Speicherung und einmalige Actionfreigabe verbinden | 120 Tests inkl. 60 echte PG-Fälle bestanden; synthetische Freigaben/Broker, 004 nur Fixture-DB; HTTP/BFF-MFA und Pilotprovider bleiben IP-009 |
+| IP-029 | P0 / P1 | DONE | Gebundene persistente Credential-Speicherung prüfen | 19 Client +18 echte PG-Tests, vier Provisionierungstests und Rollen-Driftprobe; damals003 nur Fixture-DB, inzwischen001–005 beide DBs; Betriebsprovider/HTTP/MFA bleiben IP-009 |
+| IP-030 | P0 / P1–P4 | DONE | Bitget-Prüfung, Triple-Speicherung und einmalige Actionfreigabe verbinden | 120 Tests inkl. 60 echte PG-Fälle bestanden; synthetische Freigaben/Broker, damals004 nur Fixture-DB; HTTP/BFF-MFA und Pilotprovider bleiben IP-009 |
+| IP-031 | P0 / P1 | DONE | Geschützte Kontometadaten und vorbereitete Actionzustände prüfen | Additive005, 36 reine +20 PG-Metadatenfälle, 25 Actionzustandsfälle; 40 reale HTTPS-Prüfpunkte einschließlich gesperrtem Step-up und IdP-Faktorfrischebefund |
+| IP-032 | P0 / P1 | DONE | Bestätigten zusätzlichen Passkey-Assertionkern prüfen | SimpleWebAuthn14.1.0, 19 echte synthetische Signaturtests, voller Cockpitlauf78/Typecheck/Containerbuild grün; unabhängiger Review, kein aktiver HTTP-Verifier |
+| IP-033 | P0 / P1 | READY | Dauerhafte Passkeyverwaltung und Browser-Schrittflow integrieren | Administratives Einmalticket, CAS/Counter/Widerruf/Audit, Challenge-/Epoch-/Session-/Aktionsbindung und echte Browserabnahme; BL-020/021 |
 
 ## Abschlussbelege
 
@@ -189,6 +192,31 @@ primitiven ohne universelle MFA-Garantie. Echter HTTP/BFF-MFA-Schrittflow,
 Signaturidentität, CSRF und Betriebsschlüsselprovider bleiben IP-009/BL-021/022.
 Retention-/Crash-/Commitausgangabgleich folgt BL-024.
 Anleitung: [Credentialstore](../../services/credentials/README.md).
+
+**IP-031/IP-032, 2026-11-07:** Onboardingmerge69a1f8b auf main56070ba
+verifiziert; Branch `feat/m1-credential-step-up`. Additive005 veröffentlicht
+nur aktuelle autorisierte eigene Konto-/Verbindungsmetadaten. Keine UID-/Parent-/
+Envelope-/KEK-Abfrage; andere Tenantnutzer können keine fremde Verbindung als
+freien Registrierungsslot sehen. Alle001–005 jetzt in beiden lokalen DBs
+angewendet, Prüfsummen/idempotenter Lauf geprüft; vorherige SQL-Dateien unverändert.
+
+Vorbereitete Actionzustände binden Session/CSRF/Actor/Tenant/Epoch/frozenTarget/
+CAS und eigenen Previewtoken. Der unabhängige Review stellte fest:
+Authelia-Reauth erhält alte MFA; normaler Login ist keine frische
+Zweitfaktorfreigabe. Sensitive Server und UI bleiben geschlossen, auch mit
+gültiger Sitzung/CSRF. Nutzer bestätigt zusätzlichen Cockpit-Passkey; dessen
+isolierter Verifier mit exakt gepinnter Standardbibliothek ist umgesetzt.
+Dauerhafte Registrierung/Counter-CAS/Widerruf/Audit, einmalige gebundene
+Challenges und Browser-/Gerätetest folgen IP-033.
+
+310 automatisierte Prüfungen bestanden:112 API/Worker,120 Credentialregression,
+78 Cockpit einschließlich19 echten synthetischen P256-Passkeyfällen.
+Typecheck, gepinnte Builds und40 tatsächliche HTTPS-Prüfpunkte grün.
+Letztere bestätigen normalen Login/CSRF/Replay/Research/Logout, gesperrte
+Credentialrouten und Reauth-Wiederverwendung des alten Faktors.
+Sechs lokale Dienste gesund, nur127.0.0.1:8443 veröffentlicht.
+Keine echte Keyannahme, Brokerkontakte oder öffentliche/Produktionsänderung.
+Entwurf und verbleibende Gates: [Passkeys](../passkey-step-up.md).
 
 ## Routine
 

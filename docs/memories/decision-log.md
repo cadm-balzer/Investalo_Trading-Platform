@@ -232,6 +232,10 @@ abgewiesen; `amr=mfa`, Nonce, PKCE und Signatur bleiben verpflichtend.
 Quellen: [OIDC Core](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest),
 [Authelia util.go](https://github.com/authelia/authelia/blob/v4.39.28/internal/oidc/util.go).
 
+Späterer Befund D-036: Dies beweist eine frische Anmeldung, keine erneute
+Verwendung des zweiten Faktors. Sensitive Actionfreigaben bleiben zusätzlich
+an den bestätigten Cockpit-Passkey gebunden.
+
 ## 2026-11-07 — D-028: GitHub-Zwischenstände
 
 **Status: ausdrücklich beauftragt.** Geprüfte Zwischenstände committen und
@@ -357,3 +361,31 @@ echte Keys, Brokerkontakte oder Produktionsänderung.
 Grundlagen: [OWASP Transaction Authorization](https://cheatsheetseries.owasp.org/cheatsheets/Transaction_Authorization_Cheat_Sheet.html),
 [PG18 Uhrfunktionen](https://www.postgresql.org/docs/18/functions-datetime.html),
 [OWASP Secrets Management](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html).
+
+## 2026-11-07 — D-036: Metadaten und Faktorfrische getrennt prüfen
+
+**Status: implementierter Schutzbefund.** Additive005 erlaubt nur dem geprüften
+Runtime-LOGIN eine feste Konto-/Verbindungsmetadatenprojektion für aktive
+owner/trader mit aktueller Identität/Epoch. Andere Nutzerverbindungen bleiben
+auch im selben Tenant403; private Credentialtabellen/-funktionen bleiben gesperrt.
+001–005 sind jetzt in beiden lokalen Datenbanken angewendet und immutable.
+Vorbereitete Actionzustände binden Sitzung/CSRF/Actor/Tenant/Epoch und eingefrorene
+Ziele/Versionen; eigene Bestätigungskennung verhindert Mehrtabverwechslung.
+
+D-027 gilt für frische Anmeldung, nicht für frische Zweitfaktorverwendung:
+Authelia4.39.28 erhält beim Passwort-Reauth den alten zweiten Faktor und nutzt
+die letzte Faktorzeit für `auth_time`. OIDC-`prompt=login` plus `amr=mfa` reicht
+für sensitive Actionfreigaben nicht. Der tatsächliche lokale HTTPS-Test prüft
+diese Wiederverwendung. Server und UI bleiben für solche Änderungen gesperrt.
+Quellen und Gates: [Passkeys](../passkey-step-up.md).
+
+## 2026-11-07 — D-037: Zusätzlicher Cockpit-Passkey
+
+**Status: ausdrücklich vom Nutzer bestätigt nach D-036.** Kostenlose zusätzliche
+Passkey-Bestätigung für Kontoänderungen mit einmaliger Registrierung je Nutzer.
+Authelia bleibt der Loginprovider; lokale Prüfzeit ersetzt keine IdP-Claims.
+Der isolierte Assertionkern nutzt SimpleWebAuthn14.1.0 mit UV/UP, festem
+HTTPS-Origin/RP und serverseitiger Challenge. Aktivierung erst mit dauerhafter
+gebundener Registrierung, administrativem Erstzugang, CAS/Counter/Widerruf,
+Audit und echtem Browsernachweis. Diese technischen Gates folgen IP-033.
+Keine echte Keyannahme, Brokerkontakte oder Pilotveröffentlichung.

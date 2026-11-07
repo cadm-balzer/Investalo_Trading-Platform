@@ -82,14 +82,15 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   Main now contains accepted checkpoint and acceptance note (`3fd95b1`), verified
   at `d3b31e2`; envelope checkpoint `7f83b33` merged into main, verified at
   `71e57f1`; store checkpoint `46860ab` merged into main, verified at `b3030de`;
-  current work branch: `feat/m1-bitget-onboarding`.
+  onboarding checkpoint `69a1f8b` merged into main, verified at `56070ba`;
+  current work branch: `feat/m1-credential-step-up`.
   Isolated AEAD core: `packages/credentials/README.md`, 20 offline tests with
   pinned cryptography and a separate hardened Compose check.
   Credential store: `services/credentials/README.md`; migration003 and current
   AAD/CAS/rotation/revocation verified with 19 client +18 actual PostgreSQL tests,
-  four provisioning tests and a rolled-back role-drift probe. Only fixture DB
-  `investalo_credentials_checks` has migration003/004 applied; ordinary
-  development DB stays at002. Applied migrations are immutable in either database.
+  four provisioning tests and a rolled-back role-drift probe. Both local DBs
+  `investalo` and `investalo_credentials_checks` now have001–005 applied.
+  Applied migrations are immutable in either database.
   Credential LOGINs are bound through SESSION_USER to one active tenant/user;
   runtime/research cannot read tables or execute credential functions.
   The administrative check profile mounts migration credentials; it is not a
@@ -106,6 +107,18 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   120 checkcontainer tests passed: 19 client, 41 onboarding units, 60 actual PG
   (18 store, 30 authorization, 12 synthetic Bitget/AEAD flows). IP-030 complete.
   HTTP/UI, real browser step-up and actual user credentials remain unfinished.
+  Additive005 exposes only authenticated own account/connection metadata to
+  the runtime LOGIN; no UID/envelope/key material or direct private-table rights.
+  112 API/worker and120 credential regression tests passed after005.
+  Prepared BFF state binds session/CSRF/actor/tenant/epoch/target/CAS and an
+  opaque preview token against stale tabs. All sensitive HTTP/UI steps stay off.
+  Authelia4.39.28 password reauth preserves old second-factor state; auth_time
+  plus amr=mfa proves no fresh second factor. Do not weaken this release gate.
+  User explicitly approved additional free Cockpit passkeys for account changes.
+  Isolated SimpleWebAuthn14.1.0 verifier checks UV/UP/exactRP/origin/challenge/
+  owner/key/counter; durable enrollment/CAS/revocation/audit and browser proof
+  follow IP-033. Session TTL store is not a durable passkey registry; preserve
+  original OIDC claims. See `docs/passkey-step-up.md`.
 
 ## Trading and implementation invariants
 
