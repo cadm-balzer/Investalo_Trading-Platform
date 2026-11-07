@@ -158,3 +158,10 @@ Stand 2026-11-07. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
 - **Kontoinfo-Quota:** Classic-Accountinfo ist mit 1 Request/s/UID dokumentiert.
   Mehrere Keys derselben UID teilen diese Grenze. Eine lokale Clientpace
   ersetzt keine Schedulerkoordination über mehrere Clients/Worker.
+- **Decimalgrenzen:** `abs(Decimal)` kann mit aktueller Contextpräzision runden.
+  Validierungsgrenzen mit `copy_abs()` exakt prüfen; Wirezahlen nur ASCII.
+- **Coin-Schreibweise:** Providerassetnamen können gemischte Groß-/Kleinschreibung
+  tragen. Wirebezeichner erhalten statt durch pauschales Uppercase zu verändern.
+- **Headerredaktion:** Ein gewöhnliches Mapping kann Authheader im `repr` ausgeben.
+  Credential- und Requestobjekte samt Headermapping redigieren; keine generische
+  Serialisierung oder rohe Providerexceptions in Logs übernehmen.

@@ -13,6 +13,10 @@ Das lokale Fundament besitzt ausführbare Tests:
   immutable Snapshots und Holdoutschutz.
 - `tests/marketdata`: Zeit-/OHLC-/Digest-/Coveragevalidierung, sichere CSV-
   Kennzeichnung und deterministische öffentliche Bitget-Pagination.
+- `tests/bitget`: 24 Offline-Tests für Classic-V2-Signaturen, feste GET-Pfade,
+  TLS/Redirect-/Antwortgrenzen, Nutzer-/UID-/Parent-/Rechte-/IP-Prüfungen und
+  getrennte Walletdaten. Erfundenes Keymaterial und gemockter HTTPS-Transport;
+  kein tatsächlicher Brokeraufruf. [Testkommando](../integrations/bitget/README.md).
 - `tests/workers`: gemeinsamer Simulatorkern, Provenienz und Lease-/Fencing-
   Negativfälle mit eigener tatsächlicher Research-Testrolle.
 - `apps/cockpit/tests`: OIDC-Token/Freshness, Cookies/Sitzungen, CSRF,

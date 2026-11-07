@@ -95,10 +95,15 @@ keine Brokercredentials. BFF/API redigieren Eingaben, Header, Exceptions und
 Traces; sensible Werte gehören nicht in Git oder Logs. Konto-/Credentialänderung
 und spätere Handelsaktivierung werden ohne Rohwerte auditiert.
 
-Ein isolierter Classic-Readadapter wird zuerst mit erfundenen Fixtures geprüft.
-Geschützte Speicherung, Cockpiteingabe und tatsächliche Brokerprüfung folgen
-IP-009/IP-015. Es wurde kein echter Nutzerkey entgegengenommen oder Konto
-verbunden. Fach- und Betriebsgates:
+Der isolierte [Classic-Readadapter](../integrations/bitget/README.md) ist mit
+24 Offline-Tests und unabhängigem Review geprüft. Eine reine Kontoinfoprobe
+ermittelt die UID; Walletabfragen benötigen danach eine feste Nutzer-/Kontobindung
+und erneute Rechte-/IP-Prüfung. Der Adapter prüft die erwartete ausgehende IP
+in der gemeldeten Whitelist; die tatsächliche Server-IP und eine ausschließlich
+auf Plattformadressen begrenzte Whitelist sind damit noch nicht nachgewiesen.
+Geschützte Speicherung, Cockpiteingabe, persistente Bindung und tatsächliche
+Brokerprüfung folgen IP-009/IP-015. Es wurde kein echter Nutzerkey entgegengenommen
+oder Konto verbunden. Fach- und Betriebsgates:
 [Security](security.md), [Trading](trading.md), [Ticketboard](tasks/board.md).
 
 ## Offizielle Grundlagen

@@ -61,5 +61,8 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   eigenen APIKey+Secret+Passphrase im eigenen Bitget-Konto. Classic V2 zuerst,
   zunächst lesende echte Kontodaten/Paper; keine Budgetvermischung,
   Wallettransfers oder Futures-/Livefreigabe. `docs/bitget-connection.md`.
+- 2026-11-07: isolierter Classic-V2-Readkern mit UID-Lernprobe und gebundenen
+  Walletabfragen implementiert. 24 Offline-Tests plus unabhängiger Review grün.
+  Keine tatsächliche Verbindung; Vault/API/UI und Egress-/DB-/Quotaabnahme offen.
 - Git-getrackter Credentialpfad bei Projektstart gefunden, Inhalte nicht gelesen.
   Historien-/Rotationsarbeit bleibt gesondert; siehe `docs/security.md`.

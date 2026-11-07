@@ -275,3 +275,15 @@ Futures-/Echtgeldaktivierung wird aus Guthaben oder Keyeinrichtung nicht abgelei
 Keine automatischen Transfers oder UTA-Migration. Geschützte Triple-Eingabe und
 Credentialverschlüsselung sind vor echter Keyannahme erforderlich.
 Plan und Quellen: [bitget-connection.md](../bitget-connection.md).
+
+## 2026-11-07 — D-032: Isolierter Classic-Readkern vor echter Keyannahme
+
+**Status: umgesetzt innerhalb der bestätigten M1-Lesegrenze.** Stdlib-Adapter
+erlaubt ausschließlich Kontoinfo, Spotassets und Futureskonten als feste
+signierte GET-Pfade. Eine Kontoinfoprobe prüft Rechte und erwartete IP, lernt UID
+und ermöglicht die anschließende feste Nutzer-/UID-/Parentbindung.
+Walletdaten benötigen diese Bindung und frische Kontoinfo; getrennte Modelle
+erzeugen kein gemeinsames Handelsbudget. 24 erfundene Offline-Tests und
+unabhängiger Review bestanden. Kein echter Key angenommen oder Konto verbunden.
+Vault, API/UI, tatsächliche Egress-IP, atomare DB-Bindung und gemeinsame UID-Quota
+bleiben Integrationsvoraussetzungen. Keine neue Paketabhängigkeit.
