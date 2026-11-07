@@ -36,7 +36,8 @@ _Add whatever helps you do your job. This is your cheat sheet._
 - Planning tasks: `docs/tasks/board.md`; documentation index: `docs/README.md`.
 - Never store access keys, passwords or tokens in these notes.
 - Deployment decision 2026-11-07: Docker Compose plus local Authelia OIDC/MFA.
-  Five local services: PostgreSQL, Authelia, API, cockpit and Caddy.
+  Five base services: PostgreSQL, Authelia, API, cockpit and Caddy;
+  optional `--profile research` adds the tenant-bound offline worker.
   Only `127.0.0.1:8443` is published. Startup/checks: `infra/README.md`.
   Q20 plans a public central HTTPS entry for invited pilot
   users; Q21 selects existing free SMTP; Q24 selects administrative email recovery.
@@ -51,6 +52,13 @@ _Add whatever helps you do your job. This is your cheat sheet._
   Use `--profile tools run --rm migrate` for checksummed migrations and
   `--profile checks run --rm api-checks` for real PostgreSQL integration tests.
 - Builds run serially on this host. Host clock synchronization was checked.
+- Research role preparation/binding: `infra/scripts/provision-local-research.py`.
+  Public snapshots stage/import via `infra/scripts/stage-research-snapshot.py`.
+  Never give the worker migration/API secrets or change its tenant binding during
+  tests. Fixtures use the separate research test role.
+  Applied migrations 001/002 are immutable; extend with a new numbered migration.
+  Local full HTTPS test requires an imported public BTC snapshot, default
+  `infra/local/research-data/btc-research.json`, alternative `--snapshot-file PATH`.
 - GitHub intermediate pushes explicitly authorized. Origin:
   `github.com:cadm-balzer/Investalo_Trading-Platform.git`.
   Existing host Deploy-Key `/opt/github-project-ssh-key` is used via

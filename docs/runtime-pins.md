@@ -23,6 +23,9 @@ DB-Verbindungen. Lokale HTTPS-OIDC-Discovery prüft die CA, richtigen Issuer
 und PKCE `S256`; der Host veröffentlicht nur `127.0.0.1:8443`.
 Der tatsächliche HTTPS-Passwort-/TOTP-/OIDC-BFF-Durchlauf ist lokal bestanden,
 einschließlich frischem Login, Mandantenzugriff und Abmeldung.
+Der optionale Offlineworker verwendet denselben Python-/Hashlockstand.
+Ein öffentlicher H4-Snapshot wurde vom tatsächlichen Worker berechnet und
+als Nettoergebnis/Equitykurve im Cockpit geprüft; keine neue Paketabhängigkeit.
 CLI-Testfaktorregistrierung ersetzt keine normale Registrierung, Recovery-,
 WebAuthn- oder Pilotabnahme.
 

@@ -21,11 +21,17 @@ Pilotbackupziele. Siehe [architecture.md](architecture.md).
 | Authelia | Lokale Authentifizierung, MFA und OIDC | Nur eigene IdP-Datenbank, administrierter Nutzerbestand und Notifier |
 | Daten-/Signalworker | Marktdaten, Strategie und Risikoprüfung | Nur erforderliche Plattformdaten; kein allgemeiner Secretzugriff |
 | Paper/Execution/Reconciliation | Kontrollierte Ausführung und Brokerabgleich | Eigene Rollen; Echtgeld-Dispatch zunächst gesperrt |
-| Researchworker | Reproduzierbare Backtests | Eigenes Profil und Ressourcenbudget, kein Brokersecretzugriff |
+| Researchworker (lokal umgesetzt) | Reproduzierbare Backtests | UID10005, eigenes Profil, nur internes DB-Netz; tenantgebundene DB-Rolle und CA, keine Broker-/BFF-Secrets |
 
 Die fachlichen Worker können anfangs mit wenigen Prozessen betrieben werden,
 ohne Berechtigungsgrenzen zwischen Research und Execution zusammenzulegen.
 Keine neuen Redis-/Monitoringvollstacks allein für diesen Start.
+
+Lokaler Import validiert öffentliche Snapshots und schreibt mit Migrationsrolle
+in einen ausdrücklich gewählten Tenant. Der Worker übernimmt danach nur
+eingefrorene Jobs dieses Tenants; keine Holdouts und kein eigenständiger
+Netzimport. Eine zweite lokale Researchrolle gehört ausschließlich zu
+Integrationsfixtures. Die laufende Workerbindung wird von Tests nicht verändert.
 
 Container: explizite Nonroot-Identität, minimale Capabilities, kein
 privilegierter Modus und kein Docker-Socket. Schreibpfade und temporäre

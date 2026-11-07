@@ -73,11 +73,53 @@ mit Code/State nicht speichern. Logout widerruft lokal die Cockpitsitzung;
 Authelia unterstützt keinen RP-Logout. Administrative Recovery muss API-
 Authentifizierungsgeneration und alte Sessions separat widerrufen.
 
+## Forschungsaufträge und Ergebnisse
+
+`/backtests` liest ausschließlich authentifizierte Dataset-Metadaten und
+übersichtsgebundene Aufträge. Eine ausdrücklich gewählte Dataset-ID wird
+mit CSRF und Idempotenzschlüssel über den BFF angefordert; die API friert
+Snapshot, Strategie, Konfiguration und Kosten beim Enqueue ein.
+Ohne verfügbaren Snapshot entsteht kein scheinbar laufender Auftrag.
+Die bekannten API-Statuswerte werden für die Anzeige normalisiert.
+Migrierte Altaufträge ohne eingefrorenen Snapshot bleiben als fehlgeschlagen
+sichtbar; sie erzeugen weder Ergebnisse noch einen scheinbaren API-Ausfall.
+Synthetische Daten benötigen eine zusätzliche bewusste Bestätigung und
+bleiben als Funktionstest gekennzeichnet; auch synthetische CSVs sind zulässig.
+Echte CSV-/Bitget-Daten dürfen mit Testzweck importiert werden. CSV-Herkunft ist unverifiziert.
+Bitgetdaten stammen vom öffentlichen History-Candles-Endpunkt; unvollständige
+Zeitabdeckung wird angezeigt.
+Ergebnisse zeigen angefordertes und tatsächliches Zeitfenster sowie fehlende
+H4-Kerzen am Anfang/Ende. Ohne dokumentiertes angefordertes Fenster bleibt
+Vollständigkeit ungeprüft. „Vollständig“ bezieht sich nur auf dieses Fenster;
+ein 90-Tage-Probelauf ist kein Drei-Jahres- oder Holdout-Nachweis.
+
+`/backtests/[id]` zeigt den echten Workerstatus und bei bestätigtem Erfolg
+Netto-PnL, Drawdown, Profitfaktor, geschlossene Baskets und die tatsächliche
+simulierte Equity. Profitfaktor `null` bedeutet „nicht bestimmbar“, niemals
+unendliche Profitabilität. Jeder Lauf bleibt ausdrücklich „nicht validiert“:
+unabhängiger Holdout, Kostenkalibrierung und Mindeststichprobe stehen aus.
+Die manuelle Reserve bleibt Cash; künstliche oder rückwirkend gewählte Fills
+werden nicht als automatische Leistung behauptet.
+
+Die Darstellung veröffentlicht nur geprüfte Felder: erwarteter Tenant und
+Job-ID, versioniertes Schema, BTC/ETH H4, Decimalstrings mit maximal 64 Zeichen
+und endlichen Betragsgrenzen, bekannte Quellen/Kosten sowie geordnete Equity.
+API-Antworten werden vor JSON-Parsing auf 2 MiB begrenzt; höchstens 2.000
+Kurvenpunkte werden gerendert. Die vollständige Zeitreihe liefert die Kennzahlen;
+bei ausgedünnter Anzeige erscheint ein Hinweis. Gleiche Zeitpunkte bleiben
+erhalten, weil Candle-Close und nächster Open nacheinander verarbeitet werden.
+SVG-Koordinaten werden ausschließlich aus endlichen, begrenzten Zahlen erzeugt.
+Snapshot-, Simulationsdaten-, Konfigurations- und Kostendigest plus frozen
+Kostenannahmen machen die verwendeten Versionen nachvollziehbar.
+Beliebige Ergebnisfehler, private Payloadfelder und Sourcequerys gelangen
+nicht zur Oberfläche. Sicherheitstests prüfen Tenant-/ID-Isolation, Zahlen,
+Kurvenlimits, Provenienz und Größenbegrenzung.
+
 ## Aktuelle Grenze
 
-Backtests können als tatsächliche API-Aufträge angefordert werden; Auftrag
-und Erfolg werden getrennt gezeigt. Ergebnisdiagramme erscheinen erst mit
-bestätigtem Ergebnisvertrag und echten Daten. Der manuelle Reservekauf,
+Ergebnisanzeige benötigt einen durch den Worker erfolgreich verarbeiteten,
+eingefrorenen Forschungsdatensatz. Ein Erfolg ist keine Handelsfreigabe.
+Der manuelle Reservekauf,
 Brokercredentialeinrichtung, AI und Feeds sind hier noch nicht aktiviert.
 Paper-/Demo-Ausführung, MFA-Recovery und öffentlicher Pilot brauchen ihre
 weiteren Abnahmen; diese Oberfläche ist lokale Entwicklung.

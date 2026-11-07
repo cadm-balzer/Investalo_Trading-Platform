@@ -2,11 +2,12 @@
 
 FastAPI mit PostgreSQL, signiertem BFF-Kontext und erzwungenen RLS-Regeln.
 Live-Ausführung ist deaktiviert; es gibt keinen Broker-Dispatch und keine Route
-zur manuellen Reservefreigabe. Das Fundament enthält echte persistente
-Backtest-Aufträge, noch keinen Job-Worker oder erfundene Ergebnisdaten.
+zur manuellen Reservefreigabe. Persistente Backtest-Aufträge werden durch einen
+getrennten, fest an einen Tenant gebundenen Offline-Researchworker verarbeitet.
 
 Start: `python -m uvicorn investalo_api.main:app --host 0.0.0.0 --port 8000`.
-Compose ergänzt interne TLS-Zertifikate; `PYTHONPATH` enthält `services/api/src`.
+Compose ergänzt interne TLS-Zertifikate; `PYTHONPATH` enthält `services/api/src`,
+`packages/trading/src` und `packages/marketdata/src`.
 Die Lockfiles enthalten exakte Releases und SHA256-Wheelhashes für CPython 3.14.
 Projekt-Metadaten erlauben Python 3.13–3.14; Python 3.13 ist hier nicht getestet.
 
@@ -17,7 +18,11 @@ interne Schlüssel kommen aus Dateien; es gibt keine Entwicklungs-Standardwerte.
 
 Migration: `python -m investalo_api.migrate` ausschließlich als
 `investalo_migration`. Die SQL-Dateien werden nach Anwendung per Prüfsumme
-geschützt. Runtime ist ausschließlich `investalo_runtime`, ohne DDL, RLS-Bypass,
+geschützt. Vor `002_research` muss der Administrator die NOLOGIN-Gruppe
+`investalo_research_worker` anlegen. `001_foundation` bleibt unverändert.
+Alte Aufträge ohne eingefrorene Daten werden als `dataset_missing` beendet;
+es erfolgt keine automatische Zuordnung neuer oder synthetischer Daten.
+Runtime ist ausschließlich `investalo_runtime`, ohne DDL, RLS-Bypass,
 UPDATE, DELETE oder TRUNCATE. Tenant-Kontext entsteht aus einer aktiven
 DB-Mitgliedschaft in derselben Transaktion und verschwindet nach Commit.
 
@@ -31,10 +36,33 @@ Der Befehl erzeugt weder Kontostände noch Broker-Verbindungen.
 
 Öffentlich minimale Liveness/Readiness unter `/health/live` und `/health/ready`,
 sowie bestätigte Paper-Regeln unter `/v1/trading-config`.
-Authentifizierte Endpunkte sind `/v1/me`, `/v1/overview`, `/v1/jobs` und
+Authentifizierte Endpunkte sind `/v1/me`, `/v1/overview`, `/v1/datasets`,
+`/v1/jobs`, `/v1/jobs/{UUID}` und
 `POST /v1/backtests` mit `Idempotency-Key: <UUID>`. Backtests erlauben
 `{"symbol":"BTC/USDT","timeframe":"4h"}` bzw. ETH/USDT; fremde Felder werden
-abgelehnt. Geldbeträge werden als Dezimalzeichenfolgen ausgegeben.
+abgelehnt. Optionales `dataset_id` bindet eine ausdrückliche Snapshotversion.
+Ohne ID wird die neueste nichtsynthetische Researchversion gewählt.
+Fehlt sie, lautet der Fehler `409 dataset_unavailable`. Synthetische Daten
+erfordern Zweck `test` und eine ausdrückliche ID; Holdout ist gesperrt.
+Wiederholte Idempotenzschlüssel behalten ihre ursprüngliche Version, auch nach
+einem neueren Import. Strategie, Präzision und Kosten werden zugleich eingefroren.
+
+Operatorimport: `python -m investalo_api.import_dataset --tenant-id <UUID>
+--purpose research|test|holdout --file <snapshot.json>`.
+Nur die Migrationsidentität darf validierte, unveränderliche Snapshots importieren.
+Der identische Import ist idempotent. Abweichende Provenienz oder Abdeckung bei
+gleichem Kerzendigest wird verweigert; ein bestehender Snapshot wird nie umgedeutet.
+Die API gibt Metadaten mit Herkunft, Digest, Zeitraum und nullable
+`coverage_complete` aus, keine Rohkerzen oder privaten CSV-URLs.
+
+Jobdetail liefert `result` oder `null` und einen begrenzten `failure_code`.
+Listen liefern `result_summary` ohne Equitykurve. Ergebnisbeträge sind
+Dezimalzeichenfolgen; vollständige Provenienz, getrennte Snapshot-/Simulator-
+Digests, Kostenannahmen und Coverage bleiben sichtbar. Die Anzeige enthält
+höchstens 2000 Kurvenpunkte mit Endpunkten, globalen Extrema und dem größten
+Drawdown-Paar; die Metriken entstehen aus der vollständigen Kurve.
+`validation.status` bleibt ausdrücklich `not_evaluated`. Synthetische Fixtures,
+kurze Datenproben und noch offene Baskets liefern keinen Profitabilitätsnachweis.
 
 Interne Assertions: HS256, `iss=investalo-bff`, `aud=investalo-api`, bestätigtes
 `oidc_iss`/opaques `sub`, `oidc_auth_time`, `iat`, höchstens 60 Sekunden `exp`,
@@ -45,9 +73,10 @@ DB-Replay-Schutz, Epoch und Reauth-Schwelle gelten pro Transaktion.
 Die API begrenzt Bodies vor der Framework-Validierung auf 16 KiB und entfernt
 eingereichte Werte aus Validierungsfehlern.
 
-Tests: `PYTHONPATH=services/api/src python -m pytest tests/api`.
+Tests: `PYTHONPATH=services/api/src:packages/trading/src:packages/marketdata/src
+python -m pytest tests/api`.
 PG-Tests benötigen isoliertes lokales PostgreSQL und zusätzlich
 `API_TEST_ADMIN_USER=investalo_migration` sowie
 `API_TEST_ADMIN_PASSWORD_FILE`. Sie erzeugen Testdatensätze ohne destruktives
-Aufräumen. Nonce-Aufbewahrung, Worker-Privilegien, Recovery-Operatorablauf und
+Aufräumen. Nonce-Aufbewahrung, Recovery-Operatorablauf und
 Rategrenzen bleiben gesonderte Betriebsarbeit vor einem öffentlichen Pilot.

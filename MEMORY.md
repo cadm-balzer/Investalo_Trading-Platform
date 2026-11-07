@@ -42,6 +42,13 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   ausschließlich `127.0.0.1:8443`. Crypto-Core/Papersimulator, Tenant-/RLS-API,
   persistente Jobannahme und OIDC-MFA-Cockpit implementiert. Noch kein fertiger
   M1-Pilot: Worker/Daten/Broker, UI-Schritt-MFA, SMTP/Recovery/Restore fehlen.
+- 2026-11-07, nächste Zwischenabnahme: immutable H4-Snapshots, öffentlicher
+  Bitget-V3-Import, tenantgebundener Offlineworker und persistierte Nettoresultate/
+  Equitycharts implementiert. 90 Tage BTC mit 540 lückenlosen Kerzen als
+  Funktionsnachweis, kein Dreijahres-/Holdout-/Profitabilitätsnachweis.
+  132 Tests +32 echte HTTPS-Prüfpunkte bestanden. Sechs lokale Dienste,
+  nur Loopback8443. Migration002 angewendet; niemals nachträglich editieren.
+  Broker/MT5, Paperbedienung/Step-up und Betriebsgates bleiben offen.
 - Authelia 4.39.28: `max_age=0` Consentloop; offizielles Äquivalent
   `prompt=login` plus signierte Authzeit ab Flowstart. Passwort-/TOTP-Testnutzer
   sind ausschließlich generierte lokale `.invalid`-Daten.

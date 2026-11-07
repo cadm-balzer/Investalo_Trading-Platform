@@ -13,6 +13,8 @@ import pytest
 from investalo_api.database import connect
 from investalo_api.main import create_app
 from investalo_api.provision import provision
+from investalo_api.import_dataset import import_dataset
+from investalo_marketdata import dump_snapshot, synthetic_snapshot, SnapshotSource
 from investalo_api.settings import Settings, secret_file
 from conftest import token
 
@@ -97,9 +99,11 @@ def test_signed_assertion_replay_rejected_across_requests(database):
 
 
 def test_persistent_backtest_is_idempotent_and_viewer_cannot_enqueue(database):
-    runtime, _admin, tenant_a, tenant_b, _ua, _ub, subject_a, subject_b = database
+    runtime, admin, tenant_a, tenant_b, _ua, _ub, subject_a, subject_b = database
+    dataset = import_dataset(admin, tenant_id=tenant_a, purpose="test",
+                             payload=dump_snapshot(synthetic_snapshot("BTC/USDT", bars=30)))
     client = TestClient(create_app(runtime))
-    body = json.dumps({"symbol": "BTC/USDT", "timeframe": "4h"}).encode()
+    body = json.dumps({"symbol": "BTC/USDT", "timeframe": "4h", "dataset_id": str(dataset)}).encode()
     key = str(uuid4())
     def submit(subject, tenant, payload=body, idempotency=key):
         auth = headers(runtime, subject, tenant, method="POST", target="/v1/backtests", body=payload)
@@ -111,6 +115,16 @@ def test_persistent_backtest_is_idempotent_and_viewer_cannot_enqueue(database):
     assert first.status_code == again.status_code == 202
     assert first.json()["id"] == again.json()["id"]
     assert first.json()["status"] == "queued"
+    detail_target = "/v1/jobs/" + first.json()["id"]
+    detail = client.get(detail_target, headers=headers(
+        runtime, subject_a, tenant_a, target=detail_target,
+    ))
+    assert detail.status_code == 200
+    assert detail.json()["tenant_id"] == str(tenant_a)
+    assert detail.json()["result"] is None and detail.json()["failure_code"] is None
+    assert client.get(detail_target, headers=headers(
+        runtime, subject_b, tenant_b, target=detail_target,
+    )).status_code == 404
     assert submit(subject_b, tenant_b, idempotency=str(uuid4())).status_code == 403
     assert submit(subject_a, tenant_a, payload=b'{"symbol":"ETH/USDT"}').status_code == 409
 
@@ -179,3 +193,76 @@ def test_overview_preserves_decimal_precision_and_removes_private_journal_payloa
     assert response.json()["journal"][0]["symbol"] == "BTC/USDT"
     assert "private-do-not-display" not in response.text
     assert "apikey" not in response.text
+
+
+def test_dataset_selection_excludes_synthetic_defaults_holdout_and_other_tenants(database):
+    runtime, admin, tenant_a, tenant_b, _ua, _ub, subject_a, _sb = database
+    fixture = synthetic_snapshot("BTC/USDT", bars=30)
+    test_id = import_dataset(admin, tenant_id=tenant_a, purpose="test", payload=dump_snapshot(fixture))
+    nonsynthetic = replace(
+        fixture, synthetic=False, source=SnapshotSource("csv", "csv-v1", None, fixture.source.retrieved_at),
+    )
+    holdout = import_dataset(admin, tenant_id=tenant_a, purpose="holdout", payload=dump_snapshot(nonsynthetic))
+    foreign = import_dataset(admin, tenant_id=tenant_b, purpose="research", payload=dump_snapshot(nonsynthetic))
+    client = TestClient(create_app(runtime))
+    response = client.get("/v1/datasets", headers=headers(runtime, subject_a, tenant_a, target="/v1/datasets"))
+    assert response.status_code == 200
+    assert [row["id"] for row in response.json()["datasets"]] == [str(test_id)]
+    assert "candles" not in response.text
+    for dataset in (None, holdout, foreign):
+        values = {"symbol": "BTC/USDT"}
+        if dataset:
+            values["dataset_id"] = str(dataset)
+        body = json.dumps(values).encode()
+        response = client.post("/v1/backtests", content=body, headers={
+            **headers(runtime, subject_a, tenant_a, method="POST", target="/v1/backtests", body=body),
+            "Content-Type": "application/json", "Idempotency-Key": str(uuid4()),
+        })
+        assert response.status_code == 409
+        assert response.json()["detail"] == "dataset_unavailable"
+
+
+def test_idempotent_retry_keeps_original_snapshot_after_new_latest_import(database):
+    runtime, admin, tenant_a, _b, _ua, _ub, subject_a, _sb = database
+    fixture = synthetic_snapshot("BTC/USDT", bars=30)
+    source = SnapshotSource("csv", "csv-v1", None, fixture.source.retrieved_at)
+    first_dataset = import_dataset(admin, tenant_id=tenant_a, purpose="research",
+                                   payload=dump_snapshot(replace(fixture, source=source, synthetic=False)))
+    client = TestClient(create_app(runtime))
+    key, body = str(uuid4()), b'{"symbol":"BTC/USDT"}'
+    def submit():
+        return client.post("/v1/backtests", content=body, headers={
+            **headers(runtime, subject_a, tenant_a, method="POST", target="/v1/backtests", body=body),
+            "Content-Type": "application/json", "Idempotency-Key": key,
+        })
+    first = submit()
+    assert first.status_code == 202
+    fixture = synthetic_snapshot("BTC/USDT", bars=31)
+    import_dataset(admin, tenant_id=tenant_a, purpose="research",
+                   payload=dump_snapshot(replace(fixture, source=source, synthetic=False)))
+    again = submit()
+    assert again.status_code == 202
+    assert again.json()["id"] == first.json()["id"]
+    assert again.json()["payload"]["dataset_id"] == str(first_dataset)
+
+
+def test_import_is_exactly_idempotent_and_rejects_changed_coverage(database):
+    _runtime, admin, tenant_a, *_others = database
+    fixture = synthetic_snapshot("BTC/USDT", bars=30)
+    payload = dump_snapshot(fixture)
+    identifier = import_dataset(admin, tenant_id=tenant_a, purpose="test", payload=payload)
+    assert import_dataset(admin, tenant_id=tenant_a, purpose="test", payload=payload) == identifier
+    changed = replace(fixture, coverage=replace(
+        fixture.coverage,
+        requested_start=fixture.coverage.actual_start - timedelta(hours=4),
+        requested_end=fixture.coverage.actual_end,
+    ))
+    assert changed.data_digest == fixture.data_digest
+    with pytest.raises(ValueError, match="provenance differs"):
+        import_dataset(admin, tenant_id=tenant_a, purpose="test", payload=dump_snapshot(changed))
+    with connect(admin) as db:
+        persisted = db.execute(
+            "SELECT snapshot FROM platform.research_datasets WHERE tenant_id=%s AND id=%s",
+            (tenant_a, identifier),
+        ).fetchone()
+    assert persisted["snapshot"] == json.loads(payload)

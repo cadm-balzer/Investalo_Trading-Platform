@@ -122,3 +122,23 @@ Stand 2026-11-07. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   API-Integration im gepinnten Docker-Checks-Target mit echter DB verifizieren.
 - **Frische Simulationstage:** UTC-Mitternachtsbaseline benötigt aktuelle
   Quotes aller gehaltenen Assets; fehlende Baseline sperrt neue Käufe.
+
+## Snapshot- und Researchintegration
+
+- **Bitget-V3-Zeitgrenzen:** `endTime=H4-Grenze−1ms` wird in tatsächlich
+  geprüften öffentlichen Antworten abgerundet und überspringt bei Rückwärts-
+  pagination eine Kerze. Exakte Intervallgrenzen verwenden; Lückenprüfung nie
+  abschalten. 90 Tage pro Request sind kein garantierter Gesamthistorienumfang.
+- **Coverage:** Ohne ausdrücklich gewünschtes Fenster ist Vollständigkeit
+  unbekannt (`null`), nicht falsch. `true` gilt nur für genau dieses Fenster.
+- **Zwei Hashes:** Datenhash lässt Abrufzeit und gewünschtes Fenster aus;
+  vollständiger Contenthash bewahrt das Auditobjekt. Derselbe Datenhash mit
+  geändertem Auditobjekt darf nicht unbemerkt einen bestehenden Import ersetzen.
+- **Statusvertrag:** DB/API liefert `queued/running/succeeded/failed`, Cockpit
+  normalisiert ausschließlich bekannte Werte auf sein Großbuchstabenenum.
+  Legacyjobs ohne Snapshot müssen weiter als fehlgeschlagen sichtbar sein.
+- **Worker-HBA:** Rollenmitgliedschaft allein reicht nicht; die TLS/SCRAM-HBA
+  muss die NOLOGIN-Researchgruppe vor dem allgemeinen Reject berücksichtigen.
+  Bestehende PG-Konfiguration nach geprüfter Änderung explizit neu laden.
+- **Provisionierung:** Rollenflags und fremde Rollenmitgliedschaften vor GRANT
+  atomar prüfen. Ablehnung darf keine vorherige Rechtevergabe zurücklassen.

@@ -7,8 +7,10 @@ Run after bootstrap-local, migration and provision-local-test.
 from __future__ import annotations
 
 import base64
+import argparse
 import hashlib
 import hmac
+from html.parser import HTMLParser
 import http.client
 import http.cookiejar
 import json
@@ -33,6 +35,28 @@ APP = "https://cockpit.local.test:8443"
 IDP = "https://auth.cockpit.local.test:8443"
 CONTEXT = ssl.create_default_context(cafile=str(LOCAL / "local_ca_cert"))
 STEP = "initialize"
+
+class DatasetOptions(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.current = None
+        self.label = ""
+        self.options = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag == "option":
+            self.current = dict(attrs).get("value")
+            self.label = ""
+
+    def handle_data(self, data):
+        if self.current:
+            self.label += data
+
+    def handle_endtag(self, tag):
+        if tag == "option":
+            if self.current:
+                self.options.append((self.current, self.label))
+            self.current = None
 
 
 class LocalConnection(http.client.HTTPSConnection):
@@ -103,6 +127,22 @@ def check(condition: bool, label: str):
 
 def main() -> None:
     global STEP
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--snapshot-file", type=Path,
+                        default=LOCAL / "research-data/btc-research.json")
+    args = parser.parse_args()
+    with args.snapshot_file.open("rb") as stream:
+        snapshot_bytes = stream.read(16 * 1024 * 1024 + 1)
+    if len(snapshot_bytes) > 16 * 1024 * 1024:
+        raise RuntimeError("Public research test snapshot exceeds size bound")
+    snapshot = json.loads(snapshot_bytes)
+    expected_digest = snapshot.get("data_digest")
+    if (snapshot.get("schema_version") != "marketdata-snapshot/1"
+            or snapshot.get("symbol") != "BTC/USDT" or snapshot.get("synthetic") is not False
+            or snapshot.get("source", {}).get("venue") != "bitget"
+            or not isinstance(expected_digest, str)
+            or not re.fullmatch(r"[a-f0-9]{64}", expected_digest)):
+        raise RuntimeError("Expected a real public BTC research snapshot")
     password = re.search(r"(?m)^Password: (\S+)",
                          (LOCAL / "pilot-access.txt").read_text()).group(1)
     opener = client()
@@ -198,6 +238,16 @@ def main() -> None:
               for value in cookies), "opaque application session cookie")
     status, _, body = request(opener, APP + "/")
     check(status == 200 and b"API verbunden" in body, "authenticated cockpit reads tenant API")
+    status, _, datasets_page = request(opener, APP + "/backtests")
+    dataset_options = DatasetOptions()
+    dataset_options.feed(datasets_page.decode())
+    dataset_id = next((value for value, label in dataset_options.options
+                       if re.fullmatch(r"[0-9a-f-]{36}", value)
+                       and label.startswith("Bitget")
+                       and expected_digest[:10] in label), None)
+    if not dataset_id:
+        raise RuntimeError("Expected imported public research snapshot missing")
+    check(status == 200, "authenticated cockpit lists imported public research data")
     status, _, _ = request(opener, location)
     check(status == 401, "authorization callback cannot be replayed")
     STEP = "CSRF and logout"
@@ -210,11 +260,12 @@ def main() -> None:
     STEP = "BFF job acceptance and idempotency"
     job_headers = {"X-CSRF-Token": csrf.group(1).decode(),
                    "Idempotency-Key": str(uuid4())}
-    job_payload = {"symbol": "BTC/USDT", "timeframe": "4h"}
+    job_payload = {"symbol": "BTC/USDT", "timeframe": "4h",
+                   "dataset_id": dataset_id}
     status, _, result = request(opener, APP + "/api/backtests",
                                 data=job_payload, headers=job_headers)
     job = json.loads(result)
-    check(status == 202 and job.get("status") == "queued" and bool(job.get("id")),
+    check(status == 202 and job.get("status") == "QUEUED" and bool(job.get("id")),
           "authenticated BFF queues a real persisted job")
     status, _, result = request(opener, APP + "/api/backtests",
                                 data=job_payload, headers=job_headers)
@@ -224,6 +275,22 @@ def main() -> None:
                            data={"symbol": "ETH/USDT", "timeframe": "4h"},
                            headers=job_headers)
     check(status == 409, "idempotency key cannot switch the requested asset")
+    STEP = "actual research worker result"
+    deadline = time.monotonic() + 120
+    result_page = b""
+    while time.monotonic() < deadline:
+        status, _, result_page = request(opener, APP + "/backtests/" + job["id"])
+        if b"NICHT VALIDIERT" in result_page:
+            break
+        if "Kein bestätigtes Ergebnis".encode() in result_page:
+            raise RuntimeError("Actual worker failed the public research job")
+        time.sleep(1)
+    check(status == 200 and b"NICHT VALIDIERT" in result_page,
+          "actual offline worker publishes a tenant-bound research result")
+    check(b"Netto-PnL" in result_page and b'class="equity-chart"' in result_page,
+          "cockpit renders actual net metrics and an equity curve")
+    check(expected_digest.encode() in result_page,
+          "displayed result retains the frozen public data digest")
     STEP = "logout"
     from urllib.parse import urlencode
     status, _, _ = request(

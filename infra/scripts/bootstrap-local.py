@@ -103,6 +103,7 @@ def main() -> None:
         "authelia_session_secret": (AUTHELIA_UID, AUTHELIA_UID, 0o400),
         "authelia_storage_key": (AUTHELIA_UID, AUTHELIA_UID, 0o400),
         "authelia_oidc_hmac_secret": (AUTHELIA_UID, AUTHELIA_UID, 0o400),
+        "research_password": (10005, 10005, 0o400),
         "authelia_reset_jwt_secret": (AUTHELIA_UID, AUTHELIA_UID, 0o400),
     }
     for name, (uid, gid, mode) in owners.items():
@@ -153,6 +154,7 @@ def main() -> None:
     write(LOCAL / "authelia.yml", config, uid=AUTHELIA_UID, gid=AUTHELIA_UID)
     # Host bind directories are explicit and owned by their nonroot runtimes.
     for name, uid in (("postgres-data", 999), ("authelia-data", AUTHELIA_UID),
+                      ("research-data", 10003),
                       ("cockpit-data", 10002), ("caddy-data", 10001)):
         path = LOCAL / name
         path.mkdir(mode=0o700)

@@ -240,3 +240,26 @@ auf GitHub pushen, bestehende Host-Deploy-Identität verwenden. Foundation
 abgeglichen; der historische Credentialpfad war bereits auf remote main.
 Neue lokale Testsecrets sind ausgeschlossen. Rotation/Historyremediation
 bleibt IP-005; keine daraus abgeleitete Rewrite-/Force-Push-Freigabe.
+
+## 2026-11-07 — D-029: Eingefrorene Daten und tenantgebundener Researchworker
+
+**Status: umgesetzt im bestätigten PostgreSQL-/Workerentwurf.** Streng validierte
+`marketdata-snapshot/1`-Artefakte speichern Datenhash und vollständigen
+Contenthash. Jobs frieren Dataset, Strategie und Kosten bei Annahme ein;
+Snapshot und terminales Ergebnis bleiben immutable. Operatorimport nutzt die
+Migrationsidentität, der Offlineworker eine eigene LOGIN-Rolle je Tenant.
+`SESSION_USER`-Bindung, eingeschränkte Security-Definer-Funktionen und
+Attempttoken/Lease/Heartbeat verhindern fremde Tenantwahl und veraltete
+Abschlüsse. Keine API-/BFF-/Brokersecrets, kein Internetimport im Worker.
+Bestehende Jobs ohne Snapshot sind ausdrücklich `dataset_missing` fehlgeschlagen.
+
+## 2026-11-07 — D-030: Forschungsresultat und Validierungsstatus
+
+**Status: konservative Anzeige innerhalb bestätigter Nachweisregeln.**
+`backtest-result/1` enthält Netto-PnL, Drawdown, geschlossene Baskets, nullable
+Profitfaktor, Equitykurve sowie Daten-/Simulations-/Konfigurations-/Kostenhash.
+Kostenannahmen und synthetische Daten sind sichtbar; automatische Referenzläufe
+lassen den manuellen Puffer als Cash. Keine künstliche Schließung am Datenende.
+Öffentliche 90-Tage-BTC-Daten dienen dem Funktionsnachweis, nicht dem
+Dreijahres-/Holdoutgate. `validation=not_evaluated` bleibt verpflichtend;
+Holdouts sind im gewöhnlichen Researchpfad weder lesbar noch ausführbar.

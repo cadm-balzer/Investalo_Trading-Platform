@@ -16,14 +16,14 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-004 | P0 / P0 | DONE | Git-Containment für Credentialpfad | Ignore + aus Tracking entfernt, lokale Datei erhalten; Resthistory dokumentiert |
 | IP-005 | P0 / P0 | WAITING_DECISION | Credentialrotation und Historyremediation koordinieren | Inhalte nicht ausgeben; Rotation falls echte Keys; Rewrite/Force-Push nur explizit |
 | IP-006 | P0 / P1 | IN_PROGRESS | Runtimepins und bestätigten Betriebsentwurf konkretisieren | Pins/Locks/Digests und lokaler Lauf geprüft; SMTP/Recovery/Backup/Pilot noch offen |
-| IP-007 | P1 / P1 | IN_PROGRESS | Gepinntes Bootstrap und reproduzierbarer privater Start | Fünf Dienste aufgebaut, Start dokumentiert; unabhängiger Clean-Checkout-Nachweis vor Pilot |
+| IP-007 | P1 / P1 | IN_PROGRESS | Gepinntes Bootstrap und reproduzierbarer privater Start | Fünf Basisdienste plus Researchprofil aufgebaut; unabhängiger Clean-Checkout-Nachweis vor Pilot |
 | IP-008 | P0 / P1 | IN_PROGRESS | Auth, Tenants, RBAC und DB-Isolation | OIDC/MFA, BFF, Einladungsprovisionierung und FORCE RLS getestet; Recovery/Registrierung/Streams folgen |
 | IP-009 | P0 / P1 | BLOCKED | Credentialverschlüsselung und minimale Serviceidentitäten | IP-006/008; kein Secret in Browser/Logs/Research, Rotation/Restore geprüft |
 | IP-010 | P1 / P2 | IN_PROGRESS | Crypto- und MT5-Strategien vollständig spezifizieren | Sachentscheidungen bestätigt; Regeln dokumentiert, technische Kern-/Broker-/Kausalitätsabnahme folgt |
-| IP-011 | P1 / P2 | BLOCKED | Marktdatenimport, Instrumentmetadaten und Snapshots | IP-010; Lizenz/Quota, Lücken, Zeit-/Preisquelle und Provenienz geprüft |
-| IP-012 | P0 / P2 | IN_PROGRESS | Tradingkern und unabhängige Risk Engine | Crypto-Core: 31 Tests für Budgets/Risk/Teilfills/Replay/Tageswechsel; MT5 und Workerintegration folgen |
-| IP-013 | P1 / P3 | BLOCKED | Kosten-/Fillmodell und reproduzierbare Backtests | IP-011/012; keine Future-Leaks, reale Lots/Fees/Spread/Slippage |
-| IP-014 | P1 / P3 | IN_PROGRESS | Cockpit, Portfolio und Journal | Lokales MFA-Cockpit/Portfolio/Journal/Jobannahme; tatsächliche Ergebnisdaten/Charts und visuelle Abnahme folgen |
+| IP-011 | P1 / P2 | IN_PROGRESS | Marktdatenimport, Instrumentmetadaten und Snapshots | Strikte H4-Snapshots/CSV/Bitgetpagination und 90-Tage-BTC-Import geprüft; Dreijahresumfang, Datenrechte und historische Instrumentregeln offen |
+| IP-012 | P0 / P2 | IN_PROGRESS | Tradingkern und unabhängige Risk Engine | Crypto-Core: 31 Tests; Offlineworker nutzt denselben Kern; MT5, Broker-/Paper-Riskintegration folgen |
+| IP-013 | P1 / P3 | IN_PROGRESS | Kosten-/Fillmodell und reproduzierbare Backtests | Gefrorene Daten/Config/Kosten und echte Workerresultate geprüft; Kostenkalibrierung, Dreijahresdaten und unabhängige Holdoutabnahme offen |
+| IP-014 | P1 / P3 | IN_PROGRESS | Cockpit, Portfolio und Journal | MFA/Portfolio/Journal plus Datasetwahl, tatsächliche Nettoergebnisse und Equitykurven; visuelle Browserabnahme und Paperbedienung folgen |
 | IP-015 | P0 / P4 | BLOCKED | Bitget-Anbindung für Paper/Demo | IP-009/012; Capabilityvertrag, Modustrennung und Kontobindung |
 | IP-016 | P0 / P4 | BLOCKED | Outbox, Executionjournal und Reconciliation | IP-015; Crash/Timeout/Doppelzustellung/Teilfill ohne Blind-Resend |
 | IP-017 | P0 / P4 | BLOCKED | Kill-Switch, Schutz und Fachalarmierung | IP-016; neue Exposition, Cancel und Flatten getrennt nachweisen |
@@ -35,6 +35,7 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-023 | P2 / P8 | WAITING_DECISION | Öffentliches Kundenprodukt definieren | Privatpilot; neue Scope-, Rechts-, Lizenz- und Betriebsentscheidung |
 | IP-024 | P0 / P3–P4 | IN_PROGRESS | Manuellen Crypto-Paperpuffer und Nutzerinformation umsetzen | Domainvorschau/Bestätigung/Risk implementiert; echte MFA-Schrittbestätigung, UI/Worker/optionale E-Mail folgen |
 | IP-025 | P1 / P1–P3 | DONE | Lokales Fundament zur Zwischenabnahme bereitstellen | Gepinnte Builds, 82 automatisierte Tests und 28 reale HTTPS-/MFA-/BFF-Prüfpunkte bestanden; kein fertiger M1-Pilot |
+| IP-026 | P1 / P2–P3 | DONE | Lokalen Daten-/Research-/Ergebnisablauf schließen | 540 reale BTC-H4-Kerzen importiert; 132 Tests und 32 reale HTTPS-Prüfpunkte bestanden, einschließlich Offlineworker und Equitykurve |
 
 ## Abschlussbelege
 
@@ -93,6 +94,23 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
   Foundationcommit `5fe3a2e` auf GitHub-Branch `feat/m1-foundation` gesichert.
   Zwischenstand-Pushes ausdrücklich autorisiert; Remote-Historie vor Push
   abgeglichen. Credential-Historienarbeit bleibt IP-005, kein Force-Push.
+
+- **IP-026, 2026-11-07:** Öffentlicher Bitget-V3-SPOT-Import für
+  2026-08-09 08:00 bis 2026-11-07 08:00 UTC: 540 abgeschlossene H4-Kerzen,
+  ohne Lücken im gewählten Fenster. Dataset immutable, Daten-/Contenthash
+  getrennt; Job friert Strategie und Kosten bei Annahme ein.
+  Eigener Researchworker mit `SESSION_USER`-Tenantbindung, begrenzten
+  DB-Funktionen und Lease/Attempttoken; Testfixtures nutzen eine separate Rolle.
+  Migration 002 angewendet, 001 unverändert. Broker- und BFF-Secrets bleiben
+  unerreichbar. Sechs lokale Dienste geprüft, nur `127.0.0.1:8443` veröffentlicht.
+  31 Trading-, 20 Marktdaten-, 56 API-/Worker-, 21 Cockpit- und 4
+  Provisionierungstests bestanden; Typecheck und gepinnte Containerbuilds grün.
+  32 reale HTTPS-Prüfpunkte umfassen MFA, Datasetwahl, idempotente Annahme,
+  tatsächliche Berechnung, persistierten Datenhash und Equitydarstellung.
+  Ergebnis bleibt ausdrücklich nicht wirtschaftlich validiert; Dreijahresziel,
+  Kostenkalibrierung und unabhängiger Holdout nicht erfüllt.
+  Implementierungscommit `3a73c12` auf `origin/feat/m1-foundation` gepusht.
+  [Startanleitung](../../infra/README.md), [Tests](../../tests/README.md).
 
 ## Routine
 

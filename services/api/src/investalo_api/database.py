@@ -11,7 +11,7 @@ from .auth import Assertion
 from .settings import Settings
 
 
-SCHEMA_VERSION = "001_foundation"
+SCHEMA_VERSION = "002_research"
 
 
 def connect(settings: Settings):
