@@ -51,3 +51,10 @@ _Add whatever helps you do your job. This is your cheat sheet._
   Use `--profile tools run --rm migrate` for checksummed migrations and
   `--profile checks run --rm api-checks` for real PostgreSQL integration tests.
 - Builds run serially on this host. Host clock synchronization was checked.
+- GitHub intermediate pushes explicitly authorized. Origin:
+  `github.com:cadm-balzer/Investalo_Trading-Platform.git`.
+  Existing host Deploy-Key `/opt/github-project-ssh-key` is used via
+  `git -c 'core.sshCommand=ssh -i /opt/github-project-ssh-key -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes' push -u origin feat/m1-foundation`.
+  Never copy the private key into the repository or print its contents.
+- Remote main was verified as already containing the historical credential-path
+  commit. IP-005 remains open; no history rewrite/force-push was performed.

@@ -231,3 +231,12 @@ entsprechen. Frühere Authentifizierung wird auch innerhalb der Uhrtoleranz
 abgewiesen; `amr=mfa`, Nonce, PKCE und Signatur bleiben verpflichtend.
 Quellen: [OIDC Core](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest),
 [Authelia util.go](https://github.com/authelia/authelia/blob/v4.39.28/internal/oidc/util.go).
+
+## 2026-11-07 — D-028: GitHub-Zwischenstände
+
+**Status: ausdrücklich beauftragt.** Geprüfte Zwischenstände committen und
+auf GitHub pushen, bestehende Host-Deploy-Identität verwenden. Foundation
+`5fe3a2e` auf `feat/m1-foundation` gesichert. Remote-Historie vor Push live
+abgeglichen; der historische Credentialpfad war bereits auf remote main.
+Neue lokale Testsecrets sind ausgeschlossen. Rotation/Historyremediation
+bleibt IP-005; keine daraus abgeleitete Rewrite-/Force-Push-Freigabe.

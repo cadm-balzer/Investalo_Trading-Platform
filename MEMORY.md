@@ -34,6 +34,10 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   mit lokaler M1-Implementierung zu beginnen. Branch `feat/m1-foundation`.
 - Anschließend ausdrücklich: lokale Tasks/Kommandos selbstständig umsetzen,
   nicht auf Routinegenehmigungen warten; konkrete Zwischenabnahmen melden.
+- Zwischencommits und GitHub-Pushes ausdrücklich beauftragt; vorhandenen
+  Host-Deploy-Key verwenden. Foundationcommit `5fe3a2e` auf
+  `origin/feat/m1-foundation` gepusht. Kein Force-Push/Historyrewrite;
+  historischer Credential-Commit war bereits auf remote main.
 - 2026-11-07: fünf lokale Compose-Dienste mit gepinnten Images/Locks,
   ausschließlich `127.0.0.1:8443`. Crypto-Core/Papersimulator, Tenant-/RLS-API,
   persistente Jobannahme und OIDC-MFA-Cockpit implementiert. Noch kein fertiger

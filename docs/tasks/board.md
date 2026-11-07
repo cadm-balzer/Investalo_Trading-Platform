@@ -90,6 +90,9 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
   ausschließlich `.invalid`-Identität; Erstregistrierung/Recovery bleiben offen.
   [Startanleitung](../../infra/README.md), [Tests](../../tests/README.md).
   Queued bedeutet persistiert, nicht verarbeitet; Worker/Daten/Broker fehlen.
+  Foundationcommit `5fe3a2e` auf GitHub-Branch `feat/m1-foundation` gesichert.
+  Zwischenstand-Pushes ausdrücklich autorisiert; Remote-Historie vor Push
+  abgeglichen. Credential-Historienarbeit bleibt IP-005, kein Force-Push.
 
 ## Routine
 

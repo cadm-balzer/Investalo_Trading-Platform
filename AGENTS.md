@@ -55,6 +55,9 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 - The user explicitly authorized autonomous local commands and asks for concrete
   interim acceptance notices. Continue routine local implementation without
   repeating permission questions; tool sandbox escalations still apply.
+- The user explicitly authorized intermediate commits and GitHub pushes.
+  Push reviewed feature checkpoints with the existing repository deploy identity;
+  this does not authorize production deployment, history rewrite or force-push.
 - Current foundation: `infra/README.md` starts the five loopback-only services;
   executable tests cover API/RLS, cockpit security and the deterministic crypto
   core. Queued backtests still lack their execution/data worker. Do not call this
