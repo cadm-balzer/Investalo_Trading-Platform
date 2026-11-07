@@ -44,12 +44,15 @@ def test_valid_assertion_keeps_opaque_subject(settings):
 
 @pytest.mark.parametrize("claims", [
     {"iss": "attacker"}, {"aud": "different-api"}, {"oidc_iss": "https://other.test"},
-    {"exp": 0}, {"exp": int(time.time()) + 600}, {"iat": int(time.time()) + 60},
-    {"iat": True}, {"oidc_auth_time": True}, {"oidc_auth_time": int(time.time()) + 60},
+    {"exp": 0}, lambda: {"exp": int(time.time()) + 600}, lambda: {"iat": int(time.time()) + 60},
+    {"iat": True}, {"oidc_auth_time": True}, lambda: {"oidc_auth_time": int(time.time()) + 60},
     {"sub": ""}, {"jti": "invalid"}, {"tenant_id": str(uuid4())},
     {"tenant_id": str(uuid4()), "auth_epoch": True},
 ])
 def test_bad_claims_rejected(settings, claims):
+    # Compute future claims when this test runs, not during suite collection.
+    # Slow PostgreSQL checks must not turn the rejected future date into "now".
+    claims = claims() if callable(claims) else claims
     with pytest.raises(HTTPException) as error:
         verify(token(settings, claims=claims), settings=settings, method="GET", target="/v1/me", body=b"")
     assert error.value.status_code == 401

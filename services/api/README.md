@@ -24,11 +24,12 @@ geschützt. Vor `002_research` muss der Administrator die NOLOGIN-Gruppe
 Vor `003_credentials` benötigt PostgreSQL zusätzlich die NOLOGIN-Gruppe
 `investalo_credentials_worker`. Neuinitialisierung legt beide Gruppen an;
 für vorhandene lokale Entwicklung provisioniert der Credential-Testhelper die
-zweite Gruppe. Lokal sind001–006 in `investalo` und
+zweite Gruppe. Lokal sind001–007 in `investalo` und
 `investalo_credentials_checks` angewendet und unveränderlich. Die normale
 API benötigt mindestens002; der additive Metadatenendpunkt benötigt005 und
 bricht ohne diese Migration geschlossen ab. Passkeyendpunkte benötigen006
-und einen festen RP-Hostnamen; fehlende Konfiguration wird abgewiesen.
+und einen festen RP-Hostnamen; der interne Aktionsnachweis benötigt007.
+Fehlende Konfiguration wird abgewiesen.
 Kein Brokerkeyeingabeendpunkt.
 Alte Aufträge ohne eingefrorene Daten werden als `dataset_missing` beendet;
 es erfolgt keine automatische Zuordnung neuer oder synthetischer Daten.
@@ -85,6 +86,18 @@ des BFF. Kein HTTP-Assertion-CAS oder sensitive Actionfreigabe.
 Adminmodul `investalo_api.passkey_admin` stellt nach manueller E-Mail-Prüfung
 Tickets aus und widerruft Passkeys mit globaler Sitzungssperre.
 [Bedienung und Grenzen](../../infra/README.md#passkey-enrollment-und-widerruf).
+
+Die internen POST-Routen unter `/v1/passkey-action-proofs/`
+(`prepare`, `claim`, `finish`, `grant`, `confirm`) benötigen additive007.
+Sie frieren ausschließlich sichere005-Metadaten, Ziel, Actor/Epoch,
+Faktorversion und gehashte Sitzung-/Vorschau-Bindungen ein.
+Claim committed vor BFF-Kryptoprüfung; Finish verbindet Registry-CAS und
+Grant atomar. Confirm prüft genau Grant und Vorschaukennung vor einmaligem
+Verbrauch und liefert `status:verified, execution_enabled:false`.
+Die tatsächliche Passkeyprüfzeit ersetzt niemals die ursprüngliche OIDC-Zeit.
+SQL/API vertrauen dem Kryptoverdict des geprüften BFF.
+Es gibt keine neue Browserroute, Credentialfreigabe oder Brokerausführung.
+[Vertrag und Gates](../../docs/passkey-action-proofs.md).
 
 Jobdetail liefert `result` oder `null` und einen begrenzten `failure_code`.
 Listen liefern `result_summary` ohne Equitykurve. Ergebnisbeträge sind

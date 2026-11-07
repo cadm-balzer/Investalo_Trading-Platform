@@ -104,6 +104,18 @@ Recovery/erneutes Enrollment sind noch nicht verfügbar.
 Lokale Passkeyzeiten ersetzen keine IdP-Claims.
 Details und Aktivierungsgates: [Passkeys](../../docs/passkey-step-up.md).
 
+Der neue interne Adapter `passkey-action-proof-server.ts` verwendet die
+getrennte Orchestrierung `passkey-action-proof.ts`: Prepare, committed Claim
+vor echter WebAuthn-Prüfung, Finish mit dauerhaftem CAS/Grant, Lesen und
+Vorschau-Bestätigung. Sitzung/CSRF/Origin, Actor/Epoch, sichere Kontometadaten und
+Faktorversion werden nach asynchronen Schritten erneut geprüft.
+Backup-Eligibility muss zum verifizierten Gerätetyp passen. Alle API-Aufrufe
+behalten die ursprünglichen OIDC-Claims; `checked_at` bleibt getrennt.
+Der neue Adapter wird noch von keiner Browserroute verwendet. Bestehende
+Sensitive-Actionrouten bleiben503; der interne Nachweis liefert ausdrücklich
+`execution_enabled:false`. Keine Keyeingabe oder003/004-Ausführung.
+[Vertrag und Abnahme](../../docs/passkey-action-proofs.md).
+
 Vorbereitete Actionzustände frieren Ziel und Versionen serverseitig ein, binden
 Handle/CSRF/Issuer/Sub/Tenant/Epoch, prüfen aktuelle Metadaten erneut und
 verbrauchen Callback/Grant einmalig. Eine eigene opaque Bestätigungskennung
@@ -159,7 +171,8 @@ eingefrorenen Forschungsdatensatz. Ein Erfolg ist keine Handelsfreigabe.
 Der manuelle Reservekauf,
 Brokercredentialeinrichtung, AI und Feeds sind hier noch nicht aktiviert.
 Paper-/Demo-Ausführung, MFA-Recovery und öffentlicher Pilot brauchen ihre
-weiteren Abnahmen; diese Oberfläche ist lokale Entwicklung.
+weiteren Abnahmen; die Oberfläche läuft als ausdrücklich freigegebene
+[öffentliche Entwicklungsvorschau](../../docs/https-entry.md).
 
 ## Verifizierte Herstellerquellen (2026-11-07)
 

@@ -15,6 +15,11 @@ Die ausdrücklich freigegebene Entwicklungsvorschau verwendet jetzt zentralen
 interne Dienste erhalten keine Hostports. Öffentlicher Issuer, vorhandener
 Entwicklungstenant und eigene Passkey-RP: [https-entry.md](https-entry.md).
 
+Der interne Aktionsnachweis007 liegt dauerhaft in PostgreSQL und verbindet
+den vorhandenen WebAuthn-Verifier mit Challengeclaim, Faktor-CAS und
+Vorschau-Bestätigung. Er ersetzt keinen IdP-Claim und öffnet keine Brokerroute:
+[Passkey-Aktionsnachweis](passkey-action-proofs.md).
+
 ## Systemgrenzen
 
 Bestätigt: modularer Monolith für API und Domäne, getrennte Prozesse für
@@ -136,8 +141,9 @@ Epoch/Origin; sein Ticketclaim wird vor der Kryptoprüfung committed.
 Administrativer Widerruf erhöht die globale Nutzer-Auth-Epoch und setzt
 `reauth_after`; Wiederherstellung bleibt offen. Counter-/Versions-CAS ist
 eine vertrauenswürdige SQL-Primitive ohne eigenen Challenge-Replayschutz und
-hat bewusst keinen HTTP-Endpunkt. Zielgebundene Assertionfreigabe und echte
-Browserabnahme folgen IP-033. Der Session-TTL-Store hält nur kurzlebige
+hat bewusst keinen ungebundenen HTTP-Endpunkt. Der interne zielgebundene
+Nachweis007 ist implementiert; Browserintegration, Credentialfreigabe und echte
+Geräteabnahme folgen IP-033. Der Session-TTL-Store hält nur kurzlebige
 Enrollmentversuche. OIDC-Originalclaims bleiben erhalten.
 [Entwurf/Gates](passkey-step-up.md).
 

@@ -18,6 +18,13 @@ Passwort plus TOTP und48 tatsächliche HTTPS-Prüfpunkte. Der synthetische
 alte Identitäts-/Credentialbindungen bleiben erhalten.
 [Zugang und Betriebsgrenzen](https-entry.md).
 
+Der zusätzliche interne Aktionsnachweis007 speichert zielgebundene Challenges,
+einen committed Einmalclaim, CAS/Grant und die Bestätigung der eigenen Vorschau.
+Der BFF prüft echte UV/UP-Signaturen; SQL/API vertrauen diesem Dienstverdict und
+prüfen Actor, ursprüngliche OIDC-Claims, Ziel, Versionen und Fristen erneut.
+Keine neue Browserroute oder Credential-Schreibfreigabe.
+[Ablauf und Abnahmegrenzen](passkey-action-proofs.md).
+
 ## Bedrohungen und Kontrollen
 
 | Bedrohung | Kontrolle / Abnahme |

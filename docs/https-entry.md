@@ -82,6 +82,11 @@ Der Testnutzer heißt `pilot`. Bestehendes Passwort und TOTP-Einrichtungsadresse
 liegen ausschließlich in den geschützten, ignorierten Dateien
 `infra/local/pilot-access.txt` und `infra/local/pilot-totp.txt`.
 Werte nicht in Git, Logs oder öffentliche Nachrichten übernehmen.
+Für Google Authenticator den Wert `secret` aus der geschützten
+`otpauth://…`-Adresse als zeitbasierten Einrichtungsschlüssel verwenden.
+Die App erzeugt den jeweils aktuellen sechsstelligen Code.
+Der Nutzer hat die öffentliche Browseranmeldung mit Google Authenticator
+erfolgreich bestätigt; dies ist kein Passkey-/Gerätenachweis.
 
 Nach der bereits erteilten Freigabe verwendete Befehle:
 

@@ -109,3 +109,13 @@ wurden als unveränderlicher 90-Tage-Snapshot importiert. Kostenkalibrierung,
 Dreijahresdaten und Holdoutnachweis bleiben offen; keine Brokerkonten verbunden.
 Die Referenzrepos blieben unverändert.
 Runtimepins: [runtime-pins.md](runtime-pins.md); Start: [infra/README.md](../infra/README.md).
+
+**Fortgeschriebener Stand:** Der Defaultstart bleibt lokal. Die ausdrücklich
+freigegebene [Entwicklungsvorschau](https-entry.md) verwendet ein separates
+öffentliches HTTPS-Overlay mit gültigen Zertifikaten und zentralem Caddy80/443;
+DB/API/Worker besitzen keine öffentlichen Hostports.
+Auf `feat/m1-passkey-action-proof` sind Credentialfundament, Registry und der
+interne [Aktionsnachweis007](passkey-action-proofs.md) implementiert.
+Beide lokalen DBs001–007 immutable; 724 Tests, Typecheck und gepinnte Builds
+grün. Brokerkeyeingabe, Geräteabnahme und Credentialausführung bleiben offen.
+Referenzrepositories weiterhin unverändert.

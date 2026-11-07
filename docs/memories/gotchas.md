@@ -269,3 +269,19 @@ Stand 2026-11-07. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   senden, mit unterschiedlichen Referrer-Policies. Der Edge entfernt die drei
   upstreamseitigen Policyheader und liefert je einen geprüften eigenen Wert;
   CSP-/Cacheheader bleiben erhalten.
+- **Fehlende Verbindungszeile:** `FOR SHARE` auf Konto und fehlender Verbindung
+  verhindert keinen parallelen003-Registrierungsinsert. Der007-Registrierungsnachweis
+  nimmt zuerst `FOR UPDATE` auf das bestehende Konto; der alte Writer verlangt
+  dessen SHARE-Lock. Für Replace/Revoke bleibt die vorhandene Connection-
+  SHARE-Sperre, um keine gegenläufige Reihenfolge zu003 einzuführen.
+- **Aktionsnachweis und OIDC-Zeit:** Die ursprüngliche `oidc_auth_time` für den
+  gesamten Versuch einfrieren; ein Test-JWT mit je neuer Zeit pro Phase ist
+  eine andere Sitzungsbindung. `checked_at` getrennt halten. API-Confirm liefert
+  den exakten Wrapper mit `execution_enabled:false`; BFF prüft ihn vor Veröffentlichung.
+- **Counter0 und Challenge-ID:** Eine neue Proof-ID darf nicht dieselbe Challenge
+  wiederverwenden. RP-weite Challenge-Eindeutigkeit auch für terminale Zeilen
+  erhalten; ein unbekannter Commit öffnet keinen automatischen Wiederholungsweg.
+- **Zeitabhängige Testparameter:** `time.time()+60` bei pytest-Collection kann
+  während einer längeren PG-Suite zu einer gültigen Gegenwartszeit werden.
+  Future-Claims erst bei Ausführung erzeugen; die produktive Zukunftsprüfung
+  bleibt unverändert. Der erweiterte84s-Lauf hat diese alte Testschwäche sichtbar gemacht.

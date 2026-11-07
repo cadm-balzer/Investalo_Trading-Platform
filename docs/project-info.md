@@ -82,6 +82,9 @@ frischen zweiten Faktor belegt. Dauerhafte Registry und lokales Browser-
 Enrollment mit administrativem Einmalticket sind implementiert. Kontoänderungen
 bleiben bis zur zielgebundenen Assertionfreigabe und Geräteabnahme gesperrt.
 Details: [passkey-step-up.md](passkey-step-up.md).
+Der dauerhafte zielgebundene Aktionsnachweis007 ist intern implementiert.
+Browseraktivierung und Verbindung zur tatsächlichen Credentialeinrichtung
+folgen separat: [passkey-action-proofs.md](passkey-action-proofs.md).
 Die ausdrücklich freigegebene öffentliche Entwicklungsvorschau ist aktiv.
 Beide Domains haben gültige Let’s-Encrypt-Zertifikate; MFA, bestehende
 Researchdaten und Backtestdiagramme sind mit48 HTTPS-Prüfpunkten bestätigt.
