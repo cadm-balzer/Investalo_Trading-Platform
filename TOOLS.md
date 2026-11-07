@@ -23,7 +23,7 @@ _Add whatever helps you do your job. This is your cheat sheet._
 ## Investalo — verified 2026-11-07
 
 - Working checkout: `/opt/Investalo_Trading-Platform`.
-- Implementation branch: `feat/m1-passkey-registry`, based on mainb6198f7;
+- Implementation branch: `feat/m1-https-entry`, based on mainf422a90;
   local implementation and authorized checkpoint pushes, no production deployment.
 - Read-only references: `/opt/investalo-trading-system`,
   `/opt/investalo-autotrader`. HEADs and reuse limits: `docs/inventory.md`.
@@ -33,13 +33,15 @@ _Add whatever helps you do your job. This is your cheat sheet._
   GitHub CLI not found in PATH. Exact package/image pins: `docs/runtime-pins.md`.
 - Local interview skill: `SKILLS/grill-me/SKILL.md`.
 - Local admin skill targets Ubuntu 24.04; validate against 26.04 before use.
-- User domain: `cockpit.investalo.de`; no DNS, ingress or production changes made.
+- User domains: `cockpit.investalo.de`, `auth.cockpit.investalo.de`; public
+  development preview explicitly approved and active. Production remains gated.
 - Planning tasks: `docs/tasks/board.md`; documentation index: `docs/README.md`.
 - Never store access keys, passwords or tokens in these notes.
 - Deployment decision 2026-11-07: Docker Compose plus local Authelia OIDC/MFA.
   Five base services: PostgreSQL, Authelia, API, cockpit and Caddy;
   optional `--profile research` adds the tenant-bound offline worker.
-  Only `127.0.0.1:8443` is published. Startup/checks: `infra/README.md`.
+  Default profile publishes `127.0.0.1:8443`; active approved overlay publishes
+  only Caddy on5.45.96.83:80/443. Startup/checks: `infra/README.md`.
   Q20 plans a public central HTTPS entry for invited pilot
   users; Q21 selects existing free SMTP; Q24 selects administrative email recovery.
   Q25 user-provided fact: MT5 runs on a separate server in the home network.
@@ -65,7 +67,7 @@ _Add whatever helps you do your job. This is your cheat sheet._
 - GitHub intermediate pushes explicitly authorized. Origin:
   `github.com:cadm-balzer/Investalo_Trading-Platform.git`.
   Existing host Deploy-Key `/opt/github-project-ssh-key` is used via
-  `git -c 'core.sshCommand=ssh -i /opt/github-project-ssh-key -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes' push -u origin feat/m1-passkey-registry`.
+  `git -c 'core.sshCommand=ssh -i /opt/github-project-ssh-key -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes' push -u origin feat/m1-https-entry`.
   Never copy the private key into the repository or print its contents.
 - Remote main was verified as already containing the historical credential-path
   commit. IP-005 remains open; no history rewrite/force-push was performed.
@@ -90,3 +92,14 @@ _Add whatever helps you do your job. This is your cheat sheet._
   Do not print ticket artifacts. Counter-CAS alone is no replay proof.
   Host TestClient can stall on sandbox sockets: run tests in the approved local
   Compose checkcontainer or request escalation; do not bypass sandbox controls.
+- Both public DNS names resolve to host5.45.96.83; valid LE certificates expire
+  2027-02-05. Always use active `--file infra/compose.public-preview.yaml`
+  for edge/application runtime changes; default `up` restores local origins/ports.
+  `prepare-public-preview.py --development-preview` only creates protected
+  separate config/state; it never starts services, changes DNS or provisions users.
+  `provision-public-preview.py --development-preview` explicitly adds a public
+  synthetic identity to the existing development tenant; original user and worker
+  binding stay unchanged. Public check: `check_local_auth.py --public-preview`
+  (48 passed). Access details and rollback: `docs/https-entry.md`.
+  Protected output includes existing OIDC material; never dump it or run
+  `authelia config template`/Compose secret expansion into public logs.

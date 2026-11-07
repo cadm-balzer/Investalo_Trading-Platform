@@ -3,9 +3,10 @@
 Stand 2026-11-07. Bestätigt: vorhandenen Server nutzen, zunächst kostenlose
 externe Dienste/Accounts; TradingView Essentials besteht bereits.
 Q31 bestätigt die lokale Umsetzung. Docker ist installiert; fünf Basisdienste
-und ein optionaler Offline-Researchworker laufen über Compose. Nur ein
-Loopback-HTTPS-Port ist veröffentlicht.
-Host-SSH und DNS wurden nicht verändert. Docker verwaltet seine lokalen
+und ein optionaler Offline-Researchworker laufen über Compose. Die ausdrücklich
+freigegebene Entwicklungsvorschau veröffentlicht ausschließlich Caddy auf
+`5.45.96.83:80/443`; das Standardprofil bleibt auf Loopback8443.
+Der Nutzer hat DNS eingerichtet; Host-SSH blieb unverändert. Docker verwaltet seine lokalen
 Netzregeln. Öffentliche Pilot-/Produktionsfreigabe bleibt separat.
 Start und Grenzen: [infra/README.md](../infra/README.md).
 
@@ -41,8 +42,13 @@ veröffentlichte Ports Hostfirewallregeln umgehen können.
 Ein zentraler Reverse Proxy/TLS-Einstieg. Q20 plant ihn öffentlich schon für
 den eingeladenen Privatpilot; keine öffentliche Registrierung.
 Datenbank und interne Dienste ausschließlich lokal/intern.
-DNS und `cockpit.investalo.de` werden erst mit konkret freigegebener
-Pilot-/Produktionskonfiguration aktiviert.
+Für die freigegebene Vorschau ist `cockpit.investalo.de` bereits aktiv.
+Laufende Edge-/Anwendungsdienste mit
+`bash infra/scripts/compose.sh --file infra/compose.public-preview.yaml …`
+bedienen. Ohne Overlay werden lokale Ports/Origins wiederhergestellt.
+Geschützten ACME-Zustand persistent halten; Proxyneustart und Zertifikatsvertrauen
+sind geprüft. Erneuerung, Ablaufüberwachung und externe Wiederherstellung bleiben
+BL-026. [Zugang und Rückfall](https-entry.md).
 
 Deploymentablauf: geprüfter Code/Lockstand → Build/Artefakt →
 relevante Tests → verschlüsselte Sicherung → Migration mit Rückfallplanung →
@@ -121,6 +127,12 @@ Regelmäßig Restore in isolierter Umgebung mit geprüftem Ergebnis durchführen
 Ein Datenbankrollback setzt ausgeführte Trades nicht zurück.
 
 ## Störungsabläufe
+
+**Öffentlicher HTTPS-Zugang:** Zuerst DNS, tatsächliche Listener und TLS-
+Terminierung prüfen. Lokales CA-Zertifikat und `auto_https off` sind keine
+öffentliche ACME-Konfiguration. Domainwechsel erfordert abgestimmte
+OIDC-/Cookie-/RP-Werte und bewusste Issuer-Nutzerbindung.
+[Aktive Entwicklungsvorschau und Rückfall](https-entry.md).
 
 **Verbindungsausfall:** Neue Exposition stoppen, brokerseitigen Schutzstatus
 prüfen, reconnect/reconcile, danach Risk Gate erneut.

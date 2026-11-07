@@ -58,7 +58,7 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 - The user explicitly authorized intermediate commits and GitHub pushes.
   Push reviewed feature checkpoints with the existing repository deploy identity;
   this does not authorize production deployment, history rewrite or force-push.
-- Current foundation: `infra/README.md` starts five loopback-only services and
+- Default foundation: `infra/README.md` starts five services behind loopback and
   the optional offline research worker. Immutable H4 snapshots, frozen jobs and
   persisted net results/equity charts are implemented. A real 90-day BTC import
   tests the workflow; it does not satisfy the three-year/holdout validation gate.
@@ -84,7 +84,8 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   `71e57f1`; store checkpoint `46860ab` merged into main, verified at `b3030de`;
   onboarding checkpoint `69a1f8b` merged into main, verified at `56070ba`;
   step-up checkpoint `d57bd56` merged into main, verified at `b6198f7`;
-  current work branch: `feat/m1-passkey-registry`.
+  registry checkpoint `6a18102` merged into main, verified at `f422a90`;
+  current work branch: `feat/m1-https-entry`.
   Isolated AEAD core: `packages/credentials/README.md`, 20 offline tests with
   pinned cryptography and a separate hardened Compose check.
   Credential store: `services/credentials/README.md`; migration003 and current
@@ -137,6 +138,18 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   Applied001–006 are immutable.
   Session TTL store holds enrollment attempts only;
   preserve original OIDC claims. See `docs/passkey-step-up.md`.
+- User explicitly approved the public development preview on2026-11-07 after
+  adding auth DNS. Both cockpit.investalo.de and auth.cockpit.investalo.de now
+  resolve to5.45.96.83 and serve valid Let's Encrypt certificates through Caddy.
+  Active opt-in `--file infra/compose.public-preview.yaml` exposes only edge80/443;
+  default Compose remains local and must not accidentally replace the overlay.
+  Twelve preparation/provisioning tests and48 real public HTTPS checks passed;
+  certificate persistence after restart and original identity/data bindings verified.
+  The separate public-issuer synthetic user explicitly shares the existing
+  development tenant; old user, worker, keys and factors remain unchanged.
+  RP/credential ownership is not migrated. IP-035 complete; BL-026 TLS operations
+  and full pilot/production acceptance remain open. Account changes/live remain off.
+  See `docs/https-entry.md`.
 
 ## Trading and implementation invariants
 

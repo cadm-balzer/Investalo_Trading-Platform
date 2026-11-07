@@ -6,6 +6,15 @@ PostgreSQL, IdP und Anwendungen veröffentlichen keine Hostports.
 Der öffentliche Privatpilot benötigt eine eigene geprüfte Konfiguration und
 Rolloutfreigabe.
 
+**Aktiver Hostbetrieb:** Der Nutzer hat die öffentliche Entwicklungsvorschau
+freigegeben. Beide Domains haben gültige Let’s-Encrypt-Zertifikate.
+Bei Änderungen am laufenden Einstieg ausdrücklich
+`--file infra/compose.public-preview.yaml` verwenden; die untenstehenden
+Standardbefehle starten das lokale Profil. Der öffentliche Anwendungsablauf
+ist mit `python3 tests/infra/check_local_auth.py --public-preview` geprüft
+(48 Prüfpunkte). Identitätsprovisionierung, geschützte Testlogin-Dateien und Rückfall:
+[HTTPS-Einstieg](../docs/https-entry.md).
+
 Vom Repositoryroot auf dem überprüften Ubuntu-26.04-amd64-Host:
 
 ```sh

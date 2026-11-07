@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-"""Exercise the real local TLS/IdP/BFF boundary using only generated test data.
+"""Exercise the TLS/IdP/BFF boundary using only generated test data.
 
-No production names, outbound network, token/password output or disabled TLS.
-Run after bootstrap-local, migration and provision-local-test.
+The default stays loopback-only with the local CA. --public-preview explicitly
+uses the two approved public development origins and system-trusted TLS.
+No token/password output or disabled TLS. Run only after the matching
+development identity, snapshot and worker have been provisioned.
 """
 from __future__ import annotations
 
@@ -33,7 +35,8 @@ ROOT = Path(__file__).resolve().parents[2]
 LOCAL = ROOT / "infra/local"
 APP = "https://cockpit.local.test:8443"
 IDP = "https://auth.cockpit.local.test:8443"
-CONTEXT = ssl.create_default_context(cafile=str(LOCAL / "local_ca_cert"))
+CONTEXT: ssl.SSLContext | None = None
+PUBLIC_PREVIEW = False
 STEP = "initialize"
 
 class DatasetOptions(HTMLParser):
@@ -59,17 +62,23 @@ class DatasetOptions(HTMLParser):
             self.current = None
 
 
-class LocalConnection(http.client.HTTPSConnection):
+class DevelopmentConnection(http.client.HTTPSConnection):
     def connect(self):
-        if self.host not in {"cockpit.local.test", "auth.cockpit.local.test"} or self.port != 8443:
-            raise RuntimeError("Only local test names/port are allowed")
+        allowed = {urlsplit(APP).hostname, urlsplit(IDP).hostname}
+        expected_port = 443 if PUBLIC_PREVIEW else 8443
+        if self.host not in allowed or self.port != expected_port or self._tunnel_host:
+            raise RuntimeError("Only the selected development names/port are allowed")
+        if PUBLIC_PREVIEW:
+            # Exercise actual public DNS and certificate-chain/hostname checks.
+            # Never substitute loopback or the development CA in this mode.
+            return super().connect()
         raw = socket.create_connection(("127.0.0.1", 8443), self.timeout)
         self.sock = self._context.wrap_socket(raw, server_hostname=self.host)
 
 
-class LocalTLS(HTTPSHandler):
+class DevelopmentTLS(HTTPSHandler):
     def https_open(self, req):
-        return self.do_open(LocalConnection, req, context=CONTEXT)
+        return self.do_open(DevelopmentConnection, req, context=CONTEXT)
 
 
 class NoRedirect(HTTPRedirectHandler):
@@ -78,7 +87,9 @@ class NoRedirect(HTTPRedirectHandler):
 
 
 def client():
-    return build_opener(ProxyHandler({}), LocalTLS(context=CONTEXT),
+    if CONTEXT is None or not CONTEXT.check_hostname or CONTEXT.verify_mode != ssl.CERT_REQUIRED:
+        raise RuntimeError("Verified development TLS configuration required")
+    return build_opener(ProxyHandler({}), DevelopmentTLS(context=CONTEXT),
                         HTTPCookieProcessor(http.cookiejar.CookieJar()), NoRedirect())
 
 
@@ -126,11 +137,33 @@ def check(condition: bool, label: str):
 
 
 def main() -> None:
-    global STEP
+    global STEP, APP, IDP, CONTEXT, PUBLIC_PREVIEW
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--public-preview", action="store_true",
+                        help="Use the explicitly approved public development domains with system-trusted TLS.")
     parser.add_argument("--snapshot-file", type=Path,
                         default=LOCAL / "research-data/btc-research.json")
     args = parser.parse_args()
+    PUBLIC_PREVIEW = args.public_preview
+    if PUBLIC_PREVIEW:
+        APP = "https://cockpit.investalo.de"
+        IDP = "https://auth.cockpit.investalo.de"
+        CONTEXT = ssl.create_default_context()
+        identity = json.loads((LOCAL / "public-preview-identity.json").read_text())
+        if (not isinstance(identity, dict)
+                or identity.get("username") != "pilot"
+                or identity.get("issuer") != IDP
+                or identity.get("tenant_name") != "Lokale Entwicklung"
+                or not isinstance(identity.get("subject"), str)
+                or not re.fullmatch(
+                    r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+                    identity["subject"],
+                )):
+            raise RuntimeError("Expected a deliberately provisioned public development identity")
+    else:
+        APP = "https://cockpit.local.test:8443"
+        IDP = "https://auth.cockpit.local.test:8443"
+        CONTEXT = ssl.create_default_context(cafile=str(LOCAL / "local_ca_cert"))
     with args.snapshot_file.open("rb") as stream:
         snapshot_bytes = stream.read(16 * 1024 * 1024 + 1)
     if len(snapshot_bytes) > 16 * 1024 * 1024:
@@ -383,7 +416,7 @@ if __name__ == "__main__":
         main()
     except Exception as error:
         # Exceptions/HTTP errors may contain sensitive query strings. Do not echo.
-        print(f"FAIL local integration step: {STEP}; no sensitive output emitted.",
+        print(f"FAIL development integration step: {STEP}; no sensitive output emitted.",
               file=sys.stderr)
         print("Error class:", type(error).__name__, file=sys.stderr)
         if type(error) is RuntimeError:

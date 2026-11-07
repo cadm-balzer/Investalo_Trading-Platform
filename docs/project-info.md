@@ -82,6 +82,10 @@ frischen zweiten Faktor belegt. Dauerhafte Registry und lokales Browser-
 Enrollment mit administrativem Einmalticket sind implementiert. Kontoänderungen
 bleiben bis zur zielgebundenen Assertionfreigabe und Geräteabnahme gesperrt.
 Details: [passkey-step-up.md](passkey-step-up.md).
+Die ausdrücklich freigegebene öffentliche Entwicklungsvorschau ist aktiv.
+Beide Domains haben gültige Let’s-Encrypt-Zertifikate; MFA, bestehende
+Researchdaten und Backtestdiagramme sind mit48 HTTPS-Prüfpunkten bestätigt.
+Zugang und verbleibende Betriebsabnahmen: [https-entry.md](https-entry.md).
 
 - Gesamtkonzept: [concept.md](concept.md)
 - Technischer Entwurf: [architecture.md](architecture.md)

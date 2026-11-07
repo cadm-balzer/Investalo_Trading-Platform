@@ -10,6 +10,11 @@ Konkrete Pins: [runtime-pins.md](runtime-pins.md). Noch nicht implementierte
 Execution-/Broker-/Betriebskomponenten bleiben Zielarchitektur. CI/CD ist offen.
 Begründungen und offizielle Belege: [sources.md](sources.md).
 
+Die ausdrücklich freigegebene Entwicklungsvorschau verwendet jetzt zentralen
+öffentlichen Caddy80/443 mit Let’s Encrypt. Default-Compose bleibt lokal;
+interne Dienste erhalten keine Hostports. Öffentlicher Issuer, vorhandener
+Entwicklungstenant und eigene Passkey-RP: [https-entry.md](https-entry.md).
+
 ## Systemgrenzen
 
 Bestätigt: modularer Monolith für API und Domäne, getrennte Prozesse für

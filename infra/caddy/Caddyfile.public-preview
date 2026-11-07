@@ -1,0 +1,64 @@
+# Opt-in configuration candidate. Activation requires a separate public-preview
+# decision and the documented preflight; this file does not change local Caddy.
+{
+	admin off
+	servers {
+		strict_sni_host on
+	}
+	log {
+		format filter {
+			wrap json
+			fields {
+				request delete
+			}
+		}
+	}
+}
+
+(public_tls) {
+	tls {
+		# Exactly one public issuer; no alternate CA or local-CA fallback.
+		issuer acme https://acme-v02.api.letsencrypt.org/directory
+	}
+}
+
+(security_headers) {
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "no-referrer"
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+	}
+}
+
+cockpit.investalo.de {
+	import public_tls
+	import security_headers
+	reverse_proxy cockpit:3000 {
+		header_up -Forwarded
+		header_up -X-Forwarded-For
+		header_up X-Forwarded-Proto https
+		header_up X-Forwarded-Host cockpit.investalo.de
+		# The central edge supplies one consistent policy for these headers.
+		header_down -Referrer-Policy
+		header_down -Permissions-Policy
+		header_down -X-Content-Type-Options
+	}
+}
+
+auth.cockpit.investalo.de {
+	import public_tls
+	import security_headers
+	reverse_proxy https://authelia:9091 {
+		header_up -Forwarded
+		header_up -X-Forwarded-For
+		header_up X-Forwarded-Proto https
+		header_up X-Forwarded-Host auth.cockpit.investalo.de
+		header_down -Referrer-Policy
+		header_down -Permissions-Policy
+		header_down -X-Content-Type-Options
+		transport http {
+			tls_trust_pool file /run/secrets/local_ca_cert
+		}
+	}
+}

@@ -242,3 +242,30 @@ Stand 2026-11-07. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
 - **Lokaler TestClient:** Sandbox-Socketgrenzen können AnyIO-TestClient hängen
   lassen. Die identische Prüfung außerhalb der Sandbox bestand; gepinnten
   Compose-Prüfcontainer verwenden, keine Sandboxgrenzen umgehen.
+- **Öffentliche TLS-Namen:** Zertifikat allein migriert keine Anwendung.
+  OIDC-Issuer/Callback/Cookiedomain, BFF-Origin und Passkey-RP gemeinsam prüfen;
+  `(oidc_issuer,oidc_subject)` ist eine persistierte Identitätsbindung.
+  Interne BFF-Netze brauchen kontrollierte öffentliche Namensaliasse zum Proxy.
+  Gemeldeten Browserzugang gegen DNS und tatsächliche Hostlistener abgleichen.
+- **Compose-Overlay:** Ports ohne `!override` können zum bestehenden Satz
+  hinzugefügt werden; Volumeersatz erfolgt nach Zielpfad. Zusammengeführtes
+  Ergebnis prüfen, keine automatisch erzeugten Secret-/State-Bindverzeichnisse.
+- **PEM-Platzhalter:** Beliebiges Mehrzeilenmatching erlaubt zusätzliche YAML-
+  Einstellungen im Signaturkey-Platzhalter. Nur exakt eingerückte PEM-Grammatik
+  zulassen; Quellkonfiguration vollständig gegen die vertrauenswürdige Vorlage
+  prüfen und hinzugefügte Einstellungen nach dem Footer als Regression abweisen.
+- **Aktives öffentliches Overlay:** Default-Compose-`up` ersetzt öffentliche
+  Ports/Origins durch lokale Werte. Bei laufender Vorschau immer ausdrücklich
+  `--file infra/compose.public-preview.yaml` angeben; Operatorprüfcontainer mit
+  `--no-deps` starten, um Runtime nicht unbeabsichtigt zu verändern.
+- **Issuer und vorhandene Researchdaten:** Provisionierung allein anhand des
+  Tenantnamens kann einen neuen Tenant erzeugen. Genau eine bestehende aktive
+  synthetische Ownerbindung ermitteln und deren konkrete Tenant-ID übergeben;
+  Workerbindung und Credential-/Passkey-Eigentum nicht umschreiben.
+- **DNS und ACME:** Während DNS-Verteilung kann die erste Challenge fehlschlagen.
+  Caddy wiederholt automatisch; nach gültiger Auflösung war die Ausstellung
+  erfolgreich. Keine CA-Prüfung abschalten oder Ausgabedateien löschen.
+- **Proxyheader:** Upstream und Edge können gleiche Securityheader mehrfach
+  senden, mit unterschiedlichen Referrer-Policies. Der Edge entfernt die drei
+  upstreamseitigen Policyheader und liefert je einen geprüften eigenen Wert;
+  CSP-/Cacheheader bleiben erhalten.

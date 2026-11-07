@@ -11,6 +11,7 @@
 | [security.md](security.md) | Bedrohungen, Schutzmaßnahmen und Freigabekriterien |
 | [operations.md](operations.md) | Deployment, Monitoring, Backup und Wiederanlauf |
 | [deployment-plan.md](deployment-plan.md) | Compose/Authelia, öffentlicher HTTPS-Einstieg für Privatpilot und Recovery |
+| [https-entry.md](https-entry.md) | Aktive freigegebene Let’s-Encrypt-Entwicklungsvorschau, Zugang und Rückfall |
 | [mt5-bridge.md](mt5-bridge.md) | Ausgehende HTTPS-Bridge vom Heimnetzserver, Geräte-/Demo-Bindung und Abnahme |
 | [bitget-connection.md](bitget-connection.md) | Eigene Nutzerkeys, Classic-Spot/Futures-Wallets und geschützte Einrichtung |
 | [passkey-step-up.md](passkey-step-up.md) | Bestätigter Zusatzfaktor, Authelia-Faktorfrischebefund und Aktivierungsgates |

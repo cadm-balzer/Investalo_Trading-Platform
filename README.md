@@ -80,11 +80,16 @@ Registry, administratives Einmalticket, Widerruf und lokales Browser-Enrollment
 sind implementiert. Geräteabnahme und zielgebundene Assertionfreigabe folgen;
 registrierte Passkeys öffnen noch keine Kontoänderungen.
 [Passkeyplan und Abnahmegrenzen](docs/passkey-step-up.md).
+Die ausdrücklich freigegebene Entwicklungsvorschau ist unter
+[cockpit.investalo.de](https://cockpit.investalo.de) aktiv. Beide Domains haben
+gültige Let’s-Encrypt-Zertifikate; 48 öffentliche HTTPS-/MFA-/Backtestprüfpunkte
+bestanden. [Zugang und Betrieb](docs/https-entry.md).
 Geschützte Cockpiteingabe mit echter MFA-Schrittbestätigung, Schlüsselbetrieb
 und tatsächliche Brokeranbindung, manuelle MFA-Reservefreigabe
 und Pilotbetrieb sind weitere M1-Aufgaben.
-Öffentlicher Rollout und Echtgeld benötigen eigene
-Abnahmen. Der lokale Einstieg bindet ausschließlich `127.0.0.1:8443`.
+Vollständiger Privatpilot, Produktion und Echtgeld benötigen eigene
+Abnahmen. Das lokale Standardprofil bindet ausschließlich `127.0.0.1:8443`;
+die aktive Vorschau veröffentlicht nur den zentralen Proxy auf80/443.
 
 ## Arbeitsregeln
 

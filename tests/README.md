@@ -60,11 +60,20 @@ Das lokale Fundament besitzt ausführbare Tests:
   dass die bestehende IdP-MFA durch Passwort-Reauth wiederverwendet werden kann.
   Enrollmentseite, Sitzung/Origin/CSRF, unbekanntes Ticket, doppelte Felder
   und fehlender Versuch sind ebenfalls geprüft.
-  Insgesamt48 tatsächliche HTTPS-Prüfpunkte bestanden.
+  Insgesamt48 tatsächliche HTTPS-Prüfpunkte bestanden. `--public-preview`
+  prüft dieselben Abläufe über tatsächliches DNS und System-TLS-Vertrauen
+  an den öffentlichen Domains; auch dort alle48 bestanden.
 - `tests/infra/test_research_provisioning.py`: atomare Rollenprovisionierung,
   Eingabegrenzen und sichere SQL-/Passwortbehandlung.
 - `tests/infra/test_credentials_provisioning.py`: vier Tests für feste
   Testidentitäten, sichere Secretübergabe und abweichende DB-Owner.
+- `tests/infra/test_public_preview_preparation.py`: sechs Tests gegen
+  Konfigurationsdrift, YAML-Injektion nach PEM-Footer, Symlinks/Hardlinks,
+  Dateirechte/-größe und Überschreiben. Gepinnte Caddy-/Autheliavalidatoren
+  und zusammengeführte Compose-Grenzen geprüft.
+- `tests/infra/test_public_preview_provisioning.py`: sechs Tests für die
+  synthetische Ausgangsidentität, Operatorrolle, eindeutigen bestehenden Tenant,
+  unterdrückte private Fehlerausgabe und geschützte Manifestdateien.
 - `tests/infra/check_credentials_role_drift.py`: tatsächliche Ablehnung von
   administrativen Delegationsrechten nach erfolgreichem Baselinezugriff;
   Änderung bleibt in einer zurückgerollten Transaktion.
