@@ -164,14 +164,15 @@ Bitget-/AEAD-Abläufe). Einrichtung, Keywechsel und Widerruf, Replay, Ablauf
 während Sperrwartezeiten/Probe/Write, geänderte Rechte und CAS sind abgedeckt.
 Vier Helpertests und die Rollen-Driftprobe waren im vorigen Storecheckpoint grün.
 Der Drift-Test weist erlaubten Ausgangszustand, Ablehnung von Delegationsrechten
-und deren vollständigen Transaktionsrollback nach. Seit dem Metadatencheckpoint
-sind001–005 in beiden lokalen Datenbanken angewendet und unveränderlich.
+und deren vollständigen Transaktionsrollback nach. Mit diesem Registrycheckpoint
+sind001–006 in beiden lokalen Datenbanken angewendet und unveränderlich.
 Bei vorhandener Entwicklung nach dem Credential-Gruppenhelper auch
 `sudo bash infra/scripts/compose.sh --profile tools run --rm --no-deps migrate`
 für die gewöhnliche Datenbank ausführen.005 ergänzt ausschließlich eine
 autorisierte öffentliche Metadatenprojektion für den Runtime-LOGIN;
 direkter Tabellen-/Credentialfunktionszugriff bleibt gesperrt.
-112 API-/Worker-Tests und erneut alle120 Credentialprüfungen bestanden.
+293 API-/Worker-Tests und erneut alle120 Credentialprüfungen bestanden;
+darunter67 tatsächliche Passkey-Registry-/API-Fälle nach006.
 
 Das Prüfprofil läuft als UID10003 mit TLS im internen DB-Netz, ohne veröffentlichte
 Ports und ohne Broker-/BFF-/IdP-/KEKsecrets. Es besitzt bewusst administrative
@@ -193,9 +194,60 @@ Lokale BFF-Abmeldung löscht die Cockpitsitzung; die IdP-Sitzung bleibt bestehen
 Jeder neue Cockpitlogin erzwingt dennoch eine frische Anmeldung. Authelia kann
 dabei den alten zweiten Faktor erhalten; dies ist keine frische sensitive
 Actionfreigabe. Der erweiterte HTTPS-Test prüft diese Grenze und die gesperrten
-Credentialrouten. Zusatzpasskey ist bestätigt und wird integriert:
+Credentialrouten. Dauerhafte Passkeyregistry und lokales Browser-Enrollment
+sind implementiert; Kontoänderungen bleiben gesperrt:
 [Passkeyplan](../docs/passkey-step-up.md). Kein neuer OIDC-Callback registriert.
-40 tatsächliche HTTPS-Prüfpunkte bestanden; alle sechs lokalen Dienste gesund.
+48 tatsächliche HTTPS-Prüfpunkte bestanden, einschließlich Enrollmentgrenzen;
+alle sechs lokalen Dienste gesund. Der erfolgreiche vollständige Enrollment-
+ablauf im BFF und die reale Browser-/Geräteabnahme stehen noch aus.
+
+## Passkey-Enrollment und Widerruf
+
+Nach006 und aktuellem API-/Cockpitbuild ist `/security/passkeys` der lokale
+Enrollmentweg. Eine tatsächliche Browser-/Geräteabnahme steht noch aus.
+Nur der Migrationsoperator stellt nach manuell geprüfter E-Mail-Bestätigung
+ein Ticket aus; `--email-confirmed` attestiert diese Prüfung und versendet
+keine Nachricht. Die Bestätigungsreferenz ist eine opake UUID ohne Mailinhalt.
+Tenant-/Nutzer-ID und Auth-Epoch zuvor in geschütztem administrativem Kontext
+prüfen. Keine Tickets in URLs, stdout, Logs oder Git übernehmen.
+
+Beispiel mit bewusst gesetzten IDs/Epoch/Bestätigungsreferenz und einer neuen
+privaten Ausgabeablage; das Ticket ist standardmäßig höchstens600 Sekunden
+gültig. Der Ordner gehört dem Containeroperator und hat Modus0700, die CLI
+erzeugt die Datei einmalig mit0600 und überschreibt keine vorhandene Datei.
+
+```sh
+sudo install -d -m 0700 -o 10003 -g 10003 /tmp/investalo-passkey-enrollment
+sudo bash infra/scripts/compose.sh --profile tools run --rm --no-deps \
+  --volume /tmp/investalo-passkey-enrollment:/passkey-output migrate \
+  python -m investalo_api.passkey_admin issue \
+  --tenant-id "$PASSKEY_TENANT_ID" --user-id "$PASSKEY_USER_ID" \
+  --rp-id cockpit.local.test --auth-epoch "$PASSKEY_AUTH_EPOCH" \
+  --ttl-seconds 600 --output-file /passkey-output/ticket.json \
+  --email-confirmed --confirmation-reference "$PASSKEY_CONFIRMATION_ID"
+```
+
+Das geschützte Artefakt enthält den kurzlebigen Bearertoken; nur dessen Hash
+liegt in der DB. Token kontrolliert dem bestätigten Nutzer übergeben, der ihn
+im Enrollmentformular eingibt. Der committed Claim gilt höchstens120 Sekunden;
+Fehler oder Abbruch erlauben keine Ticketwiederverwendung. Ein unbekannter
+Commitausgang benötigt Abgleich vor einem neuen Versuch.
+
+Administrativer Widerruf mit aktueller Registry-ID und erwarteter Version:
+
+```sh
+sudo bash infra/scripts/compose.sh --profile tools run --rm --no-deps migrate \
+  python -m investalo_api.passkey_admin revoke \
+  --passkey-id "$PASSKEY_ID" --expected-storage "$PASSKEY_STORAGE_VERSION" \
+  --email-confirmed --confirmation-reference "$PASSKEY_CONFIRMATION_ID"
+```
+
+Widerruf erhöht die globale Nutzer-Auth-Epoch und setzt `reauth_after`;
+alle Tenant-Sitzungen werden ungültig. Der terminale Registryeintrag bleibt
+reserviert; Recovery/erneutes Enrollment ist noch nicht verfügbar.
+Registrierung öffnet keine Brokerkeyeingabe oder sensitive Kontoaktion.
+Pilot-RP `cockpit.investalo.de` erfordert später eigene Registrierung und
+öffentliche Rolloutabnahme; lokale RP wird nicht automatisch übertragen.
 
 Mit laufendem Researchprofil stoppt
 `sudo bash infra/scripts/compose.sh --profile research stop` alle sechs Dienste

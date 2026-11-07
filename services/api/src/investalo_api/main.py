@@ -16,6 +16,7 @@ from psycopg.types.json import Jsonb
 from .auth import Assertion, authenticate
 from .body_limit import BodyLimitMiddleware
 from .credential_action import action_context
+from .passkeys import create_passkey_router
 from .database import SCHEMA_VERSION, assert_runtime, connect, transaction
 from .settings import Settings
 from .research_result import publish_result
@@ -70,6 +71,7 @@ def _journal(row: dict) -> dict:
 def create_app(settings: Settings | None = None) -> FastAPI:
     application = FastAPI(title="Investalo API", docs_url=None, redoc_url=None, openapi_url=None)
     application.state.settings = settings if settings is not None else Settings.from_environment()
+    application.include_router(create_passkey_router(application.state.settings))
 
     @application.exception_handler(RequestValidationError)
     async def invalid_request(_request: Request, _error: RequestValidationError):

@@ -389,3 +389,32 @@ HTTPS-Origin/RP und serverseitiger Challenge. Aktivierung erst mit dauerhafter
 gebundener Registrierung, administrativem Erstzugang, CAS/Counter/Widerruf,
 Audit und echtem Browsernachweis. Diese technischen Gates folgen IP-033.
 Keine echte Keyannahme, Brokerkontakte oder Pilotveröffentlichung.
+
+## 2026-11-07 — D-038: Dauerhafte Registry und administrativer Erstzugang
+
+**Status: lokale Umsetzung der bestätigten Passkeyergänzung.** Additive006
+speichert einen unveränderlich gebundenen Publickey je Tenant/Nutzer/RP unter
+FORCE RLS; Credential-ID bleibt RP-weit auch nach Widerruf reserviert.
+Ein manuell E-Mail-bestätigter Operator stellt ein32-Byte-Einmalticket aus;
+DB speichert nur Hash, CLI nur geschützte neue Datei. Ticket maximal600s,
+Claim/Enrollment maximal120s. Claim committed vor Browser-/Kryptoprüfung;
+Fehler, Crash oder unbekannter Commit geben ihn nicht frei.
+Registry-/Versions-/Counterupdate und Audit bleiben atomar. Sperrfolge
+Actor → Tenant/Nutzer/RP-Slot → Ticket/Key vermeidet fehlende-Zeilen-Races.
+Adminwiderruf sperrt den Nutzer zuerst exklusiv und erhöht seine globale
+Auth-Epoch/`reauth_after`; damit sind alle Tenant-Sitzungen ungültig.
+Terminaler Ersatz-/Recoveryweg bleibt BL-025.
+
+Lokales BFF-Enrollment bindet Sitzung/CSRF, Identität/Epoch, RP und aktuellen
+HTTPS-Origin. ES256/UV/UP/`fmt=none`-Registrierung ist ein Kandidat ohne
+Attestierungssignatur. Erst eine separate frische Assertion darf später
+eine sensitive Freigabe ermöglichen. SQL-CAS allein beweist bei Counter0
+keinen Challenge-Replayschutz; kein HTTP-CAS, Actiongate bleibt geschlossen.
+Browser-/Geräteabnahme und zielgebundene Grants bleiben IP-033.
+Abschlussbelege:528 automatisierte Tests,48 tatsächliche HTTPS-Prüfpunkte,
+Typecheck, gepinnte Builds und beide idempotenten Migrationsläufe grün.
+Unabhängige SQL/API- und Cockpitreviews ohne Restblocker. Positiver vollständiger
+BFF-Enrollmentablauf und reale Geräteabnahme bleiben ausdrücklich offen.
+[W3C](https://www.w3.org/TR/webauthn-3/#sctn-registering-a-new-credential),
+[PG18-Sperren](https://www.postgresql.org/docs/18/explicit-locking.html),
+[Definerfunktionen](https://www.postgresql.org/docs/18/sql-createfunction.html).

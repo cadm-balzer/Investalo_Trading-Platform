@@ -89,12 +89,19 @@ lokalen HTTPS-Test bestätigt. Der normale Login bleibt zulässig, sensitive
 Actionfreigaben dürfen sich nicht allein darauf stützen.
 
 Der Nutzer hat eine zusätzliche Cockpit-Passkey-Bestätigung bestätigt.
-Der isolierte Verifier nutzt `@simplewebauthn/server==14.1.0` mit UV/UP,
+Der Verifier nutzt `@simplewebauthn/server==14.1.0` mit UV/UP,
 festem RP/HTTPS-Origin, serverseitiger Challenge und gespeichertem Publickey.
-Er wird noch von keiner HTTP-Route aufgerufen. Dauerhafte Registrierung mit
-administrativem Einmalticket, Versions-CAS, Widerruf/Recovery und ein echter
-Browser-/Gerätetest fehlen. Der kurzlebige verschlüsselte Sessionstore ist
-kein dauerhafter Passkeystore. Lokale Passkeyzeiten ersetzen keine IdP-Claims.
+Assertion-HTTP-Flows und echte Browser-/Gerätetests bleiben offen.
+`/security/passkeys` bietet lokale Erstregistrierung mit administrativem
+Einmalticket. Die beiden BFF-Routen `/api/passkeys/enrollment/start` und
+`/api/passkeys/enrollment/finish` verlangen Sitzung/Origin/CSRF, begrenzte
+duplicatefreie Bodies und eine einmalig konsumierte gebundene Challenge.
+Registrierung prüft ES256/UV/UP mit `fmt=none`; eine frische Assertion bleibt
+vor jeder sensitiven Freigabe Pflicht. Publickeys und Counter/CAS/Audit liegen
+dauerhaft in PostgreSQL006, nur Enrollmentversuche im Session-TTL-Store.
+Administrativer Widerruf sperrt den Faktor und alle Nutzer-Tenant-Sitzungen;
+Recovery/erneutes Enrollment sind noch nicht verfügbar.
+Lokale Passkeyzeiten ersetzen keine IdP-Claims.
 Details und Aktivierungsgates: [Passkeys](../../docs/passkey-step-up.md).
 
 Vorbereitete Actionzustände frieren Ziel und Versionen serverseitig ein, binden

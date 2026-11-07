@@ -225,3 +225,20 @@ Stand 2026-11-07. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
 - **Passkeyclaims:** UV und UP serverseitig erzwingen, Beispiele können UV
   ausschalten. Lokale Passkeyzeit niemals als OIDC-`auth_time` ausgeben.
   RP-Hostname ohne Port, HTTPS-Origin mit Port; andere Domain erfordert Enrollment.
+- **Enrollment und Counter:** `fmt=none` enthält keine Signatur; eine gespeicherte
+  Registrierung ist kein privater Besitznachweis für sensitive Grants.
+  RP-weite Credential-ID maximal1023 Byte, einschließlich terminaler Tombstones.
+  SQL-Counter0→0 mit Versions-CAS verhindert keinen erneuten Gebrauch desselben
+  Belegs; Challenge vor Kryptoprüfung einmalig konsumieren.
+  Beim späteren Assertionflow verifiziertes `deviceType` zusätzlich mit
+  gespeicherter Backup-Eligibility vergleichen; das SQL-CAS-Argument enthält
+  nur den neuen Backupzustand und beweist diese Übereinstimmung nicht.
+- **Laufende Anmeldung:** Auch nach einem API-/Krypto-Await die aktuelle
+  Sitzungsfrist und konfigurierten HTTPS-Origin prüfen. Gleicher RP-Hostname
+  erlaubt keine Verwendung eines inzwischen veralteten Origins/Ports.
+- **FastAPI-Router:** Gepinnte0.162.0 kann `include_router` als
+  `_IncludedRouter` ohne `.path` führen. Tests gezielter Routen müssen darauf
+  filtern oder tatsächliche ASGI-Requests prüfen.
+- **Lokaler TestClient:** Sandbox-Socketgrenzen können AnyIO-TestClient hängen
+  lassen. Die identische Prüfung außerhalb der Sandbox bestand; gepinnten
+  Compose-Prüfcontainer verwenden, keine Sandboxgrenzen umgehen.

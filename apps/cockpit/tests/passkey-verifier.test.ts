@@ -171,7 +171,7 @@ test("trusted challenge, credential key, handle and counter have explicit byte/i
   for (const change of [
     { publicKey: new Uint8Array() }, { publicKey: new Uint8Array(2049) },
     { counter: -1 }, { counter: 1.5 }, { counter: 0x1_0000_0000 },
-    { userHandle: b64(randomBytes(65)) }, { id: b64(randomBytes(1025)) },
+    { userHandle: b64(randomBytes(65)) }, { id: b64(randomBytes(1024)) },
   ]) await rejected(input, { ...expected, credential: { ...expected.credential, ...change } });
 });
 

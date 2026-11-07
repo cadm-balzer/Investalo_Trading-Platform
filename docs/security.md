@@ -67,10 +67,19 @@ internen Konfigurationen.
 Authelia4.39.28 kann den bisherigen zweiten Faktor beim Passwort-Reauth
 erhalten; `auth_time`/`amr=mfa` belegen keinen neu verwendeten Faktor.
 Der Nutzer hat deshalb einen zusätzlichen Cockpit-Passkey bestätigt.
-Aktuell sind nur Metadaten und ein isolierter Verifier implementiert; die
-HTTP-Schrittfreigabe bleibt gesperrt. Registrierung, persistierte CAS-/Counter-
-Updates, Widerruf/Recovery und auditierte Aktionsbindung müssen vor Aktivierung
-nachgewiesen werden. [Passkeygates](passkey-step-up.md).
+Dauerhafte Publickey-Registry, administratives Einmalticket und lokales
+Browser-Enrollment sind implementiert. Das 32-Byte-Ticket liegt nur als Hash
+in der DB, gilt höchstens600 Sekunden und wird vor der Kryptoprüfung
+unwiderruflich beansprucht; Enrollmentversuche gelten höchstens120 Sekunden.
+Registrierung verlangt exakten HTTPS-Origin/RP, UV/UP und ES256 mit
+`fmt=none`. Sie ersetzt keinen frischen privaten Schlüsselnachweis durch
+eine eigene Assertion. Counter-CAS allein verhindert keinen Challenge-Replay;
+ein entsprechender HTTP-Endpunkt fehlt bewusst. Kontoänderungen bleiben
+gesperrt, bis einmalige zielgebundene Assertion-/Granttransaktionen und
+Geräteabnahme nachgewiesen sind. Administrativer Widerruf erhöht die globale
+Nutzer-Epoch und setzt `reauth_after`, sodass alle Tenant-Sitzungen ungültig
+werden; terminale Registryeinträge erlauben derzeit keine Wiederherstellung.
+[Passkeygates](passkey-step-up.md).
 
 Schlüssel dürfen nach Einrichtung nur maskiert angezeigt werden.
 Requestbodies, Authheader, URLs mit Querykeys, Exceptions, Traces und Dumps

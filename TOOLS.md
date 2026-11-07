@@ -23,7 +23,7 @@ _Add whatever helps you do your job. This is your cheat sheet._
 ## Investalo — verified 2026-11-07
 
 - Working checkout: `/opt/Investalo_Trading-Platform`.
-- Implementation branch: `feat/m1-credential-step-up`, based on main56070ba;
+- Implementation branch: `feat/m1-passkey-registry`, based on mainb6198f7;
   local implementation and authorized checkpoint pushes, no production deployment.
 - Read-only references: `/opt/investalo-trading-system`,
   `/opt/investalo-autotrader`. HEADs and reuse limits: `docs/inventory.md`.
@@ -57,14 +57,15 @@ _Add whatever helps you do your job. This is your cheat sheet._
   Public snapshots stage/import via `infra/scripts/stage-research-snapshot.py`.
   Never give the worker migration/API secrets or change its tenant binding during
   tests. Fixtures use the separate research test role.
-  Applied migrations001–005 are immutable in both `investalo` and
-  `investalo_credentials_checks`. Normal DB was advanced from002 this checkpoint.
+  Applied migrations001–006 are immutable in both `investalo` and
+  `investalo_credentials_checks`. The metadata checkpoint advanced the normal DB
+  from002 to005; the registry checkpoint adds006 to both databases.
   Local full HTTPS test requires an imported public BTC snapshot, default
   `infra/local/research-data/btc-research.json`, alternative `--snapshot-file PATH`.
 - GitHub intermediate pushes explicitly authorized. Origin:
   `github.com:cadm-balzer/Investalo_Trading-Platform.git`.
   Existing host Deploy-Key `/opt/github-project-ssh-key` is used via
-  `git -c 'core.sshCommand=ssh -i /opt/github-project-ssh-key -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes' push -u origin feat/m1-credential-step-up`.
+  `git -c 'core.sshCommand=ssh -i /opt/github-project-ssh-key -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes' push -u origin feat/m1-passkey-registry`.
   Never copy the private key into the repository or print its contents.
 - Remote main was verified as already containing the historical credential-path
   commit. IP-005 remains open; no history rewrite/force-push was performed.
@@ -81,5 +82,11 @@ _Add whatever helps you do your job. This is your cheat sheet._
   from the normal BFF API assertion. No HTTP intake launcher exists yet.
 - Sensitive step-up routes return503 with valid session/CSRF; no IdP redirect,
   token or credential write. Authelia preserves old MFA state across password
-  reauth. Additional Cockpit passkey approved; isolated verifier14.1.0,
-  durable enrollment/CAS/revocation/audit/browser integration follows IP-033.
+  reauth. Additional Cockpit passkey approved; verifier14.1.0 and durable006
+  enrollment/CAS/revocation/audit plus local BFF registration implemented.
+  Target-bound assertion/grants and physical device acceptance remain IP-033.
+  CLI ticket artifacts use owned0700 directories and create-only0600 files;
+  issue/revoke require explicit manual email attestation and an opaque UUID.
+  Do not print ticket artifacts. Counter-CAS alone is no replay proof.
+  Host TestClient can stall on sandbox sockets: run tests in the approved local
+  Compose checkcontainer or request escalation; do not bypass sandbox controls.

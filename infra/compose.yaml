@@ -212,6 +212,7 @@ services:
       PGSSLROOTCERT: /run/secrets/local_ca_cert
       API_INTERNAL_AUTH_SECRET_FILE: /run/secrets/internal_api_key
       API_OIDC_ISSUER: https://auth.cockpit.local.test:8443
+      API_PASSKEY_RP_ID: cockpit.local.test
     secrets:
       - platform_runtime_password
       - internal_api_key

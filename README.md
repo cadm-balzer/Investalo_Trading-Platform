@@ -75,8 +75,10 @@ nutzt synthetische Freigaben und Brokerantworten gegen echte PostgreSQL-Tabellen
 Ein Dateischlüsselprovider ist ausschließlich für Entwicklung verfügbar.
 Das Cockpit zeigt jetzt geschützte Bitget-Kontometadaten. Kontoänderungen bleiben
 gesperrt: Authelia-Reauth belegt keinen neu verwendeten zweiten Faktor.
-Die zusätzliche Passkey-Bestätigung ist bestätigt und ihr isolierter
-Prüfkern implementiert; dauerhafte Registrierung und Browserflow folgen.
+Die zusätzliche Passkey-Bestätigung ist bestätigt. Dauerhafte Publickey-
+Registry, administratives Einmalticket, Widerruf und lokales Browser-Enrollment
+sind implementiert. Geräteabnahme und zielgebundene Assertionfreigabe folgen;
+registrierte Passkeys öffnen noch keine Kontoänderungen.
 [Passkeyplan und Abnahmegrenzen](docs/passkey-step-up.md).
 Geschützte Cockpiteingabe mit echter MFA-Schrittbestätigung, Schlüsselbetrieb
 und tatsächliche Brokeranbindung, manuelle MFA-Reservefreigabe

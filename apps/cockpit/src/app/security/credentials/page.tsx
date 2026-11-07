@@ -31,6 +31,7 @@ export default async function Page() {
     <section className="panel">
       <h2>Kontoanbindung noch nicht verfügbar</h2>
       <p className="panel-intro">Kontometadaten sind sichtbar. Zusätzliche Bestätigung, API-Schlüsseleingabe und Kontoänderungen bleiben gesperrt.</p>
+      <Link href="/security/passkeys" className="button secondary">Passkey verwalten</Link>
     </section>
   </Shell>;
 }

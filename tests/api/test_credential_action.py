@@ -137,7 +137,7 @@ def test_route_uses_authenticated_transaction_and_gates_role_before_metadata(con
     monkeypatch.setattr(main, "transaction", authenticated_transaction)
     endpoint = next(
         route.endpoint for route in create_app(settings).routes
-        if route.path == "/v1/credential-actions/{account_id}"
+        if getattr(route, "path", None) == "/v1/credential-actions/{account_id}"
     )
     if role in ("owner", "trader"):
         assert endpoint(account, identity)["account"]["id"] == str(account)

@@ -123,9 +123,17 @@ Q24 bestätigt administratives E-Mail-Recovery; Laufzeitnachweise stehen aus.
 
 Kontoänderungen erhalten einen bestätigten zusätzlichen Cockpit-Passkey:
 Authelia-Reauth liefert keinen belastbaren Nachweis einer neuen Faktorverwendung.
-Isolierter Verifier mit SimpleWebAuthn14.1.0; dauerhafte Faktorverwaltung und
-aktionsgebundener Browserflow folgen IP-033. Der Session-TTL-Store speichert
-keine dauerhafte Passkeyregistry. OIDC-Originalclaims bleiben erhalten.
+SimpleWebAuthn14.1.0 prüft Registrierung und Assertions. Additive006 ergänzt
+eine dauerhafte FORCE-RLS-Registry mit einem Faktor je Tenant/Nutzer/RP,
+RP-weit eindeutiger Credential-ID einschließlich Widerruf, Ticket und Audit.
+Lokales Browser-Enrollment bindet Einmalchallenge an Sitzung/CSRF/Identität/
+Epoch/Origin; sein Ticketclaim wird vor der Kryptoprüfung committed.
+Administrativer Widerruf erhöht die globale Nutzer-Auth-Epoch und setzt
+`reauth_after`; Wiederherstellung bleibt offen. Counter-/Versions-CAS ist
+eine vertrauenswürdige SQL-Primitive ohne eigenen Challenge-Replayschutz und
+hat bewusst keinen HTTP-Endpunkt. Zielgebundene Assertionfreigabe und echte
+Browserabnahme folgen IP-033. Der Session-TTL-Store hält nur kurzlebige
+Enrollmentversuche. OIDC-Originalclaims bleiben erhalten.
 [Entwurf/Gates](passkey-step-up.md).
 
 Additive005 veröffentlicht nur autorisierte eigene Konto-/Verbindungsmetadaten;

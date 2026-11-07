@@ -42,7 +42,8 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-030 | P0 / P1–P4 | DONE | Bitget-Prüfung, Triple-Speicherung und einmalige Actionfreigabe verbinden | 120 Tests inkl. 60 echte PG-Fälle bestanden; synthetische Freigaben/Broker, damals004 nur Fixture-DB; HTTP/BFF-MFA und Pilotprovider bleiben IP-009 |
 | IP-031 | P0 / P1 | DONE | Geschützte Kontometadaten und vorbereitete Actionzustände prüfen | Additive005, 36 reine +20 PG-Metadatenfälle, 25 Actionzustandsfälle; 40 reale HTTPS-Prüfpunkte einschließlich gesperrtem Step-up und IdP-Faktorfrischebefund |
 | IP-032 | P0 / P1 | DONE | Bestätigten zusätzlichen Passkey-Assertionkern prüfen | SimpleWebAuthn14.1.0, 19 echte synthetische Signaturtests, voller Cockpitlauf78/Typecheck/Containerbuild grün; unabhängiger Review, kein aktiver HTTP-Verifier |
-| IP-033 | P0 / P1 | READY | Dauerhafte Passkeyverwaltung und Browser-Schrittflow integrieren | Administratives Einmalticket, CAS/Counter/Widerruf/Audit, Challenge-/Epoch-/Session-/Aktionsbindung und echte Browserabnahme; BL-020/021 |
+| IP-033 | P0 / P1 | IN_PROGRESS | Dauerhafte Passkeyverwaltung und Browser-Schrittflow integrieren | Registry und lokales Enrollment in IP-034; frische zielgebundene Assertion-/Granttransaktionen, echte Browser-/Geräteabnahme und Betriebsgrenzen folgen; BL-020/021/025 |
+| IP-034 | P0 / P1 | DONE | Dauerhafte Passkeyregistry und lokales Browser-Enrollment implementieren | Additive006, Einmalticket, FORCE RLS, Counter-/Versions-CAS, terminaler Widerruf/Audit und BFF-Enrollment; 528 Tests und48 HTTPS-Prüfpunkte grün, unabhängige Reviews, keine Actionfreigabe |
 
 ## Abschlussbelege
 
@@ -217,6 +218,29 @@ Credentialrouten und Reauth-Wiederverwendung des alten Faktors.
 Sechs lokale Dienste gesund, nur127.0.0.1:8443 veröffentlicht.
 Keine echte Keyannahme, Brokerkontakte oder öffentliche/Produktionsänderung.
 Entwurf und verbleibende Gates: [Passkeys](../passkey-step-up.md).
+
+**IP-034, 2026-11-07:** Hauptbranch enthält Schrittflowcheckpoint `d57bd56`,
+verifiziert bei `b6198f7`; Branch `feat/m1-passkey-registry`.
+Additive006 speichert gebundene Publickeys, Counter, Backupzustand, Versionen
+und Audit unter FORCE RLS. Administrativ E-Mail-bestätigtes Einmalticket,
+committed Claim vor Kryptoprüfung und einmaliger session-/CSRF-/Actor-/Epoch-/
+RP-gebundener BFF-Versuch. Widerruf erhöht die globale Nutzerepoch und sperrt
+alle Tenant-Sitzungen; terminaler Ersatz-/Recoveryweg bleibt BL-025.
+
+528 automatisierte Tests bestanden:293 API/Worker einschließlich67 echter
+Registry-/API-PG-Fälle,120 Credentialregressionen und115 Cockpitprüfungen.
+Typecheck, gepinnte Builds, Migrationsprüfsummen/idempotente Läufe in beiden DBs
+und48 tatsächliche HTTPS-Prüfpunkte grün. Zwei unabhängige Reviews ohne
+Restblocker. Sechs lokale Dienste gesund; nur127.0.0.1:8443 veröffentlicht.
+001–006 jetzt in beiden DBs angewendet und immutable.
+
+`fmt=none`-Registrierung bleibt Kandidat ohne privaten Besitznachweis.
+SQL-Counter-CAS ist kein Challenge-Replayschutz; kein HTTP-CAS.
+Erfolgreicher vollständiger BFF-Enrollmentablauf, echte Browser-/Geräteabnahme
+und frische zielgebundene Assertions/Grants folgen IP-033.
+Kontoänderungen bleiben gesperrt; keine echten Brokerkeys, Brokerkontakte,
+E-Mails, öffentliche Bereitstellung oder Echtgeldaktionen.
+Anleitung und Abnahmegrenzen: [Passkeys](../passkey-step-up.md).
 
 ## Routine
 

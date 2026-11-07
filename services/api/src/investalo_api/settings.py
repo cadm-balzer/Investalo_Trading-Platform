@@ -18,6 +18,7 @@ def secret_file(variable: str) -> str | None:
 class Settings:
     internal_key: str | None = field(default=None, repr=False)
     oidc_issuer: str | None = None
+    passkey_rp_id: str | None = None
     database_password: str | None = field(default=None, repr=False)
     database_parameters: dict[str, str] = field(default_factory=dict, repr=False)
 
@@ -38,6 +39,7 @@ class Settings:
         return cls(
             internal_key=key,
             oidc_issuer=os.getenv("API_OIDC_ISSUER"),
+            passkey_rp_id=os.getenv("API_PASSKEY_RP_ID"),
             database_password=secret_file("PGPASSWORD_FILE"),
             database_parameters=parameters,
         )

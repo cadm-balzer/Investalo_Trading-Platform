@@ -83,13 +83,14 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   at `d3b31e2`; envelope checkpoint `7f83b33` merged into main, verified at
   `71e57f1`; store checkpoint `46860ab` merged into main, verified at `b3030de`;
   onboarding checkpoint `69a1f8b` merged into main, verified at `56070ba`;
-  current work branch: `feat/m1-credential-step-up`.
+  step-up checkpoint `d57bd56` merged into main, verified at `b6198f7`;
+  current work branch: `feat/m1-passkey-registry`.
   Isolated AEAD core: `packages/credentials/README.md`, 20 offline tests with
   pinned cryptography and a separate hardened Compose check.
   Credential store: `services/credentials/README.md`; migration003 and current
   AAD/CAS/rotation/revocation verified with 19 client +18 actual PostgreSQL tests,
   four provisioning tests and a rolled-back role-drift probe. Both local DBs
-  `investalo` and `investalo_credentials_checks` now have001–005 applied.
+  `investalo` and `investalo_credentials_checks` now have001–006 applied.
   Applied migrations are immutable in either database.
   Credential LOGINs are bound through SESSION_USER to one active tenant/user;
   runtime/research cannot read tables or execute credential functions.
@@ -115,10 +116,27 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   Authelia4.39.28 password reauth preserves old second-factor state; auth_time
   plus amr=mfa proves no fresh second factor. Do not weaken this release gate.
   User explicitly approved additional free Cockpit passkeys for account changes.
-  Isolated SimpleWebAuthn14.1.0 verifier checks UV/UP/exactRP/origin/challenge/
-  owner/key/counter; durable enrollment/CAS/revocation/audit and browser proof
-  follow IP-033. Session TTL store is not a durable passkey registry; preserve
-  original OIDC claims. See `docs/passkey-step-up.md`.
+  SimpleWebAuthn14.1.0 checks UV/UP/exactRP/origin/challenge/owner/key/counter.
+  Additive006 implements durable FORCE-RLS registry, one factor per tenant/user/
+  RP and RP-wide credential uniqueness including revoked rows. Administrative
+  enrollment uses manually attested email approval plus opaque confirmation UUID;
+  32-byte bearer ticket is stored only as hash, max600s, with claim committed
+  before crypto and max120s enrollment. Local BFF/UI enrollment binds current
+  actor/epoch/session/CSRF/Origin and consumes each attempt once.
+  ES256/UV/UP/fmt=none registration is a candidate, not first-use private-key
+  proof; a fresh assertion remains mandatory before sensitive actions.
+  Admin revocation advances global user auth_epoch/reauth_after and invalidates
+  all tenant sessions. Terminal tombstones prevent recovery/re-enrollment;
+  BL-025 remains open. SQL assertion CAS is a trusted primitive without challenge
+  replay proof; no HTTP CAS endpoint. Physical browser acceptance and target-bound
+  assertion/grant integration remain IP-033; account changes stay disabled.
+  Migration006 passed293 API/worker checks including67 actual registry/API PG
+  cases;120 credential regressions and115 cockpit tests passed. Typecheck,
+  builds and48 real HTTPS checks passed; two independent reviews found no blockers.
+  A successful complete BFF enrollment and physical device proof remain IP-033.
+  Applied001–006 are immutable.
+  Session TTL store holds enrollment attempts only;
+  preserve original OIDC claims. See `docs/passkey-step-up.md`.
 
 ## Trading and implementation invariants
 
