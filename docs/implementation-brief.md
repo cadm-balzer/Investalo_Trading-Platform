@@ -1,9 +1,16 @@
-# M1-Umsetzungsstand zur Abschlussbestätigung
+# Bestätigter M1-Umfang und Umsetzungsstand
 
-Stand 2026-11-07. Sachentscheidungen Q1–Q30 sind beantwortet.
-Dieser überprüfbare Stand bündelt die Planung. Die gemeinsame
-Abschlussbestätigung Q31 und der Übergang zur Implementierung stehen aus.
+Stand 2026-11-07. Sachentscheidungen Q1–Q30 und Abschlussbestätigung Q31
+sind bestätigt. Der Nutzer beauftragt ausdrücklich den Umsetzungsstart.
+Dieser Stand bündelt die bestätigte Planung; lokale M1-Implementierung begonnen.
 Entscheidungsverlauf: [interview.md](interview.md).
+
+Das erste lokale Fundament umfasst gepinnte Compose-Dienste, HTTPS,
+MFA/OIDC-BFF, DB-Mandantenisolation, ein Cockpit mit ehrlichen Leerzuständen
+und den deterministischen Crypto-/Paperkern. Persistente Backtestjobs werden
+angenommen; Datenimport, ausführende Worker, Brokerpfade, manueller UI-Einstieg,
+Recovery und Backupabnahme folgen. Dies ist eine Zwischenabnahme, kein fertiger
+M1-Pilot. Start/Prüfung: [infra/README.md](../infra/README.md).
 
 ## Erster Release
 
@@ -84,7 +91,7 @@ Unzureichende Daten/Stichprobe als fehlenden Nachweis ausweisen.
 Referenzbacktest: fünf reguläre Stufen und Reserve als Cash; tatsächliche
 manuelle Paperaktionen separat journalisieren und auswerten.
 
-Nach Abschlussbestätigung arbeiten wir die [Roadmap](roadmap.md) ab:
+Wir arbeiten die [Roadmap](roadmap.md) ab:
 
 1. Unterstützte Versionen verifizieren/pinnen, reproduzierbaren lokalen
    Compose-Start und Projektbootstrap erstellen.

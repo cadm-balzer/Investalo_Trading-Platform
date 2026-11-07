@@ -1,10 +1,12 @@
-# Architektur- und Stackentwurf
+# Architektur und Stack
 
 Stand 2026-11-07. Q7 bestätigt den Grundstack aus Python/FastAPI,
 Next.js/TypeScript, PostgreSQL und getrennten Workern im modularen Monolithen.
 Q13/Q14 bestätigen Docker Compose und lokales Authelia.
-Weitere Technologieauswahlen hier sind **Vorschläge**.
-Keine Frameworks, Images, Datenbanken oder CI/CD-Dienste wurden eingerichtet.
+Q31 bestätigt den Umsetzungsstart. Cockpit, API, PostgreSQL und Authelia laufen
+lokal über Compose; Crypto-Kern, RLS und persistente Aufträge sind implementiert.
+Konkrete Pins: [runtime-pins.md](runtime-pins.md). Noch nicht implementierte
+Worker-/Broker-/Betriebskomponenten bleiben Zielarchitektur. CI/CD ist offen.
 Begründungen und offizielle Belege: [sources.md](sources.md).
 
 ## Systemgrenzen
@@ -16,9 +18,10 @@ Microservice-Infrastruktur; fachliche Verträge erlauben spätere Trennung.
 ```mermaid
 flowchart TB
   USER[Eingeladener Nutzer] --> INGRESS[Öffentlicher zentraler HTTPS-Einstieg]
-  INGRESS --> WEB[Cockpit]
-  INGRESS --> API[API und Autorisierung]
-  IDP[OIDC mit MFA] --> API
+  INGRESS --> WEB[Cockpit und BFF]
+  WEB --> API[API und Autorisierung]
+  INGRESS --> IDP[OIDC mit MFA]
+  IDP --> WEB
   API --> DB[(PostgreSQL)]
   DATA[Ingest] --> DB
   BACKTEST[Research und Backtestworker] --> DB
@@ -38,7 +41,7 @@ Simulator und Brokeradapter rufen denselben versionierten Strategievertrag auf.
 
 API/Cockpit/Trading/PostgreSQL/persistente PostgreSQL-Jobs sind grundsätzlich
 bestätigt. Docker Compose und Authelia ebenfalls bestätigt;
-konkrete Pins und weitere Werkzeuge bleiben offen.
+konkrete Laufzeitpins und Anwendungslockdateien sind umgesetzt.
 Q8 bestätigt eigene MFA-Anmeldung statt anfänglichem Website-SSO.
 
 | Ebene | Vorschlag | Grund / Alternative |

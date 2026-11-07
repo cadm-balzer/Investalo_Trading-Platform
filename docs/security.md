@@ -4,8 +4,11 @@ Stand 2026-11-07. Verbindliche Leitlinien aus AGENTS.md:
 privater Nutzerkreis, Verschlüsselung und minimale Rechte. Q20 konkretisiert
 den Zugang als öffentlichen zentralen HTTPS-Einstieg schon im Privatpilot.
 Docker Compose und lokales Authelia sind in Q13/Q14 bestätigt;
-Administratives E-Mail-Recovery ist in Q24 bestätigt; konkrete Pins,
-Schlüsselbereitstellung und Laufzeitnachweise bleiben zu erledigen.
+Administratives E-Mail-Recovery ist in Q24 bestätigt. Q31 beauftragt Umsetzung:
+Pins, dienstbezogene lokale Testsecrets, TLS, BFF-Assertions und RLS sind im
+Fundament umgesetzt. 39 APIprüfungen einschließlich echter PostgreSQL-
+Mandantentrennung sind grün. Recovery, Brokercredentials, Step-up und
+Pilotbackup bleiben weitere Abnahmen.
 
 ## Bedrohungen und Kontrollen
 

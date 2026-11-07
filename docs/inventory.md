@@ -2,6 +2,8 @@
 
 Read-only erhoben am 2026-11-06. Keine Credentials, privaten Kontodaten oder
 Ergebnisprotokolle gelesen; die beiden Referenzrepos wurden nicht verändert.
+Die folgenden Tabellen beschreiben den Ausgangsstand. Der aktuelle lokale
+Umsetzungsstand vom 2026-11-07 steht am Ende dieser Datei.
 
 ## Host und Werkzeuge
 
@@ -94,3 +96,13 @@ Zu Beginn liegen Nutzeränderungen in `AGENTS.md` und `docs/project-info.md`
 sowie `GEMINI.md` vor. Sie werden bei den angeforderten Dokumentationserweiterungen
 erhalten. Die vorhandene Schlüsseldatei ist bereits getrackt.
 Containment und verbleibender Historienbefund: [security.md](security.md).
+
+## Lokale Umsetzung 2026-11-07
+
+Q31 bestätigt; Branch `feat/m1-foundation`. Docker Engine 29.9.3,
+Compose 5.7.0 und gepinnte Runtimeimages installiert. Fünf lokale Dienste
+PostgreSQL/Authelia/API/Cockpit/Caddy; ausschließlich Caddy veröffentlicht
+`127.0.0.1:8443`. TLS/CA, separate DB-Rollen und Service-UIDs eingerichtet.
+Strategie-/API-/Cockpittests vorhanden; Datenjobs bislang ohne ausführenden
+Worker, keine Brokerkonten verbunden. Die Referenzrepos blieben unverändert.
+Runtimepins: [runtime-pins.md](runtime-pins.md); Start: [infra/README.md](../infra/README.md).

@@ -2,7 +2,11 @@
 
 Stand 2026-11-07. Bestätigt: vorhandenen Server nutzen, zunächst kostenlose
 externe Dienste/Accounts; TradingView Essentials besteht bereits.
-Keine Installation oder Änderung von Firewall, SSH, DNS oder Diensten erfolgt.
+Q31 bestätigt die lokale Umsetzung. Docker ist installiert; fünf lokale
+Compose-Dienste laufen über einen einzigen Loopback-HTTPS-Port.
+Host-SSH und DNS wurden nicht verändert. Docker verwaltet seine lokalen
+Netzregeln. Öffentliche Pilot-/Produktionsfreigabe bleibt separat.
+Start und Grenzen: [infra/README.md](../infra/README.md).
 
 ## Umgebungen und Ressourcen
 
@@ -45,7 +49,7 @@ private Paperprüfung → explizite Produktionsfreigabe → kontrollierter Rollo
 Echte Handelsaktivierung ist zusätzlich konto-/strategiebezogen freizugeben.
 
 Keine neue CI/CD-Toolabhängigkeit wurde eingeführt. Git-basiertes lokales
-Ticketboard und manuelle geprüfte Abläufe sind für die Planungsphase ausreichend.
+Ticketboard und manuelle geprüfte Abläufe genügen für die aktuelle lokale Entwicklung.
 Ein späteres automatisiertes Releaseverfahren wird konkret vorgeschlagen.
 
 ## Gesundheits- und Fachmetriken

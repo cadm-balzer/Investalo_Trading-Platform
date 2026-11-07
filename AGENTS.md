@@ -6,7 +6,7 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 
 ## Project state and navigation
 
-- Current phase: planning and `SKILLS/grill-me/SKILL.md` interview.
+- Current phase: local M1 implementation, approved in Q31.
 - Confirmed Q1–Q5: private invitation pilot, cockpit/backtests/paper before live,
   independent hard risk limits, controlled AI promotion, and free external
   tools/accounts first. TradingView Essentials is the existing paid subscription.
@@ -39,8 +39,8 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   entry, no RSI required but price <=95% last regular fill; preview/MFA and all
   risk/protection gates. Once-only cockpit notice plus optional user-enabled email.
   Do not simulate hindsight-selected manual fills as automated performance.
-- M1 substantive interview decisions Q1–Q30 are settled; Q31 final shared
-  understanding and transition to local implementation is pending.
+- M1 substantive interview decisions Q1–Q30 and Q31 final shared understanding
+  are confirmed. The user explicitly instructed implementation to begin.
   Reviewable summary: `docs/implementation-brief.md`.
 - Original requirements: `docs/project-info.md`; complete draft: `docs/concept.md`.
 - Architecture/stack proposals: `docs/architecture.md`; trading: `docs/trading.md`.
@@ -50,8 +50,15 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   implementation; consult `docs/inventory.md` before reusing legacy code.
 - Preserve the original project prompt. Label unresolved requirements and
   proposed defaults explicitly; an unanswered interview question is not approval.
-- The first authorized deliverable is structure and planning. Do not silently
-  bootstrap before interview agreement, activate live trading, or deploy production.
+- Local bootstrap and M1 implementation are authorized. Keep live trading and
+  public/production rollout behind their separate approvals.
+- The user explicitly authorized autonomous local commands and asks for concrete
+  interim acceptance notices. Continue routine local implementation without
+  repeating permission questions; tool sandbox escalations still apply.
+- Current foundation: `infra/README.md` starts the five loopback-only services;
+  executable tests cover API/RLS, cockpit security and the deterministic crypto
+  core. Queued backtests still lack their execution/data worker. Do not call this
+  a released M1 pilot. Generated `infra/local/` is ignored and never a build context.
 - Existing reference repositories: `/opt/investalo-trading-system` and
   `/opt/investalo-autotrader`. Treat them as read-only references unless work there
   is explicitly authorized. Their strategies need independent net-cost validation.

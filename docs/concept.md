@@ -1,7 +1,8 @@
 # Projektkonzept
 
-Stand: 2026-11-07. **Vollständiger Planungsentwurf, noch nicht zur Implementierung
-freigegeben.** Grundstack, beide Broker im MVP, Startvarianten,
+Stand: 2026-11-07. **Q31 bestätigt; lokale M1-Implementierung begonnen.**
+Das lokale Fundament läuft; vollständige Releaseabnahme steht aus.
+Grundstack, beide Broker im MVP, Startvarianten,
 Docker Compose und lokales Authelia sind in Q6–Q14 bestätigt.
 Q15–Q22 konkretisieren Signale, Schutz, Paper-/Demolimits,
 öffentlichen HTTPS-Einstieg für Privatnutzer und vorhandenen SMTP.

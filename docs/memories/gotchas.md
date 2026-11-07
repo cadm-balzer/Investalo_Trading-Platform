@@ -94,3 +94,31 @@ Stand 2026-11-07. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   Dienste verdrängen. Ressourcen messen und getrennt begrenzen.
 - **Adminskill:** Lokale Anleitung ist für Ubuntu 24.04, Host ist 26.04.
   Keine unverifizierten Kernel-/Paket-/SSHkommandos übertragen.
+
+## Lokales Fundament
+
+- **Docker 29:** Container ausschließlich an internen Netzen veröffentlichen
+  hier keinen Hostport. Caddy braucht zusätzlich ein eigenes Bridge-Netz;
+  die Anwendungen behalten ausschließlich interne Netze.
+- **PostgreSQL 18:** Datenpfad `/var/lib/postgresql/18/docker`; Parent-Bindmount
+  passend zur Nonroot-UID anlegen. Alte Major-PGDATA-Pfade nicht übernehmen.
+- **Konfigurationsmounts:** Geänderte Caddy-Konfiguration allein löst keinen
+  Containerneustart aus; explizit validieren und neu laden/starten.
+- **Logdaten:** Caddy-Fehlerlogs können Request-URI inklusive OAuthcode enthalten.
+  Ganzes `request`-Feld herausfiltern. PG-Fehlerstatement-/Parameterlogging
+  unterbinden; `log_statement=none` allein reicht nicht bei Passwort-DDL.
+- **Authelia-Flow:** `max_age=0` erzeugt in 4.39.28 einen Consentloop;
+  gleichwertiges `prompt=login` plus signierte Flowstart-Prüfung verwenden.
+  HTTP 200 allein bedeutet bei Provider-JSON nicht Erfolg; `status=OK` prüfen.
+  Nach Faktorprüfung denselben gespeicherten OAuthflow weiterführen.
+- **Testprovisionierung:** CLI-TOTP für `.invalid` ist ein lokaler Testshortcut,
+  keine Abnahme normaler Faktorregistrierung oder administrativen Recoverys.
+  Exactformat-Guard verhindert versehentliche Anwendung auf reale Nutzer.
+- **Argon2/kleiner Host:** Wiederholte Passwort-/Clientprüfungen brauchen
+  RAM-Spielraum. Ein IdP-Neustart wurde beobachtet, Ursache nicht nachgewiesen;
+  Limit auf 320 MiB erhöht. Keine belastbare Produktionslastabnahme daraus ableiten.
+- **Sandboxtests:** Native Testisolation und AnyIO/TestClient können im
+  eingeschränkten Runner hängen. Named Node-Tests mit `--test-isolation=none`;
+  API-Integration im gepinnten Docker-Checks-Target mit echter DB verifizieren.
+- **Frische Simulationstage:** UTC-Mitternachtsbaseline benötigt aktuelle
+  Quotes aller gehaltenen Assets; fehlende Baseline sperrt neue Käufe.

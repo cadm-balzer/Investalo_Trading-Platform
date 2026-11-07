@@ -4,8 +4,9 @@
 |---|---|
 | [project-info.md](project-info.md) | Ursprünglicher Auftrag |
 | [concept.md](concept.md) | Produkt, Umfang und End-to-End-Konzept |
-| [implementation-brief.md](implementation-brief.md) | Konkreter M1-Gesamtstand für Abschlussbestätigung und nächste Umsetzung |
-| [architecture.md](architecture.md) | Module, Datenmodell, Schnittstellen und Stackvorschläge |
+| [implementation-brief.md](implementation-brief.md) | Bestätigter M1-Umfang und nächste Umsetzung |
+| [runtime-pins.md](runtime-pins.md) | Verifizierte Versionen, Digests und Laufzeitnachweise |
+| [architecture.md](architecture.md) | Module, Datenmodell, Schnittstellen und aktueller Stack |
 | [trading.md](trading.md) | Strategieformalisation, Risiko, Backtests und Optimierung |
 | [security.md](security.md) | Bedrohungen, Schutzmaßnahmen und Freigabekriterien |
 | [operations.md](operations.md) | Deployment, Monitoring, Backup und Wiederanlauf |

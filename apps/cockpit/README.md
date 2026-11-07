@@ -1,12 +1,92 @@
-# Cockpit — geplanter Bereich
+# Cockpit
 
-Responsives Portfolio-Cockpit, Konten und Positionen, Strategien, Backtests,
-Tradingjournal, Marktinformationen sowie Benutzer- und Credentialeinrichtung.
-Next.js/React/TypeScript sind als Grundstack bestätigt, noch nicht installiert.
+Lokales Next.js-Cockpit mit deutscher, responsiver Übersicht, Portfolio,
+Tradingjournal, Backtestaufträgen und Sitzungsübersicht. Konten, Positionen,
+Journal und Aufträge kommen aus der geschützten API. Fehlende Daten bleiben
+leer; fehlende Equity bleibt unbekannt. Keine erfundenen Kurven, Brokerfeeds
+oder Leistungsnachweise. Echtgeld bleibt gesperrt.
 
-Verträge kommen aus `packages/contracts/`. Keine Brokerkeys im Browser, keine
-Orderentscheidungen im Frontend. Details: `docs/concept.md`, `docs/architecture.md`.
-Manueller Crypto-Paperpuffer mit Vorschau, Bestätigung und serverseitigem Risk Gate;
-Nutzerinformation bestätigt: einmalige Cockpitmeldung nach fünfter Stufe,
-optionale E-Mail; manuelle Freigabe gemäß Q29 mit 5%-Preisbedingung.
-Echte KI und vollständige News-/Kalenderfeeds folgen nach dem bestätigten M1.
+## Reproduzierbar prüfen
+
+Node 24.22.2 im gepinnten Composeimage; Host-Node 24/26 wird ebenfalls unterstützt.
+`npm ci`, `npm run typecheck`, `npm test`, `npm run build`.
+Der Build nutzt einen Worker und Webpack; `infra/docker/cockpit.Dockerfile` erwartet den
+digestgepinnnten Buildparameter `NODE_IMAGE` aus `infra/images.env`.
+Standalone-Runtime: `node server.js`, Port 3000, UID/GID 10002 plus Gruppe 10010.
+Builds auf dem 2-GB-Host mit anderen Builds/Research serialisieren.
+
+Exakte direkte Pins und vollständiger npm-Lockstand sind committed:
+Next 16.4.5, React/DOM 19.3.1, jose 6.2.15 und TypeScript 5.9.3.
+TypeScript 5.9.3 vermeidet vorerst die neue native Compiler-API von TS7.
+Keine CI-/Pipelineabhängigkeit eingeführt.
+
+## Anmeldung und API-Vertrauen
+
+Authelia Confidential Client `investalo-cockpit`: Authorization Code,
+`require_pkce: true`, S256, `authorization_policy: two_factor`,
+`token_endpoint_auth_method: client_secret_basic`. Exakter Callback:
+`https://cockpit.local.test:8443/api/auth/callback`.
+Scopes: `openid profile email`; kein Offlinezugriff/Refresh.
+Der Claimsparameter verlangt `amr` und `auth_time`; Login `prompt=login`.
+Die signierte `auth_time` muss mindestens der serverseitig gespeicherten
+Startzeit dieses browsergebundenen Loginvorgangs entsprechen. Beide Zeiten
+werden in ganzen Sekunden verglichen; frühere Authentifizierungen werden
+ohne Toleranz abgewiesen. Die lokale IdP-/BFF-Installation teilt dieselbe
+Hostuhr; die vorhandene Toleranz von fünf Sekunden gilt nur für Zukunftszeiten.
+Der Vorgang verfällt nach fünf Minuten.
+RS256-Signatur, Issuer, Audience/Authorized Party, Nonce, Tokenalter und
+RFC8176-MFA-Claim werden geprüft. Unbekannte Identitäten werden durch die API
+abgewiesen; keine automatische Nutzer-/Tenantprovisionierung.
+
+Kompatibilität: OIDC Core 3.1.2.1 definiert `prompt=login` als gleichwertig
+zu `max_age=0`. Authelia 4.39.28 bewertet `max_age=0` im gespeicherten
+Consentformular auch nach der Anmeldung weiterhin als zwingenden Login.
+`prompt=login` und die zusätzliche signierte Zeitprüfung erhalten die
+frische Anmeldung und vermeiden diese Schleife.
+Quellen: [OIDC Core](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest),
+[Authelia 4.39.28 Loginprüfung](https://raw.githubusercontent.com/authelia/authelia/v4.39.28/internal/oidc/util.go).
+
+`.env.example` dokumentiert Konfigurationsnamen, ohne Geheimnisse.
+Secrets kommen ausschließlich aus Dateimounts. TLSprüfung bleibt aktiv;
+die lokale CA wird über `NODE_EXTRA_CA_CERTS` vertraut.
+OIDC-Endpoints müssen unter dem konfigurierten HTTPS-Issuer liegen.
+
+Browser bekommen eine zufällige `__Host-`-Sitzungskennung mit Secure,
+HttpOnly und SameSite=Lax. Zustände/Sitzungen liegen AES-256-GCM-verschlüsselt
+im exklusiven persistenten `COCKPIT_STATE_DIR`; Loginstate wird atomar und
+einmalig verbraucht, signiert und an eine zweite Browserkennung gebunden.
+Keine IdP-/Broker-Tokens im Browser oder im Sitzungsstore. Sitzungsdauer
+endet spätestens mit dem IDtoken beziehungsweise nach 30 Minuten.
+Mutationen brauchen exakten Origin, CSRF und begrenzten Body.
+
+BFF → API verwendet TLS und 30 Sekunden gültige HS256-JWTs:
+`iss=investalo-bff`, `aud=investalo-api`, `sub`, `oidc_iss`, `oidc_auth_time`,
+`iat`, `exp`, `jti`, `htm`, `htu` inklusive Query sowie `body_sha256`.
+`GET /v1/me` löst das Mitgliedschaftsbootstrap; nachfolgende Aufrufe enthalten
+autorisierte `tenant_id`/`auth_epoch`. API prüft Mitgliedschaft und Widerruf
+erneut; Browserheader/-rollen bestimmen keinen Tenant. Die erste autorisierte
+Mitgliedschaft wird verwendet; eine Tenantwechseloberfläche folgt separat.
+
+Private Antworten sind `no-store`. Scripts erhalten eine zufällige CSP-Nonce,
+keine externen Fonts/Tracker/Assets. Proxyaccesslogs dürfen Authcallbackquery
+mit Code/State nicht speichern. Logout widerruft lokal die Cockpitsitzung;
+Authelia unterstützt keinen RP-Logout. Administrative Recovery muss API-
+Authentifizierungsgeneration und alte Sessions separat widerrufen.
+
+## Aktuelle Grenze
+
+Backtests können als tatsächliche API-Aufträge angefordert werden; Auftrag
+und Erfolg werden getrennt gezeigt. Ergebnisdiagramme erscheinen erst mit
+bestätigtem Ergebnisvertrag und echten Daten. Der manuelle Reservekauf,
+Brokercredentialeinrichtung, AI und Feeds sind hier noch nicht aktiviert.
+Paper-/Demo-Ausführung, MFA-Recovery und öffentlicher Pilot brauchen ihre
+weiteren Abnahmen; diese Oberfläche ist lokale Entwicklung.
+
+## Verifizierte Herstellerquellen (2026-11-07)
+
+- [Next Installation und Mindest-Nodeversion](https://nextjs.org/docs/app/getting-started/installation)
+- [Next npm-Metadaten](https://registry.npmjs.org/next/16.4.5)
+- [Node 24 LTS und Support bis April 2028](https://nodejs.org/en/blog/migrations/v22-to-v24)
+- [Authelia Clientpolicy und PKCE](https://www.authelia.com/configuration/identity-providers/openid-connect/clients/)
+- [Authelia IDtokenclaims](https://www.authelia.com/integration/openid-connect/openid-connect-1.0-claims/)
+- [Authelia MFA-Referenzwerte](https://www.authelia.com/reference/guides/authentication-method-references/)

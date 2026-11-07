@@ -1,8 +1,11 @@
 # Compose- und Identityplan für den Privatpilot
 
 Stand 2026-11-07. Q13 bestätigt Docker Compose, Q14 lokales Authelia.
-Dieser Plan konkretisiert die Auswahl; es gibt noch keine ausführbare
-Composekonfiguration oder Installation. Q20 bestätigt einen öffentlichen
+Q31 bestätigt die lokale Implementierung. Eine ausführbare Testkonfiguration
+steht unter [infra/README.md](../infra/README.md), Pins unter
+[runtime-pins.md](runtime-pins.md). Sie bindet ausschließlich Loopback und
+verwendet generierte `.invalid`-Testidentitäten; der folgende Plan beschreibt
+weiterhin die vollständige Pilotabnahme. Q20 bestätigt einen öffentlichen
 zentralen HTTPS-Einstieg für den privaten Nutzerkreis; Q21 bestehenden
 kostenlosen SMTP. Q24 bestätigt administratives E-Mail-Recovery; Q27
 Pilotbackupziele. Siehe [architecture.md](architecture.md).

@@ -66,9 +66,10 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
-Stand 2026-11-06: Der Auftrag oben bleibt als ursprünglicher Projektprompt erhalten.
-Die erste Umsetzung besteht aus Projektstruktur, Konzept, Roadmap, Tickets und
-einem Interview nach `SKILLS/grill-me/SKILL.md`.
+Stand 2026-11-07: Der Auftrag oben bleibt als ursprünglicher Projektprompt erhalten.
+Planung und Interview nach `SKILLS/grill-me/SKILL.md` sind durch Q31 bestätigt.
+Die lokale M1-Umsetzung läuft: Compose, MFA-/API-/Cockpitfundament und
+Crypto-Kern. Aktueller Start: [infra/README.md](../infra/README.md).
 
 - Gesamtkonzept: [concept.md](concept.md)
 - Technischer Entwurf: [architecture.md](architecture.md)

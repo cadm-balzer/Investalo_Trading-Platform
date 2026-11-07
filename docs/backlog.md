@@ -21,6 +21,10 @@ Keine erledigten Punkte in dieser Liste halten.
 | BL-014 | Erweiterte automatische Strategiepromotion | Erst nach validiertem Researchprozess, expliziter Governanceentscheidung |
 | BL-015 | Kundenbetrieb, Abrechnung und Compliance | IP-023; neue Product-/Rechts-/Privacyphase |
 | BL-016 | Brandtokens und bestehendes UX-System | Vor IP-014 Websitevorgaben erfassen und Logoverwendung/Design abstimmen |
+| BL-017 | Auth-Retention und Ratenbegrenzung | Nonce-/Sitzungsbereinigung, begrenzte Jobannahme und Recoveryoperator vor Pilot nachweisen |
+| BL-018 | Workeridentitäten und Datenherkunft | Eigene minimale Workerrollen, Snapshots/Fees/Instrumentregeln und unveränderten Holdout bei IP-011/013/016 implementieren |
+| BL-019 | Manueller Auftrag ohne Fill | Bei IP-024 expliziten abgeglichenen Wiederholungsweg für reservierte manuelle Intents ergänzen; keine blinde neue Order |
+| BL-020 | Tatsächliche MFA-Schrittbestätigung | Für manuellen Einstieg verified Fresh-MFA-Auditreferenz, Faktorregistrierung/WebAuthn und pilotstabile RP-Domain prüfen |
 
-Konkrete RSI-/Supertrend-/Budget-/Exitfragen sind Bestandteil des laufenden
-Interviews und von IP-010, keine stillschweigend vertagten Strategieentscheidungen.
+RSI-/Supertrend-/Budget-/Exitentscheidungen Q1–Q31 sind bestätigt.
+Offen sind Umsetzung und Nachweise, keine stillschweigend vertagten Strategiefragen.

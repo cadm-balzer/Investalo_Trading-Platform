@@ -187,5 +187,47 @@ Gewinnschutz, Datenfehler und ungeklärte Orders können den Kauf sperren.
 für den ganzen Basket. Einmalige Cockpitmeldung plus einschaltbare E-Mail;
 keine automatische Order oder −40%-Alarmgrenze.
 
-Alle M1-Sachentscheidungen sind damit geklärt. Q31 gemeinsame Abschlussbestätigung
-und Übergang zur lokalen Implementierung steht noch aus.
+Alle M1-Sachentscheidungen sind damit geklärt. Q31 bestätigt anschließend das
+gemeinsame Verständnis und den Übergang zur lokalen Implementierung (D-024).
+
+## 2026-11-07 — D-024: M1-Umsetzung und lokale Autonomie
+
+**Status: bestätigt, Q31 und anschließende Nutzeranweisung.** Implementierung
+beginnen und lokale Tasks/Kommandos selbstständig ausführen; konkrete
+Zwischenabnahmen melden. Kein erneutes Warten auf Routinegenehmigungen.
+Produktionsrollout, externe Nachrichten und Echtgeld behalten ihre eigenen
+Grenzen. Lokaler Featurebranch `feat/m1-foundation`; vollständiger M1-Pilot
+und erstes überprüfbares Fundament sind unterschiedliche Abnahmen.
+
+## 2026-11-07 — D-025: Reproduzierbares privates Fundament
+
+**Status: umgesetzt innerhalb bestätigter Architektur.** Fünf gepinnte
+Compose-Dienste mit Nonroot, Ressourcenlimits und dienstbezogenen Secrets.
+Nur Caddy veröffentlicht Loopback-HTTPS; interne API/DB/IdP-Verbindungen
+mit CA-Prüfung/TLS. PostgreSQL trennt Migration, Runtime und IdP, FORCE RLS
+und zusammengesetzte Fremdschlüssel begrenzen Mandantenzugriffe.
+Cockpit verwendet OIDC-Codeflow/PKCE und verschlüsselte serverseitige
+Sitzungen; Browser erhält keine Broker-/IdP-Tokens. Pins:
+[runtime-pins.md](../runtime-pins.md). Testidentitäten und CA sind lokale,
+ignorierte Entwicklungsdaten, keine Produktionscredentials.
+
+## 2026-11-07 — D-026: Crypto-Riskstop und Referenzsimulation
+
+**Status: implementierte Auslegung bestätigter Schutzregeln.** Der −55%-Exit
+sperrt den betroffenen Basket bis zu bewusster Wiederaufnahme nach Flat/
+Abgleich; gewöhnlicher Gewinnexit setzt diese Risikosperre nicht.
+Kostenannahmen der Referenzsimulation sind explizite Forschungsparameter,
+noch keine kalibrierten Bitget-Gebühren/Spreadwerte. Manuelle Reserve bleibt
+im automatischen Referenzlauf Cash; Domainvorschau ersetzt keine reale
+MFA-Schrittbestätigung und keinen brokerseitigen Fill.
+
+## 2026-11-07 — D-027: Frischer OIDC-Login mit Authelia
+
+**Status: Kompatibilitätsfix im bestätigten MFA-Ablauf.** Authelia 4.39.28
+behandelt `max_age=0` im Consentformular dauerhaft als erneuten Loginbedarf.
+Das laut OIDC Core gleichwertige `prompt=login` wird verwendet; zusätzlich
+muss die signierte `auth_time` mindestens dem gespeicherten Flowstart
+entsprechen. Frühere Authentifizierung wird auch innerhalb der Uhrtoleranz
+abgewiesen; `amr=mfa`, Nonce, PKCE und Signatur bleiben verpflichtend.
+Quellen: [OIDC Core](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest),
+[Authelia util.go](https://github.com/authelia/authelia/blob/v4.39.28/internal/oidc/util.go).

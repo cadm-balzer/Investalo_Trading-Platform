@@ -5,7 +5,7 @@ bereits geklärter Voraussetzungen gestellt. „Ja“ akzeptiert die jeweils
 genannte Empfehlung. Unbeantwortete Fragen bleiben offen.
 
 Stand 2026-11-07: Runden 1–6 (Q1–Q30) beantwortet.
-Eine Abschlussbestätigung des gemeinsamen Verständnisses steht noch aus.
+Q31 bestätigt das gemeinsame Verständnis und beauftragt den Umsetzungsstart.
 Struktur und Planungsdokumente sind ausdrücklich beauftragt; Implementierung
 des Entwurfs beginnt erst nach den erforderlichen Entscheidungen.
 
@@ -115,8 +115,8 @@ sind durch Q28 ausdrücklich an ihre Gates verschoben. Technische Fakten
 und Laufzeitnachweise erledigen wir bei Umsetzung und vor Pilotfreigabe.
 
 Der konkrete Gesamtstand steht in [implementation-brief.md](implementation-brief.md).
-Q31 bestätigt abschließend das gemeinsame Verständnis und den Übergang
-zur lokalen M1-Implementierung. Das ist noch offen; kein öffentlicher
+Q31 ist bestätigt: gemeinsames Verständnis und Übergang
+zur lokalen M1-Implementierung. Kein öffentlicher
 Rollout und keine Echtgeldfreigabe.
 
 ## Entscheidungsbaum
@@ -141,7 +141,7 @@ flowchart TD
   MARKET --> TERMINAL[MT5 auf separatem Heimnetzserver]
   AI --> SCOPE[Releasegrenze und spätere Gates bestätigt]
   MARKET --> SCOPE
-  VALID --> AGREEMENT[Q31 gemeinsames Verständnis bestätigen]
+  VALID --> AGREEMENT[Q31 gemeinsames Verständnis bestätigt]
   DEPLOY --> AGREEMENT
   PROVIDER --> AGREEMENT
   BACKUP --> AGREEMENT
@@ -156,7 +156,7 @@ flowchart TD
 
 Mit Q28 liegen Echtgeld-/FTMO-/AI-Provider- und
 Kundenentscheidungen ausdrücklich an späteren Gates. Der Interviewabschluss
-braucht weiterhin die Bestätigung des gemeinsamen Verständnisses.
+ist in Q31 bestätigt.
 
 Konkrete Umsetzungsfakten recherchieren wir: unterstützte Versionen exakt pinnen,
 Historienlänge/-qualität prüfen, Brokerkosten/Metadaten und Hostlast messen.

@@ -29,8 +29,18 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   und abgegrenzter erster Release bestätigt.
 - Q29–Q30 bestätigt: einmaliger manueller Puffer nach fünf Stufen,
   ohne RSI, weiter 5%-Preisabstand, Vorschau/MFA und unveränderte Schutzgates;
-  einmalige Cockpitmeldung plus optionale E-Mail. Q31 gemeinsames Verständnis
-  und Start der lokalen M1-Umsetzung noch offen.
+  einmalige Cockpitmeldung plus optionale E-Mail.
+- Q31 bestätigt: gemeinsames Verständnis und ausdrücklicher Auftrag,
+  mit lokaler M1-Implementierung zu beginnen. Branch `feat/m1-foundation`.
+- Anschließend ausdrücklich: lokale Tasks/Kommandos selbstständig umsetzen,
+  nicht auf Routinegenehmigungen warten; konkrete Zwischenabnahmen melden.
+- 2026-11-07: fünf lokale Compose-Dienste mit gepinnten Images/Locks,
+  ausschließlich `127.0.0.1:8443`. Crypto-Core/Papersimulator, Tenant-/RLS-API,
+  persistente Jobannahme und OIDC-MFA-Cockpit implementiert. Noch kein fertiger
+  M1-Pilot: Worker/Daten/Broker, UI-Schritt-MFA, SMTP/Recovery/Restore fehlen.
+- Authelia 4.39.28: `max_age=0` Consentloop; offizielles Äquivalent
+  `prompt=login` plus signierte Authzeit ab Flowstart. Passwort-/TOTP-Testnutzer
+  sind ausschließlich generierte lokale `.invalid`-Daten.
 - Referenzsysteme liegen lokal unter `/opt/investalo-trading-system` und
   `/opt/investalo-autotrader`. Read-only Wiederverwendungsprüfung, keine Änderung
   laufender Systeme. Befunde: `docs/inventory.md`.

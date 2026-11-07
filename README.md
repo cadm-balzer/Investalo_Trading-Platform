@@ -3,9 +3,11 @@
 Mandantenfähiges Trading-Cockpit mit Portfolio, Journal, Backtests und
 automatisiertem Handel über Bitget und MetaTrader 5.
 
-**Stand: 2026-11-07 — Planung und Interview.** Es gibt noch keine lauffähige
-Anwendung. Der grundlegende Stack und beide Broker im ersten Release sind
-bestätigt, ebenso Docker Compose und lokales Authelia für MFA.
+**Stand: 2026-11-07 — M1-Implementierung gestartet, Q31 bestätigt.**
+Das lokale Fundament läuft über Docker Compose: Cockpit, FastAPI, PostgreSQL,
+Authelia und zentraler HTTPS-Proxy. Versionen, Imagedigests und Paketlocks sind
+festgelegt. Der deterministische Crypto-Kern ist implementiert und getestet.
+Der vollständige erste Release mit beiden Brokerpfaden bleibt in Umsetzung.
 Crypto startet mit BTC/ETH Spot ohne Hebel auf H4; MT5 mit XAUUSD Trend/Pullback.
 RSI-/Supertrend-Regeln sowie Paper-/Demolimits sind bestätigt.
 Die sechste Crypto-Tranche bleibt ausschließlich für einen manuellen Einstieg
@@ -15,7 +17,7 @@ auf einem separaten Heimnetzserver und wird über eine ausgehende HTTPS-Bridge
 angebunden. Öffentlicher zentraler HTTPS-Einstieg für private Nutzer und
 administratives E-Mail-Recovery sind bestätigt, ebenso Validierungsmaßstab,
 Pilotbackupziele und M1-Umfang.
-Alle Sachentscheidungen Q1–Q30 sind geklärt; die Abschlussbestätigung steht aus.
+Alle Entscheidungen Q1–Q31 sind bestätigt.
 Bestätigt sind privater Start, Cockpit/Backtests/Paper vor Echtgeld,
 verbindliche Risikolimits, kontrollierte KI und zunächst kostenlose externe Dienste.
 
@@ -23,7 +25,8 @@ verbindliche Risikolimits, kontrollierte KI und zunächst kostenlose externe Die
 
 - [Originaler Projektauftrag](docs/project-info.md)
 - [Gesamtkonzept](docs/concept.md)
-- [Konkreter M1-Umsetzungsstand zur Abschlussbestätigung](docs/implementation-brief.md)
+- [Bestätigter M1-Umfang und Umsetzung](docs/implementation-brief.md)
+- [Lokaler Start](infra/README.md) und [Runtimepins](docs/runtime-pins.md)
 - [Architektur und Technologieauswahl](docs/architecture.md)
 - [Handelslogik und Validierung](docs/trading.md)
 - [Sicherheit](docs/security.md) und [Betrieb](docs/operations.md)
@@ -34,7 +37,7 @@ verbindliche Risikolimits, kontrollierte KI und zunächst kostenlose externe Die
 - [Interview und offene Entscheidungen](docs/interview.md)
 - [Bestandsaufnahme](docs/inventory.md) und [offizielle Quellen](docs/sources.md)
 
-## Geplante Struktur
+## Projektstruktur
 
 | Pfad | Verantwortung |
 |---|---|
@@ -44,14 +47,17 @@ verbindliche Risikolimits, kontrollierte KI und zunächst kostenlose externe Die
 | `packages/trading/` | Gemeinsamer deterministischer Strategie- und Risikokern |
 | `packages/contracts/` | Versionierte API-, Ereignis- und Bridgeverträge |
 | `integrations/` | Bitget-Adapter und nutzereigene MT5-Bridge |
-| `infra/` | Nach Freigabe: private Deployment- und Betriebskonfiguration |
+| `infra/` | Lokale Composeumgebung, TLS, Bootstrap und Werkzeugprofile |
 | `tests/` | Fachliche, Integrations-, Isolations- und Recoverytests |
 | `strategies/` | Bereits vorhandene Strategieabbildungen |
 | `docs/`, `memory/` | Planung, Tickets, Entscheidungen und Arbeitsnotizen |
 
-Die Verzeichnisse enthalten zunächst Aufgabenbeschreibungen; es werden noch
-keine Frameworks oder Dienste installiert. Vor dem Bootstrap sind alle
-Abhängigkeiten exakt zu pinnen und Lockdateien zu erzeugen.
+Cockpit zeigt tatsächlich gespeicherte Konten, Positionen, Journal und
+Backtestaufträge; fehlende Daten bleiben leer. Die API prüft signierte Identität,
+Mitgliedschaft und RLS und speichert Aufträge idempotent. Der Forschungsworker,
+Marktdatenimport, Brokeradapter, manuelle MFA-Reservefreigabe und Pilotbetrieb
+sind weitere M1-Aufgaben. Öffentlicher Rollout und Echtgeld benötigen eigene
+Abnahmen. Der lokale Einstieg bindet ausschließlich `127.0.0.1:8443`.
 
 ## Arbeitsregeln
 
