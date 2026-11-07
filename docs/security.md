@@ -11,6 +11,13 @@ geschützte Holdouts, Rollen und abgelaufene Claims. Research besitzt eine eigen
 tenantgebundene DB-Identität ohne Broker-/BFF-Secrets. Recovery, Brokercredentials, Step-up und
 Pilotbackup bleiben weitere Abnahmen.
 
+Die öffentliche Entwicklungsvorschau wurde separat freigegeben und aktiviert:
+zwei gültige Let’s-Encrypt-Zertifikate, ausschließlich zentraler Edge80/443,
+Passwort plus TOTP und48 tatsächliche HTTPS-Prüfpunkte. Der synthetische
+öffentliche Nutzer ist ausdrücklich im bestehenden Entwicklungstenant;
+alte Identitäts-/Credentialbindungen bleiben erhalten.
+[Zugang und Betriebsgrenzen](https-entry.md).
+
 ## Bedrohungen und Kontrollen
 
 | Bedrohung | Kontrolle / Abnahme |
@@ -175,10 +182,9 @@ schließen Secrets aus. Rotation und Historyremediation bleiben IP-005.
 Ein zentraler TLS-Einstieg; private Einladung, keine öffentliche Registrierung.
 Q20 plant den HTTPS-Einstieg bereits für diesen Privatpilot öffentlich.
 Datenbank, Secrets, Metriken und interne Worker sind nicht öffentlich.
-Die Domain `cockpit.investalo.de` erhält erst nach konkreter
-Pilot-/Produktionsfreigabe einen tatsächlichen Rollout.
-Eine separate geprüfte Let’s-Encrypt-Entwicklungsvorschau ist vorbereitet,
-noch nicht aktiviert; [TLS-Befund und Gates](https-entry.md).
+Die Domain `cockpit.investalo.de` ist für die ausdrücklich freigegebene
+Entwicklungsvorschau aktiv. Vollständiger Pilot-/Produktionsrollout bleibt
+separat; [Zugang und Gates](https-entry.md).
 Forwarded-Headers nur vom eigenen Proxy übernehmen; Rate Limits und
 unauthentifizierte Login-/Recoverypfade bei der öffentlichen Abnahme prüfen.
 

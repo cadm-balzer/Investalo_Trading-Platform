@@ -437,3 +437,24 @@ unabhängiger Review nach PEM-Grammatikkorrektur ohne Restblocker.
 Neue Issueridentität und RP benötigen bewusste Provisionierung/Registrierung;
 alte Bindungen bleiben erhalten. Keine Zertifikatsanfrage oder Aktivierung.
 [Befund und Freigabegates](../https-entry.md).
+
+## 2026-11-07 — D-040: Öffentliche Entwicklungsvorschau freigegeben und aktiviert
+
+**Status: ausdrücklich bestätigt und umgesetzt.** Nach Einrichtung der
+Anmeldedomain bittet der Nutzer um Freischaltung zum Betrachten des Fortschritts.
+Die Freigabe umfasst die synthetische Entwicklungsvorschau über den zentralen
+Edge; vollständiger Privatpilot, Produktion und Echtgeld bleiben separate Gates.
+
+Beide Domains lösen auf5.45.96.83 auf. Caddy liefert gültige Let’s-Encrypt-
+Zertifikate bis2027-02-05; nur80/443 sind veröffentlicht. Separate ACME- und
+Cockpitsitzungsordner, interne TLS-Prüfung und eingeschränkte Dienstrechte bleiben.
+Neustart erhält Zertifikate; automatische Erneuerung/Ablaufalarm/externes Restore
+bleiben BL-026.
+
+Der öffentliche Issuer erzeugt bewusst einen weiteren synthetischen Nutzer,
+gebunden an genau den bereits vorhandenen Entwicklungstenant. Alter Nutzer,
+Faktoren, Workerbindung und Datasets bleiben erhalten; keine Übertragung von
+Credential-/Passkey-Eigentum. Passwort und TOTP bleiben erforderlich.
+Zwölf Helpertests und48 öffentliche HTTPS-Prüfpunkte einschließlich tatsächlicher
+Backtestausführung/SVG/Logout bestanden; unabhängiger Review ohne Blocker.
+IP-035 erledigt. [Zugang und Betrieb](../https-entry.md).

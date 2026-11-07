@@ -3,15 +3,15 @@
 Stand 2026-11-07. Q13 bestätigt Docker Compose, Q14 lokales Authelia.
 Q31 bestätigt die lokale Implementierung. Eine ausführbare Testkonfiguration
 steht unter [infra/README.md](../infra/README.md), Pins unter
-[runtime-pins.md](runtime-pins.md). Sie bindet ausschließlich Loopback und
+[runtime-pins.md](runtime-pins.md). Ihr Standardprofil bindet ausschließlich Loopback und
 verwendet generierte `.invalid`-Testidentitäten; der folgende Plan beschreibt
 weiterhin die vollständige Pilotabnahme. Q20 bestätigt einen öffentlichen
 zentralen HTTPS-Einstieg für den privaten Nutzerkreis; Q21 bestehenden
 kostenlosen SMTP. Q24 bestätigt administratives E-Mail-Recovery; Q27
 Pilotbackupziele. Siehe [architecture.md](architecture.md).
 
-Aktueller TLS-Befund und geprüfte, noch nicht aktivierte öffentliche
-Entwicklungsvorschau: [https-entry.md](https-entry.md). Das Standardprofil
+Ausdrücklich freigegebene, aktive öffentliche Entwicklungsvorschau mit
+Let’s Encrypt: [https-entry.md](https-entry.md). Das Standardprofil
 bleibt lokal; eine Zertifikatsausstellung öffnet keinen fertigen Privatpilot.
 
 ## Services und Berechtigungen

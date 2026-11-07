@@ -30,7 +30,7 @@ Keine erledigten Punkte in dieser Liste halten.
 | BL-023 | Wiederanbindung nach Credentialwiderruf | UID und Plattformkonto bleiben terminal reserviert; kontrollierten admin-/MFA-/Brokerprüfweg für erneute Einrichtung oder Übertragung entwerfen, keine automatische Reaktivierung oder Löschung |
 | BL-024 | Credential-Freigaben im Betrieb | Annahme-/Speicherlimits und Retention ohne Replayöffnung festlegen; autorisierte, aber nach Crash unvollständige JTIs und unbekannte Commits abgleichen, keine automatische Probe-/Writewiederholung |
 | BL-025 | Passkey-Recovery nach terminalem Widerruf | Administrativer Widerruf sperrt den Faktor und erhöht die globale Nutzer-Epoch; kontrollierten E-Mail-bestätigten Ersatz-/Recoveryweg mit eigener Migration und Sitzungsbindung abnehmen. Keine Reaktivierung, Löschung oder erneute Registrierung in reservierte Slots |
-| BL-026 | Öffentlicher TLS-Betrieb | Nach IP-035 persistente ACME-Daten, erfolgreiche Erneuerung, Ablaufüberwachung, externe Portgrenzen und geschützten Wiederherstellungsweg nachweisen; Zertifikat ersetzt keine Pilotabnahme |
+| BL-026 | Öffentlicher TLS-Betrieb | IP-035 bestätigt persistente ACME-Daten nach Neustart und ausschließlich Edge-Hostports; tatsächliche Erneuerung, Ablaufüberwachung, unabhängig externe Portprüfung und geschützten Wiederherstellungsweg noch nachweisen; Zertifikat ersetzt keine Pilotabnahme |
 
 RSI-/Supertrend-/Budget-/Exitentscheidungen Q1–Q31 sind bestätigt.
 Offen sind Umsetzung und Nachweise, keine stillschweigend vertagten Strategiefragen.

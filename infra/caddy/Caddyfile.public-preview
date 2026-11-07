@@ -39,6 +39,10 @@ cockpit.investalo.de {
 		header_up -X-Forwarded-For
 		header_up X-Forwarded-Proto https
 		header_up X-Forwarded-Host cockpit.investalo.de
+		# The central edge supplies one consistent policy for these headers.
+		header_down -Referrer-Policy
+		header_down -Permissions-Policy
+		header_down -X-Content-Type-Options
 	}
 }
 
@@ -50,6 +54,9 @@ auth.cockpit.investalo.de {
 		header_up -X-Forwarded-For
 		header_up X-Forwarded-Proto https
 		header_up X-Forwarded-Host auth.cockpit.investalo.de
+		header_down -Referrer-Policy
+		header_down -Permissions-Policy
+		header_down -X-Content-Type-Options
 		transport http {
 			tls_trust_pool file /run/secrets/local_ca_cert
 		}

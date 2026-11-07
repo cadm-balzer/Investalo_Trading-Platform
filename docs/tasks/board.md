@@ -44,7 +44,7 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-032 | P0 / P1 | DONE | Bestätigten zusätzlichen Passkey-Assertionkern prüfen | SimpleWebAuthn14.1.0, 19 echte synthetische Signaturtests, voller Cockpitlauf78/Typecheck/Containerbuild grün; unabhängiger Review, kein aktiver HTTP-Verifier |
 | IP-033 | P0 / P1 | IN_PROGRESS | Dauerhafte Passkeyverwaltung und Browser-Schrittflow integrieren | Registry und lokales Enrollment in IP-034; frische zielgebundene Assertion-/Granttransaktionen, echte Browser-/Geräteabnahme und Betriebsgrenzen folgen; BL-020/021/025 |
 | IP-034 | P0 / P1 | DONE | Dauerhafte Passkeyregistry und lokales Browser-Enrollment implementieren | Additive006, Einmalticket, FORCE RLS, Counter-/Versions-CAS, terminaler Widerruf/Audit und BFF-Enrollment; 528 Tests und48 HTTPS-Prüfpunkte grün, unabhängige Reviews, keine Actionfreigabe |
-| IP-035 | P0 / P1 | WAITING_DECISION | Öffentlichen HTTPS-Befund klären und Let’s-Encrypt-Einstieg aktivieren | DNS cockpit→5.45.96.83, hier nur Loopback8443; opt-in Overlay/Renderer/Validatoren und sechs Tests grün. Aktivierungsfreigabe, auth-DNS und öffentliche Issuer-Nutzerbindung fehlen |
+| IP-035 | P0 / P1 | DONE | Freigegebene HTTPS-Entwicklungsvorschau aktivieren | Nutzerfreigabe und beide DNS-Namen vorhanden; zwei gültige LE-Zertifikate, zwölf Helpertests und48 öffentliche HTTPS-/MFA-/Backtestprüfpunkte grün. Separate öffentliche Identität im bestehenden Entwicklungstenant; nur Edge80/443, Zertifikate nach Neustart erhalten. BL-026/Pilotabnahme bleiben offen |
 
 ## Abschlussbelege
 
@@ -242,6 +242,22 @@ und frische zielgebundene Assertions/Grants folgen IP-033.
 Kontoänderungen bleiben gesperrt; keine echten Brokerkeys, Brokerkontakte,
 E-Mails, öffentliche Bereitstellung oder Echtgeldaktionen.
 Anleitung und Abnahmegrenzen: [Passkeys](../passkey-step-up.md).
+
+## Zwischenabnahme: öffentliche Entwicklungsvorschau
+
+2026-11-07: Nutzer hat auth-DNS eingerichtet und die Vorschau ausdrücklich
+freigegeben. Beide Domains zeigen auf5.45.96.83; gültige Let’s-Encrypt-
+Zertifikate bis2027-02-05, HTTP308 und Zertifikatsvertrauen nach Proxyneustart
+bestätigt. Nur Caddy veröffentlicht80/443; eingeschränkte Containerrechte bleiben.
+
+Öffentliche Issueridentität als weiterer Owner im konkret ermittelten vorhandenen
+Entwicklungstenant provisioniert. Lesende Prüfung bestätigt ursprünglichen Nutzer,
+geteilte Mitgliedschaft, unveränderte Researchworkerbindung und vorhandene Datasets.
+Zwölf Helpertests und48 tatsächliche öffentliche HTTPS-Prüfpunkte bestanden,
+einschließlich TOTP/OIDC, Workerberechnung, Nettobericht/SVG und Logout.
+Unabhängiger Abschlussreview ohne Blocker. Keine Broker- oder Echtgeldfreigabe;
+IP-033 und BL-026 bleiben nächste Arbeitsbereiche.
+[Zugang und Betrieb](../https-entry.md).
 
 ## Routine
 

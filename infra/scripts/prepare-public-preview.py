@@ -101,11 +101,11 @@ def create_config(path: Path, value: str) -> None:
             os.close(descriptor)
 
 
-def main() -> None:
+def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--development-preview", action="store_true", required=True,
                         help="Prepare only the existing synthetic development setup.")
-    parser.parse_args()
+    parser.parse_args(argv)
     if os.geteuid() != 0:
         raise RuntimeError("Requires root for service-specific file ownership.")
     info = LOCAL.lstat()

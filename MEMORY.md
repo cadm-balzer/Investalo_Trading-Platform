@@ -130,3 +130,12 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   Geprüftes inaktives HTTPS-Overlay/Renderer auf feat/m1-https-entry vorbereitet.
   Keine ACME-/DNS-/Port-/Identitätsänderung. IP-035 wartet auf Aktivierung/
   auth-DNS und öffentliche Issuer-Nutzerbindung; keine automatische Migration.
+- 2026-11-07, anschließende ausdrückliche Nutzerfreigabe: öffentliche
+  Entwicklungsvorschau aktiviert. Beide Domains zeigen auf5.45.96.83 und haben
+  gültige LE-Zertifikate bis2027-02-05; zentral ausschließlich80/443.
+  Zwölf Helpertests und48 öffentliche HTTPS-/MFA-/Backtestprüfpunkte bestanden,
+  Zertifikate nach Neustart und alte Identitäts-/Worker-/Datasetbindung bestätigt.
+  Öffentlicher synthetischer Nutzer explizit im bestehenden Entwicklungstenant.
+  Laufende Dienste immer mit `--file infra/compose.public-preview.yaml` bedienen;
+  Defaultprofil bleibt lokal. IP-035 erledigt, IP-033/BL-026 und vollständige
+  Pilot-/Produktionsabnahme bleiben offen; Kontoänderungen/Echtgeld gesperrt.
