@@ -22,6 +22,12 @@ Das lokale Fundament besitzt ausführbare Tests:
   Nutzer-/Kontobindung, KEK-Rotation, lokale Envelopewiederherstellung,
   Größen-/JSON-/Base64grenzen und Redaktion. Gepinnter Testcontainer ohne Netzwerk
   oder Secrets; kein externer Vault-/Backup-/Restorebeleg.
+- `tests/credential_store`: 19 Clienttests für aktuelle DB-Bindung, frische
+  Transaktionen, Versionskonflikte, Rotation, Widerruf und Fehlerredaktion.
+- `tests/credentials_storage`: 18 tatsächliche PostgreSQL-Fälle in
+  `investalo_credentials_checks`, einschließlich zwei Store-End-to-End-Tests.
+  Drei eigene Testlogins; API/Research, fremde Nutzer, Viewer, deaktivierte
+  Mitgliedschaften und manipulierte Bindungen werden abgewiesen.
 - `tests/workers`: gemeinsamer Simulatorkern, Provenienz und Lease-/Fencing-
   Negativfälle mit eigener tatsächlicher Research-Testrolle.
 - `apps/cockpit/tests`: OIDC-Token/Freshness, Cookies/Sitzungen, CSRF,
@@ -35,11 +41,19 @@ Das lokale Fundament besitzt ausführbare Tests:
   Ausschließlich generierte lokale `.invalid`-Identität; keine Faktorwerte ausgeben.
 - `tests/infra/test_research_provisioning.py`: atomare Rollenprovisionierung,
   Eingabegrenzen und sichere SQL-/Passwortbehandlung.
+- `tests/infra/test_credentials_provisioning.py`: vier Tests für feste
+  Testidentitäten, sichere Secretübergabe und abweichende DB-Owner.
+- `tests/infra/check_credentials_role_drift.py`: tatsächliche Ablehnung von
+  administrativen Delegationsrechten nach erfolgreichem Baselinezugriff;
+  Änderung bleibt in einer zurückgerollten Transaktion.
 
 Start- und Testkommandos: [infra/README.md](../infra/README.md).
 Integrationstests verwenden separate Testfixtures und echte Runtime-/Migrationsrollen.
 Die separat provisionierte Research-Testrolle verändert ausschließlich ihre
 Fixturebindung, niemals die Identität des laufenden Researchworkers.
+Das Credential-Prüfprofil besitzt bewusst Migrationscredentials; nur seine
+Credential-Testlogins sind auf die Fixture-DB beschränkt. Synthetische
+Testverbindungen bleiben dort append-only, Testrollenbindungen werden neu gesetzt.
 Recovery, WebAuthn-Erstregistrierung, Broker-Crashfälle und
 verschlüsselter externer Restore sind damit noch nicht abgenommen.
 Abnahmekriterien: [Roadmap](../docs/roadmap.md), [Ticketboard](../docs/tasks/board.md).

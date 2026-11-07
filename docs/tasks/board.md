@@ -18,7 +18,7 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-006 | P0 / P1 | IN_PROGRESS | Runtimepins und bestätigten Betriebsentwurf konkretisieren | Pins/Locks/Digests und lokaler Lauf geprüft; SMTP/Recovery/Backup/Pilot noch offen |
 | IP-007 | P1 / P1 | IN_PROGRESS | Gepinntes Bootstrap und reproduzierbarer privater Start | Fünf Basisdienste plus Researchprofil aufgebaut; unabhängiger Clean-Checkout-Nachweis vor Pilot |
 | IP-008 | P0 / P1 | IN_PROGRESS | Auth, Tenants, RBAC und DB-Isolation | OIDC/MFA, BFF, Einladungsprovisionierung und FORCE RLS getestet; Recovery/Registrierung/Streams folgen |
-| IP-009 | P0 / P1 | IN_PROGRESS | Credentialverschlüsselung und minimale Serviceidentitäten | Isolierter AEAD-Kern mit 20 Bindungs-/Rotations-/Restoretests geprüft; Serviceidentität, persistente Speicherung und echte Keyannahme folgen |
+| IP-009 | P0 / P1 | IN_PROGRESS | Credentialverschlüsselung und minimale Serviceidentitäten | AEAD-Kern, persistenter Store mit gebundener DB-Identität/CAS/Rotation/Widerruf geprüft; Betriebsprovider, HTTP/MFA und echte Keyannahme folgen |
 | IP-010 | P1 / P2 | IN_PROGRESS | Crypto- und MT5-Strategien vollständig spezifizieren | Sachentscheidungen bestätigt; Regeln dokumentiert, technische Kern-/Broker-/Kausalitätsabnahme folgt |
 | IP-011 | P1 / P2 | IN_PROGRESS | Marktdatenimport, Instrumentmetadaten und Snapshots | Strikte H4-Snapshots/CSV/Bitgetpagination und 90-Tage-BTC-Import geprüft; Dreijahresumfang, Datenrechte und historische Instrumentregeln offen |
 | IP-012 | P0 / P2 | IN_PROGRESS | Tradingkern und unabhängige Risk Engine | Crypto-Core: 31 Tests; Offlineworker nutzt denselben Kern; MT5, Broker-/Paper-Riskintegration folgen |
@@ -38,6 +38,7 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-026 | P1 / P2–P3 | DONE | Lokalen Daten-/Research-/Ergebnisablauf schließen | 540 reale BTC-H4-Kerzen importiert; 132 Tests und 32 reale HTTPS-Prüfpunkte bestanden, einschließlich Offlineworker und Equitykurve |
 | IP-027 | P0 / P4 | DONE | Classic-Bitget-Verbindungsplan und isolierten Readkern prüfen | Eigene Nutzerkeys und Classic bestätigt; 24 Offline-Tests plus unabhängiger Review; echte Keyeingabe und Serviceanbindung bleiben IP-009/IP-015 |
 | IP-028 | P0 / P1 | DONE | Isolierten Credential-Envelopekern prüfen | 20 AES-GCM-Tests mit gepinnten Wheels, unabhängiger Review und gehärteter Offline-Checkcontainer; echte Keyannahme und persistente Integration bleiben IP-009 |
+| IP-029 | P0 / P1 | DONE | Gebundene persistente Credential-Speicherung prüfen | 19 Client +18 echte PG-Tests, vier Provisionierungstests und Rollen-Driftprobe;003 nur Fixture-DB, Betriebsprovider/HTTP/MFA bleiben IP-009 |
 
 ## Abschlussbelege
 
@@ -143,6 +144,24 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
   Root-of-Trust, Serviceidentitäten, Revisions-/Usagegates und externer Restore
   bleiben IP-009/BL-022. Hauptbranchmerge bis `3fd95b1` verifiziert;
   neue Arbeit auf `feat/m1-credential-envelope`.
+
+**IP-029, 2026-11-07:** Hauptbranch enthält `7f83b33`, verifiziert bei
+`71e57f1`; neuer Branch `feat/m1-credential-storage`. Migration003 ergänzt
+private FORCE-RLS-Tabellen und feste Security-Definer-Funktionen, tatsächliche
+SESSION_USER-Tenant-/Userbindung und aktive owner/trader-Gates. API und Research
+haben keinen Credentialzugriff. Pythonstore verwendet aktuelle persistierte
+AEAD-Bindung, CAS für Credential-/Speicherversion, authentifizierte Rotation und
+terminalen Widerruf; pausiertes Konto und fehlender alter KEK verhindern
+den schützenden Widerruf nicht.
+37 Tests im gepinnten Python3.14.10-/PG18.6-Prüfablauf bestanden, zusätzlich vier
+Provisionierungstests und eine erfolgreiche SQLSTATE42501-Driftprobe mit Baseline
+und überprüftem Rollback. Unabhängiger Architekturreview eingearbeitet.
+003 ausschließlich in `investalo_credentials_checks` angewendet;001/002
+unverändert, gewöhnliche Entwicklungsdatenbank bleibt002. Checkprofil ist bewusst
+administrativ und enthält die Migrationsidentität. Keine echte Keyannahme,
+Schlüsselprovider, HTTP/UI oder Brokerkontakte.
+Anleitung: [Credentialstore](../../services/credentials/README.md),
+[Fixtureprüfung](../../infra/README.md).
 
 ## Routine
 

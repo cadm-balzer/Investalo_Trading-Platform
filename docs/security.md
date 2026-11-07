@@ -107,8 +107,23 @@ Bindungsdaten für Payload und DEK. Ciphertextmanipulation oder falsche
 Tenant-/Nutzer-/Konto-/Broker-/Revisionsbindung wird abgewiesen.
 Rewrap prüft zuvor beide bestehenden AEAD-Schichten. 20 Offline-Tests bestanden;
 kein echter Nutzerkey oder Runtime-Schlüsselprovider eingerichtet.
-Persistente DB-Autorisierung, verlässliche aktuelle Revision gegen Rollback,
-stabile KEK-Versionen, Nutzungslimits und externer Restore bleiben Voraussetzungen.
+Der [Credentialstore](../services/credentials/README.md) prüft tatsächliche LOGIN-
+Identität und die über `SESSION_USER` gebundene aktive Tenant-/Nutzerzuordnung.
+Private Tabellen haben FORCE RLS; API und Research haben weder Tabellenzugriff
+noch Ausführungsrechte auf die Credentialfunktionen. Jede Operation prüft
+Mitgliedschaft und Kontobindung. Credentialrevision und Speicherversion werden
+atomar verglichen; Rewrap erhält den Payload, Widerruf ist terminal und auch bei
+pausiertem Konto ohne den alten KEK möglich.
+
+37 Client-/PostgreSQL-Tests, vier Provisionierungstests und eine zurückgerollte
+Rollen-Driftprüfung bestanden mit ausschließlich synthetischen Daten. Die
+separate Fixture-DB isoliert Testdaten; der administrative Checkcontainer besitzt
+die Migrationsidentität und kann damit auch die Entwicklungsdatenbank erreichen.
+Es gibt noch keinen Betriebsdienst oder HTTP-Keyeingang. KEK-Provider, stabile
+KEK-Versionen, Nutzungslimits und externer Restore bleiben Voraussetzungen.
+Ein vollständiger Rollback von DB und Ciphertext wird durch die aktuelle
+Revisionsprüfung allein nicht erkannt. Widerruf entfernt bereits ausgelieferten
+Klartext nicht aus Prozessen; vor künftigem Brokerdispatch erneut autorisieren.
 
 ## Befund: bereits versionierte Schlüsseldatei
 

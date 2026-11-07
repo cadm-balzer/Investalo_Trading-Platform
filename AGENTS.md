@@ -79,10 +79,20 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   User accepted checkpoint `3052560` and will merge it themselves.
   GitHub default branch is `main`; verify merge state before changing branches.
   Main now contains accepted checkpoint and acceptance note (`3fd95b1`), verified
-  at `d3b31e2`; current work branch: `feat/m1-credential-envelope`.
+  at `d3b31e2`; envelope checkpoint `7f83b33` merged into main, verified at
+  `71e57f1`; current work branch: `feat/m1-credential-storage`.
   Isolated AEAD core: `packages/credentials/README.md`, 20 offline tests with
-  pinned cryptography and a separate hardened Compose check. No vault/storage
-  service, key provider, fresh-MFA intake or actual user credentials yet.
+  pinned cryptography and a separate hardened Compose check.
+  Credential store: `services/credentials/README.md`; migration003 and current
+  AAD/CAS/rotation/revocation verified with 19 client +18 actual PostgreSQL tests,
+  four provisioning tests and a rolled-back role-drift probe. Only fixture DB
+  `investalo_credentials_checks` has migration003 applied; ordinary development
+  DB stays at002. Applied migrations are immutable in either database.
+  Credential LOGINs are bound through SESSION_USER to one active tenant/user;
+  runtime/research cannot read tables or execute credential functions.
+  The administrative check profile mounts migration credentials; it is not a
+  restricted runtime service. No key provider, HTTP/UI, fresh-MFA intake or
+  actual user credentials yet.
 
 ## Trading and implementation invariants
 

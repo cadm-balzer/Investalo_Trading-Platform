@@ -13,6 +13,50 @@ x-hardened: &hardened
       max-file: "2"
 
 services:
+  credential-storage-checks:
+    <<: *hardened
+    profiles: [checks]
+    restart: "no"
+    build:
+      context: ..
+      dockerfile: infra/docker/credential-storage.Dockerfile
+      target: checks
+      args:
+        PYTHON_IMAGE: ${PYTHON_IMAGE:?Pinned image required}
+    user: "10003:10003"
+    mem_limit: 192m
+    cpus: 0.5
+    environment:
+      PGHOST: postgres
+      PGPORT: "5432"
+      PGDATABASE: investalo_credentials_checks
+      PGUSER: investalo_runtime
+      PGPASSWORD_FILE: /run/secrets/platform_runtime_password
+      PGSSLMODE: verify-full
+      PGSSLROOTCERT: /run/secrets/local_ca_cert
+      API_TEST_ADMIN_USER: investalo_migration
+      API_TEST_ADMIN_PASSWORD_FILE: /run/secrets/platform_migration_password
+      API_TEST_RESEARCH_USER: investalo_research_tests
+      API_TEST_RESEARCH_PASSWORD_FILE: /run/secrets/research_test_password
+      CREDENTIAL_TEST_USER_A: investalo_credentials_tests_a
+      CREDENTIAL_TEST_USER_B: investalo_credentials_tests_b
+      CREDENTIAL_TEST_USER_UNBOUND: investalo_credentials_tests_unbound
+      CREDENTIAL_TEST_PASSWORD_A_FILE: /run/secrets/credentials_test_password_a
+      CREDENTIAL_TEST_PASSWORD_B_FILE: /run/secrets/credentials_test_password_b
+      CREDENTIAL_TEST_PASSWORD_UNBOUND_FILE: /run/secrets/credentials_test_password_unbound
+    secrets:
+      - platform_runtime_password
+      - platform_migration_password
+      - local_ca_cert
+      - research_test_password
+      - credentials_test_password_a
+      - credentials_test_password_b
+      - credentials_test_password_unbound
+    networks: [database]
+    depends_on:
+      postgres:
+        condition: service_healthy
+
   credentials-checks:
     <<: *hardened
     profiles: [checks]
@@ -331,6 +375,12 @@ networks:
     internal: true
 
 secrets:
+  credentials_test_password_a:
+    file: ./local/credentials_test_password_a
+  credentials_test_password_b:
+    file: ./local/credentials_test_password_b
+  credentials_test_password_unbound:
+    file: ./local/credentials_test_password_unbound
   postgres_admin_password:
     file: ./local/postgres_admin_password
   bootstrap_platform_migration_password:

@@ -138,6 +138,41 @@ mit schreibgeschütztem Rootdateisystem und ohne Linuxcapabilities. 20 echte
 AES-GCM-Tests mit erfundenen Schlüsseln bestanden. Es stellt keinen Vaultdienst
 bereit; tatsächliche Nutzerkeys werden noch nicht angenommen.
 
+Die persistente Speicherung hat ein separates administratives Prüfprofil.
+Vorher müssen PostgreSQL und die Research-Testrolle wie oben eingerichtet sein.
+Bei einer vorhandenen Entwicklungsdatenbank vor003 zunächst den Helper ausführen:
+Er legt die neue Credentialgruppe und drei ausschließlich für die Fixture-DB
+zugelassene Testlogins an. Neuinitialisierung legt die NOLOGIN-Gruppe bereits an.
+
+```sh
+sudo python3 infra/scripts/provision-local-credentials-tests.py
+# HBA-Datei ist gemountet; vorhandenen PostgreSQL-Prozess neu laden.
+sudo bash infra/scripts/compose.sh exec -T postgres psql --username investalo_admin \
+  --dbname postgres --no-psqlrc --command 'SELECT pg_reload_conf();'
+sudo bash infra/scripts/compose.sh --profile tools build migrate
+sudo bash infra/scripts/compose.sh --profile tools run --rm --no-deps \
+  -e PGDATABASE=investalo_credentials_checks migrate
+sudo bash infra/scripts/compose.sh --profile checks build credential-storage-checks
+sudo bash infra/scripts/compose.sh --profile checks run --rm --no-deps credential-storage-checks
+# Nach obigen Tests: gültige Fixturebindung für den Drift-Test vorhanden.
+sudo python3 tests/infra/check_credentials_role_drift.py
+```
+
+Geprüft: 19 Clienttests und 18 echte PostgreSQL-Fälle, einschließlich zwei
+End-to-End-Abläufen mit tatsächlicher Verschlüsselung, sowie vier Helpertests.
+Der Drift-Test weist erlaubten Ausgangszustand, Ablehnung von Delegationsrechten
+und deren vollständigen Transaktionsrollback nach. Migration003 ist nur in
+`investalo_credentials_checks` angewendet; die gewöhnliche Entwicklungsdatenbank
+blieb bei002. Angewendete Dateien auch nach Fixturetests nicht ändern.
+
+Das Prüfprofil läuft als UID10003 mit TLS im internen DB-Netz, ohne veröffentlichte
+Ports und ohne Broker-/BFF-/IdP-/KEKsecrets. Es besitzt bewusst administrative
+Migrationscredentials für Testfixtures; diese können auch die gewöhnliche
+Entwicklungsdatenbank erreichen. Das Profil ist kein eingeschränkter
+Betriebsdienst. Die drei Credential-Testlogins selbst dürfen nur in die
+Fixture-DB. Generierte Testpasswörter behalten Modus0400 und bleiben ignoriert.
+Kein echter Keyeingang oder Rootkeyprovider vorhanden.
+
 Cockpitmeldungen zeigen fehlende Konten/Positionen ausdrücklich als leeren
 Datenbestand. Backtestanforderungen frieren Dataset, Strategie und Kosten ein;
 der Offlineworker speichert Nettoergebnisse und begrenzte Equitykurven.

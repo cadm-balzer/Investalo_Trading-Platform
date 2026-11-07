@@ -36,7 +36,8 @@ excludes the KEK ID so rewrap can preserve its ciphertext and nonce.
 Rewrap first authenticates both the old wrapped DEK and the entire old payload,
 then uses the active KEK and a fresh wrapping nonce. It returns a new envelope;
 the original object and old root keys are not altered or deleted. Storage updates
-and concurrency are future responsibilities.
+and concurrency are responsibilities of the separate
+[credential store](../../services/credentials/README.md).
 
 Only the explicit dump/load API serializes envelopes; its JSON contains format,
 KEK ID, nonces, wrapped DEK and ciphertext, never plaintext or KEKs. Load rejects
@@ -54,7 +55,8 @@ mapping, and support backups/restoration. Loss of all applicable KEKs means loss
 of recoverability. Removing old KEKs too early breaks old-envelope recovery.
 
 Revision is authenticated but prevents rollback only when the trusted caller
-obtains the expected current revision from future authoritative database state.
+obtains the expected current revision from authoritative database state, as the
+separate credential store does.
 The envelope cannot determine freshness by itself. Random nonce collisions have
 nonzero probability; future operational key-usage/collision budgets, rotation
 limits and monitoring are not implemented here. There is no global nonce

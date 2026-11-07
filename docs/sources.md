@@ -46,6 +46,9 @@ Die folgenden Compose-/Authelia-/Indikatorergänzungen wurden am 2026-11-07 gepr
 | Docker Portbindung | https://docs.docker.com/engine/network/port-publishing/ | Loopback explizit statt allgemeiner Hostbindung |
 | Docker Compose Netze | https://docs.docker.com/compose/how-tos/networking/ | Private Netze ersetzen keine korrekten Published-Port-Regeln |
 | PostgreSQL Rechte | https://www.postgresql.org/docs/current/sql-grant.html | Datenbank-/CONNECT-/PUBLIC-Rechte begrenzen |
+| PostgreSQL18 Credentialfunktionen | https://www.postgresql.org/docs/18/sql-createfunction.html | Am2026-11-07 geprüft: sicherer Definer-search_path, PUBLIC-EXECUTE entziehen |
+| PostgreSQL18 Credential-RLS | https://www.postgresql.org/docs/18/ddl-rowsecurity.html | Am2026-11-07 geprüft: FORCE-RLS, Owner-/Superusergrenzen und Default-deny |
+| PostgreSQL18 Zeilensperren | https://www.postgresql.org/docs/18/explicit-locking.html | Am2026-11-07 geprüft: FOR UPDATE/CAS und FOR SHARE für aktive Bindungen |
 | Cryptography AESGCM | https://cryptography.io/en/50.0.2/hazmat/primitives/aead/ | Authentifizierte Verschlüsselung, AAD, Nonces und InvalidTag; keine eigene Kryptografie |
 | Cryptography Wheels | https://cryptography.io/en/50.0.2/installation/ | Gepinnte Binarywheels für CPython/Linux; separat installierter Credentialkern |
 | Kryptografieabhängigkeiten | https://pypi.org/pypi/cryptography/json | Offizielle Version 50.0.2 und Wheelhashes; transitive Pins aus den entsprechenden cffi-/pycparser-Metadaten |

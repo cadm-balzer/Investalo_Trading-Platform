@@ -300,3 +300,28 @@ keine eigene Kryptografie und keine Entschlüsselung in Research.
 20 Tests und unabhängiger Review bestanden. Separater Hashlock/Offline-
 Checkcontainer; keine API-/Researchdependencyänderung. Betriebsschlüsselprovider,
 DB-/Serviceautorisierung, Antirollback und externer Restore sind noch offen.
+
+## 2026-11-07 — D-034: Persistenter Credentialstore mit gebundener DB-Identität
+
+**Status: umgesetzt im bestätigten Credential-/PostgreSQL-Entwurf.**
+Migration003 trennt Credentialtabellen von API und Research; FORCE RLS und feste
+Security-Definer-Funktionen mit `pg_catalog`-Suchpfad. Eine schmale LOGIN-Rolle
+bindet tatsächlichen SESSION_USER an einen aktiven Tenant/Nutzer mit owner/trader-
+Mitgliedschaft. Gefährliche Rollenflags, fremde Mitgliedschaften und
+Delegationsrechte sperren den Zugriff. Caller-GUCs begründen keine Rechte.
+Pythonstore authentifiziert aktuelle persistierte Bindung; Revision und
+Speicherversion verhindern veraltete Änderungen. KEK-Rewrap erhält Payloaddaten.
+Widerruf ist terminal, auch bei pausiertem Konto oder fehlendem alten KEK möglich.
+Globale Broker-UID- und Kontoeindeutigkeit bleibt nach Widerruf erhalten;
+kontrollierte Wiederanbindung folgt BL-023.
+
+37 Client-/PG-Tests, vier Provisionierungstests und eine tatsächliche
+zurückgerollte Driftprobe bestanden; unabhängiger Review eingearbeitet.
+Migration003 nur in separater Fixture-DB angewendet,001/002 unverändert.
+Das administrative Prüfprofil besitzt Migrationscredentials; nur die drei
+Credential-Testlogins sind auf die Fixture-DB begrenzt. Keine neuen Paketversionen,
+CI/CD-Tools, Betriebskeys oder Brokerkontakte. KEK-Provider, HTTP/MFA-Anbindung,
+vollständiger DB-Rollbackschutz und externer Restore bleiben IP-009/BL-022.
+Grundlagen: [PG18 Definerfunktionen](https://www.postgresql.org/docs/18/sql-createfunction.html),
+[RLS](https://www.postgresql.org/docs/18/ddl-rowsecurity.html),
+[Zeilensperren](https://www.postgresql.org/docs/18/explicit-locking.html).
