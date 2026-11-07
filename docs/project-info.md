@@ -72,8 +72,10 @@ Die lokale M1-Umsetzung läuft: Compose, MFA-/API-/Cockpitfundament und
 Crypto-Kern sowie immutable Marktdaten und tenantgebundene Offlinebacktests
 mit grafischen Ergebnissen. Aktueller Start: [infra/README.md](../infra/README.md).
 Classic-Bitget-Readkern, AEAD-Envelopes und ein gebundener persistenter
-Credentialstore sind mit synthetischen Daten geprüft. Geschützte echte
-Keyeingabe und Schlüsselbetrieb befinden sich weiter in Umsetzung.
+Credentialstore sind mit synthetischen Daten geprüft. Die private Einrichtung
+verbindet sie mit einmaligen Actionfreigaben und einem Entwicklungs-Dateiprovider.
+Geschützte echte Keyeingabe, BFF-MFA-Schrittflow und Betriebsschlüssel befinden
+sich weiter in Umsetzung.
 
 - Gesamtkonzept: [concept.md](concept.md)
 - Technischer Entwurf: [architecture.md](architecture.md)

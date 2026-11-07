@@ -158,10 +158,13 @@ sudo bash infra/scripts/compose.sh --profile checks run --rm --no-deps credentia
 sudo python3 tests/infra/check_credentials_role_drift.py
 ```
 
-Geprüft: 19 Clienttests und 18 echte PostgreSQL-Fälle, einschließlich zwei
-End-to-End-Abläufen mit tatsächlicher Verschlüsselung, sowie vier Helpertests.
+Geprüft: 120 Tests im Storage-Checkcontainer: 19 Client-, 41 Onboarding-Offline-
+und 60 echte PostgreSQL-Fälle (18 Store, 30 Actionautorisierung, 12 synthetische
+Bitget-/AEAD-Abläufe). Einrichtung, Keywechsel und Widerruf, Replay, Ablauf
+während Sperrwartezeiten/Probe/Write, geänderte Rechte und CAS sind abgedeckt.
+Vier Helpertests und die Rollen-Driftprobe waren im vorigen Storecheckpoint grün.
 Der Drift-Test weist erlaubten Ausgangszustand, Ablehnung von Delegationsrechten
-und deren vollständigen Transaktionsrollback nach. Migration003 ist nur in
+und deren vollständigen Transaktionsrollback nach. Migration003/004 sind nur in
 `investalo_credentials_checks` angewendet; die gewöhnliche Entwicklungsdatenbank
 blieb bei002. Angewendete Dateien auch nach Fixturetests nicht ändern.
 
@@ -171,7 +174,9 @@ Migrationscredentials für Testfixtures; diese können auch die gewöhnliche
 Entwicklungsdatenbank erreichen. Das Profil ist kein eingeschränkter
 Betriebsdienst. Die drei Credential-Testlogins selbst dürfen nur in die
 Fixture-DB. Generierte Testpasswörter behalten Modus0400 und bleiben ignoriert.
-Kein echter Keyeingang oder Rootkeyprovider vorhanden.
+Entwicklungsschlüsseldateien werden ausschließlich im temporären Testverzeichnis
+erzeugt; synthetische Assertions und gemockte Brokerantworten. Kein HTTP-Keyeingang,
+echter BFF-MFA-Schrittflow oder Betriebsschlüsselprovider vorhanden.
 
 Cockpitmeldungen zeigen fehlende Konten/Positionen ausdrücklich als leeren
 Datenbestand. Backtestanforderungen frieren Dataset, Strategie und Kosten ein;

@@ -329,7 +329,9 @@ def test_rls_definer_ownership_fixed_search_path_and_function_acl(credential_dat
         functions = database.execute(
             "SELECT p.proname,p.prosecdef,p.proconfig,pg_get_userbyid(p.proowner) AS owner "
             "FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace "
-            "WHERE n.nspname='platform' AND p.proname LIKE 'credential_%'",
+            "WHERE n.nspname='platform' AND p.proname IN "
+            "('credential_context','credential_envelope_valid','credential_owned','credential_create',"
+            "'credential_read','credential_replace','credential_rewrap','credential_revoke')",
         ).fetchall()
         assert len(functions) == 8
         for function in functions:

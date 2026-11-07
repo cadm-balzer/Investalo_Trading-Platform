@@ -82,3 +82,15 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   angewendet; gewöhnliche investaloDB bleibt002. Checkprofil besitzt bewusst
   Migrationscredentials, kein Betriebsdienst. Noch kein Provider/HTTP/MFA-
   Keyeingang oder echter Brokerkey. IP-029 abgeschlossen, IP-009 bleibt aktiv.
+- 2026-11-07: Nutzer bestätigt Storemerge; `46860ab` auf mainb3030de verifiziert.
+  Branch `feat/m1-bitget-onboarding`: private Classic-Probe mit Triplecodec,
+  Store und einmaliger body-/actiongebundener Assertion verbunden.
+  JTI vor Probe konsumiert; Actor/Epoch/Reauth/Konto/Zeit/Versionen werden
+  vor Write/Audit in gleicher Transaktion erneut geprüft. UID/Parent bleiben
+  bei Keywechsel fest; Widerruf ohne Probe/alten KEK. Expliziter Entwicklungs-
+  Dateiprovider mit unabhängig vertrauenswürdigen festen Fingerprints.
+  120 Tests bestanden (19 Client, 41 Units, 60 echte PG), unabhängige Reviews.
+  004 nur Fixture-DB angewendet und unveränderlich, gewöhnliche DB bleibt002.
+  SQL prüft keine JWTs; direkte003-Funktionen sind Trusted-Service-Primitiven.
+  Kein echter BFF-MFA-Schrittflow, HTTP-Keyeingang, Betriebsprovider oder
+  Brokerkontakt. IP-030 abgeschlossen; BL-021/022 und BL-024 bleiben offen.

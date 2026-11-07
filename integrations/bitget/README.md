@@ -3,6 +3,10 @@
 Standard-library Python core, imported with `PYTHONPATH=integrations/bitget/src`.
 No API/UI/DB integration, credential vault, real account test, broker order,
 transfer, withdrawal or combined trading budget is implemented here.
+The separate [credential service](../../services/credentials/README.md)
+integrates this probe with encrypted storage and one-use action assertions.
+Its tests use synthetic broker responses; actual HTTP/UI and account connectivity
+remain unfinished.
 
 `ClassicReadClient` requires an injected transport and authenticated server-side
 `OwnerContext(tenant_id: UUID, user_id: UUID)`. Credentials and requests have
@@ -41,9 +45,9 @@ IP gates default to enabled for every injected transport, including wrappers.
 Offline fixtures may explicitly use `require_ip_gate=False`; the built-in HTTPS
 transport rejects this opt-out. Custom transports are trusted implementation
 code and must never bypass the gate for real network access. Tenant/UID
-uniqueness is a pure validator; atomic database binding, credential rotation,
-server provisioning, clock synchronization and global scheduling remain work
-for the host platform.
+uniqueness is a pure validator; the credential service supplies atomic database
+binding and authenticated rotation. Server provisioning, clock synchronization
+and global scheduling remain host platform responsibilities.
 
 The declared Classic mode and exact Classic V2 schema are evidence of the
 selected adapter family, not a universal proof of the account's broker mode.

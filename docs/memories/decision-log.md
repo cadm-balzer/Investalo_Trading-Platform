@@ -325,3 +325,35 @@ vollständiger DB-Rollbackschutz und externer Restore bleiben IP-009/BL-022.
 Grundlagen: [PG18 Definerfunktionen](https://www.postgresql.org/docs/18/sql-createfunction.html),
 [RLS](https://www.postgresql.org/docs/18/ddl-rowsecurity.html),
 [Zeilensperren](https://www.postgresql.org/docs/18/explicit-locking.html).
+
+## 2026-11-07 — D-035: Einmalig autorisierte private Bitget-Einrichtung
+
+**Status: umgesetzt innerhalb des bestätigten Credential-/Classic-Entwurfs.**
+Der private Python-Ablauf verbindet die bestehende Classic-Probe mit einem
+kanonischen verschlüsselten Keytriple und dem gebundenen Store. Eine gesonderte
+BFF-to-Credential-Assertion bindet Aktion, POST-Ziel und unveränderten Bodyhash;
+feste Claims verlangen MFA und Authzeit ab Schrittflowstart. Migration004
+konsumiert die globale JTI vor der Probe und hält einen statischen privaten Audit.
+Aktuelle Identität/Auth-Epoch, Reauth, Konto, Ablaufzeit und beide Versionen
+werden nach der Probe erneut geprüft. Finaler Write und Abschlussaudit teilen
+eine Transaktion; auch nach Sperrwartezeiten wird die tatsächliche Uhr geprüft.
+Fehler oder Crash öffnen keinen Replayweg; unbekannte Commits werden abgeglichen.
+Keywechsel erhält UID/Parent; Widerruf braucht weder Probe noch alten KEK.
+
+SQL verifiziert keine JWT-Signaturen und beweist keine Browser-MFA; direkte
+003-Funktionen bleiben vertrauenswürdige Serverprimitiven. Der bestehende
+BFF-Login ist keine solche Actionfreigabe. Echter Schrittflow, eigene
+Signaturidentität/CSRF, HTTP-Keyeingang und Betriebsschlüsselprovider folgen
+BL-021/BL-022. Explizite Entwicklungsdateien prüfen Eigentümer, Modus, Größe und
+unabhängig vertrauenswürdige feste Fingerprints; VM-root bleibt außerhalb dieser
+Grenze. Annahme-/Retention-/Crashabgleich folgt BL-024. Keine neue Abhängigkeit,
+echte Keys, Brokerkontakte oder Produktionsänderung.
+
+120 Tests im gepinnten Python3.14.10-/PG18.6-Prüfablauf bestanden (19 Client,
+41 Units, 60 echte PG-Fälle), unabhängige Reviews ohne Restblocker.
+004 nur Fixture-DB, gewöhnliche Entwicklungsdatenbank nachweislich weiter002;
+001/002/003 unverändert und Migrationschecksummen/idempotenter Lauf geprüft.
+
+Grundlagen: [OWASP Transaction Authorization](https://cheatsheetseries.owasp.org/cheatsheets/Transaction_Authorization_Cheat_Sheet.html),
+[PG18 Uhrfunktionen](https://www.postgresql.org/docs/18/functions-datetime.html),
+[OWASP Secrets Management](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html).

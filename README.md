@@ -46,7 +46,7 @@ verbindliche Risikolimits, kontrollierte KI und zunächst kostenlose externe Die
 |---|---|
 | `apps/cockpit/` | Dashboard und Bedienoberfläche |
 | `services/api/` | Autorisierte API und fachliche Anwendungsfälle |
-| `services/credentials/` | Gebundener Credentialstore mit privaten PostgreSQL-Funktionen |
+| `services/credentials/` | Gebundener Credentialstore und privater Bitget-Einrichtungsablauf |
 | `services/workers/` | Datenimport, Backtests, Execution und Abgleich |
 | `packages/trading/` | Gemeinsamer deterministischer Strategie- und Risikokern |
 | `packages/marketdata/` | Validierte H4-Snapshots, öffentlicher Bitget-Import und CSV |
@@ -67,10 +67,14 @@ Researchablauf; wirtschaftliche Validierung bleibt offen. Der isolierte
 geprüft. Der isolierte [Credential-Envelopekern](packages/credentials/README.md)
 verschlüsselt gebundene Daten und ist mit 20 Manipulations-/Rotations-/Restoretests
 geprüft. Der [Credentialstore](services/credentials/README.md) ergänzt persistente
-Nutzer-/Kontobindung, Versionsprüfung, Rotation und Widerruf. 37 Store-/PostgreSQL-
-Tests in einer getrennten Fixture-DB sowie vier Provisionierungstests und eine
-zurückgerollte Rollenprüfung bestanden. Geschützte Keyeingabe, Schlüsselbetrieb und Brokeranbindung,
-manuelle MFA-Reservefreigabe
+Nutzer-/Kontobindung, Versionsprüfung, Rotation und Widerruf. Der private
+Einrichtungsablauf verbindet Classic-Identitätsprüfung, verschlüsseltes Keytriple
+und einmalige Freigaben für Einrichtung, Keywechsel und Widerruf. Die Prüfung
+nutzt synthetische Freigaben und Brokerantworten gegen echte PostgreSQL-Tabellen:
+120 Tests bestanden, davon 60 tatsächliche PostgreSQL-Fälle.
+Ein Dateischlüsselprovider ist ausschließlich für Entwicklung verfügbar.
+Geschützte Cockpiteingabe mit echter MFA-Schrittbestätigung, Schlüsselbetrieb
+und tatsächliche Brokeranbindung, manuelle MFA-Reservefreigabe
 und Pilotbetrieb sind weitere M1-Aufgaben.
 Öffentlicher Rollout und Echtgeld benötigen eigene
 Abnahmen. Der lokale Einstieg bindet ausschließlich `127.0.0.1:8443`.

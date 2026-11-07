@@ -52,6 +52,8 @@ def credential_database():
     if any(not os.getenv(variable) for variable in required):
         pytest.skip("Requires isolated credential test LOGINs and administrative fixture identity")
     context = {key: uuid4() for key in ("tenant_a", "tenant_b", "user_a", "user_b", "account_a", "account_a2", "account_b")}
+    context.update(issuer="https://credential-test.invalid",
+                   subject_a="synthetic-" + uuid4().hex, subject_b="synthetic-" + uuid4().hex)
     with connect_as("admin") as database:
         database.execute(
             "INSERT INTO platform.tenants(id,name) VALUES(%s,'Synthetic credential A'),(%s,'Synthetic credential B')",
@@ -59,8 +61,8 @@ def credential_database():
         )
         for suffix in ("a", "b"):
             database.execute(
-                "INSERT INTO platform.users(id,oidc_issuer,oidc_subject) VALUES(%s,'https://credential-test.invalid',%s)",
-                (context[f"user_{suffix}"], "synthetic-" + uuid4().hex),
+                "INSERT INTO platform.users(id,oidc_issuer,oidc_subject) VALUES(%s,%s,%s)",
+                (context[f"user_{suffix}"], context["issuer"], context[f"subject_{suffix}"]),
             )
             database.execute(
                 "INSERT INTO platform.memberships(tenant_id,user_id,role) VALUES(%s,%s,'owner')",

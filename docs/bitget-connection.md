@@ -112,11 +112,18 @@ Tenant, Nutzer, Plattformkonto, Verbindung, Broker-UID/Parent, Classic-Leseprofi
 und Credentialrevision. KEK-Wechsel und lokale Wiederherstellung sind geprüft.
 Der [Credentialstore](../services/credentials/README.md) ergänzt persistente
 DB-Bindung und Autorisierung mit aktuellen Revisionen, CAS, Rotation und
-terminalem Widerruf. 37 Store-/PostgreSQL-Tests bestanden mit erfundenen Daten.
+terminalem Widerruf. Der private Einrichtungsablauf verbindet dies mit
+Classic-Probe, genau einer konfigurierten Whitelist-IP und einmalig konsumierten,
+body-/aktionsgebundenen Freigaben. Keywechsel darf UID/Parent nicht ändern.
+Identität/Epoch, Konto, Zeit und Versionen werden nach der Probe erneut geprüft.
+Verschlüsselte Speicherung und Abschlussaudit erfolgen in einer Transaktion.
+Die Prüfungen verwenden erfundene Assertions/Keys/Brokerantworten gegen echte DB.
 Eine Broker-UID ist global je Broker eindeutig, auch nach Widerruf; automatische
 Übertragung oder Neueinrichtung derselben UID ist ausgeschlossen.
-Tatsächliche signierte UID-Prüfung, frische MFA, Schlüsselprovider und
-Cockpiteingabe müssen vor echter Keyannahme gemeinsam integriert werden.
+Echte BFF-MFA-Schrittbestätigung und Cockpiteingabe, Betriebsschlüsselprovider,
+tatsächliche Egress-/Brokerprüfung und gemeinsame UID-Quota müssen vor echter
+Keyannahme integriert und abgenommen werden. Der Dateiprovider ist ausschließlich
+für Entwicklung; es gibt keine freigeschaltete HTTP-Keyroute.
 
 ## Offizielle Grundlagen
 

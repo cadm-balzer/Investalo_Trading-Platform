@@ -24,10 +24,17 @@ Das lokale Fundament besitzt ausführbare Tests:
   oder Secrets; kein externer Vault-/Backup-/Restorebeleg.
 - `tests/credential_store`: 19 Clienttests für aktuelle DB-Bindung, frische
   Transaktionen, Versionskonflikte, Rotation, Widerruf und Fehlerredaktion.
-- `tests/credentials_storage`: 18 tatsächliche PostgreSQL-Fälle in
-  `investalo_credentials_checks`, einschließlich zwei Store-End-to-End-Tests.
+- `tests/credential_onboarding`: 41 Offline-Tests für gesonderte Actionassertions,
+  Ziel-/Body-/MFA-Zeitbindung, strikten Triplecodec und Entwicklungsdateiprovider.
+  Diese synthetischen Freigaben beweisen keinen echten BFF-Schrittflow.
+- `tests/credentials_storage`: 60 tatsächliche PostgreSQL-Fälle in
+  `investalo_credentials_checks`: 18 Storefälle, 30 Actionautorisierungsfälle
+  und 12 synthetische Bitget-/AEAD-End-to-End-Fälle.
   Drei eigene Testlogins; API/Research, fremde Nutzer, Viewer, deaktivierte
-  Mitgliedschaften und manipulierte Bindungen werden abgewiesen.
+  Mitgliedschaften und manipulierte Bindungen werden abgewiesen. Replay,
+  gesperrte/abgelaufene Freigaben, Recoveryepoch, veränderte UID/Parent/IP/Rechte
+  und konkurrierende Speicherversionen sind abgedeckt. Insgesamt 120 Tests im
+  Credential-Storage-Checkcontainer bestanden; kein echter Brokerkontakt.
 - `tests/workers`: gemeinsamer Simulatorkern, Provenienz und Lease-/Fencing-
   Negativfälle mit eigener tatsächlicher Research-Testrolle.
 - `apps/cockpit/tests`: OIDC-Token/Freshness, Cookies/Sitzungen, CSRF,
@@ -54,6 +61,6 @@ Fixturebindung, niemals die Identität des laufenden Researchworkers.
 Das Credential-Prüfprofil besitzt bewusst Migrationscredentials; nur seine
 Credential-Testlogins sind auf die Fixture-DB beschränkt. Synthetische
 Testverbindungen bleiben dort append-only, Testrollenbindungen werden neu gesetzt.
-Recovery, WebAuthn-Erstregistrierung, Broker-Crashfälle und
+Echter BFF-MFA-Schrittflow, Recovery, WebAuthn-Erstregistrierung, Broker-Crashfälle und
 verschlüsselter externer Restore sind damit noch nicht abgenommen.
 Abnahmekriterien: [Roadmap](../docs/roadmap.md), [Ticketboard](../docs/tasks/board.md).

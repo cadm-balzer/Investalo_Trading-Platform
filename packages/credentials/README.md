@@ -8,14 +8,16 @@ broker UID, nullable parent UID and positive credential revision. Parent `None`
 and string `"0"` are distinct; no broker parent-status inference is made.
 Broker/family/mode are exactly `bitget` / `classic_v2` / `real_read_only`.
 `SecretPayload` accepts opaque 1–4,096-byte payloads. Triple validation and
-serialization belong to the future SDK integration, not this cryptographic core.
+serialization live in the separate
+[credential service](../../services/credentials/README.md), outside this core.
 
 `KEKRing(entries=((version_id, key_bytes), ...), active_version=...)` accepts
 1–32 unique bounded ASCII version IDs and exactly 32 bytes per KEK. Duplicate key
 material under different version IDs is rejected within the ring. A version ID
 must always identify the same key material across provider restarts and rotation.
-The future key provider must enforce this; an isolated ring cannot verify its
-historical continuity. The active version seals new envelopes; old envelopes
+The development file provider uses fixed trusted fingerprints for this mapping;
+an isolated ring cannot verify its historical continuity. An operational provider
+remains unfinished. The active version seals new envelopes; old envelopes
 decrypt only while the matching old KEK remains available.
 
 API:
