@@ -78,6 +78,11 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   broker calls yet; these remain IP-009/IP-015. Only three fixed GET paths.
   User accepted checkpoint `3052560` and will merge it themselves.
   GitHub default branch is `main`; verify merge state before changing branches.
+  Main now contains accepted checkpoint and acceptance note (`3fd95b1`), verified
+  at `d3b31e2`; current work branch: `feat/m1-credential-envelope`.
+  Isolated AEAD core: `packages/credentials/README.md`, 20 offline tests with
+  pinned cryptography and a separate hardened Compose check. No vault/storage
+  service, key provider, fresh-MFA intake or actual user credentials yet.
 
 ## Trading and implementation invariants
 

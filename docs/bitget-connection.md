@@ -106,6 +106,13 @@ Brokerprüfung folgen IP-009/IP-015. Es wurde kein echter Nutzerkey entgegengeno
 oder Konto verbunden. Fach- und Betriebsgates:
 [Security](security.md), [Trading](trading.md), [Ticketboard](tasks/board.md).
 
+Der getrennte [Credential-Envelopekern](../packages/credentials/README.md)
+ist mit 20 echten AES-GCM-Tests geprüft. Er bindet verschlüsselte Daten an
+Tenant, Nutzer, Plattformkonto, Verbindung, Broker-UID/Parent, Classic-Leseprofil
+und Credentialrevision. KEK-Wechsel und lokale Wiederherstellung sind geprüft;
+persistente DB-Bindung, Schlüsselbereitstellung und Autorisierung sind weitere
+Integrationsschritte. Der Kern ersetzt weder frische MFA noch einen Vaultdienst.
+
 ## Offizielle Grundlagen
 
 Am 2026-11-07 geprüft:

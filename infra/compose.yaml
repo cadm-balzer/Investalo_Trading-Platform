@@ -13,6 +13,21 @@ x-hardened: &hardened
       max-file: "2"
 
 services:
+  credentials-checks:
+    <<: *hardened
+    profiles: [checks]
+    restart: "no"
+    build:
+      context: ..
+      dockerfile: infra/docker/credentials.Dockerfile
+      target: checks
+      args:
+        PYTHON_IMAGE: ${PYTHON_IMAGE:?Pinned image required}
+    user: "10006:10006"
+    mem_limit: 96m
+    cpus: 0.5
+    network_mode: none
+
   postgres:
     <<: *hardened
     image: ${POSTGRES_IMAGE:?Pinned image required}

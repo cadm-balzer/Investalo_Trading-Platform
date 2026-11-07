@@ -100,6 +100,16 @@ zurückgestellt, statt eine falsche Sicherheitsgarantie auszugeben.
 Backup und Wiederherstellung schließen die erforderlichen Schlüssel ein,
 ohne sie gemeinsam ungeschützt mit Ciphertext abzulegen.
 
+Der isolierte [Credentialkern](../packages/credentials/README.md) verwendet
+AES-256-GCM aus der gepinnten Cryptography-Bibliothek: eigener zufälliger DEK
+je Payload, versionierter KEK für dessen Schutz und getrennte authentifizierte
+Bindungsdaten für Payload und DEK. Ciphertextmanipulation oder falsche
+Tenant-/Nutzer-/Konto-/Broker-/Revisionsbindung wird abgewiesen.
+Rewrap prüft zuvor beide bestehenden AEAD-Schichten. 20 Offline-Tests bestanden;
+kein echter Nutzerkey oder Runtime-Schlüsselprovider eingerichtet.
+Persistente DB-Autorisierung, verlässliche aktuelle Revision gegen Rollback,
+stabile KEK-Versionen, Nutzungslimits und externer Restore bleiben Voraussetzungen.
+
 ## Befund: bereits versionierte Schlüsseldatei
 
 Bei Projektstart ist `secrets/secrets.keys` bereits Git-getrackt.

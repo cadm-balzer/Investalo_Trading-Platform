@@ -17,6 +17,11 @@ Das lokale Fundament besitzt ausführbare Tests:
   TLS/Redirect-/Antwortgrenzen, Nutzer-/UID-/Parent-/Rechte-/IP-Prüfungen und
   getrennte Walletdaten. Erfundenes Keymaterial und gemockter HTTPS-Transport;
   kein tatsächlicher Brokeraufruf. [Testkommando](../integrations/bitget/README.md).
+- `tests/credentials`: 20 Tests mit echter AES-GCM-Bibliothek und ausschließlich
+  erfundenen Schlüsseln. Referenzvektor, AAD-/Ciphertextmanipulation,
+  Nutzer-/Kontobindung, KEK-Rotation, lokale Envelopewiederherstellung,
+  Größen-/JSON-/Base64grenzen und Redaktion. Gepinnter Testcontainer ohne Netzwerk
+  oder Secrets; kein externer Vault-/Backup-/Restorebeleg.
 - `tests/workers`: gemeinsamer Simulatorkern, Provenienz und Lease-/Fencing-
   Negativfälle mit eigener tatsächlicher Research-Testrolle.
 - `apps/cockpit/tests`: OIDC-Token/Freshness, Cookies/Sitzungen, CSRF,

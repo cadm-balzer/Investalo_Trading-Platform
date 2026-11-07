@@ -67,5 +67,10 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
 - 2026-11-07: Nutzer akzeptiert Classic-Bitget-Zwischenabnahme `3052560`
   und übernimmt den Hauptbranchmerge selbst. Tatsächlicher GitHub-Hauptbranch
   heißt `main`; Mergezusage nicht als bereits erfolgten Merge behandeln.
+- 2026-11-07: Nutzer bestätigt Merge und Fortsetzung. `3fd95b1` als Vorfahr von
+  `origin/main` bei `d3b31e2` verifiziert; Branch `feat/m1-credential-envelope`.
+  Isolierter AES-GCM-Envelopekern mit 20 Tests, unabhängiger Review und gepinntem
+  Offline-Container geprüft. Keine echte Keyannahme; DB/Service-/Rootkeybetrieb,
+  aktuelle Revisionsquelle und externer Restore bleiben IP-009/BL-022.
 - Git-getrackter Credentialpfad bei Projektstart gefunden, Inhalte nicht gelesen.
   Historien-/Rotationsarbeit bleibt gesondert; siehe `docs/security.md`.

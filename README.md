@@ -62,7 +62,10 @@ prüft signierte Identität, Mitgliedschaft und RLS und friert Daten-/Kostenstan
 bei idempotenter Jobannahme ein. Ein echter 90-Tage-BTC-Import prüft den lokalen
 Researchablauf; wirtschaftliche Validierung bleibt offen. Der isolierte
 [Classic-Bitget-Readadapter](integrations/bitget/README.md) ist mit 24 Offline-Tests
-geprüft. Geschützte Keyeingabe und Brokeranbindung, manuelle MFA-Reservefreigabe
+geprüft. Der isolierte [Credential-Envelopekern](packages/credentials/README.md)
+verschlüsselt gebundene Daten und ist mit 20 Manipulations-/Rotations-/Restoretests
+geprüft. Persistente Speicherung, geschützte Keyeingabe und Brokeranbindung,
+manuelle MFA-Reservefreigabe
 und Pilotbetrieb sind weitere M1-Aufgaben.
 Öffentlicher Rollout und Echtgeld benötigen eigene
 Abnahmen. Der lokale Einstieg bindet ausschließlich `127.0.0.1:8443`.

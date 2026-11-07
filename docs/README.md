@@ -23,6 +23,7 @@
 | [memories/gotchas.md](memories/gotchas.md) | Technische Fallstricke |
 | [Lokaler Start](../infra/README.md) | Compose, Operatorimport, Researchprofil und HTTPS-Abnahme |
 | [Marktdaten](../packages/marketdata/README.md) | Snapshotvertrag, Coverage, CSV und öffentliche Bitget-Historie |
+| [Credentialkern](../packages/credentials/README.md) | Gebundene AEAD-Envelopes, KEK-Rotation, lokale Restoretests und verbleibende Betriebsgates |
 | [Researchworker](../services/workers/README.md) | Tenantrolle, Leasing, Ergebnisvertrag und Health |
 
 Anforderungen werden im Interview bestätigt. Das Konzept verweist auf vertiefende

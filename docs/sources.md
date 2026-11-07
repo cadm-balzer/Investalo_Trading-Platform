@@ -46,6 +46,9 @@ Die folgenden Compose-/Authelia-/Indikatorergänzungen wurden am 2026-11-07 gepr
 | Docker Portbindung | https://docs.docker.com/engine/network/port-publishing/ | Loopback explizit statt allgemeiner Hostbindung |
 | Docker Compose Netze | https://docs.docker.com/compose/how-tos/networking/ | Private Netze ersetzen keine korrekten Published-Port-Regeln |
 | PostgreSQL Rechte | https://www.postgresql.org/docs/current/sql-grant.html | Datenbank-/CONNECT-/PUBLIC-Rechte begrenzen |
+| Cryptography AESGCM | https://cryptography.io/en/50.0.2/hazmat/primitives/aead/ | Authentifizierte Verschlüsselung, AAD, Nonces und InvalidTag; keine eigene Kryptografie |
+| Cryptography Wheels | https://cryptography.io/en/50.0.2/installation/ | Gepinnte Binarywheels für CPython/Linux; separat installierter Credentialkern |
+| Kryptografieabhängigkeiten | https://pypi.org/pypi/cryptography/json | Offizielle Version 50.0.2 und Wheelhashes; transitive Pins aus den entsprechenden cffi-/pycparser-Metadaten |
 | RSI | https://www.tradingview.com/support/solutions/43000502338-relative-strength-index-rsi/ | Indikatorgrundlage, keine Freigabe zur Nutzung von TradingView-Marktfeeds |
 | ATR | https://www.tradingview.com/support/solutions/43000501823-average-true-range-atr/ | Wilder/RMA als Berechnungsvariante |
 | Supertrend | https://www.tradingview.com/support/solutions/43000634738-supertrend/ | Formel/Fliplogik; Implementierung mit eigenen Daten |
