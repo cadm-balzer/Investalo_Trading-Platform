@@ -76,6 +76,11 @@ Credentialstore sind mit synthetischen Daten geprüft. Die private Einrichtung
 verbindet sie mit einmaligen Actionfreigaben und einem Entwicklungs-Dateiprovider.
 Geschützte echte Keyeingabe, BFF-MFA-Schrittflow und Betriebsschlüssel befinden
 sich weiter in Umsetzung.
+Geschützte Konto-/Verbindungsmetadaten sind im Cockpit verfügbar. Der Nutzer
+hat einen zusätzlichen Cockpit-Passkey bestätigt, weil Authelia-Reauth keinen
+frischen zweiten Faktor belegt. Isolierter Verifier ist implementiert;
+Registrierung/Browser-Schrittflow bleiben gesperrt bis zur Integrationsabnahme.
+Details: [passkey-step-up.md](passkey-step-up.md).
 
 - Gesamtkonzept: [concept.md](concept.md)
 - Technischer Entwurf: [architecture.md](architecture.md)

@@ -64,6 +64,14 @@ internen Konfigurationen.
 
 ## Brokercredentials
 
+Authelia4.39.28 kann den bisherigen zweiten Faktor beim Passwort-Reauth
+erhalten; `auth_time`/`amr=mfa` belegen keinen neu verwendeten Faktor.
+Der Nutzer hat deshalb einen zusätzlichen Cockpit-Passkey bestätigt.
+Aktuell sind nur Metadaten und ein isolierter Verifier implementiert; die
+HTTP-Schrittfreigabe bleibt gesperrt. Registrierung, persistierte CAS-/Counter-
+Updates, Widerruf/Recovery und auditierte Aktionsbindung müssen vor Aktivierung
+nachgewiesen werden. [Passkeygates](passkey-step-up.md).
+
 Schlüssel dürfen nach Einrichtung nur maskiert angezeigt werden.
 Requestbodies, Authheader, URLs mit Querykeys, Exceptions, Traces und Dumps
 müssen redigiert werden. Eine Debugoption darf das nicht umgehen.

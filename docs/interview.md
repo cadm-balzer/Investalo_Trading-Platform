@@ -133,6 +133,12 @@ Umsetzung und Schutzgrenzen: [bitget-connection.md](bitget-connection.md).
 
 ## Entscheidungsbaum
 
+Weitere Bestätigung2026-11-07: **zusätzliche kostenlose Passkey-Bestätigung
+direkt im Cockpit für Kontoänderungen, mit einmaliger Nutzerregistrierung.**
+Die Frage entstand aus dem nachgewiesenen Authelia-Faktorfrischebefund.
+Authelia bleibt Loginprovider. Implementierung und Gates:
+[passkey-step-up.md](passkey-step-up.md).
+
 ```mermaid
 flowchart TD
   ROOT[Privater Pilot mit Paper bestätigt] --> MARKET[Beide Broker im MVP bestätigt]

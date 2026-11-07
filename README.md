@@ -73,6 +73,11 @@ und einmalige Freigaben für Einrichtung, Keywechsel und Widerruf. Die Prüfung
 nutzt synthetische Freigaben und Brokerantworten gegen echte PostgreSQL-Tabellen:
 120 Tests bestanden, davon 60 tatsächliche PostgreSQL-Fälle.
 Ein Dateischlüsselprovider ist ausschließlich für Entwicklung verfügbar.
+Das Cockpit zeigt jetzt geschützte Bitget-Kontometadaten. Kontoänderungen bleiben
+gesperrt: Authelia-Reauth belegt keinen neu verwendeten zweiten Faktor.
+Die zusätzliche Passkey-Bestätigung ist bestätigt und ihr isolierter
+Prüfkern implementiert; dauerhafte Registrierung und Browserflow folgen.
+[Passkeyplan und Abnahmegrenzen](docs/passkey-step-up.md).
 Geschützte Cockpiteingabe mit echter MFA-Schrittbestätigung, Schlüsselbetrieb
 und tatsächliche Brokeranbindung, manuelle MFA-Reservefreigabe
 und Pilotbetrieb sind weitere M1-Aufgaben.

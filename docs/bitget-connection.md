@@ -37,6 +37,12 @@ Ein gültiger HTTPS-Proxyeinstieg allein beweist diese ausgehende Identität nic
 
 ## Rechte und Ausführungsgrenzen
 
+Lokaler Zwischenstand: `/security/credentials` zeigt nur zugeordnete
+Kontometadaten und vorgesehene Aktionen. Die Schritte sind gesperrt, keine
+Keyeingabe. Authelia-Reauth kann den alten zweiten Faktor erhalten; zusätzliche
+Cockpit-Passkeys sind ausdrücklich bestätigt und befinden sich in Umsetzung.
+[Schutzbefund und Integrationsgates](passkey-step-up.md).
+
 | Modus | Schlüsselrechte und Plattformfunktion |
 |---|---|
 | M1 lesendes Realkonto | Ausschließlich bekannte Leserechte; Kontoinfo und getrennte Walletdaten |

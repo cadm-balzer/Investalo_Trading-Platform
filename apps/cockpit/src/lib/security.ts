@@ -49,12 +49,15 @@ export function verifiedIdentity(
   clientId: string,
   startedAt: number,
   now = Math.floor(Date.now() / 1000),
-): { subject: string; authTime: number; expiresAt: number; name: string } {
-  if (typeof claims.sub !== "string" || !claims.sub || claims.sub.length > 512) throw new Error("SUBJECT_REJECTED");
+): { subject: string; authTime: number; expiresAt: number; name: string; amr: string[] } {
+  if (typeof claims.sub !== "string" || !claims.sub || claims.sub.length > 255 ||
+    /[\u0000-\u001f\u007f]/.test(claims.sub)) throw new Error("SUBJECT_REJECTED");
   if (typeof claims.nonce !== "string" || !sameSecret(claims.nonce, expectedNonce)) throw new Error("NONCE_REJECTED");
   if (claims.azp !== undefined && claims.azp !== clientId) throw new Error("AUTHORIZED_PARTY_REJECTED");
   if (Array.isArray(claims.aud) && claims.aud.length > 1 && claims.azp !== clientId) throw new Error("AUTHORIZED_PARTY_REJECTED");
-  if (!Array.isArray(claims.amr) || !claims.amr.includes("mfa")) throw new Error("MFA_REQUIRED");
+  if (!Array.isArray(claims.amr) || claims.amr.length < 1 || claims.amr.length > 8 ||
+    claims.amr.some(value => typeof value !== "string" || !/^[a-z0-9_-]{1,32}$/.test(value)) ||
+    new Set(claims.amr).size !== claims.amr.length || !claims.amr.includes("mfa")) throw new Error("MFA_REQUIRED");
   // auth_time has whole-second precision. Persist the start with the same
   // precision and never accept an earlier authentication. The local BFF and
   // IdP share the host clock; five seconds of tolerance applies only to future
@@ -68,6 +71,7 @@ export function verifiedIdentity(
   return {
     subject: claims.sub,
     authTime: claims.auth_time as number,
+    amr: [...claims.amr] as string[],
     expiresAt: Math.min(claims.exp as number, now + 1800),
     name: typeof claims.name === "string" ? claims.name.slice(0, 100) : "Pilotnutzer",
   };
