@@ -42,9 +42,10 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-030 | P0 / P1–P4 | DONE | Bitget-Prüfung, Triple-Speicherung und einmalige Actionfreigabe verbinden | 120 Tests inkl. 60 echte PG-Fälle bestanden; synthetische Freigaben/Broker, damals004 nur Fixture-DB; HTTP/BFF-MFA und Pilotprovider bleiben IP-009 |
 | IP-031 | P0 / P1 | DONE | Geschützte Kontometadaten und vorbereitete Actionzustände prüfen | Additive005, 36 reine +20 PG-Metadatenfälle, 25 Actionzustandsfälle; 40 reale HTTPS-Prüfpunkte einschließlich gesperrtem Step-up und IdP-Faktorfrischebefund |
 | IP-032 | P0 / P1 | DONE | Bestätigten zusätzlichen Passkey-Assertionkern prüfen | SimpleWebAuthn14.1.0, 19 echte synthetische Signaturtests, voller Cockpitlauf78/Typecheck/Containerbuild grün; unabhängiger Review, kein aktiver HTTP-Verifier |
-| IP-033 | P0 / P1 | IN_PROGRESS | Dauerhafte Passkeyverwaltung und Browser-Schrittflow integrieren | Registry und lokales Enrollment in IP-034; frische zielgebundene Assertion-/Granttransaktionen, echte Browser-/Geräteabnahme und Betriebsgrenzen folgen; BL-020/021/025 |
+| IP-033 | P0 / P1 | IN_PROGRESS | Dauerhafte Passkeyverwaltung und Browser-Schrittflow integrieren | Registry/Enrollment in IP-034, interner zielgebundener Nachweis in IP-036; vollständiger BFF-Enrollmentablauf, Browserintegration, Geräteabnahme und Credentialfreigabe folgen; BL-020/021/025 |
 | IP-034 | P0 / P1 | DONE | Dauerhafte Passkeyregistry und lokales Browser-Enrollment implementieren | Additive006, Einmalticket, FORCE RLS, Counter-/Versions-CAS, terminaler Widerruf/Audit und BFF-Enrollment; 528 Tests und48 HTTPS-Prüfpunkte grün, unabhängige Reviews, keine Actionfreigabe |
 | IP-035 | P0 / P1 | DONE | Freigegebene HTTPS-Entwicklungsvorschau aktivieren | Nutzerfreigabe und beide DNS-Namen vorhanden; zwei gültige LE-Zertifikate, zwölf Helpertests und48 öffentliche HTTPS-/MFA-/Backtestprüfpunkte grün. Separate öffentliche Identität im bestehenden Entwicklungstenant; nur Edge80/443, Zertifikate nach Neustart erhalten. BL-026/Pilotabnahme bleiben offen |
+| IP-036 | P0 / P1 | DONE | Dauerhaften zielgebundenen Passkey-Aktionsnachweis implementieren | Additive007, Claim vor Kryptoprüfung, Counter-/Versions-CAS und einmalige Vorschau-Bestätigung; 724 Prüfungen grün, unabhängige Reviews. Originale OIDC-Claims erhalten; Browseraktivierung und Credentialausführung bleiben separate Gates |
 
 ## Abschlussbelege
 
@@ -258,6 +259,25 @@ einschließlich TOTP/OIDC, Workerberechnung, Nettobericht/SVG und Logout.
 Unabhängiger Abschlussreview ohne Blocker. Keine Broker- oder Echtgeldfreigabe;
 IP-033 und BL-026 bleiben nächste Arbeitsbereiche.
 [Zugang und Betrieb](../https-entry.md).
+
+## Zwischenabnahme: interner Passkey-Aktionsnachweis
+
+2026-11-07: HTTPS-Checkpoint `35960f3` ist in Main `e741c6b` gemerged;
+Nutzer bestätigt Browserlogin und Google Authenticator und beauftragt Fortsetzung.
+Branch `feat/m1-passkey-action-proof` ergänzt den dauerhaften Nachweis007:
+konkrete Kontoaktion, eingefrorene Metadaten/CAS, aktuelle Faktorversion,
+Sitzung/CSRF/Origin, originale OIDC-Zeit und eigene Vorschaukennung.
+Claim wird vor Kryptoprüfung committed; Counter und Grant entstehen atomar,
+Bestätigung verbraucht genau den eigenen Grant einmal.
+
+724 Tests bestanden: 461 API/Worker einschließlich 70 neuer tatsächlicher
+PG-Fälle, 143 Cockpit einschließlich 28 neuer synthetischer P256-Abläufe und
+120 Credentialregressionen. Reviews von SQL, API und BFF ohne Restblocker.
+Die drei vorhandenen Auth-Zeittests berechnen ihre Zukunftsgrenzen jetzt beim
+Testaufruf, damit längere Suiten deren Aussage erhalten.
+Browserrouten für Kontoänderungen, reale Keyannahme und003/004-Ausführung
+bleiben gesperrt. Vollständiges BFF-Enrollment und reale Geräteabnahme folgen
+IP-033. [Ablauf und Prüfbelege](../passkey-action-proofs.md).
 
 ## Routine
 

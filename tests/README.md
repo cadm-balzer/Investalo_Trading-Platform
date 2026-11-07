@@ -14,8 +14,9 @@ Das lokale Fundament besitzt ausführbare Tests:
   Zusätzlich36 reine und20 tatsächliche PG-Fälle für die005-Metadatenprojektion:
   fremde Nutzerbindung/Role/Epoch/GUC, Projection und unveränderte private ACLs.
   Additive006 ergänzt dauerhafte Passkeyregistry, Ticketclaim, CAS, Widerruf
-  und Audit: insgesamt293 API-/Workerprüfungen grün, darunter67 tatsächliche
-  Registry-/Passkey-API-PG-Fälle.
+  und Audit;007 ergänzt den zielgebundenen Aktionsnachweis.
+  Insgesamt 461 API-/Workerprüfungen grün, darunter 67 tatsächliche
+  Registry-/Passkey-API-PG-Fälle und 70 neue Aktionsnachweis-PG-Fälle.
 - `tests/marketdata`: Zeit-/OHLC-/Digest-/Coveragevalidierung, sichere CSV-
   Kennzeichnung und deterministische öffentliche Bitget-Pagination.
 - `tests/bitget`: 24 Offline-Tests für Classic-V2-Signaturen, feste GET-Pfade,
@@ -44,9 +45,9 @@ Das lokale Fundament besitzt ausführbare Tests:
   Negativfälle mit eigener tatsächlicher Research-Testrolle.
 - `apps/cockpit/tests`: OIDC-Token/Freshness, Cookies/Sitzungen, CSRF,
   Mandantenantworten, Ergebnis-/Datasetverträge und requestgebundene Assertions.
-  115 Tests grün, einschließlich25 vorbereiteter Actionzustände,
+  143 Tests grün, einschließlich25 vorbereiteter Actionzustände,
   13 Contract-/Signerfälle,19 echter synthetischer P256-Passkeyprüfungen
-  und37 Enrollmentzustands-/Registrierungsfälle.
+  37 Enrollmentzustands-/Registrierungsfälle und 28 neuer Aktionsnachweisfälle.
   Die Tests prüfen Zustand und Kryptografie getrennt; ein erfolgreicher
   vollständiger BFF-Enrollmentablauf und reale Browser-/Geräteabnahme fehlen.
 - `tests/infra/check_local_auth.py`: tatsächlicher HTTPS-Passwort-/TOTP-/
@@ -63,6 +64,14 @@ Das lokale Fundament besitzt ausführbare Tests:
   Insgesamt48 tatsächliche HTTPS-Prüfpunkte bestanden. `--public-preview`
   prüft dieselben Abläufe über tatsächliches DNS und System-TLS-Vertrauen
   an den öffentlichen Domains; auch dort alle48 bestanden.
+- `tests/api/test_passkey_action_api.py`:98 strenge Vertragsfälle für007;
+  `test_passkey_action_api_postgres.py` und `test_passkey_action_postgres.py`:
+  24+46 tatsächliche PG-Fälle mit synthetischen Identitäten/Keys, allen drei
+  Aktionen, committed Claim, Originalclaims, Replay/Parallelität,
+  Fristablauf während Sperren und Registrierungs-Slotrace.
+- `apps/cockpit/tests/passkey-action-proof.test.ts`:28 echte synthetische
+  P256-Registrierungs-/Assertion-/Orchestrierungsfälle, Vorschau-/Session-/
+  Metadata-/Faktorbindung und erhaltene OIDC-Zeit. Keine physische Geräteabnahme.
 - `tests/infra/test_research_provisioning.py`: atomare Rollenprovisionierung,
   Eingabegrenzen und sichere SQL-/Passwortbehandlung.
 - `tests/infra/test_credentials_provisioning.py`: vier Tests für feste

@@ -15,6 +15,7 @@
 | [mt5-bridge.md](mt5-bridge.md) | Ausgehende HTTPS-Bridge vom Heimnetzserver, Geräte-/Demo-Bindung und Abnahme |
 | [bitget-connection.md](bitget-connection.md) | Eigene Nutzerkeys, Classic-Spot/Futures-Wallets und geschützte Einrichtung |
 | [passkey-step-up.md](passkey-step-up.md) | Bestätigter Zusatzfaktor, Authelia-Faktorfrischebefund und Aktivierungsgates |
+| [passkey-action-proofs.md](passkey-action-proofs.md) | Dauerhafter zielgebundener Nachweis, Vorschau-Bestätigung und getrennte OIDC-Claims |
 | [inventory.md](inventory.md) | Host und Wiederverwendung der Referenzsysteme |
 | [roadmap.md](roadmap.md) | Phasen, Abhängigkeiten und Abnahme |
 | [tasks/board.md](tasks/board.md) | Git-basiertes Ticketsystem |

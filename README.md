@@ -80,6 +80,11 @@ Registry, administratives Einmalticket, Widerruf und lokales Browser-Enrollment
 sind implementiert. Geräteabnahme und zielgebundene Assertionfreigabe folgen;
 registrierte Passkeys öffnen noch keine Kontoänderungen.
 [Passkeyplan und Abnahmegrenzen](docs/passkey-step-up.md).
+Der interne zielgebundene Passkey-Aktionsnachweis verbindet jetzt dauerhaften
+Einmalclaim, Signaturprüfung, Counter/CAS und Vorschau-Bestätigung.
+Der neue Adapter erhält die ursprünglichen OIDC-Claims; Browseraktivierung und
+Credentialausführung folgen separat.
+[Ablauf und Grenzen](docs/passkey-action-proofs.md).
 Die ausdrücklich freigegebene Entwicklungsvorschau ist unter
 [cockpit.investalo.de](https://cockpit.investalo.de) aktiv. Beide Domains haben
 gültige Let’s-Encrypt-Zertifikate; 48 öffentliche HTTPS-/MFA-/Backtestprüfpunkte

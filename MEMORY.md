@@ -139,3 +139,14 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   Laufende Dienste immer mit `--file infra/compose.public-preview.yaml` bedienen;
   Defaultprofil bleibt lokal. IP-035 erledigt, IP-033/BL-026 und vollständige
   Pilot-/Produktionsabnahme bleiben offen; Kontoänderungen/Echtgeld gesperrt.
+- 2026-11-07, Fortsetzung nach Browserabnahme: Nutzer bestätigt Login mit
+  Google Authenticator und Merge. HTTPS35960f3 in Maine741c6b verifiziert,
+  Branch feat/m1-passkey-action-proof. IP-036 implementiert internen dauerhaften
+  zielgebundenen Nachweis007: Claim vor Crypto committed, einmalige RP-Challenge,
+  Counter/CAS und Grant atomar, Vorschauhash vor einmaligem Confirm geprüft.
+  Originale OIDC-Zeit bleibt unverändert, Passkey checked_at getrennt.
+  724 Tests, Typecheck, gepinnte Builds und unabhängige Reviews grün.
+  Beide DBs001–007 angewendet/immutable; Vorschaucontainer nicht neu erstellt.
+  Browserrouten/003/004-Credentialausführung bleiben off. Vollständiges
+  BFF-Enrollment, physische Geräteabnahme und Browserintegration IP-033;
+  Betriebsretention/-limits BL-017, Recovery BL-025.

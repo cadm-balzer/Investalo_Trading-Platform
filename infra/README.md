@@ -173,15 +173,19 @@ Bitget-/AEAD-Abläufe). Einrichtung, Keywechsel und Widerruf, Replay, Ablauf
 während Sperrwartezeiten/Probe/Write, geänderte Rechte und CAS sind abgedeckt.
 Vier Helpertests und die Rollen-Driftprobe waren im vorigen Storecheckpoint grün.
 Der Drift-Test weist erlaubten Ausgangszustand, Ablehnung von Delegationsrechten
-und deren vollständigen Transaktionsrollback nach. Mit diesem Registrycheckpoint
-sind001–006 in beiden lokalen Datenbanken angewendet und unveränderlich.
+und deren vollständigen Transaktionsrollback nach. Mit dem Aktionsnachweis007
+sind001–007 in beiden lokalen Datenbanken angewendet und unveränderlich.
 Bei vorhandener Entwicklung nach dem Credential-Gruppenhelper auch
 `sudo bash infra/scripts/compose.sh --profile tools run --rm --no-deps migrate`
 für die gewöhnliche Datenbank ausführen.005 ergänzt ausschließlich eine
 autorisierte öffentliche Metadatenprojektion für den Runtime-LOGIN;
 direkter Tabellen-/Credentialfunktionszugriff bleibt gesperrt.
-293 API-/Worker-Tests und erneut alle120 Credentialprüfungen bestanden;
-darunter67 tatsächliche Passkey-Registry-/API-Fälle nach006.
+461 API-/Worker-Tests und erneut alle120 Credentialprüfungen bestanden;
+darunter67 tatsächliche Passkey-Registry-/API-Fälle nach006 und70 neue
+tatsächliche Aktionsnachweis-PG-Fälle nach007. 143 Cockpitprüfungen, Typecheck
+und gepinnte Containerbuilds ebenfalls grün.007 ist additiv in beiden DBs
+angewendet; die laufenden Vorschaucontainer wurden dafür nicht neu erstellt.
+[Interner Ablauf und Browsergates](../docs/passkey-action-proofs.md).
 
 Das Prüfprofil läuft als UID10003 mit TLS im internen DB-Netz, ohne veröffentlichte
 Ports und ohne Broker-/BFF-/IdP-/KEKsecrets. Es besitzt bewusst administrative

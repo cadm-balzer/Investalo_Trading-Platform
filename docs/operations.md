@@ -150,6 +150,12 @@ des Nutzers ungültig; Registry und Credential-ID bleiben terminal reserviert.
 Ersatz-/Recoveryweg ist noch offen. Unbekannte Commits vor Wiederholung
 abgleichen. [Lokale Bedienung](../infra/README.md#passkey-enrollment-und-widerruf).
 
+**Interner Aktionsnachweis007:** Claim, Kryptoprüfung und Bestätigung haben
+dauerhafte Einmalzustände. Bei Crash oder unbekannter Commitantwort den
+gespeicherten Zustand und Audit abgleichen; keinen verbrauchten Versuch
+wieder freigeben. Browseraktionen und Credentialausführung bleiben gesperrt.
+[Ablauf und Grenzen](passkey-action-proofs.md).
+
 **Migration vom Altsystem:** Ein Writer je Konto, offene Commands/Fills abgleichen,
 Shadowvergleich, alten Writer deaktivieren, neuen begrenzt freigeben.
 Rollback ebenfalls mit Brokerabgleich; kein paralleles Steuern.

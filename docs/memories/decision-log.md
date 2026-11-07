@@ -458,3 +458,32 @@ Credential-/Passkey-Eigentum. Passwort und TOTP bleiben erforderlich.
 Zwölf Helpertests und48 öffentliche HTTPS-Prüfpunkte einschließlich tatsächlicher
 Backtestausführung/SVG/Logout bestanden; unabhängiger Review ohne Blocker.
 IP-035 erledigt. [Zugang und Betrieb](../https-entry.md).
+
+## 2026-11-07 — D-041: Dauerhafter interner Passkey-Aktionsnachweis
+
+**Status: Umsetzung der bereits bestätigten zusätzlichen Passkeyprüfung.**
+Der Nutzer bestätigt den öffentlichen Browserlogin mit Google Authenticator,
+meldet den HTTPS-Branch als gemerged und beauftragt Fortsetzung.
+Merge `35960f3` in Main `e741c6b` verifiziert; neuer Checkpoint IP-036.
+
+Additive007 speichert zielgebundene Einmalnachweise mit eingefrorenen
+Kontometadaten/CAS, Faktorversion und Sitzung/CSRF/Origin. RP-weite
+Challenge-Eindeutigkeit schützt auch Counter0; höchstens acht gültige Nachweise
+je Actor/Tenant/RP. Claim committed vor Kryptoprüfung, Counter und Grant
+atomar, Bestätigung nur mit der eigenen Vorschaukennung. Ablauf und Bindungen
+werden nach Sperrwartezeiten erneut geprüft; Registrierungsinsert wird über
+die bestehende Kontozeile serialisiert. Unbekannte Commits öffnen keinen Replay.
+
+Originale OIDC-Claims und Loginzeit bleiben unverändert; `checked_at` beschreibt
+separat die tatsächliche Passkeyprüfung. API/SQL vertrauen dem signierten BFF
+und dessen Kryptoverdict. Der interne Nachweis meldet `execution_enabled:false`.
+Browserintegration und003/004-Credentialfreigabe bleiben separate geprüfte
+Schritte; dieser Checkpoint öffnet keine Keyannahme oder Brokeraktion.
+
+724 Prüfungen grün:461 API/Worker (70 neue tatsächliche PG),143 Cockpit
+(28 neue synthetische P256-Abläufe),120 Credentialregressionen. Typecheck,
+gepinntes Imagebauen und unabhängige Reviews ohne Restblocker.
+Beide DBs001–007 immutable; Vorschaucontainer nicht neu erstellt.
+Vollständiges BFF-Enrollment und reale Geräteabnahme bleiben IP-033,
+Retention/Ratenbetrieb BL-017 und Recovery BL-025.
+[Vertrag und Prüfbelege](../passkey-action-proofs.md).

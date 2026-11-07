@@ -85,13 +85,13 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   onboarding checkpoint `69a1f8b` merged into main, verified at `56070ba`;
   step-up checkpoint `d57bd56` merged into main, verified at `b6198f7`;
   registry checkpoint `6a18102` merged into main, verified at `f422a90`;
-  current work branch: `feat/m1-https-entry`.
+  current work branch: `feat/m1-passkey-action-proof`.
   Isolated AEAD core: `packages/credentials/README.md`, 20 offline tests with
   pinned cryptography and a separate hardened Compose check.
   Credential store: `services/credentials/README.md`; migration003 and current
   AAD/CAS/rotation/revocation verified with 19 client +18 actual PostgreSQL tests,
   four provisioning tests and a rolled-back role-drift probe. Both local DBs
-  `investalo` and `investalo_credentials_checks` now have001–006 applied.
+  `investalo` and `investalo_credentials_checks` now have001–007 applied.
   Applied migrations are immutable in either database.
   Credential LOGINs are bound through SESSION_USER to one active tenant/user;
   runtime/research cannot read tables or execute credential functions.
@@ -129,13 +129,13 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   Admin revocation advances global user auth_epoch/reauth_after and invalidates
   all tenant sessions. Terminal tombstones prevent recovery/re-enrollment;
   BL-025 remains open. SQL assertion CAS is a trusted primitive without challenge
-  replay proof; no HTTP CAS endpoint. Physical browser acceptance and target-bound
-  assertion/grant integration remain IP-033; account changes stay disabled.
+  replay proof; no unbound HTTP CAS endpoint. Physical browser acceptance and
+  browser/credential integration remain IP-033; account changes stay disabled.
   Migration006 passed293 API/worker checks including67 actual registry/API PG
   cases;120 credential regressions and115 cockpit tests passed. Typecheck,
   builds and48 real HTTPS checks passed; two independent reviews found no blockers.
   A successful complete BFF enrollment and physical device proof remain IP-033.
-  Applied001–006 are immutable.
+  Applied001–007 are immutable.
   Session TTL store holds enrollment attempts only;
   preserve original OIDC claims. See `docs/passkey-step-up.md`.
 - User explicitly approved the public development preview on2026-11-07 after
@@ -150,6 +150,25 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   RP/credential ownership is not migrated. IP-035 complete; BL-026 TLS operations
   and full pilot/production acceptance remain open. Account changes/live remain off.
   See `docs/https-entry.md`.
+- HTTPS checkpoint `35960f3` is merged into main `e741c6b` (verified).
+  User confirmed successful public browser login and Google Authenticator setup,
+  accepted the visible progress, and instructed continued M1 work.
+  IP-036 implements the internal durable target-bound passkey proof in additive007:
+  committed one-use claim before crypto, RP-wide unique challenge, immutable
+  actor/session/CSRF/origin/old OIDC time/metadata/factor bindings, atomic
+  counter/version CAS plus grant, and own-preview confirmation consumed once.
+  API/SQL trust the authenticated BFF crypto verdict; original OIDC claims stay
+  unchanged and checked_at is separate. Confirm reports execution_enabled=false;
+  no account-action browser routes or003/004 credential execution enabled.
+  Full regression:461 API/worker (70 new actual PG),143 cockpit (28 new crypto),
+  120 credential checks, typecheck and pinned builds passed; independent reviews
+  found no blockers. Both DBs001–007 immutable. Running preview containers were
+  not recreated. Full BFF enrollment, hardware/browser acceptance and credential
+  integration remain IP-033; retention/rate operation BL-017, recovery BL-025.
+  See `docs/passkey-action-proofs.md`.
+  Implementation checkpoint `9b47ae1` pushed and remote-verified; main remains
+  `e741c6b`. If the inherited SSH agent stalls, use the existing deploy identity
+  with IdentityAgent=none and strict host-key checking (see `TOOLS.md`).
 
 ## Trading and implementation invariants
 

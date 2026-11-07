@@ -6,6 +6,13 @@ Dauerhafte Registry und lokales Browser-Enrollment sind implementiert.
 Kontoänderungen bleiben bis zur Assertion-/Grantintegration und echten
 Browser-/Geräteabnahme gesperrt.
 
+IP-036 ergänzt den internen dauerhaften
+[Aktionsnachweis007](passkey-action-proofs.md): zielgebundene Challenge,
+committed Einmalclaim vor Kryptoprüfung, atomarer Counter/CAS-Grant und
+einmalige Bestätigung der eigenen Vorschau. Originale OIDC-Claims bleiben
+erhalten. Der neue BFF-Adapter hat noch keine Browserroute;003/004 werden
+dadurch nicht für Kontoänderungen freigegeben.
+
 ## Warum ein zusätzlicher Nachweis nötig ist
 
 Authelia4.39.28 behält bei `SetOneFactorReauthenticate` den bisherigen zweiten
@@ -69,9 +76,11 @@ Lokale Bedienung: [Operatoranleitung](../infra/README.md#passkey-enrollment-und-
 
 ## Verbleibende Integrationsgates
 
-- Einmalige Assertionchallenge an Sitzung/CSRF, Identität/Epoch, Zweck,
-  Konto/Aktion und aktuelle Versionen binden; Registrierung strikt trennen.
-- Vor Grantpublikation aktuellen Nutzer/Epoch, Faktor/Widerruf,
+- Die vorbereitete einmalige Assertionchallenge007 an die tatsächlichen
+  Browserrouten anschließen; Registrierung strikt trennen und den vollständigen
+  BFF-Enrollmentablauf sowie die physische Geräteprüfung abnehmen.
+- Die bereits intern geprüften Bindungen auch in der Browserintegration erhalten:
+  Vor Grantpublikation aktuellen Nutzer/Epoch, Faktor/Widerruf,
   frozen Kontometadaten/CAS und tatsächliche Uhr nochmals prüfen.
   Verifiziertes `deviceType` gegen die unveränderliche gespeicherte
   Backup-Eligibility prüfen, bevor Counter/CAS fortgeschrieben werden.
@@ -85,9 +94,10 @@ Lokale Bedienung: [Operatoranleitung](../infra/README.md#passkey-enrollment-und-
 
 ## Noch offene Betriebsabnahmen
 
-Zielgebundene Assertion-/Granttransaktionen, erfolgreicher vollständiger
-BFF-Enrollmentablauf, echte Browser-/Gerätetests und auditierter Schrittflow
-folgen IP-033; Recovery bleibt BL-025.
+Zielgebundene Assertion-/Granttransaktionen sind intern unter007 implementiert.
+Erfolgreicher vollständiger BFF-Enrollmentablauf, echte Browser-/Gerätetests,
+Browseraktivierung und Verbindung zur Credentialfreigabe folgen IP-033;
+Recovery bleibt BL-025.
 Pilot-RP ist `cockpit.investalo.de`; lokales
 `cockpit.local.test` ist eine andere RP und erfordert eigene Registrierung.
 Kein automatischer Domainwechsel und keine öffentliche Passkeyregistrierung.
