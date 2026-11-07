@@ -12,6 +12,7 @@
 | [operations.md](operations.md) | Deployment, Monitoring, Backup und Wiederanlauf |
 | [deployment-plan.md](deployment-plan.md) | Compose/Authelia, öffentlicher HTTPS-Einstieg für Privatpilot und Recovery |
 | [mt5-bridge.md](mt5-bridge.md) | Ausgehende HTTPS-Bridge vom Heimnetzserver, Geräte-/Demo-Bindung und Abnahme |
+| [bitget-connection.md](bitget-connection.md) | Eigene Nutzerkeys, Classic-Spot/Futures-Wallets und geschützte Einrichtung |
 | [inventory.md](inventory.md) | Host und Wiederverwendung der Referenzsysteme |
 | [roadmap.md](roadmap.md) | Phasen, Abhängigkeiten und Abnahme |
 | [tasks/board.md](tasks/board.md) | Git-basiertes Ticketsystem |

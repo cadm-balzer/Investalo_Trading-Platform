@@ -75,6 +75,13 @@ benötigten konto-/zeitgebundenen Rechte.
 
 Bitget: Lese-/Tradingrechte nur nach Bedarf, keine Withdrawal-/Transferrechte.
 Feste Egress-IP und IP-Bindung prüfen. Demo-/Livekeys strikt getrennt.
+Jeder Nutzer erstellt einen eigenen dedizierten API-Key samt Secret/Passphrase.
+Classic mit getrennten Wallets ist für das Nutzerkonto bestätigt; signierte
+UID-/Parent-/Rechteprüfung und tenantgebundene Speicherung vor echter Einrichtung.
+Schlüsselwechsel muss dieselbe Brokeridentität bestätigen. Der lesende M1-Zugang
+weist Write-/Transfer-/Withdrawal-/Manage- und unbekannte Rechte ab.
+Einrichtungsablauf und API-Familiengrenzen:
+[bitget-connection.md](bitget-connection.md).
 MT5: geschützte Geräteidentität, festes Konto, Ablauf-/Replayprüfung und
 ausgehendes HTTPS vom separaten Heimnetzserver zum zentralen Einstieg.
 Keine eingehenden Heimnetzports. Maschinenidentität und feste Tenant-/Demo-

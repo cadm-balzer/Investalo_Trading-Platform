@@ -36,6 +36,7 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-024 | P0 / P3–P4 | IN_PROGRESS | Manuellen Crypto-Paperpuffer und Nutzerinformation umsetzen | Domainvorschau/Bestätigung/Risk implementiert; echte MFA-Schrittbestätigung, UI/Worker/optionale E-Mail folgen |
 | IP-025 | P1 / P1–P3 | DONE | Lokales Fundament zur Zwischenabnahme bereitstellen | Gepinnte Builds, 82 automatisierte Tests und 28 reale HTTPS-/MFA-/BFF-Prüfpunkte bestanden; kein fertiger M1-Pilot |
 | IP-026 | P1 / P2–P3 | DONE | Lokalen Daten-/Research-/Ergebnisablauf schließen | 540 reale BTC-H4-Kerzen importiert; 132 Tests und 32 reale HTTPS-Prüfpunkte bestanden, einschließlich Offlineworker und Equitykurve |
+| IP-027 | P0 / P4 | DONE | Classic-Bitget-Verbindungsplan und isolierten Readkern prüfen | Eigene Nutzerkeys und Classic bestätigt; 24 Offline-Tests plus unabhängiger Review; echte Keyeingabe und Serviceanbindung bleiben IP-009/IP-015 |
 
 ## Abschlussbelege
 
@@ -111,6 +112,20 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
   Kostenkalibrierung und unabhängiger Holdout nicht erfüllt.
   Implementierungscommit `3a73c12` auf `origin/feat/m1-foundation` gepusht.
   [Startanleitung](../../infra/README.md), [Tests](../../tests/README.md).
+
+- **IP-027, 2026-11-07:** [Verbindungsplan](../bitget-connection.md) und
+  [Classic-Readadapter](../../integrations/bitget/README.md) umgesetzt.
+  Ausschließlich drei signierte GET-Pfade, TLS ohne Redirect/Umgebungsproxy,
+  begrenzte Antworten, statische redigierte Fehler und getrennte Walletmodelle.
+  Kontoinfoprobe lernt UID; Walletzugriff verlangt feste Nutzer-/UID-/Parentbindung,
+  bekannte Leserechte und erwartete IP in der gemeldeten Whitelist.
+  24 Offline-Tests bestanden, unabhängiger Review ohne kritische Restbefunde.
+  Keine neuen Abhängigkeiten, echten Nutzerkeys oder Brokeraufrufe.
+  Vault, tatsächliche Egress-/Kontoabnahme, atomare DB-Bindung, globale UID-Quota
+  und API-/Cockpiteinbindung bleiben IP-009/IP-015.
+  Implementierungscommit `3052560` auf `origin/feat/m1-foundation` gepusht;
+  Nutzer hat die Zwischenabnahme ausdrücklich akzeptiert und übernimmt den
+  Merge in den Hauptbranch selbst. Keine Produktions-/Echtgeldfreigabe.
 
 ## Routine
 

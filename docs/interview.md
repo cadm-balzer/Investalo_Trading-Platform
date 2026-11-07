@@ -119,6 +119,18 @@ Q31 ist bestätigt: gemeinsames Verständnis und Übergang
 zur lokalen M1-Implementierung. Kein öffentlicher
 Rollout und keine Echtgeldfreigabe.
 
+## Ergänzung nach Q31: eigenes Bitget-Konto
+
+2026-11-07: Nutzer nennt ein eigenes finanziertes Bitget-Konto mit Spot-
+und Futureskapital. Jeder Plattformnutzer soll einen eigenen API-Key in
+seinem Bitget-Konto erstellen und damit seine Verbindung einrichten.
+Die Folgefrage ist beantwortet: **Classic mit getrennten Wallets**.
+Der erste private Konto-Adapter verwendet daher Classic V2.
+
+Dies ergänzt Kontoeinrichtung und Portfolioquellen. BTC/ETH Spot-H4,
+Paper vor Echtgeld und spätere Futures-/Livegates bleiben maßgeblich.
+Umsetzung und Schutzgrenzen: [bitget-connection.md](bitget-connection.md).
+
 ## Entscheidungsbaum
 
 ```mermaid

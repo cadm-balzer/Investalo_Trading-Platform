@@ -34,6 +34,7 @@ verbindliche Risikolimits, kontrollierte KI und zunächst kostenlose externe Die
 - [Sicherheit](docs/security.md) und [Betrieb](docs/operations.md)
 - [Compose-/Authelia-Plan für den Privatpilot](docs/deployment-plan.md)
 - [MT5-Bridge zum Heimnetzserver](docs/mt5-bridge.md)
+- [Bitget-Kontoverbindung mit eigenem API-Key](docs/bitget-connection.md)
 - [Roadmap](docs/roadmap.md), [Ticketboard](docs/tasks/board.md) und
   [Backlog](docs/backlog.md)
 - [Interview und offene Entscheidungen](docs/interview.md)
@@ -59,8 +60,10 @@ Cockpit zeigt tatsächlich gespeicherte Konten, Positionen, Journal und
 Backtestaufträge und deren Ergebnisse; fehlende Daten bleiben leer. Die API
 prüft signierte Identität, Mitgliedschaft und RLS und friert Daten-/Kostenstand
 bei idempotenter Jobannahme ein. Ein echter 90-Tage-BTC-Import prüft den lokalen
-Researchablauf; wirtschaftliche Validierung bleibt offen. Brokeradapter,
-manuelle MFA-Reservefreigabe und Pilotbetrieb sind weitere M1-Aufgaben.
+Researchablauf; wirtschaftliche Validierung bleibt offen. Der isolierte
+[Classic-Bitget-Readadapter](integrations/bitget/README.md) ist mit 24 Offline-Tests
+geprüft. Geschützte Keyeingabe und Brokeranbindung, manuelle MFA-Reservefreigabe
+und Pilotbetrieb sind weitere M1-Aufgaben.
 Öffentlicher Rollout und Echtgeld benötigen eigene
 Abnahmen. Der lokale Einstieg bindet ausschließlich `127.0.0.1:8443`.
 

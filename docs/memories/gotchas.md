@@ -142,3 +142,26 @@ Stand 2026-11-07. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   Bestehende PG-Konfiguration nach geprüfter Änderung explizit neu laden.
 - **Provisionierung:** Rollenflags und fremde Rollenmitgliedschaften vor GRANT
   atomar prüfen. Ablehnung darf keine vorherige Rechtevergabe zurücklassen.
+
+## Bitget-Classic-Kontozugang
+
+- **Classic versus UTA:** V2-Accountinfo liefert `authorities`; UTAs
+  `permType/permissions` dürfen nicht als Classicantwort verarbeitet werden.
+  Alte `api-doc`-Links können auf UTA umleiten. Detailquellen und Familie
+  ausdrücklich prüfen; kein automatischer Kontomoduswechsel.
+- **API-Key ist ein Triple:** API-Key, Secret und Passphrase gehören zur
+  Verbindung. Der Keyname allein ermöglicht keine signierten privaten Abfragen.
+  Providerrechte und feste Endpointallowlist bilden unterschiedliche Grenzen.
+- **Wallet-/Equitygrößen:** Finanziertes Futureskapital ist kein Spotbudget.
+  Futures-Equity kann unrealisierte PnL bereits enthalten; nicht doppelt addieren.
+  Fehlende Werte unbekannt lassen, mögliche negative Futuresgrößen erhalten.
+- **Kontoinfo-Quota:** Classic-Accountinfo ist mit 1 Request/s/UID dokumentiert.
+  Mehrere Keys derselben UID teilen diese Grenze. Eine lokale Clientpace
+  ersetzt keine Schedulerkoordination über mehrere Clients/Worker.
+- **Decimalgrenzen:** `abs(Decimal)` kann mit aktueller Contextpräzision runden.
+  Validierungsgrenzen mit `copy_abs()` exakt prüfen; Wirezahlen nur ASCII.
+- **Coin-Schreibweise:** Providerassetnamen können gemischte Groß-/Kleinschreibung
+  tragen. Wirebezeichner erhalten statt durch pauschales Uppercase zu verändern.
+- **Headerredaktion:** Ein gewöhnliches Mapping kann Authheader im `repr` ausgeben.
+  Credential- und Requestobjekte samt Headermapping redigieren; keine generische
+  Serialisierung oder rohe Providerexceptions in Logs übernehmen.
