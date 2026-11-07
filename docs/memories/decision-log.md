@@ -418,3 +418,22 @@ BFF-Enrollmentablauf und reale Geräteabnahme bleiben ausdrücklich offen.
 [W3C](https://www.w3.org/TR/webauthn-3/#sctn-registering-a-new-credential),
 [PG18-Sperren](https://www.postgresql.org/docs/18/explicit-locking.html),
 [Definerfunktionen](https://www.postgresql.org/docs/18/sql-createfunction.html).
+
+## 2026-11-07 — D-039: Öffentliche TLS-Konfiguration getrennt vorbereiten
+
+**Status: geprüfter Vorschlag, Aktivierung nicht freigegeben.** Nutzer meldet
+Browserzugang mit SSL-Fehler. Tatsächliche Prüfung zeigt DNS auf diesem Host,
+nurLoopback8443, abgewiesene80/443 und fehlende Anmeldedomain.
+Eine bereits laufende öffentliche TLS-Terminierung ist hier nicht nachgewiesen.
+
+Separates opt-in Overlay verwendet den gepinnten Caddy mit einzigem
+Let’s-Encrypt-Issuer, zentralen expliziten80/443, getrenntem ACME-/Sessionzustand
+und passenden Origin-/Issuer-/Cookie-/RP-Werten. Standardprofil bleibt lokal.
+Geschützter Renderer übernimmt nur unveränderte synthetische Quellkonfiguration,
+kein automatischer DNS-/Dienst-/Identitäts-/DB-Eingriff.
+
+Sechs Tests, Compose-Grenzprüfung und gepinnte Caddy-/Autheliavalidatoren grün;
+unabhängiger Review nach PEM-Grammatikkorrektur ohne Restblocker.
+Neue Issueridentität und RP benötigen bewusste Provisionierung/Registrierung;
+alte Bindungen bleiben erhalten. Keine Zertifikatsanfrage oder Aktivierung.
+[Befund und Freigabegates](../https-entry.md).

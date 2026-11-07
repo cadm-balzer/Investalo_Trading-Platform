@@ -84,7 +84,8 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   `71e57f1`; store checkpoint `46860ab` merged into main, verified at `b3030de`;
   onboarding checkpoint `69a1f8b` merged into main, verified at `56070ba`;
   step-up checkpoint `d57bd56` merged into main, verified at `b6198f7`;
-  current work branch: `feat/m1-passkey-registry`.
+  registry checkpoint `6a18102` merged into main, verified at `f422a90`;
+  current work branch: `feat/m1-https-entry`.
   Isolated AEAD core: `packages/credentials/README.md`, 20 offline tests with
   pinned cryptography and a separate hardened Compose check.
   Credential store: `services/credentials/README.md`; migration003 and current
@@ -137,6 +138,16 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   Applied001–006 are immutable.
   Session TTL store holds enrollment attempts only;
   preserve original OIDC claims. See `docs/passkey-step-up.md`.
+- User reports public-domain browser access with SSL errors. Actual host audit
+  finds only127.0.0.1:8443, refused public80/443 and cockpit DNS→5.45.96.83;
+  auth.cockpit.investalo.de currently has no resolution. Browser path is unverified.
+  Opt-in public-preview Caddy/Compose config and protected renderer are prepared,
+  not activated. Six tests, merged boundaries and pinned Caddy/Authelia validators
+  passed; independent review has no blockers. No ACME request, port exposure,
+  identity provisioning or database mutation. IP-035 needs activation approval,
+  auth DNS and a deliberately provisioned public-issuer identity. Original local
+  user/tenant/keys are preserved; no automatic issuer or RP migration.
+  See `docs/https-entry.md`.
 
 ## Trading and implementation invariants
 

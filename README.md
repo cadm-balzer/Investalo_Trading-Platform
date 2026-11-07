@@ -80,6 +80,9 @@ Registry, administratives Einmalticket, Widerruf und lokales Browser-Enrollment
 sind implementiert. Geräteabnahme und zielgebundene Assertionfreigabe folgen;
 registrierte Passkeys öffnen noch keine Kontoänderungen.
 [Passkeyplan und Abnahmegrenzen](docs/passkey-step-up.md).
+Der gemeldete öffentliche HTTPS-Zugang ist geprüft; eine separate
+Let’s-Encrypt-Konfiguration ist vorbereitet, noch nicht aktiviert.
+[TLS-Befund und Freigabegates](docs/https-entry.md).
 Geschützte Cockpiteingabe mit echter MFA-Schrittbestätigung, Schlüsselbetrieb
 und tatsächliche Brokeranbindung, manuelle MFA-Reservefreigabe
 und Pilotbetrieb sind weitere M1-Aufgaben.

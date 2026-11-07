@@ -122,6 +122,12 @@ Ein Datenbankrollback setzt ausgeführte Trades nicht zurück.
 
 ## Störungsabläufe
 
+**Öffentlicher HTTPS-Zugang:** Zuerst DNS, tatsächliche Listener und TLS-
+Terminierung prüfen. Lokales CA-Zertifikat und `auto_https off` sind keine
+öffentliche ACME-Konfiguration. Domainwechsel erfordert abgestimmte
+OIDC-/Cookie-/RP-Werte und bewusste Issuer-Nutzerbindung.
+[Befund und vorbereitete Vorschau](https-entry.md).
+
 **Verbindungsausfall:** Neue Exposition stoppen, brokerseitigen Schutzstatus
 prüfen, reconnect/reconcile, danach Risk Gate erneut.
 

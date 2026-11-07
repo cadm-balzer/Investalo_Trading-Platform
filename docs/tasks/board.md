@@ -44,6 +44,7 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-032 | P0 / P1 | DONE | Bestätigten zusätzlichen Passkey-Assertionkern prüfen | SimpleWebAuthn14.1.0, 19 echte synthetische Signaturtests, voller Cockpitlauf78/Typecheck/Containerbuild grün; unabhängiger Review, kein aktiver HTTP-Verifier |
 | IP-033 | P0 / P1 | IN_PROGRESS | Dauerhafte Passkeyverwaltung und Browser-Schrittflow integrieren | Registry und lokales Enrollment in IP-034; frische zielgebundene Assertion-/Granttransaktionen, echte Browser-/Geräteabnahme und Betriebsgrenzen folgen; BL-020/021/025 |
 | IP-034 | P0 / P1 | DONE | Dauerhafte Passkeyregistry und lokales Browser-Enrollment implementieren | Additive006, Einmalticket, FORCE RLS, Counter-/Versions-CAS, terminaler Widerruf/Audit und BFF-Enrollment; 528 Tests und48 HTTPS-Prüfpunkte grün, unabhängige Reviews, keine Actionfreigabe |
+| IP-035 | P0 / P1 | WAITING_DECISION | Öffentlichen HTTPS-Befund klären und Let’s-Encrypt-Einstieg aktivieren | DNS cockpit→5.45.96.83, hier nur Loopback8443; opt-in Overlay/Renderer/Validatoren und sechs Tests grün. Aktivierungsfreigabe, auth-DNS und öffentliche Issuer-Nutzerbindung fehlen |
 
 ## Abschlussbelege
 

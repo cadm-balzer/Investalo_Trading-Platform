@@ -65,6 +65,10 @@ Das lokale Fundament besitzt ausführbare Tests:
   Eingabegrenzen und sichere SQL-/Passwortbehandlung.
 - `tests/infra/test_credentials_provisioning.py`: vier Tests für feste
   Testidentitäten, sichere Secretübergabe und abweichende DB-Owner.
+- `tests/infra/test_public_preview_preparation.py`: sechs Tests gegen
+  Konfigurationsdrift, YAML-Injektion nach PEM-Footer, Symlinks/Hardlinks,
+  Dateirechte/-größe und Überschreiben. Gepinnte Caddy-/Autheliavalidatoren
+  und zusammengeführte Compose-Grenzen geprüft; kein öffentlicher Start.
 - `tests/infra/check_credentials_role_drift.py`: tatsächliche Ablehnung von
   administrativen Delegationsrechten nach erfolgreichem Baselinezugriff;
   Änderung bleibt in einer zurückgerollten Transaktion.

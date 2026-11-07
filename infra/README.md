@@ -6,6 +6,12 @@ PostgreSQL, IdP und Anwendungen veröffentlichen keine Hostports.
 Der öffentliche Privatpilot benötigt eine eigene geprüfte Konfiguration und
 Rolloutfreigabe.
 
+Zum gemeldeten öffentlichen Browserzugang: DNS zeigt auf diesen Host, hier
+lauscht weiterhin nur Loopback8443. Eine geprüfte, ausdrücklich opt-in
+Let’s-Encrypt-Konfiguration ist vorbereitet und noch nicht aktiviert.
+Befund, fehlende Anmeldedomain, Identitätsbindung und Aktivierungsgates:
+[HTTPS-Einstieg](../docs/https-entry.md).
+
 Vom Repositoryroot auf dem überprüften Ubuntu-26.04-amd64-Host:
 
 ```sh

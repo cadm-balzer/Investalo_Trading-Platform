@@ -177,6 +177,8 @@ Q20 plant den HTTPS-Einstieg bereits für diesen Privatpilot öffentlich.
 Datenbank, Secrets, Metriken und interne Worker sind nicht öffentlich.
 Die Domain `cockpit.investalo.de` erhält erst nach konkreter
 Pilot-/Produktionsfreigabe einen tatsächlichen Rollout.
+Eine separate geprüfte Let’s-Encrypt-Entwicklungsvorschau ist vorbereitet,
+noch nicht aktiviert; [TLS-Befund und Gates](https-entry.md).
 Forwarded-Headers nur vom eigenen Proxy übernehmen; Rate Limits und
 unauthentifizierte Login-/Recoverypfade bei der öffentlichen Abnahme prüfen.
 

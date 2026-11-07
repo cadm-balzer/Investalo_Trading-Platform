@@ -124,3 +124,9 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   fmt=none bleibt Kandidat; Kontoänderungen gesperrt. Positiver kompletter
   BFF-Enrollmentablauf, echte Browser-/Geräteabnahme und frische zielgebundene
   Assertions/Grants folgen IP-033; terminales Recovery bleibt BL-025.
+- 2026-11-07: Registrymerge6a18102 auf mainf422a90 verifiziert.
+  Nutzer meldet public-domain SSL-Fehler; Hostaudit findet nurLoopback8443,
+  DNS cockpit→eigene5.45.96.83,80/443 verweigert und auth-DNS fehlt.
+  Geprüftes inaktives HTTPS-Overlay/Renderer auf feat/m1-https-entry vorbereitet.
+  Keine ACME-/DNS-/Port-/Identitätsänderung. IP-035 wartet auf Aktivierung/
+  auth-DNS und öffentliche Issuer-Nutzerbindung; keine automatische Migration.

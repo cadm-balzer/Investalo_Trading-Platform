@@ -1,0 +1,57 @@
+# Explicit opt-in overlay for review. Never part of compose.sh's default files.
+# Prepare the separate ignored state/config paths and obtain public-preview
+# approval before activation. This is not a completed private-pilot deployment.
+services:
+  caddy:
+    ports: !override
+      - "5.45.96.83:80:80"
+      - "5.45.96.83:443:443"
+    # Network-namespace setting only: permit the intended listeners while
+    # retaining nonroot UID10001 and cap_dropALL. No host sysctl is changed.
+    sysctls:
+      net.ipv4.ip_unprivileged_port_start: "80"
+    volumes:
+      - type: bind
+        source: ./caddy/Caddyfile.public-preview
+        target: /etc/caddy/Caddyfile
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./local/caddy-public-data
+        target: /data
+        bind:
+          create_host_path: false
+    # Public edge certificates are managed in separate ACME state. The existing
+    # CA is retained only to verify the internal Authelia TLS connection.
+    secrets: !override [local_ca_cert]
+    networks:
+      front:
+        aliases: !override [cockpit.investalo.de]
+      identity:
+        aliases: !override [auth.cockpit.investalo.de]
+
+  cockpit:
+    environment:
+      COCKPIT_ORIGIN: https://cockpit.investalo.de
+      OIDC_ISSUER: https://auth.cockpit.investalo.de
+    volumes:
+      - type: bind
+        source: ./local/cockpit-public-data
+        target: /app/state
+        bind:
+          create_host_path: false
+
+  api:
+    environment:
+      API_OIDC_ISSUER: https://auth.cockpit.investalo.de
+      API_PASSKEY_RP_ID: cockpit.investalo.de
+
+  authelia:
+    volumes:
+      - type: bind
+        source: ./local/authelia-public-preview.yml
+        target: /config/configuration.yml
+        read_only: true
+        bind:
+          create_host_path: false

@@ -23,7 +23,7 @@ _Add whatever helps you do your job. This is your cheat sheet._
 ## Investalo — verified 2026-11-07
 
 - Working checkout: `/opt/Investalo_Trading-Platform`.
-- Implementation branch: `feat/m1-passkey-registry`, based on mainb6198f7;
+- Implementation branch: `feat/m1-https-entry`, based on mainf422a90;
   local implementation and authorized checkpoint pushes, no production deployment.
 - Read-only references: `/opt/investalo-trading-system`,
   `/opt/investalo-autotrader`. HEADs and reuse limits: `docs/inventory.md`.
@@ -90,3 +90,11 @@ _Add whatever helps you do your job. This is your cheat sheet._
   Do not print ticket artifacts. Counter-CAS alone is no replay proof.
   Host TestClient can stall on sandbox sockets: run tests in the approved local
   Compose checkcontainer or request escalation; do not bypass sandbox controls.
+- Public DNS cockpit.investalo.de resolves to host5.45.96.83. Host audit still
+  finds onlyloopback8443; public80/443 refused, auth.cockpit.investalo.de absent.
+  Opt-in `--file infra/compose.public-preview.yaml` is prepared and inactive.
+  `prepare-public-preview.py --development-preview` only creates protected
+  separate config/state; it never starts services, changes DNS or provisions users.
+  Activation gates and rollback: `docs/https-entry.md`.
+  Protected output includes existing OIDC material; never dump it or run
+  `authelia config template`/Compose secret expansion into public logs.

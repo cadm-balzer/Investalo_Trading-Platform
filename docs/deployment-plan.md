@@ -10,6 +10,10 @@ zentralen HTTPS-Einstieg für den privaten Nutzerkreis; Q21 bestehenden
 kostenlosen SMTP. Q24 bestätigt administratives E-Mail-Recovery; Q27
 Pilotbackupziele. Siehe [architecture.md](architecture.md).
 
+Aktueller TLS-Befund und geprüfte, noch nicht aktivierte öffentliche
+Entwicklungsvorschau: [https-entry.md](https-entry.md). Das Standardprofil
+bleibt lokal; eine Zertifikatsausstellung öffnet keinen fertigen Privatpilot.
+
 ## Services und Berechtigungen
 
 | Service | Zweck | Zulässiger Zugriff |

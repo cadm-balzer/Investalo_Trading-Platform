@@ -242,3 +242,15 @@ Stand 2026-11-07. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
 - **Lokaler TestClient:** Sandbox-Socketgrenzen können AnyIO-TestClient hängen
   lassen. Die identische Prüfung außerhalb der Sandbox bestand; gepinnten
   Compose-Prüfcontainer verwenden, keine Sandboxgrenzen umgehen.
+- **Öffentliche TLS-Namen:** Zertifikat allein migriert keine Anwendung.
+  OIDC-Issuer/Callback/Cookiedomain, BFF-Origin und Passkey-RP gemeinsam prüfen;
+  `(oidc_issuer,oidc_subject)` ist eine persistierte Identitätsbindung.
+  Interne BFF-Netze brauchen kontrollierte öffentliche Namensaliasse zum Proxy.
+  Gemeldeten Browserzugang gegen DNS und tatsächliche Hostlistener abgleichen.
+- **Compose-Overlay:** Ports ohne `!override` können zum bestehenden Satz
+  hinzugefügt werden; Volumeersatz erfolgt nach Zielpfad. Zusammengeführtes
+  Ergebnis prüfen, keine automatisch erzeugten Secret-/State-Bindverzeichnisse.
+- **PEM-Platzhalter:** Beliebiges Mehrzeilenmatching erlaubt zusätzliche YAML-
+  Einstellungen im Signaturkey-Platzhalter. Nur exakt eingerückte PEM-Grammatik
+  zulassen; Quellkonfiguration vollständig gegen die vertrauenswürdige Vorlage
+  prüfen und hinzugefügte Einstellungen nach dem Footer als Regression abweisen.
