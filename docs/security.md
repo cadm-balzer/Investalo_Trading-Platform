@@ -115,12 +115,26 @@ Mitgliedschaft und Kontobindung. Credentialrevision und Speicherversion werden
 atomar verglichen; Rewrap erhält den Payload, Widerruf ist terminal und auch bei
 pausiertem Konto ohne den alten KEK möglich.
 
-37 Client-/PostgreSQL-Tests, vier Provisionierungstests und eine zurückgerollte
-Rollen-Driftprüfung bestanden mit ausschließlich synthetischen Daten. Die
+Die zusätzliche private Einrichtung verifiziert eine gesondert signierte,
+body-/zielgebundene BFF-Assertion mit frischer Authzeit ab Schrittflowstart.
+Migration004 konsumiert deren JTI vor der Probe dauerhaft; Replay kann keine
+zweite Probe starten. Identität/Auth-Epoch, Reauth-Grenze, Konto, Ablaufzeit und
+Versionen werden vor der Änderung erneut geprüft. Änderung und Abschlussaudit
+sind atomar; ein unbekannter Commitausgang verlangt Abgleich statt Wiederholung.
+SQL vertraut der Python-Signaturprüfung und beweist keine Browser-MFA.
+Bestehende direkte Storefunktionen erzwingen diesen höheren Vertrag nicht.
+
+120 Client-/Onboarding-/PostgreSQL-Tests bestanden mit ausschließlich
+synthetischen Daten, davon 60 tatsächliche PG-Fälle. Vier Provisionierungstests
+und eine zurückgerollte Rollen-Driftprüfung waren im Storecheckpoint grün. Die
 separate Fixture-DB isoliert Testdaten; der administrative Checkcontainer besitzt
 die Migrationsidentität und kann damit auch die Entwicklungsdatenbank erreichen.
-Es gibt noch keinen Betriebsdienst oder HTTP-Keyeingang. KEK-Provider, stabile
-KEK-Versionen, Nutzungslimits und externer Restore bleiben Voraussetzungen.
+Es gibt noch keinen Betriebsdienst oder HTTP-Keyeingang. Der explizite
+Entwicklungs-Dateiprovider prüft feste Fingerprints, Dateityp, Eigentümer und
+Modi; bei Kontrolle über VM-root schützt diese Grenze nicht. Unabhängig
+vertrauenswürdige Fingerprintkonfiguration bleibt erforderlich. Betriebsprovider,
+echter MFA-Schrittflow, gemeinsame Nutzungslimits und externer Restore bleiben
+Voraussetzungen.
 Ein vollständiger Rollback von DB und Ciphertext wird durch die aktuelle
 Revisionsprüfung allein nicht erkannt. Widerruf entfernt bereits ausgelieferten
 Klartext nicht aus Prozessen; vor künftigem Brokerdispatch erneut autorisieren.

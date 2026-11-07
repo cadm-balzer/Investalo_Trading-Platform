@@ -185,8 +185,16 @@ Security-Definer-Funktionen mit sicherem `search_path` sind freigegeben.
 Der getrennte Pythonstore rekonstruiert aktuelle AEAD-Bindungsdaten aus der DB
 und prüft Credentialrevision sowie Speicherversion vor atomaren Änderungen.
 API und Research dürfen diese Funktionen nicht ausführen.
-Die lokale Abnahme erfolgt in einer getrennten Fixture-DB; ein Betriebs-
-Schlüsselprovider und die geschützte HTTP-Anbindung fehlen noch.
+Migration004 ergänzt einmalig konsumierte Action-JTIs und einen privaten Audit.
+Der vertrauenswürdige Python-Einrichtungsablauf verifiziert gesonderte,
+body-/zielgebundene BFF-Assertions und lernt UID/Parent über die Classic-Probe.
+Aktuelle Identität, Auth-Epoch, Konto, Ablaufzeit und beobachtete Versionen werden
+vor der finalen Änderung erneut geprüft; Änderung und Abschlussaudit teilen
+eine Transaktion. SQL prüft keine JWT-Signaturen oder Browser-MFA; die direkten
+003-Storefunktionen bleiben vertrauenswürdige Serverprimitiven.
+Die lokale Abnahme erfolgt mit synthetischen Assertions/Brokerantworten in
+einer getrennten Fixture-DB. Dateischlüssel sind nur für Entwicklung verfügbar;
+Betriebsschlüsselprovider, echter BFF-Schrittflow und HTTP-Anbindung fehlen.
 Details: [Credentialstore](../services/credentials/README.md).
 
 WebSocket/SSE-Abonnements werden nach Authwechsel, Entzug oder Sessionende

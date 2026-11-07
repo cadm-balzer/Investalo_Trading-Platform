@@ -23,7 +23,7 @@ _Add whatever helps you do your job. This is your cheat sheet._
 ## Investalo — verified 2026-11-07
 
 - Working checkout: `/opt/Investalo_Trading-Platform`.
-- Implementation branch: `feat/m1-credential-storage`, based on main71e57f1;
+- Implementation branch: `feat/m1-bitget-onboarding`, based on mainb3030de;
   local implementation and authorized checkpoint pushes, no production deployment.
 - Read-only references: `/opt/investalo-trading-system`,
   `/opt/investalo-autotrader`. HEADs and reuse limits: `docs/inventory.md`.
@@ -57,14 +57,14 @@ _Add whatever helps you do your job. This is your cheat sheet._
   Public snapshots stage/import via `infra/scripts/stage-research-snapshot.py`.
   Never give the worker migration/API secrets or change its tenant binding during
   tests. Fixtures use the separate research test role.
-  Applied migrations001/002 are immutable.003 is applied only in
-  `investalo_credentials_checks`, and is also immutable. Ordinary DB remains002.
+  Applied migrations001/002 are immutable.003/004 are applied only in
+  `investalo_credentials_checks`, and also immutable. Ordinary DB remains002.
   Local full HTTPS test requires an imported public BTC snapshot, default
   `infra/local/research-data/btc-research.json`, alternative `--snapshot-file PATH`.
 - GitHub intermediate pushes explicitly authorized. Origin:
   `github.com:cadm-balzer/Investalo_Trading-Platform.git`.
   Existing host Deploy-Key `/opt/github-project-ssh-key` is used via
-  `git -c 'core.sshCommand=ssh -i /opt/github-project-ssh-key -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes' push -u origin feat/m1-foundation`.
+  `git -c 'core.sshCommand=ssh -i /opt/github-project-ssh-key -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes' push -u origin feat/m1-bitget-onboarding`.
   Never copy the private key into the repository or print its contents.
 - Remote main was verified as already containing the historical credential-path
   commit. IP-005 remains open; no history rewrite/force-push was performed.
@@ -74,3 +74,8 @@ _Add whatever helps you do your job. This is your cheat sheet._
   checkcontainer has broader development DB rights. No broker or KEK secrets.
   `tests/infra/check_credentials_role_drift.py` requires valid bindings from
   preceding PG tests, verifies a permitted baseline and rolls back its test grant.
+- Onboarding checks live in `tests/credential_onboarding` and
+  `tests/credentials_storage/test_onboarding_*.py`. Development KEK files are
+  generated only inside test temporary directories; no broker/BFF/IdP/rootkey
+  mount or network broker transport. Dedicated action assertion is separate
+  from the normal BFF API assertion. No HTTP intake launcher exists yet.

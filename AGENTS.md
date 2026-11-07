@@ -74,25 +74,38 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   for futures trading, transfers or real-money activation from funded balances.
   Connection/onboarding scope: `docs/bitget-connection.md`.
   Isolated stdlib Classic read core: `integrations/bitget/README.md`, 24 offline
-  tests in `tests/bitget`. No actual user keys, vault, DB/API/UI integration or
-  broker calls yet; these remain IP-009/IP-015. Only three fixed GET paths.
+  tests in `tests/bitget`. Private store/onboarding integration exists below;
+  actual user keys, HTTP/UI and broker calls remain IP-009/IP-015.
+  Only three fixed GET paths.
   User accepted checkpoint `3052560` and will merge it themselves.
   GitHub default branch is `main`; verify merge state before changing branches.
   Main now contains accepted checkpoint and acceptance note (`3fd95b1`), verified
   at `d3b31e2`; envelope checkpoint `7f83b33` merged into main, verified at
-  `71e57f1`; current work branch: `feat/m1-credential-storage`.
+  `71e57f1`; store checkpoint `46860ab` merged into main, verified at `b3030de`;
+  current work branch: `feat/m1-bitget-onboarding`.
   Isolated AEAD core: `packages/credentials/README.md`, 20 offline tests with
   pinned cryptography and a separate hardened Compose check.
   Credential store: `services/credentials/README.md`; migration003 and current
   AAD/CAS/rotation/revocation verified with 19 client +18 actual PostgreSQL tests,
   four provisioning tests and a rolled-back role-drift probe. Only fixture DB
-  `investalo_credentials_checks` has migration003 applied; ordinary development
-  DB stays at002. Applied migrations are immutable in either database.
+  `investalo_credentials_checks` has migration003/004 applied; ordinary
+  development DB stays at002. Applied migrations are immutable in either database.
   Credential LOGINs are bound through SESSION_USER to one active tenant/user;
   runtime/research cannot read tables or execute credential functions.
   The administrative check profile mounts migration credentials; it is not a
-  restricted runtime service. No key provider, HTTP/UI, fresh-MFA intake or
-  actual user credentials yet.
+  restricted runtime service.
+  Private `BitgetOnboarding` connects the existing Classic probe, canonical
+  triple codec, store and dedicated request-bound one-use assertions.
+  Migration004 commits a globally unique JTI before probing, rechecks actor/
+  epoch/reauth/account/versions/time and finishes write/audit in one transaction.
+  SQL trusts Python signature verification; direct003 functions remain trusted
+  primitives, without a universal MFA guarantee. No current BFF action proof.
+  `DevelopmentKeyFileProvider` explicitly requires development mode and fixed
+  trusted fingerprints, ownership/modes and 32-byte KEKs; no production provider.
+  Tests use synthetic assertions/keys/broker responses with actual PG.
+  120 checkcontainer tests passed: 19 client, 41 onboarding units, 60 actual PG
+  (18 store, 30 authorization, 12 synthetic Bitget/AEAD flows). IP-030 complete.
+  HTTP/UI, real browser step-up and actual user credentials remain unfinished.
 
 ## Trading and implementation invariants
 

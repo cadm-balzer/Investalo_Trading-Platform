@@ -18,7 +18,7 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-006 | P0 / P1 | IN_PROGRESS | Runtimepins und bestätigten Betriebsentwurf konkretisieren | Pins/Locks/Digests und lokaler Lauf geprüft; SMTP/Recovery/Backup/Pilot noch offen |
 | IP-007 | P1 / P1 | IN_PROGRESS | Gepinntes Bootstrap und reproduzierbarer privater Start | Fünf Basisdienste plus Researchprofil aufgebaut; unabhängiger Clean-Checkout-Nachweis vor Pilot |
 | IP-008 | P0 / P1 | IN_PROGRESS | Auth, Tenants, RBAC und DB-Isolation | OIDC/MFA, BFF, Einladungsprovisionierung und FORCE RLS getestet; Recovery/Registrierung/Streams folgen |
-| IP-009 | P0 / P1 | IN_PROGRESS | Credentialverschlüsselung und minimale Serviceidentitäten | AEAD-Kern, persistenter Store mit gebundener DB-Identität/CAS/Rotation/Widerruf geprüft; Betriebsprovider, HTTP/MFA und echte Keyannahme folgen |
+| IP-009 | P0 / P1 | IN_PROGRESS | Credentialverschlüsselung und minimale Serviceidentitäten | AEAD, gebundener Store und einmalig autorisierter privater Probe-/Writeablauf geprüft; Betriebsprovider, HTTP/BFF-MFA und echte Keyannahme folgen |
 | IP-010 | P1 / P2 | IN_PROGRESS | Crypto- und MT5-Strategien vollständig spezifizieren | Sachentscheidungen bestätigt; Regeln dokumentiert, technische Kern-/Broker-/Kausalitätsabnahme folgt |
 | IP-011 | P1 / P2 | IN_PROGRESS | Marktdatenimport, Instrumentmetadaten und Snapshots | Strikte H4-Snapshots/CSV/Bitgetpagination und 90-Tage-BTC-Import geprüft; Dreijahresumfang, Datenrechte und historische Instrumentregeln offen |
 | IP-012 | P0 / P2 | IN_PROGRESS | Tradingkern und unabhängige Risk Engine | Crypto-Core: 31 Tests; Offlineworker nutzt denselben Kern; MT5, Broker-/Paper-Riskintegration folgen |
@@ -39,6 +39,7 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-027 | P0 / P4 | DONE | Classic-Bitget-Verbindungsplan und isolierten Readkern prüfen | Eigene Nutzerkeys und Classic bestätigt; 24 Offline-Tests plus unabhängiger Review; echte Keyeingabe und Serviceanbindung bleiben IP-009/IP-015 |
 | IP-028 | P0 / P1 | DONE | Isolierten Credential-Envelopekern prüfen | 20 AES-GCM-Tests mit gepinnten Wheels, unabhängiger Review und gehärteter Offline-Checkcontainer; echte Keyannahme und persistente Integration bleiben IP-009 |
 | IP-029 | P0 / P1 | DONE | Gebundene persistente Credential-Speicherung prüfen | 19 Client +18 echte PG-Tests, vier Provisionierungstests und Rollen-Driftprobe;003 nur Fixture-DB, Betriebsprovider/HTTP/MFA bleiben IP-009 |
+| IP-030 | P0 / P1–P4 | DONE | Bitget-Prüfung, Triple-Speicherung und einmalige Actionfreigabe verbinden | 120 Tests inkl. 60 echte PG-Fälle bestanden; synthetische Freigaben/Broker, 004 nur Fixture-DB; HTTP/BFF-MFA und Pilotprovider bleiben IP-009 |
 
 ## Abschlussbelege
 
@@ -162,6 +163,32 @@ administrativ und enthält die Migrationsidentität. Keine echte Keyannahme,
 Schlüsselprovider, HTTP/UI oder Brokerkontakte.
 Anleitung: [Credentialstore](../../services/credentials/README.md),
 [Fixtureprüfung](../../infra/README.md).
+
+**IP-030, 2026-11-07:** Hauptbranch enthält Storecheckpoint `46860ab`,
+verifiziert bei `b3030de`; neuer Branch `feat/m1-bitget-onboarding`.
+Private Einrichtung verbindet Classic-Probe und kanonisches Triple mit dem
+gebundenen AEAD-Store. Gesonderte Assertion bindet Aktion/POST-Ziel/Bodyhash,
+frische Authzeit ab Schrittstart und aktuelle Identität. Migration004 konsumiert
+JTI vor der Probe; aktueller Actor/Epoch/Reauth/Konto/Zeit/Versionen und
+transaktionsgebundener Write-/Auditabschluss werden erneut geprüft.
+Keywechsel hält UID/Parent fest, Widerruf benötigt keine Probe oder alten KEK.
+Expliziter Entwicklungsdateiprovider hält KEK-ID/Material mit festen Fingerprints
+über Neustarts stabil und prüft Dateityp/Eigentümer/Modi.
+
+120 Tests im gepinnten Python3.14.10-/PG18.6-Ablauf bestanden: 19 Client,
+41 Onboarding-Offline, 60 tatsächliche PG-Fälle (18 Store, 30 Autorisierung,
+12 synthetische Bitget-/AEAD-Flows). Replay, Sperrwartezeiten/Expiry, Epoch,
+Brokeridentität/-rechte/IP, CAS und atomarer Rollback geprüft; unabhängige
+Python-/SQL-/Dokumentationsreviews ohne Restblocker. Keine Brokerkontakte
+oder echten Nutzerkeys. 001/002/003 unverändert; 004 ausschließlich Fixture-DB,
+gewöhnliche Entwicklungsdatenbank nachweislich weiter 002. Migrationschecksummen
+und Composekonfiguration geprüft. 40 Projekt-Markdown-Dateien: lokale Links und
+54 Ticket-IDs gültig; `git diff --check` sauber.
+SQL vertraut der Python-Signaturprüfung; direkte 003-Funktionen sind Server-
+primitiven ohne universelle MFA-Garantie. Echter HTTP/BFF-MFA-Schrittflow,
+Signaturidentität, CSRF und Betriebsschlüsselprovider bleiben IP-009/BL-021/022.
+Retention-/Crash-/Commitausgangabgleich folgt BL-024.
+Anleitung: [Credentialstore](../../services/credentials/README.md).
 
 ## Routine
 

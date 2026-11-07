@@ -194,3 +194,16 @@ Stand 2026-11-07. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
 - **Widerruf:** Sperrt künftige DB-Abfragen, löscht keinen bereits ausgegebenen
   Klartext. Brokerdispatch braucht erneute Autorisierung. UID bleibt reserviert;
   keine automatische Wiederanbindung oder Benutzerübertragung.
+- **Actionassertion:** Normales BFF-Login-JWT genügt nicht. Eigene Signaturidentität,
+  Ziel/Bodybindung und frische Authzeit ab gespeichertem Schrittflowstart brauchen
+  einen echten Browsernachweis. SQL prüft diese JWT-Signatur nicht.
+- **Freigabezeit:** `now()` bleibt innerhalb einer Transaktion konstant.
+  `clock_timestamp()` auch nach blockierenden Sperren und vor der finalen
+  Rückgabe prüfen. Ein abgelaufenes Token darf keine Speicherung abschließen.
+- **Konsumierte JTI:** Vor der Probe separat committen. Fehler/Crash kann einen
+  autorisierten, aber unvollständigen Datensatz hinterlassen; dessen JTI bleibt
+  konsumiert. Unbekannte Commits abgleichen, keine automatische Wiederholung.
+  Retention darf alte Tokens nicht erneut freischalten.
+- **Datei-KEK:** Fingerprintkonfiguration muss unabhängig vertrauenswürdig bleiben;
+  Modus0700/0400 und NOFOLLOW ersetzen weder externe Schlüsselisolation noch
+  Schutz gegen VM-root. Keine Entwicklungsschlüssel für reale Nutzerkeys verwenden.
