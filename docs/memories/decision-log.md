@@ -263,3 +263,15 @@ lassen den manuellen Puffer als Cash. Keine künstliche Schließung am Datenende
 Öffentliche 90-Tage-BTC-Daten dienen dem Funktionsnachweis, nicht dem
 Dreijahres-/Holdoutgate. `validation=not_evaluated` bleibt verpflichtend;
 Holdouts sind im gewöhnlichen Researchpfad weder lesbar noch ausführbar.
+
+## 2026-11-07 — D-031: Nutzergebundener Bitget-Key und Classic-Konto
+
+**Status: ausdrücklich präzisiert nach Q31.** Nutzer besitzt finanziertes Spot-
+und Futureskapital; Folgefrage bestätigt Classic mit getrennten Wallets.
+Jeder Plattformnutzer erstellt einen eigenen dedizierten API-Key im eigenen
+Bitget-Konto. Erste private Integration nutzt Classic V2 mit UID-/Parentbindung
+und strikt getrennten Walletgrößen. M1 liest echte Konten und handelt Paper;
+Futures-/Echtgeldaktivierung wird aus Guthaben oder Keyeinrichtung nicht abgeleitet.
+Keine automatischen Transfers oder UTA-Migration. Geschützte Triple-Eingabe und
+Credentialverschlüsselung sind vor echter Keyannahme erforderlich.
+Plan und Quellen: [bitget-connection.md](../bitget-connection.md).

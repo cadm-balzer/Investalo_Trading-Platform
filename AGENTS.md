@@ -67,6 +67,12 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 - Existing reference repositories: `/opt/investalo-trading-system` and
   `/opt/investalo-autotrader`. Treat them as read-only references unless work there
   is explicitly authorized. Their strategies need independent net-cost validation.
+- Bitget account clarification after Q31: the user's funded account is Classic
+  with separate spot/futures wallets. Each platform user creates a dedicated key
+  in their own Bitget account (API key, secret and passphrase). Initial private
+  adapter is Classic V2. Keep wallet capital separate; do not infer permission
+  for futures trading, transfers or real-money activation from funded balances.
+  Connection/onboarding scope: `docs/bitget-connection.md`.
 
 ## Trading and implementation invariants
 

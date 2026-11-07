@@ -259,8 +259,12 @@ Jedes Terminal ist fest an seinen Brokeraccount gebunden; kein unkontrolliertes
 Kontoumschalten zwischen Tenantjobs. [mt5-bridge.md](mt5-bridge.md) spezifiziert
 Maschinenidentität, Polling, lokale Journale und Abnahmefälle.
 
-**Bitget:** Classic/UTA, Spot/Derivate, Netting/Hedge, Cross/Isolated, Region,
-Demo-/Livezugang und API-Familie müssen vor Implementierung bekannt sein.
+**Bitget:** Nutzerkonto Classic mit getrennten Spot-/Futures-Wallets bestätigt.
+Jeder Nutzer erstellt eigene APIcredentials; erste private Integration Classic V2.
+Signierte UID-/Parentbindung und getrennte Wallet-/Budgetgrößen:
+[bitget-connection.md](bitget-connection.md).
+Für weitere Konten/Produkte Classic/UTA, Netting/Hedge, Cross/Isolated, Region
+und Demo-/Livezugang individuell prüfen.
 Instrumentregeln, Maintenance-Stufen, Markpreis und Fundingintervalle werden
 aus aktuellen Daten abgeleitet.
 

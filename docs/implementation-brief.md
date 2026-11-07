@@ -72,6 +72,13 @@ Demo-/Geräte-/Kontobindung, ein Writer je Brokerkonto, lokale Journale und
 Abgleich bei Timeout/Neustart. Konkretes OS/Terminalbuild noch ungeprüft.
 Plan: [mt5-bridge.md](mt5-bridge.md).
 
+Bitget ist als Classic-Konto mit getrennten Spot-/Futures-Wallets bestätigt.
+Jeder Nutzer erstellt einen eigenen dedizierten API-Key im eigenen Konto.
+Geschützte API-Key-/Secret-/Passphrase-Eingabe, tatsächliche UID-/Rechteprüfung
+und feste Kontobindung sind Teil der Integration. Realkonto zunächst lesend;
+Futureskapital erhöht kein Spotbudget und aktiviert keinen Handel.
+Plan: [bitget-connection.md](bitget-connection.md).
+
 Vorhandenen kostenlosen SMTP mit TLS nutzen. Administratives MFA-Recovery
 nach Einmalbestätigung an bestehende E-Mail-Adresse; keine gleichzeitige
 Adressänderung. Alte Sitzungen/Token behandeln, neuen MFA-Faktor einrichten.

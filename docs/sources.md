@@ -63,6 +63,8 @@ Die folgenden Compose-/Authelia-/Indikatorergänzungen wurden am 2026-11-07 gepr
 | MT5 Account Properties | https://www.mql5.com/en/docs/constants/environment_state/accountinformation | Broker-Server/Login/Demomodus vor Dispatch prüfen |
 | MT5 Symbolregeln | https://www.mql5.com/en/docs/constants/environment_state/marketinfoconstants | Lots, Stops, Handelsstatus und Kontrakte |
 | Bitget Rechte | https://www.bitget.com/docs/classic/rest-api | Keyrechte, Passphrase und IP-Bindung |
+| Bitget Classic-Identität | https://www.bitget.com/legacy-docs/classic/spot/account/Get-Account-Info | Signierte UID/Parent-UID, authorities und IP-Whitelist; keine UTA-permType-Felder |
+| Bitget Classic-Konten | https://www.bitget.com/docs/catalog/classic-contract-account/classic-contract-account | Separate Futures-Equity/Margin und Produkttypen, keine Spotbudgetsumme |
 | Bitget UTA | https://www.bitget.com/docs/uta/uta-intro | Accountmodi nicht implizit festlegen |
 | Bitget Orders | https://www.bitget.com/docs/catalog/classic-contract-trade/classic-contract-trade | `clientOid`, Abfrage und Reduce-only-Besonderheiten |
 | Bitget Positionen | https://www.bitget.com/docs/catalog/classic-contract-position/classic-contract-position | Margin, Liquidation und Positionsdaten |

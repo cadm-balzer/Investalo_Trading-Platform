@@ -34,6 +34,7 @@ verbindliche Risikolimits, kontrollierte KI und zunächst kostenlose externe Die
 - [Sicherheit](docs/security.md) und [Betrieb](docs/operations.md)
 - [Compose-/Authelia-Plan für den Privatpilot](docs/deployment-plan.md)
 - [MT5-Bridge zum Heimnetzserver](docs/mt5-bridge.md)
+- [Bitget-Kontoverbindung mit eigenem API-Key](docs/bitget-connection.md)
 - [Roadmap](docs/roadmap.md), [Ticketboard](docs/tasks/board.md) und
   [Backlog](docs/backlog.md)
 - [Interview und offene Entscheidungen](docs/interview.md)

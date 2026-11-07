@@ -56,5 +56,10 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   `/opt/investalo-autotrader`. Read-only Wiederverwendungsprüfung, keine Änderung
   laufender Systeme. Befunde: `docs/inventory.md`.
 - Produktionsdeployment und Echtgeldfreigabe nicht aus Konzeptzustimmung ableiten.
+- 2026-11-07, Ergänzung nach Q31: Nutzeraccount bei Bitget ist Classic mit
+  getrennten Spot-/Futures-Wallets und Guthaben. Jeder Plattformnutzer erstellt
+  eigenen APIKey+Secret+Passphrase im eigenen Bitget-Konto. Classic V2 zuerst,
+  zunächst lesende echte Kontodaten/Paper; keine Budgetvermischung,
+  Wallettransfers oder Futures-/Livefreigabe. `docs/bitget-connection.md`.
 - Git-getrackter Credentialpfad bei Projektstart gefunden, Inhalte nicht gelesen.
   Historien-/Rotationsarbeit bleibt gesondert; siehe `docs/security.md`.

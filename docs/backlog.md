@@ -25,6 +25,7 @@ Keine erledigten Punkte in dieser Liste halten.
 | BL-018 | Researchdaten und Executionidentitäten | Reale Fees/Spread/Instrumentregeln kalibrieren, Dreijahresdaten und Holdoutprotokoll nachweisen; separate Executionrollen bei IP-016 |
 | BL-019 | Manueller Auftrag ohne Fill | Bei IP-024 expliziten abgeglichenen Wiederholungsweg für reservierte manuelle Intents ergänzen; keine blinde neue Order |
 | BL-020 | Tatsächliche MFA-Schrittbestätigung | Für manuellen Einstieg verified Fresh-MFA-Auditreferenz, Faktorregistrierung/WebAuthn und pilotstabile RP-Domain prüfen |
+| BL-021 | Bitget-Keyeinrichtung und Walletgrenzen | Classic-V2 zuerst; Egress-IP, verschlüsselte Triple-Speicherung, Rechte-/UID-/Parentbindung, Keyrotation und doppelte UID vor echter Verbindung prüfen; UTA/Futuresausführung später gesondert |
 
 RSI-/Supertrend-/Budget-/Exitentscheidungen Q1–Q31 sind bestätigt.
 Offen sind Umsetzung und Nachweise, keine stillschweigend vertagten Strategiefragen.
