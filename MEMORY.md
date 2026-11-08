@@ -2,6 +2,25 @@
 
 Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
 
+
+- 2026-11-08: Nutzer bestätigt IP-0450a0751b gemerged; Main073c474 verifiziert.
+  Explizite Priorität nun eigentlicher Trading-/Backtestkern, danach Paper.
+  Weitere Credentialbetriebsaktivierung zurückgestellt; private Brokerkeys
+  für Forschung/Paper nicht nötig. IP-046 feat/m1-long-history-backtests:
+  reale BTC/ETH-H4 je8766 Quellkerzen2022-08-01..2026-08-01, vor Performance
+  gefroren:6576 Forschung bis2025-08-01 plus2190 reservierter Jahres-Holdout.
+  Bereits ausgewertetes90-Tage-Demo liegt außerhalb. Kein Vollquellimport,
+  null Holdoutjobs/-performance. Beide realen öffentlichen Entwicklungsjobs
+  gespeichert, direkter deterministischer Replay exakt. BTCnet132,63/24baskets,
+  ETHnet96,09/32baskets, je eigene10000USDT; keine Portfolio-/Livevalidierung.
+ 66 gepinnte Coretests/33 Subtests,5 ETH-Metadatenfixturetests,572 API/worker,
+  je48 reale HTTPS-Punkte und Review grün. Voller API-Prüflauf braucht explizit
+  PGDATABASE=investalo_credentials_checks (Fixture009); defaultnormal007
+  NICHT migrieren. Öffentliche sechs Dienste unverändert/TLS200, Checksums
+  normal007/Fixture009. IP-047 READY: persistentes Paper/Orders/Fills/Risk/
+  Journal mit gleichem Kern und Crash/Replaytests. Kosten/holdout/MT5 offen.
+
+
 - 2026-11-08: Nutzer bestätigt IP-044-Merge9555624 in Maindcb9feb, verifiziert.
   IP-045 auf feat/m1-credential-browser-flow implementiert Eingabecontroller
   mit drei Phasen, Passkey plus ausdrücklichem Änderungsconsent. Begrenzte

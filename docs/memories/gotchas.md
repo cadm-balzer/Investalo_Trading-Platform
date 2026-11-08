@@ -455,3 +455,26 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   Execute keine Wiederholung; Controllergenerationen verhindern, dass eine
   späte Antwort verworfene Secrets/Handles erneut aktiviert. Pagehide und
   BFCache-Rückkehr benötigen ebenfalls Verwerfen/Statusneuladen.
+
+- **90 Tage pro Anfrage sind keine Gesamthistoriegrenze:** Bitget V3 kann
+  mehrere Jahre rückwärts paginieren. Tatsächliche Coverage prüfen; vier
+  Jahre H4 haben8.766 Kerzen und passen in10.000, ohne Grenzen aufzuweichen.
+- **Schon ausgewertete Daten sind kein unberührter Holdout:** Das alte
+  BTC-Demofenster nicht später umetikettieren. IP-046 reserviert einen
+  früheren Jahresabschnitt außerhalb des Demos vor den neuen Leistungsläufen;
+  vollständige Vierjahresquellen nicht zusätzlich als Research importieren.
+- **API-Tests benötigen die Fixture-DB:** Compose `api-checks` zeigt ohne
+  Override auf `investalo` mit001–007. Der aktuelle Gesamtsatz braucht
+  `-e PGDATABASE=investalo_credentials_checks` mit008/009; Fehlermeldungen
+  wegen fehlender Credentialfunktionen sind kein Grund, die normale DB zu
+  migrieren. IP-046 hat den anfänglich falsch zugeordneten Lauf korrigiert.
+- **SSR-Datasetoptionen haben ein Standardasset:** Das initiale Backtestformular
+  rendert BTC. ETH liegt vor Auswahl in Next-Clientprops. Der HTTP-Prüfstand
+  dekodiert nur begrenztes `self.__next_f.push`-JSON und prüft Asset/Digest/
+  Researchzweck/Herkunft exakt; keine JS-Auswertung und kein behaupteter
+  Browser-Hydrationsnachweis.
+- **Separate Forschungsaccounts sind kein Portfolio:** Je Asset10.000 USDT
+  nicht zu einer gemeinsamen Rendite addieren. Ohne terminales Zwangsflatten
+  enthält Netto-PnL offene markierte Bestände; PF/Basketzahl erfassen nur
+  abgeschlossene Baskets. Persistierte SQL-Jobstatus sind kleingeschrieben,
+  API-Projektionen großgeschrieben; Read-only-Audit nutzt `succeeded`.

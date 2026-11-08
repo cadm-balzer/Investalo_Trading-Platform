@@ -20,7 +20,8 @@ def main() -> None:
     parser.add_argument("--name", required=True)
     parser.add_argument("--import-local", action="store_true",
                         help="Import into the already bound local research tenant.")
-    parser.add_argument("--purpose", choices=("research", "test"), default="research")
+    parser.add_argument("--purpose", choices=("research", "test", "holdout"), default="research",
+                        help="holdout is operator-only; API and worker cannot evaluate it.")
     args = parser.parse_args()
     if os.geteuid() != 0 or not (ROOT / "infra/local/READY").exists():
         raise ValueError("Requires initialized local material and root.")

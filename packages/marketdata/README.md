@@ -86,3 +86,22 @@ and preserve precision from the documented string OHLC fields.
 Requests are paced below 20/sec/IP (other host users can still share that quota),
 timeouts and response sizes are bounded, redirects and blind retries are denied.
 An injected `fetch_json(url)` supports deterministic tests without networking.
+
+## Exact research windows
+
+`window_snapshot(snapshot, start=..., end=...)` selects an explicit UTC-H4
+interval only when every requested candle exists. Prices and source metadata
+are preserved; the new immutable snapshot has its own digest and exact
+coverage. A complete subwindow does not establish complete parent coverage.
+
+```bash
+PYTHONPATH=packages/marketdata/src:packages/trading/src python -m investalo_marketdata \
+  window history.json --start 2022-08-01T00:00:00Z \
+  --end 2025-08-01T00:00:00Z --output research.json
+```
+
+IP-046 verified public four-year BTC/ETH histories (8,766 H4 bars each),
+partitioned into three research years (6,576) and a reserved year (2,190).
+The 90-day provider limit applies per request, not to the total dataset.
+Only research is simulated; purpose assignment and holdout access remain
+operator/database responsibilities. See [the frozen protocol](../../docs/long-history-backtests.md).

@@ -248,3 +248,23 @@ _Add whatever helps you do your job. This is your cheat sheet._
   all testcontainers stopped, checksums normal007/fixture009 verified.
   Independent review has no blocker. Final code guards session inline after
   origin/session awaits; async assertion helpers introduce stale microtasks.
+
+## IP-046 long-history development research
+
+Protocol: `docs/research-protocols/crypto-h4-20261108.json`. Real public BTC/ETH
+source2022-08-01..2026-08-01:8,766 H4 candles each. Local ignored files:
+`infra/local/research-data/{btc,eth}-research-three-year-20261108.json`
+(6,576 bars,2022-08-01..2025-08-01) and
+`{btc,eth}-holdout-one-year-20261108.json` (2,190, reserved only).
+Root source files are in `/tmp/investalo-{btc,eth}-four-year-20261108.json`.
+Never ordinary research-import the full source or simulate the reserved year.
+
+Actual development workflow: `python3 tests/infra/check_local_auth.py
+--public-preview --snapshot-file infra/local/research-data/<research-file>`.
+Uses existing protected pilot fixtures; no password/TOTP/token output.
+Audit/replay: `python3 tests/infra/check_long_research.py` (read-only DB,
+research-only core replay, no holdoutperformance).
+Full API suite: `bash infra/scripts/compose.sh --profile checks run --rm
+--no-deps -T -e PGDATABASE=investalo_credentials_checks api-checks`.
+Do not omit the fixture DB override or migrate normalDB to repair a test.
+Public running services need no recreate for staged research data.

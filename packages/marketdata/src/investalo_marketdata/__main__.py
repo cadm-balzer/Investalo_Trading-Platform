@@ -8,6 +8,7 @@ from urllib.error import HTTPError, URLError
 
 from . import (
     MAX_BYTES, SnapshotSource, dump_snapshot, import_csv, load_snapshot, synthetic_snapshot,
+    window_snapshot,
 )
 from .bitget import BitgetHistoryAdapter
 from .snapshot import SYMBOLS, parse_time
@@ -36,6 +37,9 @@ VALIDATION_CODES = {
     "inconsistent OHLC": "OHLC_CONTRADICTION",
     "input exceeds resource bound": "INPUT_SIZE",
     "snapshot digest/coverage mismatch": "SNAPSHOT_INTEGRITY",
+    "immutable snapshot required for window": "WINDOW_INPUT",
+    "window must contain at least one H4 interval": "WINDOW_RANGE",
+    "requested window is not fully covered": "WINDOW_NOT_COVERED",
 }
 
 
@@ -86,7 +90,11 @@ def main(argv: list[str] | None = None) -> int:
     bitget.add_argument("--symbol", choices=SYMBOLS, required=True)
     bitget.add_argument("--start", type=parse_time, required=True)
     bitget.add_argument("--end", type=parse_time, required=True)
-    for command in (csv, fixture, bitget):
+    window = sub.add_parser("window", help="Select an exact fully covered UTC-H4 window")
+    window.add_argument("input", type=Path)
+    window.add_argument("--start", type=parse_time, required=True)
+    window.add_argument("--end", type=parse_time, required=True)
+    for command in (csv, fixture, bitget, window):
         command.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
     stage = "input"
@@ -104,6 +112,10 @@ def main(argv: list[str] | None = None) -> int:
             if args.start:
                 parameters["start"] = args.start
             snapshot = synthetic_snapshot(args.symbol, **parameters)
+        elif args.command == "window":
+            stage = "window"
+            snapshot = window_snapshot(load_snapshot(read_bounded(args.input)),
+                                       start=args.start, end=args.end)
         else:
             stage = "public_fetch"
             snapshot = BitgetHistoryAdapter().fetch_history(args.symbol, start=args.start, end=args.end)

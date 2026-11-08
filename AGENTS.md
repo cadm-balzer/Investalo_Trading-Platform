@@ -87,7 +87,7 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   onboarding checkpoint `69a1f8b` merged into main, verified at `56070ba`;
   step-up checkpoint `d57bd56` merged into main, verified at `b6198f7`;
   registry checkpoint `6a18102` merged into main, verified at `f422a90`;
-  current work branch: `feat/m1-credential-browser-flow`.
+  current work branch: `feat/m1-long-history-backtests`.
   Isolated AEAD core: `packages/credentials/README.md`, 20 offline tests with
   pinned cryptography and a separate hardened Compose check.
   Credential store: `services/credentials/README.md`; migration003 and current
@@ -344,6 +344,33 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   Real provider/key operation, Next/device acceptance, quotas/worker routing,
   reconciliation/recovery and real broker/egress remain open.
   See `docs/credential-browser-flow.md`.
+- User confirmed IP-045 merged; checkpoint0a0751b is ancestor of main073c474
+  (verified). The user explicitly asks to prioritize the actual trading and
+  backtesting system. Continue IP-011/012/013 with multi-year BTC/ETH research
+  and then Paper; defer further credential runtime activation. Public-data
+  backtests need no private keys. IP-046 technical protocol is recorded before
+  performance: fetch2022-08-01..2026-08-01, research first3y, reserve last1y
+  solely as holdout. These explicit checkpoint windows are not an approved
+  economic validation split or altered strategy. Previously evaluated90-day
+  BTC demo is excluded; no ordinary holdout job/worker access.
+  See `docs/long-history-backtests.md`.
+
+
+- IP-046 complete: public BTC/ETH sources8766 H4 bars each, research6576 and
+  reserved holdout2190, all gap-free. Exact immutable window CLI; operator
+  holdout staging uses existing administrative rights, no new API/SQL grant.
+  Both actual public-development research jobs succeeded and their net metrics
+  match deterministic core replay exactly. Only research simulated; read-only
+  audit confirms four window datasets, no full source import, zero holdoutjobs.
+  66 pinned core tests/33 subtests,5 metadata fixturetests,572 API/worker and
+  48 actual HTTPS checks per asset passed; independent review has no blocker.
+  NormalDB007/fixture009 immutable; public six services unchanged/TLS200.
+  Full api-checks MUST use -e PGDATABASE=investalo_credentials_checks, because
+  its default normalDB lacks008; never migrate normalDB to repair tests.
+  ETH HTTP fixture reads bounded pinned Next JSON clientprops, not browser
+  hydration. Economic validation/costcalibration remain open. Next is IP-047:
+  persistent simulated paper orders/fills/risk/journal, same core, no keys/live.
+  Frozen protocol: docs/research-protocols/crypto-h4-20261108.json.
 
 ## Trading and implementation invariants
 
