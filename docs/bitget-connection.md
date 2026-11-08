@@ -79,6 +79,11 @@ eigenen Schlüsseldateien vom administrativen Fixturechecker. Echte Keytriples
 werden vor008-Verbrauch abgewiesen; der Broker bleibt synthetisch.
 [Dienst und Betriebsgrenzen](credential-development-service.md).
 
+IP-044 verwendet im getrennten synthetischen Dienst den gepinnten ASGI-Stack.
+Der HTTP-Parser erhält Bytes erst nach Peerpin und strikter Rawheaderprüfung;
+Disconnects erlauben weder unbeschränkte Arbeitsqueues noch Writewiederholungen.
+[ASGI-Transport](credential-asgi-transport.md).
+
 | Modus | Schlüsselrechte und Plattformfunktion |
 |---|---|
 | M1 lesendes Realkonto | Ausschließlich bekannte Leserechte; Kontoinfo und getrennte Walletdaten |

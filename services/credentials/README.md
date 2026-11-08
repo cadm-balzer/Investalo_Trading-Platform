@@ -248,6 +248,14 @@ exists. Administrative fixture credentials and the BFF client private key
 are absent from this container. This remains a development server/provider.
 [Service boundary and validation](../../docs/credential-development-service.md).
 
+IP-044 changes only this synthetic launcher's HTTP engine to `private_asgi`,
+using the existing Uvicorn0.54.0/h11 pins. Controlled accepted sockets bound
+TLS before parsing, with mandatory peer pin and a raw-header guard before h11
+normalization. Executor work remains independently bounded until its actual
+future finishes, including after socket disconnect. No blind retry, real
+credential intake, provider or production activation is added.
+[ASGI contract and upgrade coupling](../../docs/credential-asgi-transport.md).
+
 `keyfiles.DevelopmentKeyFileProvider` requires explicit `development_mode=True`.
 Trusted server configuration fixes directory, `KeyFile(version_id, basename,
 sha256_fingerprint)` entries and active version. The directory must be owned by

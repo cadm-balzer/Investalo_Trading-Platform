@@ -682,3 +682,34 @@ bleiben eigene Arbeit; öffentliche Dienste und Flags werden nicht aktiviert.
 [Dienstgrenze](../credential-development-service.md),
 [Docker Compose Services](https://docs.docker.com/reference/compose-file/services/),
 [PostgreSQL Verbindungsparameter](https://www.postgresql.org/docs/18/libpq-connect.html#LIBPQ-PARAMKEYWORDS).
+
+## 2026-11-08 — D-049: Kontrollierte Socketübergabe an den gepinnten ASGI-Stack
+
+**Status: lokal implementiert und geprüft.** Nutzer bestätigt Merge `998bb90`;
+Main `9f2a9a5` verifiziert und Fortsetzung beauftragt. IP-044 übernimmt
+Uvicorn 0.54.0/h11 0.16.0 aus den vorhandenen API-Pins für den isolierten
+synthetischen Credentialdienst. Keine neue Version oder CI-Werkzeuge.
+
+Ein kontrollierter Listener begrenzt Verbindungen einschließlich Handshakes
+und übergibt Sockets über dokumentiertes asyncio an das gepinnte Protokoll.
+Peerfingerprint vor Parser, absolute Frist seit Accept und Rawheader-Guard
+vor h11-Normalisierung. Kein kopierter Uvicorn-Serverlebenszyklus.
+Die Protokoll-/ServerState-Anbindung bleibt versionsspezifisch und benötigt
+bei Upgrades echte TLS-/Framing-/Kapazitätsprüfungen.
+
+Verbindungen und laufende Credentialarbeit getrennt begrenzen. Timeout oder
+Disconnect können einen Socket schließen, während ein Commit weiterläuft;
+Arbeitsslots erst nach tatsächlichem Worker-Future-Ende freigeben. Ein begrenzter
+Threadpool allein verhindert keine unbegrenzte Queue. Keine Wiederholung
+oder nachträgliches Failureaudit über unbekanntem Commit.
+
+Launcher, synthetische Guard, Dateiprovider, feste DB-Rolle und unveränderte
+Freigabe-/AEAD-Verträge bleiben erhalten. Keine Migration, echte Schlüssel,
+Broker-/öffentliche Aktivierung oder Produktionsabnahme.
+419 gepinnte Credentialtests/52 Subtests und451 tatsächliche Dienstprüfpunkte
+bestanden; beide Pythonbuilds und unabhängiger Review grün. Alle aktuellen
+Migrationsprüfsummen normal007/Fixture009 unverändert; Testcontainer beendet,
+öffentliche Dienste gesund und reguläres TLS HTTP200.
+[ASGI-Vertrag](../credential-asgi-transport.md),
+[Python Socketübergabe](https://docs.python.org/3.14/library/asyncio-eventloop.html#asyncio.loop.connect_accepted_socket),
+[ASGI TLS-Erweiterung](https://asgi.readthedocs.io/en/latest/specs/tls.html).

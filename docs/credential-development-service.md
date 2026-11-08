@@ -99,6 +99,11 @@ bleiben vor echter Kontoverbindung offen. Python empfiehlt `http.server`
 ausdrücklich nicht für Produktion. Öffentliche Aktivierung, Produktion und
 Echtgeld behalten ihre gesonderten Freigaben.
 
+IP-044 ersetzt den HTTP-Unterbau dieses Diensts durch den vorhandenen
+gepinnten ASGI-Stack. Die oben dokumentierte IP-043-Abnahme bleibt historischer
+Prüfbeleg; aktuelle Fristen-, Kapazitäts- und Upgradegrenzen stehen im
+[ASGI-Vertrag](credential-asgi-transport.md).
+
 Offizielle Grundlagen:
 [Python Servergrenzen](https://docs.python.org/3.14/library/http.server.html),
 [PostgreSQL Verbindungsparameter](https://www.postgresql.org/docs/18/libpq-connect.html#LIBPQ-PARAMKEYWORDS),

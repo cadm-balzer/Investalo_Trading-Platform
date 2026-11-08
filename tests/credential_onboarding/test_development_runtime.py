@@ -143,7 +143,7 @@ class RuntimeTests(unittest.TestCase):
 
     def test_explicit_development_flag_required_before_private_reads_or_listen(self):
         with patch.object(runtime, "_read") as read, \
-             patch.object(runtime, "create_private_https_server") as server, \
+             patch.object(runtime, "create_private_asgi_server") as server, \
              patch.object(runtime.psycopg, "connect") as connect, \
              patch("sys.stderr", new_callable=io.StringIO) as stderr:
             for value in (False, None, 1, "true"):
@@ -433,7 +433,7 @@ class RuntimeTests(unittest.TestCase):
         canary = "private password/config canary"
         with patch.object(runtime.os, "geteuid", return_value=runtime.OWNER_UID), \
              patch.object(runtime, "create_application", side_effect=ValueError(canary)), \
-             patch.object(runtime, "create_private_https_server") as server, \
+             patch.object(runtime, "create_private_asgi_server") as server, \
              patch("sys.stderr", new_callable=io.StringIO) as stderr:
             self.assertEqual(runtime.main(["--development"]), 1)
             server.assert_not_called()
@@ -449,7 +449,7 @@ class RuntimeTests(unittest.TestCase):
              patch.object(runtime, "create_application",
                           side_effect=lambda *_args, **_: ordering.append("application") or app), \
              patch.object(runtime, "_tls_context", side_effect=lambda: ordering.append("tls") or tls), \
-             patch.object(runtime, "create_private_https_server",
+             patch.object(runtime, "create_private_asgi_server",
                           side_effect=lambda *_args, **_: ordering.append("bind") or server) as bind:
             self.assertEqual(runtime.main(["--development"]), 0)
             self.assertEqual(ordering, ["config", "application", "tls", "bind"])
@@ -469,7 +469,7 @@ class RuntimeTests(unittest.TestCase):
         server.server_close.side_effect = ValueError("sensitive close canary")
         with patch.object(runtime.os, "geteuid", return_value=runtime.OWNER_UID), \
              patch.object(runtime, "create_application"), patch.object(runtime, "_tls_context"), \
-             patch.object(runtime, "create_private_https_server", return_value=server), \
+             patch.object(runtime, "create_private_asgi_server", return_value=server), \
              patch("sys.stderr", new_callable=io.StringIO) as stderr:
             self.assertEqual(runtime.main(["--development"]), 1)
             self.assertEqual(stderr.getvalue(), runtime.STARTUP_ERROR + "\n")

@@ -82,6 +82,12 @@ Ein geeigneter Produktionsserver, isolierter Launcher, externe Schlüsselgrenze,
 provisionierte Signatur-/Transportidentitäten, Quoten/Egress, Recovery und
 physische Browserabnahme bleiben vor echter Keyannahme offen.
 
+IP-043 konkretisiert den [getrennten synthetischen Dienst](credential-development-service.md);
+IP-044 verwendet darin den [gepinnten ASGI-Unterbau](credential-asgi-transport.md).
+Der obige stdlib-Adapter bleibt für historische isolierte Prüfungen verfügbar.
+Der Drahtvertrag bleibt erhalten; Betriebsprovider und echte Keyannahme werden
+dadurch nicht freigegeben.
+
 Offizielle Grundlagen: [Python HTTP-Server](https://docs.python.org/3.14/library/http.server.html),
 [Python TLS](https://docs.python.org/3.14/library/ssl.html) und
 [Node HTTPS](https://nodejs.org/api/https.html).
