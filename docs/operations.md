@@ -58,15 +58,26 @@ Testsecrets, synthetischer P256-Registrierung/Ticketattestierung und Fixture-DB.
 Neun Prüfungen mit ausgeschalteter Vorschau bestätigten ausbleibende Faktor-/
 Nachweismutationen. Öffentliche Aktivierung, reale Geräte-/E-Mail-Abnahme und
 Credentialintegration folgen separat. [Prüfablauf](passkey-browser-proof.md).
-IP-038 ergänzt ausschließlich den isolierten Passkey-Credentialassertionvertrag.
-Es gibt keinen dauerhaften Aussteller/Consumer, DB-Write oder neue Migration
-und keinen HTTP-/Transport-/Schlüsselproviderwechsel. Bestehende Runtime- und
+IP-038 ergänzt den isolierten Passkey-Credentialassertionvertrag.
+Er hat keinen HTTP-/Transport-/Schlüsselprovideranschluss. Bestehende Runtime- und
 Compose-Dienste bleiben unverändert; das neue optionale Offlineprüfprofil
 `credential-assertion-checks` hat kein Netzwerk, Secrets oder DB-Abhängigkeiten.
 Signaturprüfung
 ist kein Replayverbrauch; vor späterer Probe sind zweckgebundene dauerhafte
 Freigabe und Abgleich bei unbekanntem Commit erforderlich.
 [Integrationsgrenzen](passkey-credential-assertions.md).
+IP-039 ergänzt additive008 und den privaten Consume-/Lockclient. Nach geprüftem,
+vollständig zurückgerolltem DDL-/Runtime-Prepare-Preflight ist008 ausschließlich
+in `investalo_credentials_checks` angewendet; `investalo` bleibt001–007.
+Gepinnte Migrate-/Storage-/API-Prüfbuilds und 461 erneut ausgeführte tatsächliche
+API-/Workerchecks sowie 271 Credentialtests (157 tatsächliche PostgreSQL-Fälle)
+bestanden.008 ist in der Fixture-DB checksumgeschützt und immutable.
+Die sechs öffentlichen Container bleiben unverändert und gesund;
+öffentlicher HTTPS-Lesecheck200 mit regulärer TLS-Prüfung bestanden,
+Nachweisflag weiterhin aus. Ein unbekannter Consumecommit liefert keinen
+Handle; vor erneutem Versuch autoritativen Zustand abgleichen. Der getrennte
+finale Lock führt selbst keine Credentialmutation oder Brokerprobe aus.
+[Dauerhafte Autorisierung](passkey-credential-authorizations.md).
 
 Deploymentablauf: geprüfter Code/Lockstand → Build/Artefakt →
 relevante Tests → verschlüsselte Sicherung → Migration mit Rückfallplanung →

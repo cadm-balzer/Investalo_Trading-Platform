@@ -546,3 +546,28 @@ Prüfimage ohne Netzwerk/Secrets/Mounts/DB; bestehende Dienste bleiben unveränd
 [Vertrag/Gates](../passkey-credential-assertions.md),
 [RFC8725 §3.12](https://www.rfc-editor.org/rfc/rfc8725.html#section-3.12),
 [OWASP Transaction Authorization](https://cheatsheetseries.owasp.org/cheatsheets/Transaction_Authorization_Cheat_Sheet.html).
+
+## 2026-11-08 — D-044: Dauerhafte Zweckfreigabe vor separater Credentialausführung
+
+Nutzer bestätigt Merge8bb64db/Main13ba2e2 und erneut autonome lokale Befehle.
+IP-039 ergänzt008 auf eigenem Featurebranch. Zweck, Origin und Bodydigest werden
+bereits bei Vorbereitung atomar mit007 eingefroren. Eine ausdrückliche
+Credentialzustimmung bestätigt den noch lebenden Grant und stellt einen
+eigenen Receipt aus; eine007-Funktionsbestätigung wird nicht nachgerüstet.
+
+Der private Pythonclient prüft den30-Claim-Vertrag vor DB-Zugriff.008 konsumiert
+die eigene Freigabe global einmalig, bevor ein späterer Probeexecutor starten
+darf. Erst ein bestätigter Commit erzeugt den privaten Handle. Eine andere
+Transaktion prüft dieselben Claims sowie aktuellen Actor/SESSION_USER/Epoch/
+Reauth, Faktor, Metadaten/CAS und Fristen unter geordneten Sperren erneut.
+Ihr erfolgreicher Lockcommit ist terminal. SQL vertraut der Python-/BFF-
+Signaturprüfung; keine universelle MFA-Garantie für direkte003-Primitive.
+Unbekannte Commits werden nicht automatisch wiederholt.
+
+008 zunächst nur Fixture-DB; investalo001–007 und öffentliche Dienste bleiben
+unverändert. Keine HTTProute, Brokerprobe, echte Keyeingabe oder003/004-Ausführung.
+Vorprüfung mit vollständigem Rollback prüft DDL und echte Runtimevorbereitung,
+bevor der neue Checksum in der Fixture-DB festgeschrieben wird. Frühere
+Migrationen bleiben immutable. [Zweckgrenze/Prüfbelege](../passkey-credential-authorizations.md),
+[PG18-Sperren](https://www.postgresql.org/docs/18/explicit-locking.html),
+[PG18-Definerfunktionen](https://www.postgresql.org/docs/18/sql-createfunction.html#SQL-CREATEFUNCTION-SECURITY).

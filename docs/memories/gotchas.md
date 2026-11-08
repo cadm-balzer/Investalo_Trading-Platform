@@ -329,3 +329,17 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   UTF8-Bytes einschließlich Whitespace hashen, Größen in Byte messen und
   Secrets nicht Unicode-normalisieren. Metadatendigest gehört zur späteren
   DB-Autorität; nicht sprachabhängig aus JSON neu ableiten.
+- **Neue Migration vor Festschreibung:** PL/pgSQL akzeptiert nicht jede
+  unparenthesierte CASE-Bedingung in IF.008-Vorprüfung fand dies vor Anwendung;
+  Korrektur vollständig zurückgerollt geprüft. DDL und echte Runtimevorbereitung
+  vor dem ersten Checksum-Eintrag prüfen, angewendete Migration nie nachträglich
+  ändern. Fixture-DB008 bedeutet nicht, dass investalo008 besitzt.
+- **Zweckreceipt und007-Zeit:**007 erlaubt bis fünf Sekunden Future-Checkskew,
+  IP038 verlangt checked_at<=authorized_at<=now.008 muss vor und nach Bestätigung
+  monotone aktuelle Zeiten prüfen und ungültige Ausstellung atomar zurückrollen.
+  Authorization-/Proof-/Grant-IDs paarweise verschieden halten.
+- **Consume und finaler Lock:** Frisches JWT/JTI erzeugt keine zweite Freigabe.
+  Consume muss vor Probe committed sein; finaler Lock darf nicht in derselben
+  Transaktion oder mit anderen Claims erfolgen. Terminalen Lockcommit nicht
+  wiederverwenden, unbekannten Commit abgleichen. Der aktuelle Client besitzt
+  keinen Executor; späteren Write und Audit an dieselbe Locktransaktion binden.

@@ -284,7 +284,8 @@ Die Bestätigung der007-Prüfseite ist keine Schreibfreigabe.
 [Vertrag/Gates](../docs/passkey-credential-assertions.md).
 
 Das explizite Profil `credential-assertion-checks` verwendet das vorhandene
-gepinnt gebaute Storage-Prüfimage, aber nur die77 Offline-Onboardingtests.
+gepinnt gebaute Storage-Prüfimage, aber nur Offline-Onboardingtests
+(77 in IP-038, inzwischen95 mit IP-039).
 Es läuft als UID10003 mit schreibgeschütztem Dateisystem, ohne Netzwerk,
 Secrets, Mounts, Ports oder DB-Abhängigkeiten. Die bestehenden Dienste/
 Prüfprofile bleiben unverändert. Builds auf dem kleinen Host nacheinander:
@@ -314,6 +315,43 @@ Geprüft:333 Cockpittests,77 Offline-Onboardingtests auch im gepinnten
 Python3.14.10-Container,109 Interopprüfpunkte, Typecheck und gepinnter
 Cockpitbuild; unabhängiger Review ohne Blocker. Öffentliche Dienste unverändert/
 gesund und HTTPS200. Frühere461/120/99 Integrationsprüfungen nicht erneut ausgeführt.
+
+## Dauerhafte Passkey-Credentialfreigabe
+
+IP-039 ergänzt008 mit eigenem Zweck ab Vorbereitung, ausdrücklicher Zustimmung,
+globalem Einmalverbrauch und erneuter aktueller Bindungsprüfung in einer
+separaten finalen Transaktion. Der private Pythonclient verbindet den
+IP-038-Verifier mit diesen Funktionen. Kein HTTP-/Broker-/Credentialexecutor;
+öffentliche Vorschau und Nachweisflag bleiben unverändert.
+[Ablauf und Grenzen](../docs/passkey-credential-authorizations.md).
+
+008 wurde nach vollständig zurückgerollter DDL-/Runtime-Vorprüfung
+ausschließlich in `investalo_credentials_checks` angewendet. Der Checksum ist
+`9328008652ad697a306093301d9488fe3e0b184a3ffd8333f7beda5924712c57`.
+Die laufende Entwicklung nutzt weiterhin investalo001–007. Nicht ohne eigene
+Integration/Abnahme den Defaultmigrator oder `up` ausführen.
+
+```bash
+sudo bash infra/scripts/compose.sh --profile tools --profile checks \
+  build migrate credential-storage-checks api-checks
+sudo bash infra/scripts/compose.sh --profile tools run --rm --no-deps -T \
+  -e PGDATABASE=investalo_credentials_checks migrate
+sudo bash infra/scripts/compose.sh --profile checks run --rm --no-deps -T \
+  credential-storage-checks
+sudo bash infra/scripts/compose.sh --profile checks run --rm --no-deps -T \
+  -e PGDATABASE=investalo_credentials_checks api-checks
+```
+
+Die Credential-Suite umfasst19 Client-,95 Offline-Onboarding- und157 tatsächliche
+PG-Fälle; davon97 neue008-Fälle. Nur synthetische Receipts, Keys und Fixtures.
+SQL vertraut dem verpflichtenden privaten JWT-Verifier und BFF-WebAuthnverdict.
+Der administrative Checkcontainer besitzt Fixture-/Migrationscredentials,
+der spätere Betriebsdienst darf sie nicht erhalten. Diese Suiten nacheinander
+ausführen: dedizierte Fixture-Rollenbindungen werden je Fall neu gesetzt.
+Angewendete001–008 und terminale Audit-/Zweckzeilen bleiben unveränderlich.
+Abnahme IP-039: alle271 Credentialtests und461 API-/Workertests bestanden;
+gepinntes Migrate-/Credential-/API-Checkbuild und unabhängiger Review ohne
+Blocker. Öffentliche sechs Dienste unverändert/gesund, reguläres TLS HTTPS200.
 
 ## Passkey-Enrollment und Widerruf
 

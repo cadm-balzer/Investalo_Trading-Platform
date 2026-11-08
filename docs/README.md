@@ -17,7 +17,8 @@
 | [passkey-step-up.md](passkey-step-up.md) | Bestätigter Zusatzfaktor, Authelia-Faktorfrischebefund und Aktivierungsgates |
 | [passkey-action-proofs.md](passkey-action-proofs.md) | Dauerhafter zielgebundener Nachweis, Vorschau-Bestätigung und getrennte OIDC-Claims |
 | [passkey-browser-proof.md](passkey-browser-proof.md) | Ausdrücklich aktivierbare Browservorschau, vollständiger synthetischer BFF-Ablauf und Geräte-/Credentialgates |
-| [passkey-credential-assertions.md](passkey-credential-assertions.md) | Isolierter TS-/Python-Assertionvertrag, zweckgebundene Freigabe und noch fehlender dauerhafter Einmalverbrauch |
+| [passkey-credential-assertions.md](passkey-credential-assertions.md) | Isolierter TS-/Python-Assertionvertrag, ursprüngliche OIDC-Zeit und getrennte Passkey-/Autorisierungszeit |
+| [passkey-credential-authorizations.md](passkey-credential-authorizations.md) | Geprüfte additive008 in der Fixture-DB, ausdrückliche Zweckfreigabe, globaler Einmalverbrauch und getrennte finale Locks |
 | [inventory.md](inventory.md) | Host und Wiederverwendung der Referenzsysteme |
 | [roadmap.md](roadmap.md) | Phasen, Abhängigkeiten und Abnahme |
 | [tasks/board.md](tasks/board.md) | Git-basiertes Ticketsystem |

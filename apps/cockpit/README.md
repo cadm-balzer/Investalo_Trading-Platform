@@ -147,14 +147,26 @@ Audience `investalo-credentials-passkey` und Kind
 `passkey-credential-authorization/1`. Er bindet eine gesonderte zweckgebundene
 Freigabe an ursprüngliche OIDC-Sitzung, frische Passkeyzeit, Ziel/CAS, unveränderte
 Bodybytes und Metadatendigest. Die bestehende007-Bestätigung kann keinen solchen
-Token erzeugen. Dauerhafter Aussteller/Einmalverbrauch und Credentialroute fehlen;
-alter Signer und004 bleiben unverändert.
+Token erzeugen. Der Signer bleibt ein isoliertes Primitive; alter Signer und004
+bleiben unverändert.
 IP-038: 333 Cockpittests bestanden (265 aus IP-037 plus 68 neue), ebenso Typecheck;
 109 tatsächliche Offline-Interopprüfungen verbinden TS/Jose mit Python.
 Gepinnter Cockpitbuild bestanden. Die 99 isolierten HTTPS-Prüfpunkte aus
 IP-037 wurden nicht erneut ausgeführt; öffentliche Vorschau bleibt unverändert
 und das Nachweisflag aus.
 [Vertrag und Integrationsgates](../../docs/passkey-credential-assertions.md).
+
+IP-039 ergänzt die dauerhafte Autorisierungsgrenze008 außerhalb des Cockpits:
+Zweck und Bodyhash werden bei Prepare eingefroren; erst eine ausdrückliche
+Credentialzustimmung kann den noch erteilten007-Grant autorisieren.
+Die bestehende Proof-only-Bestätigung wird nicht nachträglich umgedeutet.
+Geprüfte008 nur in der Fixture-DB angewendet; 271 Credentialtests mit 157
+tatsächlichen PostgreSQL-Fällen bestanden. Cockpit/TS-Signer bleiben unverändert;
+die 333 Cockpit-/109 Interopprüfungen stammen aus IP-038 und wurden für IP-039
+nicht erneut ausgeführt. Keine neue Browserroute oder Verbindung zur
+Credentialausführung;
+öffentliche Vorschau und ausgeschaltetes Nachweisflag
+bleiben erhalten. [Vertrag](../../docs/passkey-credential-authorizations.md).
 
 ## Forschungsaufträge und Ergebnisse
 

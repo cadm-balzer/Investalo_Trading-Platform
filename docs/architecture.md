@@ -25,8 +25,14 @@ Standard- und öffentliches Composeprofil lassen sie ausgeschaltet. Ergebnis:
 IP-038 ergänzt einen isolierten TS-/Python-Credentialassertionvertrag mit eigener
 Audience und zweckgebundener Freigabe. Er erhält ursprüngliche OIDC-Zeit und
 trennt Passkey-/Freigabezeit;007-Bestätigung,004 und HTTP-Ausführung bleiben
-unverändert. Dauerhafter Aussteller/Einmalverbrauch benötigen eine eigene
-additive Integration. [Vertrag](passkey-credential-assertions.md).
+unverändert. [Assertionvertrag](passkey-credential-assertions.md).
+IP-039 ergänzt additive008: Zweck und Bodyhash bei Prepare einfrieren,
+ausdrücklich aus einem noch erteilten007-Grant autorisieren, Freigabe/Proof global
+einmalig konsumieren und aktuelle Bindungen in einer getrennten finalen
+Transaktion sperren/prüfen. Der private Pythonclient hat keinen Credentialwriter
+oder HTTP-/Brokeranschluss. Geprüfte008 ist nur in der Fixture-DB angewendet,
+`investalo` bleibt001–007; die tatsächliche PostgreSQL-Lifecycleprüfung bestand.
+[Autorisierungsgrenze](passkey-credential-authorizations.md).
 
 ## Systemgrenzen
 

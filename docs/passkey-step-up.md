@@ -18,8 +18,14 @@ Nur `COCKPIT_PASSKEY_PROOF_PREVIEW=1` schaltet diese frei; Standard- und
 `execution_enabled:false`;003/004 werden nicht für Kontoänderungen freigegeben.
 IP-038 ergänzt den isolierten [Credentialassertionvertrag](passkey-credential-assertions.md).
 Er verlangt eine gesonderte zweckgebundene Freigabe; die bestehende007-
-Bestätigung kann diese nicht erzeugen. Dauerhafter Aussteller/Einmalverbrauch
-und die Credentialintegration bleiben offen.
+Bestätigung kann diese nicht erzeugen. IP-039 ergänzt die separate008-
+[Autorisierungsgrenze](passkey-credential-authorizations.md): Zweck beim Prepare
+einfrieren, ausdrücklich aus einem noch erteilten007-Grant autorisieren,
+global einmalig konsumieren und vor künftiger Mutation in einer getrennten
+Transaktion erneut prüfen. Geprüfte008 ist nur in der Fixture-DB angewendet;
+die tatsächliche PostgreSQL-Lifecycleprüfung bestand. Credentialwriter-
+Integration, physische Geräte-/E-Mail-Abnahme und öffentliche Aktivierung bleiben offen.
+Keine neue Browser- oder Produktionsaktivierung.
 
 ## Warum ein zusätzlicher Nachweis nötig ist
 

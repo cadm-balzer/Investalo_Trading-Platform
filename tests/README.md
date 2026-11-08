@@ -30,11 +30,14 @@ Das lokale Fundament besitzt ausführbare Tests:
   oder Secrets; kein externer Vault-/Backup-/Restorebeleg.
 - `tests/credential_store`: 19 Clienttests für aktuelle DB-Bindung, frische
   Transaktionen, Versionskonflikte, Rotation, Widerruf und Fehlerredaktion.
-- `tests/credential_onboarding`: 77 Offline-Tests für gesonderte Actionassertions,
+- `tests/credential_onboarding`: 95 Offline-Tests für gesonderte Actionassertions,
   Ziel-/Body-/MFA-Zeitbindung, strikten Triplecodec und Entwicklungsdateiprovider.
   IP-038 ergänzt36 Fälle für den getrennten Passkeyvertrag: unveränderte OIDC-
   Zeit, frische Passkey-/Freigabezeit, exakter Zweck, Actor/Sitzung/Ziel/CAS/Body,
   strikte JSON-/UTF8-/Integergrenzen und Ablehnung des alten Vertrags.
+  IP-039 ergänzt18 Clientfälle für bestätigten Consumecommit, Bindungs-/Rollen-
+  prüfung, dieselben Claims in separater finaler Transaktion, Fehlerredaktion,
+  unbekannte Commits und fehlende automatische Wiederholungen.
   Diese synthetischen Freigaben beweisen keinen echten BFF-Schrittflow.
 - `tests/credentials_storage`: 60 tatsächliche PostgreSQL-Fälle in
   `investalo_credentials_checks`: 18 Storefälle, 30 Actionautorisierungsfälle
@@ -44,6 +47,13 @@ Das lokale Fundament besitzt ausführbare Tests:
   gesperrte/abgelaufene Freigaben, Recoveryepoch, veränderte UID/Parent/IP/Rechte
   und konkurrierende Speicherversionen sind abgedeckt. Insgesamt 120 Tests im
   Credential-Storage-Checkcontainer bestanden; kein echter Brokerkontakt.
+- `tests/credentials_storage/test_passkey_authorization_{flow,postgres}.py`:
+  IP-039 ergänzt97 tatsächliche PostgreSQL-Fälle:92 Lifecycle-/Scope-/Schema-/
+  Replay-/Sperr-/Zeit-/Auditfälle und fünf private Clientdurchläufe.
+  Alle drei Aktionen mit echten008-Receipts und synthetischem HS256 geprüft;
+  der WebAuthnverdict bleibt synthetisch. Keine Broker-/HTTP-/Credentialausführung.
+  Ein003-Registrierungsversuch prüft die Kontosperre in einem zurückgerollten
+  Savepoint; der gespeicherte Kontostand wird dabei nicht verändert.
 - `tests/workers`: gemeinsamer Simulatorkern, Provenienz und Lease-/Fencing-
   Negativfälle mit eigener tatsächlicher Research-Testrolle.
 - `apps/cockpit/tests`: OIDC-Token/Freshness, Cookies/Sitzungen, CSRF,
@@ -128,8 +138,15 @@ Browser-/Geräte-Erstregistrierung, öffentliche Aktivierung, Credentialintegrat
 Recovery, Broker-Crashfälle und verschlüsselter externer Restore sind offen.
 Die461 API-/Worker- und120 Credentialtests stammen aus IP-036; IP-037 änderte
 weder SQL/API noch diese Prüfungen und hat sie nicht erneut gezählt.
-IP-038 prüft den isolierten Vertrag mit333 Cockpittests,77 Offline-Onboardingtests
+IP-038 prüfte den isolierten Vertrag mit333 Cockpittests,77 Offline-Onboardingtests
 und109 Interopprüfpunkten; historische PG-/HTTPS-Belege wurden nicht erneut
 ausgeführt. Der neue Offlinecontainer besitzt keine Secrets oder DB-Anbindung.
 Reproduktion: [isolierter Vertrag](../infra/README.md#isolierter-passkey-credential-vertrag).
+IP-039 ergänzt dauerhafte Zweckfreigaben in008 und einen privaten Consume-/Lock-
+Client. Migration nur in der Fixture-DB, investalo bleibt001–007.
+Aktuelle Abnahme:271 Credentialtests (19 Client,95 Offline,157 tatsächliche PG;
+97 neue PG) und erneut461 API-/Workertests bestanden, ebenso gepinnte
+Migrate-/Credential-/API-Prüfbuilds. Kein neuer Cockpitlauf:333/109 bleiben
+historische IP-038-Belege. Öffentliche Dienste unverändert/gesund/TLS200.
+Neue Prüfanleitung: [dauerhafte Freigabe](../infra/README.md#dauerhafte-passkey-credentialfreigabe).
 Abnahmekriterien: [Roadmap](../docs/roadmap.md), [Ticketboard](../docs/tasks/board.md).

@@ -34,10 +34,19 @@ Der isolierte IP-038-Assertionvertrag bindet eine gesonderte zweckgebundene
 Freigabe an Actor, ursprüngliche OIDC-Sitzung, frische Passkeyzeit, Ziel/CAS,
 unveränderte Bodybytes und eingefrorenen Metadatendigest. Eigene Audience/Kind
 trennen ihn vom alten Signer;007-Confirm erteilt diese Freigabe nicht.
-Signieren/Prüfen ist wiederholbar und liefert keinen Einmalverbrauch. Ein
-künftiger dauerhafter Consumer muss Freigabe/Proof vor der Probe global
-konsumieren und aktuelle Autorität bei Beginn und Schreiben erneut prüfen.
+Signieren/Prüfen ist wiederholbar und liefert keinen Einmalverbrauch.
 [Vertrag und fehlende Ausführung](passkey-credential-assertions.md).
+IP-039 ergänzt die dauerhafte008-Grenze mit bei Prepare eingefrorenem Zweck,
+ausdrücklicher Autorisierung eines noch erteilten007-Grants und globalem
+Einmalverbrauch vor einer künftigen Probe. Ein separater finaler Lock prüft
+ursprüngliche OIDC-Sitzung, Actor/Epoch/Reauth, Faktor, Metadaten/CAS und Fristen
+erneut. Die bestehende007-Funktionsbestätigung bleibt ohne Credentialzustimmung.
+SQL vertraut dem obligatorischen privaten Pythonverifier und BFF-Kryptoverdict;
+008-DDL und tatsächliches Runtime-Prepare bestanden einen vollständig
+zurückgerollten Preflight;008 ist nur in der Fixture-DB angewendet. Die 157 tatsächlichen
+PostgreSQL-Fälle einschließlich 97 neuer008-Fälle prüfen die Grenze;
+HTTP, Broker und Credentialwriter fehlen.
+[Autorisierungsgrenze](passkey-credential-authorizations.md).
 
 ## Bedrohungen und Kontrollen
 
