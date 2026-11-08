@@ -145,14 +145,36 @@ port 443. Key/secret/passphrase limits are 256/1024/256 UTF-8 bytes; CAS values
 require strict integer wire lexemes. JWT validity is at most 60 seconds and never
 extends beyond passkey freshness of 120 seconds, the original session or the receipt.
 
-Signing and verification are repeatable authentication primitives. There is no
-durable receipt issuer or consumer, database write, new migration, HTTP route or
-transport. Existing007 proof-only confirmations cannot mint this token kind.
-A future additive008 must commit global purpose-bound authorization/proof
-consumption before probing, recheck original OIDC/epoch/reauth, factor and current
-metadata/CAS at begin and final write, and obtain separate credential consent.
-It must never import that consent from a proof-only confirmation.
+Signing and verification remain repeatable authentication primitives without
+persistence or execution. Existing007 proof-only confirmations cannot mint this
+token kind. IP-039 adds the separate durable boundary below; the signer/verifier
+and legacy003/004 contracts remain unchanged.
 [Contract and remaining gates](../../docs/passkey-credential-assertions.md).
+
+## Durable purpose authorization boundary (IP-039)
+
+Additive008 freezes credential purpose and raw-body/metadata digests at prepare,
+then requires explicit authorization from a still-granted007 proof.
+An already confirmed proof-only receipt cannot be converted into credential
+consent. The private receipt matches the IP-038 contract, including immutable
+actor/session/original OIDC, factor, Origin/RP and exact target/CAS.
+
+`passkey_authorization.PasskeyAuthorizationClient` requires the private Python
+verifier before DB access and a dedicated SESSION_USER-bound credential LOGIN.
+`consume` returns a private handle only after acknowledged global one-use
+authorization/proof consumption commits. `lock` uses that same handle in a
+separate transaction and rechecks current authority, factor, metadata/CAS and
+time for a future final write. A successful final-lock commit is terminal;
+rechecking within that same final transaction is allowed. Unknown commits return
+no handle and are never retried automatically. SQL trusts the mandatory verifier and trusted BFF
+cryptographic verdict; it does not verify signatures itself.
+
+Reviewed008 DDL and actual runtime prepare passed in a fully rolled-back
+preflight.008 is applied only to `investalo_credentials_checks`;
+`investalo` remains001–007; applied008 is checksum-protected and immutable.
+This client supplies no003/004 executor, credential mutation, broker transport or
+HTTP route. Final mutation/completion integration remains separate.
+[Contract and acceptance gates](../../docs/passkey-credential-authorizations.md).
 
 ## Development file provider
 
@@ -192,5 +214,13 @@ whitespace, short expiry, safe-integer boundaries and rejection across the
 legacy/new audiences. These do not exercise a durable DB consumer or broker.
 All77 offline tests also passed in the pinned Python3.14.10 checkcontainer,
 with no network, secrets, mounts, ports or DB dependencies.
-The historical120 credential regression cases and461 API/worker cases were
+During IP-038, the historical 120 credential and 461 API/worker cases were
 not rerun.
+
+IP-039: 271 credential tests passed: 19 client, 95 offline onboarding (18 new client
+cases) and 157 actual PostgreSQL cases (97 new008 cases). These include all three
+actions through actual receipt→HMAC→verifier→private client consume/lock and 92
+SQL lifecycle cases. Pinned migrate/storage/API-check builds passed; 461 actual
+API/worker checks were rerun and passed. The historical 333 Cockpit and 109
+TS/Jose→Python checks from IP-038 were not rerun; the TS signer is unchanged.
+No final credential writer or actual broker is exercised.

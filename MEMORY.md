@@ -177,3 +177,17 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   Künftige008 muss explizite Zweckfreigabe global einmalig vor Probe konsumieren
   und aktuelle Bindungen bei Annahme/Write prüfen. Physische Abnahme,
   echte E-Mail, Integration/Recovery/Betriebsgrenzen bleiben eigene Gates.
+- 2026-11-08, Fortsetzung nach bestätigtem Merge:8bb64db in Main13ba2e2
+  verifiziert; Branch feat/m1-passkey-credential-authorization. Nutzer erneuert
+  ausdrücklich autonome lokale Befehle ohne wiederholte Genehmigungsfragen.
+  IP-039 implementiert008 mit Zweck/Origin/Bodydigest vor Passkey, ausdrücklichem
+  Consentreceipt, globalem Einmalverbrauch und separatem finalem Transaktionslock.
+  Privater Pythonclient prüft JWT vor DB und liefert Handle erst nach bestätigtem
+  Consumecommit; unbekannte Commits niemals automatisch wiederholen.
+  Aktuelle Actor/Epoch/Faktor/Metadaten/CAS/Original-OIDC/Frist an beiden Grenzen.
+  271 Credential- und461 API-/Workertests, gepinnte Builds und Review grün.
+  008 nach zurückgerollter Vorprüfung ausschließlich Fixture-DB; investalo001–007.
+  Angewendete Migrationen immutable. Öffentliche sechs Dienste unverändert/
+  gesund, reguläres TLS HTTPS200. Kein HTTP-/Broker-/003/004-Executor.
+  Nächster Schritt private Credentialwriterintegration; physische Geräteabnahme,
+  echte E-Mail/Keyeingabe, öffentliche Aktivierung, Recovery/Betrieb weiter offen.

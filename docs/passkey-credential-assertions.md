@@ -6,6 +6,8 @@ ursprüngliche OIDC-Anmeldezeit und führt die frische Passkeyprüfzeit separat.
 Keine Route, Receipt-Ausgabe, Datenbankmigration, Credentialmutation oder
 Brokerprobe ist angeschlossen. Bestehender Signer, Verifier und004 bleiben
 unverändert; das neue Pythonobjekt wird von `BitgetOnboarding` nicht akzeptiert.
+IP-039 ergänzt inzwischen die separate [dauerhafte Zweckgrenze008](passkey-credential-authorizations.md).
+Signer/Verifier allein bleiben wiederholbare Primitive ohne eigene DB-Autorität.
 
 ## Zweck und Bindungen
 
@@ -65,9 +67,9 @@ ausgestellten Zweckreceipt. Der Metadatendigest wird hier nicht aus JSON
 neu berechnet; seine Ausgabe und der Vergleich mit aktuellen DB-Metadaten
 gehören in die spätere additive Integration.
 
-Die geplante additive008 muss einen ausdrücklich für Credentialänderungen
-bestätigten Nachweis global einmalig mit Zweck, unveränderlichen Bindungen
-und Bodyhash konsumieren, bevor eine Brokerprobe beginnt. Eine bloße007-
+Die additive008 in IP-039 stellt ausdrückliche Zweckfreigaben aus und konsumiert
+sie global einmalig mit unveränderlichen Bindungen und Bodyhash.
+Die Probe-/Writeintegration folgt noch separat. Eine bloße007-
 Funktionsbestätigung darf nicht nachträglich in eine Schreibfreigabe
 umgedeutet werden. Aktueller Actor/Epoch/`reauth_after`, ursprüngliche
 OIDC-Zeit, Sitzung, Faktorstatus/-version, Zeit, Metadaten und CAS müssen

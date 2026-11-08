@@ -55,6 +55,8 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 - The user explicitly authorized autonomous local commands and asks for concrete
   interim acceptance notices. Continue routine local implementation without
   repeating permission questions; tool sandbox escalations still apply.
+  Reconfirmed2026-11-08: execute local commands independently, without renewed
+  routine approval questions. Production deployment remains separately gated.
 - The user explicitly authorized intermediate commits and GitHub pushes.
   Push reviewed feature checkpoints with the existing repository deploy identity;
   this does not authorize production deployment, history rewrite or force-push.
@@ -85,7 +87,7 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   onboarding checkpoint `69a1f8b` merged into main, verified at `56070ba`;
   step-up checkpoint `d57bd56` merged into main, verified at `b6198f7`;
   registry checkpoint `6a18102` merged into main, verified at `f422a90`;
-  current work branch: `feat/m1-passkey-credential-handoff`.
+  current work branch: `feat/m1-passkey-credential-authorization`.
   Isolated AEAD core: `packages/credentials/README.md`, 20 offline tests with
   pinned cryptography and a separate hardened Compose check.
   Credential store: `services/credentials/README.md`; migration003 and current
@@ -194,9 +196,9 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   passkey check and credential consent times are separate. Do not fabricate AMR.
   The receipt parser accepts trusted server inputs; it cannot prove durable
   issuance. Signing and verification are repeatable, with no DB consumer.
-  A007 proof-only confirmation is not credential consent. Future additive008
-  must issue and consume explicit purpose authority globally once before probing,
-  and recheck current identity/factor/metadata at begin and write.
+  A007 proof-only confirmation is not credential consent. Explicit purpose
+  authority and global consumption are implemented by IP-039 below; final
+  credential writer integration remains open.
   New signer/verifier have no HTTP/runtime caller; old contracts and001–007
   remain unchanged. Optional `credential-assertion-checks` runs offline tests
   without network, secrets, mounts, ports or DB dependencies; existing services
@@ -207,6 +209,27 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   120 credential and99 HTTPS fixture cases were not rerun. Public services
   remain unchanged/healthy/TLS200, proof flag off.
   Contract and validation: `docs/passkey-credential-assertions.md`.
+- IP-038 checkpoint `8bb64db` is merged into main `13ba2e2` (verified).
+  IP-039 adds explicit purpose authority in008: purpose/origin/body digest
+  frozen at prepare, explicit consent only from a still-granted007 proof,
+  global one-use consume and a separate final transaction lock.
+  A proof-only007 confirmation cannot be converted into credential consent.
+  The private client verifies the dedicated30-claim assertion before DB access
+  and returns a client-bound handle only after acknowledged consume commit.
+  Unknown commits never trigger automatic retries. SQL trusts authenticated
+  Python/BFF crypto; it is not a signature verifier. Current SESSION_USER actor,
+  epoch/reauth/original OIDC, factor, metadata/CAS and clock are checked at both
+  boundaries. Final lock is terminal across commits, repeatable within its TX.
+  No003/004 executor, HTTP route, broker or runtime activation is connected.
+  Reviewed008 was preflighted in a fully rolled-back transaction, including
+  actual runtime preparation, then applied ONLY to investalo_credentials_checks.
+  Its immutable checksum is9328008652ad697a306093301d9488fe3e0b184a3ffd8333f7beda5924712c57.
+  Development DB investalo remains001–007; never blindly run default migrate/up.
+  271 credential tests (19 client,95 offline,157 actual PG,97 new PG cases),
+  rerun461 API/worker checks and pinned migrate/storage/API-check builds passed.
+  Independent review has no blocker. Public services unchanged/healthy/TLS200.
+  Historical333 Cockpit/109 interop checks were not rerun; TS signer unchanged.
+  Validation and remaining integration: `docs/passkey-credential-authorizations.md`.
 
 ## Trading and implementation invariants
 

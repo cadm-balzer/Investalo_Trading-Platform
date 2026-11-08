@@ -44,8 +44,12 @@ Cockpit-Passkeys sind ausdrücklich bestätigt und befinden sich in Umsetzung.
 [Schutzbefund und Integrationsgates](passkey-step-up.md).
 IP-038 ergänzt einen isolierten [Credentialassertionvertrag](passkey-credential-assertions.md)
 für eine spätere zweckgebundene Freigabe. Die vorhandene007-Nachweisbestätigung
-erteilt diese nicht. Dauerhafter Aussteller/Einmalverbrauch, geschützte Keyeingabe
-und Credentialausführung bleiben offen;004 und öffentliche Vorschau unverändert.
+erteilt diese nicht. IP-039 ergänzt008 mit eingefrorenem Zweck, ausdrücklicher
+Autorisierung aus einem noch erteilten007-Grant, globalem Einmalverbrauch und
+getrenntem finalen Lock. Geprüfte008 ist nur in der Fixture-DB angewendet;
+die tatsächliche PostgreSQL-Lifecycleprüfung bestand. Geschützte Keyeingabe und
+Credentialwriter-Integration bleiben offen;004 und öffentliche Vorschau
+unverändert. [Autorisierungsgrenze](passkey-credential-authorizations.md).
 
 | Modus | Schlüsselrechte und Plattformfunktion |
 |---|---|

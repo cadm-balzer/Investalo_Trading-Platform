@@ -23,8 +23,8 @@ _Add whatever helps you do your job. This is your cheat sheet._
 ## Investalo — verified 2026-11-08
 
 - Working checkout: `/opt/Investalo_Trading-Platform`.
-- Implementation branch: `feat/m1-passkey-credential-handoff`, based on main `512c096`;
-  prior `84f7633` merged and verified;
+- Implementation branch: `feat/m1-passkey-credential-authorization`, based on main `13ba2e2`;
+  prior `8bb64db` merged and verified;
   local implementation and authorized checkpoint pushes, no production deployment.
 - Read-only references: `/opt/investalo-trading-system`,
   `/opt/investalo-autotrader`. HEADs and reuse limits: `docs/inventory.md`.
@@ -68,7 +68,7 @@ _Add whatever helps you do your job. This is your cheat sheet._
 - GitHub intermediate pushes explicitly authorized. Origin:
   `github.com:cadm-balzer/Investalo_Trading-Platform.git`.
   Existing host Deploy-Key `/opt/github-project-ssh-key` is used via
-  `git -c 'core.sshCommand=ssh -i /opt/github-project-ssh-key -o IdentityAgent=none -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=15 -o ServerAliveInterval=15 -o ServerAliveCountMax=2' push -u origin feat/m1-passkey-credential-handoff`.
+  `git -c 'core.sshCommand=ssh -i /opt/github-project-ssh-key -o IdentityAgent=none -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=15 -o ServerAliveInterval=15 -o ServerAliveCountMax=2' push -u origin feat/m1-passkey-credential-authorization`.
   Never copy the private key into the repository or print its contents.
   The inherited SSH agent stalled while enumerating identities on2026-11-07;
   using the already authorized deploy identity directly completed the push.
@@ -130,6 +130,18 @@ _Add whatever helps you do your job. This is your cheat sheet._
   suites not rerun. Public six services unchanged/healthy, TLS200.
   Run builds serially on this host. Commands and evidence:
   `infra/README.md#isolierter-passkey-credential-vertrag`.
+- IP-039:008 has been applied ONLY to investalo_credentials_checks.
+  Immutable checksum9328008652ad697a306093301d9488fe3e0b184a3ffd8333f7beda5924712c57.
+  The development DBinvestalo remains001–007. Do not run default migrate/up:
+  use explicit fixture PGDATABASE and keep runtime public overlay unchanged.
+  SQL-only rollback preflight used the internal local PostgreSQL socket and
+  a synthetic active fixture actor, then reset SESSION AUTHORIZATION/rolled back.
+  Logs `/tmp/investalo-passkey-authorization-{preflight,fixture-migration,
+  pinned-build,offline,credential-regression}.log`; no credentials in logs.
+  Final271 credential tests passed (19 client,95 offline,157 actual PG);
+  461 API/worker tests rerun/passed against the fixture DB. Pinned builds passed.
+  Six public services unchanged/healthy; regular TLS HTTPS200 readcheck passed.
+  Private consume/lock client supplies no broker or003/004 writer.
 - Both public DNS names resolve to host5.45.96.83; valid LE certificates expire
   2027-02-05. Always use active `--file infra/compose.public-preview.yaml`
   for edge/application runtime changes; default `up` restores local origins/ports.

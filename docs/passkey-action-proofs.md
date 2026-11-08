@@ -47,8 +47,8 @@ Private Credentialtabellen/-funktionen bleiben für API/Research gesperrt.
 ## Persistenz und Abnahme
 
 Additive007 erweitert001–006; angewendete Migrationsdateien bleiben unverändert.
-Beide lokalen Datenbanken `investalo` und `investalo_credentials_checks`
-haben001–007 angewendet. Die laufenden öffentlichen Vorschaucontainer wurden
+`investalo` hat weiterhin001–007; IP-039 wendet008 ausschließlich in
+`investalo_credentials_checks` an. Die laufenden öffentlichen Vorschaucontainer wurden
 für diesen internen Checkpoint nicht neu erstellt.
 FORCE RLS, begrenzte Runtimefunktionen, unveränderliche Bindungen, monotone
 Zustandsübergänge und Audit ersetzen einen Session-TTL-Store als Replayquelle.
@@ -65,8 +65,14 @@ dorthin übertragen. Diese Integration benötigt eine eigene geprüfte Änderung
 IP-038 ergänzt dafür ausschließlich einen isolierten
 [TS-/Python-Assertionvertrag](passkey-credential-assertions.md) mit eigener
 Audience/Kind. Bestehende öffentliche und interne007-Bestätigungen können
-keinen solchen Token erzeugen. Dauerhafte zweckgebundene Ausgabe/Einmalverbrauch
-und Credentialintegration fehlen; alter Signer und004 bleiben unverändert.
+keinen solchen Token erzeugen. Alter Signer und004 bleiben unverändert.
+IP-039 ergänzt additive008 für eine bei Prepare festgelegte Credentialabsicht:
+ausdrückliche Autorisierung nur aus einem noch erteilten007-Grant, globaler
+Einmalverbrauch und separater finaler Lock. Eine abgeschlossene Proof-only-
+Bestätigung wird nicht nachträglich zur Credentialeinwilligung.
+Geprüfte008 ist nur in der Fixture-DB angewendet; 157 tatsächliche PostgreSQL-Fälle
+einschließlich 97 neuer008-Fälle bestanden. Credentialwriter-Integration steht aus.
+[Autorisierungsvertrag](passkey-credential-authorizations.md).
 
 Der vollständige BFF-Enrollment- und Nachweisablauf ist unter IP-037 mit
 synthetischen P256-Daten über echtes isoliertes HTTPS/API/PG geprüft.

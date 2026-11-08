@@ -42,12 +42,13 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-030 | P0 / P1–P4 | DONE | Bitget-Prüfung, Triple-Speicherung und einmalige Actionfreigabe verbinden | 120 Tests inkl. 60 echte PG-Fälle bestanden; synthetische Freigaben/Broker, damals004 nur Fixture-DB; HTTP/BFF-MFA und Pilotprovider bleiben IP-009 |
 | IP-031 | P0 / P1 | DONE | Geschützte Kontometadaten und vorbereitete Actionzustände prüfen | Additive005, 36 reine +20 PG-Metadatenfälle, 25 Actionzustandsfälle; 40 reale HTTPS-Prüfpunkte einschließlich gesperrtem Step-up und IdP-Faktorfrischebefund |
 | IP-032 | P0 / P1 | DONE | Bestätigten zusätzlichen Passkey-Assertionkern prüfen | SimpleWebAuthn14.1.0, 19 echte synthetische Signaturtests, voller Cockpitlauf78/Typecheck/Containerbuild grün; unabhängiger Review, kein aktiver HTTP-Verifier |
-| IP-033 | P0 / P1 | IN_PROGRESS | Dauerhafte Passkeyverwaltung und Browser-Schrittflow integrieren | Registry/Enrollment in IP-034, Nachweis007 in IP-036, gated Prüfseite und kompletter synthetischer BFF-Durchlauf in IP-037; physische Geräteabnahme, öffentliche Aktivierung und Credentialfreigabe folgen; BL-020/021/025 |
+| IP-033 | P0 / P1 | IN_PROGRESS | Dauerhafte Passkeyverwaltung und Browser-Schrittflow integrieren | Registry/Enrollment in IP-034, Nachweis007 in IP-036, synthetischer BFF-Durchlauf in IP-037, isolierter Vertrag IP-038 und dauerhafte Zweckfreigabe008 in IP-039; physische Geräteabnahme, öffentliche Aktivierung und Credentialexecutor folgen; BL-020/021/025 |
 | IP-034 | P0 / P1 | DONE | Dauerhafte Passkeyregistry und lokales Browser-Enrollment implementieren | Additive006, Einmalticket, FORCE RLS, Counter-/Versions-CAS, terminaler Widerruf/Audit und BFF-Enrollment; 528 Tests und48 HTTPS-Prüfpunkte grün, unabhängige Reviews, keine Actionfreigabe |
 | IP-035 | P0 / P1 | DONE | Freigegebene HTTPS-Entwicklungsvorschau aktivieren | Nutzerfreigabe und beide DNS-Namen vorhanden; zwei gültige LE-Zertifikate, zwölf Helpertests und48 öffentliche HTTPS-/MFA-/Backtestprüfpunkte grün. Separate öffentliche Identität im bestehenden Entwicklungstenant; nur Edge80/443, Zertifikate nach Neustart erhalten. BL-026/Pilotabnahme bleiben offen |
 | IP-036 | P0 / P1 | DONE | Dauerhaften zielgebundenen Passkey-Aktionsnachweis implementieren | Additive007, Claim vor Kryptoprüfung, Counter-/Versions-CAS und einmalige Vorschau-Bestätigung; 724 Prüfungen grün, unabhängige Reviews. Originale OIDC-Claims erhalten; Browseraktivierung und Credentialausführung bleiben separate Gates |
 | IP-037 | P0 / P1 | DONE | Passkey-Prüfseite und vollständigen BFF-Ablauf integrieren | Gated Vorschau/Assertion/Bestätigung, positiver synthetischer BFF-Enrollmentablauf;265 Cockpittests,99 isolierte HTTPS/BFF/PG-Prüfpunkte,8 Vorbereitungstests, Typecheck/Build und Review grün. Öffentliche Aktivierung/physische Geräteabnahme separat; keine Credentialausführung |
 | IP-038 | P0 / P1 | DONE | Getrennten Passkey-Credential-Assertionvertrag vorbereiten | Eigener Zweck-/Actor-/Sitzungs-/Ziel-/Bodyvertrag, originale OIDC-Zeit und frische Passkeyzeit getrennt;333 Cockpittests,77 Offline-Onboardingtests auch im gepinnten Container,109 Interopprüfpunkte, Typecheck/Build und Review grün. Dauerhafte Ausgabe/Consume und004-Integration folgen |
+| IP-039 | P0 / P1 | DONE | Zweckgebundene Passkey-Credentialfreigabe dauerhaft ausstellen und konsumieren | Additive008 mit explizitem Zweck ab Vorbereitung, Consentreceipt, globalem Einmalverbrauch und separatem finalem Lock; privater Client.271 Credential-/461 API-Workertests und gepinnte Builds bestanden;008 nur Fixture-DB, keine HTTP-/Broker-/Runtimeaktivierung |
 
 ## Abschlussbelege
 
@@ -330,6 +331,24 @@ Künftige additive Integration benötigt ausdrücklich bestätigte Zweckfreigabe
 globalen Consume vor Probe und erneute aktuelle Bindungsprüfung bei Annahme/
 Write. Physische Abnahme, tatsächliche E-Mail, Recovery und Betrieb bleiben
 IP-033 und eigene Gates. [Vertrag/Grenzen](../passkey-credential-assertions.md).
+
+## Zwischenabnahme IP-039 — dauerhafte Credentialfreigabe
+
+Merge8bb64db in Main13ba2e2 verifiziert; neuer Branch
+`feat/m1-passkey-credential-authorization`. Zweck, Origin und Bodydigest
+werden vor dem Passkeynachweis eingefroren. Explizite Zustimmung erzeugt ein
+dauerhaftes Receipt; der private Client prüft die Signatur, konsumiert vor
+einer künftigen Probe einmalig und prüft aktuelle Bindungen im finalen Lock.
+
+271 Credentialtests (19 Client,95 Offline,157 tatsächliche PG;97 neue PG)
+und461 API-/Workertests bestanden. Gepinnte Builds und unabhängiger Review
+ohne Blocker.008 nach zurückgerollter DDL-/Runtime-Vorprüfung nur in der
+Fixture-DB angewendet; investalo bleibt001–007. Sechs öffentliche Dienste
+unverändert/gesund, reguläres TLS HTTPS200.
+
+Kein HTTP-/Broker-/003/004-Executor verbunden. Physische Geräteabnahme,
+öffentliche Aktivierung, echte E-Mail/Keyeingabe und abschließende Integration
+bleiben eigene Gates. [Ablauf/Grenzen](../passkey-credential-authorizations.md).
 
 ## Routine
 

@@ -92,9 +92,16 @@ geprüft. Das Ergebnis bleibt `execution_enabled:false`; physische Geräteabnahm
 [Browservorschau und Prüfbelege](docs/passkey-browser-proof.md).
 IP-038 ergänzt einen isolierten TypeScript-/Python-Vertrag für spätere
 Passkey-Credentialassertions mit eigener Audience und unveränderter OIDC-Zeit.
-Der Nachweis007 erteilt diese zweckgebundene Freigabe nicht; dauerhafte Ausgabe,
-Einmalverbrauch und Credentialintegration fehlen weiterhin.
+Die bestehende007-Funktionsbestätigung ist keine zweckgebundene Credentialfreigabe.
 [Vertrag und offene Integration](docs/passkey-credential-assertions.md).
+IP-039 ergänzt additive008 und einen privaten Pythonclient: Zweck/Body werden
+bei Prepare eingefroren, ein noch erteilter007-Grant ausdrücklich autorisiert,
+die Freigabe global einmalig konsumiert und in einer getrennten Transaktion
+vor dem künftigen Write erneut geprüft. Die geprüfte008 ist ausschließlich in
+der Fixture-DB angewendet; `investalo` bleibt001–007. Die 271 Credentialtests
+(157 mit tatsächlichem PostgreSQL) und 461 API-/Workerchecks bestanden.
+Credentialausführung und Browseraktivierung bleiben gesperrt.
+[Dauerhafte Autorisierung und Grenzen](docs/passkey-credential-authorizations.md).
 Die ausdrücklich freigegebene Entwicklungsvorschau ist unter
 [cockpit.investalo.de](https://cockpit.investalo.de) aktiv. Beide Domains haben
 gültige Let’s-Encrypt-Zertifikate; 48 öffentliche HTTPS-/MFA-/Backtestprüfpunkte
