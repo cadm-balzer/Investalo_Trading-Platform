@@ -42,7 +42,7 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-030 | P0 / P1–P4 | DONE | Bitget-Prüfung, Triple-Speicherung und einmalige Actionfreigabe verbinden | 120 Tests inkl. 60 echte PG-Fälle bestanden; synthetische Freigaben/Broker, damals004 nur Fixture-DB; HTTP/BFF-MFA und Pilotprovider bleiben IP-009 |
 | IP-031 | P0 / P1 | DONE | Geschützte Kontometadaten und vorbereitete Actionzustände prüfen | Additive005, 36 reine +20 PG-Metadatenfälle, 25 Actionzustandsfälle; 40 reale HTTPS-Prüfpunkte einschließlich gesperrtem Step-up und IdP-Faktorfrischebefund |
 | IP-032 | P0 / P1 | DONE | Bestätigten zusätzlichen Passkey-Assertionkern prüfen | SimpleWebAuthn14.1.0, 19 echte synthetische Signaturtests, voller Cockpitlauf78/Typecheck/Containerbuild grün; unabhängiger Review, kein aktiver HTTP-Verifier |
-| IP-033 | P0 / P1 | IN_PROGRESS | Dauerhafte Passkeyverwaltung und Browser-Schrittflow integrieren | Registry/Enrollment IP-034, Nachweis007 IP-036, synthetischer BFF-Durchlauf IP-037, Vertrag IP-038, Zweckfreigabe008 IP-039, privater Executor IP-040, Cockpitablauf IP-041 und Entwicklungs-HTTPS IP-042 vorhanden; IP-043 trennt den synthetischen Dienst, IP-044 prüft den ASGI-Unterbau. Physische Geräteabnahme, Browser-Keyannahme, Betriebsschlüssel und öffentliche Aktivierung folgen; BL-020/021/025 |
+| IP-033 | P0 / P1 | IN_PROGRESS | Dauerhafte Passkeyverwaltung und Browser-Schrittflow integrieren | Registry/Enrollment IP-034, Nachweis007 IP-036, synthetischer BFF-Durchlauf IP-037, Vertrag IP-038, Zweckfreigabe008 IP-039, privater Executor IP-040, Cockpitablauf IP-041 und Entwicklungs-HTTPS IP-042 vorhanden; IP-043/044 prüfen den getrennten ASGI-Dienst, IP-045 den isolierten Browsercontroller. Tatsächliche Next-/physische Geräteabnahme, Betriebsschlüssel und öffentliche Aktivierung folgen; BL-020/021/025 |
 | IP-034 | P0 / P1 | DONE | Dauerhafte Passkeyregistry und lokales Browser-Enrollment implementieren | Additive006, Einmalticket, FORCE RLS, Counter-/Versions-CAS, terminaler Widerruf/Audit und BFF-Enrollment; 528 Tests und48 HTTPS-Prüfpunkte grün, unabhängige Reviews, keine Actionfreigabe |
 | IP-035 | P0 / P1 | DONE | Freigegebene HTTPS-Entwicklungsvorschau aktivieren | Nutzerfreigabe und beide DNS-Namen vorhanden; zwei gültige LE-Zertifikate, zwölf Helpertests und48 öffentliche HTTPS-/MFA-/Backtestprüfpunkte grün. Separate öffentliche Identität im bestehenden Entwicklungstenant; nur Edge80/443, Zertifikate nach Neustart erhalten. BL-026/Pilotabnahme bleiben offen |
 | IP-036 | P0 / P1 | DONE | Dauerhaften zielgebundenen Passkey-Aktionsnachweis implementieren | Additive007, Claim vor Kryptoprüfung, Counter-/Versions-CAS und einmalige Vorschau-Bestätigung; 724 Prüfungen grün, unabhängige Reviews. Originale OIDC-Claims erhalten; Browseraktivierung und Credentialausführung bleiben separate Gates |
@@ -54,8 +54,18 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-042 | P0 / P1 | DONE | Privaten Entwicklungs-HTTPS-Transport zum Credentialexecutor prüfen | Mergecd66c3a in Mainc573ab3 verifiziert; gegenseitiges TLS, eigene BFF-Zertifikatsbindung, unabhängiger Sitzungskontext und unveränderte Bodybytes; ausschließlich synthetische Fixture, 376 Credential-/440 Cockpittests,346 mTLS-Prüfpunkte und gepinnte Builds/Review grün; kein Produktionslauncher oder öffentlicher Keyeingang |
 | IP-043 | P0 / P1 | DONE | Synthetischen Credentialdienst mit eigener DB-/Schlüsselidentität starten | Merge94fb73b in Main6300971 verifiziert; getrennte Runtime/Admincontainer, feste Fixture-DB/LOGIN, Startprüfung und synthetische Guard vor008-Verbrauch.401 Credential-/10 Vorbereitungstests,440 tatsächliche Dienstprüfpunkte und gepinnte Builds/Review bestanden; Produktionsserver/Schlüsselbetrieb und Browser-Keyannahme folgen |
 | IP-044 | P0 / P1 | DONE | Isolierten Credentialdienst mit gepinntem ASGI-HTTP-Unterbau prüfen | Merge998bb90 in Main9f2a9a5 verifiziert; bestehende Uvicorn-/h11-Pins, mTLS vor Parser, Rawframing und getrennte Verbindungs-/Arbeitsslots.419 Credentialtests/52 Subtests,451 Dienstprüfpunkte und gepinnte Pythonbuilds/Review bestanden; nur synthetischer lokaler Dienst |
+| IP-045 | P0 / P1 | DONE | Isolierten Browserablauf für Passkey-Credentialaktionen integrieren | Merge9555624 in Maindcb9feb verifiziert; begrenzte Fortsetzungen, Vorschau/Passkey/ausdrücklicher Consent und privater Seitenspeicher.540 Cockpittests,481 Controller-/HTTPS-/Dienstprüfpunkte,6 tatsächliche gesperrte Next-Routenchecks,460 bestehende Dienstprüfpunkte und gepinnte Builds/Review grün. Next-Betriebsprovider/physische Abnahme und öffentliche Aktivierung bleiben separat |
 
 ## Abschlussbelege
+
+IP-045:540 Cockpittests mit100 neuen Fällen, Typecheck und gepinnte Cockpit-/
+Nodebuilds bestanden.481 synthetische Controller-/HTTPS-/Dienstprüfpunkte und
+sechs tatsächliche gesperrte Next-Routenchecks grün; bestehender Dienstablauf
+mit460 Prüfpunkten erneut bestanden. Überlappende Prüfläufe nicht addieren.
+Review ohne Restblocker. Keine Migration/Dependency/öffentliche Aktivierung;
+normal007/Fixture009-Prüfsummen unverändert, Testcontainer beendet,
+öffentliche sechs Dienste gesund und reguläres TLS HTTP200.
+[Browservertrag und genaue Belege](../credential-browser-flow.md).
 
 IP-044:419 gepinnte Credentialtests/52 Subtests und451 tatsächliche
 Prüfpunkte im getrennten mTLS-Dienstablauf bestanden. 18 neue TLS-/ASGI-Fälle
@@ -463,6 +473,25 @@ Entwicklungslauncher, keine öffentliche oder echte Brokeraktivierung.
 Uvicorn-Protokollkopplung bei Upgrades erneut prüfen; Betriebsidentitäten,
 Schlüsselprovider, Quoten/Recovery und Browser-/Geräteabnahme bleiben offen.
 [Vertrag und Abnahme](../credential-asgi-transport.md).
+
+## Zwischenabnahme IP-045 — isolierter Credential-Browserablauf
+
+Merge `9555624` in Main `dcb9feb` verifiziert; Branch
+`feat/m1-credential-browser-flow`. Gemeinsame exakte Bodybildung,
+prozessgebundene begrenzte Fortsetzungen und drei geschlossene HTTP-Phasen
+verbinden Controller, Passkey und ausdrückliche Änderungszustimmung.
+Private Bytes bleiben im Seitenspeicher; Abort/Ablauf/Identitätswechsel
+verwerfen Referenzen und ignorieren verspätete Antworten. Unbekannte
+Schreibergebnisse lösen kein Retry aus.
+
+540 Cockpittests, Typecheck, gepinnte Builds und Review bestanden;
+481 synthetische Browsercontroller-/HTTPS-/Dienstprüfpunkte,460 bestehende
+Dienstprüfpunkte und sechs tatsächliche gesperrte Next-Routenchecks grün.
+Öffentliche Dienste unverändert/gesund, Testcontainer beendet und DB-
+Prüfsummen normal007/Fixture009 bestätigt. Tatsächliche aktivierte Next-
+Sitzungen/physische Geräte, provisionierte BFF-/Dienstprovider, Schlüssel-/
+Quota-/Recoverybetrieb und echte Brokerabnahme bleiben offen.
+[Vertrag und Abnahme](../credential-browser-flow.md).
 
 ## Routine
 

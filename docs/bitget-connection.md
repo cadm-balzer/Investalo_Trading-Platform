@@ -84,6 +84,13 @@ Der HTTP-Parser erhält Bytes erst nach Peerpin und strikter Rawheaderprüfung;
 Disconnects erlauben weder unbeschränkte Arbeitsqueues noch Writewiederholungen.
 [ASGI-Transport](credential-asgi-transport.md).
 
+IP-045 verbindet die isolierte Eingabekomponente mit Vorschau, Passkey und
+ausdrücklicher Änderungsbestätigung. Der Controller wird über internes HTTPS
+mit synthetischen Keys bis zur verschlüsselten Mutation geprüft. Öffentliche
+Next-Routen bleiben ohne Betriebsprovider gesperrt; echte Keyannahme und
+Brokerverbindung folgen nach eigener Abnahme.
+[Browserablauf und Speichergrenzen](credential-browser-flow.md).
+
 | Modus | Schlüsselrechte und Plattformfunktion |
 |---|---|
 | M1 lesendes Realkonto | Ausschließlich bekannte Leserechte; Kontoinfo und getrennte Walletdaten |

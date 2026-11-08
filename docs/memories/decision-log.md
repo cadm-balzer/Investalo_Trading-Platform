@@ -713,3 +713,34 @@ Migrationsprüfsummen normal007/Fixture009 unverändert; Testcontainer beendet,
 [ASGI-Vertrag](../credential-asgi-transport.md),
 [Python Socketübergabe](https://docs.python.org/3.14/library/asyncio-eventloop.html#asyncio.loop.connect_accepted_socket),
 [ASGI TLS-Erweiterung](https://asgi.readthedocs.io/en/latest/specs/tls.html).
+
+## 2026-11-08 — D-050: Browserfortsetzungen ohne gespeicherte Credentialbytes
+
+**Status: lokal implementiert und geprüft.** Nutzer bestätigt Merge `9555624`;
+Main `dcb9feb` verifiziert und Fortsetzung beauftragt. IP-045 verbindet
+Schlüsseleingabe, zweckgebundene Vorschau, Passkey und ausdrücklichen
+Credentialconsent im isolierten synthetischen Prüfstand.
+Register erzeugt die neue Connection-ID serverseitig. Gemeinsamer Serializer
+erzeugt beim Start im BFF und danach auf der Seite identische private Bytes;
+die Antwort enthält nur das sichere Ziel, keine zurückgespiegelten Keys.
+
+Eigener begrenzter Prozessspeicher hält die originalen Core-/Portsbezüge,
+weil WeakMap-Fortsetzungen nicht serialisiert werden können. Keine Triples,
+Rohbodys, Schlüssel oder JWTs in Session-/Fortsetzungsstorage. Admission vor
+Await, Ownerprüfung vor Take, frischer Token nach Finish und ursprüngliche
+Frist. Laufende Arbeit bleibt bis Promise-Ende belegt; Unknowncommit nie retry.
+Lokale32/2-Limits sind Prüfvorgaben, keine produktiven Quotenentscheidung.
+
+HTTP prüft ursprüngliche Sitzung nach langsamem Body/Origin und nach Execute,
+liest UTF8 fatal und projiziert geschlossene sichere Antwortschemas.
+Die Seite hat keinen nativen GET-Submit, behält nur private Seitenreferenzen
+und verwirft verspätete Antworten nach Abort/Ablauf/Identitätswechsel.
+Öffentliche Routes bleiben wegen fehlender BFF-Betriebsprovider gesperrt;
+kein Flag erschafft eine Schlüsselidentität. Physische Geräte/Next-Sitzungen,
+Keybetrieb, Recovery und echte Brokerabnahme bleiben separate Gates.
+540 Cockpittests, Typecheck, gepinnte Cockpit-/Nodebuilds,481 synthetische
+Controller-/HTTPS-/Dienstprüfpunkte und sechs tatsächliche gesperrte Next-
+Routenchecks bestanden. Unabhängiger Review ohne verbleibenden Blocker;
+keine Abhängigkeiten/SQL-Migrationen geändert.
+[Browservertrag](../credential-browser-flow.md),
+[OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Transaction_Authorization_Cheat_Sheet.html).

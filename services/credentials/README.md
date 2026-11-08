@@ -256,6 +256,14 @@ future finishes, including after socket disconnect. No blind retry, real
 credential intake, provider or production activation is added.
 [ASGI contract and upgrade coupling](../../docs/credential-asgi-transport.md).
 
+IP-045 adds a separate three-phase browser controller and bounded BFF
+continuations without stored credential bodies. Its synthetic internal HTTPS
+fixture exercises registration, replacement and revocation through this
+restricted service. Next routes remain unavailable without provisioned BFF
+providers; actual Next sessions, physical authenticators and operational
+identities remain separate acceptance gates.
+[Browser contract and fixture limits](../../docs/credential-browser-flow.md).
+
 `keyfiles.DevelopmentKeyFileProvider` requires explicit `development_mode=True`.
 Trusted server configuration fixes directory, `KeyFile(version_id, basename,
 sha256_fingerprint)` entries and active version. The directory must be owned by

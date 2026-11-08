@@ -159,7 +159,7 @@ def prepare_runtime_files(files):
         os.close(parent)
 
 
-def child(*, https=False, service=False):
+def child(*, https=False, service=False, browser=False):
     global CHILD_STAGE
     # Container-only imports: host orchestration needs no dependencies.
     from datetime import datetime, timedelta, timezone
@@ -319,7 +319,8 @@ def child(*, https=False, service=False):
         assertion = verifier.verify(token, action=action, body=body, context=request_context)
         check(assertion.oidc_auth_time == session["oidcAuthTime"]
               and assertion.passkey_checked_at > session["oidcAuthTime"])
-        check(body.startswith(b" \n") and body.endswith(b"\t"))
+        check(body == json.dumps(json.loads(body), ensure_ascii=False, separators=(",", ":")).encode()
+              if browser else body.startswith(b" \n") and body.endswith(b"\t"))
         check(assertion.body_sha256 == hashlib.sha256(body).hexdigest())
         payload = json.loads(body)
         with connect("admin") as db:
@@ -457,7 +458,7 @@ def child(*, https=False, service=False):
                                                         encipher_only=False, decipher_only=False), critical=True)
                            .add_extension(x509.ExtendedKeyUsage([usage]), critical=False))
                 if server:
-                    builder = builder.add_extension(x509.SubjectAlternativeName([x509.DNSName(hostname)]),
+                    builder = builder.add_extension(x509.SubjectAlternativeName([x509.DNSName(name)]),
                                                     critical=False)
                 certificate = builder.sign(ca_key, hashes.SHA256())
                 return key, certificate
@@ -465,6 +466,13 @@ def child(*, https=False, service=False):
             server_key, server_cert = leaf(hostname, ExtendedKeyUsageOID.SERVER_AUTH, server=True)
             client_key, client_cert = leaf("Synthetic credential BFF", ExtendedKeyUsageOID.CLIENT_AUTH)
             other_key, other_cert = leaf("Unpinned synthetic BFF", ExtendedKeyUsageOID.CLIENT_AUTH)
+            if browser:
+                browser_key, browser_cert = leaf("credential-flow-node", ExtendedKeyUsageOID.SERVER_AUTH, server=True)
+                config["browserHttp"] = {
+                    "certificate": browser_cert.public_bytes(Encoding.PEM).decode(),
+                    "privateKey": browser_key.private_bytes(Encoding.PEM, PrivateFormat.PKCS8, NoEncryption()).decode(),
+                }
+                config["browser"] = True
             pins = frozenset({client_cert.fingerprint(hashes.SHA256()).hex()})
             if service:
                 runtime_config = dict(schema="investalo-credential-development-service/1",
@@ -636,7 +644,7 @@ def inspect_administration(name):
     check(all(mount["type"] == "bind" and mount["rw"] is expected[mount["target"]] for mount in mounts))
 
 
-def orchestrate(*, https=False, service=False):
+def orchestrate(*, https=False, service=False, browser=False):
     """Bounded private subprocess relay; never dump stdout/stderr on failure."""
     prefix = ["bash", "infra/scripts/compose.sh", "--file", OVERLAY, "--profile", "passkey-credential-checks"]
     children = []
@@ -650,6 +658,8 @@ def orchestrate(*, https=False, service=False):
         args = prefix + ["run", "--rm", "--no-deps", "-T", "--use-aliases", "--name", name, service_name]
         if service_name == "credential-flow-checks" and https:
             args += ["python", "/app/tests/infra/check_passkey_credential_cockpit.py", "--child", "--https"]
+        if service_name == "credential-service-checks" and browser:
+            args += ["python", "/app/tests/infra/check_passkey_credential_cockpit.py", "--child", "--service", "--browser"]
         environment = os.environ.copy()
         # An inherited selector cannot redirect the fixed fixture mount.
         environment.pop("CREDENTIAL_RUNTIME_CHECK_RUN", None)
@@ -737,7 +747,7 @@ def orchestrate(*, https=False, service=False):
                 for process in children:
                     process.stdin.close()
                     check(process.wait(timeout=10) == 0)
-                transport = "/restricted-service/mTLS" if service else "/mTLS" if https else ""
+                transport = "/browser-HTTP/restricted-service/mTLS" if browser else "/restricted-service/mTLS" if service else "/mTLS" if https else ""
                 print(f"PASS: {node_count + final['checks']} isolated TS/WebAuthn/API/PG/Python{transport} checks; synthetic keys and broker only.")
                 return
             check(set(message) == {"kind", "token", "body"} and message["kind"] == "execute")
@@ -766,14 +776,17 @@ def orchestrate(*, https=False, service=False):
 
 if __name__ == "__main__":
     try:
-        if sys.argv[1:] in (["--orchestrate"], ["--orchestrate", "--https"], ["--orchestrate", "--service"]):
-            orchestrate(https="--https" in sys.argv[1:], service="--service" in sys.argv[1:])
-        elif sys.argv[1:] in (["--child"], ["--child", "--https"], ["--child", "--service"]):
-            child(https="--https" in sys.argv[1:], service="--service" in sys.argv[1:])
+        if sys.argv[1:] in (["--orchestrate"], ["--orchestrate", "--https"], ["--orchestrate", "--service"],
+                           ["--orchestrate", "--service", "--browser"]):
+            orchestrate(https="--https" in sys.argv[1:], service="--service" in sys.argv[1:], browser="--browser" in sys.argv[1:])
+        elif sys.argv[1:] in (["--child"], ["--child", "--https"], ["--child", "--service"],
+                             ["--child", "--service", "--browser"]):
+            child(https="--https" in sys.argv[1:], service="--service" in sys.argv[1:], browser="--browser" in sys.argv[1:])
         else:
             raise Failure()
     except Exception as error:
-        if sys.argv[1:] in (["--child"], ["--child", "--https"], ["--child", "--service"]):
+        if sys.argv[1:] in (["--child"], ["--child", "--https"], ["--child", "--service"],
+                           ["--child", "--service", "--browser"]):
             diagnostic = {"kind": "failed", "stage": CHILD_STAGE}
             trace = error.__traceback__
             while trace is not None:

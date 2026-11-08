@@ -70,6 +70,14 @@ absolute Frist und Kapazität vor HTTP-Verarbeitung; Rawheader werden vor h11
 geprüft. Arbeitsslots bleiben über einen Disconnect hinaus bis zum tatsächlichen
 Executorende belegt. [ASGI-Grenze](credential-asgi-transport.md).
 
+IP-045 ergänzt drei getrennte Browserphasen und einen begrenzten,
+prozessgebundenen Fortsetzungsspeicher für die originalen Core-/Portsbezüge.
+Credentials bleiben nur bis zum einmaligen Versuch im privaten Seitenspeicher;
+Fortsetzungen enthalten keine privaten Bodybytes. Die synthetische HTTPS-
+Fixture prüft den Controller bis zum separaten Dienst. Next-Routen bleiben
+ohne provisionierte BFF-Provider gesperrt; tatsächliche Next-/Geräteabnahme
+und Prozesszuordnung bleiben offen. [Browserablauf](credential-browser-flow.md).
+
 ## Systemgrenzen
 
 Bestätigt: modularer Monolith für API und Domäne, getrennte Prozesse für

@@ -24,6 +24,7 @@
 | [passkey-credential-https.md](passkey-credential-https.md) | Privater Entwicklungs-HTTPS-Transport mit gegenseitigem TLS, unabhängigem Sitzungskontext und synthetischer Fixture |
 | [credential-development-service.md](credential-development-service.md) | Getrennter synthetischer Credentialdienst mit eigener DB-/Schlüsselidentität, Startprüfung und administrativem Ergebnisaudit |
 | [credential-asgi-transport.md](credential-asgi-transport.md) | Gepinnter ASGI-Unterbau des isolierten Credentialdiensts, mTLS-/Rawframing-/Frist- und Arbeitsslotgrenzen |
+| [credential-browser-flow.md](credential-browser-flow.md) | Isolierter Eingabe-/Passkey-/Consentablauf mit begrenzten Fortsetzungen, privatem Seitenspeicher und synthetischer HTTPS-Prüfung |
 | [inventory.md](inventory.md) | Host und Wiederverwendung der Referenzsysteme |
 | [roadmap.md](roadmap.md) | Phasen, Abhängigkeiten und Abnahme |
 | [tasks/board.md](tasks/board.md) | Git-basiertes Ticketsystem |

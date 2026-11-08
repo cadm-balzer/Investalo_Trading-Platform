@@ -44,6 +44,10 @@ bleiben gesonderte Abnahmen.
 IP-044 übernimmt dafür den bereits gepinnten [ASGI-Unterbau](credential-asgi-transport.md)
 mit TLS-/Rawframingprüfung und unabhängigen Grenzen für Verbindungen und
 laufende Schreibarbeit. Echter Schlüsselbetrieb und Kontoverbindung folgen.
+IP-045 ergänzt den [isolierten Browserablauf](credential-browser-flow.md):
+Schlüsseleingabe, Passkey und ausdrücklicher Änderungsconsent mit synthetischer
+Controller-/HTTPS-/Dienstprüfung. Öffentliche Aktivierung, Betriebsprovider
+und tatsächliche Next-/Geräteabnahme bleiben separate Gates.
 Der Nutzer hat den Bedarf längerer Bitcoin-Backtests erneut hervorgehoben:
 Drei Jahre BTC/ETH-Daten und ein unabhängiger Holdout bleiben IP-011/IP-013,
 der aktuelle90-Tage-Datensatz ist ausschließlich ein Funktionsnachweis.

@@ -204,6 +204,17 @@ begrenzt und Fehler statisch. Kein Proxy, Redirect oder automatischer Retry,
 keine neue Browserroute oder Runtimekonfiguration.
 [Entwicklungs-HTTPS-Grenze](../../docs/passkey-credential-https.md).
 
+IP-045 ergänzt einen isolierten Eingabecontroller mit drei POST-Phasen,
+begrenzten originalen Corefortsetzungen und ausdrücklich bestätigter
+Credentialaktion nach der Passkeyprüfung. Geheime Bodybytes bleiben nur im
+privaten Seitenspeicher; späte Antworten, Abort und Ablauf erlauben keinen
+Retry. 540 Cockpittests, Typecheck und gepinnter Build bestanden.
+481 synthetische Controller-/HTTPS-/Dienstprüfpunkte und sechs tatsächliche
+gesperrte Next-Routenchecks grün. Die Next-Routen und Seite bleiben ohne
+provisionierten BFF-Provider unavailable; aktivierte Next-Sitzungen und
+physische Browsergeräte sind weiterhin eigene Abnahmen.
+[Browservertrag und genaue Grenzen](../../docs/credential-browser-flow.md).
+
 ## Forschungsaufträge und Ergebnisse
 
 `/backtests` liest ausschließlich authentifizierte Dataset-Metadaten und

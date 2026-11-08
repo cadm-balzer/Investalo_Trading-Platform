@@ -466,6 +466,20 @@ bleiben unverändert. Der Listener begrenzt Handshakes, prüft Peerpin und
 Rawheader vor h11 und hält Arbeitsslots bis zum tatsächlichen Future-Ende.
 [ASGI-Vertrag und Upgradeprüfung](../docs/credential-asgi-transport.md).
 
+IP-045 ergänzt denselben isolierten Dienstprüfstand um den tatsächlichen
+Browsercontroller und einen internen Node-HTTPS-Listener. Nach dem
+Node-Imagebuild und Start ausschließlich der beiden Fixture-APIs:
+
+```bash
+python3 tests/infra/check_passkey_credential_cockpit.py --orchestrate --service --browser
+```
+
+Der Lauf erzeugt einmalige synthetische Zertifikate/Identitäten und beendet
+seine eigenen Container. Keine Hostports, öffentlichen Flags oder Migrationen.
+Die regulären Next-Routen bleiben ohne provisionierte BFF-Provider gesperrt.
+Die Fixture ersetzt keine Next-Cookie-/physische Browserabnahme.
+[Browservertrag und genaue Prüfumgebung](../docs/credential-browser-flow.md).
+
 ## Passkey-Enrollment und Widerruf
 
 Nach006 und aktuellem API-/Cockpitbuild ist `/security/passkeys` der lokale

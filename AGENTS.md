@@ -87,7 +87,7 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   onboarding checkpoint `69a1f8b` merged into main, verified at `56070ba`;
   step-up checkpoint `d57bd56` merged into main, verified at `b6198f7`;
   registry checkpoint `6a18102` merged into main, verified at `f422a90`;
-  current work branch: `feat/m1-credential-asgi-transport`.
+  current work branch: `feat/m1-credential-browser-flow`.
   Isolated AEAD core: `packages/credentials/README.md`, 20 offline tests with
   pinned cryptography and a separate hardened Compose check.
   Credential store: `services/credentials/README.md`; migration003 and current
@@ -324,6 +324,26 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   572 API-worker and older HTTPS/pipe integrations not rerun; code unchanged.
   All migration checksums normal007/fixture009 verified, testcontainers stopped,
   six public services unchanged/healthy and cockpit/auth regular TLS HTTP200.
+
+- IP-044 checkpoint `9555624` is merged into main `dcb9feb` (verified).
+  IP-045 implements an isolated browser credential flow: bounded
+  session-bound continuations, three strict HTTP phases, browser memory only
+  and explicit credential consent after the passkey. Runtime providers and
+  public activation remain separate gates; fixtures use synthetic keys.
+  540 Cockpit tests (100 new), typecheck, pinned Cockpit/Node fixture builds,
+  481 actual controller/HTTPS/restricted-service checks and six actual Next
+  default-off route checks passed. Existing service regression460 checks
+  passed; overlapping runs are not additive. Final independent review has
+  no blocker. Python/SQL suites419/572 not rerun; no dependency/migration
+  changes. Normal007/fixture009 checksums verified, testcontainers stopped,
+  six public services unchanged/healthy, cockpit/auth regular TLS HTTP200.
+  The runtime browser provider deliberately returns unavailable until its
+  signing/mTLS identity is provisioned; no flags enable arbitrary key intake.
+  The activated fixture uses an injected synthetic cookie resolver, not actual
+  Next session storage, browser SameSite or physical authenticators.
+  Real provider/key operation, Next/device acceptance, quotas/worker routing,
+  reconciliation/recovery and real broker/egress remain open.
+  See `docs/credential-browser-flow.md`.
 
 ## Trading and implementation invariants
 

@@ -4,6 +4,7 @@ Prüfdatum: 2026-11-06. Nur öffentliche Dokumentation recherchiert; keine
 Credentials oder privaten Kontodaten an Anbieter übermittelt.
 Anbieterregeln/Quoten vor Implementierung und Livefreigabe erneut prüfen.
 Die folgenden Compose-/Authelia-/Indikatorergänzungen wurden am 2026-11-07 geprüft.
+Transaktionsfreigabe und fatal UTF8 wurden für IP-045 am 2026-11-08 geprüft.
 
 | Thema | Offizielle Quelle | Relevanz |
 |---|---|---|
@@ -12,6 +13,8 @@ Die folgenden Compose-/Authelia-/Indikatorergänzungen wurden am 2026-11-07 gepr
 | PITR | https://www.postgresql.org/docs/current/continuous-archiving.html | Basebackup/WAL; `pg_dump` allein nicht ausreichend |
 | OAuth | https://www.rfc-editor.org/rfc/rfc9700.html | PKCE, Redirect-/Token-/Refreshschutz |
 | MFA | https://cheatsheetseries.owasp.org/cheatsheets/Multifactor_Authentication_Cheat_Sheet.html | Phishingresistenz und sichere Recovery |
+| Transaktionsfreigabe | https://cheatsheetseries.owasp.org/cheatsheets/Transaction_Authorization_Cheat_Sheet.html | Servergebundene Daten, getrennte Zustimmung, Einmalverbrauch und letzte Prüfung vor Ausführung |
+| Fatal UTF8 | https://developer.mozilla.org/en-US/docs/Web/API/TextDecoder/fatal | Defekte Credentialbytes abweisen statt durch Ersatzzeichen verändern |
 | Secrets | https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html | Least privilege, Rotation, Audit und Lifecycle |
 | AI-Agenten | https://cheatsheetseries.owasp.org/cheatsheets/AI_Agent_Security_Cheat_Sheet.html | Begrenzte Tools und Rechte |
 | Prompt Injection | https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html | Externe Inhalte als untrusted Daten |

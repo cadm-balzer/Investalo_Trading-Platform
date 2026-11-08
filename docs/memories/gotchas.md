@@ -434,3 +434,24 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
 - **Bereiter Acceptloop:** Bei einer vollen Acceptqueue kann jedes
   `sock_accept` sofort zurückkehren. Pro Iteration ausdrücklich schedulen,
   damit Frist-/Shutdowncallbacks trotz Verbindungsflut ausgeführt werden.
+- **WeakMap-Fortsetzungen über HTTP:** Prepared-/Grantobjekte und Ports nicht
+  JSON-roundtrippen. Ein eigener begrenzter, sitzungsgebundener Speicher hält
+  Originalreferenzen; keine Credentials in den vorhandenen Sessionstore legen.
+  Admission bereits vor Prepare-Await reservieren und laufende Arbeit auch
+  nach Ablauf nicht aus der Kapazitätszählung entfernen.
+- **Letztes Await vor Autorität:** Erst Konfiguration/Origin lesen, danach
+  die ursprüngliche Sitzung erneut vergleichen. Ein langsames Origin-Await
+  nach dem Sitzungscheck könnte eine inzwischen rotierte Identität erhalten.
+  Auch ein asynchroner Asserthelper erzeugt nach seinem letzten Check eine
+  weitere Microtaskgrenze. Letzte Assertion synchron im aufrufenden Handler
+  unmittelbar vor Dispatch/Antwort ausführen.
+- **UTF8-Replacement verändert geheime Eingaben:** `Buffer.toString("utf8")`
+  ersetzt defekte Bytes. Für Credential-HTTP fatal dekodieren; private Bodybytes
+  und Unicodewerte weder normalisieren noch erneut beliebig serialisieren.
+- **Native Formularnavigation vor Hydration:** Ein Formular ohne feste sichere
+  Methode kann Eingaben als GET-Query senden. Credentialformular ohne nativen
+  Submit bauen; ausschließlich explizite POST-Buttons mit JS verwenden.
+- **Abbruch und späte Antworten:** Abort ist kein Datenbankrollback. Nach
+  Execute keine Wiederholung; Controllergenerationen verhindern, dass eine
+  späte Antwort verworfene Secrets/Handles erneut aktiviert. Pagehide und
+  BFCache-Rückkehr benötigen ebenfalls Verwerfen/Statusneuladen.
