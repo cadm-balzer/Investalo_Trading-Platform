@@ -109,8 +109,17 @@ finale Transaktion. 817 Tests bestanden: 356 Credentialtests, darunter 221
 tatsächliche PostgreSQL-Fälle, und 461 API-/Workerchecks. Zurückgerollter009-
 Preflight und gepinnte Prüfbuilds bestanden.
 009 ist ausschließlich in der Fixture-DB angewendet.
-Keine HTTP-/Echtkey-/Brokeraktivierung.
+IP-040 aktivierte keine HTTP-/Echtkey-/Brokeranbindung.
 [Private Ausführung und Abnahme](docs/passkey-credential-execution.md).
+IP-041 ergänzt die private Cockpit-Orchestrierung und eine standardmäßig
+ausgeschaltete interne API für008-Prepare und ausdrückliche Zustimmung.
+Der Ablauf bindet unveränderte Bodybytes, ursprüngliche OIDC-Sitzung und
+Passkeynachweis an den privaten Executor. Es gibt weiterhin keine
+Credentialeingabe-/Ausführungsroute im Browser, keine Betriebsschlüssel oder
+echte Brokerverbindung. Die öffentliche Vorschau bleibt unverändert.
+[Private Cockpit-Anbindung und Gates](docs/passkey-credential-cockpit.md).
+572 API-/Worker- und385 Cockpittests sowie299 integrierte Prüfpunkte bestanden;
+Typecheck, gepinnte Builds und unabhängige Reviews grün.
 Die ausdrücklich freigegebene Entwicklungsvorschau ist unter
 [cockpit.investalo.de](https://cockpit.investalo.de) aktiv. Beide Domains haben
 gültige Let’s-Encrypt-Zertifikate; 48 öffentliche HTTPS-/MFA-/Backtestprüfpunkte

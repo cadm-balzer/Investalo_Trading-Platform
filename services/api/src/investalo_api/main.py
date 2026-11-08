@@ -18,6 +18,7 @@ from .body_limit import BodyLimitMiddleware
 from .credential_action import action_context
 from .passkeys import create_passkey_router
 from .passkey_action_proofs import create_passkey_action_router
+from .passkey_credential_authorizations import create_passkey_credential_authorization_router
 from .database import SCHEMA_VERSION, assert_runtime, connect, transaction
 from .settings import Settings
 from .research_result import publish_result
@@ -74,6 +75,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     application.state.settings = settings if settings is not None else Settings.from_environment()
     application.include_router(create_passkey_router(application.state.settings))
     application.include_router(create_passkey_action_router(application.state.settings))
+    application.include_router(create_passkey_credential_authorization_router(application.state.settings))
 
     @application.exception_handler(RequestValidationError)
     async def invalid_request(_request: Request, _error: RequestValidationError):

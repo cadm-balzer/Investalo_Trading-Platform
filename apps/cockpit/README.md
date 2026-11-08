@@ -176,6 +176,27 @@ tatsächliche PostgreSQL-Fälle, und 461 API-/Workerchecks. Cockpit/TS-Signer
 wurden dabei nicht geändert.
 [Private Ausführung und Grenzen](../../docs/passkey-credential-execution.md).
 
+IP-041 ergänzt `passkey-credential-flow.ts` als private injizierte Orchestrierung:
+008-Zweckprepare mit Hash des unveränderten Bodys, committed007-Claim,
+WebAuthn-Prüfung/Grant, ausdrückliche Credentialzustimmung,008-Receipt und
+separater Signer vor dem privaten Executor. Der aufrufende vertrauenswürdige
+Server hält die Bodybytes; opaque Handles speichern ausschließlich Hashes und
+Korrelation. Identität/ursprüngliche OIDC-Zeit, Sitzung/CSRF/Origin, Faktor,
+Metadaten/CAS und Fristen werden nach asynchronen Schritten erneut geprüft.
+Unbekannte Commitantworten öffnen keinen lokalen Wiederholungsweg.
+
+Die interne API-Brücke `/v1/passkey-credential-authorizations/{prepare,authorize}`
+verlangt `API_PASSKEY_CREDENTIAL_AUTHORIZATIONS=1` und einen kanonischen,
+zur RP passenden `API_PASSKEY_ORIGIN`; standardmäßig antwortet sie404.
+Sie erhält ausschließlich Bodydigests und publiziert das private008-Receipt,
+keine Credentials oder signierten Credentialtokens. Das Cockpit installiert
+keine neue Browserroute oder tatsächliche Transport-/Schlüsselidentität für
+diesen Ablauf. Bestehende Credentialrouten bleiben503; öffentlicher
+Nachweisflag und laufende Vorschau bleiben unverändert.
+[Private Cockpit-Anbindung und Gates](../../docs/passkey-credential-cockpit.md).
+Abnahme:385 Cockpittests (52 neue),572 API-/Workertests und299 reale
+integrierte Fixtureprüfpunkte, Typecheck/gepinnte Builds/Reviews bestanden.
+
 ## Forschungsaufträge und Ergebnisse
 
 `/backtests` liest ausschließlich authentifizierte Dataset-Metadaten und

@@ -97,10 +97,23 @@ Verbrauch und liefert `status:verified, execution_enabled:false`.
 Die tatsächliche Passkeyprüfzeit ersetzt niemals die ursprüngliche OIDC-Zeit.
 SQL/API vertrauen dem Kryptoverdict des geprüften BFF.
 IP-037 verwendet diese unveränderten API-Routen aus einer ausdrücklich
-aktivierbaren BFF-Browservorschau. Die API erteilt weiterhin keine
+aktivierbaren BFF-Browservorschau. Diese007-Routen erteilen weiterhin keine
 Credentialfreigabe oder Brokerausführung;003/004 bleiben gesperrt.
 [Vertrag und Gates](../../docs/passkey-action-proofs.md).
 [BFF-Browservorschau](../../docs/passkey-browser-proof.md).
+
+IP-041 ergänzt ausschließlich bei `API_PASSKEY_CREDENTIAL_AUTHORIZATIONS=1`
+die internen POST-Routen `/v1/passkey-credential-authorizations/prepare`
+und `/authorize`. `API_PASSKEY_ORIGIN` muss kanonisches HTTPS mit exakt
+passendem `API_PASSKEY_RP_ID` sein. Die Vorbereitung nimmt einen Bodydigest,
+die Zustimmung Authorization-/Grant-ID und gehashte Session-/Vorschaubindung.
+Actor, ursprüngliche OIDC-Zeit, RP und Origin bleiben serverseitig gebunden.
+008 friert den Credentialzweck vor dem Nachweis ein und bestätigt ihn einmalig;
+eine bisherige007-Prüfbestätigung lässt sich nicht umwidmen. Keine Rohschlüssel,
+privaten Credentialbodys oder Credential-JWTs an diesen Routen.
+Der Receipt erhält `execution_enabled:false`; der private Fixtureexecutor ist
+über injizierte BFF-Ports erreichbar. Default/API/öffentliche Vorschau bleiben
+ohne diese Aktivierung. [Privater Cockpitablauf und Prüfungen](../../docs/passkey-credential-cockpit.md).
 
 Für IP-037 bestanden 90 isolierte tatsächliche HTTPS/BFF/API/PG-Prüfpunkte
 mit synthetischen P256-Daten und eigener Fixture-DB sowie neun Prüfungen

@@ -2,6 +2,9 @@
 
 Der isolierte Vertrag ist inzwischen über008/009 mit einem privaten Executor
 verbunden: [Ausführung und Abnahmegrenzen](passkey-credential-execution.md).
+IP-041 ergänzt den [privaten Cockpitablauf](passkey-credential-cockpit.md)
+mit standardmäßig deaktivierter API-Zweckbrücke und vollständiger Fixtureprüfung.
+Die folgende Beschreibung dokumentiert den isolierten IP-038-Vertrag.
 
 Stand 2026-11-08. IP-038 ergänzt einen isolierten TypeScript-Signer und
 Python-Verifier für die spätere Credentialintegration. Er bewahrt die

@@ -30,7 +30,13 @@ Prüfbuilds bestanden;009 ist nur in der Fixture-DB angewendet. Die tatsächlich
 PostgreSQL-Regressionsprüfung bestand. Browser-/Credentialexecutorintegration,
 physische Geräte-/E-Mail-Abnahme und öffentliche Aktivierung bleiben offen.
 [Privater Executor](passkey-credential-execution.md).
-Keine neue Browser- oder Produktionsaktivierung.
+IP-041 ergänzt die private injizierte Cockpit-Orchestrierung und eine
+standardmäßig abgeschaltete interne008-Prepare-/Authorize-API. Sie bindet
+Hash der unveränderten Bodybytes, ursprüngliche OIDC-Sitzung und frischen
+Passkeynachweis vor ausdrücklicher Credentialzustimmung. Browser-Keyeingabe,
+Executor-HTTP-Service, Betriebsschlüssel und physische Geräte-/E-Mail-Abnahme
+bleiben offen; keine neue Browser- oder Produktionsaktivierung.
+[Private Cockpit-Anbindung](passkey-credential-cockpit.md).
 
 ## Warum ein zusätzlicher Nachweis nötig ist
 

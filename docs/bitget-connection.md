@@ -57,6 +57,16 @@ gepinnte Prüfbuilds bestanden;009 ist nur in der Fixture-DB angewendet.
 Kein echter Nutzerkey oder Brokertransport angeschlossen.
 [Privater Ausführungsablauf](passkey-credential-execution.md).
 
+IP-041 ergänzt die private injizierte Cockpit-Orchestrierung mit eingefrorenem
+Bodyhash und ausdrücklicher008-Zustimmung vor Signatur/privatem Executor.
+Die interne008-Prepare-/Authorize-API bleibt ohne
+`API_PASSKEY_CREDENTIAL_AUTHORIZATIONS=1` ausgeschaltet und verlangt einen
+konfigurierten kanonischen HTTPS-Origin/RP. Kein Raw-Credentialbody geht an
+diese API; die ursprüngliche OIDC-Zeit bleibt unverändert. Browser-Keyeingabe,
+Executor-HTTP-Service, Betriebsidentität/-schlüssel und tatsächliche
+Brokeranbindung sind weiterhin gesondert abzunehmen.
+[Private Cockpit-Anbindung und Gates](passkey-credential-cockpit.md).
+
 | Modus | Schlüsselrechte und Plattformfunktion |
 |---|---|
 | M1 lesendes Realkonto | Ausschließlich bekannte Leserechte; Kontoinfo und getrennte Walletdaten |

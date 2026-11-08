@@ -599,3 +599,34 @@ nur Fixture-DB,001–008 unverändert. Keine HTTP-/öffentliche/echte Brokerakti
 [Ablauf/Grenzen](../passkey-credential-execution.md),
 [PG18-Sperren](https://www.postgresql.org/docs/18/explicit-locking.html),
 [OWASP Transaktionsfreigabe](https://cheatsheetseries.owasp.org/cheatsheets/Transaction_Authorization_Cheat_Sheet.html).
+
+## 2026-11-08 — D-046: Privater Cockpitablauf mit ausdrücklichem Credentialzweck
+
+Nutzer bestätigt Merge `3476f74`; Main `0fd25b6` verifiziert.
+IP-041 verbindet die vorhandenen007/008/009-Grenzen über einen injizierten
+Cockpitkern und zwei standardmäßig deaktivierte interne API-Routen.
+Die vollständige ursprüngliche `ProofSession` wird vom bereits autorisierten
+Aufrufer übergeben und nach Await-Schritten erneut verglichen.
+
+Ziel aus eigener aktueller Metadata ableiten; private Bodybytes genau einmal
+erzeugen und hashen.008 friert Zweck, Origin und Digest vor WebAuthn ein.
+Fortsetzungen enthalten nur Korrelation/Digests und sichere Snapshots.
+Eine separate Credentialzustimmung führt über008 zum23-Feld-Receipt;
+007-Funktionsbestätigung bleibt unverändert. Nach008 keine erneute007-
+Grantabfrage, sondern gespeicherter Grant plus aktuelle Bindungen prüfen.
+Der separate Signer stellt den exakten Token für den privaten Executor aus.
+
+Die integrierte Prüfung benutzt echtes SimpleWebAuthn/Jose, HTTPS/API/PG und
+den Python-/AEAD-/009-Executor mit synthetischen Schlüsseln und Brokerantworten.
+Ein gehärtetes Opt-in-Profil mit interner Testnetwork, ohne Hostports und
+ohne Logs, reicht bounded Daten ausschließlich durch Prozesspipes weiter.
+Nur der administrative Pythonchecker besitzt Fixture-DB-Credentials.
+Dieser Prüfaufbau ist kein Runtime-Credentialdienst.
+
+Keine neue Migration oder Änderung angewendeter001–009. `investalo` bleibt
+001–007. Browser-Keyeingabe, provisionierte Signatur-/Betriebsidentität,
+realer Credentialdienst/Transport/Egress und physische Geräteabnahme bleiben
+gesondert; öffentliche Dienste/Flags werden nicht aktiviert.
+[Vertrag und Prüfbelege](../passkey-credential-cockpit.md),
+[OWASP Transaktionsfreigabe](https://cheatsheetseries.owasp.org/cheatsheets/Transaction_Authorization_Cheat_Sheet.html),
+[OWASP CSRF](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html).
