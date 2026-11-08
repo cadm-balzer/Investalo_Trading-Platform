@@ -201,3 +201,22 @@ _Add whatever helps you do your job. This is your cheat sheet._
   development007/fixture009 rechecked. Build log:
   `/tmp/investalo-credential-private-transport-build.log`.
   Pinned Python/Node fixture builds and Cockpit build passed.
+- IP-043: `python3 infra/scripts/prepare-credential-runtime-checks.py` verifies
+  a fixed synthetic0700 UID10003 state directory and creates no keys.
+  Each `--orchestrate --service` run creates fresh UUID0400 material without
+  overwriting or automatically deleting earlier runs. Never dump these files.
+  Build `credential-restricted`, `credential-flow-checks`, `credential-flow-node`
+  serially with `infra/compose.passkey-credential-checks.yaml`. Start only the
+  two named fixture APIs. Service orchestrator starts/stops its own uniquely
+  named isolated containers. Runtime receives no administrative/API password;
+  service audit checker receives no credential LOGIN password.
+  401 pinned credential tests/52 subtests passed154.24s, ten actual root
+  preparation tests passed.440 restricted-service/mTLS and387 historical
+  HTTPS checks passed; overlapping runs are not additive.
+  Historical pipe329 checks rerun/passed. All owned fixture containers stopped;
+  six public services unchanged, cockpit/auth regular TLS HTTP200.
+  Default runtime image without `--development` exits1 before networking.
+  Pinned runtime/Python/Node builds and independent review passed.
+  Read-only metadata checker `/tmp/investalo-credential-development-schema-check.py`
+  verifies every current SQL checksum against development007/fixture009.
+  No new dependencies, migrations or preview activation.

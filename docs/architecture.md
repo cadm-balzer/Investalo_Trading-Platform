@@ -57,6 +57,13 @@ Passkey-JWT; der ursprüngliche Sitzungskontext stammt separat vom
 vertrauenswürdigen BFF. Kein Produktionslauncher oder öffentlicher Keyeingang.
 [HTTPS-Grenze](passkey-credential-https.md).
 
+IP-043 führt denselben synthetischen Ablauf in einem getrennten
+Entwicklungscontainer mit ausschließlich eigener Credentialrolle und eigenen
+Schlüsseldateien aus. Der administrative Checker richtet die Fixture ein
+und liest Ergebnisse; er konsumiert oder schreibt im Dienstmodus nicht.
+Keine echten Schlüssel, Produktionsserver oder öffentliche Aktivierung.
+[Konkrete Dienstgrenze](credential-development-service.md).
+
 ## Systemgrenzen
 
 Bestätigt: modularer Monolith für API und Domäne, getrennte Prozesse für

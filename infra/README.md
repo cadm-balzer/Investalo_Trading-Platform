@@ -432,6 +432,33 @@ Nur benannte Fixture-APIs starten/stoppen; kein Default-`up`, `down` oder
 `--remove-orphans`. Die vorhandene Pipevariante ohne `--https` bleibt prüfbar.
 [Vertrag und Produktionsgrenzen](../docs/passkey-credential-https.md).
 
+## Getrennter synthetischer Credentialdienst
+
+IP-043 ergänzt einen eigenen Entwicklungscontainer statt eines Executors
+im administrativen Checker. Voraussetzung sind die vorhandene Fixture-DB009,
+synthetische Browsercheck-Secrets und ausschließlich lokale Prüfidentitäten.
+Builds und PG-gebundene Suiten nacheinander ausführen.
+
+```sh
+python3 infra/scripts/prepare-credential-runtime-checks.py
+bash infra/scripts/compose.sh --file infra/compose.passkey-credential-checks.yaml --profile passkey-credential-checks build credential-restricted
+bash infra/scripts/compose.sh --file infra/compose.passkey-credential-checks.yaml --profile passkey-credential-checks build credential-flow-checks
+bash infra/scripts/compose.sh --file infra/compose.passkey-credential-checks.yaml --profile passkey-credential-checks build credential-flow-node
+bash infra/scripts/compose.sh --file infra/compose.passkey-credential-checks.yaml --profile passkey-credential-checks up -d --no-deps credential-flow-api credential-flow-disabled-api
+python3 tests/infra/check_passkey_credential_cockpit.py --orchestrate --service
+bash infra/scripts/compose.sh --file infra/compose.passkey-credential-checks.yaml --profile passkey-credential-checks stop credential-flow-api credential-flow-disabled-api
+```
+
+Das Vorbereitungsscript benötigt Root für die feste synthetische UID10003-
+Ablage. Es erzeugt keine Schlüssel und verändert keine Vorschausecrets.
+Der administrative Checker erstellt je Lauf neue, einmalige UUID-Dateien;
+der Relay setzt ausschließlich deren validierte Lauf-ID für den Dienststart.
+Der Dienst erhält keine administrativen/API-Credentials oder Clientprivatekeys.
+Nur eigene Container werden beendet. Gespeicherte synthetische0400-Dateien
+bleiben erhalten; kein Default-`up`, `down` oder `--remove-orphans`.
+Der Image-Standard ohne `--development` öffnet keinen Listener.
+[Identitäten, Mounts und verbleibender Betrieb](../docs/credential-development-service.md).
+
 ## Passkey-Enrollment und Widerruf
 
 Nach006 und aktuellem API-/Cockpitbuild ist `/security/passkeys` der lokale

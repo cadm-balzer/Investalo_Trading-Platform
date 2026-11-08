@@ -656,3 +656,29 @@ chronologische Fenster und unabhängiger Holdout bleiben IP-011/IP-013/BL-018.
 [HTTP-/TLS-Grenze](../passkey-credential-https.md),
 [Python Servergrenzen](https://docs.python.org/3.14/library/http.server.html),
 [Node HTTPS](https://nodejs.org/api/https.html).
+
+## 2026-11-08 — D-048: Synthetischer Credentialdienst mit eigener Runtimeidentität
+
+**Status: lokal implementiert und geprüft.** Nutzer bestätigt Merge `94fb73b`;
+Main `6300971` verifiziert und Fortsetzung beauftragt. IP-043 konkretisiert
+die bestehende Entwicklungsgrenze durch einen getrennten Container.
+Der administrative Checker provisioniert und prüft Testdaten; ausschließlich
+der Dienst konsumiert008 und führt003/009 aus. Runtime erhält weder
+Migrations-/API-Credentials noch den privaten BFF-Clientschlüssel.
+
+Feste Fixture-DB und LOGIN, tatsächliche Rollen-/Actor-/Funktionsprüfung
+vor dem Listener, explizites `--development`, owned0400-Dateien und
+separate32-Byte-Identitäten mit festen Pins. Umgebungsdaten und Requests
+wählen keine Rolle oder Schlüssel; `PG*`-Umgebung wird abgewiesen.
+Nur exakte synthetische Credentials werden vor Verifier/Consume akzeptiert.
+Keine Änderung an AEAD-, Signatur-, SQL- oder Strategieverträgen.
+
+Jeder Lauf erstellt neue UUID-Ablagen einmalig und prüft die tatsächlichen
+Container-Mounts/Härtung mit begrenzten Metadaten. Kein neuer externer
+Schlüsseldienst, keine Abhängigkeiten oder Migrationsaktivierung.
+Der stdlib-HTTP-Server bleibt Entwicklungsprüfstand. Produktionsserver,
+Betriebsidentitäten/-provider, reale Broker-/Egressprüfung und Browserabnahme
+bleiben eigene Arbeit; öffentliche Dienste und Flags werden nicht aktiviert.
+[Dienstgrenze](../credential-development-service.md),
+[Docker Compose Services](https://docs.docker.com/reference/compose-file/services/),
+[PostgreSQL Verbindungsparameter](https://www.postgresql.org/docs/18/libpq-connect.html#LIBPQ-PARAMKEYWORDS).

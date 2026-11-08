@@ -126,8 +126,10 @@ async function main() {
       if (config.executor) {
         if (executions === 0) {
           await denied(() => executor(config.executor.origin, true)(jwt, body));
-          await denied(() => executor(config.executor.disabledOrigin)(jwt, body));
+          if (!config.executor.service) await denied(() => executor(config.executor.disabledOrigin)(jwt, body));
         }
+        // Exact body bytes are authenticated before durable consumption.
+        await denied(() => executor()(jwt, body + " "));
         actual = await executor()(jwt, body);
         // A second request cannot reuse durable consent or dispatch a probe.
         await denied(() => executor()(jwt, body));

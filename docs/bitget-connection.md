@@ -73,6 +73,12 @@ ursprünglichem Sitzungskontext. Nur synthetische Fixtureprüfungen;
 ein Produktionslauncher oder echter Keyeingang wird nicht installiert.
 [Transportgrenze](passkey-credential-https.md).
 
+IP-043 prüft diesen Ablauf in einem eigenen synthetischen Credentialcontainer.
+Startprüfung und Mountkontrolle trennen die gebundene Credentialrolle samt
+eigenen Schlüsseldateien vom administrativen Fixturechecker. Echte Keytriples
+werden vor008-Verbrauch abgewiesen; der Broker bleibt synthetisch.
+[Dienst und Betriebsgrenzen](credential-development-service.md).
+
 | Modus | Schlüsselrechte und Plattformfunktion |
 |---|---|
 | M1 lesendes Realkonto | Ausschließlich bekannte Leserechte; Kontoinfo und getrennte Walletdaten |
