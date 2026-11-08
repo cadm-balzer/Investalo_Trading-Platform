@@ -75,9 +75,13 @@ Retention/Quotas folgen BL-017. Bestehende001–007 bleiben unverändert.
 Migration008 ist ausschließlich in `investalo_credentials_checks` angewendet;
 die laufende Entwicklungsvorschau verwendet weiterhin001–007.
 
+IP-040 verbindet diese private Grenze mit dem003-Writer und atomarem009-Abschluss:
+[private Ausführung](passkey-credential-execution.md). Die008-Clientprimitive
+selbst bleibt ohne Broker oder Writer.
+
 Physische Geräteabnahme, echte E-Mail-Attestierung, geschützte Keyeingabe,
 eigene Betriebsschlüssel, Broker/Egress/Quota, Recovery und endgültige
-Credentialintegration bleiben IP-033/BL-020/021/022/024/025.
+Browser-/Betriebsintegration bleiben IP-033/BL-020/021/022/024/025.
 
 ## Prüfung
 

@@ -78,6 +78,19 @@ Nachweisflag weiterhin aus. Ein unbekannter Consumecommit liefert keinen
 Handle; vor erneutem Versuch autoritativen Zustand abgleichen. Der getrennte
 finale Lock führt selbst keine Credentialmutation oder Brokerprobe aus.
 [Dauerhafte Autorisierung](passkey-credential-authorizations.md).
+IP-040 ergänzt einen privaten Probe-/Storeexecutor und additive009 für
+terminalen Abschluss im selben finalen Write.009-DDL und tatsächlicher failed-
+Abschluss bestanden einen vollständig zurückgerollten Preflight; gepinnte
+Migrate-/Storage-/API-Prüfbuilds bestanden.009 ist ausschließlich in der
+Fixture-DB angewendet; 356 Credentialtests im gepinnten Prüfcontainer bestanden,
+darunter 221 tatsächliche PostgreSQL-Fälle. Der erneute API-/Workerlauf bestand
+mit 461 Tests gegen Fixture009: 817 aktuelle Prüfungen insgesamt.
+`investalo` bleibt001–007, angewendete001–009 immutable. Öffentliche Dienste und
+Nachweisflag bleiben unverändert; alle sechs Dienste sind gesund, öffentlicher
+HTTPS200-Lesecheck mit regulärer TLS-Prüfung bestanden.
+Unbekannte finale Commits zuerst abgleichen;
+kein neuer Probeversuch und kein Überschreiben eines bestehenden Abschlusses.
+[Ausführung und Fehlergrenzen](passkey-credential-execution.md).
 
 Deploymentablauf: geprüfter Code/Lockstand → Build/Artefakt →
 relevante Tests → verschlüsselte Sicherung → Migration mit Rückfallplanung →

@@ -49,6 +49,7 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-037 | P0 / P1 | DONE | Passkey-Prüfseite und vollständigen BFF-Ablauf integrieren | Gated Vorschau/Assertion/Bestätigung, positiver synthetischer BFF-Enrollmentablauf;265 Cockpittests,99 isolierte HTTPS/BFF/PG-Prüfpunkte,8 Vorbereitungstests, Typecheck/Build und Review grün. Öffentliche Aktivierung/physische Geräteabnahme separat; keine Credentialausführung |
 | IP-038 | P0 / P1 | DONE | Getrennten Passkey-Credential-Assertionvertrag vorbereiten | Eigener Zweck-/Actor-/Sitzungs-/Ziel-/Bodyvertrag, originale OIDC-Zeit und frische Passkeyzeit getrennt;333 Cockpittests,77 Offline-Onboardingtests auch im gepinnten Container,109 Interopprüfpunkte, Typecheck/Build und Review grün. Dauerhafte Ausgabe/Consume und004-Integration folgen |
 | IP-039 | P0 / P1 | DONE | Zweckgebundene Passkey-Credentialfreigabe dauerhaft ausstellen und konsumieren | Additive008 mit explizitem Zweck ab Vorbereitung, Consentreceipt, globalem Einmalverbrauch und separatem finalem Lock; privater Client.271 Credential-/461 API-Workertests und gepinnte Builds bestanden;008 nur Fixture-DB, keine HTTP-/Broker-/Runtimeaktivierung |
+| IP-040 | P0 / P1 | DONE | Private Passkeyfreigabe mit Credentialmutation und Abschlussaudit verbinden | Merge389082a in Mainbe13145 verifiziert;008 Consume vor Probe,008 Lock+003 AEADwrite+009 Abschlussaudit gleiche finale TX.356 Credential-/461 API-Workertests und gepinnte Builds bestanden;009 nur Fixture-DB. HTTP, echte Schlüssel und öffentliche Aktivierung bleiben gesondert |
 
 ## Abschlussbelege
 
@@ -349,6 +350,27 @@ unverändert/gesund, reguläres TLS HTTPS200.
 Kein HTTP-/Broker-/003/004-Executor verbunden. Physische Geräteabnahme,
 öffentliche Aktivierung, echte E-Mail/Keyeingabe und abschließende Integration
 bleiben eigene Gates. [Ablauf/Grenzen](../passkey-credential-authorizations.md).
+
+## Zwischenabnahme IP-040 — private Credentialausführung
+
+Merge `389082a` in Main `be13145` verifiziert; Branch
+`feat/m1-passkey-credential-execution`. Der private Executor verbindet committed
+008-Consume vor Read/Probe mit einer separaten finalen Transaktion aus008-Lock,
+003-Credentialmutation und009-Terminalaudit. Alle drei Aktionen durchlaufen
+diesen Ablauf. Revoke benötigt keine Entschlüsselung/Probe.
+
+356 Credentialtests (19 Client,116 Offline,221 tatsächliche PG) und461
+API-/Workertests bestanden.64 neue PG-Fälle (48 Abschluss,16 Executor)
+prüfen auch Sperrwartezeit/Ablauf nach Mutation, Concurrent-Replay, aktuelle
+Authority/CAS, finale Rollbacks und verlorene Commitantworten.21 neue
+Offlinefälle, gepinnte Builds und unabhängiger Review ohne Restblocker.
+
+009 nach vollständig zurückgerollter DDL-/echter Failure-Abschlussvorprüfung
+ausschließlich in Fixture-DB angewendet/immutable;001–008 unverändert,
+investalo bleibt001–007. Öffentliche Dienste unverändert/gesund/TLS200.
+Keine HTTP-/echte Key-/Brokeraktivierung; physische Geräteabnahme, tatsächliche
+E-Mail, Browserintegration, Betrieb/Recovery bleiben separate Gates.
+[Ablauf/Prüfbelege](../passkey-credential-execution.md).
 
 ## Routine
 

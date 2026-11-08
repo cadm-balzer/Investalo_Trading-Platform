@@ -115,8 +115,8 @@ freigegebene [Entwicklungsvorschau](https-entry.md) verwendet ein separates
 öffentliches HTTPS-Overlay mit gültigen Zertifikaten und zentralem Caddy80/443;
 DB/API/Worker besitzen keine öffentlichen Hostports.
 Credentialfundament, Registry und der interne
-[Aktionsnachweis007](passkey-action-proofs.md) sowie IP-037/038 sind auf main
-`13ba2e2` enthalten; Merge des Checkpoints `8bb64db` ist verifiziert.
+[Aktionsnachweis007](passkey-action-proofs.md) sowie IP-037–039 sind auf main
+`be13145` enthalten; Merge des Checkpoints `389082a` ist verifiziert.
 IP-037 ergänzt die ausdrücklich aktivierbare
 [BFF-Browservorschau](passkey-browser-proof.md) und den vollständig synthetisch
 geprüften Enrollmentablauf. Angewendete001–007 bleiben immutable.
@@ -127,7 +127,7 @@ die 461 API-/Worker- und 120 Credentialregressionen wurden nicht erneut ausgefü
 Standard-/öffentliches Composeprofil lassen die Vorschau ausgeschaltet;
 laufende öffentliche Container blieben unverändert. Brokerkeyeingabe,
 physische Geräteabnahme, echte E-Mail-Attestierung, öffentliche Aktivierung und
-Credentialausführung bleiben offen.
+Cockpit-Credentialausführung bleiben offen.
 IP-038 ergänzt den isolierten
 [TS-/Python-Assertionvertrag](passkey-credential-assertions.md), ohne dauerhaften
 Aussteller/Consumer oder Änderungen an004, DB, HTTP und Runtime.
@@ -136,7 +136,7 @@ und 109 tatsächliche Offline-Interopprüfungen sowie Typecheck bestanden.
 Gepinnter Cockpitbuild und77 Tests im isolierten Python3.14.10-Container bestanden;
 461 API-/Worker-, 120 Credential- und 99 HTTPS-Prüfungen wurden nicht erneut
 ausgeführt. Öffentliche Dienste und ausgeschaltetes Nachweisflag bleiben erhalten.
-Auf `feat/m1-passkey-credential-authorization` ergänzt IP-039 additive008 und
+IP-039 ergänzt additive008 und
 den privaten [Autorisierungsclient](passkey-credential-authorizations.md):
 Zweck beim Prepare einfrieren, ausdrücklich autorisieren, global einmalig
 konsumieren und in getrennter finaler Transaktion aktuelle Bindungen sperren.
@@ -151,4 +151,19 @@ für IP-039 nicht erneut ausgeführt; TS-Signer unverändert. Kein003/004-Writer
 HTTP-/Brokeranschluss oder
 öffentliche Aktivierung; die sechs öffentlichen Container bleiben unverändert
 und gesund. Öffentlicher HTTPS-Lesecheck200 mit regulärer TLS-Prüfung bestanden.
+Auf `feat/m1-passkey-credential-execution` verbindet IP-040 den privaten
+[Passkeyexecutor](passkey-credential-execution.md) mit008, Classic-Probe,003-AEAD-
+Write und009-Abschlussaudit in derselben finalen Transaktion.116 Host-
+Offlinefälle einschließlich 21 neuer Executorfälle bestanden.009-DDL und
+tatsächlicher failed-Abschluss bestanden einen vollständig zurückgerollten
+Preflight; gepinnte Migrate-/Storage-/API-Prüfbuilds bestanden.009 ist nur in
+`investalo_credentials_checks` angewendet. Im gepinnten Container bestanden 356
+Tests: 19 Client-, 116 Offline- (21 neue Executor-) und 221 tatsächliche PG-Fälle
+(64 neue: 48 Completion/16 Executor). Erneuter API-/Workerlauf mit 461 Tests
+gegen Fixture009 bestanden: 817 aktuelle Prüfungen insgesamt;
+historische Cockpit-/Interop-/Buildbelege stammen aus IP-038.
+001–008 bleiben unverändert; `investalo` bleibt001–007.
+Keine HTTP-/Echtkey-/Echtbroker-/öffentliche Aktivierung, Nachweisflag weiterhin
+aus. Sechs öffentliche Dienste unverändert/gesund, HTTPS200-Lesecheck mit
+regulärer TLS-Prüfung bestanden.
 Referenzrepositories weiterhin unverändert.

@@ -30,7 +30,7 @@ Das lokale Fundament besitzt ausführbare Tests:
   oder Secrets; kein externer Vault-/Backup-/Restorebeleg.
 - `tests/credential_store`: 19 Clienttests für aktuelle DB-Bindung, frische
   Transaktionen, Versionskonflikte, Rotation, Widerruf und Fehlerredaktion.
-- `tests/credential_onboarding`: 95 Offline-Tests für gesonderte Actionassertions,
+- `tests/credential_onboarding`: 116 Offline-Tests für gesonderte Actionassertions,
   Ziel-/Body-/MFA-Zeitbindung, strikten Triplecodec und Entwicklungsdateiprovider.
   IP-038 ergänzt36 Fälle für den getrennten Passkeyvertrag: unveränderte OIDC-
   Zeit, frische Passkey-/Freigabezeit, exakter Zweck, Actor/Sitzung/Ziel/CAS/Body,
@@ -38,8 +38,11 @@ Das lokale Fundament besitzt ausführbare Tests:
   IP-039 ergänzt18 Clientfälle für bestätigten Consumecommit, Bindungs-/Rollen-
   prüfung, dieselben Claims in separater finaler Transaktion, Fehlerredaktion,
   unbekannte Commits und fehlende automatische Wiederholungen.
+  IP-040 ergänzt21 private Executorfälle: Consume vor Read/Probe, gemeinsamer
+  Lock/Write/Abschluss, Rollback, echte Unterscheidung unbekannter Commitantwort,
+  Fehlerredaktion und Widerruf ohne Schlüssel/Probe.
   Diese synthetischen Freigaben beweisen keinen echten BFF-Schrittflow.
-- `tests/credentials_storage`: 60 tatsächliche PostgreSQL-Fälle in
+- `tests/credentials_storage`: ursprüngliche60 PostgreSQL-Fälle aus IP-030 in
   `investalo_credentials_checks`: 18 Storefälle, 30 Actionautorisierungsfälle
   und 12 synthetische Bitget-/AEAD-End-to-End-Fälle.
   Drei eigene Testlogins; API/Research, fremde Nutzer, Viewer, deaktivierte
@@ -54,6 +57,13 @@ Das lokale Fundament besitzt ausführbare Tests:
   der WebAuthnverdict bleibt synthetisch. Keine Broker-/HTTP-/Credentialausführung.
   Ein003-Registrierungsversuch prüft die Kontosperre in einem zurückgerollten
   Savepoint; der gespeicherte Kontostand wird dabei nicht verändert.
+- `tests/credentials_storage/test_passkey_{completion_postgres,onboarding_flow}.py`:
+  IP-040 ergänzt48 Abschlussfälle und16 tatsächliche private Executorflows.
+  Echte008-Receipts, synthetisches HS256, tatsächliche AEAD-Storeänderungen und
+  injizierte Classicantworten prüfen alle drei Aktionen, Konkurrenz, Recoveryepoch,
+  geänderte Metadaten/CAS, verlorene Commitantworten und atomaren009-Abschluss.
+  Gezielte Audit-Sperrwartezeit prüft die Frist nach Mutation und vollständigen
+  Rollback von Write/Lock/Abschluss bei erhaltenem Consume.
 - `tests/workers`: gemeinsamer Simulatorkern, Provenienz und Lease-/Fencing-
   Negativfälle mit eigener tatsächlicher Research-Testrolle.
 - `apps/cockpit/tests`: OIDC-Token/Freshness, Cookies/Sitzungen, CSRF,
@@ -149,4 +159,9 @@ Aktuelle Abnahme:271 Credentialtests (19 Client,95 Offline,157 tatsächliche PG;
 Migrate-/Credential-/API-Prüfbuilds. Kein neuer Cockpitlauf:333/109 bleiben
 historische IP-038-Belege. Öffentliche Dienste unverändert/gesund/TLS200.
 Neue Prüfanleitung: [dauerhafte Freigabe](../infra/README.md#dauerhafte-passkey-credentialfreigabe).
+IP-040: vollständige356 Credentialtests bestanden,19 Client+116 Offline+221
+tatsächliche PG.64 neue PG-Fälle (48 Abschluss+16 Executor) und21 neue
+Offlinefälle. Reproduktion: [private Ausführung](../infra/README.md#private-passkey-credentialausführung).
+461 API-/Workertests gegen Fixture009 erneut bestanden; insgesamt817 Tests.
+Gepinnte Builds/Review und reguläres öffentliches TLS200 grün, Runtime unverändert.
 Abnahmekriterien: [Roadmap](../docs/roadmap.md), [Ticketboard](../docs/tasks/board.md).

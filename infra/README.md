@@ -342,7 +342,7 @@ sudo bash infra/scripts/compose.sh --profile checks run --rm --no-deps -T \
   -e PGDATABASE=investalo_credentials_checks api-checks
 ```
 
-Die Credential-Suite umfasst19 Client-,95 Offline-Onboarding- und157 tatsächliche
+Die IP-039-Abnahme umfasst19 Client-,95 Offline-Onboarding- und157 tatsächliche
 PG-Fälle; davon97 neue008-Fälle. Nur synthetische Receipts, Keys und Fixtures.
 SQL vertraut dem verpflichtenden privaten JWT-Verifier und BFF-WebAuthnverdict.
 Der administrative Checkcontainer besitzt Fixture-/Migrationscredentials,
@@ -352,6 +352,26 @@ Angewendete001–008 und terminale Audit-/Zweckzeilen bleiben unveränderlich.
 Abnahme IP-039: alle271 Credentialtests und461 API-/Workertests bestanden;
 gepinntes Migrate-/Credential-/API-Checkbuild und unabhängiger Review ohne
 Blocker. Öffentliche sechs Dienste unverändert/gesund, reguläres TLS HTTPS200.
+
+## Private Passkey-Credentialausführung
+
+IP-040 ergänzt die [private Credentialausführung](../docs/passkey-credential-execution.md).
+008-Consume committed vor Probe;008-Lock,003-Write und009-Abschluss in einer
+separaten finalen Transaktion.009 wurde nach vollständig zurückgerollter
+DDL-/echter Failure-Abschlussvorprüfung nur in `investalo_credentials_checks`
+angewendet. Unveränderliche Prüfsumme:
+`435d658458c6be7359ab19ad575421fb843c8756975710cc651eff41c4d62b75`.
+Die obigen Migrate-/Prüfkommandos verwenden weiterhin ausschließlich diese
+Fixture-DB; investalo bleibt001–007. Gepinnte Migrate-/Storage-/API-Checkbuilds
+bestanden. Der neue Executor wird durch Tests mit synthetischen Keys/Antworten
+aufgerufen; öffentliche Dienste/Flags bleiben unverändert.
+IP-040: vollständige356 Credentialtests bestanden (19 Client,116 Offline,
+221 tatsächliche PostgreSQL-Fälle).64 neue PG-Fälle prüfen Abschluss und
+Executor, darunter alle drei Aktionen und Ablauf nach Audit-Sperrwartezeit.
+Kein Source-/SQLfix nach Anwendung, nur eine Replay-Testerwartung korrigiert.
+461 API-/Workertests gegen Fixture009 erneut bestanden. Insgesamt817 Tests;
+beide DB-gebundenen Suiten nacheinander ausführen, da sie Fixture-Rollenbindungen
+setzen. Die administrative Prüfumgebung bleibt vom späteren Runtimeclient getrennt.
 
 ## Passkey-Enrollment und Widerruf
 

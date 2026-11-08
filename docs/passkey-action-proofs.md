@@ -71,8 +71,15 @@ ausdrückliche Autorisierung nur aus einem noch erteilten007-Grant, globaler
 Einmalverbrauch und separater finaler Lock. Eine abgeschlossene Proof-only-
 Bestätigung wird nicht nachträglich zur Credentialeinwilligung.
 Geprüfte008 ist nur in der Fixture-DB angewendet; 157 tatsächliche PostgreSQL-Fälle
-einschließlich 97 neuer008-Fälle bestanden. Credentialwriter-Integration steht aus.
+einschließlich 97 neuer008-Fälle bestanden.
 [Autorisierungsvertrag](passkey-credential-authorizations.md).
+IP-040 verbindet den Zweckablauf mit einem privaten Classic-Probe-/AEAD-
+Executor und009-Abschlussaudit: Consume vor Probe committed,008-Lock,
+003-Write und Abschlussaudit in derselben finalen Transaktion. Die bestehende
+007-Funktionsbestätigung bleibt ungeeignet.009-Preflight und gepinnte Prüfbuilds
+bestanden;009 ist nur in der Fixture-DB angewendet. Die 221 tatsächlichen PostgreSQL-
+Fälle einschließlich 64 neuer Fälle bestanden; keine Browser- oder Brokeraktivierung.
+[Ausführungsgrenze](passkey-credential-execution.md).
 
 Der vollständige BFF-Enrollment- und Nachweisablauf ist unter IP-037 mit
 synthetischen P256-Daten über echtes isoliertes HTTPS/API/PG geprüft.

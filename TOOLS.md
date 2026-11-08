@@ -23,8 +23,8 @@ _Add whatever helps you do your job. This is your cheat sheet._
 ## Investalo — verified 2026-11-08
 
 - Working checkout: `/opt/Investalo_Trading-Platform`.
-- Implementation branch: `feat/m1-passkey-credential-authorization`, based on main `13ba2e2`;
-  prior `8bb64db` merged and verified;
+- Implementation branch: `feat/m1-passkey-credential-execution`, based on main `be13145`;
+  prior `389082a` merged and verified;
   local implementation and authorized checkpoint pushes, no production deployment.
 - Read-only references: `/opt/investalo-trading-system`,
   `/opt/investalo-autotrader`. HEADs and reuse limits: `docs/inventory.md`.
@@ -68,7 +68,7 @@ _Add whatever helps you do your job. This is your cheat sheet._
 - GitHub intermediate pushes explicitly authorized. Origin:
   `github.com:cadm-balzer/Investalo_Trading-Platform.git`.
   Existing host Deploy-Key `/opt/github-project-ssh-key` is used via
-  `git -c 'core.sshCommand=ssh -i /opt/github-project-ssh-key -o IdentityAgent=none -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=15 -o ServerAliveInterval=15 -o ServerAliveCountMax=2' push -u origin feat/m1-passkey-credential-authorization`.
+  `git -c 'core.sshCommand=ssh -i /opt/github-project-ssh-key -o IdentityAgent=none -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=15 -o ServerAliveInterval=15 -o ServerAliveCountMax=2' push -u origin feat/m1-passkey-credential-execution`.
   Never copy the private key into the repository or print its contents.
   The inherited SSH agent stalled while enumerating identities on2026-11-07;
   using the already authorized deploy identity directly completed the push.
@@ -142,6 +142,18 @@ _Add whatever helps you do your job. This is your cheat sheet._
   461 API/worker tests rerun/passed against the fixture DB. Pinned builds passed.
   Six public services unchanged/healthy; regular TLS HTTPS200 readcheck passed.
   Private consume/lock client supplies no broker or003/004 writer.
+- IP-040:009 applied only to `investalo_credentials_checks` after fully
+  rolled-back DDL/real failure-completion preflight. Immutable checksum
+  `435d658458c6be7359ab19ad575421fb843c8756975710cc651eff41c4d62b75`.
+  Old001–008 unchanged; `investalo` remains001–007. Pinned migrate/storage/API-
+  check builds passed. New private executor injects transport; no runtime caller.
+  Output evidence is in the task's command results, not a new log-file set.
+  Preflight input: `/tmp/investalo-passkey-execution-preflight.sql`.
+  Final356 pinned credential tests passed in153.42s (19 client,116 offline,
+  221 actual PG).64 new PG cases and21 new offline cases. One replay test
+  expectation corrected, no implementation/migration edits after application.
+  Rerun461 API/worker checks passed in91.22s against fixture009.
+  Six public services unchanged/healthy, regular TLS HTTPS200 verified.
 - Both public DNS names resolve to host5.45.96.83; valid LE certificates expire
   2027-02-05. Always use active `--file infra/compose.public-preview.yaml`
   for edge/application runtime changes; default `up` restores local origins/ports.

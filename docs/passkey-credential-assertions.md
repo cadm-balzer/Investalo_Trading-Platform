@@ -1,5 +1,8 @@
 # Getrennter Passkey-Credential-Assertionvertrag
 
+Der isolierte Vertrag ist inzwischen über008/009 mit einem privaten Executor
+verbunden: [Ausführung und Abnahmegrenzen](passkey-credential-execution.md).
+
 Stand 2026-11-08. IP-038 ergänzt einen isolierten TypeScript-Signer und
 Python-Verifier für die spätere Credentialintegration. Er bewahrt die
 ursprüngliche OIDC-Anmeldezeit und führt die frische Passkeyprüfzeit separat.

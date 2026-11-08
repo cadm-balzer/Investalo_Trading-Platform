@@ -48,8 +48,14 @@ erteilt diese nicht. IP-039 ergänzt008 mit eingefrorenem Zweck, ausdrücklicher
 Autorisierung aus einem noch erteilten007-Grant, globalem Einmalverbrauch und
 getrenntem finalen Lock. Geprüfte008 ist nur in der Fixture-DB angewendet;
 die tatsächliche PostgreSQL-Lifecycleprüfung bestand. Geschützte Keyeingabe und
-Credentialwriter-Integration bleiben offen;004 und öffentliche Vorschau
+Browser-/Credentialexecutorintegration bleiben offen;004 und öffentliche Vorschau
 unverändert. [Autorisierungsgrenze](passkey-credential-authorizations.md).
+IP-040 ergänzt den privaten `PasskeyBitgetOnboarding` mit Consume vor Probe und
+008-Lock/003-AEAD-Änderung/009-Abschlussaudit in derselben finalen Transaktion.
+356 Credentialtests (221 tatsächliche PostgreSQL-Fälle),009-Preflight und
+gepinnte Prüfbuilds bestanden;009 ist nur in der Fixture-DB angewendet.
+Kein echter Nutzerkey oder Brokertransport angeschlossen.
+[Privater Ausführungsablauf](passkey-credential-execution.md).
 
 | Modus | Schlüsselrechte und Plattformfunktion |
 |---|---|
@@ -134,8 +140,8 @@ Verschlüsselte Speicherung und Abschlussaudit erfolgen in einer Transaktion.
 Die Prüfungen verwenden erfundene Assertions/Keys/Brokerantworten gegen echte DB.
 Eine Broker-UID ist global je Broker eindeutig, auch nach Widerruf; automatische
 Übertragung oder Neueinrichtung derselben UID ist ausgeschlossen.
-Physische BFF-MFA-Abnahme, zweckgebundene dauerhafte Credentialfreigabe und
-Cockpiteingabe, Betriebsschlüsselprovider,
+Physische BFF-MFA-Abnahme, Browseranbindung der zweckgebundenen Credentialfreigabe
+und geschützte Cockpiteingabe, Betriebsschlüsselprovider,
 tatsächliche Egress-/Brokerprüfung und gemeinsame UID-Quota müssen vor echter
 Keyannahme integriert und abgenommen werden. Der Dateiprovider ist ausschließlich
 für Entwicklung; es gibt keine freigeschaltete HTTP-Keyroute.

@@ -191,3 +191,21 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   gesund, reguläres TLS HTTPS200. Kein HTTP-/Broker-/003/004-Executor.
   Nächster Schritt private Credentialwriterintegration; physische Geräteabnahme,
   echte E-Mail/Keyeingabe, öffentliche Aktivierung, Recovery/Betrieb weiter offen.
+- 2026-11-08, Fortsetzung nach bestätigtem Merge:389082a in Mainbe13145
+  verifiziert; Branch feat/m1-passkey-credential-execution. IP-040 verbindet
+  private Passkeyfreigabe mit synthetisch geprüftem Classicprobe/AEAD-Writer:
+  committed008-Consume vor Read/Probe, separate008-Lock+003-Write+009-Abschluss-TX.
+  009 immutable FORCE-RLS-Terminalaudit prüft exactsameclaims/LOGIN/Lock-XID,
+  aktuellen Actor/Faktor/Account und erlaubten neuen Connection-CAS-Zustand.
+  Deadline nach letztem Auditwartepunkt prüfen. Fehler rollen finale TX zurück,
+  Consume bleibt. Verlorene Commitantworten niemals automatisch wiederholen;
+  erfolgreicher Abschluss wird nicht durch best-effort failed überschrieben.
+  009 nach vollständig zurückgerollter DDL/echtem failedfinish-Preflight nur in
+  investalo_credentials_checks angewendet; investalo weiter001–007,001–008unverändert.
+  Keine HTTP-/öffentliche/echte Brokeraktivierung. Physische Geräteabnahme,
+  echte E-Mail/Browser-Keyeingabe, eigene Signatur-/Betriebsidentität,
+  Egress/Quota, Recovery und Pilotbetrieb bleiben gesondert.
+  356 gepinnte Credentialtests (19 Client,116 Offline,221 tatsächliche PG;
+  64 neue PG) und461 API-/Workertests gegenFixture009 bestanden, insgesamt817.
+  Gepinnte Builds und unabhängiger Review ohne Restblocker. Öffentliche sechs
+  Dienste unverändert/gesund/TLS200. Nächster Schritt Cockpit-/Browseranbindung.

@@ -571,3 +571,31 @@ bevor der neue Checksum in der Fixture-DB festgeschrieben wird. Frühere
 Migrationen bleiben immutable. [Zweckgrenze/Prüfbelege](../passkey-credential-authorizations.md),
 [PG18-Sperren](https://www.postgresql.org/docs/18/explicit-locking.html),
 [PG18-Definerfunktionen](https://www.postgresql.org/docs/18/sql-createfunction.html#SQL-CREATEFUNCTION-SECURITY).
+
+## 2026-11-08 — D-045: Private Passkeyausführung mit atomarem Abschluss
+
+Nutzer bestätigt Merge `389082a` und beauftragt Fortsetzung. Main `be13145`
+verifiziert; IP-040 auf `feat/m1-passkey-credential-execution`.
+Der neue private Executor verbindet008-Verbrauch vor Credentialread/Probe
+mit einer separaten finalen Transaktion aus008-Lock,003-AEAD-Mutation und
+009-Abschlussaudit. Ursprüngliche OIDC-Zeit und alle neuen Zweckbindungen
+bleiben erhalten. Der alte004-Vertrag wird nicht als Brücke verwendet.
+
+009 ergänzt eine immutable FORCE-RLS-Terminaltabelle. Abschluss verlangt
+identische authentifizierte Claims, SESSION_USER und aktuellen Lock-XID
+sowie den exakt erlaubten neuen Connectionzustand. Die bisherige Prüfung
+alter Metadaten kann nach der gewollten Mutation nicht erneut verwendet werden;
+Account/Actor/Faktor bleiben aktuell gebunden. Frist nach Auditwartezeiten
+prüfen, dann an den Commit übergeben. Widerruf benötigt weder Broker noch
+Entschlüsselung und bleibt für pausierte Konten verfügbar.
+
+Fehler rollen Lock, Write und Abschluss zurück; der vorherige Verbrauch bleibt.
+Fehleraudit ist best effort und verleiht keine neue Autorität.
+Verlorene Commitantworten erlauben keine automatischen Wiederholungen und
+überschreiben keinen bereits bestätigten Erfolg. SQL vertraut weiterhin dem
+privaten Verifier/BFF/Probe; direkte003-Primitive bleiben vertrauenswürdig.
+009 nach vollständig zurückgerollter DDL-/echter Failure-Abschlussvorprüfung
+nur Fixture-DB,001–008 unverändert. Keine HTTP-/öffentliche/echte Brokeraktivierung.
+[Ablauf/Grenzen](../passkey-credential-execution.md),
+[PG18-Sperren](https://www.postgresql.org/docs/18/explicit-locking.html),
+[OWASP Transaktionsfreigabe](https://cheatsheetseries.owasp.org/cheatsheets/Transaction_Authorization_Cheat_Sheet.html).

@@ -33,6 +33,13 @@ Transaktion sperren/prüfen. Der private Pythonclient hat keinen Credentialwrite
 oder HTTP-/Brokeranschluss. Geprüfte008 ist nur in der Fixture-DB angewendet,
 `investalo` bleibt001–007; die tatsächliche PostgreSQL-Lifecycleprüfung bestand.
 [Autorisierungsgrenze](passkey-credential-authorizations.md).
+IP-040 ergänzt den privaten `PasskeyBitgetOnboarding`: committed008-Consume,
+Classic-Probe und008-Lock mit003-AEAD-Änderung und009-Abschlussaudit in derselben
+finalen Transaktion. Der alte004-Vertrag bleibt unverändert.009-Preflight und
+gepinnte Migrate-/Storage-/API-Prüfbuilds bestanden;009 ist nur in der
+Fixture-DB angewendet. Die tatsächliche PostgreSQL-Regressionsprüfung bestand;
+kein HTTP-/Echtbrokeranschluss.
+[Privater Executor](passkey-credential-execution.md).
 
 ## Systemgrenzen
 

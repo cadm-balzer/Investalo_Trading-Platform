@@ -87,7 +87,7 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   onboarding checkpoint `69a1f8b` merged into main, verified at `56070ba`;
   step-up checkpoint `d57bd56` merged into main, verified at `b6198f7`;
   registry checkpoint `6a18102` merged into main, verified at `f422a90`;
-  current work branch: `feat/m1-passkey-credential-authorization`.
+  current work branch: `feat/m1-passkey-credential-execution`.
   Isolated AEAD core: `packages/credentials/README.md`, 20 offline tests with
   pinned cryptography and a separate hardened Compose check.
   Credential store: `services/credentials/README.md`; migration003 and current
@@ -230,6 +230,25 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   Independent review has no blocker. Public services unchanged/healthy/TLS200.
   Historical333 Cockpit/109 interop checks were not rerun; TS signer unchanged.
   Validation and remaining integration: `docs/passkey-credential-authorizations.md`.
+- IP-039 checkpoint `389082a` is merged into main `be13145` (verified).
+  IP-040 connects the private `PasskeyBitgetOnboarding` executor:
+  committed008 consume before any read/probe, separate008 lock +003 AEAD
+  mutation +009 terminal completion in one final transaction. Exact verified
+  claims/SESSION_USER/current lock XID and permitted postmutation CAS state
+  are required; actor/factor/account/time remain current. Clock is checked
+  after audit/FK waits. Failures roll back final write/lock/completion while
+  consume remains; unknown commits never retry or overwrite completed audit.
+  Revoke needs no key read/decryption/probe and permits paused accounts.
+  009 passed fully rolled-back DDL and actual failed-completion preflight,
+  then applied ONLY to investalo_credentials_checks. Its immutable checksum:
+  435d658458c6be7359ab19ad575421fb843c8756975710cc651eff41c4d62b75.
+  Old001–008 unchanged; development investalo remains001–007. No HTTP caller,
+  real broker transport/key intake or public flag activation. 356 pinned
+  credential tests passed (19 client,116 offline,221 actual PG;64 new PG),
+  including real signed receipts, AEAD writes, audit-wait expiry and unknown
+  commit cases. Pinned builds and independent review passed. Public services
+  unchanged/healthy/TLS200. Rerun461 API/worker tests passed against fixture009.
+  Contract: `docs/passkey-credential-execution.md`.
 
 ## Trading and implementation invariants
 
