@@ -398,3 +398,19 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   nicht zwingend den laufenden DB-Commit. Fehlende Antwort bleibt unbekannt;
   kein automatischer erneuter Probe-/Writeversuch und kein `failed`-Audit
   über einen bereits bestätigten Abschluss.
+- **Libpq-Umgebung im festen Launcher:** `PGOPTIONS`, `PGSERVICE` und weitere
+  geerbte Parameter können Verbindung und Sitzung beeinflussen. Der isolierte
+  Entwicklungslauncher weist alle `PG*`-Variablen ab und setzt Verbindung/TLS/
+  Timeouts ausschließlich fest. Nicht das PG-Environment des administrativen
+  Fixturecheckers in die Credentialruntime übernehmen.
+- **Rollenprüfung ohne Migrationledger:** Der gebundene Credential-LOGIN darf
+  `schema_migrations` nicht lesen. Notwendige008-/009-Funktionen und EXECUTE-
+  Rechte über feste `pg_catalog`-Abfragen vor dem Listener prüfen; angewendete
+  Migrationen/Prüfsummen bleiben Sache der getrennten Administration.
+- **Zusatzgruppen aus Composeanchors:** Gemeinsame Prüfhärtung kann eine
+  administrative Lesegroup enthalten. Die Credentialruntime braucht nur ihre
+  UID/GID10003; `group_add: []` ausdrücklich setzen und tatsächliche
+  `HostConfig.GroupAdd` neben den exakten Mounts prüfen.
+- **Synthetic-only Guard:** Reale Keytriples vor Verifier und dauerhaftem
+  Consentverbrauch abweisen. Statische synthetische Brokerantworten allein
+  würden versehentliche echte Speicherung nicht verhindern.

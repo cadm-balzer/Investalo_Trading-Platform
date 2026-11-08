@@ -87,7 +87,7 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   onboarding checkpoint `69a1f8b` merged into main, verified at `56070ba`;
   step-up checkpoint `d57bd56` merged into main, verified at `b6198f7`;
   registry checkpoint `6a18102` merged into main, verified at `f422a90`;
-  current work branch: `feat/m1-credential-private-transport`.
+  current work branch: `feat/m1-credential-development-service`.
   Isolated AEAD core: `packages/credentials/README.md`, 20 offline tests with
   pinned cryptography and a separate hardened Compose check.
   Credential store: `services/credentials/README.md`; migration003 and current
@@ -287,6 +287,28 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   Pinned Python/Node fixture and Cockpit builds passed; running preview
   containers were not recreated. No new dependencies or migrations.
   Contract: `docs/passkey-credential-https.md`.
+
+- IP-042 checkpoint `94fb73b` is merged into main `6300971` (verified).
+  IP-043 adds an explicit synthetic-only development credential launcher and
+  isolated container. Fixed fixture DB/LOGIN, actor and008/009 capabilities
+  are verified before listening; ambient PG options are rejected. Owned0400
+  files pin separate signing/KEK identities and the mTLS client certificate.
+  Exact synthetic canaries are required before verifier/consume; broker is
+  synthetic. Runtime mounts no migration/API/research password or BFF client
+  private key. Administrative setup/audit mode mounts no credential LOGIN
+  password and never calls the executor. New per-run UUID state is create-only;
+  no new dependencies or migrations. Stdlib HTTPS/file provider remain
+  development-only; production server/provider, physical/browser acceptance
+  and real keys/broker remain open. See `docs/credential-development-service.md`.
+  401 pinned credential tests with52 subtests (25 new launcher cases),10 host
+  preparation tests and440 integrated restricted-service/mTLS checks passed.
+  Default image without development opt-in rejects before network startup.
+  Pinned runtime/Python/Node builds and independent review passed.
+  Historical injected HTTPS387 and pipe329 checks rerun/passed; overlap is
+  not additive. Prior440 Cockpit/572 API-worker suites not rerun; app code
+  unchanged. All migration checksums normal007/fixture009 verified.
+  Fixture containers stopped, six public services unchanged/healthy,
+  cockpit/auth regular TLS HTTP200.
 
 ## Trading and implementation invariants
 

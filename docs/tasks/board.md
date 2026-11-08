@@ -42,7 +42,7 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-030 | P0 / P1–P4 | DONE | Bitget-Prüfung, Triple-Speicherung und einmalige Actionfreigabe verbinden | 120 Tests inkl. 60 echte PG-Fälle bestanden; synthetische Freigaben/Broker, damals004 nur Fixture-DB; HTTP/BFF-MFA und Pilotprovider bleiben IP-009 |
 | IP-031 | P0 / P1 | DONE | Geschützte Kontometadaten und vorbereitete Actionzustände prüfen | Additive005, 36 reine +20 PG-Metadatenfälle, 25 Actionzustandsfälle; 40 reale HTTPS-Prüfpunkte einschließlich gesperrtem Step-up und IdP-Faktorfrischebefund |
 | IP-032 | P0 / P1 | DONE | Bestätigten zusätzlichen Passkey-Assertionkern prüfen | SimpleWebAuthn14.1.0, 19 echte synthetische Signaturtests, voller Cockpitlauf78/Typecheck/Containerbuild grün; unabhängiger Review, kein aktiver HTTP-Verifier |
-| IP-033 | P0 / P1 | IN_PROGRESS | Dauerhafte Passkeyverwaltung und Browser-Schrittflow integrieren | Registry/Enrollment IP-034, Nachweis007 IP-036, synthetischer BFF-Durchlauf IP-037, Vertrag IP-038, Zweckfreigabe008 IP-039, privater Executor IP-040 und privater Cockpitablauf IP-041 und Entwicklungs-HTTPS IP-042 geprüft; physische Geräteabnahme, Browser-Keyannahme, Runtimeprovider und öffentliche Aktivierung folgen; BL-020/021/025 |
+| IP-033 | P0 / P1 | IN_PROGRESS | Dauerhafte Passkeyverwaltung und Browser-Schrittflow integrieren | Registry/Enrollment IP-034, Nachweis007 IP-036, synthetischer BFF-Durchlauf IP-037, Vertrag IP-038, Zweckfreigabe008 IP-039, privater Executor IP-040, Cockpitablauf IP-041 und Entwicklungs-HTTPS IP-042 vorhanden; IP-043 trennt den synthetischen Dienst. Physische Geräteabnahme, Browser-Keyannahme, Betriebsschlüssel und öffentliche Aktivierung folgen; BL-020/021/025 |
 | IP-034 | P0 / P1 | DONE | Dauerhafte Passkeyregistry und lokales Browser-Enrollment implementieren | Additive006, Einmalticket, FORCE RLS, Counter-/Versions-CAS, terminaler Widerruf/Audit und BFF-Enrollment; 528 Tests und48 HTTPS-Prüfpunkte grün, unabhängige Reviews, keine Actionfreigabe |
 | IP-035 | P0 / P1 | DONE | Freigegebene HTTPS-Entwicklungsvorschau aktivieren | Nutzerfreigabe und beide DNS-Namen vorhanden; zwei gültige LE-Zertifikate, zwölf Helpertests und48 öffentliche HTTPS-/MFA-/Backtestprüfpunkte grün. Separate öffentliche Identität im bestehenden Entwicklungstenant; nur Edge80/443, Zertifikate nach Neustart erhalten. BL-026/Pilotabnahme bleiben offen |
 | IP-036 | P0 / P1 | DONE | Dauerhaften zielgebundenen Passkey-Aktionsnachweis implementieren | Additive007, Claim vor Kryptoprüfung, Counter-/Versions-CAS und einmalige Vorschau-Bestätigung; 724 Prüfungen grün, unabhängige Reviews. Originale OIDC-Claims erhalten; Browseraktivierung und Credentialausführung bleiben separate Gates |
@@ -52,8 +52,20 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-040 | P0 / P1 | DONE | Private Passkeyfreigabe mit Credentialmutation und Abschlussaudit verbinden | Merge389082a in Mainbe13145 verifiziert;008 Consume vor Probe,008 Lock+003 AEADwrite+009 Abschlussaudit gleiche finale TX.356 Credential-/461 API-Workertests und gepinnte Builds bestanden;009 nur Fixture-DB. HTTP, echte Schlüssel und öffentliche Aktivierung bleiben gesondert |
 | IP-041 | P0 / P1 | DONE | Privaten Cockpit-Zweckablauf mit API und Credentialexecutor verbinden | Merge3476f74 in Main0fd25b6 verifiziert; standardmäßig deaktivierte008 API-Brücke und injizierter BFF-Ablauf mit ursprünglicher Session, expliziter Credentialzustimmung und exaktem Body.572 API-/385 Cockpittests,299 integrierte Prüfpunkte, Typecheck/Builds/Review grün; Browser-Keyannahme und öffentlicher Betrieb bleiben gesondert |
 | IP-042 | P0 / P1 | DONE | Privaten Entwicklungs-HTTPS-Transport zum Credentialexecutor prüfen | Mergecd66c3a in Mainc573ab3 verifiziert; gegenseitiges TLS, eigene BFF-Zertifikatsbindung, unabhängiger Sitzungskontext und unveränderte Bodybytes; ausschließlich synthetische Fixture, 376 Credential-/440 Cockpittests,346 mTLS-Prüfpunkte und gepinnte Builds/Review grün; kein Produktionslauncher oder öffentlicher Keyeingang |
+| IP-043 | P0 / P1 | DONE | Synthetischen Credentialdienst mit eigener DB-/Schlüsselidentität starten | Merge94fb73b in Main6300971 verifiziert; getrennte Runtime/Admincontainer, feste Fixture-DB/LOGIN, Startprüfung und synthetische Guard vor008-Verbrauch.401 Credential-/10 Vorbereitungstests,440 tatsächliche Dienstprüfpunkte und gepinnte Builds/Review bestanden; Produktionsserver/Schlüsselbetrieb und Browser-Keyannahme folgen |
 
 ## Abschlussbelege
+
+IP-043:401 gepinnte Credentialtests mit52 Subtests, zehn Host-
+Vorbereitungstests und440 integrierte Prüfpunkte im getrennten
+Credentialdienst bestanden. Image ohne Entwicklungsoption beendet sich
+vor dem Netzwerkstart. Unabhängiger Review ohne offene Blocker.
+[Dienstgrenze und Betrieb](../credential-development-service.md).
+Der bestehende injizierte HTTPS-Ablauf387 und Pipeablauf329 Prüfpunkte erneut bestanden;
+überlappende Integrationsläufe nicht addieren. Alle gespeicherten
+Migrationsprüfsummen normal007/Fixture009 stimmen mit den SQL-Dateien überein.
+Fixturecontainer beendet, sechs öffentliche Dienste unverändert und beide
+Domains mit regulärem TLS HTTP200.
 
 Nutzerhinweis2026-11-08 zu den kurzen Bitcoin-Backtests: Der vorhandene
 90-Tage-Snapshot ist ein Funktionsnachweis. IP-011/IP-013 und BL-018 behalten
@@ -407,6 +419,24 @@ Fixture-APIs gestoppt; sechs öffentliche Dienste gesund, reguläres TLS HTTPS20
 Browser-Keyannahme, physische Geräteabnahme, Betriebsidentität/-provider und
 realer Credential-/Brokertransport bleiben gesonderte Arbeit.
 [Ablauf und Belege](../passkey-credential-cockpit.md).
+
+## Zwischenabnahme IP-043 — isolierter Entwicklungs-Credentialdienst
+
+Register, Austausch und Widerruf laufen über mTLS in einem eigenen Container
+mit gebundenem Fixture-LOGIN und eigenen Schlüsseldateien. Der administrative
+Checker hat kein Credential-LOGIN-Passwort und prüft lediglich Setup/Ergebnisse.
+Feste Startbedingungen, exakte Mounts und fehlende Zusatzgruppen sind geprüft.
+Echte Keys werden vor Consentverbrauch abgewiesen; keine öffentlichen Ports,
+neuen Abhängigkeiten oder Migrationen.
+
+401 Credentialtests/52 Subtests, zehn Vorbereitungstests und440 reale
+Dienstprüfpunkte bestanden; gepinnte Runtime-/Python-/Nodebuilds und unabhängiger
+Review ohne offene Blocker. Historische HTTPS-/Pipeabläufe387/329 erneut bestanden;
+überlappende Läufe nicht addieren. Fixturecontainer beendet, öffentliche
+sechs Dienste gesund, Cockpit/Auth mit regulärem TLS200.
+Produktionsserver, Schlüsselbetrieb, Browser-Keyeingabe/physische Geräteabnahme
+und tatsächlicher Broker bleiben weitere M1-Arbeit.
+[Vertrag und genaue Abnahme](../credential-development-service.md).
 
 ## Routine
 

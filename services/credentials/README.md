@@ -238,6 +238,16 @@ uncertain response. [Transport contract](../../docs/passkey-credential-https.md)
 
 ## Development file provider
 
+IP-043 adds `development_runtime` and a separate opt-in fixture container.
+The launcher requires `--development`, fixed UID10003, owned pinned files,
+the fixture-only database and bound credential LOGIN. Startup verifies actual
+role/context and008/009 capabilities before opening the mTLS listener.
+Ambient `PG*` options are rejected. Exact synthetic credential canaries are
+required before verification or durable consumption; no real broker transport
+exists. Administrative fixture credentials and the BFF client private key
+are absent from this container. This remains a development server/provider.
+[Service boundary and validation](../../docs/credential-development-service.md).
+
 `keyfiles.DevelopmentKeyFileProvider` requires explicit `development_mode=True`.
 Trusted server configuration fixes directory, `KeyFile(version_id, basename,
 sha256_fingerprint)` entries and active version. The directory must be owned by

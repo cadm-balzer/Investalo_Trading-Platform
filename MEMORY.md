@@ -2,6 +2,23 @@
 
 Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
 
+- 2026-11-08: IP-042 `94fb73b` in Main `6300971` verifiziert; Nutzer
+  beauftragt Fortsetzung. IP-043 trennt synthetischen Credentialdienst
+  von administrativem Setup/Audit. Runtime hat ausschließlich gebundenen
+  Fixture-LOGIN und eigene0400-Dateien; Adminchecker hat kein LOGIN-Passwort.
+  Feste Identität/008-/009-Rechte vor Listener, PG-Umgebung abgewiesen,
+  exakte synthetische Guard vor Consume, create-only UUID-Ablagen.
+  Neuer Branch `feat/m1-credential-development-service`.
+  401 gepinnte Credentialtests/52 Subtests,10 Host-Vorbereitungstests und
+  440 tatsächliche isolierte Dienstprüfpunkte bestanden; gepinnte Builds
+  und unabhängiger Review grün. Image ohne Entwicklungsoption beendet
+  sich vor Listener. Keine neue Migration oder Dependency; echter Broker,
+  Browser-Keyannahme, Produktionsserver und Schlüsselbetrieb bleiben offen.
+  Historische HTTPS-/Pipeabläufe387/329 erneut bestanden; keine additive
+  Zählung überlappender Prüfpunkte. Beide DB-Ledgerprüfsummen unverändert;
+  Fixturecontainer beendet, sechs öffentliche Dienste unverändert/gesund,
+  Cockpit/Auth mit regulärem TLS200.
+
 - 2026-11-08: IP-041 `cd66c3a` in Main `c573ab3` verifiziert.
   Nutzer beauftragt Fortsetzung der besprochenen Bitget-Anbindung und betont
   längere Bitcoin-Backtests. Drei Jahre BTC/ETH plus unabhängiger Holdout bleiben

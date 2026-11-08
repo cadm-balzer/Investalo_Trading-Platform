@@ -37,6 +37,10 @@ Arbeit vor echter Kontoverbindung. [Ablauf](passkey-credential-cockpit.md).
 IP-042 ergänzt die [private Entwicklungs-HTTPS-Grenze](passkey-credential-https.md)
 mit gegenseitigem TLS. Produktionslauncher, Betriebsschlüssel und
 Browser-Keyeinrichtung bleiben vor der tatsächlichen Kontoverbindung offen.
+IP-043 prüft den [getrennten synthetischen Credentialdienst](credential-development-service.md)
+mit eigener gebundener DB-Rolle und eigenen Schlüsseldateien. Damit ist die
+Entwicklungs-Containergrenze konkret; Produktionsserver und Schlüsselbetrieb
+bleiben gesonderte Abnahmen.
 Der Nutzer hat den Bedarf längerer Bitcoin-Backtests erneut hervorgehoben:
 Drei Jahre BTC/ETH-Daten und ein unabhängiger Holdout bleiben IP-011/IP-013,
 der aktuelle90-Tage-Datensatz ist ausschließlich ein Funktionsnachweis.

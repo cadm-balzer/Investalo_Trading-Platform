@@ -130,6 +130,11 @@ und Pilotbetrieb sind weitere M1-Aufgaben.
 IP-042 ergänzt einen lokal injizierten Entwicklungs-HTTPS-Transport mit
 gegenseitigem TLS und unabhängigem ursprünglichem Sitzungskontext.
 [Dienstgrenze und verbleibender Betrieb](docs/passkey-credential-https.md).
+IP-043 trennt den synthetischen Credentialexecutor in einen eigenen
+Entwicklungscontainer mit ausschließlich gebundener Credentialrolle und
+eigenen Schlüsseldateien. Der administrative Checker prüft danach das Ergebnis;
+echte Schlüssel werden vor Verbrauch der Freigabe abgewiesen.
+[Isolierter Dienst und Startbedingungen](docs/credential-development-service.md).
 Vollständiger Privatpilot, Produktion und Echtgeld benötigen eigene
 Abnahmen. Das lokale Standardprofil bindet ausschließlich `127.0.0.1:8443`;
 die aktive Vorschau veröffentlicht nur den zentralen Proxy auf80/443.
