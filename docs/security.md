@@ -72,6 +72,13 @@ prüft Bindungen nach Await und verwirft lokale Handles vor einmaligen Schritten
 Kein Browser-Keyeingabe-/Executor-HTTP-Weg oder Betriebsschlüssel wird aktiviert.
 [Private Cockpit-Anbindung und Gates](passkey-credential-cockpit.md).
 
+IP-042 prüft die injizierte Credentialübergabe mit eigener TLS-CA und
+gepinntem Clientzertifikat vor HTTP. Exakter unabhängiger Sitzungskontext,
+feste DB-Identität, begrenztes Framing und statische Fehler halten die
+HTTP-Grenze schmal. Der stdlib-Server ist ausschließlich ein
+Entwicklungsprüfstand; Betriebsprovider und Produktionsserver bleiben offen.
+[HTTPS-Vertrag](passkey-credential-https.md).
+
 ## Bedrohungen und Kontrollen
 
 | Bedrohung | Kontrolle / Abnahme |

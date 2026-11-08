@@ -10,8 +10,9 @@ import {
   type PasskeyCredentialPorts,
 } from "../../apps/cockpit/src/lib/passkey-credential-flow.ts";
 import { internalToken } from "../../apps/cockpit/src/lib/internal-token.ts";
+import { createPasskeyCredentialExecutor } from "../../apps/cockpit/src/lib/passkey-credential-executor.ts";
 import type { ActionTarget, CredentialAction } from "../../apps/cockpit/src/lib/credential-action-contracts.ts";
-import type { ProofSession } from "../../apps/cockpit/src/lib/passkey-action-proof-state.ts";
+import { actionProofBinding, type ProofSession } from "../../apps/cockpit/src/lib/passkey-action-proof-state.ts";
 
 const lines = createInterface({ input: process.stdin, crlfDelay: Infinity })[Symbol.asyncIterator]();
 const MAX = 32_768;
@@ -83,6 +84,23 @@ async function main() {
   stage = "disabled";
   const disabled = await api("/v1/passkey-credential-authorizations/prepare", "POST", "{}", true);
   check(disabled.status === 404);
+  let executorTarget: ActionTarget | undefined;
+  const trusted = Object.freeze({
+    tenantId: bound.session.tenantId, userId: config.userId, subject: bound.session.subject,
+    authEpoch: bound.session.authEpoch, oidcAuthTime: bound.session.oidcAuthTime,
+    sessionBinding: actionProofBinding(bound), sessionExpiresAt: bound.session.expiresAt,
+  });
+  function executor(origin = config.executor.origin, otherCertificate = false) {
+    check(executorTarget !== undefined);
+    return createPasskeyCredentialExecutor({
+      origin, context: trusted, target: executorTarget,
+      tls: {
+        ca: Buffer.from(config.executor.ca),
+        certificate: Buffer.from(otherCertificate ? config.executor.otherCertificate : config.executor.certificate),
+        privateKey: Buffer.from(otherCertificate ? config.executor.otherPrivateKey : config.executor.privateKey),
+      },
+    });
+  }
 
   const ports: PasskeyCredentialPorts = {
     current: async () => bound,
@@ -104,11 +122,22 @@ async function main() {
     now, randomToken: token, randomUuid: randomUUID,
     credentialKey: async () => new Uint8Array(signingKey),
     execute: async (jwt, body) => {
+      let actual: unknown;
+      if (config.executor) {
+        if (executions === 0) {
+          await denied(() => executor(config.executor.origin, true)(jwt, body));
+          await denied(() => executor(config.executor.disabledOrigin)(jwt, body));
+        }
+        actual = await executor()(jwt, body);
+        // A second request cannot reuse durable consent or dispatch a probe.
+        await denied(() => executor()(jwt, body));
+      }
       executions++;
       output({ kind: "execute", token: jwt, body });
       const result = await input();
       check(result.kind === "executed" && result.body_sha256 === createHash("sha256").update(body).digest("hex"));
-      return result.result;
+      if (config.executor) check(JSON.stringify(actual) === JSON.stringify(result.result));
+      return config.executor ? actual : result.result;
     },
   };
 
@@ -117,6 +146,7 @@ async function main() {
     stage = action + ".prepare";
     let exactBody = "";
     const prepared = await beginPasskeyCredentialFlow(ports, bound, config.account, action, (target: ActionTarget) => {
+      executorTarget = target;
       const { action: _action, ...fields } = target;
       const body = { ...fields, ...(action === "revoke" ? {} : { credentials: {
         api_key: action === "replace" ? "synthetic-purpose-replacement" : "synthetic-purpose-api",

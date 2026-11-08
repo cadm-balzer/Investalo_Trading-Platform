@@ -101,3 +101,9 @@ nicht wiederholt; TS/Cockpitcode blieb unverändert.
 [Dauerhafte Freigabe](passkey-credential-authorizations.md),
 [Prüfkommandos](../infra/README.md),
 [Credentialservice](../services/credentials/README.md).
+
+Nachfolgend verbindet IP-042 diesen Executor über einen injizierten
+[Entwicklungs-HTTPS-Transport](passkey-credential-https.md) mit dem TS-BFF.
+Eigene TLS-CA/Clientpin und unabhängiger Sitzungskontext sind getrennte
+Transportgrenzen; ursprüngliche Verifier-/008-/009-Prüfungen bleiben erhalten.
+Keine Produktivprovisionierung oder tatsächliche Keyannahme.

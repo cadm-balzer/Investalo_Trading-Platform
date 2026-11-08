@@ -1,6 +1,6 @@
 # Git-basiertes Ticketboard
 
-Stand 2026-11-07. Dieses Board ist das initiale Task-/Ticketsystem ohne
+Stand 2026-11-08. Dieses Board ist das initiale Task-/Ticketsystem ohne
 zusätzliche Tools oder externe Veröffentlichung.
 
 Status: `READY` ausführbar, `IN_PROGRESS` aktiv, `WAITING_DECISION` benötigt
@@ -42,7 +42,7 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-030 | P0 / P1–P4 | DONE | Bitget-Prüfung, Triple-Speicherung und einmalige Actionfreigabe verbinden | 120 Tests inkl. 60 echte PG-Fälle bestanden; synthetische Freigaben/Broker, damals004 nur Fixture-DB; HTTP/BFF-MFA und Pilotprovider bleiben IP-009 |
 | IP-031 | P0 / P1 | DONE | Geschützte Kontometadaten und vorbereitete Actionzustände prüfen | Additive005, 36 reine +20 PG-Metadatenfälle, 25 Actionzustandsfälle; 40 reale HTTPS-Prüfpunkte einschließlich gesperrtem Step-up und IdP-Faktorfrischebefund |
 | IP-032 | P0 / P1 | DONE | Bestätigten zusätzlichen Passkey-Assertionkern prüfen | SimpleWebAuthn14.1.0, 19 echte synthetische Signaturtests, voller Cockpitlauf78/Typecheck/Containerbuild grün; unabhängiger Review, kein aktiver HTTP-Verifier |
-| IP-033 | P0 / P1 | IN_PROGRESS | Dauerhafte Passkeyverwaltung und Browser-Schrittflow integrieren | Registry/Enrollment IP-034, Nachweis007 IP-036, synthetischer BFF-Durchlauf IP-037, Vertrag IP-038, Zweckfreigabe008 IP-039, privater Executor IP-040 und privater Cockpitablauf IP-041 geprüft; physische Geräteabnahme, Browser-Keyannahme, Runtimeprovider und öffentliche Aktivierung folgen; BL-020/021/025 |
+| IP-033 | P0 / P1 | IN_PROGRESS | Dauerhafte Passkeyverwaltung und Browser-Schrittflow integrieren | Registry/Enrollment IP-034, Nachweis007 IP-036, synthetischer BFF-Durchlauf IP-037, Vertrag IP-038, Zweckfreigabe008 IP-039, privater Executor IP-040 und privater Cockpitablauf IP-041 und Entwicklungs-HTTPS IP-042 geprüft; physische Geräteabnahme, Browser-Keyannahme, Runtimeprovider und öffentliche Aktivierung folgen; BL-020/021/025 |
 | IP-034 | P0 / P1 | DONE | Dauerhafte Passkeyregistry und lokales Browser-Enrollment implementieren | Additive006, Einmalticket, FORCE RLS, Counter-/Versions-CAS, terminaler Widerruf/Audit und BFF-Enrollment; 528 Tests und48 HTTPS-Prüfpunkte grün, unabhängige Reviews, keine Actionfreigabe |
 | IP-035 | P0 / P1 | DONE | Freigegebene HTTPS-Entwicklungsvorschau aktivieren | Nutzerfreigabe und beide DNS-Namen vorhanden; zwei gültige LE-Zertifikate, zwölf Helpertests und48 öffentliche HTTPS-/MFA-/Backtestprüfpunkte grün. Separate öffentliche Identität im bestehenden Entwicklungstenant; nur Edge80/443, Zertifikate nach Neustart erhalten. BL-026/Pilotabnahme bleiben offen |
 | IP-036 | P0 / P1 | DONE | Dauerhaften zielgebundenen Passkey-Aktionsnachweis implementieren | Additive007, Claim vor Kryptoprüfung, Counter-/Versions-CAS und einmalige Vorschau-Bestätigung; 724 Prüfungen grün, unabhängige Reviews. Originale OIDC-Claims erhalten; Browseraktivierung und Credentialausführung bleiben separate Gates |
@@ -51,8 +51,21 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-039 | P0 / P1 | DONE | Zweckgebundene Passkey-Credentialfreigabe dauerhaft ausstellen und konsumieren | Additive008 mit explizitem Zweck ab Vorbereitung, Consentreceipt, globalem Einmalverbrauch und separatem finalem Lock; privater Client.271 Credential-/461 API-Workertests und gepinnte Builds bestanden;008 nur Fixture-DB, keine HTTP-/Broker-/Runtimeaktivierung |
 | IP-040 | P0 / P1 | DONE | Private Passkeyfreigabe mit Credentialmutation und Abschlussaudit verbinden | Merge389082a in Mainbe13145 verifiziert;008 Consume vor Probe,008 Lock+003 AEADwrite+009 Abschlussaudit gleiche finale TX.356 Credential-/461 API-Workertests und gepinnte Builds bestanden;009 nur Fixture-DB. HTTP, echte Schlüssel und öffentliche Aktivierung bleiben gesondert |
 | IP-041 | P0 / P1 | DONE | Privaten Cockpit-Zweckablauf mit API und Credentialexecutor verbinden | Merge3476f74 in Main0fd25b6 verifiziert; standardmäßig deaktivierte008 API-Brücke und injizierter BFF-Ablauf mit ursprünglicher Session, expliziter Credentialzustimmung und exaktem Body.572 API-/385 Cockpittests,299 integrierte Prüfpunkte, Typecheck/Builds/Review grün; Browser-Keyannahme und öffentlicher Betrieb bleiben gesondert |
+| IP-042 | P0 / P1 | DONE | Privaten Entwicklungs-HTTPS-Transport zum Credentialexecutor prüfen | Mergecd66c3a in Mainc573ab3 verifiziert; gegenseitiges TLS, eigene BFF-Zertifikatsbindung, unabhängiger Sitzungskontext und unveränderte Bodybytes; ausschließlich synthetische Fixture, 376 Credential-/440 Cockpittests,346 mTLS-Prüfpunkte und gepinnte Builds/Review grün; kein Produktionslauncher oder öffentlicher Keyeingang |
 
 ## Abschlussbelege
+
+Nutzerhinweis2026-11-08 zu den kurzen Bitcoin-Backtests: Der vorhandene
+90-Tage-Snapshot ist ein Funktionsnachweis. IP-011/IP-013 und BL-018 behalten
+mindestens drei Jahre BTC/ETH-Historie, Lückenprüfung, chronologische
+Forschungsfenster und einen gesperrten unabhängigen Holdout als Abnahmekriterium.
+Ein längerer Import allein ist noch keine Strategievalidierung.
+
+IP-042:376 gepinnte Credentialtests,440 Cockpittests/Typecheck und346 reale
+mTLS-/WebAuthn-/HTTPS-/API-/PG-/AEAD-Prüfpunkte bestanden. Pipevariante306
+erneut geprüft; überlappende Läufe nicht addieren. Frühere572 API-/Workerfälle
+nicht neu gezählt. Unabhängiger Review ohne verbleibenden Blocker;003–009
+unverändert. [Vertrag und Grenzen](../passkey-credential-https.md).
 
 - **IP-001:** [inventory.md](../inventory.md), [sources.md](../sources.md);
   Auftrag und beide lokalen Skills vollständig gelesen, Referenzrepos unverändert.

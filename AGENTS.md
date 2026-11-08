@@ -87,7 +87,7 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   onboarding checkpoint `69a1f8b` merged into main, verified at `56070ba`;
   step-up checkpoint `d57bd56` merged into main, verified at `b6198f7`;
   registry checkpoint `6a18102` merged into main, verified at `f422a90`;
-  current work branch: `feat/m1-passkey-credential-cockpit`.
+  current work branch: `feat/m1-credential-private-transport`.
   Isolated AEAD core: `packages/credentials/README.md`, 20 offline tests with
   pinned cryptography and a separate hardened Compose check.
   Credential store: `services/credentials/README.md`; migration003 and current
@@ -267,6 +267,26 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   existing preparation script, then fixture completed. Fixture APIs stopped;
   six public services healthy, regular TLS HTTPS200. See
   `docs/passkey-credential-cockpit.md` for remaining browser/runtime gates.
+
+- IP-041 checkpoint `cd66c3a` is merged into main `c573ab3` (verified).
+  IP-042 implements an injected private development HTTPS transport with mutual
+  TLS, a dedicated CA and pinned BFF client certificate. Trusted original
+  session context is separate from the opaque credential JWT; actor/role/DSN
+  selection remains fixed server configuration. Only synthetic fixture checks;
+  no production launcher, runtime key provider, browser intake or public flag.
+  The stdlib HTTP server is development-only, never a production acceptance.
+  User reconfirmed continuing M1 and the need for longer BTC backtests:
+  three-year BTC/ETH research and independent holdout remain IP-011/IP-013/BL-018;
+  the current90-day snapshot is only workflow proof.
+  376 pinned credential tests (20 new HTTP/mTLS),440 Cockpit tests (55 new),
+  typecheck and346 real mTLS/HTTPS/WebAuthn/API/PG/AEAD checks passed.
+  Existing pipe flow306 checks rerun/passed; overlapping runs are not additive.
+  Independent review has no remaining blocker; prior572 API/worker tests
+  were not rerun (API/migrations unchanged). Fixture APIs stopped, six public
+  services healthy, regular TLS HTTPS200; DB007/fixture009 verified.
+  Pinned Python/Node fixture and Cockpit builds passed; running preview
+  containers were not recreated. No new dependencies or migrations.
+  Contract: `docs/passkey-credential-https.md`.
 
 ## Trading and implementation invariants
 

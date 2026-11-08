@@ -106,3 +106,7 @@ Prüfanleitung: [Tests](../tests/README.md).
 Grundlagen: [RFC8725, getrennte JWT-Prüfregeln](https://www.rfc-editor.org/rfc/rfc8725.html#section-3.12),
 [OWASP Transaction Authorization](https://cheatsheetseries.owasp.org/cheatsheets/Transaction_Authorization_Cheat_Sheet.html),
 [Nachweis007](passkey-action-proofs.md).
+
+IP-042 ergänzt den [privaten Entwicklungs-HTTPS-Transport](passkey-credential-https.md),
+ohne diesen Assertionvertrag zu ändern. Erwarteten ursprünglichen Kontext
+separat übergeben; niemals aus den zu prüfenden JWT-Claims rekonstruieren.

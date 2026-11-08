@@ -23,8 +23,8 @@ _Add whatever helps you do your job. This is your cheat sheet._
 ## Investalo — verified 2026-11-08
 
 - Working checkout: `/opt/Investalo_Trading-Platform`.
-- Implementation branch: `feat/m1-passkey-credential-execution`, based on main `be13145`;
-  prior `389082a` merged and verified;
+- Implementation branch: `feat/m1-credential-private-transport`, based on main `c573ab3`;
+  prior `cd66c3a` merged and verified;
   local implementation and authorized checkpoint pushes, no production deployment.
 - Read-only references: `/opt/investalo-trading-system`,
   `/opt/investalo-autotrader`. HEADs and reuse limits: `docs/inventory.md`.
@@ -68,7 +68,7 @@ _Add whatever helps you do your job. This is your cheat sheet._
 - GitHub intermediate pushes explicitly authorized. Origin:
   `github.com:cadm-balzer/Investalo_Trading-Platform.git`.
   Existing host Deploy-Key `/opt/github-project-ssh-key` is used via
-  `git -c 'core.sshCommand=ssh -i /opt/github-project-ssh-key -o IdentityAgent=none -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=15 -o ServerAliveInterval=15 -o ServerAliveCountMax=2' push -u origin feat/m1-passkey-credential-execution`.
+  `git -c 'core.sshCommand=ssh -i /opt/github-project-ssh-key -o IdentityAgent=none -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=15 -o ServerAliveInterval=15 -o ServerAliveCountMax=2' push -u origin feat/m1-credential-private-transport`.
   Never copy the private key into the repository or print its contents.
   The inherited SSH agent stalled while enumerating identities on2026-11-07;
   using the already authorized deploy identity directly completed the push.
@@ -184,3 +184,20 @@ _Add whatever helps you do your job. This is your cheat sheet._
   Existing001–009 immutable; development007/fixture009 verified.
   Historical356 credential suite not rerun; Python/SQL unchanged.
   Six public services healthy, regular TLS HTTPS200 verified.
+- IP-042: fixture HTTPS mode adds `--https` to the existing orchestrator.
+  Python checker and Node driver communicate on the internal testnetwork
+  with alias `credential-flow-executor.cockpit.local.test`; no hostports.
+  Dedicated synthetic CA/client/server certificates generated in fixture
+  memory/container tempfiles, no real keys/provider/production launcher.
+  Administrative fixture credentials never become runtime credentials.
+  Original `--orchestrate` pipe checks remain available. No simultaneous
+  fixture runs or PG suites: they temporarily share the bound test LOGIN.
+  Build images serially and stop only the two named fixture APIs afterward.
+  376 pinned credential tests passed148.14s (including221 actual PG),
+  440 Cockpit tests/typecheck and346 actual integrated mTLS checks passed.
+  Existing pipe flow306 checks rerun/passed; overlap not additive.
+  Prior572 API/worker cases not rerun; unchanged API and migrations.
+  Fixture APIs stopped, public six services healthy, regular TLS HTTPS200,
+  development007/fixture009 rechecked. Build log:
+  `/tmp/investalo-credential-private-transport-build.log`.
+  Pinned Python/Node fixture builds and Cockpit build passed.

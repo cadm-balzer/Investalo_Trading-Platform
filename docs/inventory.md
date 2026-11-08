@@ -179,3 +179,9 @@ Betriebsschlüssel oder echte Brokerverbindung;001–009 bleiben unverändert,
 Typecheck/gepinnte Builds und Reviews bestanden. Nach Nutzerneustart nur
 synthetische Fixtureablage/Secretmounts neu vorbereitet; Fixture-APIs gestoppt,
 sechs öffentliche Dienste gesund, reguläres TLS HTTPS200.
+IP-042 ergänzt auf `feat/m1-credential-private-transport` einen injizierten
+Entwicklungs-HTTPS-Adapter, eigenen TS-Client und tatsächliche mTLS-Fixture.
+Eigene CA/Clientpin, unabhängiger Sitzungskontext und unveränderte Bodybytes;
+keine Legacyübernahme, Abhängigkeiten, Migrationen oder öffentliche Aktivierung.
+Die administrative Fixture ist kein eingeschränkter Runtime-Dienst.
+[HTTPS-Vertrag](passkey-credential-https.md).

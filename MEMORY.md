@@ -2,6 +2,21 @@
 
 Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
 
+- 2026-11-08: IP-041 `cd66c3a` in Main `c573ab3` verifiziert.
+  Nutzer beauftragt Fortsetzung der besprochenen Bitget-Anbindung und betont
+  längere Bitcoin-Backtests. Drei Jahre BTC/ETH plus unabhängiger Holdout bleiben
+  IP-011/IP-013/BL-018;90 Tage sind nur der Funktionsnachweis.
+  IP-042 ergänzt private Entwicklungs-HTTPS-Adapter mit gegenseitigem TLS,
+  eigenem Clientpin und separat übergebenem ursprünglichem Sitzungskontext.
+  Kein Produktionslauncher, Betriebsschlüsselprovider, Browser-Keyeingang
+  oder öffentlicher Aktivierungsflag. Featurebranch
+  `feat/m1-credential-private-transport`; angewendete001–009 unverändert.
+  376 gepinnte Credentialtests,440 Cockpittests/Typecheck,346 reale mTLS-
+  Integrationsprüfpunkte bestanden, bestehende Pipevariante306 erneut geprüft.
+  Unabhängiger Review ohne Blocker. Keine neue öffentliche Funktion aktiviert;
+  Fixture-APIs gestoppt, sechs Vorschau-Dienste gesund und reguläres TLS200.
+  Gepinnte Python-/Node-Fixture- und Cockpitbuilds bestanden.
+
 - 2026-11-06: Neues Projekt startet ausdrücklich mit Planung und grill-me-Interview.
   Originalauftrag: `docs/project-info.md`; aktueller Stand: `docs/interview.md`.
 - Q1–Q5 bestätigt: privater Pilot, Cockpit/Backtests/Paper vor Echtgeld,
