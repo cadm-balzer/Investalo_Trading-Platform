@@ -30,6 +30,14 @@ Nur sichere Projektionen gelangen in lokalen Reactzustand. Der Nachweis liefert
 `execution_enabled:false`; Credential-Schreibfreigabe bleibt gesperrt.
 [Ablauf und Abnahmegrenzen](passkey-action-proofs.md).
 [Browservorschau](passkey-browser-proof.md).
+Der isolierte IP-038-Assertionvertrag bindet eine gesonderte zweckgebundene
+Freigabe an Actor, ursprüngliche OIDC-Sitzung, frische Passkeyzeit, Ziel/CAS,
+unveränderte Bodybytes und eingefrorenen Metadatendigest. Eigene Audience/Kind
+trennen ihn vom alten Signer;007-Confirm erteilt diese Freigabe nicht.
+Signieren/Prüfen ist wiederholbar und liefert keinen Einmalverbrauch. Ein
+künftiger dauerhafter Consumer muss Freigabe/Proof vor der Probe global
+konsumieren und aktuelle Autorität bei Beginn und Schreiben erneut prüfen.
+[Vertrag und fehlende Ausführung](passkey-credential-assertions.md).
 
 ## Bedrohungen und Kontrollen
 

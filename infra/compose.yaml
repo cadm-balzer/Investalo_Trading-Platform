@@ -13,6 +13,22 @@ x-hardened: &hardened
       max-file: "2"
 
 services:
+  credential-assertion-checks:
+    <<: *hardened
+    profiles: [credential-assertion-checks]
+    restart: "no"
+    build:
+      context: ..
+      dockerfile: infra/docker/credential-storage.Dockerfile
+      target: checks
+      args:
+        PYTHON_IMAGE: ${PYTHON_IMAGE:?Pinned image required}
+    user: "10003:10003"
+    mem_limit: 128m
+    cpus: 0.5
+    network_mode: none
+    command: [python, -m, unittest, discover, -s, /app/tests/credential_onboarding, -v]
+
   credential-storage-checks:
     <<: *hardened
     profiles: [checks]

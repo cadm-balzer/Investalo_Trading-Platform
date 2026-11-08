@@ -16,6 +16,10 @@ und POST `/api/passkeys/actions/{start,finish,grant,confirm}`.
 Nur `COCKPIT_PASSKEY_PROOF_PREVIEW=1` schaltet diese frei; Standard- und
 öffentliches Composeprofil lassen sie ausgeschaltet. Das Ergebnis bleibt
 `execution_enabled:false`;003/004 werden nicht für Kontoänderungen freigegeben.
+IP-038 ergänzt den isolierten [Credentialassertionvertrag](passkey-credential-assertions.md).
+Er verlangt eine gesonderte zweckgebundene Freigabe; die bestehende007-
+Bestätigung kann diese nicht erzeugen. Dauerhafter Aussteller/Einmalverbrauch
+und die Credentialintegration bleiben offen.
 
 ## Warum ein zusätzlicher Nachweis nötig ist
 

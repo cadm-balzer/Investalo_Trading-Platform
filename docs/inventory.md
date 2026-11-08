@@ -115,8 +115,9 @@ freigegebene [Entwicklungsvorschau](https-entry.md) verwendet ein separates
 öffentliches HTTPS-Overlay mit gültigen Zertifikaten und zentralem Caddy80/443;
 DB/API/Worker besitzen keine öffentlichen Hostports.
 Credentialfundament, Registry und der interne
-[Aktionsnachweis007](passkey-action-proofs.md) sind auf main `2c996d5` enthalten.
-Auf `feat/m1-passkey-browser-proof` ergänzt IP-037 die ausdrücklich aktivierbare
+[Aktionsnachweis007](passkey-action-proofs.md) sowie IP-037 sind auf main
+`512c096` enthalten; Merge des Checkpoints `84f7633` ist verifiziert.
+IP-037 ergänzt die ausdrücklich aktivierbare
 [BFF-Browservorschau](passkey-browser-proof.md) und den vollständig synthetisch
 geprüften Enrollmentablauf. Beide lokalen DBs001–007 bleiben immutable.
 IP-036: 724 Tests und gepinnte Builds grün. IP-037: 265 Cockpittests, Typecheck,
@@ -127,4 +128,12 @@ Standard-/öffentliches Composeprofil lassen die Vorschau ausgeschaltet;
 laufende öffentliche Container blieben unverändert. Brokerkeyeingabe,
 physische Geräteabnahme, echte E-Mail-Attestierung, öffentliche Aktivierung und
 Credentialausführung bleiben offen.
+Auf `feat/m1-passkey-credential-handoff` ergänzt IP-038 den isolierten
+[TS-/Python-Assertionvertrag](passkey-credential-assertions.md), ohne dauerhaften
+Aussteller/Consumer oder Änderungen an004, DB, HTTP und Runtime.
+333 Cockpittests (265 plus 68 neue), 77 Offline-Onboardingtests (41 plus 36 neue)
+und 109 tatsächliche Offline-Interopprüfungen sowie Typecheck bestanden.
+Gepinnter Cockpitbuild und77 Tests im isolierten Python3.14.10-Container bestanden;
+461 API-/Worker-, 120 Credential- und 99 HTTPS-Prüfungen wurden nicht erneut
+ausgeführt. Öffentliche Dienste und ausgeschaltetes Nachweisflag bleiben erhalten.
 Referenzrepositories weiterhin unverändert.

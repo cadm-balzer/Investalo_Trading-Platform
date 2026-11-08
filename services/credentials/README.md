@@ -128,6 +128,32 @@ Private codec `bitget_payload.encode_credentials/decode_credentials` preserves
 exact signing bytes in canonical `bitget-credentials/1` JSON inside `SecretPayload`.
 It rejects unsafe controls, extras, duplicates and noncanonical stored JSON.
 
+## Isolated passkey assertion contract (IP-038)
+
+`passkey_request_assertion.py` verifies a separate assertion audience
+`investalo-credentials-passkey` and authorization kind
+`passkey-credential-authorization/1`. The matching trusted TypeScript signer
+is `apps/cockpit/src/lib/passkey-credential-token.ts`; the existing signer,
+`RequestVerifier`, onboarding executor and migration004 remain unchanged.
+
+This contract requires three distinct purpose-bound authorization/proof/grant
+IDs, trusted actor and original OIDC/session context, separate fresh passkey and
+receipt times, exact target/CAS, unchanged raw-body SHA256 and an opaque frozen
+metadata digest. It does not fabricate `amr` or replace OIDC authentication time.
+Origins must be canonical HTTPS DNS origins without paths or explicit default
+port 443. Key/secret/passphrase limits are 256/1024/256 UTF-8 bytes; CAS values
+require strict integer wire lexemes. JWT validity is at most 60 seconds and never
+extends beyond passkey freshness of 120 seconds, the original session or the receipt.
+
+Signing and verification are repeatable authentication primitives. There is no
+durable receipt issuer or consumer, database write, new migration, HTTP route or
+transport. Existing007 proof-only confirmations cannot mint this token kind.
+A future additive008 must commit global purpose-bound authorization/proof
+consumption before probing, recheck original OIDC/epoch/reauth, factor and current
+metadata/CAS at begin and final write, and obtain separate credential consent.
+It must never import that consent from a proof-only confirmation.
+[Contract and remaining gates](../../docs/passkey-credential-assertions.md).
+
 ## Development file provider
 
 `keyfiles.DevelopmentKeyFileProvider` requires explicit `development_mode=True`.
@@ -159,3 +185,12 @@ PostgreSQL authorization and AEAD onboarding flows: 120 tests passed (19 client,
 development KEK files and mocked broker responses are used. Fixture setup:
 [infra/README.md](../../infra/README.md). Its administrative test credentials
 are distinct from a future runtime credential service. No real broker test.
+
+IP-038: 77 offline onboarding tests passed (41 existing plus 36 new).
+109 actual offline TS/Jose→Python checks cover all three actions, Unicode,
+whitespace, short expiry, safe-integer boundaries and rejection across the
+legacy/new audiences. These do not exercise a durable DB consumer or broker.
+All77 offline tests also passed in the pinned Python3.14.10 checkcontainer,
+with no network, secrets, mounts, ports or DB dependencies.
+The historical120 credential regression cases and461 API/worker cases were
+not rerun.

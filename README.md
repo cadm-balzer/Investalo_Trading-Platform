@@ -90,6 +90,11 @@ geprüft. Das Ergebnis bleibt `execution_enabled:false`; physische Geräteabnahm
 öffentliche Aktivierung und Credentialausführung folgen separat.
 [Ablauf und Grenzen](docs/passkey-action-proofs.md).
 [Browservorschau und Prüfbelege](docs/passkey-browser-proof.md).
+IP-038 ergänzt einen isolierten TypeScript-/Python-Vertrag für spätere
+Passkey-Credentialassertions mit eigener Audience und unveränderter OIDC-Zeit.
+Der Nachweis007 erteilt diese zweckgebundene Freigabe nicht; dauerhafte Ausgabe,
+Einmalverbrauch und Credentialintegration fehlen weiterhin.
+[Vertrag und offene Integration](docs/passkey-credential-assertions.md).
 Die ausdrücklich freigegebene Entwicklungsvorschau ist unter
 [cockpit.investalo.de](https://cockpit.investalo.de) aktiv. Beide Domains haben
 gültige Let’s-Encrypt-Zertifikate; 48 öffentliche HTTPS-/MFA-/Backtestprüfpunkte

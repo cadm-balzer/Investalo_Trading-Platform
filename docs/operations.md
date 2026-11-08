@@ -58,6 +58,15 @@ Testsecrets, synthetischer P256-Registrierung/Ticketattestierung und Fixture-DB.
 Neun Prüfungen mit ausgeschalteter Vorschau bestätigten ausbleibende Faktor-/
 Nachweismutationen. Öffentliche Aktivierung, reale Geräte-/E-Mail-Abnahme und
 Credentialintegration folgen separat. [Prüfablauf](passkey-browser-proof.md).
+IP-038 ergänzt ausschließlich den isolierten Passkey-Credentialassertionvertrag.
+Es gibt keinen dauerhaften Aussteller/Consumer, DB-Write oder neue Migration
+und keinen HTTP-/Transport-/Schlüsselproviderwechsel. Bestehende Runtime- und
+Compose-Dienste bleiben unverändert; das neue optionale Offlineprüfprofil
+`credential-assertion-checks` hat kein Netzwerk, Secrets oder DB-Abhängigkeiten.
+Signaturprüfung
+ist kein Replayverbrauch; vor späterer Probe sind zweckgebundene dauerhafte
+Freigabe und Abgleich bei unbekanntem Commit erforderlich.
+[Integrationsgrenzen](passkey-credential-assertions.md).
 
 Deploymentablauf: geprüfter Code/Lockstand → Build/Artefakt →
 relevante Tests → verschlüsselte Sicherung → Migration mit Rückfallplanung →

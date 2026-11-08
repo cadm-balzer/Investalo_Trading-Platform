@@ -1,6 +1,6 @@
 # Technische Fallstricke
 
-Stand 2026-11-07. Befunde sind dokumentiert, nicht automatisch im Altsystem behoben.
+Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem behoben.
 
 - **Authelia/TLS:** Sessiondomain weder localhost noch reine IP.
   Private Domainauflösung, Browserhostname und TLS müssen zusammenpassen;
@@ -314,3 +314,18 @@ Stand 2026-11-07. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   Dienste veröffentlichen keine Ports. Nur ihre Namen stoppen, kein `down`.
   Imagebuild ersetzt noch keinen laufenden Container; öffentliche Dienste weiter
   ausschließlich mit ihrem ausdrücklich aktiven Overlay bedienen.
+- **Credentialübergabe und ursprüngliche OIDC-Zeit:** Der alte Credentialvertrag
+  verlangt eine frische IdP-Zeit;007 bewahrt ursprüngliche Claims. Frische
+  Passkeyzeit niemals in `oidc_auth_time` einsetzen oder nicht vorhandenes AMR
+  erfinden. Neue Audience/Zweckkind mit unabhängigen vertrauenswürdigen
+  Kontexterwartungen verwenden; alte Prüfregeln nicht lockern.
+- **Receipt und dauerhafte Autorität:** Strukturelle Receiptprüfung/HS256
+  belegen keinen DB-Aussteller und keinen Einmalverbrauch. Neues JWT/JTI kann
+  denselben Nachweis erneut signieren.007-Proofbestätigung nicht nachträglich
+  als Credentialzustimmung behandeln; eigener Zweck/Consent und globale
+  dauerhafte Consumegrenze vor Probe sind weiterhin erforderlich.
+- **TS-/Python-Bodygleichheit:** JS parst `1.0`/`1e0` als Ganzzahl, Python als
+  Float. CAS verlangt Integer-Wireform und sichere JS-Grenzen. Unveränderte
+  UTF8-Bytes einschließlich Whitespace hashen, Größen in Byte messen und
+  Secrets nicht Unicode-normalisieren. Metadatendigest gehört zur späteren
+  DB-Autorität; nicht sprachabhängig aus JSON neu ableiten.

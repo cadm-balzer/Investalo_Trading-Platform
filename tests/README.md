@@ -30,8 +30,11 @@ Das lokale Fundament besitzt ausführbare Tests:
   oder Secrets; kein externer Vault-/Backup-/Restorebeleg.
 - `tests/credential_store`: 19 Clienttests für aktuelle DB-Bindung, frische
   Transaktionen, Versionskonflikte, Rotation, Widerruf und Fehlerredaktion.
-- `tests/credential_onboarding`: 41 Offline-Tests für gesonderte Actionassertions,
+- `tests/credential_onboarding`: 77 Offline-Tests für gesonderte Actionassertions,
   Ziel-/Body-/MFA-Zeitbindung, strikten Triplecodec und Entwicklungsdateiprovider.
+  IP-038 ergänzt36 Fälle für den getrennten Passkeyvertrag: unveränderte OIDC-
+  Zeit, frische Passkey-/Freigabezeit, exakter Zweck, Actor/Sitzung/Ziel/CAS/Body,
+  strikte JSON-/UTF8-/Integergrenzen und Ablehnung des alten Vertrags.
   Diese synthetischen Freigaben beweisen keinen echten BFF-Schrittflow.
 - `tests/credentials_storage`: 60 tatsächliche PostgreSQL-Fälle in
   `investalo_credentials_checks`: 18 Storefälle, 30 Actionautorisierungsfälle
@@ -45,11 +48,17 @@ Das lokale Fundament besitzt ausführbare Tests:
   Negativfälle mit eigener tatsächlicher Research-Testrolle.
 - `apps/cockpit/tests`: OIDC-Token/Freshness, Cookies/Sitzungen, CSRF,
   Mandantenantworten, Ergebnis-/Datasetverträge und requestgebundene Assertions.
-  265 Tests grün, einschließlich25 vorbereiteter Actionzustände,
+  333 Tests grün, einschließlich25 vorbereiteter Actionzustände,
   13 Contract-/Signerfälle,19 echte synthetische P256-Passkeyprüfungen,
   37 Enrollmentzustands-/Registrierungsfälle und28 Aktionsnachweisfälle.
   IP-037 ergänzt64 HTTP-Grenzfälle,44 komplette synthetische Enrollmentabläufe
-  und14 Browserprojektion-/P256-Fälle. Die physische Geräteabnahme bleibt offen.
+  und14 Browserprojektion-/P256-Fälle. IP-038 ergänzt68 Vertrags-/Signerfälle.
+  Die physische Geräteabnahme bleibt offen.
+- `tests/infra/check_passkey_assertion_interop.py`:109 Offline-Prüfpunkte mit
+  echten TS/Jose-Signaturen und Pythonprüfung für drei Aktionen, Unicode,
+  unveränderte Bodybytes, kurze Frist, sichere Integergrenzen und gegenseitige
+  Ablehnung des alten Vertrags. Nur synthetische Receipts/Keys; keine dauerhafte
+  DB-Ausgabe, Einmalverwendung oder Broker-/Browserausführung.
 - `tests/infra/check_local_auth.py`: tatsächlicher HTTPS-Passwort-/TOTP-/
   OIDC-Durchlauf einschließlich BFF, Mandanten-API und Abmeldung.
   Jobannahme/Wiederholung, Parameterkonflikt und frischer Login trotz bestehender
@@ -119,4 +128,8 @@ Browser-/Geräte-Erstregistrierung, öffentliche Aktivierung, Credentialintegrat
 Recovery, Broker-Crashfälle und verschlüsselter externer Restore sind offen.
 Die461 API-/Worker- und120 Credentialtests stammen aus IP-036; IP-037 änderte
 weder SQL/API noch diese Prüfungen und hat sie nicht erneut gezählt.
+IP-038 prüft den isolierten Vertrag mit333 Cockpittests,77 Offline-Onboardingtests
+und109 Interopprüfpunkten; historische PG-/HTTPS-Belege wurden nicht erneut
+ausgeführt. Der neue Offlinecontainer besitzt keine Secrets oder DB-Anbindung.
+Reproduktion: [isolierter Vertrag](../infra/README.md#isolierter-passkey-credential-vertrag).
 Abnahmekriterien: [Roadmap](../docs/roadmap.md), [Ticketboard](../docs/tasks/board.md).
