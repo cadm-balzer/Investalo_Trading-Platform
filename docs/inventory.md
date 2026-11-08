@@ -115,8 +115,8 @@ freigegebene [Entwicklungsvorschau](https-entry.md) verwendet ein separates
 öffentliches HTTPS-Overlay mit gültigen Zertifikaten und zentralem Caddy80/443;
 DB/API/Worker besitzen keine öffentlichen Hostports.
 Credentialfundament, Registry und der interne
-[Aktionsnachweis007](passkey-action-proofs.md) sowie IP-037–039 sind auf main
-`be13145` enthalten; Merge des Checkpoints `389082a` ist verifiziert.
+[Aktionsnachweis007](passkey-action-proofs.md) sowie IP-037–040 sind auf main
+`0fd25b6` enthalten; Merge des Checkpoints `3476f74` ist verifiziert.
 IP-037 ergänzt die ausdrücklich aktivierbare
 [BFF-Browservorschau](passkey-browser-proof.md) und den vollständig synthetisch
 geprüften Enrollmentablauf. Angewendete001–007 bleiben immutable.
@@ -151,7 +151,7 @@ für IP-039 nicht erneut ausgeführt; TS-Signer unverändert. Kein003/004-Writer
 HTTP-/Brokeranschluss oder
 öffentliche Aktivierung; die sechs öffentlichen Container bleiben unverändert
 und gesund. Öffentlicher HTTPS-Lesecheck200 mit regulärer TLS-Prüfung bestanden.
-Auf `feat/m1-passkey-credential-execution` verbindet IP-040 den privaten
+IP-040 verbindet den privaten
 [Passkeyexecutor](passkey-credential-execution.md) mit008, Classic-Probe,003-AEAD-
 Write und009-Abschlussaudit in derselben finalen Transaktion.116 Host-
 Offlinefälle einschließlich 21 neuer Executorfälle bestanden.009-DDL und
@@ -166,4 +166,16 @@ historische Cockpit-/Interop-/Buildbelege stammen aus IP-038.
 Keine HTTP-/Echtkey-/Echtbroker-/öffentliche Aktivierung, Nachweisflag weiterhin
 aus. Sechs öffentliche Dienste unverändert/gesund, HTTPS200-Lesecheck mit
 regulärer TLS-Prüfung bestanden.
-Referenzrepositories weiterhin unverändert.
+Auf `feat/m1-passkey-credential-cockpit` ergänzt IP-041 die
+[private Cockpit-Orchestrierung](passkey-credential-cockpit.md) mit injiziertem
+Executor und eine standardmäßig ausgeschaltete008-Prepare-/Authorize-API.
+Bodybytes bleiben beim vertrauenswürdigen Aufrufer; die API erhält Digests
+und bewahrt die ursprüngliche OIDC-Zeit. Das explizite API-Gate und ein
+konfigurierter kanonischer HTTPS-Origin/RP gelten nur für interne Zweckfreigabe.
+Keine Browser-Keyeingabe-/Credentialexecutor-HTTP-Anbindung, keine
+Betriebsschlüssel oder echte Brokerverbindung;001–009 bleiben unverändert,
+008/009 fixture-only. Referenzrepositories weiterhin unverändert.
+572 API-/Worker- und385 Cockpittests,299 integrierte Prüfpunkte,
+Typecheck/gepinnte Builds und Reviews bestanden. Nach Nutzerneustart nur
+synthetische Fixtureablage/Secretmounts neu vorbereitet; Fixture-APIs gestoppt,
+sechs öffentliche Dienste gesund, reguläres TLS HTTPS200.

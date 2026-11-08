@@ -165,3 +165,22 @@ Offlinefälle. Reproduktion: [private Ausführung](../infra/README.md#private-pa
 461 API-/Workertests gegen Fixture009 erneut bestanden; insgesamt817 Tests.
 Gepinnte Builds/Review und reguläres öffentliches TLS200 grün, Runtime unverändert.
 Abnahmekriterien: [Roadmap](../docs/roadmap.md), [Ticketboard](../docs/tasks/board.md).
+
+IP-041 ergänzt52 Cockpit-Orchestrierungsfälle mit echtem synthetischem P256
+und Jose: vollständige ursprüngliche Session, eigener Credentialzweck,
+unveränderte Bodybytes, strikter Receipt/Target/CAS, asynchrone Drift und sichere
+Ergebnisprojektion. Die gesamte Cockpitsuite umfasst385 bestandene Tests;
+Typecheck bestanden.111 neue API-Fälle (87 Unit,24 tatsächliche PG) prüfen
+deaktivierte Defaults, strikte Eingabe-/Receiptgrenzen, eigenen Actor,
+Original-OIDC, Replay, CAS, Rollback und proof-only-Ablehnung.
+
+`tests/infra/check_passkey_credential_cockpit.py --orchestrate` verbindet zwei
+isolierte gepinnte Checkcontainer über begrenzte private Prozesspipes.
+299 tatsächliche TS/WebAuthn/HTTPS/API/PG/Jose/Python-Prüfpunkte bestanden:
+Register, Replace und Revoke mit AEAD-/009-Abschluss sowie Bodydrift-/Replay-
+Ablehnung. Nur synthetische Keys und Brokerantworten; keine physische
+Geräteabnahme. Prüfanleitung: [privater Cockpitablauf](../infra/README.md#privater-cockpit-credentialablauf).
+Die vollständige abschließende API-/Workerregression umfasst572 bestandene Tests.
+Gepinnte API-/Cockpit-/Fixturebuilds und unabhängige Reviews bestanden.
+Historische356 Credentialtests aus IP-040 werden nicht erneut gezählt;
+private Python-/SQL-Implementierung und001–009 bleiben unverändert.

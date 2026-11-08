@@ -68,8 +68,8 @@ and ciphertext together to a mutually consistent older state. Revocation blocks
 future database reads; it cannot erase plaintext already returned into memory
 or prevent a later dispatch race by itself. Future locking/revalidation before
 broker dispatch is required. KEK provisioning, process/root isolation, memory
-wiping, real credentials, actual broker verification, browser MFA step-up
-and HTTP authorization are separate pending work. The onboarding layer below
+wiping, real credentials, actual broker verification, physical browser MFA
+acceptance and browser credential intake/executor HTTP remain pending. The onboarding layer below
 checks the assertion/probe contract with synthetic fixtures; the persistence
 primitive itself does not establish those higher-level proofs.
 
@@ -204,6 +204,25 @@ configured real-broker transport or public activation is added. Physical-device/
 email acceptance, dedicated operational identity, key provider, egress/quotas,
 recovery and pilot operation remain separate gates.
 [Execution contract](../../docs/passkey-credential-execution.md).
+
+## Private Cockpit orchestration and purpose API (IP-041)
+
+The injected `passkey-credential-flow.ts` now joins008 purpose preparation,
+007 crypto/claim/grant, explicit008 consent, the separate TS signer and a
+private executor port. Exact body bytes stay with the trusted caller; handle
+storage retains only digests and correlation. The existing verifier and
+`PasskeyBitgetOnboarding` still enforce signature verification, committed
+consumption before probing, final locks and atomic completion themselves.
+
+The two internal API routes under `/v1/passkey-credential-authorizations/`
+are absent by default. `API_PASSKEY_CREDENTIAL_AUTHORIZATIONS=1` enables only
+prepare/authorize with a configured canonical HTTPS `API_PASSKEY_ORIGIN`
+matching the RP. They take a body digest, never raw credential bodies.
+The private receipt preserves original OIDC time and separates passkey check
+and consent times. No credential executor HTTP endpoint, browser intake,
+operational signing identity/provider, real keys or broker transport is installed.
+Applied001–009 and the running public preview remain unchanged;008/009 stay
+fixture-only. [Flow and remaining gates](../../docs/passkey-credential-cockpit.md).
 
 ## Development file provider
 

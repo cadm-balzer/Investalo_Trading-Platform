@@ -92,6 +92,19 @@ Unbekannte finale Commits zuerst abgleichen;
 kein neuer Probeversuch und kein Überschreiben eines bestehenden Abschlusses.
 [Ausführung und Fehlergrenzen](passkey-credential-execution.md).
 
+IP-041 ergänzt ausschließlich private injizierte Cockpit-Orchestrierung und
+eine standardmäßig ausgeschaltete interne008-API. Ohne exakt
+`API_PASSKEY_CREDENTIAL_AUTHORIZATIONS=1` sind Prepare/Authorize404;
+ein aktivierter Test benötigt `API_PASSKEY_ORIGIN` als kanonischen HTTPS-Origin
+mit exakt passender `API_PASSKEY_RP_ID` sowie die geprüfte Fixture008/009.
+Das ersetzt weder öffentliche Aktivierung noch eine Browser-Keyroute oder
+Credentialexecutor-HTTP-Service. Keine neuen Migrationsdateien oder
+Betriebsschlüssel/Transportidentitäten; laufende öffentliche Dienste,
+Compose-Defaults und ausgeschalteter Nachweisflag bleiben unverändert.
+Unbekannte Claims/Zustimmungen/Executorcommits nie automatisch wiederholen;
+zuerst dauerhaften Zustand und Audit abgleichen.
+[Private Cockpit-Anbindung und Gates](passkey-credential-cockpit.md).
+
 Deploymentablauf: geprüfter Code/Lockstand → Build/Artefakt →
 relevante Tests → verschlüsselte Sicherung → Migration mit Rückfallplanung →
 private Paperprüfung → explizite Produktionsfreigabe → kontrollierter Rollout.

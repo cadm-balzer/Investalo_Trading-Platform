@@ -59,6 +59,19 @@ und öffentliche Aktivierung
 bleiben gesperrt.
 [Ausführungsgrenze](passkey-credential-execution.md).
 
+IP-041 ergänzt eine private injizierte Cockpit-Orchestrierung und die interne,
+standardmäßig abwesende008-Prepare-/Authorize-API. Nur
+`API_PASSKEY_CREDENTIAL_AUTHORIZATIONS=1` aktiviert diese beiden Schritte;
+`API_PASSKEY_ORIGIN` muss kanonisches HTTPS mit exakt passender RP sein.
+Actor, Epoch und ursprüngliche OIDC-Zeit stammen aus dem authentifizierten
+BFF-Kontext, Origin/RP aus vertrauenswürdiger Konfiguration. Der API-Aufruf
+enthält ausschließlich Bodyhashes. Grant-/Receiptprojektionen prüfen aktuelle
+Uhr und Bindungen innerhalb der Transaktion; fehlerhafte Projektion rollt
+auch Zustimmung/Audit zurück. Der private BFF hält Bodybytes unverändert,
+prüft Bindungen nach Await und verwirft lokale Handles vor einmaligen Schritten.
+Kein Browser-Keyeingabe-/Executor-HTTP-Weg oder Betriebsschlüssel wird aktiviert.
+[Private Cockpit-Anbindung und Gates](passkey-credential-cockpit.md).
+
 ## Bedrohungen und Kontrollen
 
 | Bedrohung | Kontrolle / Abnahme |

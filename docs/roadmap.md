@@ -1,6 +1,6 @@
 # Roadmap
 
-Stand 2026-11-07. Q1–Q5 bestätigen privaten Pilot, Paper zuerst, feste
+Stand 2026-11-08. Q1–Q5 bestätigen privaten Pilot, Paper zuerst, feste
 Risikolimits, kontrollierte KI und kostenlose externe Dienste.
 Q6–Q8 bestätigen beide Handelsintegrationen im MVP, Grundstack und eigene MFA.
 Q9–Q14 bestätigen BTC/ETH Spot H4, XAUUSD Trend/Pullback H1/M15,
@@ -28,6 +28,12 @@ Keine festen Termine ohne Umfangs- und Kapazitätsentscheidung.
 Die Phasen können lesende Markt-/Kontoinformation parallel ergänzen.
 Kritische Execution und Risikoprüfungen werden nicht zugunsten vieler
 gleichzeitig implementierter Features verkürzt.
+
+Aktuell verbindet IP-041 den privaten Cockpitkern mit Passkey-Zweckfreigabe
+und verschlüsselter Credentialausführung. Standardmäßig deaktivierte API-Routen
+und die isolierte Fixtureprüfung erweitern das Fundament. Browser-Keyeingabe,
+physische Geräteabnahme und der tatsächliche Credentialdienst bleiben gesonderte
+Arbeit vor echter Kontoverbindung. [Ablauf](passkey-credential-cockpit.md).
 
 ## Meilenstein M1: privates Cockpit mit Backtests und Paper
 

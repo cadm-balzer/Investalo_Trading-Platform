@@ -1,5 +1,9 @@
 # Dauerhafte zweckgebundene Passkey-Credentialfreigabe
 
+Aktuelle Integration: [privater Executor IP-040](passkey-credential-execution.md)
+und [privater Cockpitablauf IP-041](passkey-credential-cockpit.md).
+Die folgenden Belege beschreiben den ursprünglichen IP-039-Checkpoint.
+
 Stand 2026-11-08. IP-039 ergänzt additive008 und einen privaten Pythonclient.
 Der Merge von8bb64db in Main13ba2e2 ist verifiziert. Keine HTTProute, öffentliche
 Aktivierung, Brokerprobe oder003/004-Credentialmutation ist angeschlossen.

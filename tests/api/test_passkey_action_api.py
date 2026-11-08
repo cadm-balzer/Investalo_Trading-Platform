@@ -193,6 +193,11 @@ class Body:
         return self.value
 
 
+def runtime_patch(patch, now):
+    """Resolve time-dependent rejection cases at invocation, never collection."""
+    return {field: value(now) if callable(value) else value for field, value in patch.items()}
+
+
 def test_prepare_commit_sends_original_oidc_claim_and_checks_exact_receipt(monkeypatch, wire):
     _settings, identity, _user, row = wire
     value = {**prepare(), "target": row["target"], "session_expires_at": row["session_expires_at"]}
@@ -223,10 +228,11 @@ def test_stale_target_cannot_be_silently_upgraded_to_current_sql_snapshot(monkey
 
 @pytest.mark.parametrize("patch", [
     {"session_binding": b"\x01" * 32}, {"challenge": b"\x01" * 32},
-    {"confirmation_hash": b"\x01" * 32}, {"session_expires_at": int(time()) + 2500},
+    {"confirmation_hash": b"\x01" * 32}, {"session_expires_at": lambda now: now + 2500},
 ])
 def test_mismatched_prepare_material_rolls_back_before_reply(monkeypatch, wire, patch):
     _settings, identity, _user, row = wire
+    patch = runtime_patch(patch, int(time()))
     value = {**prepare(), "target": row["target"], "session_expires_at": row["session_expires_at"]}
     events, endpoints = install_transaction(monkeypatch, wire, [{**row, **patch}])
     with pytest.raises(HTTPException):
@@ -277,13 +283,16 @@ def test_grant_receipts_commit_separate_checked_time_and_confirmation_never_exec
     {"passkey_storage": proofs.SAFE_INTEGER}, {"enrollment_epoch": 2},
     {"session_binding": b"x" * 31}, {"confirmation_hash": b"x" * 33},
     {"challenge": b"x" * 31}, {"public_key": b"x" * 2049},
-    {"prepared_at": True}, {"prepared_at": int(time()) + 10},
-    {"expires_at": int(time())}, {"expires_at": int(time()) + 200},
-    {"session_expires_at": int(time()) + 5},
+    {"prepared_at": True}, {"prepared_at": lambda now: now + 10},
+    {"expires_at": lambda now: now}, {"expires_at": lambda now: now + 200},
+    {"session_expires_at": lambda now: now + 5},
     {"private_envelope": b"synthetic-private-sentinel"},
 ])
-def test_attempt_db_projection_rejects_foreign_private_malformed_or_expired_receipts(wire, patch):
+def test_attempt_db_projection_rejects_foreign_private_malformed_or_expired_receipts(monkeypatch, wire, patch):
     settings, identity, user, row = wire
+    now = int(time())
+    monkeypatch.setattr(proofs, "time", lambda: now)
+    patch = runtime_patch(patch, now)
     with pytest.raises(HTTPException) as error:
         proofs.publish_attempt({**row, **patch}, identity, user, settings.passkey_rp_id)
     assert (error.value.status_code, error.value.detail) == (503, "Service unavailable")
@@ -291,11 +300,14 @@ def test_attempt_db_projection_rejects_foreign_private_malformed_or_expired_rece
 
 @pytest.mark.parametrize("patch", [
     {"grant_id": "invalid"}, {"passkey_version": 1}, {"passkey_version": True},
-    {"checked_at": True}, {"checked_at": int(time()) + 10}, {"checked_at": int(time()) - 500},
+    {"checked_at": True}, {"checked_at": lambda now: now + 10}, {"checked_at": lambda now: now - 500},
     {"confirmation_hash": b"x" * 31}, {"private_envelope": b"synthetic-private-sentinel"},
 ])
-def test_grant_db_projection_rejects_private_or_invalid_receipts(wire, patch):
+def test_grant_db_projection_rejects_private_or_invalid_receipts(monkeypatch, wire, patch):
     settings, identity, user, row = wire
+    now = int(time())
+    monkeypatch.setattr(proofs, "time", lambda: now)
+    patch = runtime_patch(patch, now)
     with pytest.raises(HTTPException) as error:
         proofs.publish_grant({**grant_row(row), **patch}, identity, user, settings.passkey_rp_id)
     assert (error.value.status_code, error.value.detail) == (503, "Service unavailable")

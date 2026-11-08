@@ -47,7 +47,7 @@ Private Credentialtabellen/-funktionen bleiben für API/Research gesperrt.
 ## Persistenz und Abnahme
 
 Additive007 erweitert001–006; angewendete Migrationsdateien bleiben unverändert.
-`investalo` hat weiterhin001–007; IP-039 wendet008 ausschließlich in
+`investalo` hat weiterhin001–007;008/009 sind ausschließlich in
 `investalo_credentials_checks` an. Die laufenden öffentlichen Vorschaucontainer wurden
 für diesen internen Checkpoint nicht neu erstellt.
 FORCE RLS, begrenzte Runtimefunktionen, unveränderliche Bindungen, monotone
@@ -81,10 +81,21 @@ bestanden;009 ist nur in der Fixture-DB angewendet. Die 221 tatsächlichen Postg
 Fälle einschließlich 64 neuer Fälle bestanden; keine Browser- oder Brokeraktivierung.
 [Ausführungsgrenze](passkey-credential-execution.md).
 
+IP-041 nutzt die unveränderten007-Claim-/Finish-/Grant-Endpunkte in einer
+privaten injizierten Cockpit-Orchestrierung. Die zusätzliche interne
+008-Prepare-/Authorize-API ist standardmäßig abgeschaltet und bindet
+Credentialzweck und Bodydigest vor dem Nachweis. Nur ausdrückliche Zustimmung
+autorisierter008-Zweckversuche liefert ein Credentialreceipt;007-Confirm
+bleibt ein reiner Nachweis. Die API bewahrt alte OIDC-Zeit und prüft Grant/
+Receipt innerhalb einer Transaktion, einschließlich aktuellem Faktor,
+Metadaten/CAS, eigener Bestätigungskennung und tatsächlicher Uhr.
+Kein Browser-Keyeingabe-/Executor-HTTP-Weg wird freigegeben.
+[Private Cockpit-Anbindung](passkey-credential-cockpit.md).
+
 Der vollständige BFF-Enrollment- und Nachweisablauf ist unter IP-037 mit
 synthetischen P256-Daten über echtes isoliertes HTTPS/API/PG geprüft.
 IP-033 bleibt für physische Browser-/Gerätenachweise, reale E-Mail-Attestierung,
-öffentliche Aktivierung und die Verbindung zur Credentialfreigabe offen.
+öffentliche Aktivierung und die Browseranbindung der Credentialfreigabe offen.
 BL-025 betrifft terminales Recovery, BL-017 Raten-/Speicher-/Retentionbetrieb,
 BL-021/022/024 echte Keyannahme, Schlüsselbetrieb und Crashabgleich.
 

@@ -41,6 +41,15 @@ Fixture-DB angewendet. Die tatsächliche PostgreSQL-Regressionsprüfung bestand;
 kein HTTP-/Echtbrokeranschluss.
 [Privater Executor](passkey-credential-execution.md).
 
+IP-041 verbindet den isolierten Signer und privaten Executor über eine
+injizierte Cockpit-Orchestrierung mit008-Zweckprepare und ausdrücklicher
+Autorisierung. Eine interne API-Brücke ist standardmäßig ausgeschaltet;
+sie verlangt einen konfigurierten exakten HTTPS-Origin/RP und erhält nur
+Bodydigests. Der aufrufende Server erhält die unveränderten Bodybytes; kein
+Browser-/Credentialexecutor-HTTP-Transport oder Betriebsschlüssel wird
+installiert. OIDC-Zeit bleibt unverändert, frische Passkey- und Freigabezeiten
+werden getrennt geprüft. [Private Cockpit-Anbindung](passkey-credential-cockpit.md).
+
 ## Systemgrenzen
 
 Bestätigt: modularer Monolith für API und Domäne, getrennte Prozesse für
@@ -169,7 +178,7 @@ prüft aktuelle Bindungen nach asynchronem Bodylesen, Krypto-/API-Aufrufen und
 vor Ergebnispublikation. Sichere Browserprojektionen und lokaler Reactzustand
 begrenzen die Ausgabe. Der vollständige synthetische BFF-Enrollmentablauf
 erhält die ursprüngliche Sitzungsfrist und liest den gespeicherten Faktor vor
-Erfolg autoritativ zurück. Öffentliche Aktivierung, Credentialfreigabe und echte
+Erfolg autoritativ zurück. Öffentliche Aktivierung, Browser-Credentialfreigabe und echte
 Geräteabnahme folgen IP-033. Der Session-TTL-Store hält nur kurzlebige
 Enrollmentversuche. OIDC-Originalclaims bleiben erhalten.
 [Entwurf/Gates](passkey-step-up.md).
@@ -252,8 +261,9 @@ eine Transaktion. SQL prüft keine JWT-Signaturen oder Browser-MFA; die direkten
 003-Storefunktionen bleiben vertrauenswürdige Serverprimitiven.
 Die lokale Abnahme erfolgt mit synthetischen Assertions/Brokerantworten in
 einer getrennten Fixture-DB. Dateischlüssel sind nur für Entwicklung verfügbar;
-Betriebsschlüsselprovider, physische BFF-Geräteabnahme und die
-HTTP-Anbindung der Credentialfreigabe fehlen.
+Betriebsschlüsselprovider, physische BFF-Geräteabnahme und Browser-Keyeingabe/
+Credentialexecutor-HTTP fehlen. Die interne008-Prepare-/Authorize-Brücke
+existiert unter einem standardmäßig ausgeschalteten Gate.
 Details: [Credentialstore](../services/credentials/README.md).
 
 WebSocket/SSE-Abonnements werden nach Authwechsel, Entzug oder Sessionende

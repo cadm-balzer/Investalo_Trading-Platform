@@ -373,6 +373,45 @@ Kein Source-/SQLfix nach Anwendung, nur eine Replay-Testerwartung korrigiert.
 beide DB-gebundenen Suiten nacheinander ausführen, da sie Fixture-Rollenbindungen
 setzen. Die administrative Prüfumgebung bleibt vom späteren Runtimeclient getrennt.
 
+## Privater Cockpit-Credentialablauf
+
+IP-041 verbindet den privaten BFF-Kern über standardmäßig deaktivierte
+008-API-Routen mit dem privaten Pythonexecutor. Das zusätzliche Profil
+`passkey-credential-checks` legt eigene interne Fixture-APIs an und aktiviert
+die Zweckrouten ausschließlich für eine davon. Die zweite beweist den
+deaktivierten Standard. Kein Hostport, keine öffentliche Flagänderung und
+keine neue Migration; Voraussetzung ist die bereits vorbereitete Fixture-DB
+001–009 sowie der geschützte synthetische Browsercheck-Secretbestand.
+
+```bash
+sudo bash infra/scripts/compose.sh --file infra/compose.passkey-credential-checks.yaml \
+  --profile passkey-credential-checks build credential-flow-node credential-flow-checks
+sudo bash infra/scripts/compose.sh --file infra/compose.passkey-credential-checks.yaml \
+  --profile passkey-credential-checks up -d --no-deps credential-flow-api credential-flow-disabled-api
+sudo python3 tests/infra/check_passkey_credential_cockpit.py --orchestrate
+sudo bash infra/scripts/compose.sh --file infra/compose.passkey-credential-checks.yaml \
+  --profile passkey-credential-checks stop credential-flow-api credential-flow-disabled-api
+```
+
+Der Hostrelay verwendet nur die Standardbibliothek und verbindet begrenzte
+private Pipes zweier gepinnter Checkcontainer. Nur der administrative
+Pythonchecker erhält Fixture-DB-Credentials. Node führt echtes
+SimpleWebAuthn/Jose und interne HTTPS-Anfragen aus; Python prüft den Token,
+008-Verbrauch, AEAD-Mutation und009-Abschluss mit synthetischem Broker.
+Schlüssel/Bodys/JWTs verbleiben im Prozessspeicher; Logs sind ausgeschaltet.
+Keine Pipes oder Treiberausgaben in öffentliche Logs übernehmen.
+
+Dieser Check und DB-Regressionssuiten werden nacheinander ausgeführt:
+die dedizierte Fixture-Credentialrollenbindung wird neu gesetzt.
+Nur eigene Fixture-APIs stoppen; kein `down` oder `--remove-orphans`.
+Der Prüfaufbau provisioniert keinen Runtime-Credentialdienst.
+[Ablauf, Belege und verbleibende Arbeit](../docs/passkey-credential-cockpit.md).
+Abnahme:299 integrierte Prüfpunkte,572 API-/Worker- und385 Cockpittests,
+Typecheck/gepinnte Builds und unabhängige Reviews bestanden. Fixture-APIs
+gestoppt; öffentliche Dienste gesund, reguläres TLS HTTPS200. Nach Hostneustart
+die geschützte synthetische `/tmp`-Ablage bei Bedarf mit dem vorhandenen
+Prepare-Script neu erzeugen und nur Fixture-APIs mit frischen Mounts neu erstellen.
+
 ## Passkey-Enrollment und Widerruf
 
 Nach006 und aktuellem API-/Cockpitbuild ist `/security/passkeys` der lokale

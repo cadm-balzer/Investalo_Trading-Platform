@@ -357,3 +357,23 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   um einen unbekannten Commit von einem Rollback vor Commit zu unterscheiden.
   Unbestätigter Consume startet keine Probe; unbestätigter finaler Commit liefert
   kein Erfolgsresultat und darf nicht mit `failed` überschrieben werden.
+- **Zeitparameter bei Testcollection:** `int(time())+10` in Parametern wird
+  bereits beim Einsammeln der Suite berechnet. Bei längeren Builds/Läufen ist
+  ein vermeintlicher Zukunftszeitpunkt beim Test schon Vergangenheit. Relative
+  Parameter beim Testaufruf auswerten und die Uhr der zu prüfenden Projektion
+  auf denselben Zeitpunkt fixieren; Frist-/Ablehnungsregeln nicht lockern.
+- **008-Zustimmung konsumiert007:** Nach erfolgreichem Authorize ist der
+  bisherige Grant bestätigt und `read_grant` lehnt ihn korrekt ab. Der private
+  BFF vergleicht danach den gespeicherten unveränderlichen Grant mit aktuellen
+  Actor-/Faktor-/Accountdaten sowie dem exakten008-Receipt; keinen neuen Grant
+  auslesen und keine007-Prüfbestätigung als Credentialzustimmung umdeuten.
+- **Private Bodybytes im BFF:** Zielabhängigen Request einmal erzeugen,
+  strikt validieren und exakt als UTF8 hashen. Rohbody nur beim vertrauenswürdigen
+  Aufrufer im Speicher halten; Fortsetzungen speichern Hash/Korrelation.
+  Das neue Resultat gegen den beabsichtigten CAS-Fortschritt prüfen, da
+  Credentialmetadaten nach erfolgreichem Write absichtlich verändert sind.
+- **Neustart und Fixtureablage:** `/tmp/investalo-passkey-browser-state` und
+  temporäre Prüfprotokolle können beim Hostneustart verschwinden. Geschützte
+  Fixtureablage ausschließlich mit `prepare-passkey-browser-checks.py` neu
+  erzeugen. Fixture-API-Container mit neuen Secretmounts gezielt neu erstellen;
+  öffentliche Dienste behalten ihre persistente Vorschaukonfiguration.

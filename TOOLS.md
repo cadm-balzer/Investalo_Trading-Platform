@@ -165,3 +165,22 @@ _Add whatever helps you do your job. This is your cheat sheet._
   (48 passed). Access details and rollback: `docs/https-entry.md`.
   Protected output includes existing OIDC material; never dump it or run
   `authelia config template`/Compose secret expansion into public logs.
+- IP-041: private Cockpit orchestration and default-off API008 bridge,
+  no browser credential route or runtime/provider activation.
+  `infra/compose.passkey-credential-checks.yaml` provides separate enabled/
+  disabled fixture APIs and pinned Node/Python check containers, no hostports
+  or logs. `python3 tests/infra/check_passkey_credential_cockpit.py --orchestrate`
+  relays bounded synthetic configuration/body/JWT only through private pipes.
+  Only Pythonchild mounts fixture administrative credentials.
+  299 actual integrated checks passed; fixture APIs are stopped.
+  After host reboot, /tmp fixture state/logs disappeared; recreate state only
+  with `python3 infra/scripts/prepare-passkey-browser-checks.py`, then explicitly
+  recreate only the two fixture APIs so their synthetic secret mounts are current.
+  Never run default up/down or remove-orphans for this cleanup.
+  572 API/worker checks passed120.61s,385 Cockpit tests/typecheck passed.
+  Pinned API/APIcheck/Cockpit/fixture builds and independent reviews passed.
+  New retained build log: `/tmp/investalo-credential-cockpit-build.log`.
+  Earlier /tmp logs lost at reboot; evidence remains in tool results.
+  Existing001–009 immutable; development007/fixture009 verified.
+  Historical356 credential suite not rerun; Python/SQL unchanged.
+  Six public services healthy, regular TLS HTTPS200 verified.

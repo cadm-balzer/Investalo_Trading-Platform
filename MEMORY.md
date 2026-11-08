@@ -209,3 +209,22 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   64 neue PG) und461 API-/Workertests gegenFixture009 bestanden, insgesamt817.
   Gepinnte Builds und unabhängiger Review ohne Restblocker. Öffentliche sechs
   Dienste unverändert/gesund/TLS200. Nächster Schritt Cockpit-/Browseranbindung.
+- 2026-11-08, Fortsetzung nach bestätigtem Merge3476f74 in Main0fd25b6:
+  IP-041 auf feat/m1-passkey-credential-cockpit verbindet privaten BFF-Kern,
+  default-off008 API-Zweckrouten und privaten Credentialexecutor.
+  Vollständige ursprüngliche Session/CSRF/Origin/OIDC nach Await prüfen;
+  eigene Credentialzustimmung, exakter privater Body nur im Aufruferspeicher,
+  separate Signaturidentität und strikte Receipt-/Target-/CAS-Bindung.
+  572 API-/Workertests (111 neue),385 Cockpittests (52 neue),299 tatsächliche
+  integrierte TS/WebAuthn/HTTPS/API/PG/Jose/Python/AEAD/009-Prüfpunkte grün.
+  Typecheck, gepinnte Builds und unabhängige Reviews bestanden.
+  Relative Zeitparameter eines bestehenden Tests erst bei Testaufruf berechnen;
+  API-/SQL-Regeln unverändert. Erstlauf Container-DNS vorübergehend ausgefallen.
+  Nutzer rebootete Host; /tmp-Fixtureablage verschwunden und mit vorhandenem
+  geschützten Prepare-Script neu erzeugt. Alle öffentlichen Dienste wieder gesund;
+  reguläres TLS HTTPS200 bestätigt. Nur Fixture-APIs mit neuen synthetischen
+  Secrets neu erstellt, nach Abschluss gestoppt. DBstände001–007/001–009 geprüft.
+  Keine neue Migration, Dependency oder öffentliche Credentialaktivierung.
+  Historische356 Credentialtests nicht neu gezählt. Nächste Arbeit:
+  tatsächliche Browser-Keyannahme, physische Geräteabnahme, eigener
+  Credentialdienst/Signingprovider und realer Transport/Egress; kein Live.

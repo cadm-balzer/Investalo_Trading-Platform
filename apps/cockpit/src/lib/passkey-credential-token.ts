@@ -1,6 +1,6 @@
 /**
- * Isolated trusted-server contract; no route, receipt issuer or credential executor.
- * A future durable purpose-bound authorization must supply this receipt.
+ * Trusted-server contract. Durable purpose authority comes from008; injected
+ * private orchestration supplies the receipt without exposing a browser route.
  * A proof-only007 confirmation is never a credential-write authorization.
  */
 import { createHash, randomUUID } from "node:crypto";
@@ -89,6 +89,11 @@ function integerWire(wire: string): void {
     }
   }
 }
+/** Validate exact private body bytes without issuing authority or retaining secrets. */
+export function validatePasskeyCredentialBody(wire: string, expected: ActionTarget): Uint8Array {
+  try { return privateBody(wire, parseActionTarget(expected)); }
+  catch { throw failure(); }
+}
 function privateBody(wire: string, target: ActionTarget): Uint8Array {
   if (typeof wire !== "string" || !wire.isWellFormed() || Buffer.byteLength(wire) < 1 ||
     Buffer.byteLength(wire) > 4096) throw failure();
@@ -139,7 +144,7 @@ export function parsePasskeyCredentialAuthorization(
       result.checked_at > result.authorized_at || result.authorized_at > now ||
       result.expires_at <= now || result.expires_at <= result.authorized_at ||
       result.expires_at > Math.min(result.checked_at + 120, result.session_expires_at) ||
-      createHash("sha256").update(privateBody(body, result.target)).digest("hex") !== result.body_sha256) throw failure();
+      createHash("sha256").update(validatePasskeyCredentialBody(body, result.target)).digest("hex") !== result.body_sha256) throw failure();
     return result;
   } catch { throw failure(); }
 }

@@ -4,6 +4,9 @@ Stand 2026-11-08, IP-040. Checkpoint `389082a` ist in Main `be13145`
 verifiziert. Der private Pythonexecutor verbindet die dauerhafte Zweckfreigabe
 aus008 mit dem bestehenden verschlüsselten Credentialstore. Die Browser- und
 öffentliche Aktivierung folgen nach eigener Abnahme.
+IP-041 verbindet diesen Executor inzwischen über injizierte Ports mit dem
+[privaten Cockpit-Zweckablauf](passkey-credential-cockpit.md), geprüft mit
+echtem HTTPS/API/PG und synthetischem WebAuthn-/Broker-/Keymaterial.
 
 ## Ablauf
 

@@ -21,6 +21,8 @@ class Settings:
     passkey_rp_id: str | None = None
     database_password: str | None = field(default=None, repr=False)
     database_parameters: dict[str, str] = field(default_factory=dict, repr=False)
+    passkey_credential_authorizations: bool = False
+    passkey_origin: str | None = None
 
     @classmethod
     def from_environment(cls) -> "Settings":
@@ -42,6 +44,8 @@ class Settings:
             passkey_rp_id=os.getenv("API_PASSKEY_RP_ID"),
             database_password=secret_file("PGPASSWORD_FILE"),
             database_parameters=parameters,
+            passkey_credential_authorizations=os.getenv("API_PASSKEY_CREDENTIAL_AUTHORIZATIONS") == "1",
+            passkey_origin=os.getenv("API_PASSKEY_ORIGIN"),
         )
 
     def connection_parameters(self) -> dict[str, str | int]:
