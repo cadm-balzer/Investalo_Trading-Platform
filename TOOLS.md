@@ -233,3 +233,18 @@ _Add whatever helps you do your job. This is your cheat sheet._
   regular cockpit/auth TLS200; all normal007/fixture009 checksums verified.
   No migration/public flag; old Cockpit/API/extra HTTPS/pipe suites not rerun.
   Existing Uvicorn protocol coupling needs TLS/framing/deadline review on upgrades.
+- IP-045: rebuild only Cockpit and `credential-flow-node`, serially. Python
+  checker remains a read-only bind mount; Python runtime/SQL/dependencies
+  unchanged. Start only named fixture APIs, run
+  `python3 tests/infra/check_passkey_credential_cockpit.py --orchestrate --service --browser`,
+  then historical `--orchestrate --service`, and stop only those APIs.
+  `python3 tests/infra/check_credential_browser_disabled.py` starts a unique
+  hardened no-network/no-host-mount/no-port Next image and always attempts
+  cleanup, including ambiguous detached-run acknowledgment.
+  540 Cockpit tests/typecheck/builds passed;481 browser-HTTPS/service points,
+  460 existing service points and six actual Next default-off routes passed.
+  Activated fixture cookie resolver is synthetic; physical/actual activated
+  Next session acceptance remains open. Public services/flags unchanged,
+  all testcontainers stopped, checksums normal007/fixture009 verified.
+  Independent review has no blocker. Final code guards session inline after
+  origin/session awaits; async assertion helpers introduce stale microtasks.

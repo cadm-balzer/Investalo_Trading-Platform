@@ -115,7 +115,7 @@ IP-041 ergänzt die private Cockpit-Orchestrierung und eine standardmäßig
 ausgeschaltete interne API für008-Prepare und ausdrückliche Zustimmung.
 Der Ablauf bindet unveränderte Bodybytes, ursprüngliche OIDC-Sitzung und
 Passkeynachweis an den privaten Executor. Es gibt weiterhin keine
-Credentialeingabe-/Ausführungsroute im Browser, keine Betriebsschlüssel oder
+aktivierte Credentialeingabe-/Ausführungsroute im Browser, keine Betriebsschlüssel oder
 echte Brokerverbindung. Die öffentliche Vorschau bleibt unverändert.
 [Private Cockpit-Anbindung und Gates](docs/passkey-credential-cockpit.md).
 572 API-/Worker- und385 Cockpittests sowie299 integrierte Prüfpunkte bestanden;
@@ -139,6 +139,11 @@ IP-044 übernimmt dafür den bestehenden gepinnten ASGI-Stack. mTLS vor dem
 HTTP-Parser, strikte Rawheader sowie getrennte Verbindungs-/Arbeitsslots
 erhalten die bisherigen Grenzen auch bei Disconnects.
 [ASGI-Transport und Betriebsgrenzen](docs/credential-asgi-transport.md).
+IP-045 ergänzt den isolierten Browserablauf mit Schlüsseleingabe, Passkeyprüfung
+und separater Änderungsbestätigung. Der Controller wird über interne HTTPS-
+Requests bis zum verschlüsselten Dienst geprüft; die Next-Routen bleiben ohne
+provisionierte Betriebsprovider gesperrt.
+[Browserablauf und verbleibende Abnahmen](docs/credential-browser-flow.md).
 Vollständiger Privatpilot, Produktion und Echtgeld benötigen eigene
 Abnahmen. Das lokale Standardprofil bindet ausschließlich `127.0.0.1:8443`;
 die aktive Vorschau veröffentlicht nur den zentralen Proxy auf80/443.

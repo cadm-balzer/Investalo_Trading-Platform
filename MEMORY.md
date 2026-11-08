@@ -2,6 +2,24 @@
 
 Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
 
+- 2026-11-08: Nutzer bestätigt IP-044-Merge9555624 in Maindcb9feb, verifiziert.
+  IP-045 auf feat/m1-credential-browser-flow implementiert Eingabecontroller
+  mit drei Phasen, Passkey plus ausdrücklichem Änderungsconsent. Begrenzte
+  Prozessfortsetzungen halten Original-Core/Ports, keine Credentialbytes.
+  Private Seitenspeicherreferenzen bei Abort/Ablauf/Pagehide verwerfen,
+  späte Antworten generationgebunden, unbekannte Commits nie automatisch retry.
+  540 Cockpittests (100 neu), Typecheck, gepinnte Cockpit-/Nodebuilds,
+  481 synthetische Controller-/HTTPS-/Dienstpunkte,460 bestehende Dienstpunkte
+  und6 tatsächliche gesperrte Next-Routenchecks bestanden. Review grün.
+  HTTP-Origin zuerst lesen und letzte Sitzungsassertion synchron unmittelbar
+  vor Dispatch/Antwort; async Asserthelper hinterlassen eine Microtasklücke.
+  Öffentliche Next-Routen wegen fehlender provisionierter BFF-Provider gesperrt.
+  Aktivierte Fixture hat synthetischen Cookieresolver; reale Next-Sitzungen/
+  physische Geräte und Provider-/Schlüssel-/Quota-/Recovery-/Brokerbetrieb offen.
+  Keine Dependencies/SQL geändert;419/572 Python/API-Suites nicht rerun.
+  DB-Prüfsummen normal007/Fixture009 unverändert, alle Testcontainer beendet,
+  öffentliche sechs Dienste unverändert/gesund und reguläres Cockpit/Auth TLS200.
+
 - 2026-11-08: IP-042 `94fb73b` in Main `6300971` verifiziert; Nutzer
   beauftragt Fortsetzung. IP-043 trennt synthetischen Credentialdienst
   von administrativem Setup/Audit. Runtime hat ausschließlich gebundenen
