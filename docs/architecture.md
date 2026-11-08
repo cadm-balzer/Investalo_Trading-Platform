@@ -22,6 +22,11 @@ Vorschau-Bestätigung. Er ersetzt keinen IdP-Claim und öffnet keine Brokerroute
 IP-037 verbindet ihn mit einer ausdrücklich aktivierbaren BFF-Browservorschau;
 Standard- und öffentliches Composeprofil lassen sie ausgeschaltet. Ergebnis:
 `execution_enabled:false`. [Browsergrenze und Abnahme](passkey-browser-proof.md).
+IP-038 ergänzt einen isolierten TS-/Python-Credentialassertionvertrag mit eigener
+Audience und zweckgebundener Freigabe. Er erhält ursprüngliche OIDC-Zeit und
+trennt Passkey-/Freigabezeit;007-Bestätigung,004 und HTTP-Ausführung bleiben
+unverändert. Dauerhafter Aussteller/Einmalverbrauch benötigen eine eigene
+additive Integration. [Vertrag](passkey-credential-assertions.md).
 
 ## Systemgrenzen
 

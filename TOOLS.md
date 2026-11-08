@@ -23,8 +23,8 @@ _Add whatever helps you do your job. This is your cheat sheet._
 ## Investalo — verified 2026-11-08
 
 - Working checkout: `/opt/Investalo_Trading-Platform`.
-- Implementation branch: `feat/m1-passkey-browser-proof`, based on main `2c996d5`;
-  prior `9b47ae1` and `4c9f63f` merged and verified;
+- Implementation branch: `feat/m1-passkey-credential-handoff`, based on main `512c096`;
+  prior `84f7633` merged and verified;
   local implementation and authorized checkpoint pushes, no production deployment.
 - Read-only references: `/opt/investalo-trading-system`,
   `/opt/investalo-autotrader`. HEADs and reuse limits: `docs/inventory.md`.
@@ -68,7 +68,7 @@ _Add whatever helps you do your job. This is your cheat sheet._
 - GitHub intermediate pushes explicitly authorized. Origin:
   `github.com:cadm-balzer/Investalo_Trading-Platform.git`.
   Existing host Deploy-Key `/opt/github-project-ssh-key` is used via
-  `git -c 'core.sshCommand=ssh -i /opt/github-project-ssh-key -o IdentityAgent=none -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=15 -o ServerAliveInterval=15 -o ServerAliveCountMax=2' push -u origin feat/m1-passkey-browser-proof`.
+  `git -c 'core.sshCommand=ssh -i /opt/github-project-ssh-key -o IdentityAgent=none -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=15 -o ServerAliveInterval=15 -o ServerAliveCountMax=2' push -u origin feat/m1-passkey-credential-handoff`.
   Never copy the private key into the repository or print its contents.
   The inherited SSH agent stalled while enumerating identities on2026-11-07;
   using the already authorized deploy identity directly completed the push.
@@ -117,6 +117,19 @@ _Add whatever helps you do your job. This is your cheat sheet._
   Sandbox UID remapping can show65534 on protected host files; use an approved
   metadata-only host stat when needed. Never relax existing preview secret ACLs.
   Public proof flag remains off; physical device/email attestation unproven.
+- IP-038: isolated TS signer/Python verifier, no route/DB issuer/consumer or
+  broker execution. New audience/kind and purpose receipt, original OIDC time
+  retained; no AMR claim. `checked_at` is not `oidc_auth_time`.
+  `credential-assertion-checks` is an explicit opt-in offline Compose profile:
+  no network, DB, secrets, mounts or ports. It reuses the pinned storage checks
+  image and runs only offline onboarding tests; existing profiles are unchanged.
+  333 Cockpit/77 offline Python/109 TS→Python checks, typecheck and pinned
+  Cockpitbuild passed; all77 Python tests also passed with Python3.14.10
+  in the offline container. Logs `/tmp/investalo-passkey-handoff-{cockpit-tests,
+  typecheck,cockpit-build,check-image,pinned-python}.log`. Older461/120/99
+  suites not rerun. Public six services unchanged/healthy, TLS200.
+  Run builds serially on this host. Commands and evidence:
+  `infra/README.md#isolierter-passkey-credential-vertrag`.
 - Both public DNS names resolve to host5.45.96.83; valid LE certificates expire
   2027-02-05. Always use active `--file infra/compose.public-preview.yaml`
   for edge/application runtime changes; default `up` restores local origins/ports.

@@ -163,3 +163,17 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   Default/public Proofflag off, Credentialrouten503/003/004 gesperrt. Physischer
   Geräteaufruf, echte E-Mail-Attestierung, öffentliche Aktivierung und Credential-
   integration weiter IP-033; Recovery BL-025, Betriebsgrenzen BL-017.
+- 2026-11-08, Fortsetzung nach erneutem Nutzermerge:84f7633 in Main512c096
+  verifiziert; Branch feat/m1-passkey-credential-handoff. IP-038 isoliert neuen
+  TS-/Python-Passkey-Credentialvertrag mit eigenem Zweckreceipt/Audience und
+  exakter Actor-/Session-/Ziel-/CAS-/Metadaten-/Bodybindung. Ursprüngliche OIDC-
+  Zeit bleibt erhalten; frische Passkey-/Autorisierungszeiten getrennt, kein AMR
+  erfunden.007-Prüfbestätigung ist keine Credentialzustimmung.
+  333 Cockpittests,77 Offline-Onboardingtests auf Host/gepinntem Python3.14.10,
+  109 reale TS/Jose-/Python-Interopprüfpunkte, Typecheck/Build und Review grün.
+  Optionales Offlineprofil ohne Netzwerk/Secrets/Mounts/DB; sechs laufende
+  öffentliche Dienste unverändert/gesund/TLS200, Nachweisflag weiter off.
+  Keine neue Migration/DB-Ausgabe/Consume/HTTProute/Broker-/Credentialausführung.
+  Künftige008 muss explizite Zweckfreigabe global einmalig vor Probe konsumieren
+  und aktuelle Bindungen bei Annahme/Write prüfen. Physische Abnahme,
+  echte E-Mail, Integration/Recovery/Betriebsgrenzen bleiben eigene Gates.

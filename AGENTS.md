@@ -85,7 +85,7 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   onboarding checkpoint `69a1f8b` merged into main, verified at `56070ba`;
   step-up checkpoint `d57bd56` merged into main, verified at `b6198f7`;
   registry checkpoint `6a18102` merged into main, verified at `f422a90`;
-  current work branch: `feat/m1-passkey-browser-proof`.
+  current work branch: `feat/m1-passkey-credential-handoff`.
   Isolated AEAD core: `packages/credentials/README.md`, 20 offline tests with
   pinned cryptography and a separate hardened Compose check.
   Credential store: `services/credentials/README.md`; migration003 and current
@@ -187,6 +187,26 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   These checks use synthetic P256/approval, not physical devices or real email
   attestation. Public activation, physical acceptance,003/004 integration,
   recovery and pilot operation remain open. See `docs/passkey-browser-proof.md`.
+- IP-037 checkpoint `84f7633` is merged into main `512c096` (verified).
+  IP-038 adds an isolated versioned TS/Python passkey credential assertion
+  contract: distinct audience/kind, purpose receipt, actor/session/target/CAS,
+  metadata digest and exact body bytes. Preserve original OIDC time; fresh
+  passkey check and credential consent times are separate. Do not fabricate AMR.
+  The receipt parser accepts trusted server inputs; it cannot prove durable
+  issuance. Signing and verification are repeatable, with no DB consumer.
+  A007 proof-only confirmation is not credential consent. Future additive008
+  must issue and consume explicit purpose authority globally once before probing,
+  and recheck current identity/factor/metadata at begin and write.
+  New signer/verifier have no HTTP/runtime caller; old contracts and001–007
+  remain unchanged. Optional `credential-assertion-checks` runs offline tests
+  without network, secrets, mounts, ports or DB dependencies; existing services
+  are unchanged. Physical acceptance, integration and recovery remain IP-033.
+  333 Cockpit tests,77 offline onboarding tests on host and pinned Python3.14.10,
+  109 actual TS/Jose/Python checks, typecheck and pinned Cockpit build passed.
+  Independent review has no remaining blocker. Historical461 API/worker,
+  120 credential and99 HTTPS fixture cases were not rerun. Public services
+  remain unchanged/healthy/TLS200, proof flag off.
+  Contract and validation: `docs/passkey-credential-assertions.md`.
 
 ## Trading and implementation invariants
 

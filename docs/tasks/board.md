@@ -47,6 +47,7 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-035 | P0 / P1 | DONE | Freigegebene HTTPS-Entwicklungsvorschau aktivieren | Nutzerfreigabe und beide DNS-Namen vorhanden; zwei gültige LE-Zertifikate, zwölf Helpertests und48 öffentliche HTTPS-/MFA-/Backtestprüfpunkte grün. Separate öffentliche Identität im bestehenden Entwicklungstenant; nur Edge80/443, Zertifikate nach Neustart erhalten. BL-026/Pilotabnahme bleiben offen |
 | IP-036 | P0 / P1 | DONE | Dauerhaften zielgebundenen Passkey-Aktionsnachweis implementieren | Additive007, Claim vor Kryptoprüfung, Counter-/Versions-CAS und einmalige Vorschau-Bestätigung; 724 Prüfungen grün, unabhängige Reviews. Originale OIDC-Claims erhalten; Browseraktivierung und Credentialausführung bleiben separate Gates |
 | IP-037 | P0 / P1 | DONE | Passkey-Prüfseite und vollständigen BFF-Ablauf integrieren | Gated Vorschau/Assertion/Bestätigung, positiver synthetischer BFF-Enrollmentablauf;265 Cockpittests,99 isolierte HTTPS/BFF/PG-Prüfpunkte,8 Vorbereitungstests, Typecheck/Build und Review grün. Öffentliche Aktivierung/physische Geräteabnahme separat; keine Credentialausführung |
+| IP-038 | P0 / P1 | DONE | Getrennten Passkey-Credential-Assertionvertrag vorbereiten | Eigener Zweck-/Actor-/Sitzungs-/Ziel-/Bodyvertrag, originale OIDC-Zeit und frische Passkeyzeit getrennt;333 Cockpittests,77 Offline-Onboardingtests auch im gepinnten Container,109 Interopprüfpunkte, Typecheck/Build und Review grün. Dauerhafte Ausgabe/Consume und004-Integration folgen |
 
 ## Abschlussbelege
 
@@ -306,6 +307,29 @@ Default und öffentliche Vorschau behalten die Prüfseite ausgeschaltet.
 Physisches Gerät, tatsächliche E-Mail-Attestierung, öffentliche Aktivierung,
 Credentialintegration, Recovery und Betrieb bleiben offene Abnahmen.
 [Ablauf und Grenzen](../passkey-browser-proof.md).
+
+## Zwischenabnahme: isolierter Passkey-Credential-Assertionvertrag
+
+2026-11-08: Checkpoint84f7633 in Main512c096 verifiziert; neuer Branch
+`feat/m1-passkey-credential-handoff`. IP-038 bereitet einen eigenen Zweckvertrag
+zwischen TS/Jose und Python vor. Originale OIDC-Zeit bleibt erhalten, frische
+Passkey-/Autorisierungszeiten separat; Actor/Sitzung/Origin/RP/Ziel/CAS/
+Metadatendigest und exakte Bodybytes gebunden. Alter Signer/Verifier/004
+unverändert,007-Prüfbestätigung keine Credentialzustimmung.
+
+333 Cockpittests,77 Offline-Onboardingtests auf Host und gepinntem
+Python3.14.10,109 tatsächliche sprachübergreifende Offlineprüfpunkte,
+Typecheck und gepinnter Cockpitbuild bestanden. Unabhängiger Review ohne
+Restblocker. Optionales gehärtetes Testprofil ohne Netzwerk/Secrets/Mounts/
+Ports/DB-Abhängigkeiten; bestehende sechs öffentliche Dienste unverändert/
+gesund, TLS200, Nachweisflag off. Historische461/120/99 Suiten nicht erneut
+ausgeführt.
+
+Kein dauerhafter Aussteller/Einmalverbrauch oder HTTP-/Brokerexecutor.
+Künftige additive Integration benötigt ausdrücklich bestätigte Zweckfreigabe,
+globalen Consume vor Probe und erneute aktuelle Bindungsprüfung bei Annahme/
+Write. Physische Abnahme, tatsächliche E-Mail, Recovery und Betrieb bleiben
+IP-033 und eigene Gates. [Vertrag/Grenzen](../passkey-credential-assertions.md).
 
 ## Routine
 

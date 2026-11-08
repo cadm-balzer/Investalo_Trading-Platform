@@ -62,6 +62,11 @@ Der Nachweis bestätigt ausschließlich die vorbereitete Aktion und liefert
 `execution_enabled: false`. Die Brokercredentialfreigabe004 verwendet noch
 ihren bisherigen Frischevertrag; ein neuer Nachweis wird nicht automatisch
 dorthin übertragen. Diese Integration benötigt eine eigene geprüfte Änderung.
+IP-038 ergänzt dafür ausschließlich einen isolierten
+[TS-/Python-Assertionvertrag](passkey-credential-assertions.md) mit eigener
+Audience/Kind. Bestehende öffentliche und interne007-Bestätigungen können
+keinen solchen Token erzeugen. Dauerhafte zweckgebundene Ausgabe/Einmalverbrauch
+und Credentialintegration fehlen; alter Signer und004 bleiben unverändert.
 
 Der vollständige BFF-Enrollment- und Nachweisablauf ist unter IP-037 mit
 synthetischen P256-Daten über echtes isoliertes HTTPS/API/PG geprüft.

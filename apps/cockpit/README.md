@@ -142,6 +142,20 @@ verbrauchen Callback/Grant einmalig. Eine eigene opaque Bestätigungskennung
 bindet die Vorschau gegen Tabverwechslungen. Diese Primitive und der getrennte
 Credential-Assertion-Signer sind keine aktivierte MFA-/Credentialroute.
 
+IP-038 ergänzt `passkey-credential-token.ts` als isolierten Signaturvertrag mit
+Audience `investalo-credentials-passkey` und Kind
+`passkey-credential-authorization/1`. Er bindet eine gesonderte zweckgebundene
+Freigabe an ursprüngliche OIDC-Sitzung, frische Passkeyzeit, Ziel/CAS, unveränderte
+Bodybytes und Metadatendigest. Die bestehende007-Bestätigung kann keinen solchen
+Token erzeugen. Dauerhafter Aussteller/Einmalverbrauch und Credentialroute fehlen;
+alter Signer und004 bleiben unverändert.
+IP-038: 333 Cockpittests bestanden (265 aus IP-037 plus 68 neue), ebenso Typecheck;
+109 tatsächliche Offline-Interopprüfungen verbinden TS/Jose mit Python.
+Gepinnter Cockpitbuild bestanden. Die 99 isolierten HTTPS-Prüfpunkte aus
+IP-037 wurden nicht erneut ausgeführt; öffentliche Vorschau bleibt unverändert
+und das Nachweisflag aus.
+[Vertrag und Integrationsgates](../../docs/passkey-credential-assertions.md).
+
 ## Forschungsaufträge und Ergebnisse
 
 `/backtests` liest ausschließlich authentifizierte Dataset-Metadaten und

@@ -275,6 +275,46 @@ Geprüft:265 Cockpittests, Typecheck/Build,90 aktivierte und9 deaktivierte
 HTTPS/BFF/PG-Prüfpunkte sowie8 Vorbereitungstests. Die laufende öffentliche
 Vorschau blieb unverändert und gesund. [Ablauf/Gates](../docs/passkey-browser-proof.md).
 
+## Isolierter Passkey-Credential-Vertrag
+
+IP-038 ergänzt einen getrennten TS-Signer/Python-Verifier mit ursprünglicher
+OIDC-Zeit und frischer Passkey-/Freigabezeit. Der Zweckvertrag besitzt keinen
+dauerhaften Aussteller/Consumer, keine HTTP-Anbindung und keine Kontoausführung.
+Die Bestätigung der007-Prüfseite ist keine Schreibfreigabe.
+[Vertrag/Gates](../docs/passkey-credential-assertions.md).
+
+Das explizite Profil `credential-assertion-checks` verwendet das vorhandene
+gepinnt gebaute Storage-Prüfimage, aber nur die77 Offline-Onboardingtests.
+Es läuft als UID10003 mit schreibgeschütztem Dateisystem, ohne Netzwerk,
+Secrets, Mounts, Ports oder DB-Abhängigkeiten. Die bestehenden Dienste/
+Prüfprofile bleiben unverändert. Builds auf dem kleinen Host nacheinander:
+
+```bash
+sudo bash infra/scripts/compose.sh --profile credential-assertion-checks \
+  build credential-assertion-checks
+sudo bash infra/scripts/compose.sh --profile credential-assertion-checks \
+  run --rm --no-deps -T credential-assertion-checks
+```
+
+Die sprachübergreifende Offlineprüfung benötigt die dokumentierten lokalen
+Node-/Pythonversionen und die bestehenden installierten Cockpitabhängigkeiten/
+Credential-Venv. Sie startet den echten TS-Signer mit ausschließlich
+synthetischen Fixtures und prüft109 Vertragsfälle in Python:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 \
+PYTHONPATH=services/credentials/src:packages/credentials/src:integrations/bitget/src \
+packages/credentials/.venv/bin/python tests/infra/check_passkey_assertion_interop.py
+```
+
+Diese Prüfungen brauchen keine laufenden Dienste. Sie belegen keine
+DB-Autorität, persistente Replayabwehr, physische Geräteabnahme oder Broker-
+ausführung. Public-Overlay/Nachweisflag und Migrationen001–007 bleiben erhalten.
+Geprüft:333 Cockpittests,77 Offline-Onboardingtests auch im gepinnten
+Python3.14.10-Container,109 Interopprüfpunkte, Typecheck und gepinnter
+Cockpitbuild; unabhängiger Review ohne Blocker. Öffentliche Dienste unverändert/
+gesund und HTTPS200. Frühere461/120/99 Integrationsprüfungen nicht erneut ausgeführt.
+
 ## Passkey-Enrollment und Widerruf
 
 Nach006 und aktuellem API-/Cockpitbuild ist `/security/passkeys` der lokale

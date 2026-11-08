@@ -1,6 +1,6 @@
 # Nutzergebundene Bitget-Anbindung
 
-Stand 2026-11-07. Nutzerangabe: eigenes finanziertes Bitget-Konto mit Spot-
+Stand 2026-11-08. Nutzerangabe: eigenes finanziertes Bitget-Konto mit Spot-
 und Futuresbeständen; **Classic mit getrennten Wallets** ist bestätigt.
 Jeder Plattformnutzer erstellt einen eigenen dedizierten API-Key in seinem
 Bitget-Konto. Die Plattform verwaltet dessen freigegebene Kontoverbindung.
@@ -42,6 +42,10 @@ Kontometadaten und vorgesehene Aktionen. Die Schritte sind gesperrt, keine
 Keyeingabe. Authelia-Reauth kann den alten zweiten Faktor erhalten; zusätzliche
 Cockpit-Passkeys sind ausdrücklich bestätigt und befinden sich in Umsetzung.
 [Schutzbefund und Integrationsgates](passkey-step-up.md).
+IP-038 ergänzt einen isolierten [Credentialassertionvertrag](passkey-credential-assertions.md)
+für eine spätere zweckgebundene Freigabe. Die vorhandene007-Nachweisbestätigung
+erteilt diese nicht. Dauerhafter Aussteller/Einmalverbrauch, geschützte Keyeingabe
+und Credentialausführung bleiben offen;004 und öffentliche Vorschau unverändert.
 
 | Modus | Schlüsselrechte und Plattformfunktion |
 |---|---|
@@ -126,7 +130,8 @@ Verschlüsselte Speicherung und Abschlussaudit erfolgen in einer Transaktion.
 Die Prüfungen verwenden erfundene Assertions/Keys/Brokerantworten gegen echte DB.
 Eine Broker-UID ist global je Broker eindeutig, auch nach Widerruf; automatische
 Übertragung oder Neueinrichtung derselben UID ist ausgeschlossen.
-Echte BFF-MFA-Schrittbestätigung und Cockpiteingabe, Betriebsschlüsselprovider,
+Physische BFF-MFA-Abnahme, zweckgebundene dauerhafte Credentialfreigabe und
+Cockpiteingabe, Betriebsschlüsselprovider,
 tatsächliche Egress-/Brokerprüfung und gemeinsame UID-Quota müssen vor echter
 Keyannahme integriert und abgenommen werden. Der Dateiprovider ist ausschließlich
 für Entwicklung; es gibt keine freigeschaltete HTTP-Keyroute.

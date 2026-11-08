@@ -520,3 +520,29 @@ Aktivierung, Credentialintegration, Recovery und Betrieb sind nicht abgenommen.
 [Ablauf/Gates](../passkey-browser-proof.md),
 [SimpleWebAuthn14.1.x](https://simplewebauthn.dev/docs/packages/server),
 [W3C Assertionprüfung](https://www.w3.org/TR/webauthn-3/#sctn-verifying-assertion).
+
+## 2026-11-08 — D-043: Separater Passkey-Credential-Vertrag vor dauerhafter Integration
+
+Nutzer bestätigt Merge und beauftragt Fortsetzung. Checkpoint84f7633 in
+Main512c096 verifiziert; IP-038 auf eigenem Featurebranch. Der bisherige
+Credentialvertrag/004 setzt eine frische IdP-Zeit voraus, während007 die
+ursprüngliche Loginzeit bewahrt. `checked_at` ersetzt diese Zeit nicht.
+Ein neuer isolierter Vertrag erhält deshalb getrennte Audience und Zweckkind,
+eigene Authorization-ID und unveränderliche Actor-/Sitzungs-/Ziel-/CAS-/
+Metadaten-/Bodybindung. Keine erfundenen AMR-Claims, keine Änderung alter
+Prüfregeln und keine neue Strategy-/Betriebsfreigabe.
+
+Signer/Verifier sind wiederholbare vertrauenswürdige Primitive. Ein strukturell
+gültiger Zweckreceipt beweist hier keine DB-Ausgabe oder aktuelle Autorität.
+Die007-Funktionsbestätigung ist keine Schreibzustimmung. Eine künftige008 muss
+ausdrückliche Credentialautorisierung global einmalig vor Probe konsumieren,
+aktuellen Actor/Epoch/Reauth/Faktor/Metadaten bei Annahme und Write prüfen
+und Mutation/CAS/Audit atomar abschließen. Unbekannte Commits abgleichen.
+001–007 bleiben immutable; keine neue HTTProute oder Credentialausführung.
+
+Reale TS/Jose-/Python-Interop mit synthetischen Keys/Receipts ist offline geprüft.
+Ein optionales gehärtetes Offlineprofil nutzt das bestehende gepinnte
+Prüfimage ohne Netzwerk/Secrets/Mounts/DB; bestehende Dienste bleiben unverändert.
+[Vertrag/Gates](../passkey-credential-assertions.md),
+[RFC8725 §3.12](https://www.rfc-editor.org/rfc/rfc8725.html#section-3.12),
+[OWASP Transaction Authorization](https://cheatsheetseries.owasp.org/cheatsheets/Transaction_Authorization_Cheat_Sheet.html).
