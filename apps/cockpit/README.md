@@ -167,6 +167,14 @@ nicht erneut ausgeführt. Keine neue Browserroute oder Verbindung zur
 Credentialausführung;
 öffentliche Vorschau und ausgeschaltetes Nachweisflag
 bleiben erhalten. [Vertrag](../../docs/passkey-credential-authorizations.md).
+IP-040 verbindet008 außerhalb des Cockpits mit einem privaten Classic-Probe-/
+AEAD-Executor und009-Abschlussaudit. Die Credentialrouten bleiben503 und die
+Nachweisvorschau `execution_enabled:false`; kein HTTP-Aufruf erreicht diesen
+Executor.009-Preflight und gepinnte Prüfbuilds bestanden;009 ist nur in der
+Fixture-DB angewendet. Die Prüfung bestand mit 356 Credentialtests, darunter 221
+tatsächliche PostgreSQL-Fälle, und 461 API-/Workerchecks. Cockpit/TS-Signer
+wurden dabei nicht geändert.
+[Private Ausführung und Grenzen](../../docs/passkey-credential-execution.md).
 
 ## Forschungsaufträge und Ergebnisse
 

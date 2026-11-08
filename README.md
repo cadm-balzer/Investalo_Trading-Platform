@@ -77,7 +77,7 @@ Das Cockpit zeigt jetzt geschützte Bitget-Kontometadaten. Kontoänderungen blei
 gesperrt: Authelia-Reauth belegt keinen neu verwendeten zweiten Faktor.
 Die zusätzliche Passkey-Bestätigung ist bestätigt. Dauerhafte Publickey-
 Registry, administratives Einmalticket, Widerruf und lokales Browser-Enrollment
-sind implementiert. Physische Geräteabnahme und Credentialfreigabe folgen;
+sind implementiert. Physische Geräteabnahme und Browser-Credentialfreigabe folgen;
 registrierte Passkeys öffnen noch keine Kontoänderungen.
 [Passkeyplan und Abnahmegrenzen](docs/passkey-step-up.md).
 Der interne zielgebundene Passkey-Aktionsnachweis verbindet jetzt dauerhaften
@@ -87,7 +87,7 @@ aktivierbare Browservorschau unter `/security/passkeys/verify`; Standardprofil u
 öffentliche Vorschau lassen sie ausgeschaltet. Der vollständige BFF-Enrollment-
 und Nachweisablauf ist mit synthetischen P256-Daten über echtes HTTPS/API/PG
 geprüft. Das Ergebnis bleibt `execution_enabled:false`; physische Geräteabnahme,
-öffentliche Aktivierung und Credentialausführung folgen separat.
+öffentliche Aktivierung und Cockpit-Credentialausführung folgen separat.
 [Ablauf und Grenzen](docs/passkey-action-proofs.md).
 [Browservorschau und Prüfbelege](docs/passkey-browser-proof.md).
 IP-038 ergänzt einen isolierten TypeScript-/Python-Vertrag für spätere
@@ -100,8 +100,17 @@ die Freigabe global einmalig konsumiert und in einer getrennten Transaktion
 vor dem künftigen Write erneut geprüft. Die geprüfte008 ist ausschließlich in
 der Fixture-DB angewendet; `investalo` bleibt001–007. Die 271 Credentialtests
 (157 mit tatsächlichem PostgreSQL) und 461 API-/Workerchecks bestanden.
-Credentialausführung und Browseraktivierung bleiben gesperrt.
+Cockpit-Credentialausführung und Browseraktivierung bleiben gesperrt.
 [Dauerhafte Autorisierung und Grenzen](docs/passkey-credential-authorizations.md).
+IP-040 verbindet diese Freigabe im privaten `PasskeyBitgetOnboarding` mit
+Classic-Probe,003-AEAD-Store und neuem009-Abschlussaudit. Consume committed
+vor Probe;008-Lock, Credentialänderung und terminaler Abschluss teilen eine
+finale Transaktion. 817 Tests bestanden: 356 Credentialtests, darunter 221
+tatsächliche PostgreSQL-Fälle, und 461 API-/Workerchecks. Zurückgerollter009-
+Preflight und gepinnte Prüfbuilds bestanden.
+009 ist ausschließlich in der Fixture-DB angewendet.
+Keine HTTP-/Echtkey-/Brokeraktivierung.
+[Private Ausführung und Abnahme](docs/passkey-credential-execution.md).
 Die ausdrücklich freigegebene Entwicklungsvorschau ist unter
 [cockpit.investalo.de](https://cockpit.investalo.de) aktiv. Beide Domains haben
 gültige Let’s-Encrypt-Zertifikate; 48 öffentliche HTTPS-/MFA-/Backtestprüfpunkte

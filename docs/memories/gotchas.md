@@ -341,5 +341,19 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
 - **Consume und finaler Lock:** Frisches JWT/JTI erzeugt keine zweite Freigabe.
   Consume muss vor Probe committed sein; finaler Lock darf nicht in derselben
   Transaktion oder mit anderen Claims erfolgen. Terminalen Lockcommit nicht
-  wiederverwenden, unbekannten Commit abgleichen. Der aktuelle Client besitzt
-  keinen Executor; späteren Write und Audit an dieselbe Locktransaktion binden.
+  wiederverwenden, unbekannten Commit abgleichen. IP-040 verbindet den separaten
+  privaten Executor; Write und Audit gehören in dieselbe Locktransaktion.
+- **Prüfung nach Credentialmutation:**008 vergleicht die alte eingefrorene
+  Connectionmetadata. Nach erfolgreichem003-Write würde ein erneuter008-Lock
+  deshalb die beabsichtigte Änderung ablehnen.009 verlangt stattdessen exakt
+  den erlaubten neuen CAS-Zustand; Account/Actor/Faktor bleiben unverändert
+  gebunden. Ablauf nach dem letzten Audit-/FK-Warten mit `clock_timestamp()`
+  prüfen; dies garantiert keine Uhrzeit der späteren WAL-/Commitantwort.
+- **Verschachtelte Connectionfactory:** Der bestehende CredentialStore erkennt
+  `StoreRejected`; beliebige `OnboardingRejected` aus einer inneren Factory
+  würden zu `unavailable`. Der neue Executor überführt statische Fehlercodes
+  an dieser Grenze gezielt, ohne Treibertext oder Secretparameter weiterzugeben.
+- **Verlorene Commitantwort:** Testfactory erst nach echtem Commit werfen lassen,
+  um einen unbekannten Commit von einem Rollback vor Commit zu unterscheiden.
+  Unbestätigter Consume startet keine Probe; unbestätigter finaler Commit liefert
+  kein Erfolgsresultat und darf nicht mit `failed` überschrieben werden.

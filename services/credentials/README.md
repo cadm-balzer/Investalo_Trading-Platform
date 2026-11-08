@@ -173,8 +173,37 @@ Reviewed008 DDL and actual runtime prepare passed in a fully rolled-back
 preflight.008 is applied only to `investalo_credentials_checks`;
 `investalo` remains001–007; applied008 is checksum-protected and immutable.
 This client supplies no003/004 executor, credential mutation, broker transport or
-HTTP route. Final mutation/completion integration remains separate.
+HTTP route. IP-040 connects it to the separate private executor below.
 [Contract and acceptance gates](../../docs/passkey-credential-authorizations.md).
+
+## Private passkey-authorized execution (IP-040)
+
+`passkey_onboarding.PasskeyBitgetOnboarding` connects verified purpose receipts
+to008 consumption, the Classic identity probe and the existing003 AEAD store.
+It requires trusted original session context, verifier, keyring, transactional
+connection factory, explicitly injected transport and fixed egress IP.
+Register/replace require the same read-only rights, exact IP whitelist and
+UID/Parent checks as the legacy core; replacement preserves broker identity.
+Consumption must commit before any old-key read or probe.
+
+008's separate final lock,003 store mutation and009 terminal completion audit
+share one transaction.009 verifies the permitted final revision/storage/status,
+current actor/session/factor/account and expiry after the audit insert.
+Write, audit or expiry failure rolls back the whole final transaction while
+the earlier consumption remains committed. Failure audit is best effort after
+rollback; unknown commits never return success or trigger automatic retries.
+Revoke uses neither decryption nor a broker probe and supports paused accounts.
+Public results expose only connection ID, revision, storage version and status.
+
+001–008 remain unchanged.009 DDL and actual failed completion using the same
+LOGIN as committed synthetic008 consumption passed a fully rolled-back preflight.
+009 is applied only to `investalo_credentials_checks`; `investalo` remains001–007.
+Pinned migrate/storage/API-check builds and 356 credential checks passed,
+including 221 actual PostgreSQL cases. No HTTP caller, real keys,
+configured real-broker transport or public activation is added. Physical-device/
+email acceptance, dedicated operational identity, key provider, egress/quotas,
+recovery and pilot operation remain separate gates.
+[Execution contract](../../docs/passkey-credential-execution.md).
 
 ## Development file provider
 
@@ -223,4 +252,14 @@ actions through actual receipt→HMAC→verifier→private client consume/lock a
 SQL lifecycle cases. Pinned migrate/storage/API-check builds passed; 461 actual
 API/worker checks were rerun and passed. The historical 333 Cockpit and 109
 TS/Jose→Python checks from IP-038 were not rerun; the TS signer is unchanged.
-No final credential writer or actual broker is exercised.
+No final credential writer or actual broker was exercised in IP-039.
+
+IP-040: 356 tests passed in the pinned checkcontainer: 19 client, 116 offline
+onboarding (21 new executor cases) and 221 actual PostgreSQL (64 new cases:
+48 completion and 16 executor). All009 cases passed; the complete run took 153.42s.
+009 preflight, fixture-only application and pinned migrate/storage/API-check
+builds passed. Only synthetic assertions, keys and injected broker responses
+were used; no actual broker or real-key acceptance.
+The 461 API/worker checks also passed against fixture009, giving 817 current
+checks in total. API code was unchanged. Historical 333 Cockpit/109 interop
+results remain IP-038 and were not rerun; the TS signer is unchanged.

@@ -23,8 +23,13 @@ Bestätigung kann diese nicht erzeugen. IP-039 ergänzt die separate008-
 einfrieren, ausdrücklich aus einem noch erteilten007-Grant autorisieren,
 global einmalig konsumieren und vor künftiger Mutation in einer getrennten
 Transaktion erneut prüfen. Geprüfte008 ist nur in der Fixture-DB angewendet;
-die tatsächliche PostgreSQL-Lifecycleprüfung bestand. Credentialwriter-
-Integration, physische Geräte-/E-Mail-Abnahme und öffentliche Aktivierung bleiben offen.
+die tatsächliche PostgreSQL-Lifecycleprüfung bestand.
+IP-040 verbindet diesen privaten Ablauf mit Classic-Probe,003-AEAD-Store und
+009-Abschlussaudit in einer finalen Transaktion.009-Preflight und gepinnte
+Prüfbuilds bestanden;009 ist nur in der Fixture-DB angewendet. Die tatsächliche
+PostgreSQL-Regressionsprüfung bestand. Browser-/Credentialexecutorintegration,
+physische Geräte-/E-Mail-Abnahme und öffentliche Aktivierung bleiben offen.
+[Privater Executor](passkey-credential-execution.md).
 Keine neue Browser- oder Produktionsaktivierung.
 
 ## Warum ein zusätzlicher Nachweis nötig ist
@@ -115,8 +120,8 @@ sind implementiert. IP-037 prüft den vollständigen synthetischen BFF-Enrollmen
 und Nachweisablauf: 265 Cockpittests, Typecheck/gepinnter Cockpitbuild sowie 90
 isolierte tatsächliche HTTPS/BFF/API/PG-Prüfpunkte und neun Prüfungen mit
 ausgeschalteter Vorschau bestanden. Echte Browser-/Gerätetests, reale
-E-Mail-Attestierung, öffentliche Aktivierung und Verbindung zur
-Credentialfreigabe bleiben IP-033/BL-020/021; Recovery bleibt BL-025.
+E-Mail-Attestierung, öffentliche Aktivierung und Browseranbindung der privaten
+Credentialfreigabe/-ausführung bleiben IP-033/BL-020/021; Recovery bleibt BL-025.
 Pilot-RP ist `cockpit.investalo.de`; lokales
 `cockpit.local.test` ist eine andere RP und erfordert eigene Registrierung.
 Kein automatischer Domainwechsel und keine öffentliche Passkeyregistrierung.

@@ -45,8 +45,19 @@ SQL vertraut dem obligatorischen privaten Pythonverifier und BFF-Kryptoverdict;
 008-DDL und tatsächliches Runtime-Prepare bestanden einen vollständig
 zurückgerollten Preflight;008 ist nur in der Fixture-DB angewendet. Die 157 tatsächlichen
 PostgreSQL-Fälle einschließlich 97 neuer008-Fälle prüfen die Grenze;
-HTTP, Broker und Credentialwriter fehlen.
+HTTP-/Echtbrokeraktivierung bleibt gesperrt.
 [Autorisierungsgrenze](passkey-credential-authorizations.md).
+IP-040 ergänzt den privaten Executor: Consume committed vor Credentialread/
+synthetischer Probe, aktuelle008-Bindungen unter Lock,003-AEAD-Mutation und
+009-terminales Abschlussaudit in derselben finalen Transaktion. Fehler rollen
+den finalen Write zurück, behalten den Consume und erlauben keinen
+automatischen Replay.009-DDL und tatsächlicher fehlgeschlagener Abschluss wurden
+mit vollständigem Rollback vorgeprüft;009 ist ausschließlich in der Fixture-DB
+angewendet. Die Grenze ist mit 221 tatsächlichen PostgreSQL-Fällen einschließlich 64
+neuer Fälle für Completion und privaten Executor geprüft. Echte Keyannahme
+und öffentliche Aktivierung
+bleiben gesperrt.
+[Ausführungsgrenze](passkey-credential-execution.md).
 
 ## Bedrohungen und Kontrollen
 
@@ -115,7 +126,7 @@ ein entsprechender HTTP-Endpunkt fehlt bewusst. Kontoänderungen bleiben
 gesperrt. Einmalige zielgebundene Assertion-/Granttransaktionen und der
 vollständige BFF-Enrollment-/Nachweisablauf sind synthetisch über echtes
 HTTPS/API/PG geprüft; physische Geräteabnahme, echte E-Mail-Attestierung,
-öffentliche Aktivierung und003/004-Integration fehlen weiterhin.
+öffentliche Aktivierung und Browser-/Credentialexecutorintegration fehlen weiterhin.
 Enrollment erhält die ursprüngliche Sitzungsfrist und veröffentlicht Erfolg
 erst nach autoritativem Faktor-Readback. Administrativer Widerruf erhöht die globale
 Nutzer-Epoch und setzt `reauth_after`, sodass alle Tenant-Sitzungen ungültig
