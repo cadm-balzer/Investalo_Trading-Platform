@@ -16,6 +16,7 @@
 | [bitget-connection.md](bitget-connection.md) | Eigene Nutzerkeys, Classic-Spot/Futures-Wallets und geschützte Einrichtung |
 | [passkey-step-up.md](passkey-step-up.md) | Bestätigter Zusatzfaktor, Authelia-Faktorfrischebefund und Aktivierungsgates |
 | [passkey-action-proofs.md](passkey-action-proofs.md) | Dauerhafter zielgebundener Nachweis, Vorschau-Bestätigung und getrennte OIDC-Claims |
+| [passkey-browser-proof.md](passkey-browser-proof.md) | Ausdrücklich aktivierbare Browservorschau, vollständiger synthetischer BFF-Ablauf und Geräte-/Credentialgates |
 | [inventory.md](inventory.md) | Host und Wiederverwendung der Referenzsysteme |
 | [roadmap.md](roadmap.md) | Phasen, Abhängigkeiten und Abnahme |
 | [tasks/board.md](tasks/board.md) | Git-basiertes Ticketsystem |

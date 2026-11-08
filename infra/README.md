@@ -212,7 +212,68 @@ sind implementiert; Kontoänderungen bleiben gesperrt:
 [Passkeyplan](../docs/passkey-step-up.md). Kein neuer OIDC-Callback registriert.
 48 tatsächliche HTTPS-Prüfpunkte bestanden, einschließlich Enrollmentgrenzen;
 alle sechs lokalen Dienste gesund. Der erfolgreiche vollständige Enrollment-
-ablauf im BFF und die reale Browser-/Geräteabnahme stehen noch aus.
+ablauf im BFF ist inzwischen synthetisch in IP-037 geprüft; die reale
+Browser-/Geräteabnahme bleibt offen.
+
+## Isolierte Passkey-Browserprüfung
+
+IP-037 prüft vollständiges Enrollment und den zielgebundenen Nachweis007
+über tatsächliches HTTPS/BFF/API/PostgreSQL mit synthetischen P256-Schlüsseln.
+Voraussetzungen: vorhandenes lokales TLS-Fundament, provisionierte
+`investalo_credentials_checks` mit001–007 und aktuelle API-/Cockpitimages.
+Die additive Datei `compose.passkey-browser-checks.yaml` überschreibt keinen
+Vorschaudienst und veröffentlicht keine Hostports. Das interne Testcockpit
+aktiviert ausdrücklich `COCKPIT_PASSKEY_PROOF_PREVIEW=1`; Default und öffentliche
+Vorschau lassen das Flag aus. Alle Ergebnisse bleiben `execution_enabled:false`.
+
+Die Vorbereitung ist auf `/tmp/investalo-passkey-browser-state` festgelegt.
+Sie erstellt eine geschützte Fixturemarkierung und drei eigene synthetische
+Secrets. Root-/Sessionverzeichnisse gehören UID10002/10003, GID10010 mit2770.
+Secretdateien haben0440 und ermöglichen keine Sitzungen oder Dienstassertions
+der öffentlichen Vorschau. Abweichende Besitzer/Rechte und Symlinks werden
+abgewiesen; keine automatische Reparatur vorhandener Zustände.
+Alle privilegierten Pfadoperationen arbeiten über gehaltene Deskriptoren.
+
+Builds nacheinander durchführen; bestehende Vorschaucontainer dabei nicht
+neu erstellen. Bei fehlendem aktuellem API-Image zuerst den API-Build ausführen.
+
+```sh
+sudo python3 infra/scripts/prepare-passkey-browser-checks.py
+sudo bash infra/scripts/compose.sh build cockpit
+sudo bash infra/scripts/compose.sh --file infra/compose.passkey-browser-checks.yaml \
+  --profile passkey-browser-checks build browser-proof-checks
+sudo bash infra/scripts/compose.sh --file infra/compose.passkey-browser-checks.yaml \
+  --profile passkey-browser-checks up -d --no-deps \
+  browser-proof-api browser-proof-cockpit browser-proof-edge
+sudo bash infra/scripts/compose.sh --file infra/compose.passkey-browser-checks.yaml \
+  --profile passkey-browser-checks run --rm --no-deps -T browser-proof-checks
+# Auf dem kleinen Host die beiden Testcockpits nacheinander betreiben.
+sudo bash infra/scripts/compose.sh --file infra/compose.passkey-browser-checks.yaml \
+  --profile passkey-browser-checks stop browser-proof-cockpit
+sudo bash infra/scripts/compose.sh --file infra/compose.passkey-browser-checks.yaml \
+  --profile passkey-browser-checks --profile passkey-browser-disabled-checks \
+  up -d --no-deps browser-proof-cockpit-disabled
+sudo bash infra/scripts/compose.sh --file infra/compose.passkey-browser-checks.yaml \
+  --profile passkey-browser-checks --profile passkey-browser-disabled-checks \
+  run --rm --no-deps -T browser-proof-checks \
+  python /app/check_passkey_browser.py --disabled-only
+sudo bash infra/scripts/compose.sh --file infra/compose.passkey-browser-checks.yaml \
+  --profile passkey-browser-checks --profile passkey-browser-disabled-checks \
+  stop browser-proof-api browser-proof-cockpit browser-proof-cockpit-disabled browser-proof-edge
+```
+
+Nur die benannten Prüfdienste stoppen; `compose down` würde das gemeinsame
+Projekt einschließlich Vorschau treffen. Der Checkcontainer hat bewusst
+Migrationscredentials für eigene Fixtures; er ist kein eingeschränkter
+Betriebsdienst. Er prüft feste Fixture-DB und geschützte Ablage vor Schreibzugriff.
+Synthetische Audit-/Faktor-/Proofzeilen bleiben erhalten; erzeugte Nutzer werden
+nach Abschluss deaktiviert. Keine echten Nutzerkeys, Brokeraufrufe oder
+E-Mail-Attestierung. `navigator.credentials` auf einem physischen Gerät und
+öffentliche Aktivierung bleiben eigene Abnahmen.
+
+Geprüft:265 Cockpittests, Typecheck/Build,90 aktivierte und9 deaktivierte
+HTTPS/BFF/PG-Prüfpunkte sowie8 Vorbereitungstests. Die laufende öffentliche
+Vorschau blieb unverändert und gesund. [Ablauf/Gates](../docs/passkey-browser-proof.md).
 
 ## Passkey-Enrollment und Widerruf
 

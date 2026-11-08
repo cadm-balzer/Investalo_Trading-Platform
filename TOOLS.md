@@ -20,10 +20,11 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 
 _Add whatever helps you do your job. This is your cheat sheet._
 
-## Investalo — verified 2026-11-07
+## Investalo — verified 2026-11-08
 
 - Working checkout: `/opt/Investalo_Trading-Platform`.
-- Implementation branch: `feat/m1-passkey-action-proof`, based on main `e741c6b`;
+- Implementation branch: `feat/m1-passkey-browser-proof`, based on main `2c996d5`;
+  prior `9b47ae1` and `4c9f63f` merged and verified;
   local implementation and authorized checkpoint pushes, no production deployment.
 - Read-only references: `/opt/investalo-trading-system`,
   `/opt/investalo-autotrader`. HEADs and reuse limits: `docs/inventory.md`.
@@ -67,7 +68,7 @@ _Add whatever helps you do your job. This is your cheat sheet._
 - GitHub intermediate pushes explicitly authorized. Origin:
   `github.com:cadm-balzer/Investalo_Trading-Platform.git`.
   Existing host Deploy-Key `/opt/github-project-ssh-key` is used via
-  `git -c 'core.sshCommand=ssh -i /opt/github-project-ssh-key -o IdentityAgent=none -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=15 -o ServerAliveInterval=15 -o ServerAliveCountMax=2' push -u origin feat/m1-passkey-action-proof`.
+  `git -c 'core.sshCommand=ssh -i /opt/github-project-ssh-key -o IdentityAgent=none -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=15 -o ServerAliveInterval=15 -o ServerAliveCountMax=2' push -u origin feat/m1-passkey-browser-proof`.
   Never copy the private key into the repository or print its contents.
   The inherited SSH agent stalled while enumerating identities on2026-11-07;
   using the already authorized deploy identity directly completed the push.
@@ -88,11 +89,11 @@ _Add whatever helps you do your job. This is your cheat sheet._
   token or credential write. Authelia preserves old MFA state across password
   reauth. Additional Cockpit passkey approved; verifier14.1.0 and durable006
   enrollment/CAS/revocation/audit plus local BFF registration implemented.
-  Internal target-bound proofs007 are implemented; browser/credential integration
-  and physical device acceptance remain IP-033.
+  Internal target-bound proofs007 and gated proof-only browser integration are
+  implemented; credential integration and physical acceptance remain IP-033.
 - Checkpoint007:461 API/worker,143 Cockpit and120 credential tests passed,
   typecheck and pinned API/migrate/checks/Cockpit builds passed. Five internal
-  signed-BFF POSTs; no browser action route or003/004 execution. Original OIDC
+  signed-BFF POSTs; no003/004 execution. Original OIDC
   claims stay unchanged; proof checked_at is separate. Runtime containers were
   not recreated; active development preview still uses the public overlay.
   Proof contract and migration constraints: `docs/passkey-action-proofs.md`.
@@ -101,6 +102,21 @@ _Add whatever helps you do your job. This is your cheat sheet._
   Do not print ticket artifacts. Counter-CAS alone is no replay proof.
   Host TestClient can stall on sandbox sockets: run tests in the approved local
   Compose checkcontainer or request escalation; do not bypass sandbox controls.
+- IP-037:265 Cockpit tests, typecheck/build,90 enabled plus9 disabled actual
+  HTTPS/BFF/API/PG checks and8 preparation security tests passed.
+  Opt-in overlay `infra/compose.passkey-browser-checks.yaml` adds only isolated
+  `browser-proof-*` services, no host ports. Fixed state:
+  `/tmp/investalo-passkey-browser-state`, prepared by
+  `python3 infra/scripts/prepare-passkey-browser-checks.py`; root/session dirs
+  UID10002/10003, shared GID10010, mode2770 and strict fixture marker.
+  Three dedicated synthetic secrets are0440/10003:10010, never preview keys.
+  Run/check/stop commands: `infra/README.md#isolierte-passkey-browserprüfung`.
+  Stop only those named services; never `compose down` on the shared project.
+  No environment override for fixture state. Privileged preparation uses held
+  directory FDs/NOFOLLOW and rejects drift rather than repairing foreign state.
+  Sandbox UID remapping can show65534 on protected host files; use an approved
+  metadata-only host stat when needed. Never relax existing preview secret ACLs.
+  Public proof flag remains off; physical device/email attestation unproven.
 - Both public DNS names resolve to host5.45.96.83; valid LE certificates expire
   2027-02-05. Always use active `--file infra/compose.public-preview.yaml`
   for edge/application runtime changes; default `up` restores local origins/ports.

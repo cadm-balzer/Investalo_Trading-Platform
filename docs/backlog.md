@@ -1,6 +1,6 @@
 # Offenes Backlog
 
-Stand 2026-11-07. Aktive Aufgaben stehen im [Ticketboard](tasks/board.md).
+Stand 2026-11-08. Aktive Aufgaben stehen im [Ticketboard](tasks/board.md).
 Keine erledigten Punkte in dieser Liste halten.
 
 | ID | Thema | Auslöser / spätere Aufgabe |
@@ -24,8 +24,8 @@ Keine erledigten Punkte in dieser Liste halten.
 | BL-017 | Auth-Retention und Ratenbegrenzung | Nonce-/Sitzungsbereinigung, begrenzte Jobannahme und Recoveryoperator vor Pilot nachweisen |
 | BL-018 | Researchdaten und Executionidentitäten | Reale Fees/Spread/Instrumentregeln kalibrieren, Dreijahresdaten und Holdoutprotokoll nachweisen; separate Executionrollen bei IP-016 |
 | BL-019 | Manueller Auftrag ohne Fill | Bei IP-024 expliziten abgeglichenen Wiederholungsweg für reservierte manuelle Intents ergänzen; keine blinde neue Order |
-| BL-020 | Tatsächliche MFA-Schrittbestätigung | Registry, lokales Enrollment und interner zielgebundener Nachweis007 implementiert; vollständiger BFF-Enrollmentablauf, physische Browser-/Geräteabnahme, Browseraktivierung und Rate-/Speicher-/Retentionbetrieb bleiben IP-033/BL-017; Authelia-Reauth und Counter-CAS allein beweisen keinen frischen zweiten Faktor |
-| BL-021 | Bitget-Keyeinrichtung und Walletgrenzen | Privater Probe-/Storeablauf mit einmaliger Actionassertion implementiert; echten BFF-MFA-Schrittflow mit eigener Signaturidentität, CSRF und geschützter Triple-Eingabe, tatsächliche Egress-/Brokerprüfung und gemeinsame UID-Quota vor echter Verbindung abnehmen; UTA/Futuresausführung später gesondert |
+| BL-020 | Tatsächliche MFA-Schrittbestätigung | Registry, Enrollment, zielgebundener Nachweis007 und ausdrücklich aktivierbare Browservorschau implementiert; vollständiger synthetischer BFF-Ablauf über echtes isoliertes HTTPS/API/PG geprüft. Physische Browser-/Geräteabnahme, reale E-Mail-Attestierung, öffentliche Aktivierung und Rate-/Speicher-/Retentionbetrieb bleiben IP-033/BL-017; Authelia-Reauth und Counter-CAS allein beweisen keinen frischen zweiten Faktor |
+| BL-021 | Bitget-Keyeinrichtung und Walletgrenzen | Privater Probe-/Storeablauf und synthetischer BFF-Nachweis implementiert; physische MFA-Abnahme, Verbindung des Nachweises zur004-Credentialfreigabe mit eigener Signaturidentität und geschützter Triple-Eingabe, tatsächliche Egress-/Brokerprüfung und gemeinsame UID-Quota vor echter Verbindung abnehmen; UTA/Futuresausführung später gesondert |
 | BL-022 | Credential-Schlüsselbetrieb und Rollbackschutz | Aktuelle DB-Revision, CAS und getrennte Credentialrollen geprüft, expliziter Entwicklungs-Dateiprovider mit stabilen Fingerprints vorhanden; externe Betriebsschlüsselgrenze, gemeinsame Nutzungs-/Noncebudgets, Schutz gegen vollständigen DB-Rollback und verschlüsselter externer Restore vor echter Keyannahme nachweisen |
 | BL-023 | Wiederanbindung nach Credentialwiderruf | UID und Plattformkonto bleiben terminal reserviert; kontrollierten admin-/MFA-/Brokerprüfweg für erneute Einrichtung oder Übertragung entwerfen, keine automatische Reaktivierung oder Löschung |
 | BL-024 | Credential-Freigaben im Betrieb | Annahme-/Speicherlimits und Retention ohne Replayöffnung festlegen; autorisierte, aber nach Crash unvollständige JTIs und unbekannte Commits abgleichen, keine automatische Probe-/Writewiederholung |

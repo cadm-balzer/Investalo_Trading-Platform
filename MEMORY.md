@@ -150,3 +150,16 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   Browserrouten/003/004-Credentialausführung bleiben off. Vollständiges
   BFF-Enrollment, physische Geräteabnahme und Browserintegration IP-033;
   Betriebsretention/-limits BL-017, Recovery BL-025.
+- 2026-11-08, erneute Fortsetzung nach bestätigtem Merge:9b47ae1/4c9f63f in
+  Main2c996d5 verifiziert, Branch feat/m1-passkey-browser-proof. IP-037 ergänzt
+  ausdrücklich gated Prüfseite mit Vorschau/Assertion/einmaliger Bestätigung.
+  HTTP-CSRF-autorisierten Session-Snapshot bis zum Adapter erhalten, Originalclaims
+  und Frist nach Awaits erneut prüfen. Enrollment nach Speicherung autoritativ
+  lesen; vollständiger positiver Ablauf jetzt synthetisch belegt.
+  265 Cockpittests, Typecheck/Build,90+9 tatsächliche isolierte HTTPS/BFF/API/PG-
+  Prüfpunkte und8 Dateivorbereitungstests grün; unabhängiger Review ohne Restblocker.
+  Eigene Testkeys/Fixture-DB/fester tmp-State, keine öffentlichen Ports.
+  Testdienste angehalten, öffentliche Vorschau unverändert/gesund/TLS200.
+  Default/public Proofflag off, Credentialrouten503/003/004 gesperrt. Physischer
+  Geräteaufruf, echte E-Mail-Attestierung, öffentliche Aktivierung und Credential-
+  integration weiter IP-033; Recovery BL-025, Betriebsgrenzen BL-017.

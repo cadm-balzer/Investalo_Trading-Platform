@@ -1,0 +1,179 @@
+# Opt-in synthetic BFF/PG checks only. No existing preview service is overridden.
+# Root prepares the dedicated state directory before starting these services.
+# No host ports; the new edge and API aliases exist only on this internal network.
+x-browser-check-hardened: &browser-check-hardened
+  profiles: [passkey-browser-checks]
+  restart: "no"
+  user: "10003:10003"
+  group_add: ["10010"]
+  read_only: true
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+  tmpfs: ["/tmp:rw,noexec,nosuid,size=32m"]
+  logging:
+    driver: json-file
+    options:
+      max-size: 5m
+      max-file: "2"
+
+services:
+  browser-proof-api:
+    <<: *browser-check-hardened
+    image: investalo-api:0.1.0-local
+    mem_limit: 160m
+    cpus: 0.3
+    environment:
+      PGHOST: postgres
+      PGPORT: "5432"
+      PGDATABASE: investalo_credentials_checks
+      PGUSER: investalo_runtime
+      PGPASSWORD_FILE: /run/secrets/platform_runtime_password
+      PGSSLMODE: verify-full
+      PGSSLROOTCERT: /run/secrets/local_ca_cert
+      API_INTERNAL_AUTH_SECRET_FILE: /run/secrets/browser_check_internal_secret
+      API_OIDC_ISSUER: https://auth.cockpit.local.test:8443
+      API_PASSKEY_RP_ID: cockpit.local.test
+    secrets:
+      - platform_runtime_password
+      - browser_check_internal_secret
+      - local_ca_cert
+      - api_tls_key
+      - api_tls_cert
+    networks:
+      database: {}
+      passkey_browser:
+        aliases: [api]
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import ssl,urllib.request; urllib.request.urlopen('https://api:8000/health/ready',context=ssl.create_default_context(cafile='/run/secrets/local_ca_cert'),timeout=3).read()"
+      interval: 5s
+      timeout: 4s
+      retries: 12
+
+  browser-proof-cockpit:
+    <<: *browser-check-hardened
+    image: investalo-cockpit:0.1.0-local
+    user: "10002:10002"
+    mem_limit: 192m
+    cpus: 0.4
+    environment:
+      COCKPIT_ORIGIN: https://cockpit.local.test:8443
+      OIDC_ISSUER: https://auth.cockpit.local.test:8443
+      OIDC_CLIENT_ID: investalo-cockpit
+      OIDC_CLIENT_SECRET_FILE: /run/secrets/browser_check_oidc_secret
+      COCKPIT_SESSION_SECRET_FILE: /run/secrets/browser_check_session_secret
+      BFF_INTERNAL_AUTH_SECRET_FILE: /run/secrets/browser_check_internal_secret
+      API_BASE_URL: https://api:8000
+      COCKPIT_STATE_DIR: /app/state
+      NODE_EXTRA_CA_CERTS: /run/secrets/local_ca_cert
+      COCKPIT_PASSKEY_PROOF_PREVIEW: "1"
+    volumes:
+      - type: bind
+        source: /tmp/investalo-passkey-browser-state
+        target: /app/state
+        bind:
+          create_host_path: false
+    secrets: [browser_check_oidc_secret, browser_check_session_secret, browser_check_internal_secret, local_ca_cert]
+    networks: [passkey_browser]
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:3000/api/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 5s
+      timeout: 4s
+      retries: 12
+
+  browser-proof-edge:
+    <<: *browser-check-hardened
+    image: ${CADDY_IMAGE:?Pinned image required}
+    user: "10001:10001"
+    mem_limit: 48m
+    cpus: 0.2
+    environment:
+      XDG_DATA_HOME: /tmp
+      XDG_CONFIG_HOME: /tmp
+    volumes:
+      - ./caddy/Caddyfile.passkey-browser-checks:/etc/caddy/Caddyfile:ro
+    secrets: [ingress_tls_cert, ingress_tls_key]
+    networks:
+      passkey_browser:
+        aliases: [cockpit.local.test]
+
+  browser-proof-cockpit-disabled:
+    <<: *browser-check-hardened
+    profiles: [passkey-browser-disabled-checks]
+    image: investalo-cockpit:0.1.0-local
+    user: "10002:10002"
+    mem_limit: 192m
+    cpus: 0.4
+    environment:
+      COCKPIT_ORIGIN: https://cockpit.local.test:9443
+      OIDC_ISSUER: https://auth.cockpit.local.test:8443
+      OIDC_CLIENT_ID: investalo-cockpit
+      OIDC_CLIENT_SECRET_FILE: /run/secrets/browser_check_oidc_secret
+      COCKPIT_SESSION_SECRET_FILE: /run/secrets/browser_check_session_secret
+      BFF_INTERNAL_AUTH_SECRET_FILE: /run/secrets/browser_check_internal_secret
+      API_BASE_URL: https://api:8000
+      COCKPIT_STATE_DIR: /app/state
+      NODE_EXTRA_CA_CERTS: /run/secrets/local_ca_cert
+      COCKPIT_PASSKEY_PROOF_PREVIEW: "0"
+    volumes:
+      - type: bind
+        source: /tmp/investalo-passkey-browser-state
+        target: /app/state
+        bind:
+          create_host_path: false
+    secrets: [browser_check_oidc_secret, browser_check_session_secret, browser_check_internal_secret, local_ca_cert]
+    networks: [passkey_browser]
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:3000/api/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 5s
+      timeout: 4s
+      retries: 12
+
+  browser-proof-checks:
+    <<: *browser-check-hardened
+    image: investalo-passkey-browser-checks:0.1.0-local
+    build:
+      context: ..
+      dockerfile: infra/docker/credential-storage.Dockerfile
+      target: checks
+      args:
+        PYTHON_IMAGE: ${PYTHON_IMAGE:?Pinned image required}
+    mem_limit: 128m
+    cpus: 0.3
+    environment:
+      PGHOST: postgres
+      PGPORT: "5432"
+      PGDATABASE: investalo_credentials_checks
+      PGUSER: investalo_migration
+      PGPASSWORD_FILE: /run/secrets/platform_migration_password
+      PGSSLMODE: verify-full
+      PGSSLROOTCERT: /run/secrets/local_ca_cert
+      PASSKEY_CHECK_ORIGIN: https://cockpit.local.test:8443
+      PASSKEY_CHECK_ISSUER: https://auth.cockpit.local.test:8443
+      PASSKEY_CHECK_STATE_DIR: /app/check-state
+      PASSKEY_CHECK_SESSION_SECRET_FILE: /run/secrets/browser_check_session_secret
+    command: [python, /app/check_passkey_browser.py]
+    volumes:
+      - ../tests/infra/check_passkey_browser.py:/app/check_passkey_browser.py:ro
+      - type: bind
+        source: /tmp/investalo-passkey-browser-state
+        target: /app/check-state
+        bind:
+          create_host_path: false
+    secrets: [platform_migration_password, browser_check_session_secret, local_ca_cert]
+    networks: [database, passkey_browser]
+
+networks:
+  passkey_browser:
+    internal: true
+
+secrets:
+  browser_check_session_secret:
+    file: /tmp/investalo-passkey-browser-state/session-secret
+  browser_check_internal_secret:
+    file: /tmp/investalo-passkey-browser-state/internal-secret
+  browser_check_oidc_secret:
+    file: /tmp/investalo-passkey-browser-state/oidc-secret

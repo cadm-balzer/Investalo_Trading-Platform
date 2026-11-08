@@ -68,7 +68,9 @@ export async function beginPasskeyActionProof(ports: PasskeyActionPorts, account
     const completed = await live(ports, bound, accountId);
     assertAttemptLive(attempt, bound, completed.context, completed.metadata, ports.now());
     // Raw token belongs to this trusted caller's specific preview, not a bearer grant.
-    return Object.freeze({ attempt_id: attempt.attempt_id, options, confirmation_token: token });
+    return Object.freeze({ attempt_id: attempt.attempt_id, options, confirmation_token: token,
+      preview: Object.freeze({ target: attempt.target, accountName: attempt.metadata.account.name,
+        expiresAt: attempt.expires_at, execution_enabled: false as const }) });
   } catch { throw rejected(); }
 }
 export async function finishPasskeyActionProof(

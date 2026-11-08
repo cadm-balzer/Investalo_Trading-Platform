@@ -96,8 +96,18 @@ Grant atomar. Confirm prüft genau Grant und Vorschaukennung vor einmaligem
 Verbrauch und liefert `status:verified, execution_enabled:false`.
 Die tatsächliche Passkeyprüfzeit ersetzt niemals die ursprüngliche OIDC-Zeit.
 SQL/API vertrauen dem Kryptoverdict des geprüften BFF.
-Es gibt keine neue Browserroute, Credentialfreigabe oder Brokerausführung.
+IP-037 verwendet diese unveränderten API-Routen aus einer ausdrücklich
+aktivierbaren BFF-Browservorschau. Die API erteilt weiterhin keine
+Credentialfreigabe oder Brokerausführung;003/004 bleiben gesperrt.
 [Vertrag und Gates](../../docs/passkey-action-proofs.md).
+[BFF-Browservorschau](../../docs/passkey-browser-proof.md).
+
+Für IP-037 bestanden 90 isolierte tatsächliche HTTPS/BFF/API/PG-Prüfpunkte
+mit synthetischen P256-Daten und eigener Fixture-DB sowie neun Prüfungen
+mit ausgeschalteter Vorschau ohne Faktor-/Nachweismutation. SQL, API und
+Migrationen wurden dabei nicht geändert. Die 461 API-/Worker- und 120
+Credentialregressionen stammen aus IP-036 und wurden für IP-037 nicht erneut
+ausgeführt; physische Geräte- und Credentialabnahme bleiben offen.
 
 Jobdetail liefert `result` oder `null` und einen begrenzten `failure_code`.
 Listen liefern `result_summary` ohne Equitykurve. Ergebnisbeträge sind

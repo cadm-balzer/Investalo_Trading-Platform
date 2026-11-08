@@ -42,10 +42,11 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-030 | P0 / P1–P4 | DONE | Bitget-Prüfung, Triple-Speicherung und einmalige Actionfreigabe verbinden | 120 Tests inkl. 60 echte PG-Fälle bestanden; synthetische Freigaben/Broker, damals004 nur Fixture-DB; HTTP/BFF-MFA und Pilotprovider bleiben IP-009 |
 | IP-031 | P0 / P1 | DONE | Geschützte Kontometadaten und vorbereitete Actionzustände prüfen | Additive005, 36 reine +20 PG-Metadatenfälle, 25 Actionzustandsfälle; 40 reale HTTPS-Prüfpunkte einschließlich gesperrtem Step-up und IdP-Faktorfrischebefund |
 | IP-032 | P0 / P1 | DONE | Bestätigten zusätzlichen Passkey-Assertionkern prüfen | SimpleWebAuthn14.1.0, 19 echte synthetische Signaturtests, voller Cockpitlauf78/Typecheck/Containerbuild grün; unabhängiger Review, kein aktiver HTTP-Verifier |
-| IP-033 | P0 / P1 | IN_PROGRESS | Dauerhafte Passkeyverwaltung und Browser-Schrittflow integrieren | Registry/Enrollment in IP-034, interner zielgebundener Nachweis in IP-036; vollständiger BFF-Enrollmentablauf, Browserintegration, Geräteabnahme und Credentialfreigabe folgen; BL-020/021/025 |
+| IP-033 | P0 / P1 | IN_PROGRESS | Dauerhafte Passkeyverwaltung und Browser-Schrittflow integrieren | Registry/Enrollment in IP-034, Nachweis007 in IP-036, gated Prüfseite und kompletter synthetischer BFF-Durchlauf in IP-037; physische Geräteabnahme, öffentliche Aktivierung und Credentialfreigabe folgen; BL-020/021/025 |
 | IP-034 | P0 / P1 | DONE | Dauerhafte Passkeyregistry und lokales Browser-Enrollment implementieren | Additive006, Einmalticket, FORCE RLS, Counter-/Versions-CAS, terminaler Widerruf/Audit und BFF-Enrollment; 528 Tests und48 HTTPS-Prüfpunkte grün, unabhängige Reviews, keine Actionfreigabe |
 | IP-035 | P0 / P1 | DONE | Freigegebene HTTPS-Entwicklungsvorschau aktivieren | Nutzerfreigabe und beide DNS-Namen vorhanden; zwei gültige LE-Zertifikate, zwölf Helpertests und48 öffentliche HTTPS-/MFA-/Backtestprüfpunkte grün. Separate öffentliche Identität im bestehenden Entwicklungstenant; nur Edge80/443, Zertifikate nach Neustart erhalten. BL-026/Pilotabnahme bleiben offen |
 | IP-036 | P0 / P1 | DONE | Dauerhaften zielgebundenen Passkey-Aktionsnachweis implementieren | Additive007, Claim vor Kryptoprüfung, Counter-/Versions-CAS und einmalige Vorschau-Bestätigung; 724 Prüfungen grün, unabhängige Reviews. Originale OIDC-Claims erhalten; Browseraktivierung und Credentialausführung bleiben separate Gates |
+| IP-037 | P0 / P1 | DONE | Passkey-Prüfseite und vollständigen BFF-Ablauf integrieren | Gated Vorschau/Assertion/Bestätigung, positiver synthetischer BFF-Enrollmentablauf;265 Cockpittests,99 isolierte HTTPS/BFF/PG-Prüfpunkte,8 Vorbereitungstests, Typecheck/Build und Review grün. Öffentliche Aktivierung/physische Geräteabnahme separat; keine Credentialausführung |
 
 ## Abschlussbelege
 
@@ -278,6 +279,33 @@ Testaufruf, damit längere Suiten deren Aussage erhalten.
 Browserrouten für Kontoänderungen, reale Keyannahme und003/004-Ausführung
 bleiben gesperrt. Vollständiges BFF-Enrollment und reale Geräteabnahme folgen
 IP-033. [Ablauf und Prüfbelege](../passkey-action-proofs.md).
+
+## Zwischenabnahme: Passkey-Prüfseite und vollständiger BFF-Durchlauf
+
+2026-11-08: Aktionsnachweis `9b47ae1` und Abnahmenotiz `4c9f63f` sind in
+Main `2c996d5` gemerged und verifiziert. Branch `feat/m1-passkey-browser-proof`
+verbindet007 mit einer ausdrücklich aktivierbaren Prüfseite: Konto/Aktion
+ansehen, frische Passkey-Assertion und die eigene Vorschau einmalig bestätigen.
+Die HTTP-autorisierten Sitzung/CSRF bleiben bis zum Ergebnis unverändert
+gebunden. Enrollment behält die ursprüngliche Sitzungsfrist und verlangt
+nach Speicherung eine autoritative Faktorlesebestätigung.
+
+265 Cockpittests, Typecheck und gepinnter Build bestanden.90 tatsächliche
+isolierte HTTPS/BFF/API/PG-Prüfpunkte einschließlich vollständiger Einrichtung,
+P256-Assertions, drei Aktionen, Replay und Konkurrenz sowie9 Prüfungen mit
+deaktivierter Oberfläche sind grün. Acht Vorbereitungstests prüfen Dateirechte,
+Symlinks/Hardlinks und ersetzte Elternpfade. Reviewhinweise zur Sitzungsbindung
+und zur privilegierten Dateivorbereitung sind behoben; keine Restblocker.
+
+Testdienste verwendeten eigene synthetische Schlüssel/Tickets und die
+Fixture-DB, veröffentlichten keine Ports und sind angehalten.001–007 bleiben
+unverändert; API-/Credentialregressionen aus IP-036 wurden nicht erneut gezählt.
+Öffentliche Dienste unverändert und gesund, Cockpit mit regulärem TLS200.
+Default und öffentliche Vorschau behalten die Prüfseite ausgeschaltet.
+`execution_enabled:false`, alte Credentialrouten503, keine003/004-Ausführung.
+Physisches Gerät, tatsächliche E-Mail-Attestierung, öffentliche Aktivierung,
+Credentialintegration, Recovery und Betrieb bleiben offene Abnahmen.
+[Ablauf und Grenzen](../passkey-browser-proof.md).
 
 ## Routine
 
