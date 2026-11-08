@@ -41,6 +41,9 @@ IP-043 prüft den [getrennten synthetischen Credentialdienst](credential-develop
 mit eigener gebundener DB-Rolle und eigenen Schlüsseldateien. Damit ist die
 Entwicklungs-Containergrenze konkret; Produktionsserver und Schlüsselbetrieb
 bleiben gesonderte Abnahmen.
+IP-044 übernimmt dafür den bereits gepinnten [ASGI-Unterbau](credential-asgi-transport.md)
+mit TLS-/Rawframingprüfung und unabhängigen Grenzen für Verbindungen und
+laufende Schreibarbeit. Echter Schlüsselbetrieb und Kontoverbindung folgen.
 Der Nutzer hat den Bedarf längerer Bitcoin-Backtests erneut hervorgehoben:
 Drei Jahre BTC/ETH-Daten und ein unabhängiger Holdout bleiben IP-011/IP-013,
 der aktuelle90-Tage-Datensatz ist ausschließlich ein Funktionsnachweis.

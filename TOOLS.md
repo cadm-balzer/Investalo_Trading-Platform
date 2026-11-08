@@ -220,3 +220,16 @@ _Add whatever helps you do your job. This is your cheat sheet._
   Read-only metadata checker `/tmp/investalo-credential-development-schema-check.py`
   verifies every current SQL checksum against development007/fixture009.
   No new dependencies, migrations or preview activation.
+- IP-044: same isolated `--orchestrate --service` commands, now using pinned
+  Uvicorn0.54.0/h110.16.0/click8.5.1. Rebuild `credential-restricted` and
+  `credential-flow-checks` serially; Node/API source and images unchanged.
+  419 pinned credential tests/52 subtests passed154.35s, including18 new actual
+  TLS/ASGI cases.451 restricted-service/mTLS points and independent review passed.
+  Explicit debug=False/workers=1, raw headers checked before h11 normalization,
+  four handshake-inclusive sockets and four separately bounded actual futures.
+  Deadline/disconnect never frees still-running work or authorizes retries.
+  Runtime without --development exits1 before listener; only named fixture
+  APIs started/stopped. All testcontainers stopped, public six services healthy,
+  regular cockpit/auth TLS200; all normal007/fixture009 checksums verified.
+  No migration/public flag; old Cockpit/API/extra HTTPS/pipe suites not rerun.
+  Existing Uvicorn protocol coupling needs TLS/framing/deadline review on upgrades.

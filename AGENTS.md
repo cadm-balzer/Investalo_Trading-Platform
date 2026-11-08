@@ -87,7 +87,7 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   onboarding checkpoint `69a1f8b` merged into main, verified at `56070ba`;
   step-up checkpoint `d57bd56` merged into main, verified at `b6198f7`;
   registry checkpoint `6a18102` merged into main, verified at `f422a90`;
-  current work branch: `feat/m1-credential-development-service`.
+  current work branch: `feat/m1-credential-asgi-transport`.
   Isolated AEAD core: `packages/credentials/README.md`, 20 offline tests with
   pinned cryptography and a separate hardened Compose check.
   Credential store: `services/credentials/README.md`; migration003 and current
@@ -309,6 +309,21 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   unchanged. All migration checksums normal007/fixture009 verified.
   Fixture containers stopped, six public services unchanged/healthy,
   cockpit/auth regular TLS HTTP200.
+
+- IP-043 checkpoint `998bb90` is merged into main `9f2a9a5` (verified).
+  IP-044 replaces the synthetic service's stdlib HTTP engine with the existing
+  pinned Uvicorn/h11 stack. Controlled accepted sockets bound TLS handshake
+  and absolute deadlines; peer fingerprint and raw framing are checked before
+  parsing. Socket and executor work capacity remain separate across disconnects.
+  The launcher remains synthetic-only; no production/provider/broker/public
+  activation or migration changes. See `docs/credential-asgi-transport.md`.
+  419 pinned credential tests and52 subtests passed, including18 new actual
+  TLS/ASGI cases and221 existing actual PG cases. 451 restricted-service/mTLS
+  integration points, both Python builds and independent review passed.
+  Default image rejects startup without --development. Historical440 Cockpit/
+  572 API-worker and older HTTPS/pipe integrations not rerun; code unchanged.
+  All migration checksums normal007/fixture009 verified, testcontainers stopped,
+  six public services unchanged/healthy and cockpit/auth regular TLS HTTP200.
 
 ## Trading and implementation invariants
 

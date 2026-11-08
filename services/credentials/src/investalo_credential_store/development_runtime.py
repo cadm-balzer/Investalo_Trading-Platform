@@ -1,7 +1,7 @@
 """Explicit synthetic-only development launcher; no production or broker intake.
 
 All identity, connection and file locations are trusted fixed server inputs.
-The stdlib HTTPS boundary remains an isolated development fixture. It accepts
+The ASGI HTTPS boundary remains an isolated development fixture. It accepts
 only the existing synthetic credential canaries, before durable consumption.
 """
 from __future__ import annotations
@@ -29,7 +29,8 @@ from .models import StoreContext, _PrivateImmutable
 from .onboarding import _request
 from .passkey_onboarding import PasskeyBitgetOnboarding
 from .passkey_request_assertion import MAX_BODY_BYTES, PasskeyRequestVerifier
-from .private_http import CredentialHTTPApplication, create_private_https_server
+from .private_asgi import create_private_asgi_server
+from .private_http import CredentialHTTPApplication
 from .request_assertion import OnboardingRejected
 
 OWNER_UID = 10003
@@ -344,7 +345,7 @@ def main(argv=None) -> int:
         config = load_config(development_mode=True)
         application = create_application(config, development_mode=True)
         tls = _tls_context()
-        server = create_private_https_server(
+        server = create_private_asgi_server(
             ADDRESS, tls_context=tls,
             client_certificate_sha256=frozenset((config.client_certificate_sha256,)),
             application=application, timeout_seconds=20, max_workers=4,

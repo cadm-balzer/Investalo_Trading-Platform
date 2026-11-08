@@ -23,6 +23,7 @@
 | [passkey-credential-cockpit.md](passkey-credential-cockpit.md) | Private injizierte Cockpit-Orchestrierung, standardmäßig gesperrte008-API-Brücke und verbleibende Browser-/Schlüssel-/Brokergates |
 | [passkey-credential-https.md](passkey-credential-https.md) | Privater Entwicklungs-HTTPS-Transport mit gegenseitigem TLS, unabhängigem Sitzungskontext und synthetischer Fixture |
 | [credential-development-service.md](credential-development-service.md) | Getrennter synthetischer Credentialdienst mit eigener DB-/Schlüsselidentität, Startprüfung und administrativem Ergebnisaudit |
+| [credential-asgi-transport.md](credential-asgi-transport.md) | Gepinnter ASGI-Unterbau des isolierten Credentialdiensts, mTLS-/Rawframing-/Frist- und Arbeitsslotgrenzen |
 | [inventory.md](inventory.md) | Host und Wiederverwendung der Referenzsysteme |
 | [roadmap.md](roadmap.md) | Phasen, Abhängigkeiten und Abnahme |
 | [tasks/board.md](tasks/board.md) | Git-basiertes Ticketsystem |

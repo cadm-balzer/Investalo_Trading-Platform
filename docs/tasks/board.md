@@ -42,7 +42,7 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-030 | P0 / P1–P4 | DONE | Bitget-Prüfung, Triple-Speicherung und einmalige Actionfreigabe verbinden | 120 Tests inkl. 60 echte PG-Fälle bestanden; synthetische Freigaben/Broker, damals004 nur Fixture-DB; HTTP/BFF-MFA und Pilotprovider bleiben IP-009 |
 | IP-031 | P0 / P1 | DONE | Geschützte Kontometadaten und vorbereitete Actionzustände prüfen | Additive005, 36 reine +20 PG-Metadatenfälle, 25 Actionzustandsfälle; 40 reale HTTPS-Prüfpunkte einschließlich gesperrtem Step-up und IdP-Faktorfrischebefund |
 | IP-032 | P0 / P1 | DONE | Bestätigten zusätzlichen Passkey-Assertionkern prüfen | SimpleWebAuthn14.1.0, 19 echte synthetische Signaturtests, voller Cockpitlauf78/Typecheck/Containerbuild grün; unabhängiger Review, kein aktiver HTTP-Verifier |
-| IP-033 | P0 / P1 | IN_PROGRESS | Dauerhafte Passkeyverwaltung und Browser-Schrittflow integrieren | Registry/Enrollment IP-034, Nachweis007 IP-036, synthetischer BFF-Durchlauf IP-037, Vertrag IP-038, Zweckfreigabe008 IP-039, privater Executor IP-040, Cockpitablauf IP-041 und Entwicklungs-HTTPS IP-042 vorhanden; IP-043 trennt den synthetischen Dienst. Physische Geräteabnahme, Browser-Keyannahme, Betriebsschlüssel und öffentliche Aktivierung folgen; BL-020/021/025 |
+| IP-033 | P0 / P1 | IN_PROGRESS | Dauerhafte Passkeyverwaltung und Browser-Schrittflow integrieren | Registry/Enrollment IP-034, Nachweis007 IP-036, synthetischer BFF-Durchlauf IP-037, Vertrag IP-038, Zweckfreigabe008 IP-039, privater Executor IP-040, Cockpitablauf IP-041 und Entwicklungs-HTTPS IP-042 vorhanden; IP-043 trennt den synthetischen Dienst, IP-044 prüft den ASGI-Unterbau. Physische Geräteabnahme, Browser-Keyannahme, Betriebsschlüssel und öffentliche Aktivierung folgen; BL-020/021/025 |
 | IP-034 | P0 / P1 | DONE | Dauerhafte Passkeyregistry und lokales Browser-Enrollment implementieren | Additive006, Einmalticket, FORCE RLS, Counter-/Versions-CAS, terminaler Widerruf/Audit und BFF-Enrollment; 528 Tests und48 HTTPS-Prüfpunkte grün, unabhängige Reviews, keine Actionfreigabe |
 | IP-035 | P0 / P1 | DONE | Freigegebene HTTPS-Entwicklungsvorschau aktivieren | Nutzerfreigabe und beide DNS-Namen vorhanden; zwei gültige LE-Zertifikate, zwölf Helpertests und48 öffentliche HTTPS-/MFA-/Backtestprüfpunkte grün. Separate öffentliche Identität im bestehenden Entwicklungstenant; nur Edge80/443, Zertifikate nach Neustart erhalten. BL-026/Pilotabnahme bleiben offen |
 | IP-036 | P0 / P1 | DONE | Dauerhaften zielgebundenen Passkey-Aktionsnachweis implementieren | Additive007, Claim vor Kryptoprüfung, Counter-/Versions-CAS und einmalige Vorschau-Bestätigung; 724 Prüfungen grün, unabhängige Reviews. Originale OIDC-Claims erhalten; Browseraktivierung und Credentialausführung bleiben separate Gates |
@@ -53,8 +53,18 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-041 | P0 / P1 | DONE | Privaten Cockpit-Zweckablauf mit API und Credentialexecutor verbinden | Merge3476f74 in Main0fd25b6 verifiziert; standardmäßig deaktivierte008 API-Brücke und injizierter BFF-Ablauf mit ursprünglicher Session, expliziter Credentialzustimmung und exaktem Body.572 API-/385 Cockpittests,299 integrierte Prüfpunkte, Typecheck/Builds/Review grün; Browser-Keyannahme und öffentlicher Betrieb bleiben gesondert |
 | IP-042 | P0 / P1 | DONE | Privaten Entwicklungs-HTTPS-Transport zum Credentialexecutor prüfen | Mergecd66c3a in Mainc573ab3 verifiziert; gegenseitiges TLS, eigene BFF-Zertifikatsbindung, unabhängiger Sitzungskontext und unveränderte Bodybytes; ausschließlich synthetische Fixture, 376 Credential-/440 Cockpittests,346 mTLS-Prüfpunkte und gepinnte Builds/Review grün; kein Produktionslauncher oder öffentlicher Keyeingang |
 | IP-043 | P0 / P1 | DONE | Synthetischen Credentialdienst mit eigener DB-/Schlüsselidentität starten | Merge94fb73b in Main6300971 verifiziert; getrennte Runtime/Admincontainer, feste Fixture-DB/LOGIN, Startprüfung und synthetische Guard vor008-Verbrauch.401 Credential-/10 Vorbereitungstests,440 tatsächliche Dienstprüfpunkte und gepinnte Builds/Review bestanden; Produktionsserver/Schlüsselbetrieb und Browser-Keyannahme folgen |
+| IP-044 | P0 / P1 | DONE | Isolierten Credentialdienst mit gepinntem ASGI-HTTP-Unterbau prüfen | Merge998bb90 in Main9f2a9a5 verifiziert; bestehende Uvicorn-/h11-Pins, mTLS vor Parser, Rawframing und getrennte Verbindungs-/Arbeitsslots.419 Credentialtests/52 Subtests,451 Dienstprüfpunkte und gepinnte Pythonbuilds/Review bestanden; nur synthetischer lokaler Dienst |
 
 ## Abschlussbelege
+
+IP-044:419 gepinnte Credentialtests/52 Subtests und451 tatsächliche
+Prüfpunkte im getrennten mTLS-Dienstablauf bestanden. 18 neue TLS-/ASGI-Fälle
+prüfen Handshake, Rawframing, absolute Fristen und die getrennte Begrenzung
+laufender Arbeit nach Disconnect. Beide Pythonbuilds und unabhängiger Review
+grün. Keine neue Migration oder öffentliche Aktivierung; aktuelle Prüfsummen
+normal007/Fixture009 stimmen überein, Testcontainer beendet, öffentliche
+Dienste unverändert/gesund und Cockpit/Auth mit regulärem TLS HTTP200.
+[ASGI-Vertrag und genaue Belege](../credential-asgi-transport.md).
 
 IP-043:401 gepinnte Credentialtests mit52 Subtests, zehn Host-
 Vorbereitungstests und440 integrierte Prüfpunkte im getrennten
@@ -437,6 +447,22 @@ sechs Dienste gesund, Cockpit/Auth mit regulärem TLS200.
 Produktionsserver, Schlüsselbetrieb, Browser-Keyeingabe/physische Geräteabnahme
 und tatsächlicher Broker bleiben weitere M1-Arbeit.
 [Vertrag und genaue Abnahme](../credential-development-service.md).
+
+## Zwischenabnahme IP-044 — gepinnter ASGI-Transport
+
+Merge `998bb90` in Main `9f2a9a5` verifiziert; Branch
+`feat/m1-credential-asgi-transport`. Kontrollierte Socketübergabe an Uvicorn/h11,
+Peerfingerprint vor HTTP, Rawheaderprüfung vor Parsernormalisierung und eine
+absolute 20-Sekunden-Frist. Vier Verbindungen einschließlich Handshakes und
+vier tatsächliche Executorarbeiten sind getrennt begrenzt; Disconnect oder
+Timeout geben noch laufende Arbeit nicht frei und lösen keinen Retry aus.
+
+419 Credentialtests/52 Subtests in154,35s und451 integrierte Dienstprüfpunkte
+bestanden; Hashlockbuilds und Review ohne Restblocker. Nur synthetischer
+Entwicklungslauncher, keine öffentliche oder echte Brokeraktivierung.
+Uvicorn-Protokollkopplung bei Upgrades erneut prüfen; Betriebsidentitäten,
+Schlüsselprovider, Quoten/Recovery und Browser-/Geräteabnahme bleiben offen.
+[Vertrag und Abnahme](../credential-asgi-transport.md).
 
 ## Routine
 

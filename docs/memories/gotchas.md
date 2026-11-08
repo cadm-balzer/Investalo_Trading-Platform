@@ -414,3 +414,23 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
 - **Synthetic-only Guard:** Reale Keytriples vor Verifier und dauerhaftem
   Consentverbrauch abweisen. Statische synthetische Brokerantworten allein
   würden versehentliche echte Speicherung nicht verhindern.
+- **ASGI-Scheme ist keine TLS-Autorität:** Der gepinnte HTTP-Server liefert
+  ohne eigene Anbindung keine verifizierte Clientzertifikatsidentität in den
+  Scope. Tatsächlichen TLS-Peer vor Parser prüfen und den Scope an genau dieses
+  authentifizierte Protokoll binden; Header oder `scheme=https` reichen nicht.
+- **h11 normalisiert vor dem ASGI-Scope:** Gefaltete Header und gleiche
+  Content-Length-Duplikate können vor der App normalisiert werden. Strikte
+  Rawgrammatik und Duplikatprüfung vor dem Parser beibehalten, Bodybytes danach
+  unverändert weitergeben.
+- **Disconnect beendet keinen Worker:** Threadpools haben eine unbegrenzte
+  Submitqueue. Separate Arbeitsslots bis zum tatsächlichen Future-Ende halten,
+  auch wenn Socket oder ASGI-Task beendet wurden. Keine Commitwiederholung
+  oder neue Failureaussage aus einem Transporttimeout ableiten.
+- **Asyncio-Defaults und geerbtes Debugging:** TLS-Standardfristen können
+  deutlich länger als der eigene HTTP-Deadline sein. Handshake explizit
+  begrenzen und danach nur die verbleibende absolute Frist verwenden.
+  Geerbtes `PYTHONASYNCIODEBUG` kann langsame Callbackreprs mit privaten
+  Argumenten protokollieren; für den privaten Loop `debug=False` erzwingen.
+- **Bereiter Acceptloop:** Bei einer vollen Acceptqueue kann jedes
+  `sock_accept` sofort zurückkehren. Pro Iteration ausdrücklich schedulen,
+  damit Frist-/Shutdowncallbacks trotz Verbindungsflut ausgeführt werden.

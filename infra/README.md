@@ -459,6 +459,13 @@ bleiben erhalten; kein Default-`up`, `down` oder `--remove-orphans`.
 Der Image-Standard ohne `--development` öffnet keinen Listener.
 [Identitäten, Mounts und verbleibender Betrieb](../docs/credential-development-service.md).
 
+IP-044 ersetzt den HTTP-Unterbau dieses Diensts durch den bestehenden gepinnten
+ASGI-Stack. Dieselben Build-/`--orchestrate --service`-Kommandos gelten;
+nach Lock-/Sourceänderung beide Pythonimages neu bauen. Node und API-Code
+bleiben unverändert. Der Listener begrenzt Handshakes, prüft Peerpin und
+Rawheader vor h11 und hält Arbeitsslots bis zum tatsächlichen Future-Ende.
+[ASGI-Vertrag und Upgradeprüfung](../docs/credential-asgi-transport.md).
+
 ## Passkey-Enrollment und Widerruf
 
 Nach006 und aktuellem API-/Cockpitbuild ist `/security/passkeys` der lokale

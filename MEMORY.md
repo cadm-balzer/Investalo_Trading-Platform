@@ -260,3 +260,22 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   Historische356 Credentialtests nicht neu gezählt. Nächste Arbeit:
   tatsächliche Browser-Keyannahme, physische Geräteabnahme, eigener
   Credentialdienst/Signingprovider und realer Transport/Egress; kein Live.
+- 2026-11-08, Nutzer bestätigt Merge des isolierten Dienstes IP-043:
+  998bb90 in Main9f2a9a5 verifiziert. IP-044 auf
+  feat/m1-credential-asgi-transport ersetzt dessen stdlib HTTP durch die
+  bestehenden Uvicorn0.54.0/h110.16.0/click8.5.1-Pins samt Hashes.
+  Kontrollierte asyncio-Socketübergabe, Clientpin vor Parser, Rawframing
+  vor h11-Normalisierung und absolute20s seit Socketannahme.
+  Vier Verbindungen inkl. Handshake und vier Executorarbeiten getrennt begrenzt;
+  laufende Futures halten den Arbeitsslot trotz Disconnect/Timeout/Shutdown.
+  Kein Retry bei unbekanntem Commit; debug=False/workers=1 ausdrücklich gesetzt.
+  419 gepinnte Credentialtests/52 Subtests mit18 neuen TLS-/ASGI-Fällen und
+  451 tatsächliche getrennte TS/WebAuthn/API/PG/Python/mTLS-Prüfpunkte bestanden.
+  Beide Pythonbuilds und unabhängiger Review grün; Launcher ohne
+  --development abgewiesen. Nur synthetische Keys/Broker, keine Migration/
+  öffentliche Aktivierung/Produktionsabnahme. Alte440 Cockpit/572 APIfälle
+  und zusätzliche historische HTTPS-/Pipeläufe nicht erneut gezählt.
+  Testcontainer gestoppt, sechs öffentliche Dienste unverändert/gesund/TLS200;
+  alle Migrationsprüfsummen normal007/fixture009 geprüft.
+  Schlüsselbetrieb, provisionierte Identitäten, Quoten/Reconciliation/Recovery,
+  echter Broker und Browser-/physische Abnahme bleiben offene M1-Gates.

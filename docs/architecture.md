@@ -64,6 +64,12 @@ und liest Ergebnisse; er konsumiert oder schreibt im Dienstmodus nicht.
 Keine echten Schlüssel, Produktionsserver oder öffentliche Aktivierung.
 [Konkrete Dienstgrenze](credential-development-service.md).
 
+IP-044 ersetzt im synthetischen Dienst den stdlib-HTTP-Unterbau durch den
+vorhandenen gepinnten ASGI-Stack. Kontrollierte Socketübergabe bindet mTLS,
+absolute Frist und Kapazität vor HTTP-Verarbeitung; Rawheader werden vor h11
+geprüft. Arbeitsslots bleiben über einen Disconnect hinaus bis zum tatsächlichen
+Executorende belegt. [ASGI-Grenze](credential-asgi-transport.md).
+
 ## Systemgrenzen
 
 Bestätigt: modularer Monolith für API und Domäne, getrennte Prozesse für
