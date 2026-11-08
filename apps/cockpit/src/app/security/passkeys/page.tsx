@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getSession } from "@/lib/auth";
 import { getPasskeyContext } from "@/lib/passkey-enrollment";
+import { passkeyProofPreviewEnabled } from "@/lib/passkey-action-preview";
 import type { PasskeyContext } from "@/lib/passkey-enrollment-state";
 import { BackendError } from "@/lib/backend";
 import { Shell } from "@/components/dashboard";
@@ -28,7 +29,8 @@ export default async function Page() {
             : <p role="status">Dein Passkey ist registriert.</p>}
     </section>
     <section className="panel"><h2>Kontoänderungen noch gesperrt</h2>
-      <p className="panel-intro">Die zusätzliche Bestätigung wird im nächsten Schritt angebunden. Eine Registrierung startet keine Kontoanbindung und keinen Handel.</p>
+      <p className="panel-intro">Eine Registrierung startet keine Kontoanbindung und keinen Handel. Kontoänderungen benötigen noch die vollständige Freigabeprüfung.</p>
+      {passkeyProofPreviewEnabled() && <Link href="/security/passkeys/verify" className="button secondary">Passkey-Bestätigung prüfen</Link>}
       <Link href="/security/credentials" className="button secondary">Kontometadaten ansehen</Link>
     </section>
   </Shell>;

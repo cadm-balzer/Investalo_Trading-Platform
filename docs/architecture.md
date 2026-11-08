@@ -1,6 +1,6 @@
 # Architektur und Stack
 
-Stand 2026-11-07. Q7 bestätigt den Grundstack aus Python/FastAPI,
+Stand 2026-11-08. Q7 bestätigt den Grundstack aus Python/FastAPI,
 Next.js/TypeScript, PostgreSQL und getrennten Workern im modularen Monolithen.
 Q13/Q14 bestätigen Docker Compose und lokales Authelia.
 Q31 bestätigt den Umsetzungsstart. Cockpit, API, PostgreSQL und Authelia laufen
@@ -19,6 +19,9 @@ Der interne Aktionsnachweis007 liegt dauerhaft in PostgreSQL und verbindet
 den vorhandenen WebAuthn-Verifier mit Challengeclaim, Faktor-CAS und
 Vorschau-Bestätigung. Er ersetzt keinen IdP-Claim und öffnet keine Brokerroute:
 [Passkey-Aktionsnachweis](passkey-action-proofs.md).
+IP-037 verbindet ihn mit einer ausdrücklich aktivierbaren BFF-Browservorschau;
+Standard- und öffentliches Composeprofil lassen sie ausgeschaltet. Ergebnis:
+`execution_enabled:false`. [Browsergrenze und Abnahme](passkey-browser-proof.md).
 
 ## Systemgrenzen
 
@@ -142,7 +145,13 @@ Administrativer Widerruf erhöht die globale Nutzer-Auth-Epoch und setzt
 `reauth_after`; Wiederherstellung bleibt offen. Counter-/Versions-CAS ist
 eine vertrauenswürdige SQL-Primitive ohne eigenen Challenge-Replayschutz und
 hat bewusst keinen ungebundenen HTTP-Endpunkt. Der interne zielgebundene
-Nachweis007 ist implementiert; Browserintegration, Credentialfreigabe und echte
+Nachweis007 und die ausdrücklich aktivierbare BFF-Browserintegration sind
+implementiert. Die HTTP-Grenze reicht eine unveränderliche CSRF-autorisierte Sitzung weiter und
+prüft aktuelle Bindungen nach asynchronem Bodylesen, Krypto-/API-Aufrufen und
+vor Ergebnispublikation. Sichere Browserprojektionen und lokaler Reactzustand
+begrenzen die Ausgabe. Der vollständige synthetische BFF-Enrollmentablauf
+erhält die ursprüngliche Sitzungsfrist und liest den gespeicherten Faktor vor
+Erfolg autoritativ zurück. Öffentliche Aktivierung, Credentialfreigabe und echte
 Geräteabnahme folgen IP-033. Der Session-TTL-Store hält nur kurzlebige
 Enrollmentversuche. OIDC-Originalclaims bleiben erhalten.
 [Entwurf/Gates](passkey-step-up.md).
@@ -225,7 +234,8 @@ eine Transaktion. SQL prüft keine JWT-Signaturen oder Browser-MFA; die direkten
 003-Storefunktionen bleiben vertrauenswürdige Serverprimitiven.
 Die lokale Abnahme erfolgt mit synthetischen Assertions/Brokerantworten in
 einer getrennten Fixture-DB. Dateischlüssel sind nur für Entwicklung verfügbar;
-Betriebsschlüsselprovider, echter BFF-Schrittflow und HTTP-Anbindung fehlen.
+Betriebsschlüsselprovider, physische BFF-Geräteabnahme und die
+HTTP-Anbindung der Credentialfreigabe fehlen.
 Details: [Credentialstore](../services/credentials/README.md).
 
 WebSocket/SSE-Abonnements werden nach Authwechsel, Entzug oder Sessionende

@@ -1,6 +1,6 @@
 # Betrieb, Deployment und Wiederherstellung
 
-Stand 2026-11-07. Bestätigt: vorhandenen Server nutzen, zunächst kostenlose
+Stand 2026-11-08. Bestätigt: vorhandenen Server nutzen, zunächst kostenlose
 externe Dienste/Accounts; TradingView Essentials besteht bereits.
 Q31 bestätigt die lokale Umsetzung. Docker ist installiert; fünf Basisdienste
 und ein optionaler Offline-Researchworker laufen über Compose. Die ausdrücklich
@@ -49,6 +49,15 @@ bedienen. Ohne Overlay werden lokale Ports/Origins wiederhergestellt.
 Geschützten ACME-Zustand persistent halten; Proxyneustart und Zertifikatsvertrauen
 sind geprüft. Erneuerung, Ablaufüberwachung und externe Wiederherstellung bleiben
 BL-026. [Zugang und Rückfall](https-entry.md).
+
+Die IP-037-Nachweisvorschau ist nur mit `COCKPIT_PASSKEY_PROOF_PREVIEW=1`
+aktivierbar. Standard- und öffentliches Composeprofil lassen sie ausgeschaltet;
+laufende Vorschaucontainer wurden für diesen Checkpoint nicht verändert.
+90 tatsächliche HTTPS/BFF/API/PG-Prüfpunkte liefen isoliert mit eigenen
+Testsecrets, synthetischer P256-Registrierung/Ticketattestierung und Fixture-DB.
+Neun Prüfungen mit ausgeschalteter Vorschau bestätigten ausbleibende Faktor-/
+Nachweismutationen. Öffentliche Aktivierung, reale Geräte-/E-Mail-Abnahme und
+Credentialintegration folgen separat. [Prüfablauf](passkey-browser-proof.md).
 
 Deploymentablauf: geprüfter Code/Lockstand → Build/Artefakt →
 relevante Tests → verschlüsselte Sicherung → Migration mit Rückfallplanung →
@@ -153,7 +162,9 @@ abgleichen. [Lokale Bedienung](../infra/README.md#passkey-enrollment-und-widerru
 **Interner Aktionsnachweis007:** Claim, Kryptoprüfung und Bestätigung haben
 dauerhafte Einmalzustände. Bei Crash oder unbekannter Commitantwort den
 gespeicherten Zustand und Audit abgleichen; keinen verbrauchten Versuch
-wieder freigeben. Browseraktionen und Credentialausführung bleiben gesperrt.
+wieder freigeben. Die ausdrücklich aktivierbare Browservorschau bestätigt
+ausschließlich den Nachweis mit `execution_enabled:false`;
+Credentialausführung bleibt gesperrt.
 [Ablauf und Grenzen](passkey-action-proofs.md).
 
 **Migration vom Altsystem:** Ein Writer je Konto, offene Commands/Fills abgleichen,

@@ -3,7 +3,7 @@
 Mandantenfähiges Trading-Cockpit mit Portfolio, Journal, Backtests und
 automatisiertem Handel über Bitget und MetaTrader 5.
 
-**Stand: 2026-11-07 — M1-Implementierung gestartet, Q31 bestätigt.**
+**Stand: 2026-11-08 — M1-Implementierung gestartet, Q31 bestätigt.**
 Das lokale Fundament läuft über Docker Compose: Cockpit, FastAPI, PostgreSQL,
 Authelia und zentraler HTTPS-Proxy. Versionen, Imagedigests und Paketlocks sind
 festgelegt. Der deterministische Crypto-Kern und ein isolierter Offline-
@@ -77,14 +77,19 @@ Das Cockpit zeigt jetzt geschützte Bitget-Kontometadaten. Kontoänderungen blei
 gesperrt: Authelia-Reauth belegt keinen neu verwendeten zweiten Faktor.
 Die zusätzliche Passkey-Bestätigung ist bestätigt. Dauerhafte Publickey-
 Registry, administratives Einmalticket, Widerruf und lokales Browser-Enrollment
-sind implementiert. Geräteabnahme und zielgebundene Assertionfreigabe folgen;
+sind implementiert. Physische Geräteabnahme und Credentialfreigabe folgen;
 registrierte Passkeys öffnen noch keine Kontoänderungen.
 [Passkeyplan und Abnahmegrenzen](docs/passkey-step-up.md).
 Der interne zielgebundene Passkey-Aktionsnachweis verbindet jetzt dauerhaften
 Einmalclaim, Signaturprüfung, Counter/CAS und Vorschau-Bestätigung.
-Der neue Adapter erhält die ursprünglichen OIDC-Claims; Browseraktivierung und
-Credentialausführung folgen separat.
+Der Adapter erhält die ursprünglichen OIDC-Claims. IP-037 ergänzt eine ausdrücklich
+aktivierbare Browservorschau unter `/security/passkeys/verify`; Standardprofil und
+öffentliche Vorschau lassen sie ausgeschaltet. Der vollständige BFF-Enrollment-
+und Nachweisablauf ist mit synthetischen P256-Daten über echtes HTTPS/API/PG
+geprüft. Das Ergebnis bleibt `execution_enabled:false`; physische Geräteabnahme,
+öffentliche Aktivierung und Credentialausführung folgen separat.
 [Ablauf und Grenzen](docs/passkey-action-proofs.md).
+[Browservorschau und Prüfbelege](docs/passkey-browser-proof.md).
 Die ausdrücklich freigegebene Entwicklungsvorschau ist unter
 [cockpit.investalo.de](https://cockpit.investalo.de) aktiv. Beide Domains haben
 gültige Let’s-Encrypt-Zertifikate; 48 öffentliche HTTPS-/MFA-/Backtestprüfpunkte

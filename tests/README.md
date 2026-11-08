@@ -45,11 +45,11 @@ Das lokale Fundament besitzt ausführbare Tests:
   Negativfälle mit eigener tatsächlicher Research-Testrolle.
 - `apps/cockpit/tests`: OIDC-Token/Freshness, Cookies/Sitzungen, CSRF,
   Mandantenantworten, Ergebnis-/Datasetverträge und requestgebundene Assertions.
-  143 Tests grün, einschließlich25 vorbereiteter Actionzustände,
-  13 Contract-/Signerfälle,19 echter synthetischer P256-Passkeyprüfungen
-  37 Enrollmentzustands-/Registrierungsfälle und 28 neuer Aktionsnachweisfälle.
-  Die Tests prüfen Zustand und Kryptografie getrennt; ein erfolgreicher
-  vollständiger BFF-Enrollmentablauf und reale Browser-/Geräteabnahme fehlen.
+  265 Tests grün, einschließlich25 vorbereiteter Actionzustände,
+  13 Contract-/Signerfälle,19 echte synthetische P256-Passkeyprüfungen,
+  37 Enrollmentzustands-/Registrierungsfälle und28 Aktionsnachweisfälle.
+  IP-037 ergänzt64 HTTP-Grenzfälle,44 komplette synthetische Enrollmentabläufe
+  und14 Browserprojektion-/P256-Fälle. Die physische Geräteabnahme bleibt offen.
 - `tests/infra/check_local_auth.py`: tatsächlicher HTTPS-Passwort-/TOTP-/
   OIDC-Durchlauf einschließlich BFF, Mandanten-API und Abmeldung.
   Jobannahme/Wiederholung, Parameterkonflikt und frischer Login trotz bestehender
@@ -72,6 +72,26 @@ Das lokale Fundament besitzt ausführbare Tests:
 - `apps/cockpit/tests/passkey-action-proof.test.ts`:28 echte synthetische
   P256-Registrierungs-/Assertion-/Orchestrierungsfälle, Vorschau-/Session-/
   Metadata-/Faktorbindung und erhaltene OIDC-Zeit. Keine physische Geräteabnahme.
+- `apps/cockpit/tests/passkey-action-proof-http.test.ts`:64 Fälle für
+  Default-Off, Origin/Fetch-Metadata/CSRF, duplicatefreies begrenztes JSON,
+  sichere Projektion und unveränderliche autorisierte Sitzung über Body-/API-Awaits.
+- `apps/cockpit/tests/passkey-enrollment-flow.test.ts`:44 komplette synthetische
+  Abläufe mit tatsächlichem atomarem verschlüsseltem Versuchsspeicher,
+  Originalfrist, committed Claim, einmaligem Consume und Faktorlesebestätigung.
+- `apps/cockpit/tests/passkey-browser-proof.test.ts`:14 Fälle für native
+  ArrayBuffer-/Base64-Umwandlung, P256-Signatur, Vorschau-/Grantbindung,
+  RP/UV und begrenzte Projektion ohne private Felder.
+- `tests/infra/check_passkey_browser.py`:90 tatsächliche isolierte
+  HTTPS/BFF/API/PG-Prüfpunkte für vollständiges Enrollment, drei Aktionen,
+  Originalclaims, Replay/Parallelität, sichere Antworten und gesperrte
+  Credentialausführung;9 weitere mit ausgeschalteter Prüfseite ohne Mutation.
+  Eigene synthetische Sitzungsschlüssel und administrativ bestätigte Testtickets,
+  keine echte E-Mail, Authelia-Anmeldung oder Hardwareinteraktion.
+  [Isolierter Start](../infra/README.md#isolierte-passkey-browserprüfung).
+- `tests/infra/test_passkey_browser_preparation.py`:8 tatsächliche
+  Dateirechte-/UID-/GID-Fälle gegen Symlinks, Hardlinks, Modusdrift und
+  umbenannte Elternpfade. Auf eigenen temporären Verzeichnissen als root:
+  `sudo python3 -m unittest discover -s tests/infra -p test_passkey_browser_preparation.py -v`.
 - `tests/infra/test_research_provisioning.py`: atomare Rollenprovisionierung,
   Eingabegrenzen und sichere SQL-/Passwortbehandlung.
 - `tests/infra/test_credentials_provisioning.py`: vier Tests für feste
@@ -94,6 +114,9 @@ Fixturebindung, niemals die Identität des laufenden Researchworkers.
 Das Credential-Prüfprofil besitzt bewusst Migrationscredentials; nur seine
 Credential-Testlogins sind auf die Fixture-DB beschränkt. Synthetische
 Testverbindungen bleiben dort append-only, Testrollenbindungen werden neu gesetzt.
-Echter BFF-MFA-Schrittflow, Recovery, Browser-/Geräte-Erstregistrierung, Broker-Crashfälle und
-verschlüsselter externer Restore sind damit noch nicht abgenommen.
+Der vollständige Passkey-BFF-Durchlauf ist synthetisch geprüft. Physische
+Browser-/Geräte-Erstregistrierung, öffentliche Aktivierung, Credentialintegration,
+Recovery, Broker-Crashfälle und verschlüsselter externer Restore sind offen.
+Die461 API-/Worker- und120 Credentialtests stammen aus IP-036; IP-037 änderte
+weder SQL/API noch diese Prüfungen und hat sie nicht erneut gezählt.
 Abnahmekriterien: [Roadmap](../docs/roadmap.md), [Ticketboard](../docs/tasks/board.md).

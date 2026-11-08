@@ -91,7 +91,7 @@ Actionfreigaben dürfen sich nicht allein darauf stützen.
 Der Nutzer hat eine zusätzliche Cockpit-Passkey-Bestätigung bestätigt.
 Der Verifier nutzt `@simplewebauthn/server==14.1.0` mit UV/UP,
 festem RP/HTTPS-Origin, serverseitiger Challenge und gespeichertem Publickey.
-Assertion-HTTP-Flows und echte Browser-/Gerätetests bleiben offen.
+Die Assertion-HTTP-Vorschau ist implementiert; echte Browser-/Gerätetests bleiben offen.
 `/security/passkeys` bietet lokale Erstregistrierung mit administrativem
 Einmalticket. Die beiden BFF-Routen `/api/passkeys/enrollment/start` und
 `/api/passkeys/enrollment/finish` verlangen Sitzung/Origin/CSRF, begrenzte
@@ -99,6 +99,9 @@ duplicatefreie Bodies und eine einmalig konsumierte gebundene Challenge.
 Registrierung prüft ES256/UV/UP mit `fmt=none`; eine frische Assertion bleibt
 vor jeder sensitiven Freigabe Pflicht. Publickeys und Counter/CAS/Audit liegen
 dauerhaft in PostgreSQL006, nur Enrollmentversuche im Session-TTL-Store.
+Der vollständige Enrollmentablauf läuft über getrennte, prüfbare Ports. Er
+erhält die ursprüngliche Sitzungsfrist und liest nach dem Schreiben den
+autoritativen Faktor erneut, bevor er Erfolg veröffentlicht.
 Administrativer Widerruf sperrt den Faktor und alle Nutzer-Tenant-Sitzungen;
 Recovery/erneutes Enrollment sind noch nicht verfügbar.
 Lokale Passkeyzeiten ersetzen keine IdP-Claims.
@@ -111,10 +114,27 @@ Vorschau-Bestätigung. Sitzung/CSRF/Origin, Actor/Epoch, sichere Kontometadaten 
 Faktorversion werden nach asynchronen Schritten erneut geprüft.
 Backup-Eligibility muss zum verifizierten Gerätetyp passen. Alle API-Aufrufe
 behalten die ursprünglichen OIDC-Claims; `checked_at` bleibt getrennt.
-Der neue Adapter wird noch von keiner Browserroute verwendet. Bestehende
-Sensitive-Actionrouten bleiben503; der interne Nachweis liefert ausdrücklich
+IP-037 verbindet den Adapter mit `/security/passkeys/verify` und den POST-Routen
+`/api/passkeys/actions/{start,finish,grant,confirm}`. Nur
+`COCKPIT_PASSKEY_PROOF_PREVIEW=1` schaltet diese Nachweisvorschau frei;
+Standard- und öffentliches Composeprofil lassen sie ausgeschaltet. Die
+HTTP-Grenze übergibt die unveränderliche CSRF-autorisierte Sitzung an den Adapter
+und prüft sie nach Bodylesen, Kryptoprüfung, API-Aufrufen und vor Antwort erneut.
+Der Browser erhält nur geprüfte Projektionen; Versuchs-/Grantzustand und
+Vorschaukennung bleiben im lokalen Reactzustand.
+Bestehende Credentialrouten bleiben503; der Nachweis liefert ausdrücklich
 `execution_enabled:false`. Keine Keyeingabe oder003/004-Ausführung.
 [Vertrag und Abnahme](../../docs/passkey-action-proofs.md).
+[Browservorschau und Prüfbelege](../../docs/passkey-browser-proof.md).
+
+IP-037: 265 Cockpittests bestanden (143 bisherige, 64 HTTP-, 44 Enrollment-
+und 14 Browserprojektionsfälle), ebenso Typecheck und gepinnter Cockpitbuild.
+90 isolierte tatsächliche HTTPS/BFF/API/PG-Prüfpunkte verwenden synthetische
+P256-Daten, Ticketattestierung, eigene Testsecrets und Fixture-DB; neun Prüfungen
+mit ausgeschalteter Vorschau belegen ausbleibende Faktor-/Nachweismutationen.
+Physische `navigator.credentials`-/Geräteprüfung, echte E-Mail-Attestierung,
+öffentliche Aktivierung und Credentialintegration bleiben offen. Laufende
+öffentliche Vorschaucontainer wurden nicht verändert.
 
 Vorbereitete Actionzustände frieren Ziel und Versionen serverseitig ein, binden
 Handle/CSRF/Issuer/Sub/Tenant/Epoch, prüfen aktuelle Metadaten erneut und

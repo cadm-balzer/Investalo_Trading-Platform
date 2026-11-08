@@ -290,3 +290,27 @@ Stand 2026-11-07. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   Mit vorhandenem Deploy-Key und `IdentityAgent=none` gelang der Push sofort.
   `IdentitiesOnly`, `BatchMode` und strikte Hostkeyprüfung erhalten; nur die
   eigenen hängenden Verbindungen beenden, keine Schlüssel ausgeben oder ersetzen.
+- **HTTP-Sitzung und asynchrone Adapter:** Nach CSRF-Prüfung nicht erneut eine
+  beliebige aktuelle Sitzung als Ausgangsautorität erfassen. Den eingefrorenen
+  autorisierten Snapshot bis zum Adapter weiterreichen; Bodylesen, API/Krypto
+  und Ergebnisveröffentlichung prüfen auch Rotation, Originalfrist und Origin.
+  Alte Enrollmentversuche ohne eingefrorene `sessionExpiresAt` nach dem Update
+  geschlossen abweisen; sie gelten ohnehin höchstens120 Sekunden.
+- **Synthetische BFF-Prüfung:** UID10003 darf den vorhandenen0400-Sitzungskey
+  von UID10002 nicht lesen. Keine ACL der Vorschau lockern: drei eigene
+  Testsecrets für Sitzung/BFF/OIDC und vollständig getrennten Zustand verwenden.
+  Sandbox-Metadaten können durch UID-Remapping65534 zeigen; tatsächlichen Owner
+  nur mit freigegebener Host-Metadatenprüfung beurteilen, keinen Key ausgeben.
+- **Privilegierte Fixturevorbereitung:** `lstat` plus spätere Pfadoperation
+  ist bei ersetzbaren Elternverzeichnissen nicht ausreichend. Deskriptoren
+  mit `O_DIRECTORY|O_NOFOLLOW` halten, `dir_fd`/`fstat`/`fchmod`/`fchown`
+  verwenden und Besitz erst nach Vorbereitung übergeben. Marker/Keys vor Lesen
+  auf reguläre Datei, Owner, Rechte, Größe und Einfachlink prüfen. Ein Regressionstest
+  ersetzt den Elternpfad während der Vorbereitung; fremdes Ziel bleibt unverändert.
+- **HTTP-Teststatus:** Die neue Proofgrenze liefert bei Origin/CSRF/Fetch-
+  Verstoß403, die bestehende Enrollmentgrenze400. Assertions der tatsächlichen
+  Verträge verwenden, die Produktionsgrenze nicht an falsche Testerwartungen anpassen.
+- **Isoliertes Compose im gemeinsamen Projekt:** Zusätzliche `browser-proof-*`
+  Dienste veröffentlichen keine Ports. Nur ihre Namen stoppen, kein `down`.
+  Imagebuild ersetzt noch keinen laufenden Container; öffentliche Dienste weiter
+  ausschließlich mit ihrem ausdrücklich aktiven Overlay bedienen.

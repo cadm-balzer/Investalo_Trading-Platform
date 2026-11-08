@@ -1,0 +1,42 @@
+{
+	admin off
+	auto_https off
+	log {
+		format filter {
+			wrap json
+			fields {
+				request delete
+			}
+		}
+	}
+}
+
+https://cockpit.local.test:9443 {
+	tls /run/secrets/ingress_tls_cert /run/secrets/ingress_tls_key
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "no-referrer"
+	}
+	reverse_proxy browser-proof-cockpit-disabled:3000 {
+		header_up -Forwarded
+		header_up -X-Forwarded-For
+		header_up X-Forwarded-Proto https
+		header_up X-Forwarded-Host cockpit.local.test:9443
+	}
+}
+
+https://cockpit.local.test:8443 {
+	tls /run/secrets/ingress_tls_cert /run/secrets/ingress_tls_key
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "no-referrer"
+	}
+	reverse_proxy browser-proof-cockpit:3000 {
+		header_up -Forwarded
+		header_up -X-Forwarded-For
+		header_up X-Forwarded-Proto https
+		header_up X-Forwarded-Host cockpit.local.test:8443
+	}
+}

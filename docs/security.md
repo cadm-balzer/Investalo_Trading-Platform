@@ -1,6 +1,6 @@
 # Sicherheitskonzept
 
-Stand 2026-11-07. Verbindliche Leitlinien aus AGENTS.md:
+Stand 2026-11-08. Verbindliche Leitlinien aus AGENTS.md:
 privater Nutzerkreis, Verschlüsselung und minimale Rechte. Q20 konkretisiert
 den Zugang als öffentlichen zentralen HTTPS-Einstieg schon im Privatpilot.
 Docker Compose und lokales Authelia sind in Q13/Q14 bestätigt;
@@ -22,8 +22,14 @@ Der zusätzliche interne Aktionsnachweis007 speichert zielgebundene Challenges,
 einen committed Einmalclaim, CAS/Grant und die Bestätigung der eigenen Vorschau.
 Der BFF prüft echte UV/UP-Signaturen; SQL/API vertrauen diesem Dienstverdict und
 prüfen Actor, ursprüngliche OIDC-Claims, Ziel, Versionen und Fristen erneut.
-Keine neue Browserroute oder Credential-Schreibfreigabe.
+IP-037 ergänzt eine ausdrücklich aktivierbare BFF-Browservorschau; Standard-
+und öffentliches Composeprofil lassen sie ausgeschaltet. Die HTTP-Grenze
+übergibt eine unveränderliche CSRF-autorisierte Sitzung und prüft Bindungen nach
+asynchronem Bodylesen, Krypto-/API-Aufrufen und vor Ausgabe erneut.
+Nur sichere Projektionen gelangen in lokalen Reactzustand. Der Nachweis liefert
+`execution_enabled:false`; Credential-Schreibfreigabe bleibt gesperrt.
 [Ablauf und Abnahmegrenzen](passkey-action-proofs.md).
+[Browservorschau](passkey-browser-proof.md).
 
 ## Bedrohungen und Kontrollen
 
@@ -89,8 +95,12 @@ Registrierung verlangt exakten HTTPS-Origin/RP, UV/UP und ES256 mit
 `fmt=none`. Sie ersetzt keinen frischen privaten Schlüsselnachweis durch
 eine eigene Assertion. Counter-CAS allein verhindert keinen Challenge-Replay;
 ein entsprechender HTTP-Endpunkt fehlt bewusst. Kontoänderungen bleiben
-gesperrt, bis einmalige zielgebundene Assertion-/Granttransaktionen und
-Geräteabnahme nachgewiesen sind. Administrativer Widerruf erhöht die globale
+gesperrt. Einmalige zielgebundene Assertion-/Granttransaktionen und der
+vollständige BFF-Enrollment-/Nachweisablauf sind synthetisch über echtes
+HTTPS/API/PG geprüft; physische Geräteabnahme, echte E-Mail-Attestierung,
+öffentliche Aktivierung und003/004-Integration fehlen weiterhin.
+Enrollment erhält die ursprüngliche Sitzungsfrist und veröffentlicht Erfolg
+erst nach autoritativem Faktor-Readback. Administrativer Widerruf erhöht die globale
 Nutzer-Epoch und setzt `reauth_after`, sodass alle Tenant-Sitzungen ungültig
 werden; terminale Registryeinträge erlauben derzeit keine Wiederherstellung.
 [Passkeygates](passkey-step-up.md).
@@ -164,8 +174,8 @@ Es gibt noch keinen Betriebsdienst oder HTTP-Keyeingang. Der explizite
 Entwicklungs-Dateiprovider prüft feste Fingerprints, Dateityp, Eigentümer und
 Modi; bei Kontrolle über VM-root schützt diese Grenze nicht. Unabhängig
 vertrauenswürdige Fingerprintkonfiguration bleibt erforderlich. Betriebsprovider,
-echter MFA-Schrittflow, gemeinsame Nutzungslimits und externer Restore bleiben
-Voraussetzungen.
+physische MFA-Abnahme, Credentialintegration, gemeinsame Nutzungslimits und
+externer Restore bleiben Voraussetzungen.
 Ein vollständiger Rollback von DB und Ciphertext wird durch die aktuelle
 Revisionsprüfung allein nicht erkannt. Widerruf entfernt bereits ausgelieferten
 Klartext nicht aus Prozessen; vor künftigem Brokerdispatch erneut autorisieren.

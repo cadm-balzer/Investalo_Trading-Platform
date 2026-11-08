@@ -1,17 +1,21 @@
 # Zusätzlicher Cockpit-Passkey
 
-Stand 2026-11-07. Der Nutzer hat die zusätzliche kostenlose Passkey-Bestätigung
+Stand 2026-11-08. Der Nutzer hat die zusätzliche kostenlose Passkey-Bestätigung
 für Kontoänderungen ausdrücklich bestätigt. Authelia bleibt der Anmeldeprovider.
 Dauerhafte Registry und lokales Browser-Enrollment sind implementiert.
-Kontoänderungen bleiben bis zur Assertion-/Grantintegration und echten
+Kontoänderungen bleiben bis zur Credentialintegration und echten
 Browser-/Geräteabnahme gesperrt.
 
 IP-036 ergänzt den internen dauerhaften
 [Aktionsnachweis007](passkey-action-proofs.md): zielgebundene Challenge,
 committed Einmalclaim vor Kryptoprüfung, atomarer Counter/CAS-Grant und
 einmalige Bestätigung der eigenen Vorschau. Originale OIDC-Claims bleiben
-erhalten. Der neue BFF-Adapter hat noch keine Browserroute;003/004 werden
-dadurch nicht für Kontoänderungen freigegeben.
+erhalten. IP-037 verbindet den BFF-Adapter mit einer ausdrücklich aktivierbaren
+[Browservorschau](passkey-browser-proof.md) unter `/security/passkeys/verify`
+und POST `/api/passkeys/actions/{start,finish,grant,confirm}`.
+Nur `COCKPIT_PASSKEY_PROOF_PREVIEW=1` schaltet diese frei; Standard- und
+öffentliches Composeprofil lassen sie ausgeschaltet. Das Ergebnis bleibt
+`execution_enabled:false`;003/004 werden nicht für Kontoänderungen freigegeben.
 
 ## Warum ein zusätzlicher Nachweis nötig ist
 
@@ -49,6 +53,10 @@ Eine echte Brokerkeyeingabe gibt es weiterhin nicht.
    eindeutige Credential-ID bleiben auch nach Widerruf reserviert.
    Runtime erhält nur begrenzte Funktionen, Research keinen Zugriff.
    Der Session-TTL-Store hält nur kurzlebige Enrollmentversuche.
+5. Der BFF erhält die ursprüngliche Sitzungsfrist und OIDC-Claims und prüft
+   Sitzung/Origin/Epoch auch nach asynchronen Schritten. Nach dem Schreiben
+   liest er den tatsächlichen Faktor autoritativ zurück; erst bei unverändert
+   passenden Bindungen und noch gültiger ursprünglicher Frist meldet er Erfolg.
 
 `fmt=none` enthält keine Attestierungssignatur. Die gespeicherte Registrierung
 ist daher ein Kandidat: Vor einer sensiblen Aktion ist eine separate frische
@@ -76,16 +84,14 @@ Lokale Bedienung: [Operatoranleitung](../infra/README.md#passkey-enrollment-und-
 
 ## Verbleibende Integrationsgates
 
-- Die vorbereitete einmalige Assertionchallenge007 an die tatsächlichen
-  Browserrouten anschließen; Registrierung strikt trennen und den vollständigen
-  BFF-Enrollmentablauf sowie die physische Geräteprüfung abnehmen.
-- Die bereits intern geprüften Bindungen auch in der Browserintegration erhalten:
-  Vor Grantpublikation aktuellen Nutzer/Epoch, Faktor/Widerruf,
-  frozen Kontometadaten/CAS und tatsächliche Uhr nochmals prüfen.
-  Verifiziertes `deviceType` gegen die unveränderliche gespeicherte
-  Backup-Eligibility prüfen, bevor Counter/CAS fortgeschrieben werden.
-  Bestätigung benötigt den Token genau der angezeigten Vorschau, auch bei
-  mehreren Tabs. Crash oder unbekannter Commit darf keinen Replay öffnen.
+- Die implementierten Enrollment- und Assertionrouten mit tatsächlichem
+  `navigator.credentials` und physischem Gerät sowie realer E-Mail-Attestierung
+  abnehmen. Die synthetische Vollflussprüfung ersetzt diese Abnahme nicht.
+- Die Nachweisvorschau bleibt vor öffentlicher Aktivierung ausgeschaltet.
+  Die implementierten Prüfungen für Nutzer/Epoch, Faktor/Widerruf, ursprüngliche
+  Sitzung/CSRF/Origin/OIDC-Zeit, Kontometadaten/CAS, Gerätetyp/Backup-Eligibility,
+  Uhr und eigenen Vorschautoken auch bei der Credentialintegration erhalten.
+  Crash oder unbekannter Commit darf keinen Replay öffnen.
 - Normale Faktoränderung verlangt den vorhandenen Passkey; den gesonderten
   E-Mail-bestätigten administrativen Recoveryweg einschließlich Ersatzfaktor
   und Sitzungssperre abnehmen.
@@ -94,10 +100,13 @@ Lokale Bedienung: [Operatoranleitung](../infra/README.md#passkey-enrollment-und-
 
 ## Noch offene Betriebsabnahmen
 
-Zielgebundene Assertion-/Granttransaktionen sind intern unter007 implementiert.
-Erfolgreicher vollständiger BFF-Enrollmentablauf, echte Browser-/Gerätetests,
-Browseraktivierung und Verbindung zur Credentialfreigabe folgen IP-033;
-Recovery bleibt BL-025.
+Zielgebundene Assertion-/Granttransaktionen unter007 und die BFF-Browserrouten
+sind implementiert. IP-037 prüft den vollständigen synthetischen BFF-Enrollment-
+und Nachweisablauf: 265 Cockpittests, Typecheck/gepinnter Cockpitbuild sowie 90
+isolierte tatsächliche HTTPS/BFF/API/PG-Prüfpunkte und neun Prüfungen mit
+ausgeschalteter Vorschau bestanden. Echte Browser-/Gerätetests, reale
+E-Mail-Attestierung, öffentliche Aktivierung und Verbindung zur
+Credentialfreigabe bleiben IP-033/BL-020/021; Recovery bleibt BL-025.
 Pilot-RP ist `cockpit.investalo.de`; lokales
 `cockpit.local.test` ist eine andere RP und erfordert eigene Registrierung.
 Kein automatischer Domainwechsel und keine öffentliche Passkeyregistrierung.

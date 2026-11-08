@@ -487,3 +487,36 @@ Beide DBs001–007 immutable; Vorschaucontainer nicht neu erstellt.
 Vollständiges BFF-Enrollment und reale Geräteabnahme bleiben IP-033,
 Retention/Ratenbetrieb BL-017 und Recovery BL-025.
 [Vertrag und Prüfbelege](../passkey-action-proofs.md).
+
+## 2026-11-08 — D-042: Passkey-Prüfseite und synthetischer vollständiger BFF-Ablauf
+
+**Status: Umsetzung der bestätigten Passkeyprüfung; keine neue Konto-/Betriebsfreigabe.**
+Der Nutzer bestätigt den Merge und beauftragt Fortsetzung. `9b47ae1` und
+`4c9f63f` in Main `2c996d5` verifiziert; IP-037 auf eigenem Featurebranch.
+
+Die separate Seite zeigt Konto/Aktion, fordert eine frische Assertion und
+bestätigt genau die eigene Vorschau einmalig. Vier POST-Routen und Oberfläche
+verlangen `COCKPIT_PASSKEY_PROOF_PREVIEW=1`; Default und öffentliche Vorschau
+lassen das Flag aus. `execution_enabled:false`, Credentialrouten503 und
+keine003/004-Verbindung. Die Sitzung, deren Origin/CSRF den HTTP-Aufruf
+autorisierten, wird unveränderlich an den Adapter übergeben und nach allen
+asynchronen Grenzen erneut geprüft. Originale OIDC-Claims bleiben erhalten.
+Browser erhält nur sichere Projektionen; Vorschaukennung bleibt im Seitenzustand.
+
+Vollständiges Enrollment ist als injizierbare Orchestrierung getrennt,
+behält ursprüngliche Sitzungsfrist und atomaren verschlüsselten Versuchsspeicher.
+Nach Speicherung verlangt es eine aktuelle autoritative Faktorlesebestätigung.
+90 reale isolierte HTTPS/BFF/API/PG-Prüfpunkte mit synthetischen P256-Schlüsseln
+und ausdrücklich synthetischer administrativer Freigabe schließen den bisher
+offenen positiven BFF-Durchlauf.9 deaktivierte Prüfpunkte ohne Mutation,
+265 Cockpittests, Typecheck/Build und8 Vorbereitungstests bestanden.
+Unabhängiger Review nach Sitzungs-/Dateivorbereitungskorrekturen ohne Restblocker.
+
+Prüfdienste verwendeten eigene Testkeys und feste geschützte Fixtureablage,
+keine Hostports; nach Prüfung angehalten. Öffentliche Dienste unverändert,
+gesund und TLS200.001–007 bleiben immutable, keine neuen Abhängigkeiten.
+Physischer `navigator.credentials`-Aufruf, echte E-Mail-Attestierung, öffentliche
+Aktivierung, Credentialintegration, Recovery und Betrieb sind nicht abgenommen.
+[Ablauf/Gates](../passkey-browser-proof.md),
+[SimpleWebAuthn14.1.x](https://simplewebauthn.dev/docs/packages/server),
+[W3C Assertionprüfung](https://www.w3.org/TR/webauthn-3/#sctn-verifying-assertion).

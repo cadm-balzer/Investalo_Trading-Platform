@@ -85,7 +85,7 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   onboarding checkpoint `69a1f8b` merged into main, verified at `56070ba`;
   step-up checkpoint `d57bd56` merged into main, verified at `b6198f7`;
   registry checkpoint `6a18102` merged into main, verified at `f422a90`;
-  current work branch: `feat/m1-passkey-action-proof`.
+  current work branch: `feat/m1-passkey-browser-proof`.
   Isolated AEAD core: `packages/credentials/README.md`, 20 offline tests with
   pinned cryptography and a separate hardened Compose check.
   Credential store: `services/credentials/README.md`; migration003 and current
@@ -102,13 +102,14 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   Migration004 commits a globally unique JTI before probing, rechecks actor/
   epoch/reauth/account/versions/time and finishes write/audit in one transaction.
   SQL trusts Python signature verification; direct003 functions remain trusted
-  primitives, without a universal MFA guarantee. No current BFF action proof.
+  primitives, without a universal MFA guarantee. The007 proof remains separate
+  from003/004 credential execution.
   `DevelopmentKeyFileProvider` explicitly requires development mode and fixed
   trusted fingerprints, ownership/modes and 32-byte KEKs; no production provider.
   Tests use synthetic assertions/keys/broker responses with actual PG.
   120 checkcontainer tests passed: 19 client, 41 onboarding units, 60 actual PG
   (18 store, 30 authorization, 12 synthetic Bitget/AEAD flows). IP-030 complete.
-  HTTP/UI, real browser step-up and actual user credentials remain unfinished.
+  Credential HTTP/UI, physical browser step-up and actual user credentials remain unfinished.
   Additive005 exposes only authenticated own account/connection metadata to
   the runtime LOGIN; no UID/envelope/key material or direct private-table rights.
   112 API/worker and120 credential regression tests passed after005.
@@ -130,11 +131,12 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   all tenant sessions. Terminal tombstones prevent recovery/re-enrollment;
   BL-025 remains open. SQL assertion CAS is a trusted primitive without challenge
   replay proof; no unbound HTTP CAS endpoint. Physical browser acceptance and
-  browser/credential integration remain IP-033; account changes stay disabled.
+  credential integration remain IP-033; account changes stay disabled.
   Migration006 passed293 API/worker checks including67 actual registry/API PG
   cases;120 credential regressions and115 cockpit tests passed. Typecheck,
   builds and48 real HTTPS checks passed; two independent reviews found no blockers.
-  A successful complete BFF enrollment and physical device proof remain IP-033.
+  A complete synthetic BFF enrollment is now verified in IP-037; physical device
+  proof remains IP-033.
   Applied001–007 are immutable.
   Session TTL store holds enrollment attempts only;
   preserve original OIDC claims. See `docs/passkey-step-up.md`.
@@ -163,12 +165,28 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   Full regression:461 API/worker (70 new actual PG),143 cockpit (28 new crypto),
   120 credential checks, typecheck and pinned builds passed; independent reviews
   found no blockers. Both DBs001–007 immutable. Running preview containers were
-  not recreated. Full BFF enrollment, hardware/browser acceptance and credential
-  integration remain IP-033; retention/rate operation BL-017, recovery BL-025.
+  not recreated. Hardware/browser acceptance and credential integration remain
+  IP-033; retention/rate operation BL-017, recovery BL-025.
   See `docs/passkey-action-proofs.md`.
-  Implementation checkpoint `9b47ae1` pushed and remote-verified; main remains
-  `e741c6b`. If the inherited SSH agent stalls, use the existing deploy identity
+  Implementation checkpoint `9b47ae1` and acceptance note `4c9f63f` are merged
+  into main `2c996d5` (verified). If the inherited SSH agent stalls, use the existing deploy identity
   with IdentityAgent=none and strict host-key checking (see `TOOLS.md`).
+- IP-037 connects007 to gated proof-only `/security/passkeys/verify` and four
+  `/api/passkeys/actions/` POST routes. Explicit
+  `COCKPIT_PASSKEY_PROOF_PREVIEW=1` is required; default and public Compose keep
+  it off. Pass the immutable session that authorized HTTP CSRF to the adapter;
+  recheck identity/epoch/original OIDC time/expiry/CSRF/origin after awaits.
+  Browser receives only safe preview/options/grant fields; tokens remain in
+  page memory. Enrollment preserves original expiry and requires authoritative
+  factor readback after write. 265 Cockpit tests, typecheck and pinned build,
+  90 isolated HTTPS/BFF/API/PG checks, nine disabled checks and eight fixture
+  preparation security tests passed; independent review has no remaining blocker.
+  Test services use dedicated synthetic keys, fixed protected `/tmp` state and
+  the fixture DB, no host ports; all are stopped. Running public services were
+  unchanged and remain healthy (HTTPS200). No migrations/dependencies changed.
+  These checks use synthetic P256/approval, not physical devices or real email
+  attestation. Public activation, physical acceptance,003/004 integration,
+  recovery and pilot operation remain open. See `docs/passkey-browser-proof.md`.
 
 ## Trading and implementation invariants
 

@@ -3,7 +3,7 @@
 Read-only erhoben am 2026-11-06. Keine Credentials, privaten Kontodaten oder
 Ergebnisprotokolle gelesen; die beiden Referenzrepos wurden nicht verändert.
 Die folgenden Tabellen beschreiben den Ausgangsstand. Der aktuelle lokale
-Umsetzungsstand vom 2026-11-07 steht am Ende dieser Datei.
+Umsetzungsstand vom 2026-11-08 steht am Ende dieser Datei.
 
 ## Host und Werkzeuge
 
@@ -114,8 +114,17 @@ Runtimepins: [runtime-pins.md](runtime-pins.md); Start: [infra/README.md](../inf
 freigegebene [Entwicklungsvorschau](https-entry.md) verwendet ein separates
 öffentliches HTTPS-Overlay mit gültigen Zertifikaten und zentralem Caddy80/443;
 DB/API/Worker besitzen keine öffentlichen Hostports.
-Auf `feat/m1-passkey-action-proof` sind Credentialfundament, Registry und der
-interne [Aktionsnachweis007](passkey-action-proofs.md) implementiert.
-Beide lokalen DBs001–007 immutable; 724 Tests, Typecheck und gepinnte Builds
-grün. Brokerkeyeingabe, Geräteabnahme und Credentialausführung bleiben offen.
+Credentialfundament, Registry und der interne
+[Aktionsnachweis007](passkey-action-proofs.md) sind auf main `2c996d5` enthalten.
+Auf `feat/m1-passkey-browser-proof` ergänzt IP-037 die ausdrücklich aktivierbare
+[BFF-Browservorschau](passkey-browser-proof.md) und den vollständig synthetisch
+geprüften Enrollmentablauf. Beide lokalen DBs001–007 bleiben immutable.
+IP-036: 724 Tests und gepinnte Builds grün. IP-037: 265 Cockpittests, Typecheck,
+gepinnter Cockpitbuild, 90 isolierte HTTPS/BFF/API/PG-Prüfpunkte, neun Prüfungen
+mit ausgeschalteter Vorschau und acht Helper-Sicherheitsfälle bestanden;
+die 461 API-/Worker- und 120 Credentialregressionen wurden nicht erneut ausgeführt.
+Standard-/öffentliches Composeprofil lassen die Vorschau ausgeschaltet;
+laufende öffentliche Container blieben unverändert. Brokerkeyeingabe,
+physische Geräteabnahme, echte E-Mail-Attestierung, öffentliche Aktivierung und
+Credentialausführung bleiben offen.
 Referenzrepositories weiterhin unverändert.

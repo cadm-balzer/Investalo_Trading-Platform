@@ -1,9 +1,10 @@
 # Zielgebundener Passkey-Aktionsnachweis
 
-Stand 2026-11-07. IP-036 ergänzt die dauerhafte Registry006 um einen
-einmaligen, an die konkrete Vorschau gebundenen Nachweis. Das ist ein
-vorbereiteter interner Ablauf: Browserrouten für Kontoänderungen, echte
-Brokerkeyeingabe und die003/004-Credentialausführung bleiben gesperrt.
+Stand 2026-11-08. IP-036 ergänzt die dauerhafte Registry006 um einen
+einmaligen, an die konkrete Vorschau gebundenen Nachweis. IP-037 verbindet ihn
+mit einer ausdrücklich aktivierbaren BFF-Browservorschau. Standard- und
+öffentliches Composeprofil lassen diese ausgeschaltet; echte Brokerkeyeingabe
+und die003/004-Credentialausführung bleiben gesperrt.
 Die zusätzliche Passkeybestätigung ist vom Nutzer bereits bestätigt;
 Authelia bleibt der Anmeldeprovider.
 
@@ -22,6 +23,14 @@ Die interne API verwendet fünf POST-Routen unter
 Aufruf unverändert. `checked_at` ist eine separate, tatsächliche Passkeyprüfzeit,
 kein neuer IdP-`auth_time`. Derselbe Sitzungshash bindet auch den exakten
 HTTPS-Origin und die ursprüngliche Sitzungsfrist.
+
+Die Browsergrenze bietet `/security/passkeys/verify` und POST
+`/api/passkeys/actions/{start,finish,grant,confirm}` ausschließlich mit
+`COCKPIT_PASSKEY_PROOF_PREVIEW=1`. Sie übergibt die unveränderliche
+CSRF-autorisierte Sitzung an den Adapter und prüft aktuelle Bindungen nach
+Bodylesen, Kryptoprüfung, API-Aufrufen und vor Ausgabe erneut. Der Browser
+erhält sichere Projektionen; Versuch, Grant und eigener Bestätigungstoken
+bleiben im lokalen Reactzustand. [HTTP-Vertrag und Abnahme](passkey-browser-proof.md).
 
 Der BFF verwendet den vorhandenen SimpleWebAuthn14.1.0-Verifier und vergleicht
 zusätzlich den verifizierten Gerätetyp mit der gespeicherten, unveränderlichen
@@ -54,8 +63,10 @@ Der Nachweis bestätigt ausschließlich die vorbereitete Aktion und liefert
 ihren bisherigen Frischevertrag; ein neuer Nachweis wird nicht automatisch
 dorthin übertragen. Diese Integration benötigt eine eigene geprüfte Änderung.
 
-IP-033 bleibt für den vollständigen BFF-Enrollmentablauf, echte
-Browser-/Gerätenachweise und die konkrete Browseraktivierung offen.
+Der vollständige BFF-Enrollment- und Nachweisablauf ist unter IP-037 mit
+synthetischen P256-Daten über echtes isoliertes HTTPS/API/PG geprüft.
+IP-033 bleibt für physische Browser-/Gerätenachweise, reale E-Mail-Attestierung,
+öffentliche Aktivierung und die Verbindung zur Credentialfreigabe offen.
 BL-025 betrifft terminales Recovery, BL-017 Raten-/Speicher-/Retentionbetrieb,
 BL-021/022/024 echte Keyannahme, Schlüsselbetrieb und Crashabgleich.
 
@@ -74,10 +85,24 @@ Counter0-Replay, falsche Backup-Eligibility, Fehler/Crash nach Claim und
 Änderungen während asynchroner Aufrufe. Synthetische Browserdaten und PG-Tests
 ersetzen keine vollständige echte Browser-/Geräteabnahme.
 
-Der vollständige Regressionslauf umfasst 724 bestandene Tests:
+Der vollständige IP-036-Regressionslauf umfasst 724 bestandene Tests:
 461 API/Worker, 143 Cockpit und 120 Credentialprüfungen.
 SQL, API und BFF wurden unabhängig geprüft; keine offenen Reviewblocker.
 Typecheck sowie die gepinnten API-/Migrate-/Check-/Cockpitbuilds bestanden.
+
+IP-037: 265 Cockpittests bestanden (143 bisherige, 64 HTTP-, 44 Enrollment-
+und 14 Browserprojektionsfälle), Typecheck und gepinnter Cockpitbuild ebenfalls.
+90 tatsächliche isolierte HTTPS/BFF/API/PG-Prüfpunkte mit synthetischer
+P256-Registrierung/Ticketattestierung, eigenen Testsecrets und Fixture-DB
+prüfen den vollständigen BFF-Ablauf. Neun Prüfungen mit ausgeschalteter Vorschau
+belegen ausbleibende Faktor-/Nachweismutationen; acht Helper-Sicherheitsfälle
+bestanden. Der Enrollmentablauf erhält die ursprüngliche Sitzungsfrist und
+veröffentlicht Erfolg erst nach autoritativem Faktor-Readback.
+SQL, API, Migrationen und Lockstände wurden nicht verändert. Die 461 API-/
+Worker- und 120 Credentialregressionen aus IP-036 wurden nicht erneut ausgeführt.
+Laufende öffentliche Vorschaucontainer blieben unverändert. Diese Belege
+ersetzen keine physische `navigator.credentials`-/Geräte- oder reale
+E-Mail-Abnahme.
 
 Grundlagen:
 [OWASP Transaction Authorization](https://cheatsheetseries.owasp.org/cheatsheets/Transaction_Authorization_Cheat_Sheet.html),
