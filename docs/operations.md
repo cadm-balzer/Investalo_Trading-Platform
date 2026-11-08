@@ -108,6 +108,13 @@ zuerst dauerhaften Zustand und Audit abgleichen.
 Deploymentablauf: geprüfter Code/Lockstand → Build/Artefakt →
 relevante Tests → verschlüsselte Sicherung → Migration mit Rückfallplanung →
 private Paperprüfung → explizite Produktionsfreigabe → kontrollierter Rollout.
+
+IP-042 ergänzt nur injizierte Entwicklungs-HTTPS-Adapter und eine opt-in
+mTLS-Fixture ohne Hostports. Keine Runtime-Provisionierung: Die administrative
+Fixtureidentität, temporären synthetischen TLS-Zertifikate und RAM-KEKs dürfen
+nicht als Credentialdienst für echte Nutzerkeys verwendet werden.
+Ein verlorener Response nach Commit verlangt Zustandsabgleich, keinen Retry.
+[Betriebsgrenzen](passkey-credential-https.md).
 Echte Handelsaktivierung ist zusätzlich konto-/strategiebezogen freizugeben.
 
 Keine neue CI/CD-Toolabhängigkeit wurde eingeführt. Git-basiertes lokales

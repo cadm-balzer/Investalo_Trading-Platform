@@ -79,5 +79,10 @@ erhält keine neuen Flags oder Dienste. Tatsächliche Browser-Keyeingabe,
 physische Geräteabnahme, provisionierte Signaturidentität, Credentialdienst,
 Brokertransport/Egress und Betrieb/Recovery bleiben IP-033 und eigene Gates.
 
+IP-042 ergänzt darauf aufbauend einen getrennten injizierten
+[Entwicklungs-HTTPS-Transport](passkey-credential-https.md) mit gegenseitigem
+TLS und unabhängigem ursprünglichem Sitzungskontext. Das ist kein
+Produktionslauncher und aktiviert keine Browser-Keyeingabe.
+
 Grundlage: [OWASP Transaction Authorization](https://cheatsheetseries.owasp.org/cheatsheets/Transaction_Authorization_Cheat_Sheet.html),
 [OWASP CSRF Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html).

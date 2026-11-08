@@ -109,3 +109,7 @@ nicht wiederholt; der TS-Signer blieb unverändert.
 [Betrieb/Prüfkommandos](../infra/README.md),
 [PostgreSQL18: Sperren](https://www.postgresql.org/docs/18/explicit-locking.html),
 [PostgreSQL18: sichere Definerfunktionen](https://www.postgresql.org/docs/18/sql-createfunction.html#SQL-CREATEFUNCTION-SECURITY).
+
+IP-042 ergänzt einen [injizierten Entwicklungs-HTTPS-Transport](passkey-credential-https.md)
+zum vorhandenen privaten Executor. Authentifizierte TLS-Identität und separater
+ursprünglicher Sitzungskontext ersetzen keine008-Consume-/Lock-Prüfungen.

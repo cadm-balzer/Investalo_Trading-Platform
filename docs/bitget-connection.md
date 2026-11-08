@@ -67,6 +67,12 @@ Executor-HTTP-Service, Betriebsidentität/-schlüssel und tatsächliche
 Brokeranbindung sind weiterhin gesondert abzunehmen.
 [Private Cockpit-Anbindung und Gates](passkey-credential-cockpit.md).
 
+IP-042 ergänzt den injizierten lokalen HTTPS-Übergang zum Executor mit
+gegenseitigem TLS, gepinntem BFF-Zertifikat und separat gebundenem
+ursprünglichem Sitzungskontext. Nur synthetische Fixtureprüfungen;
+ein Produktionslauncher oder echter Keyeingang wird nicht installiert.
+[Transportgrenze](passkey-credential-https.md).
+
 | Modus | Schlüsselrechte und Plattformfunktion |
 |---|---|
 | M1 lesendes Realkonto | Ausschließlich bekannte Leserechte; Kontoinfo und getrennte Walletdaten |

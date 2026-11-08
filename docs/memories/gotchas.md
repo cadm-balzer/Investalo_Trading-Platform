@@ -377,3 +377,24 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   Fixtureablage ausschließlich mit `prepare-passkey-browser-checks.py` neu
   erzeugen. Fixture-API-Container mit neuen Secretmounts gezielt neu erstellen;
   öffentliche Dienste behalten ihre persistente Vorschaukonfiguration.
+- **HTTP-Pfadnormalisierung:** `BaseHTTPRequestHandler.parse_request` macht
+  aus einem Rawtarget mit `//` einen Pfad mit `/`. Den ASCII-Requesttarget
+  vor und nach dem Parser vergleichen; sonst gilt eine kanonisch gebundene
+  Assertion auch für einen anderen Rawpfad. Headergrammatik separat prüfen,
+  da der Standardparser ungültige Zeilen teilweise ignorieren kann.
+- **Unabhängiger Credentialkontext:** TLS authentifiziert den BFF, der JWT
+  autorisiert die konkrete Aktion. Erwarteten Actor/Sitzungs-/OIDC-Kontext
+  separat aus der autorisierten Sitzung beziehen; nicht aus Tokenclaims
+  rekonstruieren. Eine gemeinsame CA ohne festen Peerfingerprint könnte
+  anderen gültigen Dienstzertifikaten die Transportgrenze öffnen.
+- **Statische HTTP-Fehler:** Exceptionattribute sind veränderlich und
+  Subklassen können `CODES` überschreiben. Nur die feste Whitelist der
+  Basisklasse zulassen; sonst könnte ein Wrapper private Fehlerdetails
+  als vermeintlichen Fehlercode veröffentlichen.
+- **Strikte synthetische TLS-Zertifikate:** Python3.14 prüft auch AKI/SKI,
+  BasicConstraints, KeyUsage und Server-/ClientAuth-EKU. Testzertifikate
+  vollständig erzeugen; strikte Zertifikatsprüfung nicht abschalten.
+- **Timeout nach Write:** Ein HTTP-Deadline schließt den Socket, beendet aber
+  nicht zwingend den laufenden DB-Commit. Fehlende Antwort bleibt unbekannt;
+  kein automatischer erneuter Probe-/Writeversuch und kein `failed`-Audit
+  über einen bereits bestätigten Abschluss.

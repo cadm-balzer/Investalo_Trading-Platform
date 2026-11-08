@@ -21,6 +21,7 @@
 | [passkey-credential-authorizations.md](passkey-credential-authorizations.md) | Geprüfte additive008 in der Fixture-DB, ausdrückliche Zweckfreigabe, globaler Einmalverbrauch und getrennte finale Locks |
 | [passkey-credential-execution.md](passkey-credential-execution.md) | PostgreSQL-geprüfter privater008-/003-Executor mit009-Abschlussaudit, Fixture-only009 und verbleibende Browser-/Betriebsgates |
 | [passkey-credential-cockpit.md](passkey-credential-cockpit.md) | Private injizierte Cockpit-Orchestrierung, standardmäßig gesperrte008-API-Brücke und verbleibende Browser-/Schlüssel-/Brokergates |
+| [passkey-credential-https.md](passkey-credential-https.md) | Privater Entwicklungs-HTTPS-Transport mit gegenseitigem TLS, unabhängigem Sitzungskontext und synthetischer Fixture |
 | [inventory.md](inventory.md) | Host und Wiederverwendung der Referenzsysteme |
 | [roadmap.md](roadmap.md) | Phasen, Abhängigkeiten und Abnahme |
 | [tasks/board.md](tasks/board.md) | Git-basiertes Ticketsystem |

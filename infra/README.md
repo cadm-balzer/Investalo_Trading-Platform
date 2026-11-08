@@ -412,6 +412,26 @@ gestoppt; öffentliche Dienste gesund, reguläres TLS HTTPS200. Nach Hostneustar
 die geschützte synthetische `/tmp`-Ablage bei Bedarf mit dem vorhandenen
 Prepare-Script neu erzeugen und nur Fixture-APIs mit frischen Mounts neu erstellen.
 
+## Isolierter Credential-HTTPS-Transport
+
+IP-042 ergänzt die opt-in Entwicklungs-HTTPS-Prüfung derselben Fixture:
+
+```sh
+bash infra/scripts/compose.sh --file infra/compose.passkey-credential-checks.yaml --profile passkey-credential-checks build credential-flow-checks
+bash infra/scripts/compose.sh --file infra/compose.passkey-credential-checks.yaml --profile passkey-credential-checks build credential-flow-node
+bash infra/scripts/compose.sh --file infra/compose.passkey-credential-checks.yaml --profile passkey-credential-checks up -d --no-deps credential-flow-api credential-flow-disabled-api
+python3 tests/infra/check_passkey_credential_cockpit.py --orchestrate --https
+bash infra/scripts/compose.sh --file infra/compose.passkey-credential-checks.yaml --profile passkey-credential-checks stop credential-flow-api credential-flow-disabled-api
+```
+
+Die kurzlebige synthetische TLS-CA, Server-/Clientidentitäten und Pflichtpin
+werden ausschließlich in der Fixture erzeugt. Der Checker erhält im internen
+Testnetz den Alias `credential-flow-executor.cockpit.local.test`, keine Hostports.
+Sein migrationsberechtigter Prüfaufbau ist kein Runtime-Credentialdienst.
+Nur benannte Fixture-APIs starten/stoppen; kein Default-`up`, `down` oder
+`--remove-orphans`. Die vorhandene Pipevariante ohne `--https` bleibt prüfbar.
+[Vertrag und Produktionsgrenzen](../docs/passkey-credential-https.md).
+
 ## Passkey-Enrollment und Widerruf
 
 Nach006 und aktuellem API-/Cockpitbuild ist `/security/passkeys` der lokale

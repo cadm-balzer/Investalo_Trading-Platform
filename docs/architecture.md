@@ -50,6 +50,13 @@ Browser-/Credentialexecutor-HTTP-Transport oder Betriebsschlüssel wird
 installiert. OIDC-Zeit bleibt unverändert, frische Passkey- und Freigabezeiten
 werden getrennt geprüft. [Private Cockpit-Anbindung](passkey-credential-cockpit.md).
 
+IP-042 verbindet den privaten Ablauf über einen injizierten Entwicklungs-
+HTTPS-Adapter und eigenen TS-Client. Gegenseitiges TLS samt festem BFF-
+Zertifikatsfingerprint authentifiziert den Transport unabhängig vom
+Passkey-JWT; der ursprüngliche Sitzungskontext stammt separat vom
+vertrauenswürdigen BFF. Kein Produktionslauncher oder öffentlicher Keyeingang.
+[HTTPS-Grenze](passkey-credential-https.md).
+
 ## Systemgrenzen
 
 Bestätigt: modularer Monolith für API und Domäne, getrennte Prozesse für

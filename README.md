@@ -127,6 +127,9 @@ bestanden. [Zugang und Betrieb](docs/https-entry.md).
 Geschützte Cockpiteingabe mit echter MFA-Schrittbestätigung, Schlüsselbetrieb
 und tatsächliche Brokeranbindung, manuelle MFA-Reservefreigabe
 und Pilotbetrieb sind weitere M1-Aufgaben.
+IP-042 ergänzt einen lokal injizierten Entwicklungs-HTTPS-Transport mit
+gegenseitigem TLS und unabhängigem ursprünglichem Sitzungskontext.
+[Dienstgrenze und verbleibender Betrieb](docs/passkey-credential-https.md).
 Vollständiger Privatpilot, Produktion und Echtgeld benötigen eigene
 Abnahmen. Das lokale Standardprofil bindet ausschließlich `127.0.0.1:8443`;
 die aktive Vorschau veröffentlicht nur den zentralen Proxy auf80/443.

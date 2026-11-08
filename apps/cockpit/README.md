@@ -197,6 +197,13 @@ Nachweisflag und laufende Vorschau bleiben unverändert.
 Abnahme:385 Cockpittests (52 neue),572 API-/Workertests und299 reale
 integrierte Fixtureprüfpunkte, Typecheck/gepinnte Builds/Reviews bestanden.
 
+IP-042 ergänzt `passkey-credential-executor.ts` als privaten injizierten
+HTTPS-Port: festes Ziel/CAS, unabhängiger ursprünglicher Sitzungskontext und
+eigene gegenseitige TLS-Identität. Bodybytes bleiben exakt; Antworten sind
+begrenzt und Fehler statisch. Kein Proxy, Redirect oder automatischer Retry,
+keine neue Browserroute oder Runtimekonfiguration.
+[Entwicklungs-HTTPS-Grenze](../../docs/passkey-credential-https.md).
+
 ## Forschungsaufträge und Ergebnisse
 
 `/backtests` liest ausschließlich authentifizierte Dataset-Metadaten und

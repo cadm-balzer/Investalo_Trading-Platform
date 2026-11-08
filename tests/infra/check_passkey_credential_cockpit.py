@@ -13,9 +13,12 @@ import os
 from pathlib import Path
 import secrets
 import selectors
+import ssl
 import struct
 import subprocess
 import sys
+import tempfile
+import threading
 from time import monotonic, time
 from uuid import UUID, uuid4
 
@@ -84,7 +87,7 @@ def cbor(value):
     raise Failure()
 
 
-def child():
+def child(*, https=False):
     global CHILD_STAGE
     # Container-only imports: host orchestration needs no dependencies.
     from datetime import datetime, timedelta, timezone
@@ -93,6 +96,9 @@ def child():
         Encoding, PrivateFormat, NoEncryption,
     )
     import psycopg
+    from cryptography import x509
+    from cryptography.hazmat.primitives import hashes
+    from cryptography.x509.oid import ExtendedKeyUsageOID, NameOID
     from psycopg.rows import dict_row
     from investalo_bitget.signing import INFO_PATH
     from investalo_bitget.transport import ReadResponse
@@ -211,61 +217,48 @@ def child():
     verifier = PasskeyRequestVerifier(key=signing_key, oidc_issuer=ISSUER, origin=ORIGIN,
                                      clock=lambda: int(time()))
     factory = lambda: connect("credential", tuples=True)
-    service = PasskeyBitgetOnboarding(context, ring, connect=factory, verifier=verifier,
-                                     request_context=request_context, transport=broker,
-                                     expected_egress_ip="203.0.113.19")
     store = CredentialStore(context, ring, connect=factory)
-    emit({"kind": "configuration", "config": {
+    config = {
         "bound": bound, "account": str(account), "rp": RP,
+        "userId": str(user),
         "api": "https://credential-flow-api:8000", "disabledApi": "https://credential-flow-disabled-api:8000",
         "credentialId": b64(credential_id), "userHandle": b64(user_handle),
         "privateKey": private.private_bytes(Encoding.PEM, PrivateFormat.PKCS8, NoEncryption()).decode(),
         "internalKey": Path(os.environ["CREDENTIAL_FLOW_API_SECRET_FILE"]).read_text().strip(),
         "signingKey": b64(signing_key),
-    }})
+    }
     executions = 0
-    while True:
-        command = read_input()
-        if command.get("kind") == "complete":
-            CHILD_STAGE = "python.audit"
-            check(set(command) == {"kind"} and executions == 3 and len(broker_calls) == 2)
-            with connect("admin") as db:
-                rows = db.execute("SELECT action,outcome FROM platform.passkey_credential_completion_audit "
-                                  "WHERE tenant_id=%s AND user_id=%s ORDER BY occurred_at", (tenant, user)).fetchall()
-                check(rows == [{"action": action, "outcome": "completed"}
-                               for action in ("register", "replace", "revoke")])
-                key = db.execute("SELECT sign_count,storage_version FROM platform.passkey_credentials "
-                                 "WHERE passkey_id=%s", (factor["passkey_id"],)).fetchone()
-                check(key == {"sign_count": 3, "storage_version": 4})
-                count = db.execute("SELECT count(*) AS n FROM platform.passkey_credential_authorizations a "
-                                   "JOIN platform.passkey_action_proofs p ON p.proof_id=a.proof_id "
-                                   "WHERE p.tenant_id=%s AND p.user_id=%s AND a.state='locked'", (tenant, user)).fetchone()
-                check(count["n"] == 3)
-            emit({"kind": "complete", "checks": CHECKS})
-            return
-        check(set(command) == {"kind", "token", "body"} and command["kind"] == "execute")
+    executed = []
+
+    def execute(trusted, action, token, body):
+        nonlocal executions
+        global CHILD_STAGE
         CHILD_STAGE = "python.execute"
-        check(type(command["body"]) is str and type(command["token"]) is str)
-        body = command["body"].encode("utf-8")
+        check(all(getattr(trusted, field) == getattr(request_context, field)
+                  for field in request_context.__slots__))
+        service = PasskeyBitgetOnboarding(context, ring, connect=factory, verifier=verifier,
+                                         request_context=trusted, transport=broker,
+                                         expected_egress_ip="203.0.113.19")
         payload = json.loads(body)
-        action = ("register", "replace", "revoke")[executions]
-        assertion = verifier.verify(command["token"], action=action, body=body, context=request_context)
+        assertion = verifier.verify(token, action=action, body=body, context=trusted)
         check(assertion.oidc_auth_time == session["oidcAuthTime"] and assertion.passkey_checked_at > session["oidcAuthTime"])
         check(body.startswith(b" \n") and body.endswith(b"\t"))
         check(assertion.body_sha256 == hashlib.sha256(body).hexdigest())
         calls = len(broker_calls)
         try:
-            service.apply(action, token=command["token"], body=body + b" ")
+            service.apply(action, token=token, body=body + b" ")
         except OnboardingRejected as error:
             check(error.code == "authentication_required")
         else:
             raise Failure()
         check(len(broker_calls) == calls)
-        result = service.apply(action, token=command["token"], body=body).public()
+        value = service.apply(action, token=token, body=body)
+        check(action == ("register", "replace", "revoke")[executions])
+        result = value.public()
         check(set(result) == {"connection_id", "credential_revision", "storage_version", "status"})
         calls = len(broker_calls)
         try:
-            service.apply(action, token=command["token"], body=body)
+            service.apply(action, token=token, body=body)
         except OnboardingRejected as error:
             check(error.code in {"access_denied", "concurrent_change"})
         else:
@@ -289,10 +282,129 @@ def child():
             check(decoded._secret_key.decode() == payload["credentials"]["secret"])
             check(opened.snapshot.binding.broker_uid == broker_uid)
         executions += 1
-        emit({"kind": "executed", "result": result, "body_sha256": hashlib.sha256(body).hexdigest()})
+        executed.append((token, body, result))
+        return value
+
+    servers, threads = [], []
+    with tempfile.TemporaryDirectory(prefix="synthetic-credential-tls-") as tls_dir:
+        if https:
+            from investalo_credential_store.private_http import (
+                CredentialHTTPApplication, create_private_https_server,
+            )
+            hostname = "credential-flow-executor.cockpit.local.test"
+            ca_key = ec.generate_private_key(ec.SECP256R1())
+            ca_name = x509.Name([x509.NameAttribute(NameOID.COMMON_NAME, "Synthetic credential CA")])
+            stamp = datetime.now(timezone.utc)
+            ca = (x509.CertificateBuilder().subject_name(ca_name).issuer_name(ca_name)
+                  .public_key(ca_key.public_key()).serial_number(x509.random_serial_number())
+                  .not_valid_before(stamp - timedelta(minutes=1)).not_valid_after(stamp + timedelta(hours=1))
+                  .add_extension(x509.BasicConstraints(ca=True, path_length=0), critical=True)
+                  .add_extension(x509.SubjectKeyIdentifier.from_public_key(ca_key.public_key()), critical=False)
+                  .add_extension(x509.AuthorityKeyIdentifier.from_issuer_public_key(ca_key.public_key()),
+                                 critical=False)
+                  .add_extension(x509.KeyUsage(digital_signature=False, content_commitment=False,
+                                               key_encipherment=False, data_encipherment=False,
+                                               key_agreement=False, key_cert_sign=True, crl_sign=True,
+                                               encipher_only=False, decipher_only=False), critical=True)
+                  .sign(ca_key, hashes.SHA256()))
+
+            def leaf(name, usage, *, server=False):
+                key = ec.generate_private_key(ec.SECP256R1())
+                builder = (x509.CertificateBuilder()
+                           .subject_name(x509.Name([x509.NameAttribute(NameOID.COMMON_NAME, name)]))
+                           .issuer_name(ca_name).public_key(key.public_key())
+                           .serial_number(x509.random_serial_number())
+                           .not_valid_before(stamp - timedelta(minutes=1))
+                           .not_valid_after(stamp + timedelta(hours=1))
+                           .add_extension(x509.BasicConstraints(ca=False, path_length=None), critical=True)
+                           .add_extension(x509.SubjectKeyIdentifier.from_public_key(key.public_key()),
+                                          critical=False)
+                           .add_extension(x509.AuthorityKeyIdentifier.from_issuer_public_key(ca_key.public_key()),
+                                          critical=False)
+                           .add_extension(x509.KeyUsage(digital_signature=True, content_commitment=False,
+                                                        key_encipherment=False, data_encipherment=False,
+                                                        key_agreement=False, key_cert_sign=False, crl_sign=False,
+                                                        encipher_only=False, decipher_only=False), critical=True)
+                           .add_extension(x509.ExtendedKeyUsage([usage]), critical=False))
+                if server:
+                    builder = builder.add_extension(x509.SubjectAlternativeName([x509.DNSName(hostname)]),
+                                                    critical=False)
+                certificate = builder.sign(ca_key, hashes.SHA256())
+                return key, certificate
+
+            server_key, server_cert = leaf(hostname, ExtendedKeyUsageOID.SERVER_AUTH, server=True)
+            client_key, client_cert = leaf("Synthetic credential BFF", ExtendedKeyUsageOID.CLIENT_AUTH)
+            other_key, other_cert = leaf("Unpinned synthetic BFF", ExtendedKeyUsageOID.CLIENT_AUTH)
+            server_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+            server_context.minimum_version = ssl.TLSVersion.TLSv1_2
+            server_context.verify_mode = ssl.CERT_REQUIRED
+            server_context.load_verify_locations(cadata=ca.public_bytes(Encoding.PEM).decode())
+            cert_file, key_file = Path(tls_dir) / "server.pem", Path(tls_dir) / "server.key"
+            cert_file.write_bytes(server_cert.public_bytes(Encoding.PEM))
+            key_file.write_bytes(server_key.private_bytes(Encoding.PEM, PrivateFormat.PKCS8, NoEncryption()))
+            key_file.chmod(0o600)
+            server_context.load_cert_chain(str(cert_file), str(key_file))
+            pins = frozenset({client_cert.fingerprint(hashes.SHA256()).hex()})
+            for port, enabled in ((9443, True), (9444, False)):
+                application = CredentialHTTPApplication(context, execute, enabled=enabled)
+                server = create_private_https_server(("0.0.0.0", port), tls_context=server_context,
+                                                     client_certificate_sha256=pins, application=application)
+                servers.append(server)
+                thread = threading.Thread(target=server.serve_forever, daemon=True)
+                thread.start()
+                threads.append(thread)
+            config["executor"] = {
+                "origin": f"https://{hostname}:9443", "disabledOrigin": f"https://{hostname}:9444",
+                "ca": ca.public_bytes(Encoding.PEM).decode(),
+                "certificate": client_cert.public_bytes(Encoding.PEM).decode(),
+                "privateKey": client_key.private_bytes(Encoding.PEM, PrivateFormat.PKCS8, NoEncryption()).decode(),
+                "otherCertificate": other_cert.public_bytes(Encoding.PEM).decode(),
+                "otherPrivateKey": other_key.private_bytes(Encoding.PEM, PrivateFormat.PKCS8, NoEncryption()).decode(),
+            }
+        emit({"kind": "configuration", "config": config})
+        audits = 0
+        try:
+            while True:
+                command = read_input()
+                if command.get("kind") == "complete":
+                    CHILD_STAGE = "python.audit"
+                    check(set(command) == {"kind"} and executions == 3 and len(broker_calls) == 2)
+                    check(not https or audits == 3)
+                    with connect("admin") as db:
+                        rows = db.execute("SELECT action,outcome FROM platform.passkey_credential_completion_audit "
+                                          "WHERE tenant_id=%s AND user_id=%s ORDER BY occurred_at", (tenant, user)).fetchall()
+                        check(rows == [{"action": action, "outcome": "completed"}
+                                       for action in ("register", "replace", "revoke")])
+                        key = db.execute("SELECT sign_count,storage_version FROM platform.passkey_credentials "
+                                         "WHERE passkey_id=%s", (factor["passkey_id"],)).fetchone()
+                        check(key == {"sign_count": 3, "storage_version": 4})
+                        count = db.execute("SELECT count(*) AS n FROM platform.passkey_credential_authorizations a "
+                                           "JOIN platform.passkey_action_proofs p ON p.proof_id=a.proof_id "
+                                           "WHERE p.tenant_id=%s AND p.user_id=%s AND a.state='locked'", (tenant, user)).fetchone()
+                        check(count["n"] == 3)
+                    emit({"kind": "complete", "checks": CHECKS})
+                    return
+                check(set(command) == {"kind", "token", "body"} and command["kind"] == "execute")
+                check(type(command["body"]) is str and type(command["token"]) is str)
+                body = command["body"].encode("utf-8")
+                if https:
+                    check(audits < len(executed))
+                    token, actual_body, result = executed[audits]
+                    check(command["token"] == token and body == actual_body)
+                    audits += 1
+                else:
+                    result = execute(request_context, ("register", "replace", "revoke")[executions],
+                                     command["token"], body).public()
+                emit({"kind": "executed", "result": result, "body_sha256": hashlib.sha256(body).hexdigest()})
+        finally:
+            for server in servers:
+                server.shutdown()
+                server.server_close()
+            for thread in threads:
+                thread.join(timeout=3)
 
 
-def orchestrate():
+def orchestrate(*, https=False):
     """Bounded private subprocess relay; never dump stdout/stderr on failure."""
     prefix = ["bash", "infra/scripts/compose.sh", "--file", OVERLAY, "--profile", "passkey-credential-checks"]
     children = []
@@ -304,7 +416,10 @@ def orchestrate():
     def start(service):
         name = "investalo-purpose-check-" + uuid4().hex
         names.append(name)
-        process = subprocess.Popen(prefix + ["run", "--rm", "--no-deps", "-T", "--name", name, service],
+        args = prefix + ["run", "--rm", "--no-deps", "-T", "--use-aliases", "--name", name, service]
+        if service == "credential-flow-checks" and https:
+            args += ["python", "/app/tests/infra/check_passkey_credential_cockpit.py", "--child", "--https"]
+        process = subprocess.Popen(args,
                                    cwd=ROOT, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                                    stderr=subprocess.DEVNULL, bufsize=0)
         children.append(process)
@@ -369,7 +484,8 @@ def orchestrate():
                 for process in children:
                     process.stdin.close()
                     check(process.wait(timeout=10) == 0)
-                print(f"PASS: {node_count + final['checks']} isolated TS/WebAuthn/API/PG/Python checks; synthetic keys and broker only.")
+                transport = "/mTLS" if https else ""
+                print(f"PASS: {node_count + final['checks']} isolated TS/WebAuthn/API/PG/Python{transport} checks; synthetic keys and broker only.")
                 return
             check(set(message) == {"kind", "token", "body"} and message["kind"] == "execute")
             send(python, message)
@@ -397,14 +513,14 @@ def orchestrate():
 
 if __name__ == "__main__":
     try:
-        if sys.argv[1:] == ["--orchestrate"]:
-            orchestrate()
-        elif sys.argv[1:] == ["--child"]:
-            child()
+        if sys.argv[1:] in (["--orchestrate"], ["--orchestrate", "--https"]):
+            orchestrate(https="--https" in sys.argv[1:])
+        elif sys.argv[1:] in (["--child"], ["--child", "--https"]):
+            child(https="--https" in sys.argv[1:])
         else:
             raise Failure()
     except Exception as error:
-        if sys.argv[1:] == ["--child"]:
+        if sys.argv[1:] in (["--child"], ["--child", "--https"]):
             diagnostic = {"kind": "failed", "stage": CHILD_STAGE}
             trace = error.__traceback__
             while trace is not None:

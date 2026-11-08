@@ -1,5 +1,15 @@
 # Verifikation
 
+IP-042: `tests/credential_onboarding/test_private_http.py` prüft den privaten
+Entwicklungsadapter mit tatsächlichen lokalen mTLS-Sockets, unabhängigen
+Kontext-/Body-/Framingnegativfällen, Pflichtpin und Ressourcenlimits.
+`apps/cockpit/tests/passkey-credential-executor.test.ts` prüft den TS-Client
+mit Transportfehlern, strikten Antworten und fehlendem automatischem Retry.
+`check_passkey_credential_cockpit.py --orchestrate --https` verbindet diese
+Grenze mit tatsächlichem WebAuthn/Jose/HTTPS/API/PG/AEAD/009 in der synthetischen
+Fixture. Keine realen Nutzerkeys, Browsergeräte oder Broker.
+[Ausführung und Grenzen](../docs/passkey-credential-https.md).
+
 Schwerpunkte: deterministische Handelsregeln und Kostenrechnung, Tenantisolation,
 Brokeradapterverträge, unklare Orderantworten, Crash/Replay, Risikogrenzen,
 Zeitwechsel, Credentialrotation und Restore vor erneutem Handelsstart.

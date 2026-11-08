@@ -630,3 +630,29 @@ gesondert; öffentliche Dienste/Flags werden nicht aktiviert.
 [Vertrag und Prüfbelege](../passkey-credential-cockpit.md),
 [OWASP Transaktionsfreigabe](https://cheatsheetseries.owasp.org/cheatsheets/Transaction_Authorization_Cheat_Sheet.html),
 [OWASP CSRF](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html).
+
+## 2026-11-08 — D-047: Getrennte lokale Credential-Transportidentität
+
+**Status: umgesetzt innerhalb der bestätigten lokalen Anbindung.** Nutzer
+bestätigt Merge `cd66c3a`; Main `c573ab3` verifiziert und Fortsetzung beauftragt.
+IP-042 verwendet gegenseitiges TLS mit einer eigenen CA und festem
+BFF-Clientzertifikatsfingerprint unabhängig vom vorhandenen Passkey-JWT.
+Der erwartete ursprüngliche Sitzungskontext kommt separat vom
+vertrauenswürdigen BFF; Claims dürfen diesen Kontext nicht selbst begründen.
+Tenant/User und Credential-LOGIN bleiben feste Serverkonfiguration.
+Keine Änderung der bestehenden AEAD-/Signatur-/SQL-Strukturen.
+
+Nur injizierte Entwicklungsadapter ohne neue Abhängigkeiten, Provider oder
+Produktionslauncher. Python warnt vor `http.server` in Produktion; der
+zusätzlich begrenzte Adapter bleibt daher ein lokaler Prüfstand. Die
+synthetische administrative Fixture beweist kein Least-Privilege-Runtime-
+Deployment oder physischen Besitznachweis. Tatsächliche Keyannahme,
+Betriebsprovider, geeigneter Produktionsserver und Browserabnahme bleiben offen.
+Keine öffentlichen Flags, laufenden Dienste oder Migrationen aktiviert.
+
+Der Nutzer weist erneut auf den kurzen Bitcoin-Zeitraum hin. Dies bestätigt
+D-020/D-030:90 Tage prüfen den Ablauf; mindestens drei Jahre BTC/ETH-Historie,
+chronologische Fenster und unabhängiger Holdout bleiben IP-011/IP-013/BL-018.
+[HTTP-/TLS-Grenze](../passkey-credential-https.md),
+[Python Servergrenzen](https://docs.python.org/3.14/library/http.server.html),
+[Node HTTPS](https://nodejs.org/api/https.html).

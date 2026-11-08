@@ -224,6 +224,18 @@ operational signing identity/provider, real keys or broker transport is installe
 Applied001–009 and the running public preview remain unchanged;008/009 stay
 fixture-only. [Flow and remaining gates](../../docs/passkey-credential-cockpit.md).
 
+## Injected development HTTPS transport
+
+IP-042 adds the injected development-only `private_http` adapter. A dedicated
+client CA and mandatory peer certificate SHA256 pin authenticate the BFF before
+HTTP parsing. Its exact seven-field original-session context is independent
+of the opaque passkey JWT and must match the fixed `StoreContext` actor.
+Three fixed POST paths forward unchanged body bytes to the existing executor.
+No provider, runtime launcher, public route or real broker is enabled.
+The stdlib server is a development test boundary, not a production HTTP stack.
+The matching private TS client uses independent mTLS and never retries an
+uncertain response. [Transport contract](../../docs/passkey-credential-https.md).
+
 ## Development file provider
 
 `keyfiles.DevelopmentKeyFileProvider` requires explicit `development_mode=True`.

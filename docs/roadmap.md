@@ -34,6 +34,12 @@ und verschlüsselter Credentialausführung. Standardmäßig deaktivierte API-Rou
 und die isolierte Fixtureprüfung erweitern das Fundament. Browser-Keyeingabe,
 physische Geräteabnahme und der tatsächliche Credentialdienst bleiben gesonderte
 Arbeit vor echter Kontoverbindung. [Ablauf](passkey-credential-cockpit.md).
+IP-042 ergänzt die [private Entwicklungs-HTTPS-Grenze](passkey-credential-https.md)
+mit gegenseitigem TLS. Produktionslauncher, Betriebsschlüssel und
+Browser-Keyeinrichtung bleiben vor der tatsächlichen Kontoverbindung offen.
+Der Nutzer hat den Bedarf längerer Bitcoin-Backtests erneut hervorgehoben:
+Drei Jahre BTC/ETH-Daten und ein unabhängiger Holdout bleiben IP-011/IP-013,
+der aktuelle90-Tage-Datensatz ist ausschließlich ein Funktionsnachweis.
 
 ## Meilenstein M1: privates Cockpit mit Backtests und Paper
 
