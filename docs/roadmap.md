@@ -1,6 +1,6 @@
 # Roadmap
 
-IP-047 ist aktiv: Paperkern/Store/Feed, Q32-Tagesmodell und ausgeschaltete Statusanzeige vorhanden. IP-053 ergänzt stabile Entwicklungsprovisionierung und begrenzten lokalen Beobachtungsdienst. Als Nächstes Nutzer-/Anzeigeintegration und längerfristige Betriebsabnahme. [Entwicklungslauf](paper-development-runtime.md).
+IP-047 ist aktiv: eigener gespeicherter Paperstand jetzt im Entwicklungscockpit sichtbar. IP-054 umfasst eigene Kontoprovisionierung, begrenzten Kurslauf und lesende Aktivierung. Als Nächstes eigener begrenzter Preview-Beobachtungsworker und längerfristige Betriebsabnahme. [Anzeige](paper-preview-integration.md).
 
 Stand 2026-11-09. Q1–Q5 bestätigen privaten Pilot, Paper zuerst, feste
 Risikolimits, kontrollierte KI und kostenlose externe Dienste.

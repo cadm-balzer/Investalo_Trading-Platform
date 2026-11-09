@@ -186,9 +186,13 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--public-preview", action="store_true",
                         help="Use the explicitly approved public development domains with system-trusted TLS.")
+    parser.add_argument("--paper-preview", action="store_true",
+                        help="Read-only Paper display acceptance after actual OIDC/MFA; no research job.")
     parser.add_argument("--snapshot-file", type=Path,
                         default=LOCAL / "research-data/btc-research.json")
     args = parser.parse_args()
+    if args.paper_preview and not args.public_preview:
+        raise RuntimeError("Paper display acceptance requires the approved public development preview")
     PUBLIC_PREVIEW = args.public_preview
     if PUBLIC_PREVIEW:
         APP = "https://cockpit.investalo.de"
@@ -209,19 +213,20 @@ def main() -> None:
         APP = "https://cockpit.local.test:8443"
         IDP = "https://auth.cockpit.local.test:8443"
         CONTEXT = ssl.create_default_context(cafile=str(LOCAL / "local_ca_cert"))
-    with args.snapshot_file.open("rb") as stream:
-        snapshot_bytes = stream.read(16 * 1024 * 1024 + 1)
-    if len(snapshot_bytes) > 16 * 1024 * 1024:
-        raise RuntimeError("Public research test snapshot exceeds size bound")
-    snapshot = json.loads(snapshot_bytes)
-    expected_digest = snapshot.get("data_digest")
-    if (snapshot.get("schema_version") != "marketdata-snapshot/1"
-            or snapshot.get("symbol") not in ("BTC/USDT", "ETH/USDT") or snapshot.get("synthetic") is not False
-            or snapshot.get("source", {}).get("venue") != "bitget"
-            or not isinstance(expected_digest, str)
-            or not re.fullmatch(r"[a-f0-9]{64}", expected_digest)):
-        raise RuntimeError("Expected a real public crypto research snapshot")
-    expected_symbol = snapshot["symbol"]
+    if not args.paper_preview:
+        with args.snapshot_file.open("rb") as stream:
+            snapshot_bytes = stream.read(16 * 1024 * 1024 + 1)
+        if len(snapshot_bytes) > 16 * 1024 * 1024:
+            raise RuntimeError("Public research test snapshot exceeds size bound")
+        snapshot = json.loads(snapshot_bytes)
+        expected_digest = snapshot.get("data_digest")
+        if (snapshot.get("schema_version") != "marketdata-snapshot/1"
+                or snapshot.get("symbol") not in ("BTC/USDT", "ETH/USDT") or snapshot.get("synthetic") is not False
+                or snapshot.get("source", {}).get("venue") != "bitget"
+                or not isinstance(expected_digest, str)
+                or not re.fullmatch(r"[a-f0-9]{64}", expected_digest)):
+            raise RuntimeError("Expected a real public crypto research snapshot")
+        expected_symbol = snapshot["symbol"]
     password = re.search(r"(?m)^Password: (\S+)",
                          (LOCAL / "pilot-access.txt").read_text()).group(1)
     opener = client()
@@ -317,6 +322,30 @@ def main() -> None:
               for value in cookies), "opaque application session cookie")
     status, _, body = request(opener, APP + "/")
     check(status == 200 and b"API verbunden" in body, "authenticated cockpit reads tenant API")
+    if args.paper_preview:
+        STEP = "read-only Paper display and disabled sensitive routes"
+        for path in ("/", "/portfolio", "/journal"):
+            status, page_headers, page = request(opener, APP+path)
+            check(status == 200 and b"Paperlauf &amp; Handelsjournal" in page
+                  and "Crypto-Paper · Entwicklung".encode() in page
+                  and b"Letzter gespeicherter Input" in page and b"Revision" in page
+                  and b"SIMULIERT" in page, "own confirmed Paper state on "+path)
+            check("no-store" in page_headers.get("Cache-Control", ""),
+                  "Paper page is not cached "+path)
+        status, _, _ = request(opener, APP + "/api/passkeys/actions/start", data={})
+        check(status == 503, "passkey action preview remains disabled")
+        status, _, _ = request(opener, APP + "/api/credentials/passkey/start", data={})
+        check(status == 503, "credential action preview remains disabled")
+        csrf = re.search(rb'name="csrf"[^>]*value="([^"]+)"', body)
+        if not csrf:
+            raise RuntimeError("Logout CSRF missing")
+        from urllib.parse import urlencode
+        status, _, _ = request(opener, APP+"/api/auth/logout",
+                               raw=urlencode({"csrf": csrf.group(1).decode()}).encode(),
+                               headers={"Content-Type": "application/x-www-form-urlencoded"})
+        check(status in (302, 303, 307), "Paper acceptance session logged out")
+        print("PASS: read-only public Paper acceptance; no research job or broker action")
+        return
     status, _, datasets_page = request(opener, APP + "/backtests")
     dataset_options = DatasetOptions()
     dataset_options.feed(datasets_page.decode())

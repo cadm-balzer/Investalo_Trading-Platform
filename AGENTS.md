@@ -87,7 +87,7 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   onboarding checkpoint `69a1f8b` merged into main, verified at `56070ba`;
   step-up checkpoint `d57bd56` merged into main, verified at `b6198f7`;
   registry checkpoint `6a18102` merged into main, verified at `f422a90`;
-  current work branch: `feat/m1-paper-development-runtime`.
+  current work branch: `feat/m1-paper-preview-integration`.
   Isolated AEAD core: `packages/credentials/README.md`, 20 offline tests with
   pinned cryptography and a separate hardened Compose check.
   Credential store: `services/credentials/README.md`; migration003 and current
@@ -481,6 +481,34 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   user. Retention/quota/Egress/monitoring/recovery and actual midnight observation
   remain BL-028; next IP-047 user/status integration. Keep scoped checks for cost.
   Contract: docs/paper-development-runtime.md.
+
+
+- IP-053 checkpoint03fee1e merged into mainb0827ba (verified).
+  IP-054 activates read-only own Paper display within the already approved
+  public DEVELOPMENT preview. Normal investalo and fixture now001–012;
+  reviewed008–012 applied atomically only after full rolled-back DDL and actual
+  own/foreign/epoch/old-OIDC/revoked-membership runtime preflight. Immutable files
+  unchanged.008/009 expand private capabilities; actual sensitive flags/routes
+  remain off, no credential launcher or key/broker/live activation.
+  Stable investalo_paper_preview LOGIN/account under protected existing public
+  owner tenant; prepared recovery verifies existing grants before mutation.
+  No fixture copying/rebinding, no original user/tenant/research/factor changes.
+  Exact normal TLS/SCRAM HBA, fixture/direct-table/other-definer denial tested.
+  Strict paper_preview_once --once fixed normal DB/role/CA/secret; no retry or
+  listener. Real run revision82/zero fills; RSI/Q32/risk/costs unchanged.
+  Only API/Cockpit rebuilt/recreated. For future preview updates use BOTH
+  --file infra/compose.public-preview.yaml and --file infra/compose.paper-preview.yaml
+  with --env-file infra/local/paper_preview.env. Naked public overlay keeps
+  display off and is its fallback; default Compose unchanged. Caddy/Auth/PG/
+  Research and separate healthy fixture observation were not recreated.
+  34 targeted pinned Pythoncases,5 stdlib provisions,17 Cockpit SSR/contracts,
+  pinned builds and scoped review passed.29 real HTTPS/OIDC/MFA/BFF checkpoints
+  show own state on overview/portfolio/journal, no cache, sensitive routes503,
+  logout only test session/no research job. Both012 hashes and original stable
+  fixture identity verified. This is a saved bounded-run state, not a confirmed
+  continuously running preview worker or profitability proof. Next IP-047:
+  own bounded preview observation; BL-028 midnight/Egress/quota/retention/recovery.
+  Contract: docs/paper-preview-integration.md. Keep cost-sensitive scoped work.
 
 ## Trading and implementation invariants
 

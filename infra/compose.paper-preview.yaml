@@ -1,0 +1,53 @@
+# Additional read-only display for the approved development preview.
+# Always combine with compose.public-preview.yaml; never the default.
+services:
+  api:
+    environment:
+      API_PAPER_STATUS_PREVIEW: "1"
+  cockpit:
+    environment:
+      COCKPIT_PAPER_STATUS_PREVIEW: "1"
+
+  paper-preview-once:
+    profiles: [paper-preview]
+    image: investalo-research:0.1.0-local
+    restart: "no"
+    init: true
+    user: "10003:10003"
+    group_add: ["10010"]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    read_only: true
+    tmpfs: ["/tmp:rw,noexec,nosuid,size=16m"]
+    mem_limit: 192m
+    cpus: 0.5
+    pids_limit: 64
+    logging:
+      driver: json-file
+      options: {max-size: 5m, max-file: "2"}
+    environment:
+      PAPER_WORKER_ENABLED: "1"
+      PAPER_PUBLIC_PREVIEW_MODE: "1"
+      PAPER_TENANT_ID: ${PAPER_TENANT_ID:?Own preview tenant required}
+      PAPER_ACCOUNT_ID: ${PAPER_ACCOUNT_ID:?Own preview account required}
+      PGHOST: postgres
+      PGPORT: "5432"
+      PGDATABASE: investalo
+      PGUSER: investalo_paper_preview
+      PGPASSWORD_FILE: /run/secrets/paper_preview_password
+      PGSSLMODE: verify-full
+      PGSSLROOTCERT: /run/secrets/local_ca_cert
+    secrets: [paper_preview_password, local_ca_cert]
+    volumes:
+      - ../services/workers/src:/app/services/workers/src:ro
+      - ../packages/trading/src:/app/packages/trading/src:ro
+      - ../packages/marketdata/src:/app/packages/marketdata/src:ro
+    networks: [database, paper_preview_egress]
+    command: [python, -m, investalo_workers.paper_preview_once, --once]
+
+networks:
+  paper_preview_egress: {}
+
+secrets:
+  paper_preview_password:
+    file: ./local/paper_preview_password

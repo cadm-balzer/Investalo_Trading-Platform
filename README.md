@@ -1,6 +1,6 @@
 # Investalo Trading Platform
 
-IP-053 ergänzt eine feste lokale Paper-Entwicklungsidentität und einen begrenzten Beobachtungsdienst mit echten BTC-/ETH-Kursen, unveränderten RSI-Einstiegen und Q32-Tagesbasis. Doppelstartschutz und gespeicherte Fortsetzung geprüft;44 gezielte Workerfälle grün. Normale DB und öffentliche Vorschau unverändert. Anzeige/Pilotbetrieb bleiben IP-047. [Bedienung und Abnahme](docs/paper-development-runtime.md).
+IP-054 macht den eigenen bestätigten Paperstand in Übersicht, Portfolio und Journal der freigegebenen Entwicklungsvorschau sichtbar. Neues simuliertes Konto, begrenzter BTC-/ETH-Kurslauf ohne Fills, unveränderte RSI-/Riskregeln.34 gezielte Pythonfälle,17 Cockpitfälle und29 echte HTTPS-/MFA-Prüfpunkte grün. [Anzeige und Grenzen](docs/paper-preview-integration.md).
 
 Mandantenfähiges Trading-Cockpit mit Portfolio, Journal, Backtests und
 automatisiertem Handel über Bitget und MetaTrader 5.

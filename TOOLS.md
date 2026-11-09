@@ -352,3 +352,20 @@ Runtime checks44 cases in /tmp/investalo-paper-runtime-worker-tests.log;
 3 stdlib provisioning units; actual acceptance script passed. Feed82/84/86,
 new process88, controlled service restart100→102+, no fills. Stop explicitly
 before session checker; never --remove-orphans or blanket compose up/down.
+
+## IP-054 own Paper display active
+
+Normal/fixture001–012 expected. prepare-paper-preview-schema.py is current
+read-only ledger check (returns early at012); old /tmp007 checker obsolete.
+Protected infra/local/paper_preview.json/password/env, LOGIN investalo_paper_preview,
+existing protected public owner tenant, no fixture copying/rebinding. --once only.
+Normal HBA exactrole TLS/SCRAM checked/reloaded. API/Cockpit updates ALWAYS
+--env-file infra/local/paper_preview.env --file infra/compose.public-preview.yaml
+--file infra/compose.paper-preview.yaml, up -d --no-deps api cockpit.
+Naked public overlay restores display-off; migrations stay immutable.
+check-paper-preview.py --active checks actual flags/isolation; full read-only
+HTTPS/MFA check: check_local_auth.py --public-preview --paper-preview.29 checks,
+no research job, own checker session logout. Build log /tmp/investalo-paper-preview-build.log,
+target34 /tmp/investalo-paper-preview-targeted.log, HTTPS -https.log.
+17 Cockpit/5 stdlib units, scoped review passed. Other services untouched;
+fixture observation healthy. No normal continuous worker yet; first run82/0fills.

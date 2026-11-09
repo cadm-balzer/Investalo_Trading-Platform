@@ -1,6 +1,6 @@
 # Architektur und Stack
 
-IP-053 ergänzt feste lokale Fixture-Paperidentität und begrenzten Beobachtungsdienst mit separatem Session-Advisory-Lock; Checkpoint-CAS bleibt atomarer Konkurrenzschutz. RSI/Q32 und ausgeschaltete Statusanzeige unverändert. Keine neue Migration oder öffentliche Aktivierung. [Vertrag](paper-development-runtime.md).
+IP-054 verbindet den eigenen normalen Entwicklungstenant mit einem beschränkten Einmal-Paperwriter und der lesenden Statusanzeige. Beide DBs012; eigener LOGIN/Account, keine Fixturekopie. Public-Preview plus Paperoverlay aktiviert ausschließlich Anzeigeflags; sensitive Funktionen bleiben gesperrt. [Vertrag](paper-preview-integration.md).
 
 IP-046: Drei Jahre BTC/ETH-H4 werden im vorhandenen deterministischen
 Researchworkflow ausgewertet; ein weiterer Jahresabschnitt ist ausschließlich
