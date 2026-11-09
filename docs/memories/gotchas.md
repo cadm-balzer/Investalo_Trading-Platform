@@ -515,3 +515,13 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
 - **Paperchecks teilen einen festen Fixture-LOGIN:** PG-Tests ändern dessen
   Kontobindung. Nach Tests neue Public-Feed-Fixture/Env vorbereiten; ältere
   Env-UUIDs nicht blind nutzen. Keine Normal-/Research-/Runtimebindung ändern.
+
+- **Statusmigration011 ist jetzt unveränderlich, nur Fixture:** normal007/
+  Fixture011 explizit prüfen. Read-only-API benötigt original auth_time,
+  aktuellen auth_epoch und aktive Mitgliedschaft; Viewer darf eigene
+  Paperkonten lesen. Signaturprüfung bleibt in der API, nicht in SQL-GUCs.
+
+- **Zahlenvalidatoren dürfen Nullbeträge nicht als Fehler behandeln:**
+  `decimal` liefert eine Zahl, kein Boolean;0 ist gültiges Paper-Cash/Menge.
+  Fehler über Exceptions prüfen. Ein gespeicherter Timestamp beweist keinen
+  laufenden Worker; fehlende Kurse ergeben keine bewertbare Equity.

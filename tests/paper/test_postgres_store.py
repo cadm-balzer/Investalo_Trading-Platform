@@ -19,6 +19,12 @@ from investalo_workers.paper_store import (
 )
 from investalo_marketdata.paper_feed import BitgetPaperFeed, H4, boundary
 from investalo_workers.paper_worker import PaperWorker, WARMUP_BARS
+from fastapi.testclient import TestClient
+from investalo_api.main import create_app
+import base64
+import hashlib
+import hmac
+import time
 
 START = datetime(2026, 1, 1, tzinfo=timezone.utc)
 D = Decimal
@@ -352,3 +358,93 @@ def test_public_feed_contract_to_real_sql_worker_restart_has_one_simulated_fill(
     restored = context["store"].read()
     assert len(restored.state.processed_fills) == 1
     assert len(journal(context)) == 84
+
+
+def status_actor(context):
+    runtime = replace(Settings.from_environment(), paper_status_preview=True,
+                      internal_key=uuid4().hex+uuid4().hex)
+    user, subject = uuid4(), "paper-status-"+uuid4().hex
+    with context["admin"]() as db:
+        db.execute("INSERT INTO platform.users(id,oidc_issuer,oidc_subject) VALUES(%s,%s,%s)",
+                   (user, runtime.oidc_issuer, subject))
+        db.execute("INSERT INTO platform.memberships(tenant_id,user_id,role) VALUES(%s,%s,'viewer')",
+                   (context["tenant"], user))
+    return runtime, user, subject
+
+
+def status_headers(settings, subject, tenant):
+    now = int(time.time())
+    claims = {"iss": "investalo-bff", "aud": "investalo-api", "sub": subject,
+              "oidc_iss": settings.oidc_issuer, "iat": now, "exp": now+30,
+              "oidc_auth_time": now, "jti": str(uuid4()), "tenant_id": str(tenant), "auth_epoch": 0,
+              "htm": "GET", "htu": "/v1/paper-status", "body_sha256": hashlib.sha256(b"").hexdigest()}
+    encode = lambda value: base64.urlsafe_b64encode(json.dumps(value).encode()).rstrip(b"=").decode()
+    prefix = encode({"alg": "HS256", "typ": "JWT"})+"."+encode(claims)
+    signature = base64.urlsafe_b64encode(hmac.digest(settings.internal_key.encode(), prefix.encode(), "sha256")).rstrip(b"=").decode()
+    return {"Authorization": "Bearer "+prefix+"."+signature}
+
+
+def test_actual_status_api_viewer_reads_only_confirmed_own_paper_and_safe_journal(context):
+    before = initial(context)
+    context["store"].commit(before, update(context, before))
+    settings, user, subject = status_actor(context)
+    client = TestClient(create_app(settings))
+    result = client.get("/v1/paper-status", headers=status_headers(settings, subject, context["tenant"]))
+    assert result.status_code == 200
+    data = result.json()
+    assert data["tenant_id"] == str(context["tenant"])
+    assert {a["id"] for a in data["accounts"]} == {str(context["account"]), str(context["other"])}
+    account = next(a for a in data["accounts"] if a["id"] == str(context["account"]))
+    assert account["snapshot"]["revision"] == 1
+    assert account["snapshot"]["cash"] == "10000"
+    assert account["snapshot"]["daily_baseline_ready"] is False
+    assert account["journal"][0]["revision"] == 1
+    assert not any(field in result.text for field in ("input_digest", "checkpoint", "checksum", "manual_authorization"))
+    assert context["store"].read().revision == 1 and len(journal(context)) == 1
+    foreign = client.get("/v1/paper-status", headers=status_headers(settings, subject, context["foreign"]))
+    assert foreign.status_code == 403
+
+
+def test_paper_status_flag_off_rejects_without_storage_query(context):
+    settings, user, subject = status_actor(context)
+    client = TestClient(create_app(replace(settings, paper_status_preview=False)))
+    assert client.get("/v1/paper-status", headers=status_headers(settings, subject, context["tenant"])).status_code == 404
+
+
+def test_status_replay_and_revoked_actor_are_rejected(context):
+    settings, user, subject = status_actor(context)
+    client = TestClient(create_app(settings))
+    headers = status_headers(settings, subject, context["tenant"])
+    assert client.get("/v1/paper-status", headers=headers).status_code == 200
+    assert client.get("/v1/paper-status", headers=headers).status_code == 401
+    with context["admin"]() as db:
+        db.execute("UPDATE platform.memberships SET active=false WHERE user_id=%s", (user,))
+    assert client.get("/v1/paper-status", headers=status_headers(settings, subject, context["tenant"])).status_code == 403
+
+
+def test_status_runtime_keeps_no_direct_paper_write_or_table_rights(context):
+    settings, user, subject = status_actor(context)
+    with psycopg.connect(**settings.connection_parameters(), row_factory=dict_row) as db:
+        for table in ("paper_checkpoints", "paper_journal", "paper_role_bindings"):
+            assert not db.execute("SELECT has_table_privilege(current_user,%s,'SELECT') AS allowed",
+                                  ("platform."+table,)).fetchone()["allowed"]
+        for fn in ("paper_initialize(text,text)", "paper_commit(bigint,text,text,text)"):
+            assert not db.execute("SELECT has_function_privilege(current_user,%s,'EXECUTE') AS allowed",
+                                  ("platform."+fn,)).fetchone()["allowed"]
+        with pytest.raises(psycopg.errors.InsufficientPrivilege):
+            db.execute("SELECT * FROM platform.paper_status_rows(0,clock_timestamp())")
+
+
+@pytest.mark.parametrize("mode", ["missing_epoch", "old_epoch", "wrong_subject"])
+def test_status_sql_current_identity_epoch_context_rechecked(context, mode):
+    settings, user, subject = status_actor(context)
+    with context["admin"]() as db:
+        epoch = db.execute("SELECT auth_epoch FROM platform.users WHERE id=%s", (user,)).fetchone()["auth_epoch"]
+    with psycopg.connect(**settings.connection_parameters(), row_factory=dict_row) as db:
+        db.execute("SELECT set_config('app.user_id',%s,true),set_config('app.tenant_id',%s,true),"
+                   "set_config('app.oidc_issuer',%s,true),set_config('app.oidc_subject',%s,true)",
+                   (str(user), str(context["tenant"]), settings.oidc_issuer,
+                    subject if mode != "wrong_subject" else "foreign-subject"))
+        supplied = None if mode == "missing_epoch" else epoch-1 if mode == "old_epoch" else epoch
+        with pytest.raises(psycopg.errors.InsufficientPrivilege):
+            db.execute("SELECT * FROM platform.paper_status_rows(%s,clock_timestamp())", (supplied,))

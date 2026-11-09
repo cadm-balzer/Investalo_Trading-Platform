@@ -1,6 +1,6 @@
 # Roadmap
 
-IP-047 ist aktiv: IP-048/049 liefern Paperkern und atomaren Store; IP-050 verbindet echten öffentlichen Feed und begrenzten Worker in der Testdatenbank. Als Nächstes Tageswechselbetrieb, dauerhafte Entwicklungsprovisionierung und Cockpitstatus. [Feed und Worker](paper-market-worker.md).
+IP-047 ist aktiv: IP-048/049 liefern Paperkern und atomaren Store; IP-050 verbindet öffentlichen Feed und begrenzten Worker. IP-051 ergänzt die geprüfte, standardmäßig ausgeschaltete Paperstatus-/Journalanzeige. Als Nächstes Tageswechselentscheidung Q32, dauerhafte Entwicklungsprovisionierung und Betriebs-/Anzeigeabnahme. [Paperstatus](paper-status-readmodel.md).
 
 Stand 2026-11-09. Q1–Q5 bestätigen privaten Pilot, Paper zuerst, feste
 Risikolimits, kontrollierte KI und kostenlose externe Dienste.

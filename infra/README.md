@@ -1,6 +1,6 @@
 # Lokale Compose-Entwicklung
 
-IP-050 prüft öffentliche BTC-/ETH-Feeds mit begrenztem Paperworker über das explizite `compose.paper-checks.yaml`-Overlay. Eigene Testidentität, Egressbridge ohne Hostports, keine administrativen oder Brokersecrets. Drei reale Zyklen und Prozessneustart bestanden; Default Compose und normale DB007/Fixture010 unverändert. Dauerbetrieb/Tagesbaseline/Cockpit noch offen. [Befehle und Grenzen](../docs/paper-market-worker.md).
+IP-051 ergänzt die standardmäßig ausgeschalteten Flags `API_PAPER_STATUS_PREVIEW` und `COCKPIT_PAPER_STATUS_PREVIEW` für den eigenen Paperstatus/Journal.011 ausschließlich Fixture-DB, normale DB007; Default Compose und öffentliche Dienste unverändert. Dauerbetrieb/Tagesbaseline und Anzeigeaktivierung bleiben offen. [Abnahme und Grenzen](../docs/paper-status-readmodel.md).
 
 Aktueller Researchstand IP-046: reale BTC/ETH-H4-Fenster2022-08-01–2025-08-01
 mit jeweils6.576 Kerzen sind für das bestehende Cockpit verfügbar. Separate

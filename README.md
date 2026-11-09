@@ -1,6 +1,6 @@
 # Investalo Trading Platform
 
-IP-050 verbindet öffentliche BTC-/ETH-Kurse mit dem Paperworker und atomaren Journal.151 gezielte Tests sowie ein begrenzter echter Feedlauf mit Prozessneustart bestanden. Bisher isolierte Testdatenbank; Tageswechselbetrieb und Cockpitanzeige folgen in IP-047. [Feed und Worker](docs/paper-market-worker.md).
+IP-051 ergänzt den tenantgebundenen Paperstatus und das Handelsjournal im Cockpit, standardmäßig ausgeschaltet.170 gezielte Python-/PG-Tests und16 Cockpit-Vertrags-/Paneltests bestanden. Fixturemigration011; normale DB und öffentliche Vorschau unverändert. Tageswechsel und Dauerbetrieb bleiben IP-047. [Anzeige und Abnahme](docs/paper-status-readmodel.md).
 
 Mandantenfähiges Trading-Cockpit mit Portfolio, Journal, Backtests und
 automatisiertem Handel über Bitget und MetaTrader 5.

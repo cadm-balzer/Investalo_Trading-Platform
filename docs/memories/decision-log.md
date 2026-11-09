@@ -841,3 +841,27 @@ Keine Migration/Build/Dependency, normal007/Fixture010-Prüfsummen unverändert.
 Einmalcontainer beendet, sechs öffentliche Dienste unverändert/TLS200.
 Nächstes IP-047: sichere Tagesbaseline, dauerhafte Entwicklungsidentität und
 Paperstatus-/Journalanzeige. [Vertrag](../paper-market-worker.md).
+
+## 2026-11-09 — D-055: Lesender Paperstatus vor Betriebsaktivierung
+
+Nutzer bestätigt Merge; af65c51 in Mainb9d4b41 verifiziert. IP-051 ergänzt
+eigene Paperkonten/Status/Journal über restricted Runtimefunktion011,
+authentifizierte API und standardmäßig ausgeschaltetes Cockpitpanel.
+SQL vertraut der API und transaktionslokalen Identität, recheckt aktiven
+Actor/Mitgliedschaft/Epoch/originale OIDC-Zeit. Keine Tabellen-/Writerrechte.
+API/TS projizieren erlaubte Felder; Journal enthält nur feste Meldungen.
+Gespeicherter Input ist kein Worker-Lebenszeichen. Historische/fehlende
+Bewertung, ungestarteter Zustand und Tagesbaseline-Kaufsperre ausdrücklich.
+
+011 nach vollständig zurückgerolltem Preflight und gezieltem unabhängigem
+Review nur Fixture-DB angewendet; normal007/Fixture011 und alle Ledger
+geprüft.170 gepinnte Tests/48 Subtests (37 tatsächliche PG/API),
+16 Cockpit-Vertrags-/SSR-Paneltests, Typecheck/gepinnter Build grün.
+Keine neuen Dependencies/breiten Wiederholungen; öffentliche Container
+unverändert/gesund, Cockpit TLS200, beide Anzeigeflags aus.
+
+Q32 fragt ausdrücklich nach gekennzeichneter H4-Modellbewertung ausschließlich
+für die00:00UTC-Tagesbasis, unverändertem6%-Limit und tatsächlichen Bid/Ask-Fills.
+Antwort ausstehend; keine Risk-/Strategieänderung implementiert. Nächstes
+IP-047/BL-028: Entscheidung, Tageswechsel, permanente Entwicklungsidentität
+und gesonderte Betriebs-/Anzeigeabnahme. [Vertrag](../paper-status-readmodel.md).

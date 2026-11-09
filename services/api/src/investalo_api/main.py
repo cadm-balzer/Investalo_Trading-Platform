@@ -21,6 +21,7 @@ from .passkey_action_proofs import create_passkey_action_router
 from .passkey_credential_authorizations import create_passkey_credential_authorization_router
 from .database import SCHEMA_VERSION, assert_runtime, connect, transaction
 from .settings import Settings
+from .paper_status import read_status
 from .research_result import publish_result
 from .research_spec import public_source, specification
 
@@ -164,6 +165,13 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 "role": user["role"], "accounts": accounts, "positions": positions,
                 "journal": [_journal(row) for row in journal], "jobs": [_job(row) for row in jobs],
             }, custom_encoder={Decimal: str})
+
+    @application.get("/v1/paper-status")
+    def paper_status(identity: Identity):
+        if not application.state.settings.paper_status_preview:
+            raise HTTPException(404, "Not found")
+        with transaction(application.state.settings, identity) as (db, user):
+            return read_status(db, user, identity)
 
     @application.get("/v1/credential-actions/{account_id}")
     def credential_actions(account_id: UUID, identity: Identity):
