@@ -87,7 +87,7 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   onboarding checkpoint `69a1f8b` merged into main, verified at `56070ba`;
   step-up checkpoint `d57bd56` merged into main, verified at `b6198f7`;
   registry checkpoint `6a18102` merged into main, verified at `f422a90`;
-  current work branch: `feat/m1-paper-postgres-journal`.
+  current work branch: `feat/m1-paper-market-worker`.
   Isolated AEAD core: `packages/credentials/README.md`, 20 offline tests with
   pinned cryptography and a separate hardened Compose check.
   Credential store: `services/credentials/README.md`; migration003 and current
@@ -400,6 +400,25 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   now sanitized. No real credentials affected. No builds/dependencies added.
   IP-047 next: public market feed, running Paperworker and Cockpit status.
   See docs/paper-postgres-store.md.
+
+- IP-049 checkpoint e0cfb45 merged into main1a805e5 (verified). IP-050 connects
+  fixed unsigned Bitget SPOT ticker/current-candle GETs to PaperRunner/Store.
+  BTC/ETH,40 closed-H4 warmup, complete coverage/revised overlap/fresh real
+  bid/ask, no historical fills or manual approval. Every input commits atomically;
+  unknown commit stops process, next process reads state before new inputs.
+  Only explicit --once or --cycles1..100 accepted. Continuous operation gated:
+  REST polling cannot reliably supply exact midnight baseline required by core;
+  daily_baseline_required stays enforced, no current-equity substitution.
+  Isolated fixture overlay has own Paper LOGIN/CA only, no ports/admin keys,
+  separate development egress bridge, existing pinned image/readonly source.
+  Real public feed40bars each; actual cycles82/84/86 then restart88, zero fills.
+  151 pinned tests/48 subtests,30 actual PG; independent bounded review green.
+  Normal007/fixture010/checksums unchanged, no migrations/dependencies/builds.
+  Public six services unchanged/Cockpit TLS200; one-off fixtures stopped.
+  Tests rebind fixed investalo_paper_tests LOGIN: prepare a new fixture/env after tests,
+  never blindly reuse older account configuration. Next IP-047: safe daily
+  baseline operation, dedicated persistent development identity and Cockpit.
+  See docs/paper-market-worker.md; cost preference remains scoped work.
 
 ## Trading and implementation invariants
 

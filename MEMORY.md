@@ -2,6 +2,15 @@
 
 Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
 
+- 2026-11-09: IP-049e0cfb45 in Main1a805e5 verifiziert. IP-050 auf
+  feat/m1-paper-market-worker: öffentliche echte BTC/ETH-Quotes/H4, begrenzter
+  Worker/Fixture010, reale Zyklen82/84/86 und Restart88 (keine Fills).
+  151Tests/48Subtests,30 echtePG; Review grün nur begrenzt. Exakte
+  Mitternachtsbaseline nicht zuverlässig per REST; Dauerbetrieb gesperrt,
+  neue Käufe ohne Tagesbaseline weiter gesperrt. BL-028/Nächstes IP-047:
+  sicheres Tagesverfahren, permanente Entwicklungsidentität/Cockpit.
+  Keine Migration/Build/Dependencies, normal007/Fixture010 unverändert.
+
 - 2026-11-09: IP-048fe6309a in Maindc60c19 verifiziert. IP-049 auf
   feat/m1-paper-postgres-journal: atomarer PostgreSQL-Paperstore mit eigener
   SESSION_USER-Kontobindung, Revision-/Checksum-CAS, Unknowncommit-Readback.

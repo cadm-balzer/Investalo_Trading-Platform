@@ -1,6 +1,6 @@
 # Investalo Trading Platform
 
-IP-049 persistiert Paperzustand und Journal atomar in PostgreSQL, mit Revision-CAS und geprüfter eigener Workeridentität.78 gezielte Tests bestanden; bisher nur Testdatenbank. Marktfeed, laufender Worker und Cockpitanzeige folgen in IP-047. [Paperstore](docs/paper-postgres-store.md).
+IP-050 verbindet öffentliche BTC-/ETH-Kurse mit dem Paperworker und atomaren Journal.151 gezielte Tests sowie ein begrenzter echter Feedlauf mit Prozessneustart bestanden. Bisher isolierte Testdatenbank; Tageswechselbetrieb und Cockpitanzeige folgen in IP-047. [Feed und Worker](docs/paper-market-worker.md).
 
 Mandantenfähiges Trading-Cockpit mit Portfolio, Journal, Backtests und
 automatisiertem Handel über Bitget und MetaTrader 5.

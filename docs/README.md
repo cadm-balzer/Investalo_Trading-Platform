@@ -9,6 +9,7 @@
 | [architecture.md](architecture.md) | Module, Datenmodell, Schnittstellen und aktueller Stack |
 | [paper-runner.md](paper-runner.md) | Inkrementeller Paperkern, Restore und Journalvertrag |
 | [paper-postgres-store.md](paper-postgres-store.md) | Atomarer Checkpoint-/Journalwriter, eigene Kontorolle, Fixturemigration010 und nächste Feed-/Cockpitanbindung |
+| [paper-market-worker.md](paper-market-worker.md) | Öffentlicher BTC-/ETH-Feed, begrenzter tatsächlicher Paperworker, Neustartprüfung und Tageswechselgate |
 | [long-history-backtests.md](long-history-backtests.md) | Drei Jahre BTC/ETH-Forschung, reservierter Jahres-Holdout und nächste Paperausführung |
 | [trading.md](trading.md) | Strategieformalisation, Risiko, Backtests und Optimierung |
 | [security.md](security.md) | Bedrohungen, Schutzmaßnahmen und Freigabekriterien |

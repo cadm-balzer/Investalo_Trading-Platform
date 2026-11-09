@@ -1,6 +1,6 @@
 # Handelskonzept, Risiko und Nachweis
 
-IP-048 verwendet denselben Kern im schrittweisen Paperlauf: Intents warten auf spätere frische Quotes, Restore erhält Fills und Risk Stops. IP-049 speichert Zustand/Journal atomar in der Testdatenbank. Laufender Feed/Worker und Cockpit bleiben IP-047. [Paperstore](paper-postgres-store.md).
+IP-050 führt öffentliche Bid/Ask-Quotes und geschlossene H4-Kerzen durch denselben Paperkern/Store. Historischer Indikatorvorlauf erzeugt keine Fills; späterer Quote und Risk Gate bleiben erforderlich. Begrenzter Worker geprüft; fehlende Mitternachtsbaseline sperrt weiter neue Käufe. Dauerbetrieb/Cockpit bleiben IP-047. [Vertrag](paper-market-worker.md).
 
 IP-046: Drei Jahre BTC/ETH-H4 werden im vorhandenen deterministischen
 Researchworkflow ausgewertet; ein weiterer Jahresabschnitt ist ausschließlich

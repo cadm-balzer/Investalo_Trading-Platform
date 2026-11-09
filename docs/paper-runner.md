@@ -1,5 +1,8 @@
 # Schrittweiser Crypto-Paperlauf
 
+IP-050 verbindet diesen Kern mit [öffentlichem Feed und begrenztem Worker](paper-market-worker.md).
+Tageswechsel-Dauerbetrieb und Cockpitanzeige bleiben offen.
+
 IP-048,2026-11-09: isolierter, wiederherstellbarer Domainablauf innerhalb
 IP-047. Der vorhandene `CryptoEngine` und `PaperSimulator` bleiben gemeinsam
 für Forschung und Paper. Keine neue Abhängigkeit, Migration oder Aktivierung.
