@@ -35,7 +35,11 @@ restored = load_state(dump_state(state))
   mit `mark_order_unknown` sperren Blind-Resend; `reconcile_cancelled` verlangt
   einen bereits erfolgten autoritativen Fill-/Stornoabgleich.
 - `reset_day(state, midnight_utc)` übernimmt die aktuelle Equity als Tagesbasis.
-  Vorher Mitternachtsquotes liefern. Fehlt ein Tagesbaseline, blockieren neue
+  Historischer Simulator: vorher Mitternachtsquotes liefern.
+  Inkrementelles Paper nutzt seit Q32/IP-052 stattdessen `PaperRunner.day`
+  mit exakten H4-Mitternachtscloses und Cash/Mengen vor Mitternacht, eigener
+  Policy `paper-h4-close/1`, ohne Quote-/RSI-/Fillmutation.
+  [Vertrag](../../docs/paper-midnight-basis.md). Fehlt eine Tagesbaseline, blockieren neue
   Käufe; Gesamtlimit und Preisexit bleiben aktiv. Finanzielle Halts sind
   gelatcht; `resume` ist ein expliziter autorisierter Bedienvorgang.
   Der −55%-Preisexit ist ebenfalls ein Risk-Stop: der betroffene Basket bleibt

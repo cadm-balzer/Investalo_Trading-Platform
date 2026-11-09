@@ -13,4 +13,4 @@ exec bash "$paper_root/infra/scripts/compose.sh" --profile checks run --rm --no-
   -v "$paper_root/tests/marketdata:/app/tests/marketdata:ro" \
   -v "$paper_root/tests/paper:/app/tests/paper:ro" \
   api-checks python -m pytest /app/tests/paper /app/tests/trading /app/tests/marketdata \
-  /app/tests/workers/test_computation.py -q --tb=short -p no:cacheprovider
+  /app/tests/workers/test_computation.py -q --tb=short -p no:cacheprovider "$@"

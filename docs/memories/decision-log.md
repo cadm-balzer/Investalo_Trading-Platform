@@ -865,3 +865,29 @@ für die00:00UTC-Tagesbasis, unverändertem6%-Limit und tatsächlichen Bid/Ask-F
 Antwort ausstehend; keine Risk-/Strategieänderung implementiert. Nächstes
 IP-047/BL-028: Entscheidung, Tageswechsel, permanente Entwicklungsidentität
 und gesonderte Betriebs-/Anzeigeabnahme. [Vertrag](../paper-status-readmodel.md).
+
+## 2026-11-09 — D-056: Q32-Mitternachtsbewertung freigegeben und umgesetzt
+
+Nutzer bestätigt Merge05ea009; Main5d5c61e verifiziert. Er folgt ausdrücklich
+der Q32-Empfehlung und erinnert an RSI als Einstiegskriterium.
+IP-052 friert die Paper-Tagesbasis um00UTC aus vorherigem Cash/Beständen und
+beiden exakt abgeschlossenen H4-Closes ein. Eigener Input/Policy
+paper-h4-close/1, atomarer Commit vor neuen Quotes/Fills; kein nachträglicher
+Ersatz durch veränderte Tages-Equity. Fehlende/unbelegte Basis sperrt Käufe.
+RSI14/Wilder/geschlossene-H4-Einstiege, spätere echte Quotes/Fills,6%/8%,
+manuelle Ausnahme Q29 und latched Halts unverändert. Bewertungsinput erzeugt
+keine Indikatorfortschreibung. Historische Researchresultate unverändert.
+
+012 erhält Tagesbeleg/Fingerprints über Quotecommits/Neustart und verhindert
+geänderte Mitternachtskerzen bei späterer RSI-Verarbeitung. SQL vertraut dem
+gebundenen Pythonwriter, keine zweite Berechnungs-/Riskimplementation.
+Getrennter Modellhinweis in weiterhin ausgeschaltetem Statuspanel.
+Vollständig zurückgerollter tatsächlicher Writer-/Replaypreflight,
+unabhängiger Review grün;012 ausschließlich Fixture angewendet.
+190 unterschiedliche Fälle/48 Subtests (43PG/API) und17 Cockpitfälle/
+Typecheck/gepinnter Build grün; ein ungültiger Test-OHLC korrigiert,
+gezielte Wiederholung3. Normal007/Fixture012 und alle Ledger bestätigt,
+öffentliche Dienste unverändert/gesund, Cockpit TLS200.
+Keine neuen Dependencies/normalen Migrationen/öffentlichen Flagänderungen.
+Permanenter Entwicklungsdienst und Betriebs-/Anzeigeabnahme bleiben
+IP-047/BL-028. [Vertrag](../paper-midnight-basis.md).

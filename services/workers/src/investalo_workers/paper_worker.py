@@ -52,7 +52,16 @@ class PaperWorker:
             raise ValueError("Paper clock/boundary changed during fetch")
         # Validate the entire batch before initialization/any persisted update.
         # Quotes are real bid/ask, not historical candle closes.
+        midnight = now.replace(hour=0, minute=0, second=0, microsecond=0)
+        needs_day = (checkpoint.state.account.trading_day < now.date()
+                     and checkpoint.observed_at < midnight)
+        day_bars = tuple(next((b for b in bars if b.symbol == symbol and b.close_time == midnight),
+                              None) for symbol in SYMBOLS)
         candidate = checkpoint
+        if needs_day:
+            if any(b is None for b in day_bars):
+                raise ValueError("Paper midnight coverage missing")
+            candidate = self.runner.day(candidate, day_bars, now=now).checkpoint
         for quote in quotes:
             candidate = self.runner.quote(candidate, quote, now=now).checkpoint
         ordered = sorted(bars, key=lambda bar: (bar.open_time, bar.symbol))
@@ -61,12 +70,20 @@ class PaperWorker:
         if saved is None:
             checkpoint = self.store.initialize(checkpoint)
         initial_revision, fills = checkpoint.revision, 0
+        def input_time():
+            at = self.clock()
+            if boundary(at) != end or at.date() != now.date():
+                raise ValueError("Paper boundary changed during commit")
+            return at
+        if needs_day:
+            update = self.runner.day(checkpoint, day_bars, now=input_time())
+            checkpoint = self.store.commit(checkpoint, update)
         for quote in quotes:
-            update = self.runner.quote(checkpoint, quote, now=self.clock())
+            update = self.runner.quote(checkpoint, quote, now=input_time())
             checkpoint = self.store.commit(checkpoint, update)
             fills += len(update.entry.fills) if update.entry else 0
         for bar in ordered:
-            update = self.runner.bar(checkpoint, bar, now=self.clock())
+            update = self.runner.bar(checkpoint, bar, now=input_time())
             checkpoint = self.store.commit(checkpoint, update)
             fills += len(update.entry.fills) if update.entry else 0
         return PaperCycle(checkpoint.revision, checkpoint.revision-initial_revision, fills)

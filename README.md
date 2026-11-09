@@ -1,6 +1,6 @@
 # Investalo Trading Platform
 
-IP-051 ergänzt den tenantgebundenen Paperstatus und das Handelsjournal im Cockpit, standardmäßig ausgeschaltet.170 gezielte Python-/PG-Tests und16 Cockpit-Vertrags-/Paneltests bestanden. Fixturemigration011; normale DB und öffentliche Vorschau unverändert. Tageswechsel und Dauerbetrieb bleiben IP-047. [Anzeige und Abnahme](docs/paper-status-readmodel.md).
+IP-052 implementiert die freigegebene H4-Mitternachtsbewertung für Paper, vor jedem neuen Tagesfill und mit unveränderten RSI-Einstiegen.190 unterschiedliche gezielte Python-/PG-Fälle und17 Cockpittests grün.012 nur Fixture; normale DB und öffentliche Vorschau unverändert. Dauerbetrieb/Anzeigeaktivierung bleiben IP-047. [Tageswechsel und Abnahme](docs/paper-midnight-basis.md).
 
 Mandantenfähiges Trading-Cockpit mit Portfolio, Journal, Backtests und
 automatisiertem Handel über Bitget und MetaTrader 5.

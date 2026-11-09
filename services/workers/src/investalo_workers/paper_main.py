@@ -33,7 +33,7 @@ def main():
     parser.add_argument("--cycles", type=int, default=0, help="Bounded development run: 1..100 attempts")
     args = parser.parse_args()
     if not args.once and not 1 <= args.cycles <= 100:
-        raise SystemExit("Bounded development run required; continuous daily-baseline operation pending")
+        raise SystemExit("Bounded development run required; continuous operational acceptance pending")
     stopped = Event()
     signal.signal(signal.SIGTERM, lambda *_: stopped.set())
     signal.signal(signal.SIGINT, lambda *_: stopped.set())

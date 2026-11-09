@@ -525,3 +525,15 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   `decimal` liefert eine Zahl, kein Boolean;0 ist gültiges Paper-Cash/Menge.
   Fehler über Exceptions prüfen. Ein gespeicherter Timestamp beweist keinen
   laufenden Worker; fehlende Kurse ergeben keine bewertbare Equity.
+
+- **Q32 ersetzt die Paper-Quote-Mitternachtsbasis:** Seit IP-052 H4-Modellbasis
+  vor dem ersten neuen Tagesquote/FILL committen. Nachmitternächtliche
+  Inventaränderungen sind ohne früheren Beleg kein zulässiger Tagesstart.
+  Neustart nach day-Commit darf nicht neu bewerten;012 vergleicht eingefrorene
+  Kerzenfingerprints auch nach einem ersetzenden Quote-Journaleintrag.
+  Normal007/Fixture012; angewendete012 immutable.
+
+- **Modellbewertung ist kein RSI-/Quoteinput:** H4-Kerze danach genau einmal
+  im üblichen Indikatorfluss verarbeiten. Positive Prüfung: zweites sub30
+  erzeugt nur Intent, späterer echter Ask plus Kostenmodell erzeugt Fill.
+  Revidierte OHLC-Testdaten brauchen gültige High/Low, bevor Replay testbar ist.

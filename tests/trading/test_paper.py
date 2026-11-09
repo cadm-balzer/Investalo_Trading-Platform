@@ -30,6 +30,9 @@ class PaperRunnerTests(unittest.TestCase):
             previous, price = D(100-index), D(99-index)
             bar = Candle("BTCUSDT", opened, opened + timedelta(hours=4),
                          previous, previous, price, price)
+            if checkpoint.state.account.trading_day != bar.close_time.date():
+                eth = Candle("ETHUSDT", opened, bar.close_time, D(100), D(100), D(100), D(100))
+                checkpoint = self.runner.day(checkpoint, (bar, eth), now=bar.close_time).checkpoint
             checkpoint = self.runner.quote(
                 checkpoint, self.quote(bar.close_time, str(price)), now=bar.close_time,
             ).checkpoint
@@ -151,6 +154,9 @@ class PaperRunnerTests(unittest.TestCase):
             bar = Candle("BTCUSDT", opened, opened + timedelta(hours=4),
                          D(100-index), D(100-index), D(99-index), D(99-index))
             now = bar.close_time + (timedelta(seconds=31) if index == 15 else timedelta())
+            if state.state.account.trading_day != now.date():
+                eth = Candle("ETHUSDT", opened, bar.close_time, D(100), D(100), D(100), D(100))
+                state = self.runner.day(state, (bar, eth), now=now).checkpoint
             state = self.runner.quote(state, self.quote(now, str(bar.close)), now=now).checkpoint
             state = self.runner.bar(state, bar, now=now).checkpoint
         self.assertEqual(state.state.orders, ())
@@ -166,7 +172,7 @@ class PaperRunnerTests(unittest.TestCase):
             late.state, midnight + timedelta(seconds=1),
         ))
         exact = self.runner.quote(self.initial, self.quote(midnight), now=midnight).checkpoint
-        self.assertEqual(exact.state.account.trading_day, midnight.date())
+        self.assertEqual(exact.state.account.trading_day, START.date())
 
     def test_restore_requires_same_tenant_account_configuration_and_costs(self):
         payload = self.runner.dump(self.initial)

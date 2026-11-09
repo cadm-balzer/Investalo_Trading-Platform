@@ -4,7 +4,9 @@ IP-050 ergänzt `paper_worker.py`/`paper_main.py`: eigener öffentlicher Spotfee
 
 IP-051 ergänzt die lesende [Status-/Journalanzeige](../../docs/paper-status-readmodel.md)
 in API/Cockpit, standardmäßig ausgeschaltet. Worker und Risikoregeln unverändert;
-Fixture011, normale DB007. Tagesbewertungsentscheidung Q32 ausstehend.
+Fixture inzwischen012, normale DB007. Q32 bestätigt und durch IP-052
+[als separater atomarer Tagesinput](../../docs/paper-midnight-basis.md)
+implementiert. Neue Tagesbewertung vor Quotes/Verkäufen; RSI unverändert.
 
 Start: `python -m investalo_workers.main`, einmaliger Zyklus mit `--once`.
 `PYTHONPATH` enthält `services/workers/src`, `services/api/src`,

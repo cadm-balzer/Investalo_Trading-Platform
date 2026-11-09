@@ -2,6 +2,15 @@
 
 Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
 
+- 2026-11-09: IP-05105ea009 in Main5d5c61e verifiziert. Nutzer bestätigt Q32
+  H4-Mitternachtsmodellbasis und RSI-Relevanz. IP-052 auf
+  feat/m1-paper-midnight-baseline: Tagesinput vor neuen Fills, vorherige
+  Mengen/Cash, unveränderlicher Kerzenbeleg/Replay, RSI14/Wilder/6%/8%
+  und latched Halts unverändert.190 unterschiedliche Tests/48subtests
+  (43PG/API),17 Cockpit/Typecheck/Build/Review grün.012 nur Fixture; normal007,
+  alle Ledgerprüfsummen bestätigt. Öffentlich unverändert/gesund/TLS200.
+  Kein kontinuierlicher Dienst/öffentliche Anzeigeaktivierung.
+
 - 2026-11-09: IP-050af65c51 in Mainb9d4b41 verifiziert. IP-051 auf
   feat/m1-paper-status-readmodel liefert eigenen Paperstatus/Journal via
   restricted011/API und gated Cockpitpanel.170 Tests/48Subtests inkl37PG/API,

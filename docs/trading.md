@@ -1,6 +1,6 @@
 # Handelskonzept, Risiko und Nachweis
 
-IP-051 zeigt gespeicherten Paperstand/Journal über eine geprüfte, standardmäßig ausgeschaltete Cockpitanzeige. Strategie und Risikoregeln unverändert; fehlende Mitternachtsbaseline sperrt neue Käufe. Tagesbewertungsfrage Q32 ist offen, Dauerbetrieb/Anzeigeaktivierung bleiben IP-047. [Vertrag](paper-status-readmodel.md).
+IP-052 implementiert die freigegebene Q32-Paper-Tagesbasis aus Mitternachts-H4-Schlusskursen und vorherigen Mengen/Cash.6%/8%, RSI14/Wilder-Einstiege und echte Quote-Fills unverändert. Fehlende Belege sperren Käufe; Dauerbetrieb/Anzeigeaktivierung bleiben IP-047. [Vertrag](paper-midnight-basis.md).
 
 IP-046: Drei Jahre BTC/ETH-H4 werden im vorhandenen deterministischen
 Researchworkflow ausgewertet; ein weiterer Jahresabschnitt ist ausschließlich

@@ -1,6 +1,6 @@
 # Lokale Compose-Entwicklung
 
-IP-051 ergänzt die standardmäßig ausgeschalteten Flags `API_PAPER_STATUS_PREVIEW` und `COCKPIT_PAPER_STATUS_PREVIEW` für den eigenen Paperstatus/Journal.011 ausschließlich Fixture-DB, normale DB007; Default Compose und öffentliche Dienste unverändert. Dauerbetrieb/Tagesbaseline und Anzeigeaktivierung bleiben offen. [Abnahme und Grenzen](../docs/paper-status-readmodel.md).
+IP-052 ergänzt die freigegebene Paper-Mitternachtsmodellbewertung, vor neuen Quotes/Fills gespeichert.012 ausschließlich Fixture-DB, normale DB007; Default Compose/öffentliche Dienste und ausgeschaltete API/Cockpit-Anzeigeflags unverändert. Dauerbetrieb/Anzeigeaktivierung bleiben offen. [Abnahme und Grenzen](../docs/paper-midnight-basis.md).
 
 Aktueller Researchstand IP-046: reale BTC/ETH-H4-Fenster2022-08-01–2025-08-01
 mit jeweils6.576 Kerzen sind für das bestehende Cockpit verfügbar. Separate

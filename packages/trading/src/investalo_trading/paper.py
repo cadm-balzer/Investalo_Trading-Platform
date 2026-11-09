@@ -1,16 +1,18 @@
 """Incremental simulated execution; the caller commits state and journal atomically."""
 from __future__ import annotations
 
-from dataclasses import dataclass
-from datetime import datetime
+from dataclasses import dataclass, replace
+from datetime import datetime, timedelta
+from decimal import Decimal
 import json
 
-from .models import Candle, DomainEvent, EngineState, Fill, Quote, TradingRejected, utc
+from .models import Candle, DomainEvent, EngineState, Fill, Quote, TradingRejected, precise, utc
 from .simulator import PaperSimulator
 from .snapshot import _decode, digest, primitive
 
 MAX_CHECKPOINT_BYTES = 16 * 1024 * 1024
 SCHEMA = "paper-checkpoint/1"
+DAY_POLICY = "paper-h4-close/1"
 
 
 @dataclass(frozen=True)
@@ -72,10 +74,22 @@ class PaperRunner:
                 raise ValueError("unexpected initial journal")
         elif (entry is None or entry.revision != checkpoint.revision
               or entry.at != checkpoint.observed_at
-              or entry.input_kind not in ("quote", "bar")
+              or entry.input_kind not in ("quote", "bar", "day")
               or len(entry.input_digest) != 64
               or any(c not in "0123456789abcdef" for c in entry.input_digest)):
             raise ValueError("paper journal binding differs")
+        if entry is not None and entry.input_kind == "day":
+            if (entry.fills or len(entry.events) != 1
+                    or entry.events[0].kind != "daily_baseline_model"
+                    or entry.events[0].symbol != ""
+                    or entry.events[0].reference != str(account.trading_day)):
+                raise ValueError("paper day binding differs")
+            evidence = json.loads(entry.events[0].reason)
+            if (evidence.get("policy") != DAY_POLICY or digest(evidence) != entry.input_digest
+                    or evidence.get("cash") != str(account.cash)
+                    or evidence.get("quantities") != [str(b.quantity) for b in checkpoint.state.baskets]
+                    or evidence.get("equity") != str(account.day_start_equity)):
+                raise ValueError("paper day evidence differs")
 
     def _clock(self, checkpoint: PaperCheckpoint, now: datetime) -> datetime:
         now = utc(now)
@@ -84,9 +98,52 @@ class PaperRunner:
         return now
 
     def _update(self, old: PaperCheckpoint, state: EngineState, now: datetime,
-                kind: str, value: Quote | Candle, fills=(), events=()) -> PaperUpdate:
+                kind: str, value: object, fills=(), events=()) -> PaperUpdate:
         entry = PaperJournalEntry(old.revision + 1, now, kind, digest(value), fills, events)
         return PaperUpdate(PaperCheckpoint(state, old.cost_digest, entry.revision, now, entry), entry)
+
+    @precise
+    def day(self, checkpoint: PaperCheckpoint, bars: tuple[Candle, ...], *,
+            now: datetime) -> PaperUpdate:
+        """Freeze the current UTC day's modeled basis before post-midnight inputs.
+
+        No quote, indicator, signal, fill or halt changes. Old inventory is usable
+        only when the last saved input predates midnight; no hindsight repair.
+        """
+        self.validate(checkpoint)
+        now = self._clock(checkpoint, now)
+        midnight = now.replace(hour=0, minute=0, second=0, microsecond=0)
+        if checkpoint.state.account.trading_day == now.date():
+            return PaperUpdate(checkpoint)
+        if checkpoint.state.account.trading_day > now.date():
+            raise TradingRejected("paper_day_regressed")
+        if checkpoint.observed_at >= midnight:
+            raise TradingRejected("paper_midnight_inventory_unavailable")
+        if (tuple(b.symbol for b in bars) != self.simulator.engine.config.symbols
+                or any(b.close_time != midnight or b.open_time != midnight-timedelta(hours=4)
+                       for b in bars)):
+            raise TradingRejected("paper_midnight_bars_required")
+        # A previously committed boundary bar must still have identical bytes.
+        for bar in bars:
+            key = f"{bar.symbol}:{bar.open_time.isoformat()}"
+            prior = next((value for name, value in checkpoint.state.processed_bars
+                          if name == key), None)
+            if prior is not None and prior != digest(bar):
+                raise TradingRejected("out_of_order_or_revised_candle")
+        state = checkpoint.state
+        baseline = state.account.cash + sum(
+            (state.basket(b.symbol).quantity*b.close for b in bars), Decimal(0))
+        evidence = {
+            "policy": DAY_POLICY, "cash": str(state.account.cash),
+            "quantities": [str(state.basket(b.symbol).quantity) for b in bars],
+            "bars": primitive(bars), "bar_digests": {b.symbol: digest(b) for b in bars},
+            "equity": str(baseline),
+        }
+        state = replace(state, account=replace(state.account, trading_day=now.date(),
+                                              day_start_equity=baseline))
+        event = DomainEvent("daily_baseline_model", "", str(now.date()),
+                            json.dumps(evidence, sort_keys=True, separators=(",", ":")))
+        return self._update(checkpoint, state, now, "day", evidence, events=(event,))
 
     def quote(self, checkpoint: PaperCheckpoint, quote: Quote, *, now: datetime) -> PaperUpdate:
         self.validate(checkpoint)
@@ -101,11 +158,7 @@ class PaperRunner:
             raise TradingRejected("paper_quote_not_fresh")
         transition = self.simulator.engine.on_quote(checkpoint.state, quote, now=now)
         state = transition.state
-        # A missing midnight baseline blocks buys; never infer it after a gap.
-        if (now == quote.observed_at and now.hour == now.minute == now.second == now.microsecond == 0
-                and all(not b.quantity or state.quote(b.symbol).observed_at == now
-                        for b in state.baskets)):
-            state = self.simulator.engine.reset_day(state, now)
+        # Daily model valuation is a separate committed input, never a quote.
         state, fills, events = self.simulator.settle(
             state, now, symbols=(quote.symbol,), require_later_buy_quote=True,
         )

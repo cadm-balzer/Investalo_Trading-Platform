@@ -3,11 +3,11 @@ import { decimal } from "./backtest-contracts.ts";
 export type PaperPosition = { symbol: "BTCUSDT" | "ETHUSDT"; quantity: string; average_price: string | null; protected: boolean; risk_stopped: boolean };
 export type PaperSnapshot = {
   revision: number; observed_at: string; cash: string; equity: string | null; valuation_fresh: boolean;
-  trading_day: string; day_start_equity: string; daily_baseline_ready: boolean; halted: boolean; positions: PaperPosition[];
+  trading_day: string; day_start_equity: string; daily_baseline_ready: boolean; day_basis_model: boolean; halted: boolean; positions: PaperPosition[];
 };
 export type PaperAccount = {
   id: string; name: string; status: "ready" | "paused" | "disconnected"; snapshot: PaperSnapshot | null;
-  journal: { revision: number; at: string; input_kind: "quote" | "bar"; fill_count: number; messages: string[] }[];
+  journal: { revision: number; at: string; input_kind: "quote" | "bar" | "day"; fill_count: number; messages: string[] }[];
 };
 export type PaperStatus = { schema_version: "paper-status/1"; mode: "paper"; live_enabled: false; tenant_id: string; accounts: PaperAccount[] };
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
@@ -39,7 +39,7 @@ export function parsePaperStatus(value: unknown, tenantId: string): PaperStatus 
       const s = a.snapshot;
       if (!object(s) || !integer(s.revision) || !time(s.observed_at) || !amount(s.cash) ||
           !(s.equity === null || amount(s.equity)) || !amount(s.day_start_equity) ||
-          !bool(s.valuation_fresh) || !bool(s.daily_baseline_ready) || !bool(s.halted) ||
+          !bool(s.valuation_fresh) || !bool(s.daily_baseline_ready) || !bool(s.day_basis_model) || !bool(s.halted) ||
           typeof s.trading_day !== "string" || !/^\d{4}-\d\d-\d\d$/.test(s.trading_day) ||
           !Array.isArray(s.positions) || s.positions.length !== 2) return reject();
       const positions: PaperPosition[] = s.positions.map((p: unknown, i: number) => {
@@ -49,12 +49,12 @@ export function parsePaperStatus(value: unknown, tenantId: string): PaperStatus 
       });
       snapshot = { revision: s.revision, observed_at: s.observed_at, cash: s.cash, equity: s.equity,
         valuation_fresh: s.valuation_fresh, trading_day: s.trading_day, day_start_equity: s.day_start_equity,
-        daily_baseline_ready: s.daily_baseline_ready, halted: s.halted, positions };
+        daily_baseline_ready: s.daily_baseline_ready, day_basis_model: s.day_basis_model, halted: s.halted, positions };
     }
     let previous = snapshot ? snapshot.revision+1 : 0;
     const journal = a.journal.map((j: unknown) => {
       if (!object(j) || !integer(j.revision) || j.revision <= 0 || j.revision >= previous || !time(j.at) ||
-          !["quote", "bar"].includes(j.input_kind) || !integer(j.fill_count) || j.fill_count > 20 ||
+          !["quote", "bar", "day"].includes(j.input_kind) || !integer(j.fill_count) || j.fill_count > 20 ||
           !Array.isArray(j.messages) || j.messages.length > 100 ||
           !j.messages.every((m: unknown) => typeof m === "string" && m.length <= 100)) return reject();
       previous = j.revision;

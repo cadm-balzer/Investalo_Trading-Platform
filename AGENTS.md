@@ -87,7 +87,7 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   onboarding checkpoint `69a1f8b` merged into main, verified at `56070ba`;
   step-up checkpoint `d57bd56` merged into main, verified at `b6198f7`;
   registry checkpoint `6a18102` merged into main, verified at `f422a90`;
-  current work branch: `feat/m1-paper-status-readmodel`.
+  current work branch: `feat/m1-paper-midnight-baseline`.
   Isolated AEAD core: `packages/credentials/README.md`, 20 offline tests with
   pinned cryptography and a separate hardened Compose check.
   Credential store: `services/credentials/README.md`; migration003 and current
@@ -430,10 +430,30 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   (37 actual PG/API),16 Cockpit contract/SSR panel tests, typecheck/pinned build
   and scoped independent review passed. No new dependencies/broad credential
   repeats. Existing public containers unchanged/healthy, cockpit TLS200.
-  Q32 pending: explicitly modeled H4 midnight daily valuation requires user
-  approval before changing the risk price basis. Existing missing-baseline buy
-  block remains. IP-047/BL-028 continuous operation/activation still open.
+  Q32 was pending at this checkpoint; approved and implemented by IP-052 below.
+  IP-047/BL-028 continuous operation/activation still open.
   Contract: docs/paper-status-readmodel.md.
+- IP-051 checkpoint05ea009 merged into main5d5c61e (verified).
+  User explicitly approved Q32 H4-close midnight Paper model valuation and
+  reminded RSI relevance. IP-052 adds day input paper-h4-close/1 before any
+  new-day quote/fill. Prior persisted cash/inventory, exact BTC/ETH midnight
+  bars, committed evidence and replay-stable baseline; no retroactive repair
+  of already changed post-midnight inventory. Missing evidence blocks buys.
+  RSI14/Wilder closed-H4 automatic entry/rearm rules,6%/8%, real quote fills,
+  protection and latched halts unchanged. Manual sixth-stage Q29 unchanged.
+  Historical simulator/frozen Research results unchanged. No competing Paper
+  quote-driven day reset.012 guards frozen midnight candle digests across
+  restart and exposes model label through default-off status API/Cockpit.
+  Fully rolled-back actual writer/replay preflight and scoped review passed;
+  012 applied ONLY to fixture, now immutable SHA256:
+  b79857a01fa9eba1dbac5d9d46a10432723b4bd97e2b9ad89ca47c1198b2fa0a.
+  Normal007/fixture012; no new dependencies/normal migration/public activation.
+  190 distinct targeted Python/PG cases/48subtests passed (43 actual PG/API):
+  full189 plus corrected invalid test OHLC/targeted3;17 Cockpit SSR/contracts
+  and typecheck/pinned Cockpitbuild passed. Normal007/fixture012/all hashes
+  verified; existing public containers unchanged/healthy/cockpit TLS200.
+  Continuous service still gated on operational
+  acceptance; bounded once/cycles remain. Contract: docs/paper-midnight-basis.md.
   Public six services unchanged/Cockpit TLS200; one-off fixtures stopped.
   Tests rebind fixed investalo_paper_tests LOGIN: prepare a new fixture/env after tests,
   never blindly reuse older account configuration. Next IP-047: safe daily

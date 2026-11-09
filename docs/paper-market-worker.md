@@ -85,8 +85,10 @@ Alle Einmalcontainer beendet; sechs bestehende Dienste unverändert,
 Cockpit weiterhin gültiges TLS/HTTP200.
 
 Fortsetzung IP-051: [tenantgebundene Paperstatus-/Journalanzeige](paper-status-readmodel.md)
-implementiert und standardmäßig ausgeschaltet; Fixture inzwischen011.
-Nächstes IP-047: Q32 zur Tagesbewertung, eigene dauerhafte
-Entwicklungsprovisionierung und sichere Betriebs-/Anzeigeaktivierung.
+implementiert und standardmäßig ausgeschaltet. IP-052 ersetzt die
+historisch beschriebene exakte Quote-Baseline durch die freigegebene
+[H4-Mitternachtsmodellbewertung](paper-midnight-basis.md); Fixture inzwischen012.
+Nächstes IP-047: eigene dauerhafte Entwicklungsprovisionierung und sichere
+Betriebs-/Anzeigeaktivierung.
 Referenzen: [Ticker](https://www.bitget.com/legacy-docs/uta/public/Tickers),
 [aktuelle Kerzen](https://www.bitget.com/legacy-docs/uta/public/Get-Candle-Data).
