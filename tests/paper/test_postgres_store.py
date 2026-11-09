@@ -6,6 +6,7 @@ from decimal import Decimal
 import json
 import os
 from uuid import uuid4
+from urllib.parse import parse_qs, urlsplit
 
 import psycopg
 from psycopg.rows import dict_row
@@ -16,6 +17,8 @@ from investalo_trading import Candle, PaperRunner, Quote
 from investalo_workers.paper_store import (
     PaperCommitUnknown, PaperConflict, PaperStorageRejected, PaperStore, checksum,
 )
+from investalo_marketdata.paper_feed import BitgetPaperFeed, H4, boundary
+from investalo_workers.paper_worker import PaperWorker, WARMUP_BARS
 
 START = datetime(2026, 1, 1, tzinfo=timezone.utc)
 D = Decimal
@@ -303,3 +306,49 @@ def test_actual_runner_fill_restart_and_duplicate_durable(context):
     duplicate = context["runner"].quote(restarted, q, now=at)
     assert context["store"].commit(restarted, duplicate) == persisted
     assert len(journal(context)) == 33
+
+
+def test_public_feed_contract_to_real_sql_worker_restart_has_one_simulated_fill(context):
+    now = datetime(2026, 1, 9, 12, 0, 10, tzinfo=timezone.utc)
+    start = boundary(now)-WARMUP_BARS*H4
+    clock = [now]
+
+    def response(url):
+        query = parse_qs(urlsplit(url).query)
+        symbol = query["symbol"][0]
+        if urlsplit(url).path.endswith("tickers"):
+            value = "60" if symbol == "BTCUSDT" else "100"
+            return {"code": "00000", "data": [{
+                "category": "SPOT", "symbol": symbol, "bid1Price": value,
+                "ask1Price": value, "ts": str(int((clock[0]-timedelta(seconds=1)).timestamp()*1000)),
+            }]}
+        requested = datetime.fromtimestamp(int(query["startTime"][0])/1000, timezone.utc)+H4
+        rows = []
+        while requested < boundary(clock[0]):
+            index = (requested-start)//H4
+            opened = D(100-index) if symbol == "BTCUSDT" else D(100)
+            closed = opened-1 if symbol == "BTCUSDT" else opened
+            rows.append([str(int(requested.timestamp()*1000)), str(opened), str(opened),
+                         str(closed), str(closed), "1", "100"])
+            requested += H4
+        return {"code": "00000", "data": rows}
+
+    # Fixed synthetic receipt clock; same public parser and actual restricted PG LOGIN.
+    class Feed(BitgetPaperFeed):
+        def quote(self, symbol, **kwargs):
+            return super().quote(symbol, now=clock[0])
+
+    feed = Feed(response)
+    worker = PaperWorker(context["runner"], context["store"], feed, lambda: clock[0])
+    first = worker.run_once()
+    assert first.updates == 82 and first.fills == 0
+    assert any(order.unresolved for order in context["store"].read().state.orders)
+    clock[0] += timedelta(seconds=3)
+    second = worker.run_once()
+    assert second.fills == 1
+    restarted = PaperWorker(context["runner"], context["store"], feed, lambda: clock[0])
+    third = restarted.run_once()
+    assert third.updates == third.fills == 0
+    restored = context["store"].read()
+    assert len(restored.state.processed_fills) == 1
+    assert len(journal(context)) == 84

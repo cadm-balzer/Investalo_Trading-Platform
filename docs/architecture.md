@@ -1,6 +1,6 @@
 # Architektur und Stack
 
-IP-049 verbindet den gebundenen PaperRunner mit einem atomaren PostgreSQL-Writer: Revision-/Checksum-CAS, append-only Journal und eigene SESSION_USER-Kontobindung.010 ausschließlich in der Testdatenbank; laufender Feed/Worker und Cockpit bleiben IP-047. [Vertrag](paper-postgres-store.md).
+IP-050 verbindet den öffentlichen Spotfeed mit dem gebundenen PaperRunner und atomaren PostgreSQL-Store. Separate Fixture-Egressbridge/LOGIN, keine Hostports, Keys oder Migration. Begrenzte Workerzyklen tatsächlich geprüft; Tageswechsel-Dauerbetrieb und Cockpit bleiben IP-047. [Vertrag](paper-market-worker.md).
 
 IP-046: Drei Jahre BTC/ETH-H4 werden im vorhandenen deterministischen
 Researchworkflow ausgewertet; ein weiterer Jahresabschnitt ist ausschließlich

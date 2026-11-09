@@ -816,3 +816,28 @@ Keine Builds/Dependencies/öffentliche Dienstneuerstellung; Cockpit TLS200.
 Kostenpräferenz bleibt: gezielte Checks, keine breiten Auth-Regressionsläufe.
 IP-047 nächster Schritt Marktfeed/laufender Worker/Cockpitanzeige.
 [Speichervertrag](../paper-postgres-store.md).
+
+## 2026-11-09 — D-054: Öffentlicher Feed und begrenzte Paperworkerabnahme
+
+Nutzer bestätigt IP-049-Merge; e0cfb45 in Main1a805e5 verifiziert.
+IP-050 bindet echte unsignierte BTC/ETH-Spotquotes und geschlossene H4-Kerzen
+an denselben Runner/Store.40 Vorlaufkerzen pro Asset, danach lückenlose
+Fortsetzung mit revidiertem Overlapcheck; keine historischen Fills.
+Realer aktueller Kerzenendpunkt schließt startTime aus: ein vorheriges Intervall
+anfragen und Sollabdeckung weiter streng prüfen, keine Strategieänderung.
+Konflikt/Fehler => frisches Readback und neue Daten; Unknowncommit beendet
+Prozess sofort. Eingeschränkter synthetischer LOGIN/Fixture010, eigene
+Entwicklungs-Egressbridge ohne Hostports, keine Admin-/Brokercredentials.
+
+Drei tatsächliche öffentliche Feedzyklen committed82/84/86, Prozessneustart88;
+zero fills, kein Profitabilitätsbeleg.151 gepinnte Tests/48 Subtests mit30 echten
+PG-Fällen; integrierter synthetischer Signal-/Fill-/Restartfall genau einmal.
+Review ohne Blocker für begrenzte Abnahme. Exakte Mitternachtsbaseline aus
+bestehendem Runner wird durch REST-Polling nicht zuverlässig erreicht.
+Neue Käufe bleiben folglich gesperrt; Dauerbetrieb im CLI ausdrücklich
+abgewiesen, nur --once/--cycles1..100. BL-028 verfolgt sichere Tageswechsel-
+und Betriebsabnahme. Keine nachträglich erfundene Equity oder Risikowechsel.
+Keine Migration/Build/Dependency, normal007/Fixture010-Prüfsummen unverändert.
+Einmalcontainer beendet, sechs öffentliche Dienste unverändert/TLS200.
+Nächstes IP-047: sichere Tagesbaseline, dauerhafte Entwicklungsidentität und
+Paperstatus-/Journalanzeige. [Vertrag](../paper-market-worker.md).

@@ -1,5 +1,10 @@
 # H4 research snapshots
 
+IP-050 adds `paper_feed.py`: fixed unsigned SPOT ticker/current-candle GETs,
+real bid/ask, closed UTC H4 coverage and freshness. Existing research history
+contract unchanged. Actual public BTC/ETH check passed; only bounded fixture
+Paperworker accepted. [Feed/worker contract](../../docs/paper-market-worker.md).
+
 Stdlib-only package. Add `packages/marketdata/src` and `packages/trading/src`
 to `PYTHONPATH`. No exchange account, key, paid feed, strategy optimization or
 automatic holdout evaluation is included.

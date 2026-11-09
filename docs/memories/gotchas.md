@@ -501,3 +501,17 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   Fixture jetzt010. Read-only-Ledgerchecker muss beide Stände explizit prüfen.
   Keine normale Migration als Reparatur für Fixturetests; angewendete010
   unveränderlich. Journaltests behalten append-only synthetische Historie.
+
+- **Bitget Current-Candles hat andere Startgrenze als History:** Reale
+  SPOT-Abfrage ließ startTime-Kerze aus. Ein vorheriges H4-Intervall anfragen,
+  auf exakte geschlossene Sollabdeckung normalisieren; fehlende Kerzen nie
+  synthetisieren. Tickerzeit erst nach HTTP-Empfang auf Zukunft/Frische prüfen.
+
+- **Paper-REST-Polling liefert keine exakte Mitternachtsbaseline:** Runner
+  verlangt identische exakte00:00-Quote-/Verarbeitungszeit. Fünf-Sekunden-Loop
+  erfüllt das nicht zuverlässig; neue Käufe bleiben daily_baseline_required.
+  Dauerbetrieb bis BL-028 gesperrt. Keine aktuelle Equity als Tagesstart erfinden.
+
+- **Paperchecks teilen einen festen Fixture-LOGIN:** PG-Tests ändern dessen
+  Kontobindung. Nach Tests neue Public-Feed-Fixture/Env vorbereiten; ältere
+  Env-UUIDs nicht blind nutzen. Keine Normal-/Research-/Runtimebindung ändern.

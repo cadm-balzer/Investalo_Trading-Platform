@@ -293,3 +293,17 @@ with readonly current source/tests and protected Paper test secret.
 78tests/15subtests,29actualPG; log `/tmp/investalo-paper-postgres-tests.log`
 mode0600. Sanitize connection failures; pytest traces can expose conninfo.
 No builds, host ports, daemon, public recreate or real credentials.
+
+## IP-050 bounded public-feed worker
+
+Read-only actual venue check: `python3 infra/scripts/check-public-paper-feed.py`.
+Focused pinned suite: `bash infra/scripts/check-paper-storage.sh`
+(151tests/48subtests,30actualPG). Log `/tmp/investalo-paper-feed-tests.log`.
+Then `python3 infra/scripts/prepare-paper-feed-check.py` creates one fixture
+account/binding and prints its protected infra/local/paper-feed-UUID.env.
+Use this as additional --env-file, plus --file infra/compose.paper-checks.yaml,
+--profile paper-checks run --rm --no-deps -T paper-fixture.
+Default command --once; optionally python -m investalo_workers.paper_main
+--cycles 3. No indefinite runs until BL-028 daily baseline.
+PG tests rebind same synthetic LOGIN; prepare new fixture/env after tests.
+Real run82/84/86, new process88; zero fills. All one-offs stopped.

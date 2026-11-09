@@ -1,6 +1,6 @@
 # Offline-Researchworker
 
-IP-049 ergänzt `paper_store.py`: eigene LOGIN-Prüfung, frische Transaktionen, atomarer Checkpoint-/Journalcommit und Readback bei unbekanntem Commit.29 tatsächliche PostgreSQL-Fälle bestanden;010 nur Testdatenbank. Der gestartete Worker bleibt Offline-Research; Paperfeed/Daemon folgt in IP-047. [Vertrag](../../docs/paper-postgres-store.md).
+IP-050 ergänzt `paper_worker.py`/`paper_main.py`: eigener öffentlicher Spotfeed, geschlossener H4-Vorlauf, gespeicherter Zustand und atomarer Journalwriter. Nur `--once`/`--cycles 1..100`, explizite Aktivierung und eigene Paper-LOGIN-/Kontobindung. Fehlende Tagesbaseline bleibt Kaufgate; Dauerbetrieb offen. Reale Fixturezyklen/Neustart geprüft, normaler gestarteter Worker weiterhin Offline-Research. [Papervertrag](../../docs/paper-market-worker.md).
 
 Start: `python -m investalo_workers.main`, einmaliger Zyklus mit `--once`.
 `PYTHONPATH` enthält `services/workers/src`, `services/api/src`,

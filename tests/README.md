@@ -1,6 +1,6 @@
 # Verifikation
 
-IP-049: `bash infra/scripts/check-paper-storage.sh` prüft29 tatsächliche PostgreSQL-Fälle plus45 Trading-/vier Workerberechnungsfälle:78 Tests/15 Subtests bestanden. Atomarer Rollback, Konkurrenz, unbekannte Commits, DB-Restore ohne Doppelfill und Rechte geprüft. Bestehendes Checkimage; keine Builds/Downloads oder erneuten breiten HTTP-/Credentialläufe. [Vertrag](../docs/paper-postgres-store.md).
+IP-050: `bash infra/scripts/check-paper-storage.sh` bestand151 Tests/48 Subtests:30 echte PG-Fälle,18 Paperworkertests,54 Marktdata,45 Trading und vier Workerberechnungen. Feedparser bis restricted SQL, Restart mit einem Fill, falsche/stale/gap/revised Daten, Tageswechsel-/Startgate geprüft. Öffentlicher Vier-Abfragen-Check und begrenzter realer Worker separat bestanden. Keine breiten HTTP-/Credentialwiederholungen. [Vertrag](../docs/paper-market-worker.md).
 
 IP-046:15 neue Fenster-/CLI-Tests prüfen Mehrjahrespartition, Leap Year,
 Lücken, Zeitgrenzen, unveränderte Preise/Provenienz und Create-only-Ausgaben.

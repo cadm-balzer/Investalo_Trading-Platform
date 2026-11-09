@@ -59,8 +59,19 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-047 | P1 / P3–P4 | IN_PROGRESS | Persistenten Crypto-Paperablauf mit Risk Gate und Journal umsetzen | Nutzerpriorität Trading; IP-012/046. Derselbe Strategiekern, getrennte simulierte Konten/Orders/Fills, geschlossene H4-Signale, Crash/Replay ohne Doppelfill und sichtbarer Paperstatus; keine privaten Brokerkeys oder Echtgeld |
 | IP-048 | P1 / P3–P4 | DONE | Schrittweisen wiederherstellbaren Paperkern mit Journalvertrag ergänzen | Mainmergeeb62176/dd1903b geprüft;14 neue Runnerfälle,84 gepinnte gezielte Tests/48 Subtests. Frische spätere Quotes, keine doppelten Fills/automatischen manuellen Einstiege. PostgreSQL-Writer und laufender Feed/Cockpit bleiben IP-047 |
 | IP-049 | P1 / P3–P4 | DONE | Paperzustand und Journal atomar in PostgreSQL speichern | Mergefe6309a in Maindc60c19 verifiziert; eigene SESSION_USER-Kontobindung, CAS und gemeinsamer Commit/Readback.78 gepinnte Tests/15 Subtests,29 tatsächliche PG-Fälle und Review grün;010 nur Fixture-DB. Feedworker/Cockpit bleiben IP-047 |
+| IP-050 | P1 / P3–P4 | DONE | Öffentlichen Spotfeed und begrenzten Paperworker verbinden | Mergee0cfb45 in Main1a805e5 verifiziert; BTC/ETH-H4 plus echte Bid/Ask, persistierte Zyklen82/84/86 und Neustart88.151 Tests/48 Subtests,30 echte PG-Fälle; begrenzte Fixtureabnahme/Review grün. Tageswechsel/Dauerbetrieb und Cockpit bleiben IP-047 |
 
 ## Abschlussbelege
+
+IP-050:151 gepinnte Tests/48 Subtests,30 echte PostgreSQL-Fälle bestanden.
+Öffentlicher Feedcheck je40 geschlossene H4 und frische echte Quotes.
+Isolierter Worker committed drei Zyklen82/84/86, Prozessneustart88;
+keine historischen Fills. Synthetischer Signal-/Fill-/Restartfall über
+Feedparser/SQL erzeugt genau einen Fill. Review grün für begrenzte Abnahme.
+CLI sperrt Dauerbetrieb bis sichere Tagesbaseline geklärt ist.
+Keine Migration/Build/Dependency, normal007/Fixture010 unverändert.
+Alle Einmalcontainer beendet, bestehende Dienste/Cockpit TLS200.
+[Vertrag und verbleibende Betriebsgates](../paper-market-worker.md).
 
 IP-049:78 gezielte gepinnte Tests/15 Subtests bestanden, davon29 tatsächliche
 PostgreSQL-Fälle. Konkurrenz, atomarer Rollback, verlorene Commitantwort und
