@@ -563,3 +563,11 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   synthetischen Cutoff ausdrücklich aktuell. Fehler blieb vollständig rollback.
 - **Existing-role Prepared-Recovery ist Verify, kein Repair:** vor GRANTs alle
   bestehenden Rechte/Bindungen prüfen; verlorene Commitantwort erst lesen.
+- **Mehr Baskets vergrößern kein gemeinsames Risikobudget:** voll zugeordnetes
+  Kaufprincipal mit korrelierter5%-Staffel verliert im −50%-Beispiel nach fünf
+  regulären Stufen31,49% des Kontos, vor Kosten.6%/8% bleiben nach Q33 bindend;
+  geplante Budgets, reservierte Stufen und tatsächliche Käufe getrennt prüfen.
+- **KI-Backtest braucht damaliges Wissen:** datierte News allein entfernen
+  keine Zukunftskenntnis heutiger Modelle. Ohne rekonstruierbare damalige
+  Wissensgrenze prospektiven Shadow-/Papernachweis verlangen. Alternative.me
+  Fear & Greed ist Bitcoinkontext, kein coinspezifischer Altcoinindikator.

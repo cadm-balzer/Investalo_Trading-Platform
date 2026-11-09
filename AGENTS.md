@@ -510,6 +510,31 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   own bounded preview observation; BL-028 midnight/Egress/quota/retention/recovery.
   Contract: docs/paper-preview-integration.md. Keep cost-sensitive scoped work.
 
+- IP-054 checkpoint b48be7d merged into main 2a9efe0 (verified).
+  User accepts the visible Cockpit progress and asks to prioritize planned
+  strategy fine-tuning because absolute returns are small. IP-013 first
+  diagnoses exposure/capital use, RSI entries, exits, costs and a comparable
+  benchmark, then bounded chronological candidate validation. Stored IP-046
+  research spans three years: BTC +132.63 / ETH +96.09 USDT per separate
+  10,000-USDT account (~1.33% /0.96% total). No invested-capital return or
+  independent profitability proof inferred. Holdout stays sealed until frozen
+  selection; this request does not approve changing strategy/budgets/risk.
+  Plan: docs/long-history-backtests.md#geplantes-feintuning.
+
+- Q33 (2026-11-09): user plans 3–5 different crypto baskets concurrently,
+  full account capital allocation and later AI evaluation after RSI signals.
+  On explicit follow-up user confirms daily6% / initial8% remain binding.
+  Allocation is not full investment authority; shared equity/reservations/
+  portfolio risk can prevent stages or close baskets early. IP-055 prepares
+  joint portfolio research, not an addition of separate asset simulations.
+  Additional assets, exact budgets/reservation/priority rules remain to be
+  specified. Current BTC/ETH500+5 spot profile and immutable results unchanged.
+  AI market phase/Fear & Greed/news/halving context first in shadow mode with
+  as-of information, versioned decisions and bounded token costs. Variable
+  leverage/fewer stages are future candidates needing separate validated
+  strategy/margin rules; no AI override of limits or delay of protection.
+  Plan: docs/multi-basket-ai-plan.md; D-059 / BL-029 / IP-021/022/055.
+
 ## Trading and implementation invariants
 
 - Profitability is a measurable research objective, never a guarantee.

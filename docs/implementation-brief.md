@@ -1,9 +1,17 @@
 # Bestätigter M1-Umfang und Umsetzungsstand
 
-Stand 2026-11-07. Sachentscheidungen Q1–Q30 und Abschlussbestätigung Q31
+Stand 2026-11-09. Sachentscheidungen Q1–Q30 und Abschlussbestätigung Q31
 sind bestätigt. Der Nutzer beauftragt ausdrücklich den Umsetzungsstart.
 Dieser Stand bündelt die bestätigte Planung; lokale M1-Implementierung begonnen.
 Entscheidungsverlauf: [interview.md](interview.md).
+
+Q33 ergänzt die Planung für3–5 gleichzeitige Coinbaskets und spätere
+KI-Prüfung von RSI-Signalen. Volle Kontokapitalzuordnung wird von tatsächlicher
+Investition getrennt;6%/8%-Kontolimits bleiben ausdrücklich bindend.
+Gemeinsamer Portfolio-Research folgt IP-055. Größere konkrete Kaufbudgets,
+zusätzliche Coins und Hebel/variable Stufen sind noch festzulegen/validieren;
+das bisherige Entwicklungsprofil bleibt unverändert.
+[Portfolio- und KI-Plan](multi-basket-ai-plan.md).
 
 Das erste lokale Fundament umfasst gepinnte Compose-Dienste, HTTPS,
 MFA/OIDC-BFF, DB-Mandantenisolation, ein Cockpit mit ehrlichen Leerzuständen

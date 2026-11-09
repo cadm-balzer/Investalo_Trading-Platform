@@ -134,3 +134,32 @@ Paperzustand, simulierte Fills, Risikogates und Journal mit bestehendem Kern.
 
 Quelle erneut geprüft2026-11-08:
 [Bitget V3 History-Candles](https://www.bitget.com/docs/catalog/market/market-data#get-klinecandlestick-history).
+
+## Geplantes Feintuning
+
+Nutzerhinweis2026-11-09: positive Kurven sind sichtbar, der absolute Ertrag ist
+zu gering; Feintuning soll im Forschungsplan konkret berücksichtigt werden.
+Die oben gespeicherten Dreijahresresultate entsprechen rund1,33% BTC bzw.0,96%
+ETH auf jeweils10.000 USDT Anfangskapital, nicht pro Jahr. Pro Basket sind
+500 USDT Principal plus5 USDT Kostenreserve vorgesehen; stufenweise Einstiege und
+manuelle Reserve begrenzen die tatsächlich investierte Summe weiter.
+Geringe Exposition kann Kontorendite und Drawdown gemeinsam niedrig halten.
+Eine Rendite auf eingesetztes Kapital wurde damit noch nicht berechnet.
+
+IP-013 untersucht zuerst Kapitalbindung über die Zeit, Signal-/Einstiegshäufigkeit,
+Haltedauer, Ausstiege und Kostenanteil. Kontorendite und eine ausdrücklich
+definierte Kennzahl zum eingesetzten Kapital werden getrennt ausgewiesen.
+Buy-and-hold mit vergleichbarer Kapitalbasis dient als Referenz; bloß höhere
+Positionsgrößen sind kein Nachweis einer besseren Strategie.
+
+Anschließend folgen begrenzte deterministische Kandidatenvergleiche auf
+chronologischen Trainings-/Validierungsfenstern mit protokolliertem Suchraum,
+Kostenstress und Stichprobenkontext. RSI bleibt für die automatischen Einstiege
+maßgeblich. Änderungen an bestätigten RSI-, Stufen-, Schutz- oder Budgetregeln
+benötigen eine konkrete Nutzerentscheidung. Harte Risikogrenzen gelten weiter.
+Der reservierte Holdout bleibt bis zur eingefrorenen Auswahl unberührt.
+Dieser Plan verändert keine Handelsregeln oder gespeicherten Ergebnisse.
+
+Q33 ergänzt danach den [gemeinsamen3–5-Basketlauf](multi-basket-ai-plan.md)
+als IP-055: ein Konto statt addierter Einzelassetresultate, gemeinsame
+Kapitalreservierungen und weiterhin bindende6%/8%-Limits.
