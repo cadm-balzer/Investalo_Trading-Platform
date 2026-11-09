@@ -1,6 +1,6 @@
 # Lokale Compose-Entwicklung
 
-IP-053 ergänzt das lokale Profil `compose.paper-development.yaml`: feste Fixtureidentität, geschütztes Manifest, Singleton-Sitzung und höchstens24 Stunden für neue Zyklusstarts, ohne automatischen Neustart. Fixture012/normale DB007; Default Compose/öffentliche Dienste und Anzeigeflags unverändert. [Bedienung und Abnahme](../docs/paper-development-runtime.md).
+IP-054 aktiviert die lesende Paperanzeige über das zusätzliche `compose.paper-preview.yaml`, stets zusammen mit dem Public-Preview-Overlay. Eigene normale Paperidentität; beide DBs012, sensitive Aktionsrouten weiter aus. Nur API/Cockpit aktualisiert. [Bedienung/Rückfall](../docs/paper-preview-integration.md).
 
 Aktueller Researchstand IP-046: reale BTC/ETH-H4-Fenster2022-08-01–2025-08-01
 mit jeweils6.576 Kerzen sind für das bestehende Cockpit verfügbar. Separate

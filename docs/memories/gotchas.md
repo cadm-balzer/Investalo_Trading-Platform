@@ -550,3 +550,16 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   Abbruch. restart:no; sichere Wiederaufnahme nach Unknowncommit mit Readback.
   Zwei Quoteinputs/5s ergeben ca34.560 Journalzeilen/Tag. Logsbegrenzung ist keine
   DB-Retention; unveränderliche Journale nicht automatisch entfernen.
+
+- **Normale Entwicklungsdatenbank seit IP-054012:** alte007-Erwartungen sind
+  historische Belege. prepare-paper-preview-schema.py prüft beide012-Ledger.
+ 008/009-Credentialcapabilities existieren, HTTP-/Dienstgates bleiben aus.
+- **Anzeige braucht beide expliziten Overlays:** public-preview + paper-preview
+  und eigene paper_preview.env für API/Cockpitupdates. Nur Publicoverlay ist
+  Anzeige-Rückfall; keine Schema-/Bindungs-/Journalrücksetzung. Fixturekonto
+  nicht kopieren; normale eigene Paperidentität und --once separat.
+- **Alte OIDC-Zeit nur gegen tatsächlichen Reauthcutoff testen:** neue User
+  haben reauth_after1970 als Default; gestern ist dann gültig. Preflight setzt
+  synthetischen Cutoff ausdrücklich aktuell. Fehler blieb vollständig rollback.
+- **Existing-role Prepared-Recovery ist Verify, kein Repair:** vor GRANTs alle
+  bestehenden Rechte/Bindungen prüfen; verlorene Commitantwort erst lesen.

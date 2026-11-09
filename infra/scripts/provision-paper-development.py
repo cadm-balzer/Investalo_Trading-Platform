@@ -14,6 +14,8 @@ from uuid import UUID, uuid4
 
 ROLE = "investalo_paper_development"
 DATABASE = "investalo_credentials_checks"
+PREVIEW_ROLE = "investalo_paper_preview"
+PREVIEW_DATABASE = "investalo"
 
 
 def protected(path, uid, mode):
@@ -44,13 +46,14 @@ def manifest(value):
     return value
 
 
-def check_roles_sql():
+def check_roles_sql(preview=False):
+    role = PREVIEW_ROLE if preview else ROLE
     return f"""
 DO $$
 BEGIN
- IF EXISTS(SELECT FROM pg_roles WHERE rolname IN ('{ROLE}','investalo_paper_worker')
+ IF EXISTS(SELECT FROM pg_roles WHERE rolname IN ('{role}','investalo_paper_worker')
    AND (rolsuper OR rolbypassrls OR rolcreaterole OR rolcreatedb OR rolreplication
-     OR (rolname='{ROLE}' AND NOT rolcanlogin)
+     OR (rolname='{role}' AND NOT rolcanlogin)
      OR (rolname='investalo_paper_worker' AND rolcanlogin))) THEN
    RAISE EXCEPTION 'Paper role drift';
  END IF;
@@ -59,37 +62,40 @@ BEGIN
  END IF;
  IF EXISTS(SELECT FROM pg_auth_members m JOIN pg_roles r ON r.oid=m.member
    JOIN pg_roles p ON p.oid=m.roleid
-   WHERE (r.rolname IN ('{ROLE}','investalo_paper_worker')
+   WHERE (r.rolname IN ('{role}','investalo_paper_worker')
           AND (r.rolname='investalo_paper_worker' OR p.rolname<>'investalo_paper_worker'
                OR m.admin_option))
-     OR p.rolname='{ROLE}') THEN RAISE EXCEPTION 'Paper membership drift'; END IF;
+     OR p.rolname='{role}') THEN RAISE EXCEPTION 'Paper membership drift'; END IF;
 END $$;
 """
 
 
-def verify(sql, value):
+def verify(sql, value, *, preview=False):
+    role = PREVIEW_ROLE if preview else ROLE
+    database = PREVIEW_DATABASE if preview else DATABASE
+    foreign = DATABASE if preview else PREVIEW_DATABASE
     t, a = value["tenant"], value["account"]
-    sql(check_roles_sql(), "postgres")
+    sql(check_roles_sql(preview), "postgres")
     sql(f"""
 DO $$
 BEGIN
- IF NOT EXISTS(SELECT FROM pg_roles WHERE rolname='{ROLE}')
-   OR NOT pg_has_role('{ROLE}','investalo_paper_worker','MEMBER')
-   OR NOT has_database_privilege('{ROLE}','{DATABASE}','CONNECT')
-   OR has_database_privilege('{ROLE}','investalo','CONNECT') THEN
+ IF NOT EXISTS(SELECT FROM pg_roles WHERE rolname='{role}')
+   OR NOT pg_has_role('{role}','investalo_paper_worker','MEMBER')
+   OR NOT has_database_privilege('{role}','{database}','CONNECT')
+   OR has_database_privilege('{role}','{foreign}','CONNECT') THEN
    RAISE EXCEPTION 'Paper grants drift';
  END IF;
- IF has_schema_privilege('{ROLE}','platform','CREATE')
+ IF has_schema_privilege('{role}','platform','CREATE')
    OR EXISTS(SELECT FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace
      WHERE n.nspname='platform' AND c.relkind IN ('r','p')
-       AND has_table_privilege('{ROLE}',c.oid,'SELECT,INSERT,UPDATE,DELETE,TRUNCATE')) THEN
+       AND has_table_privilege('{role}',c.oid,'SELECT,INSERT,UPDATE,DELETE,TRUNCATE')) THEN
    RAISE EXCEPTION 'Paper direct rights drift';
  END IF;
- IF NOT has_function_privilege('{ROLE}','platform.paper_read()','EXECUTE')
-   OR NOT has_function_privilege('{ROLE}','platform.paper_initialize(text,text)','EXECUTE')
-   OR NOT has_function_privilege('{ROLE}','platform.paper_commit(bigint,text,text,text)','EXECUTE')
+ IF NOT has_function_privilege('{role}','platform.paper_read()','EXECUTE')
+   OR NOT has_function_privilege('{role}','platform.paper_initialize(text,text)','EXECUTE')
+   OR NOT has_function_privilege('{role}','platform.paper_commit(bigint,text,text,text)','EXECUTE')
    OR EXISTS(SELECT FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace
-     WHERE n.nspname='platform' AND p.prosecdef AND has_function_privilege('{ROLE}',p.oid,'EXECUTE')
+     WHERE n.nspname='platform' AND p.prosecdef AND has_function_privilege('{role}',p.oid,'EXECUTE')
        AND p.oid NOT IN ('platform.paper_read()'::regprocedure,
          'platform.paper_initialize(text,text)'::regprocedure,
          'platform.paper_commit(bigint,text,text,text)'::regprocedure)) THEN
@@ -97,7 +103,7 @@ BEGIN
  END IF;
  IF NOT EXISTS(SELECT FROM platform.paper_role_bindings b JOIN platform.accounts a
    ON (a.tenant_id,a.id)=(b.tenant_id,b.account_id)
-   WHERE b.database_role='{ROLE}' AND b.tenant_id='{t}' AND b.account_id='{a}'
+   WHERE b.database_role='{role}' AND b.tenant_id='{t}' AND b.account_id='{a}'
      AND b.active AND a.mode='paper' AND a.broker='bitget' AND a.currency='USDT'
      AND a.status IN ('ready','paused')) THEN RAISE EXCEPTION 'Paper binding drift'; END IF;
 END $$;

@@ -1,5 +1,10 @@
 # Verifikation
 
+IP-054:34 gezielte gepinnte Pythonfälle, fünf stdlib-Provisionierungsfälle,
+17 Cockpit-Vertrags-/SSR-Fälle und29 tatsächliche HTTPS-/OIDC-/MFA-/BFF-Prüfpunkte
+grün. Vollständige normale008–012-Preflights zurückgerollt; danach atomar
+angewendet und beide012-Ledger bestätigt. [Vertrag](../docs/paper-preview-integration.md).
+
 IP-053:44 gezielte gepinnte Runtime-/Workerfälle, drei stdlib-Dateischutztests
 und tatsächliche stabile Provisionierungs-/Drift-/TLS-/Sessionprüfungen grün.
 Wiederholung bei angehaltenem Dienst: `python3 infra/scripts/check-paper-development.py`;

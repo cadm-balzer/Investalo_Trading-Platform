@@ -1,6 +1,6 @@
 # Offline-Researchworker
 
-IP-053 ergänzt `paper_runtime.py` und ausdrücklich `--development-loop` für die feste lokale Fixtureidentität: Session-Lock, höchstens24 Stunden für neue Zyklusstarts, sechs Fehler und Commit-/Sitzungsverlust terminal. `--once`/`--cycles 1..100` bleiben; ein Modus ist erforderlich. Spotfeed, RSI, Journalwriter und Q32 unverändert; normaler Worker weiterhin Offline-Research. [Bedienung](../../docs/paper-development-runtime.md).
+IP-054 ergänzt `paper_preview_once.py`: feste normale Entwicklungsidentität, genau ein opt-in Kurslauf, keine automatischen Wiederholungen. Eigener Stand im freigegebenen Cockpit sichtbar. Fixture-Beobachtung IP-053 bleibt unverändert/getrennt. [Vertrag](../../docs/paper-preview-integration.md).
 
 IP-051 ergänzt die lesende [Status-/Journalanzeige](../../docs/paper-status-readmodel.md)
 in API/Cockpit, standardmäßig ausgeschaltet. Worker und Risikoregeln unverändert;

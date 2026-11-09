@@ -63,8 +63,20 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-051 | P1 / P3–P4 | DONE | Tenantgebundenen Paperstatus und Journal im Cockpit bereitstellen | Mergeaf65c51 in Mainb9d4b41 verifiziert; lesende011/API und default-off Panel.170 gezielte Tests/48 Subtests inkl37 echte PG/API,16 Cockpit-Vertrags-/SSR-Fälle, Typecheck/Build/Review grün.011 nur Fixture; Q32/Tageswechsel/Dauerbetrieb/Anzeigeaktivierung bleiben offen |
 | IP-052 | P1 / P3–P4 | DONE | Freigegebene H4-Mitternachtsbasis vor Paperfills speichern | Merge05ea009 in Main5d5c61e verifiziert; Q32 bestätigt. Eigener Tagesinput/Beleg/CAS, RSI unverändert.190 unterschiedliche gezielte Fälle/48 Subtests inkl43 PG/API,17 Cockpitfälle/Typecheck/Review grün.012 nur Fixture; Dauerbetrieb/Anzeigeaktivierung bleiben IP-047/BL-028 |
 | IP-053 | P1 / P3–P4 | DONE | Stabile lokale Paperidentität und begrenzten Beobachtungsdienst ergänzen | Mergec1703c1 in Maina996bf2 verifiziert; Fixture-LOGIN/Manifest/Singleton,24h-Zyklusstartbudget/sechs Fehler/Unknowncommit terminal.44 Workerfälle/3 Dateischutztests und echte Drift-/TLS-/Sessionabnahme grün. Feed82/84/86/Neustart88 ohne Fills; lokaler Dienst gesund. Nutzer-/Anzeigeintegration und längerfristiger Betrieb bleiben IP-047/BL-028 |
+| IP-054 | P1 / P3–P4 | DONE | Eigenen gespeicherten Paperstand in der Entwicklungsvorschau anzeigen | Merge03fee1e in Mainb0827ba verifiziert; normales012 nach zurückgerolltem Preflight, stabile eigene Paperidentität/ein begrenzter Kurslauf82 ohne Fills.34 Python/5 stdlib/17 Cockpit/29 HTTPS-MFA grün, Builds/Review. Lesende Anzeige aktiv, sensitive Routen503; laufender Previewworker/Betrieb bleiben IP-047/BL-028 |
 
 ## Abschlussbelege
+
+IP-054:34 gepinnte gezielte Pythonfälle, fünf stdlib-Provisionierungsfälle,
+17 Cockpit-Vertrags-/SSR-Fälle, gepinnte Builds/Review und29 echte HTTPS-/OIDC-/
+MFA-/BFF-Prüfpunkte bestanden.008–012 vollständig zurückgerollt mit eigenen/
+fremden/revokten/alten Epoch-/OIDC-Kontexten; danach atomar normal angewendet,
+beide012-Hashes bestätigt. Neue feste eigene Kontobindung, vier Driftprobes
+zurückgerollt, TLS/Fixture-/Tabellensperre und Readback geprüft. Reale Revision82
+ohne Fills; eigener Stand auf Übersicht/Portfolio/Journal sichtbar. Nur API/
+Cockpit neu erstellt; andere Dienste/Fixtureruntime gesund, sensitive Flags
+und Routen gesperrt. Kein dauerhafter Previewworker/Profitabilitätsbeleg.
+[Bedienung und Rückfall](../paper-preview-integration.md).
 
 IP-053:44 gezielte gepinnte Runtime-/Workerfälle und drei stdlib-Dateischutztests
 bestanden. Wiederholte Provisionierung erhält IDs/Dateien/Zeilenzahlen; vier echte

@@ -91,3 +91,8 @@ Unit-/PG-Tageswechselprüfungen ersetzen keinen beobachteten echten Tageswechsel
 Referenzen:
 [PostgreSQL Advisory Locks](https://www.postgresql.org/docs/18/explicit-locking.html#ADVISORY-LOCKS),
 [Compose restart](https://docs.docker.com/reference/compose-file/services/#restart).
+
+Fortsetzung IP-054: [eigener gespeicherter Paperstand im öffentlichen
+Entwicklungscockpit](paper-preview-integration.md). Normale DB jetzt012.
+Fixture-Identität/-Journal/-Worker hier unverändert; keine Kontokopie oder
+Umstellung dieses Launchers auf die normale Datenbank.

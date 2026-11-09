@@ -82,3 +82,8 @@ Fixture inzwischen012.6%/8%, RSI-Einstiege und Quote-Ausführung unverändert.
 IP-047/BL-028 bleiben offen: dauerhaft provisionierte Entwicklungsidentität,
 Workerbetrieb und gesonderte Aktivierung/Abnahme der Anzeige.
 [Feedvertrag](paper-market-worker.md), [offene Frage](interview.md#q32-paper-tagesbasis).
+
+Fortsetzung IP-054: [eigene lesende Entwicklungsvorschau](paper-preview-integration.md)
+aktiviert, normale DB inzwischen012. Eigener neuer simulierter Kontostand aus
+begrenztem Kurslauf, getrennt von IP-053-Fixture. Die oben beschriebene
+ausgeschaltete Anzeige bleibt historischer IP-051-Abnahmebeleg und Default.

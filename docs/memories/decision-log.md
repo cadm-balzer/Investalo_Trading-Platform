@@ -910,3 +910,25 @@ Scoped Review ohne Blocker; keine breite Wiederholung oder neuer Build.
 Nächste IP-047: Nutzer-/Cockpitanbindung. BL-028 echte Mitternachtsbeobachtung,
 Retentions-/Quota-/Egress-/Recoverybetrieb vor längerem Pilotlauf.
 [Vertrag](../paper-development-runtime.md).
+
+## 2026-11-09 — D-058: Eigene lesende Paper-Entwicklungsvorschau
+
+03fee1e in Mainb0827ba verifiziert. IP-054: eigenes normales simuliertes Konto
+unter bestehendem geschütztem öffentlichen Owner-Tenant, fester LOGIN und
+Prepared/Bound-Manifest, keine Fixturekopie oder bestehende Bindungsänderung.
+Bewusst begrenzter Einmal-Kurslauf und lesende Anzeige; weiter kein dauerhaft
+bestätigter Previewworker. RSI/Q32/Risk/Kosten unverändert,82/zero fills.
+
+008–012 im vollständigen normalen Runtime-/Kontextpreflight zurückgerollt,
+danach atomar normal angewendet; beide012-Ledger unverändert. Private008/009-
+Capabilities jetzt vorhanden, tatsächliche Flags/Routen bleiben gesperrt.
+Exact TLS/SCRAM-HBA nur neue Rolle; Fixture/directtables/otherdefiners denied.
+Prepared-Recovery prüft bestehende Rolle vollständig vor Grants; kein Repair.
+34 pinned Python/5 stdlib/17 Cockpit und29 tatsächliche HTTPS/MFA/BFF-Prüfpunkte,
+pinned builds/scoped Review grün. Eigener Stand auf drei Seiten/no-store,
+sensitive Routen503, Prüfsitzung sauber abgemeldet, kein Researchjob.
+Nur API/Cockpit der ausdrücklich freigegebenen Entwicklungsvorschau aktualisiert.
+Weiter beide Public/Paperoverlays verwenden; nacktes Publicoverlay schaltet
+Anzeige aus. Übrige Dienste und ursprüngliche Faktoren/Identitäten unverändert.
+Nächste IP-047: eigener begrenzter Preview-Beobachtungsworker; Betrieb BL-028.
+[Vertrag](../paper-preview-integration.md).
