@@ -2,6 +2,11 @@
 
 IP-047 ist aktiv: eigener gespeicherter Paperstand jetzt im Entwicklungscockpit sichtbar. IP-054 umfasst eigene Kontoprovisionierung, begrenzten Kurslauf und lesende Aktivierung. Als Nächstes eigener begrenzter Preview-Beobachtungsworker und längerfristige Betriebsabnahme. [Anzeige](paper-preview-integration.md).
 
+IP-013 berücksichtigt die Nutzerpriorität2026-11-09 zum Feintuning: zuerst
+geringe Kontorendite/Kapitalnutzung erklären, dann begrenzte chronologische
+Kandidatenprüfung vor eingefrorener Auswahl und Holdout.
+[Forschungsplan](long-history-backtests.md#geplantes-feintuning).
+
 Stand 2026-11-09. Q1–Q5 bestätigen privaten Pilot, Paper zuerst, feste
 Risikolimits, kontrollierte KI und kostenlose externe Dienste.
 Q6–Q8 bestätigen beide Handelsintegrationen im MVP, Grundstack und eigene MFA.

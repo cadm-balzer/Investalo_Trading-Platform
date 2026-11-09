@@ -2,6 +2,13 @@
 
 Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
 
+- 2026-11-09: IP-054 b48be7d in Main2a9efe0 verifiziert. Nutzer akzeptiert
+  Cockpitfortschritt, fragt nach Feintuning wegen geringer Gewinne.
+  IP-013 konkretisiert Diagnose Kapitalnutzung/RSI/Ausstiege/Kosten/Benchmark
+  vor begrenzter chronologischer Kandidatenprüfung. Gespeicherte Dreijahres-
+  Kontorenditen ca1,33% BTC/0,96% ETH, je separates10.000-USDT-Konto.
+  Keine neue Strategie-/Budget-/Riskfreigabe; Holdout bis Auswahl eingefroren
+  unberührt. Forschungsplan in docs/long-history-backtests.md.
 
 - 2026-11-09:03fee1e in Mainb0827ba verifiziert. IP-054 auf
   feat/m1-paper-preview-integration: eigener normaler PaperLOGIN/Account unter

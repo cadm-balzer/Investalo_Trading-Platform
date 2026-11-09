@@ -510,6 +510,17 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   own bounded preview observation; BL-028 midnight/Egress/quota/retention/recovery.
   Contract: docs/paper-preview-integration.md. Keep cost-sensitive scoped work.
 
+- IP-054 checkpoint b48be7d merged into main 2a9efe0 (verified).
+  User accepts the visible Cockpit progress and asks to prioritize planned
+  strategy fine-tuning because absolute returns are small. IP-013 first
+  diagnoses exposure/capital use, RSI entries, exits, costs and a comparable
+  benchmark, then bounded chronological candidate validation. Stored IP-046
+  research spans three years: BTC +132.63 / ETH +96.09 USDT per separate
+  10,000-USDT account (~1.33% /0.96% total). No invested-capital return or
+  independent profitability proof inferred. Holdout stays sealed until frozen
+  selection; this request does not approve changing strategy/budgets/risk.
+  Plan: docs/long-history-backtests.md#geplantes-feintuning.
+
 ## Trading and implementation invariants
 
 - Profitability is a measurable research objective, never a guarantee.
