@@ -88,7 +88,7 @@ bash infra/scripts/check-paper-storage.sh
 bash infra/scripts/check-paper-storage.sh -k restart_same_day
 ```
 
-IP-047/BL-028: permanente Entwicklungsidentität, Quote-/Egress-/Retentionbetrieb,
-laufender Dienst und gesonderte Betriebs-/Anzeigeabnahme bleiben offen.
-CLI weiterhin `--once` oder `--cycles 1..100`. API/Cockpit-Anzeigeflags
-standardmäßig aus; Default Compose und öffentliche Dienste unverändert.
+IP-053 ergänzt [permanente lokale Identität und begrenzten Beobachtungsdienst](paper-development-runtime.md),
+ausdrücklich mit `--development-loop`. IP-047/BL-028: Egress/Quoten/Retention,
+echte Tageswechselbeobachtung und Betriebs-/Anzeigeabnahme bleiben offen.
+Anzeigeflags aus; Default Compose und öffentliche Dienste unverändert.

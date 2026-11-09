@@ -23,7 +23,8 @@ class PaperWorker:
     feed: BitgetPaperFeed
     clock: object = lambda: datetime.now(timezone.utc)
 
-    def run_once(self) -> PaperCycle:
+    def run_once(self, *, guard=lambda: None) -> PaperCycle:
+        guard()
         # Authoritative identity/state check before any network request.
         saved = self.store.read()
         now = self.clock()
@@ -68,6 +69,7 @@ class PaperWorker:
         for bar in ordered:
             candidate = self.runner.bar(candidate, bar, now=now).checkpoint
         if saved is None:
+            guard()
             checkpoint = self.store.initialize(checkpoint)
         initial_revision, fills = checkpoint.revision, 0
         def input_time():
@@ -76,13 +78,16 @@ class PaperWorker:
                 raise ValueError("Paper boundary changed during commit")
             return at
         if needs_day:
+            guard()
             update = self.runner.day(checkpoint, day_bars, now=input_time())
             checkpoint = self.store.commit(checkpoint, update)
         for quote in quotes:
+            guard()
             update = self.runner.quote(checkpoint, quote, now=input_time())
             checkpoint = self.store.commit(checkpoint, update)
             fills += len(update.entry.fills) if update.entry else 0
         for bar in ordered:
+            guard()
             update = self.runner.bar(checkpoint, bar, now=input_time())
             checkpoint = self.store.commit(checkpoint, update)
             fills += len(update.entry.fills) if update.entry else 0

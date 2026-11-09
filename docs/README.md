@@ -12,6 +12,7 @@
 | [paper-market-worker.md](paper-market-worker.md) | Öffentlicher BTC-/ETH-Feed, begrenzter tatsächlicher Paperworker, Neustartprüfung und Tageswechselgate |
 | [paper-status-readmodel.md](paper-status-readmodel.md) | Eigener bestätigter Paperstatus und Journal, standardmäßig ausgeschaltete API/Cockpitanzeige und Fixturemigration011 |
 | [paper-midnight-basis.md](paper-midnight-basis.md) | Freigegebene H4-Mitternachtsmodellbewertung, unveränderte RSI-Einstiege, Crash-/Kerzenbeleg und Fixture012 |
+| [paper-development-runtime.md](paper-development-runtime.md) | Stabile lokale Paperidentität, Session-Lock und begrenzter Beobachtungsdienst |
 | [long-history-backtests.md](long-history-backtests.md) | Drei Jahre BTC/ETH-Forschung, reservierter Jahres-Holdout und nächste Paperausführung |
 | [trading.md](trading.md) | Strategieformalisation, Risiko, Backtests und Optimierung |
 | [security.md](security.md) | Bedrohungen, Schutzmaßnahmen und Freigabekriterien |

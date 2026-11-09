@@ -1,6 +1,6 @@
 # Architektur und Stack
 
-IP-052 ergänzt den freigegebenen atomaren Paper-Tagesbewertungsinput vor neuen Quotes/Fills;012 prüft unveränderliche Grenzkerzenbelege und liefert ein Modelllabel für die ausgeschaltete Statusanzeige.012 nur Fixture; Runtime ohne Tabellen-/Writerrechte. Dauerbetrieb/Anzeigeaktivierung bleiben IP-047. [Vertrag](paper-midnight-basis.md).
+IP-053 ergänzt feste lokale Fixture-Paperidentität und begrenzten Beobachtungsdienst mit separatem Session-Advisory-Lock; Checkpoint-CAS bleibt atomarer Konkurrenzschutz. RSI/Q32 und ausgeschaltete Statusanzeige unverändert. Keine neue Migration oder öffentliche Aktivierung. [Vertrag](paper-development-runtime.md).
 
 IP-046: Drei Jahre BTC/ETH-H4 werden im vorhandenen deterministischen
 Researchworkflow ausgewertet; ein weiterer Jahresabschnitt ist ausschließlich

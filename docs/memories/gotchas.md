@@ -537,3 +537,16 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   im üblichen Indikatorfluss verarbeiten. Positive Prüfung: zweites sub30
   erzeugt nur Intent, späterer echter Ask plus Kostenmodell erzeugt Fill.
   Revidierte OHLC-Testdaten brauchen gültige High/Low, bevor Replay testbar ist.
+
+- **Stabile Paperidentität von Test-Rebinding trennen:** investalo_paper_development
+  bleibt fix in Fixture012; prepare-paper-storage/feed-checks binden nur
+  investalo_paper_tests neu. Manifest prepared IDs vor DB-Commit speichern,
+  bound nur verifizieren; fehlende/abweichende Secrets nie still regenerieren.
+- **Session-Advisory-Lock benötigt eigene Autocommitverbindung:** keine lange
+  Rowlock-TX. Verlust vor jedem Write und Health prüfen; terminal stoppen.
+  Advisorylock ist kooperativ, CAS bleibt im Check/Write-Zwischenraum maßgeblich.
+  PGPASSWORD/PGOPTIONS/PGSERVICE und andere zusätzliche PG-Variablen ablehnen.
+- **Beobachtungsbudget begrenzt Zyklusstarts:**24h ist kein harter Fetch-/Commit-
+  Abbruch. restart:no; sichere Wiederaufnahme nach Unknowncommit mit Readback.
+  Zwei Quoteinputs/5s ergeben ca34.560 Journalzeilen/Tag. Logsbegrenzung ist keine
+  DB-Retention; unveränderliche Journale nicht automatisch entfernen.

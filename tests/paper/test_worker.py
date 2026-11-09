@@ -179,8 +179,9 @@ def test_cli_continuous_operation_stays_gated_before_operational_acceptance(monk
     configure = Mock()
     monkeypatch.setattr(paper_main, "configured_worker", configure)
     monkeypatch.setattr("sys.argv", ["paper"])
-    with pytest.raises(SystemExit, match="operational acceptance pending"):
+    with pytest.raises(SystemExit) as error:
         paper_main.main()
+    assert error.value.code == 2
     configure.assert_not_called()
 
 
@@ -264,3 +265,12 @@ def test_midnight_crossed_during_commit_is_rejected_before_day_write():
     with pytest.raises(ValueError):
         replace(worker, clock=lambda: next(values)).run_once()
     assert store.value == old
+
+
+def test_runtime_guard_loss_after_fetch_prevents_first_write():
+    from investalo_workers.paper_runtime import PaperLeaseLost
+    worker, store, feed = setup()
+    guard = Mock(side_effect=[None, PaperLeaseLost("lost")])
+    with pytest.raises(PaperLeaseLost):
+        worker.run_once(guard=guard)
+    assert store.value is None and not store.entries

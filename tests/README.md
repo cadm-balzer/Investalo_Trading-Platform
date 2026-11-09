@@ -1,5 +1,11 @@
 # Verifikation
 
+IP-053:44 gezielte gepinnte Runtime-/Workerfälle, drei stdlib-Dateischutztests
+und tatsächliche stabile Provisionierungs-/Drift-/TLS-/Sessionprüfungen grün.
+Wiederholung bei angehaltenem Dienst: `python3 infra/scripts/check-paper-development.py`;
+Workerfälle: `bash infra/scripts/check-paper-storage.sh -k 'runtime or test_worker'`.
+[Vertrag](../docs/paper-development-runtime.md).
+
 IP-052:190 unterschiedliche gezielte Fälle/48 Subtests grün, davon43 tatsächliche PG/API. Vollauf189 grün; ungültige Test-OHLC korrigiert und Neustart-/CLI-Fälle gezielt3 grün. Tagesbewertung vor sofortigem Verkauf, Restart/Commitverlust, fehlende/revidierte Grenzkerzen und tatsächlicher RSI-Intent/späterer Quote-Fill geprüft.17 Cockpit-Vertrags-/SSR-Fälle, Typecheck und gepinnter Build grün. Keine breite Credential-/HTTP-Wiederholung. [Vertrag](../docs/paper-midnight-basis.md).
 
 IP-046:15 neue Fenster-/CLI-Tests prüfen Mehrjahrespartition, Leap Year,

@@ -1,6 +1,6 @@
 # Offline-Researchworker
 
-IP-050 ergänzt `paper_worker.py`/`paper_main.py`: eigener öffentlicher Spotfeed, geschlossener H4-Vorlauf, gespeicherter Zustand und atomarer Journalwriter. Nur `--once`/`--cycles 1..100`, explizite Aktivierung und eigene Paper-LOGIN-/Kontobindung. Fehlende Tagesbaseline bleibt Kaufgate; Dauerbetrieb offen. Reale Fixturezyklen/Neustart geprüft, normaler gestarteter Worker weiterhin Offline-Research. [Papervertrag](../../docs/paper-market-worker.md).
+IP-053 ergänzt `paper_runtime.py` und ausdrücklich `--development-loop` für die feste lokale Fixtureidentität: Session-Lock, höchstens24 Stunden für neue Zyklusstarts, sechs Fehler und Commit-/Sitzungsverlust terminal. `--once`/`--cycles 1..100` bleiben; ein Modus ist erforderlich. Spotfeed, RSI, Journalwriter und Q32 unverändert; normaler Worker weiterhin Offline-Research. [Bedienung](../../docs/paper-development-runtime.md).
 
 IP-051 ergänzt die lesende [Status-/Journalanzeige](../../docs/paper-status-readmodel.md)
 in API/Cockpit, standardmäßig ausgeschaltet. Worker und Risikoregeln unverändert;

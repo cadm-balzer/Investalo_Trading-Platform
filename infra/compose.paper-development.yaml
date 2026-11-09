@@ -1,0 +1,52 @@
+# Explicit local development observation; fixed fixture DB, no public deployment.
+services:
+  paper-development:
+    profiles: [paper-development]
+    image: investalo-research:0.1.0-local
+    restart: "no"
+    init: true
+    user: "10003:10003"
+    group_add: ["10010"]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    read_only: true
+    tmpfs: ["/tmp:rw,noexec,nosuid,size=16m"]
+    mem_limit: 192m
+    cpus: 0.5
+    pids_limit: 64
+    stop_grace_period: 30s
+    logging:
+      driver: json-file
+      options: {max-size: 5m, max-file: "2"}
+    environment:
+      PAPER_WORKER_ENABLED: "1"
+      PAPER_DEVELOPMENT_MODE: "1"
+      PAPER_TENANT_ID: ${PAPER_TENANT_ID:?Dedicated development tenant required}
+      PAPER_ACCOUNT_ID: ${PAPER_ACCOUNT_ID:?Dedicated development account required}
+      PGHOST: postgres
+      PGPORT: "5432"
+      PGDATABASE: investalo_credentials_checks
+      PGUSER: investalo_paper_development
+      PGPASSWORD_FILE: /run/secrets/paper_development_password
+      PGSSLMODE: verify-full
+      PGSSLROOTCERT: /run/secrets/local_ca_cert
+      WORKER_HEALTH_FILE: /tmp/paper-development-health
+    secrets: [paper_development_password, local_ca_cert]
+    volumes:
+      - ../services/workers/src:/app/services/workers/src:ro
+      - ../packages/trading/src:/app/packages/trading/src:ro
+      - ../packages/marketdata/src:/app/packages/marketdata/src:ro
+    networks: [database, paper_development_egress]
+    command: [python, -m, investalo_workers.paper_main, --development-loop]
+    healthcheck:
+      test: [CMD, python, -m, investalo_workers.health]
+      interval: 20s
+      timeout: 5s
+      retries: 2
+
+networks:
+  paper_development_egress: {}
+
+secrets:
+  paper_development_password:
+    file: ./local/paper_development_password

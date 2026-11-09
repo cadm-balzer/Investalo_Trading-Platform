@@ -336,3 +336,19 @@ Focused check script now accepts pytest args; select repeats with -k.
 Pinned build passed; normal007/fixture012/all checksums verified.
 Ledger read timeout during CPU-heavy build; single post-build read passed.
 Public containers unchanged/healthy, cockpit TLS200.
+
+## IP-053 local Paper observation
+
+Fixed fixture LOGIN investalo_paper_development, protected infra/local/
+paper_development.json/password/env. provision-paper-development.py verify or
+refuse, no migrations/rebinding/password rotation. check-paper-development.py
+requires stopped service; actual duplicate/loss test acquires singleton.
+Compose always --env-file infra/local/paper_development.env --file
+infra/compose.paper-development.yaml --profile paper-development and only
+paper-development target. Local service started2026-11-09 15:59Europe/Berlin;
+controlled restart, healthy;24h cycle-start budget, restart:no. Safe logs only.
+Public overlay/services unchanged; user/status flags off. Fixture012/normal007.
+Runtime checks44 cases in /tmp/investalo-paper-runtime-worker-tests.log;
+3 stdlib provisioning units; actual acceptance script passed. Feed82/84/86,
+new process88, controlled service restart100→102+, no fills. Stop explicitly
+before session checker; never --remove-orphans or blanket compose up/down.

@@ -1,6 +1,6 @@
 # Lokale Compose-Entwicklung
 
-IP-052 ergänzt die freigegebene Paper-Mitternachtsmodellbewertung, vor neuen Quotes/Fills gespeichert.012 ausschließlich Fixture-DB, normale DB007; Default Compose/öffentliche Dienste und ausgeschaltete API/Cockpit-Anzeigeflags unverändert. Dauerbetrieb/Anzeigeaktivierung bleiben offen. [Abnahme und Grenzen](../docs/paper-midnight-basis.md).
+IP-053 ergänzt das lokale Profil `compose.paper-development.yaml`: feste Fixtureidentität, geschütztes Manifest, Singleton-Sitzung und höchstens24 Stunden für neue Zyklusstarts, ohne automatischen Neustart. Fixture012/normale DB007; Default Compose/öffentliche Dienste und Anzeigeflags unverändert. [Bedienung und Abnahme](../docs/paper-development-runtime.md).
 
 Aktueller Researchstand IP-046: reale BTC/ETH-H4-Fenster2022-08-01–2025-08-01
 mit jeweils6.576 Kerzen sind für das bestehende Cockpit verfügbar. Separate

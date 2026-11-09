@@ -88,7 +88,9 @@ Fortsetzung IP-051: [tenantgebundene Paperstatus-/Journalanzeige](paper-status-r
 implementiert und standardmäßig ausgeschaltet. IP-052 ersetzt die
 historisch beschriebene exakte Quote-Baseline durch die freigegebene
 [H4-Mitternachtsmodellbewertung](paper-midnight-basis.md); Fixture inzwischen012.
-Nächstes IP-047: eigene dauerhafte Entwicklungsprovisionierung und sichere
-Betriebs-/Anzeigeaktivierung.
+Fortsetzung IP-053: [stabile lokale Entwicklungsidentität und begrenzter
+Beobachtungsdienst](paper-development-runtime.md), ausdrücklich mit
+`--development-loop`. Der oben beschriebene IP-050-Stand bleibt historischer
+Abnahmebeleg. Nächstes IP-047: Nutzer-/Anzeigeintegration und Betriebsabnahme.
 Referenzen: [Ticker](https://www.bitget.com/legacy-docs/uta/public/Tickers),
 [aktuelle Kerzen](https://www.bitget.com/legacy-docs/uta/public/Get-Candle-Data).

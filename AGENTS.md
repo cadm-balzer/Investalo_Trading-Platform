@@ -87,7 +87,7 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   onboarding checkpoint `69a1f8b` merged into main, verified at `56070ba`;
   step-up checkpoint `d57bd56` merged into main, verified at `b6198f7`;
   registry checkpoint `6a18102` merged into main, verified at `f422a90`;
-  current work branch: `feat/m1-paper-midnight-baseline`.
+  current work branch: `feat/m1-paper-development-runtime`.
   Isolated AEAD core: `packages/credentials/README.md`, 20 offline tests with
   pinned cryptography and a separate hardened Compose check.
   Credential store: `services/credentials/README.md`; migration003 and current
@@ -459,6 +459,28 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   never blindly reuse older account configuration. Next IP-047: safe daily
   baseline operation, dedicated persistent development identity and Cockpit.
   See docs/paper-market-worker.md; cost preference remains scoped work.
+
+
+- IP-052 checkpointc1703c1 merged into maina996bf2 (verified).
+  IP-053 adds fixed local fixture LOGIN investalo_paper_development and stable
+  protected prepared/bound manifest; never rebind/rotate/unpause automatically.
+  Repeated provisioning and four rolled-back privilege/binding drift probes pass.
+  Explicit paper-development profile: no ports, own password/CA, readonly code,
+  bounded resources/logs and restart:no. Strict development-loop fixes PG
+  identity/config and rejects extra PG variables. Separate autocommit advisory
+  singleton session with guards before writes/health; lost session/unknown
+  commit terminal. CAS remains authoritative across cooperative check/write gap.
+  Six consecutive failures stop; max24h for new cycle starts, not hard wall
+  for already-running work.44 targeted pinned worker cases/3 provisioning units
+  and actual restricted TLS/duplicate/release/session-loss/normal-DB denial pass.
+  Real feed revisions82/84/86, fresh process88; no fills. Local service healthy,
+  duplicate process rejected, controlled restart continued102+ after100.
+  Synthetic account separate from rebinding tests; RSI/Q32/risk unchanged.
+  No migration/dependency/public activation; normal007/fixture012 hashes verified.
+  Public six services unchanged/TLS200, status flags off, fixture has no public
+  user. Retention/quota/Egress/monitoring/recovery and actual midnight observation
+  remain BL-028; next IP-047 user/status integration. Keep scoped checks for cost.
+  Contract: docs/paper-development-runtime.md.
 
 ## Trading and implementation invariants
 
