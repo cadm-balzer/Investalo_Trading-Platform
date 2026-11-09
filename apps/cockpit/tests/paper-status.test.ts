@@ -26,7 +26,7 @@ function data() {
     accounts: [{ id: account, name: "Paper", status: "ready", snapshot: {
       revision: 1, observed_at: "2026-01-01T12:00:00Z", cash: "10000", equity: "10000",
       valuation_fresh: true, trading_day: "2026-01-01", day_start_equity: "10000",
-      daily_baseline_ready: true, halted: false, positions: ["BTCUSDT", "ETHUSDT"].map(symbol =>
+      daily_baseline_ready: true, day_basis_model: false, halted: false, positions: ["BTCUSDT", "ETHUSDT"].map(symbol =>
         ({ symbol, quantity: "0", average_price: null, protected: false, risk_stopped: false })),
     }, journal: [{ revision: 1, at: "2026-01-01T12:00:00Z", input_kind: "quote", fill_count: 0, messages: [] }] }],
   };
@@ -84,4 +84,12 @@ test("server panel distinguishes unavailable provider from empty account list", 
   assert.ok(render(null).includes("momentan nicht verfügbar"));
   const input = data(); input.accounts = [];
   assert.ok(render(input).includes("Noch kein eigenes Crypto-Paperkonto"));
+});
+test("model midnight basis and day journal are explicitly labeled", () => {
+  const input: any = data();
+  input.accounts[0].snapshot.day_basis_model = true;
+  input.accounts[0].journal[0].input_kind = "day";
+  const html = render(input);
+  assert.ok(html.includes("Modellbewertung um 00:00 UTC"));
+  assert.ok(html.includes("Tagesbewertung"));
 });

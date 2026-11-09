@@ -15,6 +15,7 @@ EVENTS = {
     "simulated_order_cancelled": "Paperauftrag storniert.",
     "data_rejected": "Marktdaten abgewiesen.",
     "cancel_order": "Stornierung vorgemerkt.",
+    "daily_baseline_model": "Tagesbasis mit H4-Schlusskursen modelliert.",
 }
 
 
@@ -54,7 +55,9 @@ def publish_rows(rows, tenant_id, *, now=None):
                     raise ValueError()
                 cash, baseline = amount(a["cash"]), amount(a["day_start_equity"])
                 trading_day = date.fromisoformat(a["trading_day"])
-                if trading_day > now.date() or type(a["halted"]) is not bool:
+                model_basis = snapshot.get("day_basis_model", False)
+                if (trading_day > now.date() or type(a["halted"]) is not bool
+                        or type(model_basis) is not bool):
                     raise ValueError()
                 positions, quotes = snapshot["positions"], snapshot["quotes"]
                 if (len(positions) != 2 or tuple(p["symbol"] for p in positions) != SYMBOLS
@@ -97,6 +100,7 @@ def publish_rows(rows, tenant_id, *, now=None):
                     "valuation_fresh": fresh, "trading_day": str(trading_day),
                     "day_start_equity": decimal_string(baseline),
                     "daily_baseline_ready": trading_day == now.date(), "halted": a["halted"],
+                    "day_basis_model": model_basis,
                     "positions": public_positions,
                 }
             journal = row["journal"]
@@ -107,7 +111,7 @@ def publish_rows(rows, tenant_id, *, now=None):
             for j in journal:
                 if (type(j["revision"]) is not int or j["revision"] <= 0
                         or j["revision"] >= previous_revision
-                        or j["input_kind"] not in ("quote", "bar")
+                        or j["input_kind"] not in ("quote", "bar", "day")
                         or type(j["fill_count"]) is not int or not 0 <= j["fill_count"] <= 20
                         or not isinstance(j["events"], list) or len(j["events"]) > 100):
                     raise ValueError()

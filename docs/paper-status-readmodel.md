@@ -76,9 +76,9 @@ npm run typecheck
 
 ## Nächster Schritt
 
+IP-052 bestätigt und implementiert Q32 als ausdrücklich gekennzeichnete
+[H4-Schlusskurs-Modellbewertung](paper-midnight-basis.md) für die Tagesbasis00:00UTC;
+Fixture inzwischen012.6%/8%, RSI-Einstiege und Quote-Ausführung unverändert.
 IP-047/BL-028 bleiben offen: dauerhaft provisionierte Entwicklungsidentität,
-sicherer Tageswechsel, Workerbetrieb und gesonderte Aktivierung/Abnahme der
-Anzeige. Q32 fragt nach einer ausdrücklich gekennzeichneten H4-Schlusskurs-
-Modellbewertung für die Tagesbasis00:00UTC. Entscheidung ausstehend; keinerlei
-Änderung am bestehenden Tagesverfahren,6%-Limit oder Ausführungspreis.
+Workerbetrieb und gesonderte Aktivierung/Abnahme der Anzeige.
 [Feedvertrag](paper-market-worker.md), [offene Frage](interview.md#q32-paper-tagesbasis).

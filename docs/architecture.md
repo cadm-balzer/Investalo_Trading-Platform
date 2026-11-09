@@ -1,6 +1,6 @@
 # Architektur und Stack
 
-IP-051 ergänzt eine rein lesende, tenantgebundene API-Projektion und ein standardmäßig ausgeschaltetes Cockpitpanel zum gespeicherten Paperstand.011 nur Fixture-DB; Runtime erhält keine direkten Tabellen-/Writerrechte. Tageswechsel, Dauerbetrieb und Anzeigeaktivierung bleiben IP-047. [Vertrag](paper-status-readmodel.md).
+IP-052 ergänzt den freigegebenen atomaren Paper-Tagesbewertungsinput vor neuen Quotes/Fills;012 prüft unveränderliche Grenzkerzenbelege und liefert ein Modelllabel für die ausgeschaltete Statusanzeige.012 nur Fixture; Runtime ohne Tabellen-/Writerrechte. Dauerbetrieb/Anzeigeaktivierung bleiben IP-047. [Vertrag](paper-midnight-basis.md).
 
 IP-046: Drei Jahre BTC/ETH-H4 werden im vorhandenen deterministischen
 Researchworkflow ausgewertet; ein weiterer Jahresabschnitt ist ausschließlich

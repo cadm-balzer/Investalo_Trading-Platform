@@ -1,6 +1,6 @@
 # Verifikation
 
-IP-051: `bash infra/scripts/check-paper-storage.sh` bestand170 Tests/48 Subtests:37 echte PG-/API-Fälle,12 Statusprojektion,18 Paperworker,54 Marktdata,45 Trading und vier Workerberechnungen. Eigener/fremder Tenant, Mitgliedschaftsentzug, Replay und Runtime ohne Writerrechte geprüft.16 gezielte Cockpit-Vertrags-/SSR-Paneltests, Typecheck und gepinnter Build grün. Keine breite Credential-/HTTP-Wiederholung. [Vertrag](../docs/paper-status-readmodel.md).
+IP-052:190 unterschiedliche gezielte Fälle/48 Subtests grün, davon43 tatsächliche PG/API. Vollauf189 grün; ungültige Test-OHLC korrigiert und Neustart-/CLI-Fälle gezielt3 grün. Tagesbewertung vor sofortigem Verkauf, Restart/Commitverlust, fehlende/revidierte Grenzkerzen und tatsächlicher RSI-Intent/späterer Quote-Fill geprüft.17 Cockpit-Vertrags-/SSR-Fälle, Typecheck und gepinnter Build grün. Keine breite Credential-/HTTP-Wiederholung. [Vertrag](../docs/paper-midnight-basis.md).
 
 IP-046:15 neue Fenster-/CLI-Tests prüfen Mehrjahrespartition, Leap Year,
 Lücken, Zeitgrenzen, unveränderte Preise/Provenienz und Create-only-Ausgaben.

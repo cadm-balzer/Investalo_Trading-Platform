@@ -139,8 +139,9 @@ def test_concurrent_writers_only_one_revision_wins(context):
     assert len(journal(context)) == 1 and context["store"].read().revision == 1
 
 
+@pytest.mark.parametrize("kind", ["quote", "day"])
 @pytest.mark.parametrize("fault", ["journal_insert", "checkpoint_update"])
-def test_failure_between_journal_and_checkpoint_rolls_back_both(context, fault):
+def test_failure_between_journal_and_checkpoint_rolls_back_both(context, fault, kind):
     old = initial(context)
     name = "test_paper_failure_" + uuid4().hex
     table = "paper_journal" if fault == "journal_insert" else "paper_checkpoints"
@@ -153,7 +154,7 @@ def test_failure_between_journal_and_checkpoint_rolls_back_both(context, fault):
                       f" EXECUTE FUNCTION platform.{name}()")
     try:
         with pytest.raises(PaperStorageRejected):
-            context["store"].commit(old, update(context, old))
+            context["store"].commit(old, update(context, old) if kind == "quote" else day_update(context, old))
     finally:
         # Only these fresh UUID-named fixture hooks are removed.
         with context["admin"]() as admin:
@@ -173,10 +174,11 @@ class CommitFault:
         raise psycopg.OperationalError("Synthetic lost commit reply")
 
 
+@pytest.mark.parametrize("kind", ["quote", "day"])
 @pytest.mark.parametrize("after", [False, True])
-def test_unknown_commit_never_retries_and_fresh_readback_resolves(context, after):
+def test_unknown_commit_never_retries_and_fresh_readback_resolves(context, after, kind):
     old = initial(context)
-    step = update(context, old)
+    step = update(context, old) if kind == "quote" else day_update(context, old)
     calls = []
     def connection():
         calls.append(1)
@@ -187,6 +189,47 @@ def test_unknown_commit_never_retries_and_fresh_readback_resolves(context, after
     assert len(calls) == 1
     assert context["store"].read() == (step.checkpoint if after else old)
     assert len(journal(context)) == int(after)
+
+
+def day_bars():
+    at = START+timedelta(days=1)
+    return tuple(Candle(s, at-H4, at, D(100), D(100), D(100), D(100)) for s in ("BTCUSDT", "ETHUSDT"))
+
+
+def day_update(context, old):
+    return context["runner"].day(old, day_bars(), now=START+timedelta(days=1, seconds=7))
+
+
+def test_day_commit_restore_and_model_source_survive_public_journal_window(context):
+    old = initial(context)
+    step = day_update(context, old)
+    saved = context["store"].commit(old, step)
+    assert context["store"].read() == saved
+    assert context["store"].commit(old, step) == saved
+    assert context["runner"].day(saved, day_bars(), now=saved.observed_at).entry is None
+    for _ in range(21):
+        saved = context["store"].commit(saved, update(context, saved))
+    settings, user, subject = status_actor(context)
+    response = TestClient(create_app(settings)).get("/v1/paper-status",
+        headers=status_headers(settings, subject, context["tenant"]))
+    assert response.status_code == 200
+    account = next(a for a in response.json()["accounts"] if a["id"] == str(context["account"]))
+    assert account["snapshot"]["day_basis_model"] is True
+    assert all(j["input_kind"] == "quote" for j in account["journal"])
+    assert not any(text in response.text for text in ("bar_digests", "quantities", "paper-h4-close"))
+
+
+def test_restart_revised_midnight_candle_is_rejected_against_committed_day_evidence(context):
+    old = initial(context)
+    saved = context["store"].commit(old, day_update(context, old))
+    # Simulate restart + a quote replacing last_entry before boundary bar processing.
+    saved = context["store"].commit(saved, update(context, saved))
+    changed = replace(day_bars()[0], high=D(101), close=D(101))
+    with pytest.raises(PaperStorageRejected):
+        context["store"].commit(saved, context["runner"].bar(saved, changed, now=saved.observed_at))
+    assert context["store"].read() == saved
+    correct = context["runner"].bar(saved, day_bars()[0], now=saved.observed_at)
+    assert context["store"].commit(saved, correct) == correct.checkpoint
 
 
 @pytest.mark.parametrize("mode", ["autocommit", "active_transaction"])
@@ -297,6 +340,10 @@ def test_actual_runner_fill_restart_and_duplicate_durable(context):
         opened = START+timedelta(hours=4*index)
         bar = Candle("BTCUSDT", opened, opened+timedelta(hours=4), D(100-index),
                      D(100-index), D(99-index), D(99-index))
+        if state.state.account.trading_day != bar.close_time.date():
+            eth = Candle("ETHUSDT", opened, bar.close_time, D(100), D(100), D(100), D(100))
+            step = context["runner"].day(state, (bar, eth), now=bar.close_time)
+            state = context["store"].commit(state, step)
         q = Quote("BTCUSDT", bar.close_time, bar.close, bar.close)
         step = context["runner"].quote(state, q, now=bar.close_time)
         state = context["store"].commit(state, step)
@@ -311,7 +358,7 @@ def test_actual_runner_fill_restart_and_duplicate_durable(context):
     assert restarted == persisted and len(restarted.state.processed_fills) == 1
     duplicate = context["runner"].quote(restarted, q, now=at)
     assert context["store"].commit(restarted, duplicate) == persisted
-    assert len(journal(context)) == 33
+    assert len(journal(context)) == 35
 
 
 def test_public_feed_contract_to_real_sql_worker_restart_has_one_simulated_fill(context):

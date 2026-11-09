@@ -6,7 +6,7 @@ from unittest.mock import Mock
 import pytest
 
 from investalo_marketdata.paper_feed import H4, SYMBOLS, boundary
-from investalo_trading import Candle, PaperRunner, Quote
+from investalo_trading import Candle, EntryStage, PaperRunner, Quote
 from investalo_workers.paper_store import PaperCommitUnknown
 from investalo_workers.paper_worker import PaperWorker, WARMUP_BARS
 from investalo_workers import paper_main
@@ -175,19 +175,92 @@ def test_cli_unknown_commit_terminates_without_repeating_cycle(monkeypatch):
     assert worker.run_once.call_count == 1
 
 
-def test_cli_continuous_operation_stays_gated_before_configuration(monkeypatch):
+def test_cli_continuous_operation_stays_gated_before_operational_acceptance(monkeypatch):
     configure = Mock()
     monkeypatch.setattr(paper_main, "configured_worker", configure)
     monkeypatch.setattr("sys.argv", ["paper"])
-    with pytest.raises(SystemExit, match="daily-baseline operation pending"):
+    with pytest.raises(SystemExit, match="operational acceptance pending"):
         paper_main.main()
     configure.assert_not_called()
 
 
-def test_next_utc_day_keeps_existing_missing_baseline_buy_gate(monkeypatch):
+def test_next_utc_day_commits_model_basis_before_quotes_and_keeps_rsi_core():
     worker, store, feed = setup()
     worker.run_once()
     feed.now += timedelta(days=1)
+    old = store.value
+    count = len(store.entries)
     worker.run_once()
     state = store.value.state
-    assert worker.runner.simulator.engine._buy_rejection(state, "BTCUSDT", feed.now) == "daily_baseline_required"
+    assert state.account.trading_day == feed.now.date()
+    assert state.account.day_start_equity == old.state.account.cash
+    assert store.entries[count].input_kind == "day"
+    assert store.entries[count].fills == ()
+    assert store.entries[count+1].input_kind == "quote"
+    assert worker.runner.simulator.engine.config.rsi_period == 14
+
+
+def test_held_midnight_inventory_is_frozen_before_sell_and_survives_restart():
+    worker, store, feed = setup()
+    worker.run_once()
+    old = store.value
+    baskets = tuple(replace(b, quantity=D(q), principal_spent=D(100),
+                            entries=(EntryStage(1, D(100), D(q), complete=True),),
+                            protected=True, started_at=NOW,
+                            stop_price=D(150) if b.symbol == "BTCUSDT" else None)
+                    for b, q in zip(old.state.baskets, ("1", "2")))
+    store.value = replace(old, state=replace(old.state, baskets=baskets,
+                          account=replace(old.state.account, cash=D(9700))))
+    feed.now = NOW.replace(day=10, hour=0, minute=0, second=7)
+    count = len(store.entries)
+    result = worker.run_once()
+    assert store.entries[count].input_kind == "day" and store.entries[count].fills == ()
+    assert store.value.state.account.day_start_equity == D(10000)
+    assert store.value.state.basket("BTCUSDT").quantity == 0 and result.fills == 1
+    assert store.value.state.account.cash > D(9700)
+    feed.now += timedelta(seconds=1)
+    PaperWorker(worker.runner, store, feed, worker.clock).run_once()
+    assert store.value.state.account.day_start_equity == D(10000)
+    assert sum(e.input_kind == "day" for e in store.entries) == 1
+
+
+def test_crash_after_day_commit_before_quotes_restarts_without_second_baseline():
+    worker, store, feed = setup()
+    worker.run_once()
+    feed.now = NOW.replace(day=10, hour=0, minute=0, second=7)
+    commit = store.commit
+    def interrupted(previous, update):
+        if update.entry and update.entry.input_kind == "quote":
+            raise RuntimeError("Synthetic crash")
+        return commit(previous, update)
+    store.commit = interrupted
+    with pytest.raises(RuntimeError):
+        worker.run_once()
+    assert store.value.last_entry.input_kind == "day"
+    store.commit = commit
+    worker.run_once()
+    assert sum(e.input_kind == "day" for e in store.entries) == 1
+
+
+def test_missing_midnight_candle_cannot_commit_a_partial_day():
+    worker, store, feed = setup()
+    worker.run_once()
+    old = store.value
+    feed.now = NOW.replace(day=10, hour=0, minute=0, second=7)
+    original = feed.closed_bars
+    feed.closed_bars = lambda *args, **kwargs: tuple(
+        b for b in original(*args, **kwargs) if b.close_time.hour != 0)
+    with pytest.raises(ValueError):
+        worker.run_once()
+    assert store.value == old
+
+
+def test_midnight_crossed_during_commit_is_rejected_before_day_write():
+    worker, store, feed = setup()
+    worker.run_once()
+    old = store.value
+    feed.now = NOW.replace(day=10, hour=0, minute=0, second=7)
+    values = iter((feed.now, feed.now, feed.now+timedelta(days=1)))
+    with pytest.raises(ValueError):
+        replace(worker, clock=lambda: next(values)).run_once()
+    assert store.value == old

@@ -321,3 +321,18 @@ tests/paper-status.test.ts (16), npm run typecheck, pinned compose build cockpit
 Logs /tmp/investalo-paper-status-tests.log, -cockpit-tests.log, -cockpit-build.log.
 No public recreate; API_PAPER_STATUS_PREVIEW/COCKPIT_PAPER_STATUS_PREVIEW off.
 Q32 pending; do not implement modeled midnight valuation without approval.
+
+## IP-052 approved day basis
+
+Q32 now approved. `python3 infra/scripts/prepare-paper-day-checks.py` preflights
+actual writer/day/replay in rolled-back012, --apply-reviewed only fixture.
+012 applied/immutable; normal007/fixture012 expected by read-only ledgerchecker.
+Checksum b79857a01fa9eba1dbac5d9d46a10432723b4bd97e2b9ad89ca47c1198b2fa0a.
+Focused check script now accepts pytest args; select repeats with -k.
+190 distinct cases/48subtests: full189 + invalid test OHLC corrected and targeted3.
+43actualPG/API,17status SSR/contracts, typecheck. Logs
+/tmp/investalo-paper-midnight-tests.log and -targeted.log; pinned build
+-cockpit-build.log. Default/public services/flags unchanged; daemon gated.
+Pinned build passed; normal007/fixture012/all checksums verified.
+Ledger read timeout during CPU-heavy build; single post-build read passed.
+Public containers unchanged/healthy, cockpit TLS200.

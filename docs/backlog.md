@@ -32,8 +32,8 @@ Keine erledigten Punkte in dieser Liste halten.
 | BL-025 | Passkey-Recovery nach terminalem Widerruf | Administrativer Widerruf sperrt den Faktor und erhöht die globale Nutzer-Epoch; kontrollierten E-Mail-bestätigten Ersatz-/Recoveryweg mit eigener Migration und Sitzungsbindung abnehmen. Keine Reaktivierung, Löschung oder erneute Registrierung in reservierte Slots |
 | BL-026 | Öffentlicher TLS-Betrieb | IP-035 bestätigt persistente ACME-Daten nach Neustart und ausschließlich Edge-Hostports; tatsächliche Erneuerung, Ablaufüberwachung, unabhängig externe Portprüfung und geschützten Wiederherstellungsweg noch nachweisen; Zertifikat ersetzt keine Pilotabnahme |
 | BL-027 | Testclient-Abhängigkeit | Starlette meldet im grünen API-Lauf die Ablösung von `httpx` durch `httpx2`; beim nächsten geprüften Dependencycheckpoint FastAPI-/Starlette-Kompatibilität, exakte Pins und Lockstände gemeinsam prüfen |
-| BL-028 | Paper-Tageswechsel und Dauerbetrieb | Bestehender Runner verlangt exakte Mitternachtsquotes/Verarbeitungszeit zur Tagesbaseline; REST-Polling liefert das nicht zuverlässig. Neue Käufe bleiben am nächsten UTC-Tag gesperrt. Q32 zur gekennzeichneten H4-Mitternachtsmodellbewertung offen; bis Entscheidung unverändert. Sichere Risk-/Restart-/Gap-Abnahme, dedizierte dauerhafte Identität, Egress-/Quota-/Retentionbetrieb ergänzen. IP-050 akzeptiert nur begrenzte Fixturezyklen; IP-051-Statusanzeige implementiert, Aktivierung/Betriebsabnahme offen |
+| BL-028 | Paper-Dauerbetrieb | Q32 bestätigt/IP-052 implementiert H4-Mitternachtsmodellbasis vor neuen Tagesfills; Risk-/Restart-/Commitverlust-/fehlende/revidierte Grenzkerzenabnahme grün, RSI unverändert. Fehlende Belege blockieren Käufe. Noch dedizierte permanente Entwicklungsidentität, Quote-/Egress-/Quota-/Retentionbetrieb, dauerhafter Dienst und Betriebs-/Anzeigeabnahme ergänzen. CLI bisher nur begrenzte Fixturezyklen |
 
 RSI-/Supertrend-/Budget-/Exitentscheidungen Q1–Q31 sind bestätigt.
-Offen sind Umsetzung und Nachweise; zusätzlich stellt Q32 ausdrücklich die
-technisch erforderliche Preisbasis der Paper-Tagesbewertung zur Entscheidung.
+Q32 zur H4-Modellpreis-Basis ist ebenfalls bestätigt. Offen bleiben die
+genannten Umsetzungen und Betriebs-/Wirtschaftlichkeitsnachweise.

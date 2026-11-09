@@ -61,8 +61,21 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-049 | P1 / P3–P4 | DONE | Paperzustand und Journal atomar in PostgreSQL speichern | Mergefe6309a in Maindc60c19 verifiziert; eigene SESSION_USER-Kontobindung, CAS und gemeinsamer Commit/Readback.78 gepinnte Tests/15 Subtests,29 tatsächliche PG-Fälle und Review grün;010 nur Fixture-DB. Feedworker/Cockpit bleiben IP-047 |
 | IP-050 | P1 / P3–P4 | DONE | Öffentlichen Spotfeed und begrenzten Paperworker verbinden | Mergee0cfb45 in Main1a805e5 verifiziert; BTC/ETH-H4 plus echte Bid/Ask, persistierte Zyklen82/84/86 und Neustart88.151 Tests/48 Subtests,30 echte PG-Fälle; begrenzte Fixtureabnahme/Review grün. Tageswechsel/Dauerbetrieb und Cockpit bleiben IP-047 |
 | IP-051 | P1 / P3–P4 | DONE | Tenantgebundenen Paperstatus und Journal im Cockpit bereitstellen | Mergeaf65c51 in Mainb9d4b41 verifiziert; lesende011/API und default-off Panel.170 gezielte Tests/48 Subtests inkl37 echte PG/API,16 Cockpit-Vertrags-/SSR-Fälle, Typecheck/Build/Review grün.011 nur Fixture; Q32/Tageswechsel/Dauerbetrieb/Anzeigeaktivierung bleiben offen |
+| IP-052 | P1 / P3–P4 | DONE | Freigegebene H4-Mitternachtsbasis vor Paperfills speichern | Merge05ea009 in Main5d5c61e verifiziert; Q32 bestätigt. Eigener Tagesinput/Beleg/CAS, RSI unverändert.190 unterschiedliche gezielte Fälle/48 Subtests inkl43 PG/API,17 Cockpitfälle/Typecheck/Review grün.012 nur Fixture; Dauerbetrieb/Anzeigeaktivierung bleiben IP-047/BL-028 |
 
 ## Abschlussbelege
+
+IP-052: Q32 ausdrücklich bestätigt; H4-Modellbasis vor Quotes/Verkäufen
+gespeichert, RSI-Zustand/6%/8%/gelatchte Halts unverändert.
+190 unterschiedliche Python-/PG-Fälle/48 Subtests grün (43 tatsächliche PG/API);
+Vollauf189 grün, fehlerhafte OHLC-Testdaten korrigiert und betroffener
+Neustart-/CLI-Lauf3 grün.17 Cockpit-Vertrags-/SSR-Fälle, Typecheck und gepinnter
+Cockpitbuild grün. Normal007/Fixture012/alle Ledgerprüfsummen bestätigt;
+öffentliche Dienste unverändert/gesund, Cockpit TLS200.
+012 nach vollständig zurückgerolltem tatsächlichem Writer-/Replaypreflight
+und unabhängigem Review nur Fixture angewendet. Keine neuen Dependencies,
+keine normale Migration oder öffentliche Aktivierung. Dauerbetrieb bleibt
+bis Betriebsabnahme begrenzt. [Vertrag](../paper-midnight-basis.md).
 
 IP-051:170 gepinnte gezielte Tests/48 Subtests, davon37 tatsächliche
 PostgreSQL-/API-Fälle;16 Cockpit-Vertrags-/SSR-Paneltests, Typecheck und
