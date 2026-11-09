@@ -8,11 +8,13 @@ from .models import (
 )
 from .simulator import BacktestResult, EquityPoint, PaperSimulator, SimulationCosts
 from .snapshot import dumps as dump_state, loads as load_state, primitive
+from .paper import PaperCheckpoint, PaperJournalEntry, PaperRunner, PaperUpdate
 
 __all__ = [
     "AccountState", "BacktestResult", "BasketState", "Candle", "ClosedBasket", "CryptoEngine",
     "DomainEvent", "EngineState", "EntryStage", "EquityPoint", "Fill", "IndicatorState",
     "InstrumentRules", "ManualPreview", "OrderIntent", "OrderRecord", "OrderStatus",
+    "PaperCheckpoint", "PaperJournalEntry", "PaperRunner", "PaperUpdate",
     "PaperSimulator", "Quote", "Side", "SimulationCosts", "StrategyConfig", "TradingRejected",
     "Transition", "VERSION", "dump_state", "load_state", "primitive",
 ]

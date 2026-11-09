@@ -68,7 +68,9 @@ class PaperSimulator:
                 or self.engine.config.estimated_exit_slippage_fraction != self.costs.slippage_fraction):
             raise ValueError("engine exit cost assumptions must match simulation costs")
 
-    def settle(self, state: EngineState, at: datetime, *, buys: bool = True) -> tuple[
+    def settle(self, state: EngineState, at: datetime, *, buys: bool = True,
+               symbols: tuple[str, ...] | None = None,
+               require_later_buy_quote: bool = False) -> tuple[
             EngineState, tuple[Fill, ...], tuple[DomainEvent, ...]]:
         """Execute existing PAPER intents; never create a discretionary intent.
 
@@ -76,7 +78,8 @@ class PaperSimulator:
         in the application layer. Unknown orders require explicit reconciliation.
         """
         self.engine._validate(state)
-        return self._settle(state, at, buys=buys)
+        return self._settle(state, at, buys=buys, symbols=symbols,
+                            require_later_buy_quote=require_later_buy_quote)
 
     @precise
     def quote(self, symbol: str, at: datetime, midpoint: Decimal) -> Quote:
@@ -84,7 +87,9 @@ class PaperSimulator:
                      midpoint * (1 + self.costs.spread_fraction / 2))
 
     @precise
-    def _settle(self, state: EngineState, at: datetime, *, buys: bool) -> tuple[EngineState, tuple[Fill, ...], tuple[DomainEvent, ...]]:
+    def _settle(self, state: EngineState, at: datetime, *, buys: bool,
+                symbols: tuple[str, ...] | None = None,
+                require_later_buy_quote: bool = False) -> tuple[EngineState, tuple[Fill, ...], tuple[DomainEvent, ...]]:
         """Simulator's authoritative execution/cancellation, never a broker retry."""
         fills: list[Fill] = []
         events: list[DomainEvent] = []
@@ -97,6 +102,8 @@ class PaperSimulator:
                     continue
                 if record.status == OrderStatus.UNKNOWN:
                     raise TradingRejected("simulator_cannot_resolve_unknown_broker_order")
+                if symbols is not None and record.intent.symbol not in symbols:
+                    continue
                 if record.status == OrderStatus.CANCEL_REQUESTED:
                     result = self.engine.reconcile_cancelled(state, record.intent.intent_id)
                     state = result.state
@@ -111,6 +118,8 @@ class PaperSimulator:
                     if not buys:
                         continue
                     if intent.created_at > at:
+                        continue
+                    if require_later_buy_quote and quote.observed_at <= intent.created_at:
                         continue
                     reject = self.engine._buy_rejection_for_dispatch(state, record, at)
                     with localcontext() as ctx:

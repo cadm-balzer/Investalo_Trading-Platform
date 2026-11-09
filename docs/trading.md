@@ -1,5 +1,7 @@
 # Handelskonzept, Risiko und Nachweis
 
+IP-048 verwendet denselben Kern im schrittweisen Paperlauf: Intents warten auf spätere frische Quotes, Restore erhält Fills und Risk Stops. DB-/Feedintegration bleibt IP-047. [Vertrag](paper-runner.md).
+
 IP-046: Drei Jahre BTC/ETH-H4 werden im vorhandenen deterministischen
 Researchworkflow ausgewertet; ein weiterer Jahresabschnitt ist ausschließlich
 als Holdout reserviert. Fensterbildung verändert keine Preise/Strategieregeln

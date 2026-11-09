@@ -1,6 +1,8 @@
 # Roadmap
 
-Stand 2026-11-08. Q1–Q5 bestätigen privaten Pilot, Paper zuerst, feste
+IP-047 ist aktiv: IP-048 liefert den schrittweisen Paperkern und Snapshot-/Journalvertrag. Als Nächstes PostgreSQL-CAS/Journalschreiber, Feedworker und Cockpitstatus. [Vertrag](paper-runner.md).
+
+Stand 2026-11-09. Q1–Q5 bestätigen privaten Pilot, Paper zuerst, feste
 Risikolimits, kontrollierte KI und kostenlose externe Dienste.
 Q6–Q8 bestätigen beide Handelsintegrationen im MVP, Grundstack und eigene MFA.
 Q9–Q14 bestätigen BTC/ETH Spot H4, XAUUSD Trend/Pullback H1/M15,

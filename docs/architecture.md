@@ -1,5 +1,7 @@
 # Architektur und Stack
 
+IP-048 ergänzt einen isolierten PaperRunner mit gebundenem Checkpoint und Journaleintrag. PostgreSQL-CAS/atomarer Writer bleibt IP-047; keine neue Speicherarchitektur oder Runtime aktiviert. [Vertrag](paper-runner.md).
+
 IP-046: Drei Jahre BTC/ETH-H4 werden im vorhandenen deterministischen
 Researchworkflow ausgewertet; ein weiterer Jahresabschnitt ist ausschließlich
 als Holdout reserviert. Fensterbildung verändert keine Preise/Strategieregeln
@@ -9,7 +11,7 @@ wirtschaftliche Validierung werden daraus nicht abgeleitet. Nächster Schritt:
 Paperausführung mit demselben Kern und unabhängigem Risk Gate.
 [Protokoll und Grenzen](long-history-backtests.md).
 
-Stand 2026-11-08. Q7 bestätigt den Grundstack aus Python/FastAPI,
+Stand 2026-11-09. Q7 bestätigt den Grundstack aus Python/FastAPI,
 Next.js/TypeScript, PostgreSQL und getrennten Workern im modularen Monolithen.
 Q13/Q14 bestätigen Docker Compose und lokales Authelia.
 Q31 bestätigt den Umsetzungsstart. Cockpit, API, PostgreSQL und Authelia laufen

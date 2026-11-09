@@ -81,3 +81,14 @@ Mengenrundung immer nach unten; Rest bleibt Cash. Echte unerwartete bekannte
 Kauffills werden verbucht und bei Limitverstoß gelatcht/geschlossen. Unbekannte
 oder überverkaufende Fills verlangen Reconciliation statt erfundener Positionen.
 MT5/FTMO, Datenfeeds, Outbox-/DB-Transaktionen und MFA gehören in Adapter/Anwendung.
+
+## Incremental PaperRunner (IP-048)
+
+`PaperRunner(tenant_id, account_id)` consumes `quote(checkpoint, quote, now=...)`
+and `bar(checkpoint, candle, now=...)`, returning immutable checkpoint plus
+journal entry. `start(at)`, `dump(checkpoint)` and `restore(payload)` provide
+bound restart snapshots. Buys wait for a later fresh quote for their asset;
+known duplicates cannot fill twice. No automatic manual approval/resume.
+The caller must CAS and atomically commit checkpoint and append-only journal
+before ACK. A PostgreSQL writer/feed daemon is still IP-047, not provided by
+this class. [Contract and limits](../../docs/paper-runner.md).
