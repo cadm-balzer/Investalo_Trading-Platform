@@ -9,6 +9,9 @@ from .models import (
 from .simulator import BacktestResult, EquityPoint, PaperSimulator, SimulationCosts
 from .snapshot import dumps as dump_state, loads as load_state, primitive
 from .paper import PaperCheckpoint, PaperJournalEntry, PaperRunner, PaperUpdate
+from .portfolio import (
+    BenchmarkResult, CapitalPoint, PortfolioBacktestResult, PortfolioSimulator,
+)
 
 __all__ = [
     "AccountState", "BacktestResult", "BasketState", "Candle", "ClosedBasket", "CryptoEngine",
@@ -17,4 +20,5 @@ __all__ = [
     "PaperCheckpoint", "PaperJournalEntry", "PaperRunner", "PaperUpdate",
     "PaperSimulator", "Quote", "Side", "SimulationCosts", "StrategyConfig", "TradingRejected",
     "Transition", "VERSION", "dump_state", "load_state", "primitive",
+    "BenchmarkResult", "CapitalPoint", "PortfolioBacktestResult", "PortfolioSimulator",
 ]

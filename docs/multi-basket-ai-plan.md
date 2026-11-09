@@ -38,6 +38,12 @@ in diese Prüfung. Die manuelle Reserve bleibt bewusst manuell.
 
 ## Nächster Forschungscheckpoint IP-055
 
+IP-056 bereitet ihn mit einer gemeinsamen unveränderten BTC-/ETH-Baseline
+vor: synchronisierte H4-Quotes, ein Konto und messbare Kapitalnutzung.
+[Offlinekern, Kennzahlen und Abnahme](portfolio-reference.md).
+Die Auswahl zusätzlicher Coins ist erfragt; die größere Allokation bleibt
+vor ihrem ersten Leistungslauf genau festzulegen.
+
 Die bisherigen BTC-/ETH-Läufe mit je eigenem10.000-USDT-Konto bleiben
 unverändert. Ihre Gewinne dürfen nicht als gemeinsames Portfolio addiert werden.
 Geplant ist ein neuer versionierter Portfolio-Researchlauf:

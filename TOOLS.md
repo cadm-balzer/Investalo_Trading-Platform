@@ -1,5 +1,11 @@
 # TOOLS.md - Local Notes
 
+IP-056 Offline-Research: `python3 infra/scripts/check-portfolio-research.py`
+liest als Hostowner ausschließlich die zwei bestehenden gefrorenen
+Researchdateien und vergleicht Digests/Ergebnisrecord. Kein Holdout/DB/Broker.
+Gezielte gepinnte Prüfung über check-paper-storage.sh mit Filter
+`TradingCoreTests or SimulatorTests or PaperRunnerTests or JointQuoteTests or PortfolioTests or test_computation`.
+
 Skills define _how_ tools work. This file is for _your_ specifics — the stuff unique to your setup.
 
 ## What Goes Here

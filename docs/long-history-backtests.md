@@ -163,3 +163,8 @@ Dieser Plan verändert keine Handelsregeln oder gespeicherten Ergebnisse.
 Q33 ergänzt danach den [gemeinsamen3–5-Basketlauf](multi-basket-ai-plan.md)
 als IP-055: ein Konto statt addierter Einzelassetresultate, gemeinsame
 Kapitalreservierungen und weiterhin bindende6%/8%-Limits.
+
+IP-056 ergänzt zunächst die gemeinsame unveränderte BTC-/ETH-Baseline:
+228,72 USDT Nettoertrag auf einem10.000-USDT-Konto, zeitgewichteter gehaltener
+Einstand72,56 USDT. Das erklärt geringe Kapitalnutzung, kein validiertes
+größeres Budgetprofil. [Kennzahlen und Benchmark](portfolio-reference.md).

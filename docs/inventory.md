@@ -1,5 +1,10 @@
 # Bestandsaufnahme
 
+IP-056 (2026-11-09): neuer separater gemeinsamer Offline-BTC-/ETH-Referenzkern,
+atomare H4-Bewertung, Kapitalnutzung und passive Kostenreferenz auf unverändertem
+500+5-Profil. Keine Legacyübernahme/zusätzliche Abhängigkeit, DB-/Runtime-
+änderung oder erweiterte Coinaktivierung. [Befund](portfolio-reference.md).
+
 Read-only erhoben am 2026-11-06. Keine Credentials, privaten Kontodaten oder
 Ergebnisprotokolle gelesen; die beiden Referenzrepos wurden nicht verändert.
 Die folgenden Tabellen beschreiben den Ausgangsstand. Der aktuelle lokale

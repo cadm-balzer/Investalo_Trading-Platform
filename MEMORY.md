@@ -2,6 +2,15 @@
 
 Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
 
+- 2026-11-09:9455bfe in Mainef18d74 verifiziert; IP-056 auf
+  feat/m1-portfolio-research-core: gemeinsame Offline-BTC-/ETH-Baseline,
+  atomare H4-Batches, Mitternacht/Kapitalbindung/passive Referenz. Unveränderte
+  500+5-Budgets, kein Deploy. Forschungnet228,72 USDT/DD0,6144%, zeitgewichteter
+  gehaltener Einstand72,56 USDT /0,7256% von10k. Benchmarknet2577,90/PeakDD
+  12,1145%; Start-/Tagesverluste3,4806%/3,1921%. PeakDD nicht mit8%-Startlimit
+  gleichsetzen. Neue Coins erfragt, Allokator IP-055 offen. Kein DB/Holdout/
+  Brokerzugriff. Vertrag docs/portfolio-reference.md.
+
 - 2026-11-09: Q33 bestätigt Planungsziel3–5 Coinbaskets, volle Kontokapital-
   zuordnung und spätere KI-Prüfung nach RSI. Nutzer bestätigt auf Rückfrage
   weiterhin6% Tages-/8% Startkapitalverlust. Kapitalplanung ist keine

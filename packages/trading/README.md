@@ -1,5 +1,10 @@
 # Deterministischer Crypto-Paperkern
 
+IP-056 ergänzt den separaten Offline-`PortfolioSimulator` für gemeinsame
+vollständige BTC-/ETH-Historien. Ein Konto, atomare Quote-Batches, Kapital-
+kennzahlen und passive kostenvergleichbare Referenz; ursprüngliche
+Einzelasset-/Paperpfade unverändert. [Vertrag/Ergebnisse](../../docs/portfolio-reference.md).
+
 Stdlib-Python, immutable Dataclasses, Decimal und UTC. Version
 `crypto-basket/1.0.0`; Konfiguration und Instrumentpräzision zusätzlich per
 Digest an Snapshots gebunden. Kein Broker-I/O, kein Secretzugriff und kein

@@ -12,6 +12,10 @@ Kapitalzuordnung und weiterhin bindenden6%/8%-Kontolimits. Spätere RSI-
 Signalprüfung durch KI bleibt IP-021/022; Hebel/variable Stufen benötigen
 eigene validierte Varianten. [Portfolio- und KI-Plan](multi-basket-ai-plan.md).
 
+IP-056 bereitet IP-055 mit einer realen gemeinsamen BTC-/ETH-Baseline und
+Kapitalnutzungsdiagnose vor. Erweiterte Coins/Budget-/Stressablehnungsregeln
+vor größerem Leistungslauf festlegen. [Offline-Referenz](portfolio-reference.md).
+
 Stand 2026-11-09. Q1–Q5 bestätigen privaten Pilot, Paper zuerst, feste
 Risikolimits, kontrollierte KI und kostenlose externe Dienste.
 Q6–Q8 bestätigen beide Handelsintegrationen im MVP, Grundstack und eigene MFA.

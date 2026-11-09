@@ -124,6 +124,11 @@ genehmigte Varianten vor. Schutz-/Verkaufspfad wartet nicht auf die KI;
 zunächst Shadow Mode mit dokumentierten Eingaben/Versionen und Kostenbudget.
 [Portfolio- und KI-Plan](multi-basket-ai-plan.md).
 
+IP-056 implementiert dafür zunächst einen separaten Offline-Portfolio-
+Simulator auf demselben Strategiekern, mit atomarer kompletter Batchbewertung.
+Eigener Policydigest/Forschungsbefund; noch kein Multi-Dataset-Job-/APIvertrag
+oder neues Worker-/Cockpitprofil. [Referenz](portfolio-reference.md).
+
 ## Technologieauswahl
 
 API/Cockpit/Trading/PostgreSQL/persistente PostgreSQL-Jobs sind grundsätzlich

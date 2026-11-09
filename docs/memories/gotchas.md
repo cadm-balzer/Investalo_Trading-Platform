@@ -571,3 +571,12 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   keine Zukunftskenntnis heutiger Modelle. Ohne rekonstruierbare damalige
   Wissensgrenze prospektiven Shadow-/Papernachweis verlangen. Alternative.me
   Fear & Greed ist Bitcoinkontext, kein coinspezifischer Altcoinindikator.
+- **Peakdrawdown ist keine Startkapitalverlustgrenze:** Benchmark12,1145%
+  vom Hoch verletzt nicht automatisch8% vom Start. Tatsächliche Baseline-
+  Verluste hier3,4806% initial/3,1921% täglich. Separat ausweisen/prüfen.
+- **Gleichzeitige Researchquotes gemeinsam bewerten:** sequential on_quote
+  kann bei gegenläufigen Assets ein gemeinsames Limit vorzeitig latchen.
+  Komplette atomare Batches nicht mit asynchronen Brokerquotes gleichsetzen.
+- **primitive verarbeitet Dictwerte nicht rekursiv:** Replayreport/Policy
+  normalisieren jeden Feldwert. Sonst Tuple/List-Drift beim JSON-Roundtrip
+  oder nicht serialisierbares Decimal; globale alte Digestfunktion bewahren.
