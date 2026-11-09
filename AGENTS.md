@@ -87,7 +87,7 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   onboarding checkpoint `69a1f8b` merged into main, verified at `56070ba`;
   step-up checkpoint `d57bd56` merged into main, verified at `b6198f7`;
   registry checkpoint `6a18102` merged into main, verified at `f422a90`;
-  current work branch: `feat/m1-persistent-paper-core`.
+  current work branch: `feat/m1-paper-postgres-journal`.
   Isolated AEAD core: `packages/credentials/README.md`, 20 offline tests with
   pinned cryptography and a separate hardened Compose check.
   Credential store: `services/credentials/README.md`; migration003 and current
@@ -382,6 +382,24 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   and dependencies unchanged. Restore binds actor/account/config/cost/mode;
   no DB writer/feed daemon/HTTP activation yet. Next: PostgreSQL CAS and atomic
   append-only journal, then worker/Cockpit. See docs/paper-runner.md.
+
+- IP-048 checkpoint `fe6309a` merged into main `dc60c19` (verified).
+  IP-049 implements private PaperStore and atomic010 checkpoint/journal CAS.
+  Dedicated paper LOGIN uses SESSION_USER account binding; no direct tables,
+  credential access or new runtime/research rights. SQL trusts Python economic
+  calculations. Require fresh non-autocommit connections; unknown commits
+  require readback, never automatic retry. 78 pinned tests/15 subtests passed,
+  including29 actual PG cases; independent review has no remaining blocker.
+  Reviewed010 applied ONLY to investalo_credentials_checks after rolled-back
+  DDL/worker/failure preflight. Immutable SHA256:
+  812a0a1f1702f09ef3b9410640eae7b60498320326888a86c494a83f8f3f5797.
+  Development investalo remains001–007; fixture001–010 verified.
+  NEVER default migrate/up to repair tests. Fixture-only TLS/SCRAM HBA added;
+  PG config reloaded, public containers not recreated, cockpit TLS200.
+  Synthetic fixture password rotated after a connection trace; factory errors
+  now sanitized. No real credentials affected. No builds/dependencies added.
+  IP-047 next: public market feed, running Paperworker and Cockpit status.
+  See docs/paper-postgres-store.md.
 
 ## Trading and implementation invariants
 

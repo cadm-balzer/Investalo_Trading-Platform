@@ -58,8 +58,19 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-046 | P1 / P2–P3 | DONE | Mehrjährige BTC/ETH-Forschung und echte lange Cockpitbacktests bereitstellen | Merge0a0751b in Main073c474 verifiziert; je8766 Quellkerzen,6576 Forschung/2190 reservierter Holdout.66 gepinnte Coretests/33 Subtests,5 Metadatenfälle,572 API-/Workerfälle,je48 reale HTTPS-Prüfpunkte,exakter Replay und null Holdoutjobs; Review grün, keine Migration/Serviceaktivierung |
 | IP-047 | P1 / P3–P4 | IN_PROGRESS | Persistenten Crypto-Paperablauf mit Risk Gate und Journal umsetzen | Nutzerpriorität Trading; IP-012/046. Derselbe Strategiekern, getrennte simulierte Konten/Orders/Fills, geschlossene H4-Signale, Crash/Replay ohne Doppelfill und sichtbarer Paperstatus; keine privaten Brokerkeys oder Echtgeld |
 | IP-048 | P1 / P3–P4 | DONE | Schrittweisen wiederherstellbaren Paperkern mit Journalvertrag ergänzen | Mainmergeeb62176/dd1903b geprüft;14 neue Runnerfälle,84 gepinnte gezielte Tests/48 Subtests. Frische spätere Quotes, keine doppelten Fills/automatischen manuellen Einstiege. PostgreSQL-Writer und laufender Feed/Cockpit bleiben IP-047 |
+| IP-049 | P1 / P3–P4 | DONE | Paperzustand und Journal atomar in PostgreSQL speichern | Mergefe6309a in Maindc60c19 verifiziert; eigene SESSION_USER-Kontobindung, CAS und gemeinsamer Commit/Readback.78 gepinnte Tests/15 Subtests,29 tatsächliche PG-Fälle und Review grün;010 nur Fixture-DB. Feedworker/Cockpit bleiben IP-047 |
 
 ## Abschlussbelege
+
+IP-049:78 gezielte gepinnte Tests/15 Subtests bestanden, davon29 tatsächliche
+PostgreSQL-Fälle. Konkurrenz, atomarer Rollback, verlorene Commitantwort und
+Restart mit genau einem simulierten Fill geprüft; Review ohne Blocker.
+010 nach vollständig zurückgerolltem Preflight nur Fixture-DB angewendet:
+normal007/Fixture010 und sämtliche Ledgerprüfsummen geprüft.
+HBA nur um Fixture-TLS/SCRAM ergänzt und PostgreSQL-Konfiguration neu geladen.
+Öffentliche Dienste nicht neu erstellt, Cockpit TLS/HTTP200. Keine neue
+Dependency/Build oder breite HTTP-/Credentialregression.
+[Vertrag und nächste Feed-/Cockpitintegration](../paper-postgres-store.md).
 
 IP-048:84 gezielte gepinnte Trading-/Marktdata-/Workerberechnungstests mit
 48 Subtests bestanden. Paper-Snapshot-Restore und Journaleintrag geprüft;

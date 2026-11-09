@@ -485,3 +485,19 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   durch Readback klären. Quotezeit muss nach Kaufsignal liegen; ein Quote
   des anderen Assets darf keinen Fill am alten Preis auslösen. Missing
   midnight baseline nicht nachträglich aus aktueller Equity erfinden.
+
+- **Commitklassifikation verlangt frische Transaktion:** Eine Factory mit
+  Autocommit oder bereits laufender Transaktion kann Writes vor der erwarteten
+  Commitgrenze dauerhaft machen. PaperStore prüft `autocommit=False` und
+  `TransactionStatus.IDLE` vor SQL. Unknowncommit nie retry; frisches Readback.
+
+- **Psycopg-Verbindungsfehler können Conninfo preisgeben:** Pytesttrace kann
+  Passwortvariablen im internen Frame zeigen. Fixturefactory fängt
+  Verbindungsfehler sanitisiert und ohne ursprünglichen Trace; `--tb=short`.
+  Anfänglich betroffenes synthetisches Paperpasswort rotiert, lokalen Trace
+  bereinigt. TLS/SCRAM-HBA für genau Fixture/Papergruppe vor LOGIN-Test prüfen.
+
+- **Paper010 ist ausschließlich Fixturemigration:** Normale DB bleibt007,
+  Fixture jetzt010. Read-only-Ledgerchecker muss beide Stände explizit prüfen.
+  Keine normale Migration als Reparatur für Fixturetests; angewendete010
+  unveränderlich. Journaltests behalten append-only synthetische Historie.

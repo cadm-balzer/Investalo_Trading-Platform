@@ -41,13 +41,11 @@ encoded = runner.dump(update.checkpoint)
 restored = runner.restore(encoded)
 ```
 
-Der nächste PostgreSQL-Adapter MUSS alte Revision per CAS prüfen und Zustand
-plus append-only Journaleintrag in derselben Transaktion committen, bevor er
-ACK sendet. Unbekannten Commit durch Readback klären, nicht blind erneut
-berechnen. Dieser Checkpoint implementiert diesen DB-Writer noch nicht.
-Der Disk-Roundtrip im Test belegt Wiederherstellbarkeit; er ist weder ein
-atomarer Dateistore noch der laufende Paperdienst. Dataset-/Holdoutrechte,
-Feedfrische, Workeridentität und API-Autorisierung gehören in den Adapter.
+IP-049 implementiert den [PostgreSQL-Adapter](paper-postgres-store.md):
+alte Revision/Checksumme per CAS, Zustand plus append-only Journal in einer
+Transaktion und ACK erst nach Commit. Unbekannten Commit durch Readback klären.
+Der Disk-Roundtrip aus IP-048 bleibt ein Restoretest; laufender Feeddienst,
+Feedfrische und API-Autorisierung folgen in IP-047.
 
 ## Prüfbeleg und nächste Umsetzung
 
@@ -60,6 +58,8 @@ Aktueller Quellcode wurde schreibgeschützt in das vorhandene Checkimage
 gebunden; keine Dependencies heruntergeladen oder Images neu gebaut.
 Breite API-/Cockpit-/Credentialläufe aus IP-046 wurden nicht wiederholt.
 
-IP-047 bleibt in Umsetzung: PostgreSQL-CAS/Journalschreiber, kontrollierter
-Feed/Worker, Paperstatus im Cockpit und Abnahme von Crash/Konkurrenz/Recovery.
+IP-049 ergänzt78 gezielte Tests/15 Subtests, darunter29 echte PostgreSQL-Fälle
+für CAS, atomaren Rollback, unbekannte Commits und Neustart ohne Doppelfill.
+IP-047 bleibt in Umsetzung: kontrollierter Feed/Worker, Paperstatus im Cockpit
+und Betriebs-/Recoveryabnahme.
 Echtgeld und wirtschaftliche Holdoutvalidierung bleiben separate Gates.

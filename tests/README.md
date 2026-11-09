@@ -1,6 +1,6 @@
 # Verifikation
 
-IP-048: `tests/trading/test_paper.py` ergänzt14 Restart-/Fill-/Risk-/Zeit-/Snapshotfälle.84 gezielte gepinnte Trading/Marketdata/Workerberechnungstests mit48 Subtests grün. Breite HTTP-/DB-/Credentialprüfungen unverändert und nicht erneut ausgeführt. [Vertrag](../docs/paper-runner.md).
+IP-049: `bash infra/scripts/check-paper-storage.sh` prüft29 tatsächliche PostgreSQL-Fälle plus45 Trading-/vier Workerberechnungsfälle:78 Tests/15 Subtests bestanden. Atomarer Rollback, Konkurrenz, unbekannte Commits, DB-Restore ohne Doppelfill und Rechte geprüft. Bestehendes Checkimage; keine Builds/Downloads oder erneuten breiten HTTP-/Credentialläufe. [Vertrag](../docs/paper-postgres-store.md).
 
 IP-046:15 neue Fenster-/CLI-Tests prüfen Mehrjahrespartition, Leap Year,
 Lücken, Zeitgrenzen, unveränderte Preise/Provenienz und Create-only-Ausgaben.

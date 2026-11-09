@@ -1,6 +1,6 @@
 # Handelskonzept, Risiko und Nachweis
 
-IP-048 verwendet denselben Kern im schrittweisen Paperlauf: Intents warten auf spätere frische Quotes, Restore erhält Fills und Risk Stops. DB-/Feedintegration bleibt IP-047. [Vertrag](paper-runner.md).
+IP-048 verwendet denselben Kern im schrittweisen Paperlauf: Intents warten auf spätere frische Quotes, Restore erhält Fills und Risk Stops. IP-049 speichert Zustand/Journal atomar in der Testdatenbank. Laufender Feed/Worker und Cockpit bleiben IP-047. [Paperstore](paper-postgres-store.md).
 
 IP-046: Drei Jahre BTC/ETH-H4 werden im vorhandenen deterministischen
 Researchworkflow ausgewertet; ein weiterer Jahresabschnitt ist ausschließlich

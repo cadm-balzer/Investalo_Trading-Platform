@@ -278,3 +278,18 @@ Use the existing api-checks image with readonly mounts for current
 No DB access, rebuild or dependency download needed for this domain checkpoint.
 Log: `/tmp/investalo-paper-pinned-tests.log` (84tests/48subtests).
 PaperRunner is a checkpoint contract, not a provisioned Paperwriter/daemon.
+
+## IP-049 atomic PostgreSQL Paper checks
+
+`python3 infra/scripts/prepare-paper-storage-checks.py` provisions only the
+fixed synthetic Paper LOGIN and preflights010 in a rolled-back transaction.
+`--apply-reviewed` applies reviewed010 ONLY to investalo_credentials_checks;
+`--rotate-test-secret` rotates ONLY this fixture LOGIN/password file.
+Fixture TLS/SCRAM HBA is required; normalDB remains007, fixture now010.
+The read-only `/tmp/investalo-credential-development-schema-check.py` expects
+007/010 and checks every applied checksum. Never default migrate/up.
+`bash infra/scripts/check-paper-storage.sh` reuses the pinned api-checks image
+with readonly current source/tests and protected Paper test secret.
+78tests/15subtests,29actualPG; log `/tmp/investalo-paper-postgres-tests.log`
+mode0600. Sanitize connection failures; pytest traces can expose conninfo.
+No builds, host ports, daemon, public recreate or real credentials.

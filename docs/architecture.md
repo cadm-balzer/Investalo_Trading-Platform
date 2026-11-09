@@ -1,6 +1,6 @@
 # Architektur und Stack
 
-IP-048 ergänzt einen isolierten PaperRunner mit gebundenem Checkpoint und Journaleintrag. PostgreSQL-CAS/atomarer Writer bleibt IP-047; keine neue Speicherarchitektur oder Runtime aktiviert. [Vertrag](paper-runner.md).
+IP-049 verbindet den gebundenen PaperRunner mit einem atomaren PostgreSQL-Writer: Revision-/Checksum-CAS, append-only Journal und eigene SESSION_USER-Kontobindung.010 ausschließlich in der Testdatenbank; laufender Feed/Worker und Cockpit bleiben IP-047. [Vertrag](paper-postgres-store.md).
 
 IP-046: Drei Jahre BTC/ETH-H4 werden im vorhandenen deterministischen
 Researchworkflow ausgewertet; ein weiterer Jahresabschnitt ist ausschließlich

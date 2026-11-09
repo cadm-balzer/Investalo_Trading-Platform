@@ -793,3 +793,26 @@ Tests/48 Subtests bestanden; keine Migration/Dependency/Dienstaktivierung.
 DB-Persistenz muss Zustand und append-only Journal mit Revision-CAS atomar
 schreiben. Writer, Feedworker und Cockpitstatus bleiben IP-047; der isolierte
 Runner ist noch kein betriebener Paperdienst. [Vertrag](../paper-runner.md).
+
+## 2026-11-09 — D-053: Atomare Paperpersistenz mit eigener Kontorolle
+
+Nutzer bestätigt IP-048-Merge; fe6309a in Maindc60c19 verifiziert.
+IP-049 speichert Checkpoint und append-only Journal mit Revision-/Checksum-CAS
+in einer Transaktion. Eigene LOGIN-Gruppe und SESSION_USER-Kontobindung,
+keine direkten Tabellen-/Credentialrechte oder neuen Runtime-/Researchrechte.
+SQL vertraut Python für Handels-/Wirtschaftssemantik; keine Strategieveränderung.
+Client verlangt frische Verbindung ohne Autocommit/laufende Transaktion;
+Commitverlust wird durch Readback geklärt, nie automatisch erneut geschrieben.
+
+010 nach vollständig zurückgerolltem DDL-/Worker-/Failurepreflight nur in
+Fixture angewendet. SHA256:
+`812a0a1f1702f09ef3b9410640eae7b60498320326888a86c494a83f8f3f5797`.
+Normal007/Fixture010 und sämtliche angewendeten Prüfsummen verifiziert.
+HBA nur Fixture-TLS/SCRAM für Papergruppe; PostgreSQL configreload.
+Synthetisches Testpasswort aus anfänglichem Verbindungstrace rotiert,
+Trace bereinigt, Factoryfehler sanitisiert; keine echten Credentials betroffen.
+78 gepinnte Tests/15 Subtests,29 echte PG-Fälle und unabhängiger Review grün.
+Keine Builds/Dependencies/öffentliche Dienstneuerstellung; Cockpit TLS200.
+Kostenpräferenz bleibt: gezielte Checks, keine breiten Auth-Regressionsläufe.
+IP-047 nächster Schritt Marktfeed/laufender Worker/Cockpitanzeige.
+[Speichervertrag](../paper-postgres-store.md).
