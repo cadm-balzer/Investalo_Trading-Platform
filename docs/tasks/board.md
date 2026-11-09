@@ -62,8 +62,19 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-050 | P1 / P3–P4 | DONE | Öffentlichen Spotfeed und begrenzten Paperworker verbinden | Mergee0cfb45 in Main1a805e5 verifiziert; BTC/ETH-H4 plus echte Bid/Ask, persistierte Zyklen82/84/86 und Neustart88.151 Tests/48 Subtests,30 echte PG-Fälle; begrenzte Fixtureabnahme/Review grün. Tageswechsel/Dauerbetrieb und Cockpit bleiben IP-047 |
 | IP-051 | P1 / P3–P4 | DONE | Tenantgebundenen Paperstatus und Journal im Cockpit bereitstellen | Mergeaf65c51 in Mainb9d4b41 verifiziert; lesende011/API und default-off Panel.170 gezielte Tests/48 Subtests inkl37 echte PG/API,16 Cockpit-Vertrags-/SSR-Fälle, Typecheck/Build/Review grün.011 nur Fixture; Q32/Tageswechsel/Dauerbetrieb/Anzeigeaktivierung bleiben offen |
 | IP-052 | P1 / P3–P4 | DONE | Freigegebene H4-Mitternachtsbasis vor Paperfills speichern | Merge05ea009 in Main5d5c61e verifiziert; Q32 bestätigt. Eigener Tagesinput/Beleg/CAS, RSI unverändert.190 unterschiedliche gezielte Fälle/48 Subtests inkl43 PG/API,17 Cockpitfälle/Typecheck/Review grün.012 nur Fixture; Dauerbetrieb/Anzeigeaktivierung bleiben IP-047/BL-028 |
+| IP-053 | P1 / P3–P4 | DONE | Stabile lokale Paperidentität und begrenzten Beobachtungsdienst ergänzen | Mergec1703c1 in Maina996bf2 verifiziert; Fixture-LOGIN/Manifest/Singleton,24h-Zyklusstartbudget/sechs Fehler/Unknowncommit terminal.44 Workerfälle/3 Dateischutztests und echte Drift-/TLS-/Sessionabnahme grün. Feed82/84/86/Neustart88 ohne Fills; lokaler Dienst gesund. Nutzer-/Anzeigeintegration und längerfristiger Betrieb bleiben IP-047/BL-028 |
 
 ## Abschlussbelege
+
+IP-053:44 gezielte gepinnte Runtime-/Workerfälle und drei stdlib-Dateischutztests
+bestanden. Wiederholte Provisionierung erhält IDs/Dateien/Zeilenzahlen; vier echte
+Driftprobes zurückgerollt. Eigener TLS-LOGIN, Doppelstart, Sessionverlust/-freigabe,
+normale DB verweigert und Readback geprüft. Feed82/84/86, neuer Prozess88 ohne
+Fills; gleicher RSI/Q32-Kern. Lokaler Dienst gesund, Doppelprozess abgewiesen,
+Neustart nach100 fortgesetzt102+. Scoped Review ohne Blocker. Keine neue
+Dependency/Migration/Build, normal007/Fixture012/Ledger bestätigt; öffentliche
+Dienste unverändert/gesund/TLS200. Max24h für neue Zyklusstarts, restart:no.
+[Bedienung/Grenzen](../paper-development-runtime.md).
 
 IP-052: Q32 ausdrücklich bestätigt; H4-Modellbasis vor Quotes/Verkäufen
 gespeichert, RSI-Zustand/6%/8%/gelatchte Halts unverändert.

@@ -1,6 +1,6 @@
 # Investalo Trading Platform
 
-IP-052 implementiert die freigegebene H4-Mitternachtsbewertung für Paper, vor jedem neuen Tagesfill und mit unveränderten RSI-Einstiegen.190 unterschiedliche gezielte Python-/PG-Fälle und17 Cockpittests grün.012 nur Fixture; normale DB und öffentliche Vorschau unverändert. Dauerbetrieb/Anzeigeaktivierung bleiben IP-047. [Tageswechsel und Abnahme](docs/paper-midnight-basis.md).
+IP-053 ergänzt eine feste lokale Paper-Entwicklungsidentität und einen begrenzten Beobachtungsdienst mit echten BTC-/ETH-Kursen, unveränderten RSI-Einstiegen und Q32-Tagesbasis. Doppelstartschutz und gespeicherte Fortsetzung geprüft;44 gezielte Workerfälle grün. Normale DB und öffentliche Vorschau unverändert. Anzeige/Pilotbetrieb bleiben IP-047. [Bedienung und Abnahme](docs/paper-development-runtime.md).
 
 Mandantenfähiges Trading-Cockpit mit Portfolio, Journal, Backtests und
 automatisiertem Handel über Bitget und MetaTrader 5.

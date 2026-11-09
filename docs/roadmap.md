@@ -1,6 +1,6 @@
 # Roadmap
 
-IP-047 ist aktiv: Paperkern/Store/Feed und ausgeschaltete Statusanzeige vorhanden. IP-052 implementiert die freigegebene Q32-Tagesbewertung mit unveränderten RSI-Einstiegen. Als Nächstes dauerhafte Entwicklungsprovisionierung und Betriebs-/Anzeigeabnahme. [Tageswechsel](paper-midnight-basis.md).
+IP-047 ist aktiv: Paperkern/Store/Feed, Q32-Tagesmodell und ausgeschaltete Statusanzeige vorhanden. IP-053 ergänzt stabile Entwicklungsprovisionierung und begrenzten lokalen Beobachtungsdienst. Als Nächstes Nutzer-/Anzeigeintegration und längerfristige Betriebsabnahme. [Entwicklungslauf](paper-development-runtime.md).
 
 Stand 2026-11-09. Q1–Q5 bestätigen privaten Pilot, Paper zuerst, feste
 Risikolimits, kontrollierte KI und kostenlose externe Dienste.
