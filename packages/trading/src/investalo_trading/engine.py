@@ -155,8 +155,18 @@ class CryptoEngine:
             intents.append(intent)
         return Transition(state, tuple(intents), tuple(events))
 
-    def _risk_exit(self, state: EngineState, now: datetime) -> Transition:
+    def _risk_exit(self, state: EngineState, now: datetime, *,
+                   closing_day: bool = False) -> Transition:
         reasons = tuple(r for r in self.risk_reasons(state, now) if r != "daily_baseline_required")
+        # Joint historical close batches finish the previous trading day at
+        # 00:00. Check its loss BEFORE the caller installs the new baseline.
+        # Existing single-quote/Paper behavior remains unchanged.
+        if closing_day:
+            if (now.time().replace(tzinfo=None) != datetime.min.time()
+                    or state.account.trading_day != now.date() - timedelta(days=1)):
+                raise ValueError("previous-day close requires its midnight boundary")
+            if state.equity <= state.account.day_start_equity * (1 - self.config.daily_loss_fraction):
+                reasons = tuple(dict.fromkeys(reasons + ("daily_loss_limit",)))
         if reasons:
             state = replace(state, account=replace(
                 state.account, halted=True,
@@ -224,6 +234,48 @@ class CryptoEngine:
         first = self._risk_exit(state, now)
         second = self._protect(first.state, quote.symbol, now)
         return Transition(second.state, first.intents + second.intents, first.events + second.events)
+
+    @precise
+    def on_quotes(self, state: EngineState, quotes: tuple[Quote, ...], *,
+                  now: datetime | None = None, closing_day: bool = False) -> Transition:
+        """Atomic complete joint valuation; no per-asset intermediate risk check.
+
+        A historical previous-day midnight close can explicitly check the old
+        day limit. Caller still resets the day and settles confirmed intents.
+        This does not turn asynchronous live quotes into simultaneous prices.
+        """
+        self._validate(state)
+        if (len(quotes) != len(self.config.symbols)
+                or {q.symbol for q in quotes} != set(self.config.symbols)):
+            raise TradingRejected("complete_unique_quote_batch_required")
+        observed = quotes[0].observed_at
+        if any(q.observed_at != observed for q in quotes):
+            raise TradingRejected("quote_batch_timestamp_mismatch")
+        now = utc(now or observed)
+        age = (now - observed).total_seconds()
+        if age < 0:
+            raise TradingRejected("future_quote")
+        if age > self.config.quote_max_age_seconds:
+            raise TradingRejected("stale_quote")
+        if closing_day and observed != now:
+            raise TradingRejected("midnight_valuation_required")
+        for quote in quotes:
+            old = state.quote(quote.symbol)
+            if old is not None and quote.observed_at < old.observed_at:
+                raise TradingRejected("out_of_order_quote")
+        canonical = tuple(next(q for q in quotes if q.symbol == symbol)
+                          for symbol in self.config.symbols)
+        if canonical == state.quotes and not closing_day:
+            return Transition(state)
+        state = replace(state, quotes=canonical)
+        risk = self._risk_exit(state, now, closing_day=closing_day)
+        state, intents, events = risk.state, list(risk.intents), list(risk.events)
+        for symbol in self.config.symbols:
+            protection = self._protect(state, symbol, now)
+            state = protection.state
+            intents.extend(protection.intents)
+            events.extend(protection.events)
+        return Transition(state, tuple(intents), tuple(events))
 
     def _buy_rejection(self, state: EngineState, symbol: str, now: datetime) -> str | None:
         basket = state.basket(symbol)

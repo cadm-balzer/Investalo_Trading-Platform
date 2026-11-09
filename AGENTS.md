@@ -535,6 +535,26 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   strategy/margin rules; no AI override of limits or delay of protection.
   Plan: docs/multi-basket-ai-plan.md; D-059 / BL-029 / IP-021/022/055.
 
+- Plan9455bfe merged into mainef18d74 (verified). Current branch:
+  feat/m1-portfolio-research-core. IP-056 prepares IP-055 with separate offline
+  joint BTC/ETH research on unchanged500+5 budgets/10k equity, not the expanded
+  allocator. Complete atomic on_quotes validates all prices before shared risk;
+  explicit historical midnight close checks previous6% before baseline reset.
+  Single-quote/Paper/worker paths unchanged. Canonical aligned H4 and separate
+  frozen policy digest; passive benchmark shares max budgets/costs/rounding/bid
+  terminal valuation, without strategy risk exits or exposure matching.
+  Actual6576 researchbars/asset: net228.716909USDT, maxDD0.6143546%,
+  held principal time-average72.5594567USDT (0.7255946% initial). Benchmark
+  net2577.902525, peakDD12.1144932%, initial loss3.4806339%/daily3.1920850%.
+  Peak DD is NOT loss against8% INITIAL limit.56 baskets (BTC24/ETH32) do not
+  prove per-asset holdout targets. Fixed file/hash/window replay uses research
+  ONLY, no DB/broker/holdout access, migrations/dependencies/public changes.
+  New coins requested; expanded budgets/stress/reservations/priority remain
+  IP-055. Contract: docs/portfolio-reference.md.
+  65 targeted pinned cases/26subtests +4 host inputguards, exact real research
+  replay including benchmark loss bases and read-only final review passed.
+  No new holdout/selection/physical-browser/public activation claim.
+
 ## Trading and implementation invariants
 
 - Profitability is a measurable research objective, never a guarantee.

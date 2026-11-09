@@ -1,0 +1,69 @@
+{
+  "assets": [
+    {
+      "research": {
+        "bar_count": 6576,
+        "content_digest": "78eb04b5b38ed014c8a9794d91d08280faf1b96dd928121ef4a1d57d63c84c68",
+        "coverage": {
+          "actual_end": "2025-08-01T00:00:00Z",
+          "actual_start": "2022-08-01T00:00:00Z",
+          "complete": true,
+          "missing_leading_bars": 0,
+          "missing_trailing_bars": 0,
+          "requested_end": "2025-08-01T00:00:00Z",
+          "requested_start": "2022-08-01T00:00:00Z"
+        },
+        "data_digest": "253f6e7b0918199d2acbd09358d782c211c8498b7ad41a21bf7a5a71da3b8652",
+        "source": {
+          "api_version": "3",
+          "retrieved_at": "2026-11-08T22:09:28.981840Z",
+          "url": "https://api.bitget.com/api/v3/market/history-candles",
+          "venue": "bitget"
+        }
+      },
+      "symbol": "BTC/USDT"
+    },
+    {
+      "research": {
+        "bar_count": 6576,
+        "content_digest": "2d86e8df1ca82591aac329efe4bcbafcb79ad6436e29a28f547cc57b707b2283",
+        "coverage": {
+          "actual_end": "2025-08-01T00:00:00Z",
+          "actual_start": "2022-08-01T00:00:00Z",
+          "complete": true,
+          "missing_leading_bars": 0,
+          "missing_trailing_bars": 0,
+          "requested_end": "2025-08-01T00:00:00Z",
+          "requested_start": "2022-08-01T00:00:00Z"
+        },
+        "data_digest": "99d93630d21250c56c2b7bb9974ecc5f86080f7957bcfb346626b3e3ac430bbb",
+        "source": {
+          "api_version": "3",
+          "retrieved_at": "2026-11-08T22:11:43.614336Z",
+          "url": "https://api.bitget.com/api/v3/market/history-candles",
+          "venue": "bitget"
+        }
+      },
+      "symbol": "ETH/USDT"
+    }
+  ],
+  "end": "2025-08-01T00:00:00Z",
+  "frozen_policy": {
+    "benchmark": "first_open_maximum_basket_principal; same_entry_costs_and_rounding; passive_no_risk_exits; bid_marked_no_terminal_flatten",
+    "configuration_digest": "65da26736f164ae748b3887d95a3685c5951483996ff187023df41c76411b6b0",
+    "cost_digest": "f80a41214a92f8b46ac7db733fae61228b3ec9ee91d0aaa361c35b7e78dd6dd3",
+    "execution": "complete_aligned_h4; config_symbol_priority; atomic_quote_batch; previous_close_midnight_bid_baseline; next_open_buy; joint_low_then_high_then_close; no_terminal_flatten",
+    "maximum_bars_per_asset": 10000,
+    "symbol_priority": [
+      "BTCUSDT",
+      "ETHUSDT"
+    ],
+    "version": "portfolio-reference/1"
+  },
+  "holdout_status": "reserved_not_evaluated",
+  "policy_digest": "1c420da56e47f276e8c052ced3f11c9a67a7b91dceaede2fd000f275d544adf2",
+  "purpose": "research",
+  "schema_version": "portfolio-research-protocol/1",
+  "scope": "joint_baseline_only_not_q33_expanded_allocator",
+  "start": "2022-08-01T00:00:00Z"
+}

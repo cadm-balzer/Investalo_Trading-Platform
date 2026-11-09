@@ -13,6 +13,11 @@ zusätzliche Coins und Hebel/variable Stufen sind noch festzulegen/validieren;
 das bisherige Entwicklungsprofil bleibt unverändert.
 [Portfolio- und KI-Plan](multi-basket-ai-plan.md).
 
+IP-056 stellt die gemeinsame BTC-/ETH-Baseline für diese Erweiterung bereit:
+ein Konto, atomare H4-Batches, Kapitalbindung und passive Referenz.
+Die bestehenden500+5-Budgets bleiben dabei erhalten; erweiterte Allokation
+und Coinauswahl folgen IP-055. [Befund](portfolio-reference.md).
+
 Das erste lokale Fundament umfasst gepinnte Compose-Dienste, HTTPS,
 MFA/OIDC-BFF, DB-Mandantenisolation, ein Cockpit mit ehrlichen Leerzuständen
 und den deterministischen Crypto-/Paperkern. Validierte H4-Snapshots werden

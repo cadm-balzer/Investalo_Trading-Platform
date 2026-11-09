@@ -957,3 +957,20 @@ Schutzaktionen und keine heutige News/Modellkenntnis als historischen Beweis.
 Varianten/Derivate, Provider und tatsächliche Aktivierung bleiben eigene
 konkrete Freigaben. Kein Code-, Schema-, Profil- oder Deploywechsel.
 [Plan und Quellen](../multi-basket-ai-plan.md).
+
+## 2026-11-09 — D-060: Gemeinsame Baseline vor erweitertem Basketprofil
+
+**Status: IP-056 umgesetzt, Q33 fortgeführt.**9455bfe in Mainef18d74
+verifiziert. Neuer Offline-Portfolio-Simulator mit unveränderten BTC-/ETH-
+500+5-Budgets auf gemeinsamem10k-Konto. Atomare Quote-Batches verhindern
+Zwischenbewertungen vor Riskprüfung; historische Mitternachtscloses prüfen
+alten Tagesverlust vor neuer Basis. Einzelquote-/Paperpfade unverändert.
+
+Eigene eingefrorene Policy, identische H4-Fenster und passive kostenvergleichbare
+Referenz. Reale Forschung: net228,72 USDT, zeitgewichteter gehaltener
+Einstand72,56 USDT. Benchmark2577,90 netto/12,1145% Peakdrawdown; Verluste
+zum Start/Tagesbasis3,4806%/3,1921%, keine beobachtete8%/6%-Verletzung.
+Peak-/Start-/Tagesbezug getrennt prüfen; keine Strategie-/Holdoutabnahme
+aus dem passiven Vergleich. Erweiterte Coins erfragt, Budget-/Reservierungs-/
+Stressablehnungs-/Prioritätsregeln bleiben IP-055. Kein DB-/Holdout-/Broker-
+zugriff, keine öffentliche Aktivierung. [Vertrag](../portfolio-reference.md).

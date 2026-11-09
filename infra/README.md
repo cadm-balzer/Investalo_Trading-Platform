@@ -10,6 +10,11 @@ werden nicht zusätzlich als Research importiert. Keine Migration oder
 Neuerstellung öffentlicher Dienste erforderlich.
 [Protokoll und Audit](../docs/long-history-backtests.md).
 
+Gemeinsame Offline-Baseline IP-056:
+`python3 infra/scripts/check-portfolio-research.py` prüft nur die zwei
+bereits gefrorenen Researchdateien und Ergebniskonstanz. Kein DB-/Holdout-
+/Brokerzugriff oder Containerwechsel. [Befund](../docs/portfolio-reference.md).
+
 Q31 bestätigt den Implementierungsstart. Diese Konfiguration ist für lokale
 Testnutzer vorgesehen. Ausschließlich Caddy veröffentlicht **127.0.0.1:8443**.
 PostgreSQL, IdP und Anwendungen veröffentlichen keine Hostports.

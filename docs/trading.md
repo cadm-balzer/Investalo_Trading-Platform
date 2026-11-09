@@ -28,6 +28,12 @@ Einzelassetläufe bleiben bis zur geprüften Umsetzung unverändert.
 Hebel/variable Einstiegszahlen sind spätere Kandidaten, keine aktivierten Regeln.
 [Portfolio- und KI-Plan](multi-basket-ai-plan.md).
 
+IP-056 berechnet die gemeinsame unveränderte BTC-/ETH-Researchbaseline auf
+einem Konto mit atomaren gleichzeitigen Kursbewertungen und Kapitaldiagnose.
+Der neue historische Portfolio-Pfad prüft vor der Mitternachtsbasis auch den
+abgeschlossenen Tagesverlust. Einzelquote-/Paperpfade bleiben unverändert.
+[Policy, Benchmark und Grenzen](portfolio-reference.md).
+
 Die Crypto-Abbildung ist keine identische Fassung des schriftlichen Auftrags:
 Sie nennt unter anderem drei/fünf Einstiege und vereinfachte Exitregeln.
 Q11 bestätigt den schriftlichen Prompt als maßgebliche Vorlage.

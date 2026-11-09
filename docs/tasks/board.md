@@ -64,9 +64,17 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-052 | P1 / P3–P4 | DONE | Freigegebene H4-Mitternachtsbasis vor Paperfills speichern | Merge05ea009 in Main5d5c61e verifiziert; Q32 bestätigt. Eigener Tagesinput/Beleg/CAS, RSI unverändert.190 unterschiedliche gezielte Fälle/48 Subtests inkl43 PG/API,17 Cockpitfälle/Typecheck/Review grün.012 nur Fixture; Dauerbetrieb/Anzeigeaktivierung bleiben IP-047/BL-028 |
 | IP-053 | P1 / P3–P4 | DONE | Stabile lokale Paperidentität und begrenzten Beobachtungsdienst ergänzen | Mergec1703c1 in Maina996bf2 verifiziert; Fixture-LOGIN/Manifest/Singleton,24h-Zyklusstartbudget/sechs Fehler/Unknowncommit terminal.44 Workerfälle/3 Dateischutztests und echte Drift-/TLS-/Sessionabnahme grün. Feed82/84/86/Neustart88 ohne Fills; lokaler Dienst gesund. Nutzer-/Anzeigeintegration und längerfristiger Betrieb bleiben IP-047/BL-028 |
 | IP-054 | P1 / P3–P4 | DONE | Eigenen gespeicherten Paperstand in der Entwicklungsvorschau anzeigen | Merge03fee1e in Mainb0827ba verifiziert; normales012 nach zurückgerolltem Preflight, stabile eigene Paperidentität/ein begrenzter Kurslauf82 ohne Fills.34 Python/5 stdlib/17 Cockpit/29 HTTPS-MFA grün, Builds/Review. Lesende Anzeige aktiv, sensitive Routen503; laufender Previewworker/Betrieb bleiben IP-047/BL-028 |
-| IP-055 | P1 / P3 | READY | Gemeinsamen Multi-Basket-Researchlauf vorbereiten | Q33:3–5 verschiedene Coins, ein Konto, volle Kapitalplanung bei bindenden6%/8%-Limits. Historien/Coins und genaue Budget-/Reservierungs-/Signalprioritätsregeln vor Leistungslauf festlegen; korrelierter Stress, deterministische Auswahl und gemeinsame Kennzahlen. Keine Änderung eingefrorener Einzelassetjobs. [Plan](../multi-basket-ai-plan.md) |
+| IP-055 | P1 / P3 | IN_PROGRESS | Gemeinsamen Multi-Basket-Researchlauf vorbereiten | Q33:3–5 Coins, volle Kapitalplanung bei bindenden6%/8%. IP-056 berechnet zunächst gemeinsame unveränderte BTC-/ETH-Baseline. Erweiterte Coinauswahl erfragt; genaue Budget-/Reservierungs-/Signalprioritätsregeln vor größerem Leistungslauf festlegen. [Plan](../multi-basket-ai-plan.md) |
+| IP-056 | P1 / P3 | DONE | Gemeinsame deterministische BTC-/ETH-Referenz und Kapitaldiagnose ergänzen | Mainef18d74 enthält9455bfe; separater Offlinekern, atomare H4-Batches/Tagesbasis und passive kostenvergleichbare Referenz.65 gepinnte Fälle/26 Subtests, vier Inputguards und Ergebnisreplay/Review grün. Reale Forschungnet228,72 USDT, zeitgewichtetes Kaufprincipal72,56. Erweiterter Allokator bleibt IP-055. [Vertrag](../portfolio-reference.md) |
 
 ## Abschlussbelege
+
+IP-056:65 gezielte gepinnte Fälle/26 Subtests (61 Trading/Paper und vier
+Worker-Compute), vier Host-Inputguards; 16 neue Batch-/Portfoliotests und
+vier neue Protokollguards. Reale Forschungsreplays exakt gegen gespeicherte
+Netto-/Kapital-/Benchmarkkennzahlen und Digests. Abschlussreview ohne Blocker,
+Syntax/JSON/Dokumentlinks/Diff geprüft. Kein DB-/Holdout-/Brokerzugriff oder
+öffentlicher Containerwechsel; ursprüngliche gefrorene Jobs unverändert.
 
 IP-054:34 gepinnte gezielte Pythonfälle, fünf stdlib-Provisionierungsfälle,
 17 Cockpit-Vertrags-/SSR-Fälle, gepinnte Builds/Review und29 echte HTTPS-/OIDC-/
