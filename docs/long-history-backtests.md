@@ -159,3 +159,7 @@ maßgeblich. Änderungen an bestätigten RSI-, Stufen-, Schutz- oder Budgetregel
 benötigen eine konkrete Nutzerentscheidung. Harte Risikogrenzen gelten weiter.
 Der reservierte Holdout bleibt bis zur eingefrorenen Auswahl unberührt.
 Dieser Plan verändert keine Handelsregeln oder gespeicherten Ergebnisse.
+
+Q33 ergänzt danach den [gemeinsamen3–5-Basketlauf](multi-basket-ai-plan.md)
+als IP-055: ein Konto statt addierter Einzelassetresultate, gemeinsame
+Kapitalreservierungen und weiterhin bindende6%/8%-Limits.

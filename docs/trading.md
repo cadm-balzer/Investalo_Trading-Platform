@@ -11,13 +11,22 @@ wirtschaftliche Validierung werden daraus nicht abgeleitet. Nächster Schritt:
 Paperausführung mit demselben Kern und unabhängigem Risk Gate.
 [Protokoll und Grenzen](long-history-backtests.md).
 
-Stand: 2026-11-07. Der Originalauftrag beschreibt Strategieideen.
+Stand: 2026-11-09. Der Originalauftrag beschreibt Strategieideen.
 Q3/Q4 bestätigen unabhängige Risikogrenzen und kontrollierte Optimierung.
 Q6 plant beide Broker im MVP; Q9/Q10 bestätigen BTC/ETH Spot H4 ohne Hebel
 und XAUUSD Trend/Pullback H1/M15. Q15/Q17–Q19 bestätigen Signale,
 Gewinnschutz und Paper-/Demoprofile. Q23 reserviert die sechste Tranche
 für einen manuellen Einstieg mit Nutzerinformation. Q26 bestätigt den
 Validierungsmaßstab; Q29/Q30 bestätigen manuelle Freigabe und Meldekanal.
+
+Q33 ergänzt das Planungsziel von3–5 gleichzeitigen Coinbaskets mit vollständiger
+Kontokapitalzuordnung und späterer KI-Prüfung der RSI-Signale. Der Nutzer
+bestätigt6%/8% weiterhin als verbindliche Kontolimits. Gemeinsame Reservierungen
+und Risk Gates begrenzen tatsächliche Käufe; volle Zuordnung erlaubt keine
+vollständige Staffel unabhängig vom Risiko. Startprofil und gespeicherte
+Einzelassetläufe bleiben bis zur geprüften Umsetzung unverändert.
+Hebel/variable Einstiegszahlen sind spätere Kandidaten, keine aktivierten Regeln.
+[Portfolio- und KI-Plan](multi-basket-ai-plan.md).
 
 Die Crypto-Abbildung ist keine identische Fassung des schriftlichen Auftrags:
 Sie nennt unter anderem drei/fünf Einstiege und vereinfachte Exitregeln.

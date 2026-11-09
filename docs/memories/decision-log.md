@@ -932,3 +932,28 @@ Weiter beide Public/Paperoverlays verwenden; nacktes Publicoverlay schaltet
 Anzeige aus. Übrige Dienste und ursprüngliche Faktoren/Identitäten unverändert.
 Nächste IP-047: eigener begrenzter Preview-Beobachtungsworker; Betrieb BL-028.
 [Vertrag](../paper-preview-integration.md).
+
+## 2026-11-09 — D-059: Gemeinsames Basketportfolio und spätere KI-Prüfung
+
+**Status: Planungsziel und Kontolimits bestätigt, Q33.** Nutzer plant3–5
+gleichzeitig gehandelte Coins, volle Kontokapitalzuordnung und später eine
+Marktanalyse nach RSI-Signalen: Marktphase/Wall Street Cheat Sheet,
+Fear & Greed, News und Crypto-Vierjahreszyklus. Hebel und weniger Einstiegs-
+stufen im Aufwärtstrend sind mögliche spätere Varianten.
+
+Nach ausdrücklicher Rückfrage bleiben6% Tages-/8% Startkapitalverlust bindend.
+Volle Zuordnung ist keine Vollinvestitionsfreigabe. Baskets teilen Equity,
+Liquidität, Reservierungen und Risikogates. Bei korreliertem −50%-Stress
+verlöre die bisherige beispielhafte5%-Staffel nach fünf regulären Stufen
+31,49% eines vollständig als Principal zugeordneten Kontos vor Kosten;
+drei statt fünf Coins ändern diese Quote nicht. Risk Gates können daher
+Stufen verhindern oder Baskets vorzeitig schließen; Gaps bleiben ein Risiko.
+
+IP-055 bereitet eine gemeinsame versionierte Portfoliosimulation vor.
+Zusätzliche Coins, genaue Budgets/Reservierungen und Signalpriorität werden
+vor Leistungsläufen festgelegt; vorhandene Einzelassetjobs bleiben immutable.
+KI zunächst Shadow Mode, kein Override harter Limits, keine verspäteten
+Schutzaktionen und keine heutige News/Modellkenntnis als historischen Beweis.
+Varianten/Derivate, Provider und tatsächliche Aktivierung bleiben eigene
+konkrete Freigaben. Kein Code-, Schema-, Profil- oder Deploywechsel.
+[Plan und Quellen](../multi-basket-ai-plan.md).

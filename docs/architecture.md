@@ -117,6 +117,13 @@ flowchart TB
 Der fachliche Kern importiert weder FastAPI noch Broker-SDKs. API, Worker,
 Simulator und Brokeradapter rufen denselben versionierten Strategievertrag auf.
 
+Q33 plant3–5 Coinbaskets als gemeinsames Konto mit getrennten Reservierungen
+und portfolioübergreifender Risk Engine;6%/8% bleiben bindend. Eine spätere
+KI-Bewertung nach dem RSI-Signal schlägt ausschließlich vorab validierte,
+genehmigte Varianten vor. Schutz-/Verkaufspfad wartet nicht auf die KI;
+zunächst Shadow Mode mit dokumentierten Eingaben/Versionen und Kostenbudget.
+[Portfolio- und KI-Plan](multi-basket-ai-plan.md).
+
 ## Technologieauswahl
 
 API/Cockpit/Trading/PostgreSQL/persistente PostgreSQL-Jobs sind grundsätzlich

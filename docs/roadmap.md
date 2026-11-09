@@ -7,6 +7,11 @@ geringe Kontorendite/Kapitalnutzung erklären, dann begrenzte chronologische
 Kandidatenprüfung vor eingefrorener Auswahl und Holdout.
 [Forschungsplan](long-history-backtests.md#geplantes-feintuning).
 
+Q33/IP-055 erweitert die Forschungsplanung auf3–5 Coinbaskets mit gemeinsamer
+Kapitalzuordnung und weiterhin bindenden6%/8%-Kontolimits. Spätere RSI-
+Signalprüfung durch KI bleibt IP-021/022; Hebel/variable Stufen benötigen
+eigene validierte Varianten. [Portfolio- und KI-Plan](multi-basket-ai-plan.md).
+
 Stand 2026-11-09. Q1–Q5 bestätigen privaten Pilot, Paper zuerst, feste
 Risikolimits, kontrollierte KI und kostenlose externe Dienste.
 Q6–Q8 bestätigen beide Handelsintegrationen im MVP, Grundstack und eigene MFA.

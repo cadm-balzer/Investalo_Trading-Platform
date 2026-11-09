@@ -33,7 +33,10 @@ Keine erledigten Punkte in dieser Liste halten.
 | BL-026 | Öffentlicher TLS-Betrieb | IP-035 bestätigt persistente ACME-Daten nach Neustart und ausschließlich Edge-Hostports; tatsächliche Erneuerung, Ablaufüberwachung, unabhängig externe Portprüfung und geschützten Wiederherstellungsweg noch nachweisen; Zertifikat ersetzt keine Pilotabnahme |
 | BL-027 | Testclient-Abhängigkeit | Starlette meldet im grünen API-Lauf die Ablösung von `httpx` durch `httpx2`; beim nächsten geprüften Dependencycheckpoint FastAPI-/Starlette-Kompatibilität, exakte Pins und Lockstände gemeinsam prüfen |
 | BL-028 | Paper-Dauerbetrieb | Q32/IP-052 H4-Tagesmodell, IP-053 Fixturebeobachtung und IP-054 eigener bestätigter Stand aus begrenztem Kurslauf im Cockpit vorhanden. Noch eigener begrenzter Preview-Beobachtungsworker, echte Mitternachtsbeobachtung, Egress/Quoten/Retention und längerfristige Monitoring-/Recoveryabnahme; ca34.560 Quotejournalinputs/Tag bei5s. Keine automatische Löschung oder unangekündigte Frequenzänderung |
+| BL-029 | Multi-Basketportfolio und KI-Signalprüfung | Q33/IP-055:3–5 Coins mit gemeinsamer Kapitalplanung/Equity und bindenden6%/8%-Limits; zusätzliche Coins, genaue Budgets/Reservierungen und Prioritäten vor gemeinsamer Simulation festlegen. IP-021/022: Marktphase/Fear & Greed/News/Halving-Kontext im Shadow Mode, historische Wissensgrenzen und Kostenbudget; variable Stufen/Hebel nur als validierte und separat genehmigte Varianten. [Plan](multi-basket-ai-plan.md) |
 
 RSI-/Supertrend-/Budget-/Exitentscheidungen Q1–Q31 sind bestätigt.
 Q32 zur H4-Modellpreis-Basis ist ebenfalls bestätigt. Offen bleiben die
 genannten Umsetzungen und Betriebs-/Wirtschaftlichkeitsnachweise.
+Q33 bestätigt das Multi-Basket-/KI-Planungsziel und weiterhin6%/8% Kontolimits;
+konkrete größere Kaufbudgets, zusätzliche Coins und Varianten bleiben offen.

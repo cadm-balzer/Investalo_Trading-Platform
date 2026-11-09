@@ -521,6 +521,20 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   selection; this request does not approve changing strategy/budgets/risk.
   Plan: docs/long-history-backtests.md#geplantes-feintuning.
 
+- Q33 (2026-11-09): user plans 3–5 different crypto baskets concurrently,
+  full account capital allocation and later AI evaluation after RSI signals.
+  On explicit follow-up user confirms daily6% / initial8% remain binding.
+  Allocation is not full investment authority; shared equity/reservations/
+  portfolio risk can prevent stages or close baskets early. IP-055 prepares
+  joint portfolio research, not an addition of separate asset simulations.
+  Additional assets, exact budgets/reservation/priority rules remain to be
+  specified. Current BTC/ETH500+5 spot profile and immutable results unchanged.
+  AI market phase/Fear & Greed/news/halving context first in shadow mode with
+  as-of information, versioned decisions and bounded token costs. Variable
+  leverage/fewer stages are future candidates needing separate validated
+  strategy/margin rules; no AI override of limits or delay of protection.
+  Plan: docs/multi-basket-ai-plan.md; D-059 / BL-029 / IP-021/022/055.
+
 ## Trading and implementation invariants
 
 - Profitability is a measurable research objective, never a guarantee.

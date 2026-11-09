@@ -188,6 +188,22 @@ RSI14/Wilder auf geschlossenen H4-Kerzen bleibt für automatische Einstiege
 erforderlich; die Bewertungsregel erzeugt kein Signal. Die zuvor bestätigte
 manuelle sechste Tranche Q29 behält ihre eigenen Vorschau-/Bestätigungsregeln.
 
+### Q33: Gemeinsames Basketportfolio und spätere KI-Prüfung
+
+2026-11-09, **Planungsziel bestätigt**:3–5 Coins gleichzeitig in Baskets,
+das Kontokapital vollständig dafür einplanen. Später soll eine KI RSI-
+Einstiegssignale anhand Marktphase/Wall Street Cheat Sheet, Fear & Greed,
+News und Crypto-Vierjahreszyklus bewerten. Hebel und weniger Einstiegsstufen
+im Aufwärtstrend sind mögliche spätere Varianten.
+
+Auf die konkrete Rückfrage zu größeren Baskets bestätigt der Nutzer:
+**„6 % / 8 % beibehalten (empfohlen)“**. Kontolimits bleiben bindend und
+können Käufe sperren/Positionen schließen, bevor eine Staffel vollständig ist.
+Kapitalzuordnung ist keine Freigabe für vollständige Exposition.
+Zusätzliche Coins, genaue Kaufbudgets, Variante/AI-Autorität, Derivate-
+/Marginprofil und Betriebsaktivierung sind nicht damit beschlossen.
+[Konkreter Plan und korrelierte Stressrechnung](multi-basket-ai-plan.md).
+
 Mit Q28 liegen Echtgeld-/FTMO-/AI-Provider- und
 Kundenentscheidungen ausdrücklich an späteren Gates. Der Interviewabschluss
 ist in Q31 bestätigt.
