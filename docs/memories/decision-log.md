@@ -779,3 +779,17 @@ Nächster konkreter Schritt IP-047: persistentes Paper mit denselben Handels-/
 Risikoregeln, simulierten Orders/Fills und Journal, kein Echtgeld.
 [Protokoll und Ergebnisse](../long-history-backtests.md),
 [Bitget offizielle Historiengrenze](https://www.bitget.com/docs/catalog/market/market-data#get-klinecandlestick-history).
+
+## 2026-11-09 — D-052: Begrenzter inkrementeller Papercheckpoint
+
+IP-046eb62176 ist in Maindd1903b verifiziert. Nutzer verlangt ausdrücklich
+sparsamere LLM/API-Nutzung. Scoped Reads, knappe Ausgaben und passende gezielte
+Tests; keine zusätzlichen Agentaufrufe für Routine, keine unbelegten Kostenwerte.
+IP-048 erweitert den vorhandenen Kern um schrittweise Quotes/H4-Signale und
+gebundene Restorecheckpoints mit Journalreceipt. Käufe erst nach späterem
+frischem Quote des Assets; kein automatischer manueller Puffer/Resume.
+Historische Simulatordefaults/Strategie/Kosten unverändert.84 gezielte gepinnte
+Tests/48 Subtests bestanden; keine Migration/Dependency/Dienstaktivierung.
+DB-Persistenz muss Zustand und append-only Journal mit Revision-CAS atomar
+schreiben. Writer, Feedworker und Cockpitstatus bleiben IP-047; der isolierte
+Runner ist noch kein betriebener Paperdienst. [Vertrag](../paper-runner.md).

@@ -268,3 +268,13 @@ Full API suite: `bash infra/scripts/compose.sh --profile checks run --rm
 --no-deps -T -e PGDATABASE=investalo_credentials_checks api-checks`.
 Do not omit the fixture DB override or migrate normalDB to repair a test.
 Public running services need no recreate for staged research data.
+
+## IP-048 focused pinned Paper check
+
+Use the existing api-checks image with readonly mounts for current
+`packages/trading/src` and `tests/trading` at their `/app/` paths. Run
+`python -m pytest /app/tests/trading /app/tests/marketdata
+/app/tests/workers/test_computation.py -q -p no:cacheprovider`.
+No DB access, rebuild or dependency download needed for this domain checkpoint.
+Log: `/tmp/investalo-paper-pinned-tests.log` (84tests/48subtests).
+PaperRunner is a checkpoint contract, not a provisioned Paperwriter/daemon.

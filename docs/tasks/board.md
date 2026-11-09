@@ -1,6 +1,6 @@
 # Git-basiertes Ticketboard
 
-Stand 2026-11-08. Dieses Board ist das initiale Task-/Ticketsystem ohne
+Stand 2026-11-09. Dieses Board ist das initiale Task-/Ticketsystem ohne
 zusätzliche Tools oder externe Veröffentlichung.
 
 Status: `READY` ausführbar, `IN_PROGRESS` aktiv, `WAITING_DECISION` benötigt
@@ -56,9 +56,16 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-044 | P0 / P1 | DONE | Isolierten Credentialdienst mit gepinntem ASGI-HTTP-Unterbau prüfen | Merge998bb90 in Main9f2a9a5 verifiziert; bestehende Uvicorn-/h11-Pins, mTLS vor Parser, Rawframing und getrennte Verbindungs-/Arbeitsslots.419 Credentialtests/52 Subtests,451 Dienstprüfpunkte und gepinnte Pythonbuilds/Review bestanden; nur synthetischer lokaler Dienst |
 | IP-045 | P0 / P1 | DONE | Isolierten Browserablauf für Passkey-Credentialaktionen integrieren | Merge9555624 in Maindcb9feb verifiziert; begrenzte Fortsetzungen, Vorschau/Passkey/ausdrücklicher Consent und privater Seitenspeicher.540 Cockpittests,481 Controller-/HTTPS-/Dienstprüfpunkte,6 tatsächliche gesperrte Next-Routenchecks,460 bestehende Dienstprüfpunkte und gepinnte Builds/Review grün. Next-Betriebsprovider/physische Abnahme und öffentliche Aktivierung bleiben separat |
 | IP-046 | P1 / P2–P3 | DONE | Mehrjährige BTC/ETH-Forschung und echte lange Cockpitbacktests bereitstellen | Merge0a0751b in Main073c474 verifiziert; je8766 Quellkerzen,6576 Forschung/2190 reservierter Holdout.66 gepinnte Coretests/33 Subtests,5 Metadatenfälle,572 API-/Workerfälle,je48 reale HTTPS-Prüfpunkte,exakter Replay und null Holdoutjobs; Review grün, keine Migration/Serviceaktivierung |
-| IP-047 | P1 / P3–P4 | READY | Persistenten Crypto-Paperablauf mit Risk Gate und Journal umsetzen | Nutzerpriorität Trading; IP-012/046. Derselbe Strategiekern, getrennte simulierte Konten/Orders/Fills, geschlossene H4-Signale, Crash/Replay ohne Doppelfill und sichtbarer Paperstatus; keine privaten Brokerkeys oder Echtgeld |
+| IP-047 | P1 / P3–P4 | IN_PROGRESS | Persistenten Crypto-Paperablauf mit Risk Gate und Journal umsetzen | Nutzerpriorität Trading; IP-012/046. Derselbe Strategiekern, getrennte simulierte Konten/Orders/Fills, geschlossene H4-Signale, Crash/Replay ohne Doppelfill und sichtbarer Paperstatus; keine privaten Brokerkeys oder Echtgeld |
+| IP-048 | P1 / P3–P4 | DONE | Schrittweisen wiederherstellbaren Paperkern mit Journalvertrag ergänzen | Mainmergeeb62176/dd1903b geprüft;14 neue Runnerfälle,84 gepinnte gezielte Tests/48 Subtests. Frische spätere Quotes, keine doppelten Fills/automatischen manuellen Einstiege. PostgreSQL-Writer und laufender Feed/Cockpit bleiben IP-047 |
 
 ## Abschlussbelege
+
+IP-048:84 gezielte gepinnte Trading-/Marktdata-/Workerberechnungstests mit
+48 Subtests bestanden. Paper-Snapshot-Restore und Journaleintrag geprüft;
+PostgreSQL-Writer/Feed/Cockpit bleiben IP-047. Kein neuer Dienst/DB-Grant/
+Migration oder Imagebuild; kein breiter Auth-/Credential-Regressionslauf.
+[Vertrag und genaue Grenzen](../paper-runner.md).
 
 IP-046: je drei Jahre BTC/ETH-H4 im echten Cockpit-/Workerpfad und ein
 separat reserviertes Jahr.66 gepinnte Coretests/33 Subtests, fünf Metadaten-

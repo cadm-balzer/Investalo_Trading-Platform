@@ -1,5 +1,7 @@
 # Offline-Researchworker
 
+IP-048 bietet den inkrementellen PaperRunner; der aktuelle Worker bleibt Offline-Research. Getrennter Paperwriter/Feedworker folgt unter IP-047. [Vertrag](../../docs/paper-runner.md).
+
 Start: `python -m investalo_workers.main`, einmaliger Zyklus mit `--once`.
 `PYTHONPATH` enthält `services/workers/src`, `services/api/src`,
 `packages/trading/src` und `packages/marketdata/src`. Der Worker verwendet die

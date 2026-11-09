@@ -2,6 +2,13 @@
 
 Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
 
+- 2026-11-09: User fordert LLM/API-Kosten sparen: Kontext/Ausgaben klein,
+  passende gezielte Tests, keine Routine-Subagents oder wiederholten Komplettläufe.
+  IP-046eb62176 in Main dd1903b verifiziert. IP-048 auf feat/m1-persistent-paper-core:
+  schrittweiser PaperRunner, Restore-/Journalvertrag;84 pinnedTests/48 Subtests,
+ 14 neue Runnerfälle. Keine DB-Persistenz/Feeds/UI aktiviert. IP-047 bleibt
+  aktiv: PostgreSQL-CAS und atomarer Journalwriter, dann Feedworker/Cockpit.
+
 
 - 2026-11-08: Nutzer bestätigt IP-0450a0751b gemerged; Main073c474 verifiziert.
   Explizite Priorität nun eigentlicher Trading-/Backtestkern, danach Paper.

@@ -478,3 +478,10 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   enthält Netto-PnL offene markierte Bestände; PF/Basketzahl erfassen nur
   abgeschlossene Baskets. Persistierte SQL-Jobstatus sind kleingeschrieben,
   API-Projektionen großgeschrieben; Read-only-Audit nutzt `succeeded`.
+
+- **Paper-Restore ist kein atomarer Writer:** Snapshot plus letzte Receipt
+  ermöglicht Wiederherstellung; vollständiges Journal separat append-only
+  und mit Zustand/Revision-CAS in einer Transaktion schreiben. Unknowncommit
+  durch Readback klären. Quotezeit muss nach Kaufsignal liegen; ein Quote
+  des anderen Assets darf keinen Fill am alten Preis auslösen. Missing
+  midnight baseline nicht nachträglich aus aktueller Equity erfinden.

@@ -1,9 +1,11 @@
 # Investalo Trading Platform
 
+IP-048 ergänzt den wiederherstellbaren schrittweisen [Paperkern](docs/paper-runner.md); PostgreSQL-Writer, Feedworker und Paperanzeige folgen in IP-047.
+
 Mandantenfähiges Trading-Cockpit mit Portfolio, Journal, Backtests und
 automatisiertem Handel über Bitget und MetaTrader 5.
 
-**Stand: 2026-11-08 — M1-Implementierung gestartet, Q31 bestätigt.**
+**Stand: 2026-11-09 — M1-Implementierung gestartet, Q31 bestätigt.**
 Das lokale Fundament läuft über Docker Compose: Cockpit, FastAPI, PostgreSQL,
 Authelia und zentraler HTTPS-Proxy. Versionen, Imagedigests und Paketlocks sind
 festgelegt. Der deterministische Crypto-Kern und ein isolierter Offline-

@@ -7,6 +7,7 @@
 | [implementation-brief.md](implementation-brief.md) | Bestätigter M1-Umfang und nächste Umsetzung |
 | [runtime-pins.md](runtime-pins.md) | Verifizierte Versionen, Digests und Laufzeitnachweise |
 | [architecture.md](architecture.md) | Module, Datenmodell, Schnittstellen und aktueller Stack |
+| [paper-runner.md](paper-runner.md) | Inkrementeller Paperkern, Restore, Journalvertrag und nächste PostgreSQL-/Feedintegration |
 | [long-history-backtests.md](long-history-backtests.md) | Drei Jahre BTC/ETH-Forschung, reservierter Jahres-Holdout und nächste Paperausführung |
 | [trading.md](trading.md) | Strategieformalisation, Risiko, Backtests und Optimierung |
 | [security.md](security.md) | Bedrohungen, Schutzmaßnahmen und Freigabekriterien |

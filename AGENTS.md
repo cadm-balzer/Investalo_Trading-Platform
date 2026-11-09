@@ -87,7 +87,7 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   onboarding checkpoint `69a1f8b` merged into main, verified at `56070ba`;
   step-up checkpoint `d57bd56` merged into main, verified at `b6198f7`;
   registry checkpoint `6a18102` merged into main, verified at `f422a90`;
-  current work branch: `feat/m1-long-history-backtests`.
+  current work branch: `feat/m1-persistent-paper-core`.
   Isolated AEAD core: `packages/credentials/README.md`, 20 offline tests with
   pinned cryptography and a separate hardened Compose check.
   Credential store: `services/credentials/README.md`; migration003 and current
@@ -372,6 +372,17 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   persistent simulated paper orders/fills/risk/journal, same core, no keys/live.
   Frozen protocol: docs/research-protocols/crypto-h4-20261108.json.
 
+
+- 2026-11-09: IP-046eb62176 merged into maindd1903b (verified). User explicitly
+  requests lower LLM/API costs: small scoped reads/outputs, bounded checkpoints,
+  no repeated broad tests or extra agent calls for routine work. Persist this
+  preference; never claim a numeric cost reduction without billing evidence.
+  IP-048 adds incremental PaperRunner/checkpoint/journal contract inside IP-047.
+  84 pinned focused tests/48 subtests pass,14 new Runner cases. Existing defaults
+  and dependencies unchanged. Restore binds actor/account/config/cost/mode;
+  no DB writer/feed daemon/HTTP activation yet. Next: PostgreSQL CAS and atomic
+  append-only journal, then worker/Cockpit. See docs/paper-runner.md.
+
 ## Trading and implementation invariants
 
 - Profitability is a measurable research objective, never a guarantee.
@@ -415,6 +426,7 @@ Always do
 - Follow best practice. If a requirement goes against best practice, point this out. Consult official documentation to verify best practice.
 - use SKILLS to get more specialist skills, if you need more SKILLs get the right one from https://www.skills.sh/
 - work with git and save your work. you can also push your feature branches and main branch to github.com by yourself.
+- Make sure you work efficiently and avoid unnecessary long-running LLM tasks. Keep the LLM context efficient and save on token costs.
 
 Ask first
 

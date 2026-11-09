@@ -1,5 +1,7 @@
 # Lokale Compose-Entwicklung
 
+IP-048 ist ausschließlich Domaincode; kein neuer Compose-Dienst oder Paperwriter gestartet. [Nächste Adaptergrenze](../docs/paper-runner.md).
+
 Aktueller Researchstand IP-046: reale BTC/ETH-H4-Fenster2022-08-01–2025-08-01
 mit jeweils6.576 Kerzen sind für das bestehende Cockpit verfügbar. Separate
 Jahresfenster werden mit ausdrücklich gesetztem `--purpose holdout` gestaged;
