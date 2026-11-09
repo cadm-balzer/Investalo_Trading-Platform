@@ -1,6 +1,6 @@
 # Handelskonzept, Risiko und Nachweis
 
-IP-050 führt öffentliche Bid/Ask-Quotes und geschlossene H4-Kerzen durch denselben Paperkern/Store. Historischer Indikatorvorlauf erzeugt keine Fills; späterer Quote und Risk Gate bleiben erforderlich. Begrenzter Worker geprüft; fehlende Mitternachtsbaseline sperrt weiter neue Käufe. Dauerbetrieb/Cockpit bleiben IP-047. [Vertrag](paper-market-worker.md).
+IP-051 zeigt gespeicherten Paperstand/Journal über eine geprüfte, standardmäßig ausgeschaltete Cockpitanzeige. Strategie und Risikoregeln unverändert; fehlende Mitternachtsbaseline sperrt neue Käufe. Tagesbewertungsfrage Q32 ist offen, Dauerbetrieb/Anzeigeaktivierung bleiben IP-047. [Vertrag](paper-status-readmodel.md).
 
 IP-046: Drei Jahre BTC/ETH-H4 werden im vorhandenen deterministischen
 Researchworkflow ausgewertet; ein weiterer Jahresabschnitt ist ausschließlich

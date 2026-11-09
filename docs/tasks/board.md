@@ -60,8 +60,21 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-048 | P1 / P3–P4 | DONE | Schrittweisen wiederherstellbaren Paperkern mit Journalvertrag ergänzen | Mainmergeeb62176/dd1903b geprüft;14 neue Runnerfälle,84 gepinnte gezielte Tests/48 Subtests. Frische spätere Quotes, keine doppelten Fills/automatischen manuellen Einstiege. PostgreSQL-Writer und laufender Feed/Cockpit bleiben IP-047 |
 | IP-049 | P1 / P3–P4 | DONE | Paperzustand und Journal atomar in PostgreSQL speichern | Mergefe6309a in Maindc60c19 verifiziert; eigene SESSION_USER-Kontobindung, CAS und gemeinsamer Commit/Readback.78 gepinnte Tests/15 Subtests,29 tatsächliche PG-Fälle und Review grün;010 nur Fixture-DB. Feedworker/Cockpit bleiben IP-047 |
 | IP-050 | P1 / P3–P4 | DONE | Öffentlichen Spotfeed und begrenzten Paperworker verbinden | Mergee0cfb45 in Main1a805e5 verifiziert; BTC/ETH-H4 plus echte Bid/Ask, persistierte Zyklen82/84/86 und Neustart88.151 Tests/48 Subtests,30 echte PG-Fälle; begrenzte Fixtureabnahme/Review grün. Tageswechsel/Dauerbetrieb und Cockpit bleiben IP-047 |
+| IP-051 | P1 / P3–P4 | DONE | Tenantgebundenen Paperstatus und Journal im Cockpit bereitstellen | Mergeaf65c51 in Mainb9d4b41 verifiziert; lesende011/API und default-off Panel.170 gezielte Tests/48 Subtests inkl37 echte PG/API,16 Cockpit-Vertrags-/SSR-Fälle, Typecheck/Build/Review grün.011 nur Fixture; Q32/Tageswechsel/Dauerbetrieb/Anzeigeaktivierung bleiben offen |
 
 ## Abschlussbelege
+
+IP-051:170 gepinnte gezielte Tests/48 Subtests, davon37 tatsächliche
+PostgreSQL-/API-Fälle;16 Cockpit-Vertrags-/SSR-Paneltests, Typecheck und
+gepinnter Cockpitbuild bestanden. Eigener/fremder Tenant, entzogene
+Mitgliedschaft, Replay und fehlender Kontext geprüft; Runtime ohne
+Tabellen-/Writerrechte. Review ohne Blocker.011 nach vollständig
+zurückgerolltem Preflight ausschließlich Fixture-DB; normal007/Fixture011
+und sämtliche Ledgerprüfsummen verifiziert. Keine neuen Dependencies;
+keine breite Credential-/HTTP-Wiederholung. Öffentliche Container
+unverändert/gesund, Cockpit TLS200. Beide Anzeigeflags ausgeschaltet.
+Q32 zur Preisbasis der Mitternachtsbewertung offen; Risikoregeln unverändert.
+[Vertrag und verbleibende Gates](../paper-status-readmodel.md).
 
 IP-050:151 gepinnte Tests/48 Subtests,30 echte PostgreSQL-Fälle bestanden.
 Öffentlicher Feedcheck je40 geschlossene H4 und frische echte Quotes.

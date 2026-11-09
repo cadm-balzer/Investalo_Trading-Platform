@@ -6,6 +6,7 @@ exec bash "$paper_root/infra/scripts/compose.sh" --profile checks run --rm --no-
   -e PAPER_TEST_PASSWORD_FILE=/run/secrets/paper_test_password \
   -v "$paper_root/infra/local/paper_test_password:/run/secrets/paper_test_password:ro" \
   -v "$paper_root/services/workers/src:/app/services/workers/src:ro" \
+  -v "$paper_root/services/api/src:/app/services/api/src:ro" \
   -v "$paper_root/packages/trading/src:/app/packages/trading/src:ro" \
   -v "$paper_root/packages/marketdata/src:/app/packages/marketdata/src:ro" \
   -v "$paper_root/tests/trading:/app/tests/trading:ro" \

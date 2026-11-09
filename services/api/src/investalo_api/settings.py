@@ -23,6 +23,7 @@ class Settings:
     database_parameters: dict[str, str] = field(default_factory=dict, repr=False)
     passkey_credential_authorizations: bool = False
     passkey_origin: str | None = None
+    paper_status_preview: bool = False
 
     @classmethod
     def from_environment(cls) -> "Settings":
@@ -46,6 +47,7 @@ class Settings:
             database_parameters=parameters,
             passkey_credential_authorizations=os.getenv("API_PASSKEY_CREDENTIAL_AUTHORIZATIONS") == "1",
             passkey_origin=os.getenv("API_PASSKEY_ORIGIN"),
+            paper_status_preview=os.getenv("API_PAPER_STATUS_PREVIEW") == "1",
         )
 
     def connection_parameters(self) -> dict[str, str | int]:

@@ -7,6 +7,8 @@ import { BacktestForm } from "./backtest-form";
 import { parseOverview } from "@/lib/contracts";
 import { parseDatasets, type Dataset } from "@/lib/backtest-contracts";
 import { ResultMetrics } from "./backtest-result";
+import { PaperStatusPanel } from "./paper-status";
+import { parsePaperStatus, type PaperStatus } from "@/lib/paper-status-contracts";
 
 type Section = "overview" | "portfolio" | "journal" | "backtest" | "shield";
 const navigation: { label: string; href: string; section: Section }[] = [
@@ -65,12 +67,20 @@ export async function DashboardPage({ section }: { section: Section }) {
   if (!session) return <Login />;
   let data: Overview | null = null;
   let datasets: Dataset[] | null = null;
+  let paper: PaperStatus | null = null;
+  const paperPreview = process.env.COCKPIT_PAPER_STATUS_PREVIEW === "1" && ["overview", "portfolio", "journal"].includes(section);
   try {
     const candidate = await apiRequest<unknown>(session, "/v1/overview");
     data = parseOverview(candidate, session.tenantId);
   } catch (error) {
     data = null;
     if (error instanceof BackendError && [401, 403].includes(error.status)) return <Login expired />;
+  }
+  if (paperPreview && data) {
+    try { paper = parsePaperStatus(await apiRequest<unknown>(session, "/v1/paper-status"), session.tenantId); }
+    catch (error) {
+      if (error instanceof BackendError && [401, 403].includes(error.status)) return <Login expired />;
+    }
   }
   if (section === "backtest" && data) {
     try { datasets = parseDatasets(await apiRequest<unknown>(session, "/v1/datasets"), session.tenantId); }
@@ -91,6 +101,7 @@ export async function DashboardPage({ section }: { section: Section }) {
       {section === "journal" && <section className="panel"><div className="section-heading"><h2>Dein Tradingjournal</h2><span className="count">{data.journal.length} Ereignisse</span></div><Journal data={data} /></section>}
       {section === "backtest" && <><section className="panel"><div className="section-heading"><h2>Crypto Basket prüfen</h2><span className="badge neutral">BTC / ETH · SPOT · H4</span></div><p className="panel-intro">Fünf reguläre Stufen; die manuelle Reserve bleibt im Referenzbacktest als Cash. Nachträglich ausgewählte Käufe werden nicht als automatische Leistung gerechnet.</p><BacktestForm csrf={session.csrf} datasets={datasets} /></section><section className="panel"><div className="section-heading"><h2>Angeforderte Läufe</h2><Link href="/backtests">Stand aktualisieren <Icon name="arrow" size={16} /></Link></div><Jobs jobs={data.jobs} /></section><div className="research-note"><Icon name="shield" /><p><strong>Freigabe braucht unabhängige Nachweise.</strong> Positiver Nettoertrag, Profitfaktor ≥ 1,2 und mindestens 30 geschlossene Baskets je Cryptoasset im unabhängigen Holdout. Gold wird gesondert nach Kosten- und Kausalitätsprüfung freigegeben.</p></div></>}
       {section === "shield" && <><section className="panel"><div className="section-heading"><h2>Deine Cockpitsitzung</h2><span className="badge">MFA BESTÄTIGT</span></div><dl className="security-list"><div><dt>Nutzerkreis</dt><dd>Administrativ eingerichteter Privatpilot</dd></div><div><dt>Sitzung gültig bis</dt><dd>{date(new Date(session.expiresAt * 1000).toISOString())}</dd></div><div><dt>Echtgeldhandel</dt><dd>Gesperrt</dd></div><div><dt>Abmeldung</dt><dd>Beendet diese Cockpitsitzung. Die separate Authelia-Sitzung bleibt bestehen.</dd></div></dl></section><section className="panel"><div className="section-heading"><h2>Bestätigte Risikoprofile</h2></div><div className="risk-grid"><article><span className="eyebrow">CRYPTO PAPER</span><strong>6 % täglich / 8 % initial</strong><p>BTC/ETH Spot ohne Hebel. 500 USDT Kaufprincipal plus 5 USDT Kostenreserve je Basket.</p></article><article><span className="eyebrow">MT5 DEMO · FREIGABE AUSSTEHEND</span><strong>1 % täglich / 5 % initial</strong><p>0,25 % modelliertes Risiko je Idee. Maximal eine offene Idee auf getrenntem Brokerdemo.</p></article></div></section></>}
+      {paperPreview && <PaperStatusPanel data={paper} />}
       {section === "shield" && <section className="panel">
         <div className="section-heading"><h2>Bitget-Zugang</h2><span className="badge neutral">EINRICHTUNG GESPERRT</span></div>
         <p className="panel-intro">Kontometadaten prüfen und vorgesehene Aktionen ansehen. Die zusätzliche Passkey-Bestätigung befindet sich in Umsetzung.</p>

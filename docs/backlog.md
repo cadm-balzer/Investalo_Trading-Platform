@@ -1,6 +1,6 @@
 # Offenes Backlog
 
-Stand 2026-11-08. Aktive Aufgaben stehen im [Ticketboard](tasks/board.md).
+Stand 2026-11-09. Aktive Aufgaben stehen im [Ticketboard](tasks/board.md).
 Keine erledigten Punkte in dieser Liste halten.
 
 | ID | Thema | Auslöser / spätere Aufgabe |
@@ -32,7 +32,8 @@ Keine erledigten Punkte in dieser Liste halten.
 | BL-025 | Passkey-Recovery nach terminalem Widerruf | Administrativer Widerruf sperrt den Faktor und erhöht die globale Nutzer-Epoch; kontrollierten E-Mail-bestätigten Ersatz-/Recoveryweg mit eigener Migration und Sitzungsbindung abnehmen. Keine Reaktivierung, Löschung oder erneute Registrierung in reservierte Slots |
 | BL-026 | Öffentlicher TLS-Betrieb | IP-035 bestätigt persistente ACME-Daten nach Neustart und ausschließlich Edge-Hostports; tatsächliche Erneuerung, Ablaufüberwachung, unabhängig externe Portprüfung und geschützten Wiederherstellungsweg noch nachweisen; Zertifikat ersetzt keine Pilotabnahme |
 | BL-027 | Testclient-Abhängigkeit | Starlette meldet im grünen API-Lauf die Ablösung von `httpx` durch `httpx2`; beim nächsten geprüften Dependencycheckpoint FastAPI-/Starlette-Kompatibilität, exakte Pins und Lockstände gemeinsam prüfen |
-| BL-028 | Paper-Tageswechsel und Dauerbetrieb | Bestehender Runner verlangt exakte Mitternachtsquotes/Verarbeitungszeit zur Tagesbaseline; REST-Polling liefert das nicht zuverlässig. Neue Käufe bleiben am nächsten UTC-Tag gesperrt. Sicheres belegtes Tageswechselverfahren ohne erfundene Equity, unabhängige Risk-/Restart-/Gap-Abnahme, dedizierte dauerhafte Identität, Egress-/Quota-/Retentionbetrieb vor Dauerbetrieb ergänzen. IP-050 akzeptiert nur begrenzte Fixturezyklen |
+| BL-028 | Paper-Tageswechsel und Dauerbetrieb | Bestehender Runner verlangt exakte Mitternachtsquotes/Verarbeitungszeit zur Tagesbaseline; REST-Polling liefert das nicht zuverlässig. Neue Käufe bleiben am nächsten UTC-Tag gesperrt. Q32 zur gekennzeichneten H4-Mitternachtsmodellbewertung offen; bis Entscheidung unverändert. Sichere Risk-/Restart-/Gap-Abnahme, dedizierte dauerhafte Identität, Egress-/Quota-/Retentionbetrieb ergänzen. IP-050 akzeptiert nur begrenzte Fixturezyklen; IP-051-Statusanzeige implementiert, Aktivierung/Betriebsabnahme offen |
 
 RSI-/Supertrend-/Budget-/Exitentscheidungen Q1–Q31 sind bestätigt.
-Offen sind Umsetzung und Nachweise, keine stillschweigend vertagten Strategiefragen.
+Offen sind Umsetzung und Nachweise; zusätzlich stellt Q32 ausdrücklich die
+technisch erforderliche Preisbasis der Paper-Tagesbewertung zur Entscheidung.

@@ -84,7 +84,9 @@ Dependencies/Migrationen. Normale DB007/Fixture010 und Prüfsummen unverändert.
 Alle Einmalcontainer beendet; sechs bestehende Dienste unverändert,
 Cockpit weiterhin gültiges TLS/HTTP200.
 
-Nächstes IP-047: eigene dauerhafte Entwicklungsprovisionierung, sicheres
-Tageswechselverfahren und tenantgebundene Paperstatus-/Journalanzeige.
+Fortsetzung IP-051: [tenantgebundene Paperstatus-/Journalanzeige](paper-status-readmodel.md)
+implementiert und standardmäßig ausgeschaltet; Fixture inzwischen011.
+Nächstes IP-047: Q32 zur Tagesbewertung, eigene dauerhafte
+Entwicklungsprovisionierung und sichere Betriebs-/Anzeigeaktivierung.
 Referenzen: [Ticker](https://www.bitget.com/legacy-docs/uta/public/Tickers),
 [aktuelle Kerzen](https://www.bitget.com/legacy-docs/uta/public/Get-Candle-Data).

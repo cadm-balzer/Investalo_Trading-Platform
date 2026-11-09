@@ -172,6 +172,20 @@ flowchart TD
 
 ## Folgefragen nach Voraussetzung
 
+### Q32: Paper-Tagesbasis
+
+2026-11-09, **offen; keine Änderung freigegeben**. Q18 hält Equity00:00UTC
+als Tagesbasis und6% als Crypto-Tageslimit fest. REST-Polling liefert den
+exakten Mitternachts-Bid nicht zuverlässig; ohne Tagesbasis bleiben Käufe gesperrt.
+
+Vorschlag zur Entscheidung: Für offene Paperpositionen den um00:00UTC
+geschlossenen H4-Kurs ausschließlich als gekennzeichnete Modellbewertung der
+Tagesbasis verwenden. Zeitpunkt und6%-Limit bleiben erhalten; tatsächliche
+Paperfills nutzen weiter echte Bid/Ask-Quotes. Fehlende Grenzkerzen sperren
+Käufe. Alternative: exakten Mitternachts-Bid verlangen und ohne ihn sperren.
+Die Preisbasis betrifft eine Risikoregel; deshalb vor Implementierung
+ausdrückliche Entscheidung nach AGENTS.md erforderlich.
+
 Mit Q28 liegen Echtgeld-/FTMO-/AI-Provider- und
 Kundenentscheidungen ausdrücklich an späteren Gates. Der Interviewabschluss
 ist in Q31 bestätigt.

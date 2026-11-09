@@ -307,3 +307,17 @@ Default command --once; optionally python -m investalo_workers.paper_main
 --cycles 3. No indefinite runs until BL-028 daily baseline.
 PG tests rebind same synthetic LOGIN; prepare new fixture/env after tests.
 Real run82/84/86, new process88; zero fills. All one-offs stopped.
+
+## IP-051 Paper status
+
+`python3 infra/scripts/prepare-paper-status-checks.py` checks ledger001–010
+and fully rolled-back011/runtime/tenant preflight; --apply-reviewed applies
+ONLY fixture011. Now immutable, checksum in docs/paper-status-readmodel.md.
+Read-only schema checker now expects normal007/fixture011, all hashes verified.
+Focused suite `bash infra/scripts/check-paper-storage.sh`:170/48subtests,
+37actualPG/API; readonly current API source mount reuses pinned image.
+Cockpit: node --experimental-strip-types --test --test-isolation=none
+tests/paper-status.test.ts (16), npm run typecheck, pinned compose build cockpit.
+Logs /tmp/investalo-paper-status-tests.log, -cockpit-tests.log, -cockpit-build.log.
+No public recreate; API_PAPER_STATUS_PREVIEW/COCKPIT_PAPER_STATUS_PREVIEW off.
+Q32 pending; do not implement modeled midnight valuation without approval.

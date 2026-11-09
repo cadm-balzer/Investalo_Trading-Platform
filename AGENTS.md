@@ -87,7 +87,7 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   onboarding checkpoint `69a1f8b` merged into main, verified at `56070ba`;
   step-up checkpoint `d57bd56` merged into main, verified at `b6198f7`;
   registry checkpoint `6a18102` merged into main, verified at `f422a90`;
-  current work branch: `feat/m1-paper-market-worker`.
+  current work branch: `feat/m1-paper-status-readmodel`.
   Isolated AEAD core: `packages/credentials/README.md`, 20 offline tests with
   pinned cryptography and a separate hardened Compose check.
   Credential store: `services/credentials/README.md`; migration003 and current
@@ -414,6 +414,26 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   Real public feed40bars each; actual cycles82/84/86 then restart88, zero fills.
   151 pinned tests/48 subtests,30 actual PG; independent bounded review green.
   Normal007/fixture010/checksums unchanged, no migrations/dependencies/builds.
+- IP-050 checkpoint af65c51 merged into mainb9d4b41 (verified). IP-051 adds
+  read-only own-tenant Paper status/journal API and gated Cockpit panel.
+  API_PAPER_STATUS_PREVIEW and COCKPIT_PAPER_STATUS_PREVIEW default off;
+  Default Compose/public preview unchanged. Stored inputs do not prove a
+  running worker; historical/missing valuation and absent daily baseline
+  are explicit. No strategy, risk, writer or execution change.
+  Reviewed011 preflight fully rolled back, then applied ONLY to
+  investalo_credentials_checks; normal001–007/fixture001–011 and all applied
+  checksums verified. Applied011 immutable SHA256:
+  8065031b7eb57486013282e84b91bd6fb3c205155f9aec1ca81b5470b9430f72.
+  Restricted runtime function rechecks active user/member, original OIDC and
+  epoch; SQL trusts authenticated API and transaction-local identity GUCs.
+  No direct Paper table/writer rights. 170 pinned targeted tests/48 subtests
+  (37 actual PG/API),16 Cockpit contract/SSR panel tests, typecheck/pinned build
+  and scoped independent review passed. No new dependencies/broad credential
+  repeats. Existing public containers unchanged/healthy, cockpit TLS200.
+  Q32 pending: explicitly modeled H4 midnight daily valuation requires user
+  approval before changing the risk price basis. Existing missing-baseline buy
+  block remains. IP-047/BL-028 continuous operation/activation still open.
+  Contract: docs/paper-status-readmodel.md.
   Public six services unchanged/Cockpit TLS200; one-off fixtures stopped.
   Tests rebind fixed investalo_paper_tests LOGIN: prepare a new fixture/env after tests,
   never blindly reuse older account configuration. Next IP-047: safe daily

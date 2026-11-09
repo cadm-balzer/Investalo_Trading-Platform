@@ -2,6 +2,10 @@
 
 IP-050 ergänzt `paper_worker.py`/`paper_main.py`: eigener öffentlicher Spotfeed, geschlossener H4-Vorlauf, gespeicherter Zustand und atomarer Journalwriter. Nur `--once`/`--cycles 1..100`, explizite Aktivierung und eigene Paper-LOGIN-/Kontobindung. Fehlende Tagesbaseline bleibt Kaufgate; Dauerbetrieb offen. Reale Fixturezyklen/Neustart geprüft, normaler gestarteter Worker weiterhin Offline-Research. [Papervertrag](../../docs/paper-market-worker.md).
 
+IP-051 ergänzt die lesende [Status-/Journalanzeige](../../docs/paper-status-readmodel.md)
+in API/Cockpit, standardmäßig ausgeschaltet. Worker und Risikoregeln unverändert;
+Fixture011, normale DB007. Tagesbewertungsentscheidung Q32 ausstehend.
+
 Start: `python -m investalo_workers.main`, einmaliger Zyklus mit `--once`.
 `PYTHONPATH` enthält `services/workers/src`, `services/api/src`,
 `packages/trading/src` und `packages/marketdata/src`. Der Worker verwendet die

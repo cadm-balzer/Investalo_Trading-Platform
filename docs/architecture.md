@@ -1,6 +1,6 @@
 # Architektur und Stack
 
-IP-050 verbindet den öffentlichen Spotfeed mit dem gebundenen PaperRunner und atomaren PostgreSQL-Store. Separate Fixture-Egressbridge/LOGIN, keine Hostports, Keys oder Migration. Begrenzte Workerzyklen tatsächlich geprüft; Tageswechsel-Dauerbetrieb und Cockpit bleiben IP-047. [Vertrag](paper-market-worker.md).
+IP-051 ergänzt eine rein lesende, tenantgebundene API-Projektion und ein standardmäßig ausgeschaltetes Cockpitpanel zum gespeicherten Paperstand.011 nur Fixture-DB; Runtime erhält keine direkten Tabellen-/Writerrechte. Tageswechsel, Dauerbetrieb und Anzeigeaktivierung bleiben IP-047. [Vertrag](paper-status-readmodel.md).
 
 IP-046: Drei Jahre BTC/ETH-H4 werden im vorhandenen deterministischen
 Researchworkflow ausgewertet; ein weiterer Jahresabschnitt ist ausschließlich

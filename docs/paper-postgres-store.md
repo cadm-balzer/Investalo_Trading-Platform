@@ -1,7 +1,9 @@
 # Atomarer PostgreSQL-Paperstore
 
 Fortsetzung IP-050: [öffentlicher Feed und begrenzter Worker](paper-market-worker.md)
-sind tatsächlich in der Fixture-DB geprüft; Dauerbetrieb/Cockpit noch offen.
+sind tatsächlich in der Fixture-DB geprüft. IP-051 ergänzt die ausgeschaltete
+[Status-/Journalanzeige](paper-status-readmodel.md) und Fixture011;
+Dauerbetrieb/Anzeigeaktivierung noch offen.
 
 IP-049,2026-11-09: privater `PaperStore` verbindet den vorhandenen
 [PaperRunner](paper-runner.md) mit PostgreSQL. Feedworker und Cockpitanzeige

@@ -2,6 +2,16 @@
 
 Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
 
+- 2026-11-09: IP-050af65c51 in Mainb9d4b41 verifiziert. IP-051 auf
+  feat/m1-paper-status-readmodel liefert eigenen Paperstatus/Journal via
+  restricted011/API und gated Cockpitpanel.170 Tests/48Subtests inkl37PG/API,
+  16 Cockpit-Vertrags-/SSR-Fälle, Typecheck/Build/Review grün.
+  Normal007/Fixture011 und Prüfsummen verifiziert;011 immutable.
+  Publiccontainer unverändert/gesund/TLS200; beide Flags aus.
+  Q32 offen: H4-Modellpreis nur für00UTC-Tagesbasis erfordert Entscheidung;
+  keine Risikoregel geändert. Betriebs-/Anzeigeaktivierung weiter IP-047.
+  Kostenpräferenz: gezielte Checks, knappe Reads, ein scoped Review.
+
 - 2026-11-09: IP-049e0cfb45 in Main1a805e5 verifiziert. IP-050 auf
   feat/m1-paper-market-worker: öffentliche echte BTC/ETH-Quotes/H4, begrenzter
   Worker/Fixture010, reale Zyklen82/84/86 und Restart88 (keine Fills).
