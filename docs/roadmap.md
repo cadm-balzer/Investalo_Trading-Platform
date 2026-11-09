@@ -1,6 +1,6 @@
 # Roadmap
 
-IP-047 ist aktiv: IP-048 liefert den schrittweisen Paperkern und Snapshot-/Journalvertrag. Als Nächstes PostgreSQL-CAS/Journalschreiber, Feedworker und Cockpitstatus. [Vertrag](paper-runner.md).
+IP-047 ist aktiv: IP-048 liefert den schrittweisen Paperkern, IP-049 den atomaren PostgreSQL-Writer mit eigener Identität in der Testdatenbank. Als Nächstes Marktfeed, laufender Worker und Cockpitstatus. [Paperstore](paper-postgres-store.md).
 
 Stand 2026-11-09. Q1–Q5 bestätigen privaten Pilot, Paper zuerst, feste
 Risikolimits, kontrollierte KI und kostenlose externe Dienste.

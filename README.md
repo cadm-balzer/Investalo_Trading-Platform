@@ -1,6 +1,6 @@
 # Investalo Trading Platform
 
-IP-048 ergänzt den wiederherstellbaren schrittweisen [Paperkern](docs/paper-runner.md); PostgreSQL-Writer, Feedworker und Paperanzeige folgen in IP-047.
+IP-049 persistiert Paperzustand und Journal atomar in PostgreSQL, mit Revision-CAS und geprüfter eigener Workeridentität.78 gezielte Tests bestanden; bisher nur Testdatenbank. Marktfeed, laufender Worker und Cockpitanzeige folgen in IP-047. [Paperstore](docs/paper-postgres-store.md).
 
 Mandantenfähiges Trading-Cockpit mit Portfolio, Journal, Backtests und
 automatisiertem Handel über Bitget und MetaTrader 5.

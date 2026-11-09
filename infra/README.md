@@ -1,6 +1,6 @@
 # Lokale Compose-Entwicklung
 
-IP-048 ist ausschließlich Domaincode; kein neuer Compose-Dienst oder Paperwriter gestartet. [Nächste Adaptergrenze](../docs/paper-runner.md).
+IP-049 prüft den atomaren Paperwriter und eigene LOGIN-Gruppe mit010 ausschließlich in der Fixture-DB. Normale Entwicklungsdatenbank bleibt007. HBA-Ergänzung erlaubt nur Fixture-TLS/SCRAM; PostgreSQL-Konfiguration wurde neu geladen, bestehende öffentliche Dienste nicht neu erstellt. Vorbereitung: `python3 infra/scripts/prepare-paper-storage-checks.py`; Tests: `bash infra/scripts/check-paper-storage.sh`. Kein laufender Paperdienst aktiviert. [Vertrag und Grenzen](../docs/paper-postgres-store.md).
 
 Aktueller Researchstand IP-046: reale BTC/ETH-H4-Fenster2022-08-01–2025-08-01
 mit jeweils6.576 Kerzen sind für das bestehende Cockpit verfügbar. Separate

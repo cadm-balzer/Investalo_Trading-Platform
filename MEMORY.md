@@ -2,6 +2,15 @@
 
 Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
 
+- 2026-11-09: IP-048fe6309a in Maindc60c19 verifiziert. IP-049 auf
+  feat/m1-paper-postgres-journal: atomarer PostgreSQL-Paperstore mit eigener
+  SESSION_USER-Kontobindung, Revision-/Checksum-CAS, Unknowncommit-Readback.
+  78 gepinnte Tests/15 Subtests,29 echte PG-Fälle, Review grün.010 nur Fixture,
+  normal007/Fixture010 unveränderlich geprüft. Nie defaultmigrate/up.
+  Testpasswort nach synthetischem Verbindungstrace rotiert, Fehler sanitisiert.
+  Keine echten Credentials oder neue Dienste; PostgreSQL-HBA configreload,
+  öffentliches Cockpit TLS200. Nächstes IP-047: Feed/Worker/Cockpitanzeige.
+
 - 2026-11-09: User fordert LLM/API-Kosten sparen: Kontext/Ausgaben klein,
   passende gezielte Tests, keine Routine-Subagents oder wiederholten Komplettläufe.
   IP-046eb62176 in Main dd1903b verifiziert. IP-048 auf feat/m1-persistent-paper-core:

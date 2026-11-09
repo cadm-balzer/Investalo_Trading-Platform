@@ -1,6 +1,6 @@
 # Offline-Researchworker
 
-IP-048 bietet den inkrementellen PaperRunner; der aktuelle Worker bleibt Offline-Research. Getrennter Paperwriter/Feedworker folgt unter IP-047. [Vertrag](../../docs/paper-runner.md).
+IP-049 ergänzt `paper_store.py`: eigene LOGIN-Prüfung, frische Transaktionen, atomarer Checkpoint-/Journalcommit und Readback bei unbekanntem Commit.29 tatsächliche PostgreSQL-Fälle bestanden;010 nur Testdatenbank. Der gestartete Worker bleibt Offline-Research; Paperfeed/Daemon folgt in IP-047. [Vertrag](../../docs/paper-postgres-store.md).
 
 Start: `python -m investalo_workers.main`, einmaliger Zyklus mit `--once`.
 `PYTHONPATH` enthält `services/workers/src`, `services/api/src`,
