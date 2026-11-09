@@ -45,21 +45,66 @@ class DatasetOptions(HTMLParser):
         self.current = None
         self.label = ""
         self.options = []
+        self.in_script = False
+        self.scripts = []
 
     def handle_starttag(self, tag, attrs):
         if tag == "option":
             self.current = dict(attrs).get("value")
             self.label = ""
+        elif tag == "script":
+            self.in_script = True
+            self.scripts.append("")
 
     def handle_data(self, data):
         if self.current:
             self.label += data
+        if self.in_script:
+            self.scripts[-1] += data
 
     def handle_endtag(self, tag):
         if tag == "option":
             if self.current:
                 self.options.append((self.current, self.label))
             self.current = None
+        elif tag == "script":
+            self.in_script = False
+
+    def client_dataset(self, symbol: str, digest: str) -> str | None:
+        """Read bounded pinned Next JSON metadata for a nondefault asset.
+
+        Initial SSR options contain BTC only. ETH lives in the serialized client
+        props until the user changes the asset. Decode JSON, never JavaScript.
+        This does not claim physical browser/hydration acceptance.
+        """
+        if sum(len(item) for item in self.scripts) > 2 * 1024 * 1024:
+            raise RuntimeError("Bounded client metadata required")
+        chunks = []
+        for script in self.scripts:
+            match = re.fullmatch(r"self\.__next_f\.push\((\[.*\])\);?", script.strip(), re.DOTALL)
+            if match:
+                message = json.loads(match.group(1))
+                if (isinstance(message, list) and len(message) == 2
+                        and message[0] == 1 and isinstance(message[1], str)):
+                    chunks.append(message[1])
+        text = "".join(chunks)
+        decoder = json.JSONDecoder()
+        offsets = list(re.finditer(r"\{", text))
+        if len(offsets) > 10000:
+            raise RuntimeError("Bounded client records required")
+        for offset in offsets:
+            try:
+                item, _ = decoder.raw_decode(text, offset.start())
+            except json.JSONDecodeError:
+                continue
+            if (isinstance(item, dict) and item.get("symbol") == symbol
+                    and item.get("data_digest") == digest and item.get("timeframe") == "4h"
+                    and item.get("purpose") == "research" and item.get("synthetic") is False
+                    and isinstance(item.get("source"), dict) and item["source"].get("venue") == "bitget"
+                    and isinstance(item.get("id"), str)
+                    and re.fullmatch(r"[0-9a-f-]{36}", item["id"])):
+                return item["id"]
+        return None
 
 
 class DevelopmentConnection(http.client.HTTPSConnection):
@@ -171,11 +216,12 @@ def main() -> None:
     snapshot = json.loads(snapshot_bytes)
     expected_digest = snapshot.get("data_digest")
     if (snapshot.get("schema_version") != "marketdata-snapshot/1"
-            or snapshot.get("symbol") != "BTC/USDT" or snapshot.get("synthetic") is not False
+            or snapshot.get("symbol") not in ("BTC/USDT", "ETH/USDT") or snapshot.get("synthetic") is not False
             or snapshot.get("source", {}).get("venue") != "bitget"
             or not isinstance(expected_digest, str)
             or not re.fullmatch(r"[a-f0-9]{64}", expected_digest)):
-        raise RuntimeError("Expected a real public BTC research snapshot")
+        raise RuntimeError("Expected a real public crypto research snapshot")
+    expected_symbol = snapshot["symbol"]
     password = re.search(r"(?m)^Password: (\S+)",
                          (LOCAL / "pilot-access.txt").read_text()).group(1)
     opener = client()
@@ -279,6 +325,8 @@ def main() -> None:
                        and label.startswith("Bitget")
                        and expected_digest[:10] in label), None)
     if not dataset_id:
+        dataset_id = dataset_options.client_dataset(expected_symbol, expected_digest)
+    if not dataset_id:
         raise RuntimeError("Expected imported public research snapshot missing")
     check(status == 200, "authenticated cockpit lists imported public research data")
     status, _, _ = request(opener, location)
@@ -343,7 +391,7 @@ def main() -> None:
     STEP = "BFF job acceptance and idempotency"
     job_headers = {"X-CSRF-Token": csrf.group(1).decode(),
                    "Idempotency-Key": str(uuid4())}
-    job_payload = {"symbol": "BTC/USDT", "timeframe": "4h",
+    job_payload = {"symbol": expected_symbol, "timeframe": "4h",
                    "dataset_id": dataset_id}
     status, _, result = request(opener, APP + "/api/backtests",
                                 data=job_payload, headers=job_headers)
@@ -355,7 +403,7 @@ def main() -> None:
     check(status == 202 and json.loads(result).get("id") == job["id"],
           "same idempotency key returns the same job")
     status, _, _ = request(opener, APP + "/api/backtests",
-                           data={"symbol": "ETH/USDT", "timeframe": "4h"},
+                           data={"symbol": "ETH/USDT" if expected_symbol == "BTC/USDT" else "BTC/USDT", "timeframe": "4h"},
                            headers=job_headers)
     check(status == 409, "idempotency key cannot switch the requested asset")
     STEP = "actual research worker result"

@@ -1,0 +1,189 @@
+{
+  "assets": [
+    {
+      "holdout": {
+        "bar_count": 2190,
+        "content_digest": "2b013ab8defbb837b695a60151e3fb4496763ab238093dcffffe250fabe6e51c",
+        "coverage": {
+          "actual_end": "2026-08-01T00:00:00Z",
+          "actual_start": "2025-08-01T00:00:00Z",
+          "complete": true,
+          "missing_leading_bars": 0,
+          "missing_trailing_bars": 0,
+          "requested_end": "2026-08-01T00:00:00Z",
+          "requested_start": "2025-08-01T00:00:00Z"
+        },
+        "data_digest": "2ac4b4f206ba675c7af2dcb987e6d1d93b6d4f6a621a7290040b1072cce61186",
+        "source": {
+          "api_version": "3",
+          "retrieved_at": "2026-11-08T22:09:28.981840Z",
+          "url": "https://api.bitget.com/api/v3/market/history-candles",
+          "venue": "bitget"
+        }
+      },
+      "research": {
+        "bar_count": 6576,
+        "content_digest": "78eb04b5b38ed014c8a9794d91d08280faf1b96dd928121ef4a1d57d63c84c68",
+        "coverage": {
+          "actual_end": "2025-08-01T00:00:00Z",
+          "actual_start": "2022-08-01T00:00:00Z",
+          "complete": true,
+          "missing_leading_bars": 0,
+          "missing_trailing_bars": 0,
+          "requested_end": "2025-08-01T00:00:00Z",
+          "requested_start": "2022-08-01T00:00:00Z"
+        },
+        "data_digest": "253f6e7b0918199d2acbd09358d782c211c8498b7ad41a21bf7a5a71da3b8652",
+        "source": {
+          "api_version": "3",
+          "retrieved_at": "2026-11-08T22:09:28.981840Z",
+          "url": "https://api.bitget.com/api/v3/market/history-candles",
+          "venue": "bitget"
+        }
+      },
+      "source": {
+        "bar_count": 8766,
+        "content_digest": "9c0f31ef8e976daf69c6c33ecc184a36e808c69d00f758d237acdfd937608fd3",
+        "coverage": {
+          "actual_end": "2026-08-01T00:00:00Z",
+          "actual_start": "2022-08-01T00:00:00Z",
+          "complete": true,
+          "missing_leading_bars": 0,
+          "missing_trailing_bars": 0,
+          "requested_end": "2026-08-01T00:00:00Z",
+          "requested_start": "2022-08-01T00:00:00Z"
+        },
+        "data_digest": "4dce92602d375343b8305c0e84272ee630c02570374fc38bc3c339f69e940793",
+        "source": {
+          "api_version": "3",
+          "retrieved_at": "2026-11-08T22:09:28.981840Z",
+          "url": "https://api.bitget.com/api/v3/market/history-candles",
+          "venue": "bitget"
+        }
+      },
+      "symbol": "BTC/USDT"
+    },
+    {
+      "holdout": {
+        "bar_count": 2190,
+        "content_digest": "4b76cdf76c9e8fbdae759e43726d20900b08335f2fbbbd0912e56dd682b0492f",
+        "coverage": {
+          "actual_end": "2026-08-01T00:00:00Z",
+          "actual_start": "2025-08-01T00:00:00Z",
+          "complete": true,
+          "missing_leading_bars": 0,
+          "missing_trailing_bars": 0,
+          "requested_end": "2026-08-01T00:00:00Z",
+          "requested_start": "2025-08-01T00:00:00Z"
+        },
+        "data_digest": "ea06624dfabe7721ad14396af35a2b9743d3008b536f77a99c080ccfec871cae",
+        "source": {
+          "api_version": "3",
+          "retrieved_at": "2026-11-08T22:11:43.614336Z",
+          "url": "https://api.bitget.com/api/v3/market/history-candles",
+          "venue": "bitget"
+        }
+      },
+      "research": {
+        "bar_count": 6576,
+        "content_digest": "2d86e8df1ca82591aac329efe4bcbafcb79ad6436e29a28f547cc57b707b2283",
+        "coverage": {
+          "actual_end": "2025-08-01T00:00:00Z",
+          "actual_start": "2022-08-01T00:00:00Z",
+          "complete": true,
+          "missing_leading_bars": 0,
+          "missing_trailing_bars": 0,
+          "requested_end": "2025-08-01T00:00:00Z",
+          "requested_start": "2022-08-01T00:00:00Z"
+        },
+        "data_digest": "99d93630d21250c56c2b7bb9974ecc5f86080f7957bcfb346626b3e3ac430bbb",
+        "source": {
+          "api_version": "3",
+          "retrieved_at": "2026-11-08T22:11:43.614336Z",
+          "url": "https://api.bitget.com/api/v3/market/history-candles",
+          "venue": "bitget"
+        }
+      },
+      "source": {
+        "bar_count": 8766,
+        "content_digest": "89e5a49849823c96ccb48e97686313d0c0364a63c53b97ea36ac1f10a5c49f8c",
+        "coverage": {
+          "actual_end": "2026-08-01T00:00:00Z",
+          "actual_start": "2022-08-01T00:00:00Z",
+          "complete": true,
+          "missing_leading_bars": 0,
+          "missing_trailing_bars": 0,
+          "requested_end": "2026-08-01T00:00:00Z",
+          "requested_start": "2022-08-01T00:00:00Z"
+        },
+        "data_digest": "f770b7749aa229051b8bca0912221cb43cc50b5d6b7e9eef859fd6238d27db16",
+        "source": {
+          "api_version": "3",
+          "retrieved_at": "2026-11-08T22:11:43.614336Z",
+          "url": "https://api.bitget.com/api/v3/market/history-candles",
+          "venue": "bitget"
+        }
+      },
+      "symbol": "ETH/USDT"
+    }
+  ],
+  "checkpoint": "IP-046",
+  "combined_portfolio": false,
+  "frozen_specification": {
+    "configuration": {
+      "atr_period": 10,
+      "basket_cost_reserve": "5",
+      "basket_principal": "500",
+      "daily_loss_fraction": "0.06",
+      "emergency_exit_fraction": "0.45",
+      "entry_drop": "0.05",
+      "estimated_exit_fee_rate": "0.001",
+      "estimated_exit_slippage_fraction": "0.001",
+      "initial_equity": "10000",
+      "initial_loss_fraction": "0.08",
+      "preview_lifetime_seconds": 30,
+      "profit_activation": "0.05",
+      "quote_max_age_seconds": 30,
+      "rsi_period": 14,
+      "supertrend_factor": "3",
+      "symbols": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "version": "crypto-basket/1.0.0"
+    },
+    "configuration_digest": "65da26736f164ae748b3887d95a3685c5951483996ff187023df41c76411b6b0",
+    "cost_digest": "f80a41214a92f8b46ac7db733fae61228b3ec9ee91d0aaa361c35b7e78dd6dd3",
+    "costs": {
+      "fee_rate": "0.001",
+      "slippage_fraction": "0.001",
+      "spread_fraction": "0.001"
+    },
+    "execution_assumption": "next_open_buy; adverse_low_then_high_then_close; no_terminal_flatten",
+    "instrument_rules": [
+      {
+        "minimum_quote": "0",
+        "quantity_step": "1E-8",
+        "quote_step": "1E-8",
+        "symbol": "BTCUSDT"
+      },
+      {
+        "minimum_quote": "0",
+        "quantity_step": "1E-8",
+        "quote_step": "1E-8",
+        "symbol": "ETHUSDT"
+      }
+    ],
+    "strategy_version": "crypto-basket/1.0.0"
+  },
+  "holdout_purpose": "holdout",
+  "holdout_status": "reserved_not_evaluated",
+  "per_asset_accounts": true,
+  "previously_evaluated_demo_excluded": {
+    "end": "2026-11-07T08:00:00Z",
+    "start": "2026-08-09T08:00:00Z"
+  },
+  "research_purpose": "research",
+  "schema_version": "crypto-research-protocol/1",
+  "scope": "technical_exploratory_research_not_economic_validation"
+}

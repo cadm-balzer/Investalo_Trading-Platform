@@ -1,5 +1,25 @@
 # Verifikation
 
+IP-046:15 neue Fenster-/CLI-Tests prüfen Mehrjahrespartition, Leap Year,
+Lücken, Zeitgrenzen, unveränderte Preise/Provenienz und Create-only-Ausgaben.
+Fünf Fixturetests prüfen ETH-Dataseterkennung aus begrenzten gepinnten JSON-
+Clientprops. Das ist keine Browser-Hydrationsabnahme. Der HTTPS-Checker kann
+jetzt BTC oder ETH prüfen; `check_long_research.py` vergleicht ausschließlich
+Forschungsresultate mit deterministischem Replay und kontrolliert reservierte
+Holdoutmetadaten/null Holdoutjobs in einer Read-only-Transaktion.
+
+Der vollständige API-/Workersatz braucht die Fixture-DB mit008/009:
+
+```bash
+bash infra/scripts/compose.sh --profile checks run --rm --no-deps -T \
+  -e PGDATABASE=investalo_credentials_checks api-checks
+python3 -m unittest discover -s tests/infra -p test_research_client_metadata.py -v
+python3 tests/infra/check_long_research.py
+```
+
+Das normale `investalo` bleibt001–007; niemals für einen Testfehler migrieren.
+Aktuelle Prüfergebnisse: [IP-046](../docs/long-history-backtests.md).
+
 IP-042: `tests/credential_onboarding/test_private_http.py` prüft den privaten
 Entwicklungsadapter mit tatsächlichen lokalen mTLS-Sockets, unabhängigen
 Kontext-/Body-/Framingnegativfällen, Pflichtpin und Ressourcenlimits.

@@ -744,3 +744,38 @@ Routenchecks bestanden. Unabhängiger Review ohne verbleibenden Blocker;
 keine Abhängigkeiten/SQL-Migrationen geändert.
 [Browservertrag](../credential-browser-flow.md),
 [OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Transaction_Authorization_Cheat_Sheet.html).
+
+## 2026-11-08 — D-051: Tradingpriorität und mehrjährige Forschung
+
+**Status: lokal implementiert und geprüft.** Nutzer bestätigt IP-045-Merge;
+0a0751b ist Vorfahr von Main073c474 (verifiziert). Er fragt ausdrücklich nach
+dem eigentlichen Trading-/Backtestsystem. Schwerpunkt jetzt IP-011/012/013
+und Paper; weitere Credentialbetriebsaktivierung zurückgestellt. Öffentliche
+historische Daten und Simulation brauchen keine privaten Kontoschlüssel.
+
+IP-046 übernimmt die vorhandene öffentliche Bitgetpagination:90 Tage gelten
+pro Anfrage, keine Gesamtgrenze. BTC/ETH jeweils vier Jahre2022-08-01 bis
+2026-08-01 lückenlos,8766 H4-Kerzen. Vor Leistungsberechnung gefrorenes
+technisches Protokoll: erste drei Jahre6576 Kerzen Forschung; anschließend
+2190 Kerzen ausschließlich reservierter Holdout. Das bereits ausgewertete
+90-Tage-Demo liegt außerhalb. Kein voller Vierjahresimport als Research,
+keine Holdoutjobs/Leistungslektüre. Diese konkreten Fenster sind eine
+explizite technische Umsetzung, keine Q26 zugeschriebene Splitentscheidung.
+
+Exakte Fensterbildung erhält Preise/Provenienz; vorhandene API-/SQL-/Worker-
+Isolation bleibt unverändert. BTC und ETH tatsächlich über HTTPS/MFA/BFF/
+Offlineworker gespeichert, jeweils eigene10.000-USDT-Simulation. Read-only-
+Audit und direkter Kernreplay reproduzieren wirtschaftliche Werte exakt.
+Positive Forschungszahlen sind kein Netto-Holdoutnachweis; Kostenkalibrierung,
+Training-/Validierungsauswahl,30 Holdoutbaskets je Asset und PF>=1,2 bleiben
+separate wirtschaftliche Abnahme. Keine automatische manuelle Reservetranche.
+
+66 gepinnte Markt-/Tradingtests mit33 Subtests, fünf neue ETH-Clientmetadaten-
+Fixturetests,572 API-/Workerfälle gegen Fixture009 und je48 reale HTTPS-
+Prüfpunkte bestanden. Unabhängiger Review ohne Blocker. Keine neue Dependency,
+Migration oder öffentliche Containerneuerstellung. DB-Prüfsummen normal007/
+Fixture009 unverändert; sechs vorhandene Dienste gesund/TLS200.
+Nächster konkreter Schritt IP-047: persistentes Paper mit denselben Handels-/
+Risikoregeln, simulierten Orders/Fills und Journal, kein Echtgeld.
+[Protokoll und Ergebnisse](../long-history-backtests.md),
+[Bitget offizielle Historiengrenze](https://www.bitget.com/docs/catalog/market/market-data#get-klinecandlestick-history).

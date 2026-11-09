@@ -9,6 +9,10 @@ Authelia und zentraler HTTPS-Proxy. Versionen, Imagedigests und Paketlocks sind
 festgelegt. Der deterministische Crypto-Kern und ein isolierter Offline-
 Researchworker sind implementiert. Backtests verwenden unveränderliche H4-
 Snapshots und zeigen gespeicherte Nettoergebnisse, Kosten und Equitykurven.
+IP-046 erweitert die verfügbare Forschung auf drei Jahre BTC/ETH-H4
+(2022-08-01–2025-08-01); ein weiteres Jahr ist separat als Holdout reserviert.
+Nächster Schwerpunkt ist die Paperausführung mit demselben Handels-/Risikokern.
+[Protokoll, Bedienung und Aussagegrenzen](docs/long-history-backtests.md).
 Der vollständige erste Release mit beiden Brokerpfaden bleibt in Umsetzung.
 Crypto startet mit BTC/ETH Spot ohne Hebel auf H4; MT5 mit XAUUSD Trend/Pullback.
 RSI-/Supertrend-Regeln sowie Paper-/Demolimits sind bestätigt.

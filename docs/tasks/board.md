@@ -20,9 +20,9 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-008 | P0 / P1 | IN_PROGRESS | Auth, Tenants, RBAC und DB-Isolation | OIDC/MFA, BFF, Einladungsprovisionierung und FORCE RLS getestet; Recovery/Registrierung/Streams folgen |
 | IP-009 | P0 / P1 | IN_PROGRESS | Credentialverschlüsselung und minimale Serviceidentitäten | AEAD, gebundener Store und einmalig autorisierter privater Probe-/Writeablauf geprüft; Betriebsprovider, HTTP/BFF-MFA und echte Keyannahme folgen |
 | IP-010 | P1 / P2 | IN_PROGRESS | Crypto- und MT5-Strategien vollständig spezifizieren | Sachentscheidungen bestätigt; Regeln dokumentiert, technische Kern-/Broker-/Kausalitätsabnahme folgt |
-| IP-011 | P1 / P2 | IN_PROGRESS | Marktdatenimport, Instrumentmetadaten und Snapshots | Strikte H4-Snapshots/CSV/Bitgetpagination und 90-Tage-BTC-Import geprüft; Dreijahresumfang, Datenrechte und historische Instrumentregeln offen |
+| IP-011 | P1 / P2 | IN_PROGRESS | Marktdatenimport, Instrumentmetadaten und Snapshots | Strikte H4-Snapshots/CSV/Bitgetpagination und IP-046-Dreijahresfenster BTC/ETH mit reserviertem Jahres-Holdout; Datenrechte und historische Instrumentregeln offen |
 | IP-012 | P0 / P2 | IN_PROGRESS | Tradingkern und unabhängige Risk Engine | Crypto-Core: 31 Tests; Offlineworker nutzt denselben Kern; MT5, Broker-/Paper-Riskintegration folgen |
-| IP-013 | P1 / P3 | IN_PROGRESS | Kosten-/Fillmodell und reproduzierbare Backtests | Gefrorene Daten/Config/Kosten und echte Workerresultate geprüft; Kostenkalibrierung, Dreijahresdaten und unabhängige Holdoutabnahme offen |
+| IP-013 | P1 / P3 | IN_PROGRESS | Kosten-/Fillmodell und reproduzierbare Backtests | Gefrorene Daten/Config/Kosten und echte Dreijahres-Workerresultate IP-046; Kostenkalibrierung, eingefrorene Auswahl und unabhängige Holdoutabnahme offen |
 | IP-014 | P1 / P3 | IN_PROGRESS | Cockpit, Portfolio und Journal | MFA/Portfolio/Journal plus Datasetwahl, tatsächliche Nettoergebnisse und Equitykurven; visuelle Browserabnahme und Paperbedienung folgen |
 | IP-015 | P0 / P4 | BLOCKED | Bitget-Anbindung für Paper/Demo | IP-009/012; Capabilityvertrag, Modustrennung und Kontobindung |
 | IP-016 | P0 / P4 | BLOCKED | Outbox, Executionjournal und Reconciliation | IP-015; Crash/Timeout/Doppelzustellung/Teilfill ohne Blind-Resend |
@@ -55,8 +55,19 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-043 | P0 / P1 | DONE | Synthetischen Credentialdienst mit eigener DB-/Schlüsselidentität starten | Merge94fb73b in Main6300971 verifiziert; getrennte Runtime/Admincontainer, feste Fixture-DB/LOGIN, Startprüfung und synthetische Guard vor008-Verbrauch.401 Credential-/10 Vorbereitungstests,440 tatsächliche Dienstprüfpunkte und gepinnte Builds/Review bestanden; Produktionsserver/Schlüsselbetrieb und Browser-Keyannahme folgen |
 | IP-044 | P0 / P1 | DONE | Isolierten Credentialdienst mit gepinntem ASGI-HTTP-Unterbau prüfen | Merge998bb90 in Main9f2a9a5 verifiziert; bestehende Uvicorn-/h11-Pins, mTLS vor Parser, Rawframing und getrennte Verbindungs-/Arbeitsslots.419 Credentialtests/52 Subtests,451 Dienstprüfpunkte und gepinnte Pythonbuilds/Review bestanden; nur synthetischer lokaler Dienst |
 | IP-045 | P0 / P1 | DONE | Isolierten Browserablauf für Passkey-Credentialaktionen integrieren | Merge9555624 in Maindcb9feb verifiziert; begrenzte Fortsetzungen, Vorschau/Passkey/ausdrücklicher Consent und privater Seitenspeicher.540 Cockpittests,481 Controller-/HTTPS-/Dienstprüfpunkte,6 tatsächliche gesperrte Next-Routenchecks,460 bestehende Dienstprüfpunkte und gepinnte Builds/Review grün. Next-Betriebsprovider/physische Abnahme und öffentliche Aktivierung bleiben separat |
+| IP-046 | P1 / P2–P3 | DONE | Mehrjährige BTC/ETH-Forschung und echte lange Cockpitbacktests bereitstellen | Merge0a0751b in Main073c474 verifiziert; je8766 Quellkerzen,6576 Forschung/2190 reservierter Holdout.66 gepinnte Coretests/33 Subtests,5 Metadatenfälle,572 API-/Workerfälle,je48 reale HTTPS-Prüfpunkte,exakter Replay und null Holdoutjobs; Review grün, keine Migration/Serviceaktivierung |
+| IP-047 | P1 / P3–P4 | READY | Persistenten Crypto-Paperablauf mit Risk Gate und Journal umsetzen | Nutzerpriorität Trading; IP-012/046. Derselbe Strategiekern, getrennte simulierte Konten/Orders/Fills, geschlossene H4-Signale, Crash/Replay ohne Doppelfill und sichtbarer Paperstatus; keine privaten Brokerkeys oder Echtgeld |
 
 ## Abschlussbelege
+
+IP-046: je drei Jahre BTC/ETH-H4 im echten Cockpit-/Workerpfad und ein
+separat reserviertes Jahr.66 gepinnte Coretests/33 Subtests, fünf Metadaten-
+Fixturetests,572 API-/Workerfälle und je48 tatsächliche HTTPS-Prüfpunkte grün.
+Deterministischer Replay reproduziert beide repräsentativen Nettowerte exakt;
+Read-only-Audit bestätigt null Holdoutjobs/keinen importierten Vollquellensatz.
+Review ohne Blocker. Keine Migration/öffentliche Dienstneuerstellung;
+normal007/Fixture009 unverändert, beide TLS-Einstiege HTTP200.
+[Protokoll, Ergebnisse und Grenzen](../long-history-backtests.md).
 
 IP-045:540 Cockpittests mit100 neuen Fällen, Typecheck und gepinnte Cockpit-/
 Nodebuilds bestanden.481 synthetische Controller-/HTTPS-/Dienstprüfpunkte und
@@ -87,11 +98,10 @@ Migrationsprüfsummen normal007/Fixture009 stimmen mit den SQL-Dateien überein.
 Fixturecontainer beendet, sechs öffentliche Dienste unverändert und beide
 Domains mit regulärem TLS HTTP200.
 
-Nutzerhinweis2026-11-08 zu den kurzen Bitcoin-Backtests: Der vorhandene
-90-Tage-Snapshot ist ein Funktionsnachweis. IP-011/IP-013 und BL-018 behalten
-mindestens drei Jahre BTC/ETH-Historie, Lückenprüfung, chronologische
-Forschungsfenster und einen gesperrten unabhängigen Holdout als Abnahmekriterium.
-Ein längerer Import allein ist noch keine Strategievalidierung.
+Nutzerhinweis2026-11-08 zu kurzen Bitcoin-Backtests ist mit IP-046 praktisch
+adressiert: je drei Jahre BTC/ETH und reservierter Jahres-Holdout. Der alte
+90-Tage-Snapshot bleibt Funktionsnachweis. Kostenkalibrierung, eingefrorene
+Auswahl und wirtschaftliche Holdoutabnahme bleiben IP-013/BL-018 offen.
 
 IP-042:376 gepinnte Credentialtests,440 Cockpittests/Typecheck und346 reale
 mTLS-/WebAuthn-/HTTPS-/API-/PG-/AEAD-Prüfpunkte bestanden. Pipevariante306
@@ -492,6 +502,19 @@ Prüfsummen normal007/Fixture009 bestätigt. Tatsächliche aktivierte Next-
 Sitzungen/physische Geräte, provisionierte BFF-/Dienstprovider, Schlüssel-/
 Quota-/Recoverybetrieb und echte Brokerabnahme bleiben offen.
 [Vertrag und Abnahme](../credential-browser-flow.md).
+
+## Zwischenabnahme IP-046 — Dreijahresbacktests und nächste Paperausführung
+
+Main073c474 enthält IP-0450a0751b (verifiziert). Nutzer priorisiert ausdrücklich
+Trading und Backtesting; weitere Credentialaktivierung wird zurückgestellt.
+Branch `feat/m1-long-history-backtests` stellt beide realen6576-Kerzenläufe
+in der bestehenden Entwicklungsansicht bereit. Forschungsfenster/Strategie/
+Kosten wurden vor Leistungsläufen im Protokoll eingefroren. Die reservierten
+2190-Kerzen-Holdouts bleiben gesperrt und haben null Jobs. Positive
+Forschungszahlen ersetzen keine unabhängige Validierung.
+Abschlussbelege oben und [vollständiger Vertrag](../long-history-backtests.md).
+IP-047 ist der nächste konkrete Papercheckpoint mit demselben Handelskern,
+Journal und Crash-/Replay-/Riskprüfung; privater Brokerzugang dafür nicht nötig.
 
 ## Routine
 

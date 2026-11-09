@@ -1,5 +1,14 @@
 # Handelskonzept, Risiko und Nachweis
 
+IP-046: Drei Jahre BTC/ETH-H4 werden im vorhandenen deterministischen
+Researchworkflow ausgewertet; ein weiterer Jahresabschnitt ist ausschließlich
+als Holdout reserviert. Fensterbildung verändert keine Preise/Strategieregeln
+und braucht keine neue Migration oder Brokerkeys. Die beiden Simulationen
+führen jeweils eigene10.000-USDT-Konten. Ein gemeinsames Portfolio und
+wirtschaftliche Validierung werden daraus nicht abgeleitet. Nächster Schritt:
+Paperausführung mit demselben Kern und unabhängigem Risk Gate.
+[Protokoll und Grenzen](long-history-backtests.md).
+
 Stand: 2026-11-07. Der Originalauftrag beschreibt Strategieideen.
 Q3/Q4 bestätigen unabhängige Risikogrenzen und kontrollierte Optimierung.
 Q6 plant beide Broker im MVP; Q9/Q10 bestätigen BTC/ETH Spot H4 ohne Hebel

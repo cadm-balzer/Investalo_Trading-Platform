@@ -1,5 +1,13 @@
 # Lokale Compose-Entwicklung
 
+Aktueller Researchstand IP-046: reale BTC/ETH-H4-Fenster2022-08-01–2025-08-01
+mit jeweils6.576 Kerzen sind für das bestehende Cockpit verfügbar. Separate
+Jahresfenster werden mit ausdrücklich gesetztem `--purpose holdout` gestaged;
+API und Worker dürfen sie nicht gewöhnlich auswerten. Vollständige Quelldaten
+werden nicht zusätzlich als Research importiert. Keine Migration oder
+Neuerstellung öffentlicher Dienste erforderlich.
+[Protokoll und Audit](../docs/long-history-backtests.md).
+
 Q31 bestätigt den Implementierungsstart. Diese Konfiguration ist für lokale
 Testnutzer vorgesehen. Ausschließlich Caddy veröffentlicht **127.0.0.1:8443**.
 PostgreSQL, IdP und Anwendungen veröffentlichen keine Hostports.

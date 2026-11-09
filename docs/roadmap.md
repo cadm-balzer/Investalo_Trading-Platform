@@ -29,7 +29,7 @@ Die Phasen können lesende Markt-/Kontoinformation parallel ergänzen.
 Kritische Execution und Risikoprüfungen werden nicht zugunsten vieler
 gleichzeitig implementierter Features verkürzt.
 
-Aktuell verbindet IP-041 den privaten Cockpitkern mit Passkey-Zweckfreigabe
+IP-041 verbindet den privaten Cockpitkern mit Passkey-Zweckfreigabe
 und verschlüsselter Credentialausführung. Standardmäßig deaktivierte API-Routen
 und die isolierte Fixtureprüfung erweitern das Fundament. Browser-Keyeingabe,
 physische Geräteabnahme und der tatsächliche Credentialdienst bleiben gesonderte
@@ -48,9 +48,15 @@ IP-045 ergänzt den [isolierten Browserablauf](credential-browser-flow.md):
 Schlüsseleingabe, Passkey und ausdrücklicher Änderungsconsent mit synthetischer
 Controller-/HTTPS-/Dienstprüfung. Öffentliche Aktivierung, Betriebsprovider
 und tatsächliche Next-/Geräteabnahme bleiben separate Gates.
-Der Nutzer hat den Bedarf längerer Bitcoin-Backtests erneut hervorgehoben:
-Drei Jahre BTC/ETH-Daten und ein unabhängiger Holdout bleiben IP-011/IP-013,
-der aktuelle90-Tage-Datensatz ist ausschließlich ein Funktionsnachweis.
+Aktueller Schwerpunkt nach Nutzeranweisung2026-11-08: Trading und Backtesting.
+IP-046 liefert drei Jahre BTC/ETH-Forschungsdaten und reserviert ein weiteres
+Jahr außerhalb des schon ausgewerteten90-Tage-Demos. Der vorhandene Cockpit-/
+Workerablauf berechnet die längere Forschung; wirtschaftliche Holdoutabnahme
+und Kostenkalibrierung bleiben IP-013. Danach folgt IP-047: persistente
+Paperausführung, Risikoprüfung und Journal mit dem bestehenden Kern. Private
+Brokerkeys sind dafür keine Voraussetzung. Weitere Credentialaktivierung
+wird zurückgestellt; Echtgeld bleibt nach P4/P5 separat freizugeben.
+[Mehrjahresprotokoll](long-history-backtests.md).
 
 ## Meilenstein M1: privates Cockpit mit Backtests und Paper
 

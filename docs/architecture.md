@@ -1,5 +1,14 @@
 # Architektur und Stack
 
+IP-046: Drei Jahre BTC/ETH-H4 werden im vorhandenen deterministischen
+Researchworkflow ausgewertet; ein weiterer Jahresabschnitt ist ausschließlich
+als Holdout reserviert. Fensterbildung verändert keine Preise/Strategieregeln
+und braucht keine neue Migration oder Brokerkeys. Die beiden Simulationen
+führen jeweils eigene10.000-USDT-Konten. Ein gemeinsames Portfolio und
+wirtschaftliche Validierung werden daraus nicht abgeleitet. Nächster Schritt:
+Paperausführung mit demselben Kern und unabhängigem Risk Gate.
+[Protokoll und Grenzen](long-history-backtests.md).
+
 Stand 2026-11-08. Q7 bestätigt den Grundstack aus Python/FastAPI,
 Next.js/TypeScript, PostgreSQL und getrennten Workern im modularen Monolithen.
 Q13/Q14 bestätigen Docker Compose und lokales Authelia.
