@@ -574,7 +574,7 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 - IP-057 checkpointd31dcf3 merged into main1f44b7f (verified). Q34:
   user explicitly accepts equal3–5 slots/1% principal cost reserve/additional
   correlated50% stress for offline research, retaining6%/8%. Reminds staged
-  buys lower average cost. Current branch feat/m1-staged-allocation-research.
+  buys lower average cost.
   IP-058 connects the allocator to existing deterministic RSI/fill/portfolio
   core with its own allocated-rsi-research/1 config/state/report. Two closed
   RSI<30 bars first; further buys rearm>30 then<30 and >=5% below last actual
@@ -590,6 +590,48 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   passed. No extra-market assets, profitability/MFAhardware proof, new
   dependencies, DB/holdout/broker/normal runtime or snapshot activation.
   docs/staged-portfolio-research.md; D-062.
+
+- IP-058 checkpoint4f56024 merged into main7ec9b41 (verified). Current branch:
+  feat/m1-portfolio-history-preflight at IP-059. User asked clarification of
+  coin and reuse questions; answers subsequently confirmed in Q35 below. IP-059 public
+  metadata/readiness only: five proposed SPOT USDT instruments online, exact
+  first two2022-08-01 H4 bars/asset parsed (10 total). No complete three-year
+  history/performance/holdout/market approval inferred. Current ETH minimum
+  quantity0.0005 needs a separate future research constraint; don't add fields
+  to frozen v1 rules/digests or treat current metadata as historical facts.
+  Actual responses/timestamps/hashes in docs/research-protocols/
+  portfolio-candidates-preflight-20261110.json. No runtime/DB/private/broker/
+  strategy change. docs/portfolio-history-preflight.md; D-063.
+
+- Q35 confirmed2026-11-10: BTC/ETH/SOL/BNB/XRP plus ZEC/HYPE/XMR/LINK/XLM/
+  NEAR/BCH/LTC/UNI are candidates, not14 funded baskets. Capacity stays3–5;
+  fixed nominal slots reusable after fully reconciled normal profit/trailing
+  exits with fresh RSI/gates, no profit-based budget growth or risk auto-resume.
+  IP-060 on feat/m1-candidate-pool-reuse extends unmerged IP-059b944be1;
+  origin/main still7ec9b41 at start. Separate candidate-pool-rsi-research/1,
+  slot assignment before first fill, current-cycle budgets versus lifetime
+  audit, closed-cycle receipts and risk quarantine. Existing staged/v1 files,
+  versions/digests, default symbols and runtime remain unchanged.
+  PoolPlan accepts bounded technical symbols for fixtures/frozen cohorts;
+  APPROVED_CANDIDATES separately records approved14. Canonical simultaneous
+  signal priority is a frozen research default. Complete simultaneous marks
+  required. Slot-projected unchanged allocation gates at prepare/dispatch.
+  PoolInstrumentRules adds minimum quantity separately, rechecks rounded
+  quote/quantity after slippage. Own report uses capacity for planned capital;
+  benchmark_status=not_computed rather than overspending14 old full budgets.
+  Public metadata13 online; XMRUSDT40034 at metadata/history. ZEC/HYPE/XLM
+  have no two-bar sample at2022-08-01, launchTime is current provider metadata,
+  not historical listing proof.20 sample candles total for10 candidates;
+  no full-history/performance/holdout proof. Old record unchanged/new record
+  docs/research-protocols/portfolio-candidate-pool-preflight-20261110.json.
+  114 pinned targeted Trading/Paper/worker cases/65subtests,17 new pool
+  cases and independent review passed. Natural synthetic OHLC creates15
+  first-stage buys over3 RSI cycles,10 normal exits/releases, same fixed
+  five-slot budgets. No manual fabrication. Final sell fee crossing daily
+  limit directly tested. Extended data schema/full histories/frozen cohorts/
+  comparable benchmark/actual net run and durable Paper integration remain
+  IP-055/BL-029. No dependency/DB/runtime/public/broker activation.
+  docs/candidate-pool-research.md; D-064.
 
 ## Trading and implementation invariants
 

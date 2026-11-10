@@ -16,6 +16,12 @@ RSI-Nachkäufen und gemeinsamer Kaufprüfung. Durchschnitt/Fills und manuelle
 Reserve bleiben im vorhandenen Kern; normale Paper-/Liveprofile unverändert.
 [Nachkaufadapter](staged-portfolio-research.md).
 
+Q35/IP-060 trennt14 Kandidaten von3–5 finanzierten Slots. Feste Budgets dürfen
+nach vollständigem normalem abgeglichenem Exit erneut mit RSI-Signal belegt
+werden; Riskexits bleiben manuell gesperrt. Offlinepool/Mindestmengenvertrag
+implementiert; erweiterte Marktleistung und Paperaktivierung folgen separat.
+[Zyklus-, Daten- und Reportvertrag](candidate-pool-research.md).
+
 Stand: 2026-11-10. Der Originalauftrag beschreibt Strategieideen.
 Q3/Q4 bestätigen unabhängige Risikogrenzen und kontrollierte Optimierung.
 Q6 plant beide Broker im MVP; Q9/Q10 bestätigen BTC/ETH Spot H4 ohne Hebel

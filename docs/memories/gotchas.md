@@ -604,3 +604,19 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
 - **Exakte synthetische Quote geteilt durch Preis kann aufrunden:** Fillmenge
   auf echte Fixture-Mengenpräzision nach unten runden. Winzige Überfüllung
   löst sonst zu Recht einen Quote-Budget-Riskhalt im vorhandenen Kern aus.
+- **Mindestmenge ist nicht Mindestquote:** heutiges ETH-SPOT hat0,0005
+  Mindestmenge neben1USDT Mindestquote. V1-InstrumentRules bildet erstere
+  nicht ab. Separaten Researchvertrag verwenden; keine neuen Defaultfelder
+  in alte frozen Digests. Aktuelle Metadaten sind keine historischen Regeln.
+- **Kandidatenanzahl ist keine Slotkapazität:** 14 beobachtete Coins benötigen
+  nur3–5 finanzierte Slots. Alte passive Portfolio-Simulation finanziert jedoch
+  len(symbols) Vollbudgets; nicht für Poolreports aufrufen oder still umetikettieren.
+  Eigenen Report mit Kapazität und explizitem Benchmarkstatus verwenden.
+- **Slotkosten erneuern verlangt echtes Cash:** aktuelle Zykluskosten begrenzen
+  Käufe; Lifetimekosten bleiben Auditdaten. Nach normalem Exit volle neue
+  Reserve gegen verbliebenes Cash/Equity rechnen, nominales Budget nicht erhöhen.
+  Letzte Sellfee vor Freigabe gegen Kontolimits prüfen.
+- **Keine Kerzen/kein Instrument ist ein Datenbefund:** V3 liefert XMR40034,
+  ZEC/HYPE/XLM am2022-Forschungsbeginn keine Samplekerzen. Aktuelles launchTime
+  beweist keine ursprüngliche Notierung. Separates neues Preflightrecord statt
+  alte Pending-/Hashbelege nach Nutzerantwort umschreiben; Kohorten vor PnL einfrieren.

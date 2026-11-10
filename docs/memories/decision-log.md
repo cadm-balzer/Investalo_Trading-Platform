@@ -1022,3 +1022,42 @@ Hardwareabnahme daraus. Coins und feste Slotwiederbelegung nach normalen
 abgeglichenen Exits konkret erfragt, vor erweitertem Mehrjahreslauf offen.
 Keine neuen Abhängigkeiten/DB-/Broker-/Holdout-/Runtimeaktivierung.
 [Vertrag und Zyklusvorschlag](../staged-portfolio-research.md).
+
+## 2026-11-10 — D-063: Verfügbarkeitsprüfung vor Assetentscheidung
+
+4f56024 in Main7ec9b41 verifiziert. Nutzer bittet erneut um Erklärung der
+offenen Coins-/Wiederbelegungsfragen; beide konkret erläutert und erfragt.
+Keine Freigabe aus Mergemeldung abgeleitet. Unabhängiger öffentlicher Vorcheck
+bestätigt BTC/ETH/SOL/BNB/XRP online, heutige Spotregeln und je zwei H4-Kerzen
+am Forschungsbeginn. Responsehashes/Providerzeiten im eigenen Record.
+Kein vollständiger Historien-, Leistungs- oder Holdoutnachweis.
+
+ETH-Mindestmenge0,0005 ist im bisherigen v1-InstrumentRules nicht repräsentiert.
+Neuen Researchvertrag vorbereiten; kein Defaultfeld in alte Digestrecords
+einfügen oder heutige Metadaten als historische Regeln ausgeben. Fünf
+Antworten/zehn OHLC-Kerzen und JSON-Roundtrip geprüft; keine Runtime-, DB-,
+Privatadapter- oder Strategieänderung. [Vorcheck](../portfolio-history-preflight.md).
+
+## 2026-11-10 — D-064: Bestätigter Kandidatenpool und fixe Slotzyklen
+
+Q35: Nutzer ergänzt BTC/ETH/SOL/BNB/XRP um neun Kandidaten und bestätigt
+feste Wiederbelegung.14 Kandidaten, unabhängig3–5 Slots; frische RSI-Signale,
+vollständiger normaler abgeglichener Exit, unveränderte nominale Budgets,
+kein automatischer Riskneustart. Main bleibt7ec9b41; neuer Branch enthält
+noch ungemergten IP-059b944be1.
+
+Separate Researchversion projiziert dynamisch belegte Slots auf den bestehenden
+Allokator. Aktuelle Zyklusausgaben begrenzen Käufe, Lifetime-/Abschlussbelege
+erhalten bezahlte Kosten. Ungeklärte Orders halten Slots, Risiko-/unklassifizierte
+Exits quarantänisieren. Technisch kanonische Signalpriorität eingefroren.
+Mindestmenge separat, gerundete Mindestquote/Slippage am Dispatch geprüft.
+Reportkapital nach Kapazität; Benchmark vorerst explizit nicht berechnet, weil
+die alte passive Vollbudgetreferenz14 Slots finanzieren würde.
+
+Öffentlich13 Spotmetadaten online, XMR40034; ZEC/HYPE/XLM ohne2022-08-01-Sample.
+Keine Historien auffüllen oder aktuelle launchTime als damaligen Beleg ausgeben.
+Vor Leistungsauswertung vollständige Daten und berechtigte Kohorten einfrieren.
+114 gepinnte Fälle/65 Subtests,17 neue Poolfälle/Review grün. Synthetisch drei
+natürliche RSI-Zyklen/15 Käufe/10 Exits mit Wiederbelegung; finale Sellfee am
+Kontolimit separat getestet. Kein Profitabilitäts-/Holdoutnachweis oder
+Runtime-/Broker-/DB-/Dependencywechsel. [Vertrag](../candidate-pool-research.md).
