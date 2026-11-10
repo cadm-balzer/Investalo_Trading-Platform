@@ -1079,3 +1079,30 @@ behalten lassen. Planungskapital und ursprüngliche8%-Risikobasis trennen.
 Keine sechste Position, Holdout-/Runtime-/Livefreigabe. Rechenbeispiele mit
 bestehendem PoolPlan geprüft; reine Dokumentationsänderung, keine neuen Tests.
 [Vorschlag](../profit-etapes.md).
+
+## 2026-11-10 — D-066: Bestätigte Gewinnetappen bis sieben Slots
+
+Q36-Antwort bestätigt Option1 und erweitert die Kapazität auf maximal sieben:
+zuerst weitere Slots, danach größere neue Baskets. Mindestens drei neue
+abgeglichene Abschlüsse und ein ursprüngliches Slotvollbudget je Freigabe,
+Nettoverluste/Kosten und vorherige Zuordnung mitzählen. D-065-Vorschlag
+damit entschieden; offene Baskets und ursprüngliche6%/8%-Basen erhalten.
+
+IP-061 ergänzt separate `seven-slot-profit-rsi-research/1`, immutable
+Budgetepochen und `variable-slot-stress-research/1`. Epochen halten
+Abschlusspräfixhash, Netto-/zugeordneten Gewinn und damalige Cash-/Equitydeckung.
+Belegte ältere Slots behalten eigene Budgets; noch nicht nutzbare Erhöhungen
+bleiben reserviert. Keine Cashgutschrift, automatische Quarantänefreigabe,
+ungeklärte Orderwiederholung oder künstliche manuelle Historienfills.
+Defaultneutrale Budgethooks erhalten alte Strategiekonfigurationen/Digests.
+
+143 Hostfälle/147 gepinnte Fälle mit87 Subtests bestanden;33 neue Fälle
+einschließlich sieben simultaner Baskets, blockiertem achten Kandidaten,
+alter/neuer gemischter Staffel, expliziter Reserve, fehlender Cash-/Equity-/
+Stressdeckung und einmaliger kausaler H4-Freigabe. Unabhängiger Review ohne
+Blocker, ergänzte Deckungsfälle grün. Gemeinsame echte Dreijahresbaseline
+BTC/ETH vollständig exakt gegen eingefrorenen Report reproduziert.
+Keine Aussage zur Marktleistung des Gewinnprofils; Vollhistorien/Kohorten/
+Benchmark und echter Vergleich bleiben IP-055. Kein Holdout-, Dependency-,
+DB-, Runtime-, Broker- oder öffentlicher Dienstwechsel.
+[Vertrag](../profit-etapes.md).

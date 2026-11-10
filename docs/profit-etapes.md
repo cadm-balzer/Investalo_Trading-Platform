@@ -1,78 +1,93 @@
 # Gewinnverwendung in Etappen
 
-2026-11-10, Q36. IP-060 `22534b7` ist in Main`ab928ee` verifiziert.
-Der Nutzer erweitert die bisherige feste Budgetplanung: Gewinne geschlossener
-Baskets sollen gesammelt und begrenzt für neue Baskets nutzbar werden, sobald
-sie eine vollständige Basketstaffel finanzieren können. Drei gewinnbringende
-Abschlüsse sind sein Beispiel, keine verbindliche Anzahl. Verwendung entweder
-für zusätzliche parallele Baskets oder höhere Budgets bei maximal3–5 Baskets.
+2026-11-10, Q36/IP-061. Nutzer bestätigt Option1: **zuerst zusätzliche Slots
+bis maximal sieben gleichzeitige Baskets, danach größere zukünftige Budgets**.
+Anfangskapazität bleibt3–5. Der separate Offlinekern
+`seven-slot-profit-rsi-research/1` implementiert diese Entscheidung.
+Der feste Poolkern `candidate-pool-rsi-research/1` bleibt Vergleichsbasis.
 
-**Richtung bestätigt; genaue Schwelle, Prüfrhythmus und Verwendung noch
-Entscheidungsvorschlag.** Der bestehende Offlinekern bleibt
-`candidate-pool-rsi-research/1` mit festen Budgets. Kein Compounding aktiviert.
+## Freigaberegeln
 
-## Konkreter Vorschlag zur Entscheidung
-
-- Nach jeweils drei vollständig abgeglichenen Basketabschlüssen prüfen.
-  Verluste mitzählen; kein Filter ausschließlich auf Gewinner.
-- Verwendbar ist der kumulierte realisierte Nettoüberschuss aller abgeschlossenen
-  Baskets nach sämtlichen Buy-/Sellkosten, abzüglich bereits zugeordneten
-  Gewinnkapitals. Keine Buchgewinne, kein dreifaches Wiederverwenden derselben
-  Gewinne. Spätere realisierte Verluste mindern den verbliebenen Überschuss.
-- Schwelle ist das **ursprüngliche** Gesamtbudget eines Slots: alle fünf
-  regulären Stufen, manuelle sechste Reserve und Kostenreserve. Eine volle
-  Etappe je Prüfung; Rest bleibt gesammelt. Eine feste Ursprungsschwelle
-  vermeidet, dass die Schwelle während des Sparens mitwächst.
-- Empfohlene Verwendung: bei weniger als fünf Slots zunächst einen weiteren
-  finanzieren; ab fünf Slots eine Etappe gleichmäßig auf die Zielbudgets
-  künftig gestarteter Baskets verteilen. Alternative: Slotanzahl festhalten
-  und ausschließlich künftige Budgets erhöhen. Auswahl ist ausdrücklich erfragt.
+- Mindestens drei zusätzliche vollständig abgeglichene Basketabschlüsse seit
+  der letzten Freigabe. Verluste mitzählen; kein Filter nur auf Gewinner.
+- Kumulierte realisierte Nettoergebnisse aller abgeschlossenen Baskets nach
+  sämtlichen Buy-/Sellkosten, abzüglich bereits zugeordneten Gewinnkapitals.
+  Keine Buchgewinne oder mehrfache Zuordnung derselben Gewinne.
+- Schwelle ist das **ursprüngliche** Gesamtbudget eines Slots: fünf reguläre
+  Stufen, manuelle sechste Reserve und Kostenreserve. Pro Freigabe eine volle
+  Etappe; überschüssige Gewinne bleiben gesammelt. Für die nächste Freigabe
+  sind erneut mindestens drei weitere Abschlüsse erforderlich.
+- Unter sieben Slots einen weiteren finanzieren. Ab sieben eine Etappe
+  gleichmäßig auf die Zielbudgets künftig gestarteter Baskets verteilen.
 - Offene Baskets behalten Principal-, Kosten- und Stufenbudgets ihres Starts.
-  Kein nachträglicher Wechsel der Staffel mitten im Kursrückgang.
-- Freigabe verlangt aktuelle vollständige Equity-/Cash-/Orderbelege. Offene
-  Verluste dürfen bereits verbrauchten Überschuss nicht erneut als zusätzliches
-  Kapital erscheinen lassen. Account-/Basketstop oder unklare Orderausgänge
-  sperren Freigabe. Jede tatsächliche Order bleibt separat riskgeprüft.
-- Die6% Tagesverlust gegenüber der bestätigten Mitternachtsbasis und8% gegenüber
-  dem ursprünglichen Startkapital bleiben bestehen. Gewinnkapital ist keine
-  Neueinzahlung und setzt Startkapital-/Verlusthistorie nicht zurück.
-  RSI, Staffel, manueller Puffer, Spot ohne Hebel und Schutzregeln bleiben.
+  Freie Slots übernehmen die neue Budgetepoche. Noch durch ältere aktive
+  Budgets gebundene Erhöhungsbeträge bleiben gesondert reserviert.
+- Vollständige aktuelle gemeinsame Kursbewertung, Eigenkapitaldeckung und
+  liquide Cashdeckung nach Reserven sind erforderlich. Ungeklärte Orders,
+  Kontohalt oder Basketquarantäne blockieren. Die gemeinsame50%-Stressprüfung
+  und jede spätere Intent-/Dispatchprüfung bleiben verbindlich.
+- **6% Tagesverlust und8% gegenüber ursprünglichem Startkapital** bleiben
+  bestehen. Gewinnfreigabe schreibt kein Cash gut, setzt keine Risikobasis
+  zurück und startet keine gestoppten Baskets automatisch neu.
+  RSI14/Wilder,5%-Preisabstand,25% wachsende Stufen, manueller Puffer,
+  Spot ohne Hebel und Schutzregeln gelten weiter.
 
-## Rechenbeispiele des empfohlenen Modus
+## Rechenbeispiel
 
-10.000 USDT Ursprungskapital,1% Principal-Kostenreserve, Geldraster10⁻⁸ USDT.
-Zahlen aus dem bestehenden `PoolPlan.slot_plan`, keine Leistungsprognose:
+10.000 USDT Ursprungskapital, zunächst fünf Slots zu je2.000 USDT
+inklusive Kostenreserve. Die Tabelle zeigt **Budgetplanung**, keine
+Leistungsprognose; jede Zeile benötigt neue Abschlüsse und reale Deckung:
 
-| Anfangskapazität | Ursprüngliches Gesamtbudget je Slot / Gewinnschwelle | Erste Etappe | Danach Gesamtbudget je neuem Basket |
-|---|---:|---|---:|
-| 3 | 3333,33333333 | vierter Slot | 3333,33333333 |
-| 4 | 2500 | fünfter Slot | 2500 |
-| 5 | 2000 | höheres Volumen, weiterhin fünf Slots | 2400 |
+| Freigegebene Gewinnetappen | Kapazität | Zielgesamtbudget je neuem Basket | Zugeordnetes Gewinnkapital |
+|---|---:|---:|---:|
+| keine | 5 | 2000 | 0 |
+| erste | 6 | 2000 | 2000 |
+| zweite | 7 | 2000 | 4000 |
+| dritte | 7 | 2285,71428571 | 6000 |
 
-Beim Fünf-Slot-Beispiel verteilen sich2400 USDT auf
-2376,23762376 Principal und23,76237624 Kostenreserve. Alle sechs Stufen behalten
-die Gewichte1,25⁰ bis1,25⁵; sechste Stufe bleibt manuell. Rundungsreste bleiben
-Cash. Drei abgeschlossene Baskets reichen allein nicht: ihr bereinigter
-Überschuss muss die volle Schwelle tatsächlich erreichen.
+Jedes Budget teilt sich in Principal und1% Principal-Kostenreserve.
+Die sechs Stufen behalten die Gewichte1,25⁰ bis1,25⁵; die sechste bleibt
+manuell. Geldraster10⁻⁸ USDT, Rundungsreste bleiben gebundenes Cash.
+Bei drei Anfangsslots beträgt die feste Etappenschwelle3333,33333333 USDT,
+bei vier2500 USDT. Auch hier zuerst Slots bis sieben ergänzen.
 
-## Umsetzung nach Entscheidung
+## Vertrag und Grenzen
 
-Eigene immutable Gewinn-/Budgetepochen und einmalige Etappenzuordnung,
-gebunden an Tenant/Konto, abgeschlossene Zyklusbelege und Policyversion.
-Slotkapazität/Zielbudget und jedes gestartete Basketbudget getrennt speichern.
-Aktive ältere Baskets müssen bei Kosten-/Stressberechnung ihre eigene
-Budgetepoche behalten; mixed budgets dürfen nicht über eine globale
-StrategyConfig nachträglich geändert werden.
+`ProfitPlan`, `ProfitEngine` und `ProfitResearchSimulator` in
+`packages/trading/src/investalo_trading/profit_research.py` verwenden denselben
+RSI-/Nachkauf-/Fill-/Schutzkern. Neue defaultneutrale Budgethooks lassen
+bestehende feste Konfigurationen unverändert. Immutable `BudgetEpoch`-Belege
+binden Tenant/Konto/Policy, Zeitpunkt, Abschlusspräfixhash, Nettoüberschuss,
+zugeordneten Gewinn, damaliges Cash/Equity und Zielbudget. Jeder Slot und
+Abschlussbeleg trägt seine eigene Budgetepoche. Keine manuelle Reserve im
+historischen Simulator künstlich ausfüllen.
 
-Die bisherige Allokation verwendet `initial_capital` sowohl für Slotbudgets
-als auch die8%-Startkapitalgrenze. Gewinnstaffeln brauchen diese Größen
-getrennt. Erhöhtes Planungskapital nicht durch fiktiv erhöhtes initial_equity
-oder einen Kontoneustart modellieren. Ebenso braucht die gemeinsame
-Kostenbindung freie Slots mit ihren künftigen Reserven und belegte Slots
-mit ihrer ursprünglichen Reserve.
+`variable_budget.py` prüft3–7 auch unterschiedlich budgetierte Slots,
+gemeinsame Cash-/Fee-/Pending-/Stressbindung und die getrennte ursprüngliche
+Risikobasis. Der Allokator vertraut dem übergebenen Budgetplan; die
+Gewinnberechtigung entsteht erst im darüberliegenden Epochenvertrag.
+Die lokalen immutable Zustände sind keine dauerhafte Datenbankreservierung
+oder Brokerabgleichbestätigung. Runtime-Restore akzeptiert diesen
+Forschungszustand nicht als alten Paperzustand.
 
-Vergleichsläufe zuerst mit identischen chronologischen Forschungsdaten und
-Kosten, getrennte Versionen für festes und abgestuftes Budget. Keine Nutzung
-des reservierten Holdouts zur Modus-/Schwellenauswahl. Größere Gesamtbudgets
-heben die6%/8%- oder50%-Stressprüfung nicht auf. Daten-/Kohortenarbeit und
-echte größere Netto-Backtests bleiben IP-055; Paper/Live separat.
+Gezielte Tests führen echte synthetische Buy-/Sellfills mit Kosten aus:
+Verlustanrechnung,3-Abschluss-Rhythmus, einmalige Zuordnung, sieben simultane
+Baskets, blockierter achter Kandidat, größere künftige Staffel einschließlich
+expliziter manueller Reserve, gemischte offene Budgets und fehlende Cash-/
+Equity-/Stressdeckung. Große Fixturegewinne sind keine Marktleistungsnachweise.
+Der Report weist seine eigene Version und Budgetepochen aus; Benchmark
+bleibt ausdrücklich nicht berechnet.
+
+Abnahme:143 Hostfälle und147 gezielte Fälle im gepinnten Python3.14.10-
+Container mit87 Subtests bestanden;33 neue Fälle für Gewinnprofil und
+variablen Allokator. Unabhängiges Review ohne wirtschaftlichen/kausalen
+Blocker; ergänzte Cash-/Stressdeckungsfälle bestanden. Bestehende gemeinsame
+BTC-/ETH-Dreijahresbaseline gegen alle eingefrorenen Ergebnisfelder exakt
+reproduziert (Netto228,71690900701892163585 USDT,56 Abschlüsse).
+Das belegt Rückwärtskompatibilität, keine Rendite des neuen Gewinnprofils.
+
+Vollständige erweiterte Historien, vorab eingefrorene Kohorten und vergleichbare
+Netto-Backtests bleiben IP-055. Zuerst feste und Gewinnprofile auf identischen
+chronologischen Forschungsdaten vergleichen; keinen reservierten Holdout zur
+Optimierung verwenden. Keine neuen Abhängigkeiten, DB-Migrationen,
+Runtime-/Cockpit-/Broker-/Public- oder Liveaktivierung in diesem Checkpoint.

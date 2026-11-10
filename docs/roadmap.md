@@ -1,8 +1,10 @@
 # Roadmap
 
-Q36: abgestufte Wiederanlage realisierter Gewinne gewünscht. Modusentscheidung
-und eigene Budgetepochen folgen; laufender Kern bleibt fest.
-[Vorschlag und Beispiele](profit-etapes.md).
+Q36/IP-061: bestätigte Gewinnetappen im separaten Offlinekern implementiert.
+Zuerst Slots bis sieben, danach höhere neue Budgets; offene Budgets und
+ursprüngliche6%/8%-Risikobasen erhalten.147 gepinnte Fälle/87 Subtests grün,
+alte Dreijahresbaseline exakt reproduziert. Erweiterte Historien und
+vergleichbare Nettoleistungsläufe folgen IP-055. [Vertrag](profit-etapes.md).
 
 IP-047 ist aktiv: eigener gespeicherter Paperstand jetzt im Entwicklungscockpit sichtbar. IP-054 umfasst eigene Kontoprovisionierung, begrenzten Kurslauf und lesende Aktivierung. Als Nächstes eigener begrenzter Preview-Beobachtungsworker und längerfristige Betriebsabnahme. [Anzeige](paper-preview-integration.md).
 

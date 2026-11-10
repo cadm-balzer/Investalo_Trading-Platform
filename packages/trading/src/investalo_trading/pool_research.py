@@ -153,7 +153,7 @@ class PoolEngine(AllocatedResearchEngine):
     def _validate(self, state: EngineState, symbol: str | None = None) -> None:
         super()._validate(state, symbol)
         if (not isinstance(state, PoolState) or type(state.slots) is not tuple
-                or tuple(s.index for s in state.slots) != tuple(range(self.config.plan.capacity))):
+                or tuple(s.index for s in state.slots) != tuple(range(self._slot_capacity(state)))):
             raise ValueError("complete immutable slot registry required")
         assigned = set()
         for slot in state.slots:
@@ -172,6 +172,12 @@ class PoolEngine(AllocatedResearchEngine):
             if (basket.quantity or basket.entries or basket.exiting or self._active(state, basket)):
                 if basket.symbol not in assigned:
                     raise ValueError("unassigned basket exposure")
+
+    def _slot_capacity(self, state: PoolState) -> int:
+        return self.config.plan.capacity
+
+    def _vacant_slot(self, state: PoolState, index: int) -> Slot:
+        return Slot(index)
 
     def _slot(self, state: PoolState, symbol: str) -> Slot | None:
         return next((s for s in state.slots if s.symbol == symbol), None)
@@ -302,15 +308,16 @@ class PoolEngine(AllocatedResearchEngine):
             return closed
         if slot is None:
             raise ValueError("closed cycle has no slot")
+        principal_limit, cost_limit, _ = self._cycle_budget(state, symbol)
         normal = (slot.exit_reason in NORMAL_EXITS and not basket.risk_stopped
                   and not state.account.halted and
-                  basket.costs_spent <= self.config.plan.slot_costs and
-                  basket.principal_spent <= self.config.plan.slot_principal)
+                  basket.costs_spent <= cost_limit and
+                  basket.principal_spent <= principal_limit)
         # A final fee may cross an account limit before the base fill latches it.
         if basket.started_at is not None:
             at = closed.closed_baskets[-1].closed_at
             normal = normal and not self.risk_reasons(state, at)
-        updated = Slot(slot.index) if normal else replace(
+        updated = self._vacant_slot(state, slot.index) if normal else replace(
             slot, basket_id=closed.basket(symbol).basket_id, quarantined=True)
         receipts = state.cycles
         if basket.started_at is not None:
@@ -329,7 +336,8 @@ class PoolEngine(AllocatedResearchEngine):
         if (slot is not None and not slot.quarantined and not basket.entries
                 and not basket.quantity and not basket.exiting and not self._active(result.state, basket)):
             result = replace(result, state=replace(result.state, slots=tuple(
-                Slot(s.index) if s.index == slot.index else s for s in result.state.slots)))
+                self._vacant_slot(result.state, s.index) if s.index == slot.index else s
+                for s in result.state.slots)))
         return result
 
     def resume_slot(self, state: PoolState, index: int, now: datetime, *,
@@ -352,7 +360,8 @@ class PoolEngine(AllocatedResearchEngine):
         basket = replace(resumed.basket(slot.symbol), sub30_count=0, rearmed=False)
         return replace(resumed,
                        baskets=tuple(basket if b.symbol == slot.symbol else b for b in resumed.baskets),
-                       slots=tuple(Slot(s.index) if s.index == index else s for s in resumed.slots))
+                       slots=tuple(self._vacant_slot(resumed, s.index) if s.index == index else s
+                                   for s in resumed.slots))
 
 
 @dataclass(frozen=True)

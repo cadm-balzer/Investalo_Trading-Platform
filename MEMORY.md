@@ -468,3 +468,22 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   Offene Staffeln/eigene Budgetepochen und ursprüngliche8%-Startbasis bewahren.
   Zahlen für10k und3/4/5 Slots mit bestehendem PoolPlan geprüft; kein Code/
   Runtime-/Holdout-/Risikowechsel. Konkrete Varianten nicht aus Schweigen aktivieren.
+
+- 2026-11-10 Q36/IP-061: Nutzer bestätigt Option1, zuerst zusätzliche Slots
+  bis maximal7, danach größere neue Budgets. Anfang3–5; mindestens3 neue
+  abgeglichene Abschlüsse und ein ursprüngliches Vollbudget inkl. manueller/
+  Kostenreserve je Freigabe. Alle Nettoverluste/Kosten und bereits zugeordneten
+  Gewinn einrechnen; offene Budgets und ursprüngliche6%/8%-Basen beibehalten.
+  Separater Profitresearchkern mit immutable Budgetepochen und variablem
+  3–7-Slotallokator; belegte ältere Budgets und deren noch gesperrte Erhöhungen
+  getrennt reserviert. Kein Cashcredit, Autoresume oder neue Runtimeaktivierung.
+  143 Hostfälle,147 gepinnte Fälle/87 Subtests,33 neue Fälle grün; unabhängiger
+  Review ohne Blocker, Cash-/Stressdeckungsfälle ergänzt. Sieben simultane
+  Baskets und achter blockierter Kandidat, alle fünf Nachkäufe/explicitmanual,
+  Einmalzuordnung/kausale H4-Freigabe geprüft. Alte echte Dreijahresbaseline
+  BTC/ETH gegen alle frozen Felder exakt reproduziert (228.71690900701892163585
+  USDT netto/56 Abschlüsse); kein Leistungsnachweis des neuen Profils.
+  Keine Holdout-/Dependency-/DB-/Public-/Brokeränderung. Vollhistorien und
+  echter fest/Gewinnprofilvergleich bleiben IP-055. Branch
+  feat/m1-seven-slot-profit-research basiert auf Mainab928ee plus noch
+  ungemergtem Dokumentationscheckpointbc66262. Vertrag docs/profit-etapes.md.

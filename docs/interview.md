@@ -239,13 +239,19 @@ Futures/Hebel oder Livefreigabe. [Umsetzung](candidate-pool-research.md).
 geschlossener Baskets sollen gesammelt werden; sobald sie eine vollständige
 Basketstaffel finanzieren, sind zusätzliche Slots oder höhere zukünftige
 Basketbudgets gewünscht. Drei gewinnbringende Abschlüsse sind ein Beispiel.
-**Richtung bestätigt; konkreter Modus/Schwelle/Rhythmus erfragt.** Empfehlung:
+Zunächst erfragte Empfehlung:
 nach drei abgeglichenen Abschlüssen prüfen, Nettoüberschuss nach Kosten und
 Verlusten, ursprüngliches Vollbudget inklusive manueller/Kostenreserve als
-Schwelle; zuerst bis fünf Slots, danach künftige Budgets erhöhen.
+Schwelle; zuerst zusätzliche Slots, danach künftige Budgets erhöhen.
 Offene Budgets einfrieren, bestehende Risiko-/Signal-/MFA-Gates erhalten.
-Keine Freigabe für sechs Slots, neu gesetzte Risikobasis oder Live abgeleitet.
-[Reviewbarer Vorschlag](profit-etapes.md).
+**Bestätigte Antwort:** „Ja option1...erst zusätzliche slots dann Volumen
+erhöhen ... max7 gleichzeitige Baskets ... Ab7 steigern wir das Volumen.“
+Damit zusätzliche Slots bis sieben, danach höhere Budgets neuer Baskets;
+mindestens drei weitere abgeglichene Abschlüsse und eine ursprüngliche
+volle Basketstaffel je Etappe. Nettoverluste/Kosten und bereits zugeordnetes
+Gewinnkapital einrechnen. Keine neue Risikobasis oder Livefreigabe.
+IP-061 implementiert das separate Offlineprofil.
+[Vertrag und Beispiel](profit-etapes.md).
 
 Konkrete Umsetzungsfakten recherchieren wir: unterstützte Versionen exakt pinnen,
 Historienlänge/-qualität prüfen, Brokerkosten/Metadaten und Hostlast messen.

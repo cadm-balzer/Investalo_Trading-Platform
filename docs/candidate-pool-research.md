@@ -1,8 +1,8 @@
 # Kandidatenpool mit festen wiederbelegbaren Slots
 
-Aktuelle Ergänzung Q36: abgestufte Verwendung realisierter Gewinne gewünscht,
-konkreter Modus/Schwelle/Rhythmus noch erfragt. Diese v1 bleibt der feste
-Vergleichskern. [Gewinnetappenentwurf](profit-etapes.md).
+Aktuelle Ergänzung Q36/IP-061: separate Offlineversion für bestätigte
+Gewinnetappen, zuerst Slots bis sieben, danach höhere neue Budgets.
+Diese v1 bleibt der feste Vergleichskern. [Gewinnvertrag](profit-etapes.md).
 
 2026-11-10, Q35/IP-060. Bestätigte Kandidaten: BTC, ETH, SOL, BNB, XRP,
 ZEC, HYPE, XMR, LINK, XLM, NEAR, BCH, LTC, UNI, jeweils USDT Spot ohne Hebel.

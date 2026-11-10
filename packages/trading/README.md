@@ -1,5 +1,12 @@
 # Deterministischer Crypto-Paperkern
 
+IP-061: separate `profit_research`-Version für bestätigte Gewinnetappen:
+zunächst Slots von3–5 bis sieben, danach größere neue Budgets. Offene Zyklen
+behalten ihre Staffel; `variable_budget` prüft auch gemischte Budgets mit
+unveränderter ursprünglicher6%/8%-Risikobasis.147 gezielte gepinnte Fälle/
+87 Subtests,143 Hostfälle grün; Dreijahresbaseline exakt reproduziert.
+Offline, ohne Runtimecaller. [Gewinnvertrag](../../docs/profit-etapes.md).
+
 IP-060: separat versionierter `pool_research` mit14 bestätigten Kandidaten,
 unabhängig3–5 finanzierten Slots und fester Wiederbelegung nach normalen
 abgeglichenen Exits. Eigene Mindestmenge, Slot-/Zyklus-/Lifetime-Nachweise,
