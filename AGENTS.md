@@ -674,7 +674,8 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   IP-063/BL-030; docs/futures-research.md; D-067.
   IP-06154d2a7d and IP-062f6617b6 merged into main168219f, verified.
   IP-0630cf8a2b merged into main6d06ec5, verified.
-  Current branch feat/m1-futures-history-contract.
+  IP-0647007e90 merged into mainab2b6bb, verified.
+  Current branch feat/m1-futures-event-ledger.
 - IP-063 first checkpoint adds pure isolated-usdt-long-economics/1 and
   isolated-usdt-long-stress/1. Signed funding/full close PnL/netbreakeven,
   conservative whole-tier maintenance (explicit research assumption, not
@@ -717,6 +718,38 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   approved; whole enlarged position/account must pass independent gates.
   IP-063 ledger/funding/partialfills/gaps and exact regime/budget rules open.
   docs/futures-marketdata.md; D-069.
+- IP-065 adds pure isolated-usdt-long-ledger/1 for caller-reconciled evidence,
+  three to seven baskets, partial entry/exit fills, signed funding, declared
+  own margin posting, fresh complete marks and explicit pre-mutation midnight
+  basis. Tenant/account/plan/revision and hashchain bind each transition.
+  Gross committed own capital differs from signed isolated funding balance;
+  credits do not mint budget, charges do not reset between cycles.
+  Partial close uses explicitly assumed proportional research margin release.
+  Full close reports complete price/fee/funding net PnL; no profitgrant authority.
+  Gaps never invent stop/liquidation fills; deficits and known post-halt fills
+  remain recorded. Actual loss/unsafe margin/budget breaches latch; no reset
+  on margin posting, recovery or day change. Reserve shortfall separately
+  blocks future funding without inventing a permanent halt after normal loss.
+  Equal-time research order mark/day/funding/margin/entry/exit; each symbol's
+  funding timestamp consumed once even under new event ID/revision.
+  Exact command replay fails stale revision; globally durable broker-fill
+  deduplication/persistence/unknown orders and commits are NOT implemented.
+  No purchase/strategy/dispatch authority; execution_enabled false. Existing
+  IP-063 purchase stress remains separate; IP-066 pending/riskbridge must
+  retain gross vs net collateral and paid costs before future intent/dispatch.
+  31 new cases,218 host/222 pinned tests with157 subtests passed. Root economic
+  review including3/5/7-slot exact existing-assessor match; no new delegated
+  reviewer or broad unchanged credentials/DB/public regressions.
+  User clarifies2x minimum: retain approved broker research range2–10, no
+  automatic per-stage ladder. Effective initial leverage may be below2 with
+  posted own buffer; actual broker timing/atomicity before first-fill gap
+  must be proven before corresponding execution. Current minLever metadata
+  is not a proof of chosen effective leverage or public/live authorization.
+  Official V3 funding history is currently90days/page cursor; public download
+  docs list candles/trades/depth, not a complete public funding archive.
+  No substituted rates, data downloads/holdout reads, dependency/migration/
+  runtime/broker/public activation. IP-063 remains open; IP-066/BL-030 next.
+  docs/futures-event-ledger.md; D-070.
 
 - Profitability is a measurable research objective, never a guarantee.
 - Use one versioned deterministic strategy core for backtest, paper, and live.
@@ -739,10 +772,6 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   reviewed specification and immutable strategy versions.
 - `secrets/` is ignored. Removing a file from tracking does not remove its history;
   potential credentials need rotation and separately authorized history remediation.
-
-## Subagents
-- wenn du deine Arbeit an spezialisten abgeben kannst, spawne Subagents mit einem für die Aufgabe passenden Modell
-- dir steht zusätzlich die GEMINI CLI auf dem System zur Verfügung
 
 ## Boundaries
 
@@ -812,7 +841,3 @@ Capture what matters. Decisions, context, things to remember. Skip the secrets u
 ## Tools
 
 Skills provide your tools. When you need one, check its `SKILL.md`. Keep local notes (SSH details, commands, jobs, etc.) in `TOOLS.md`.
-
-
-## CODEX USE
-- If you need to use other Codex CLI Modells you must start codex with the AWS Bedrock Modell: example for GPT-Astra = codex --model global.openai.gpt-6-astra

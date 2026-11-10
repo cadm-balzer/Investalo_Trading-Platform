@@ -1,5 +1,9 @@
 # Bestätigter M1-Umfang und Umsetzungsstand
 
+IP-065 ergänzt reine abgeglichene Futuresbuchungen;222 gepinnte Fälle grün.
+Keine Ordergenehmigung: Pending-/Risk-/Persistenzintegration IP-066, echte
+Fundingarchive und Brokerpuffergate weiter offen. [Vertrag](futures-event-ledger.md).
+
 IP-064 ergänzt ausdrücklich getrennte Futures-H4-/Fundingdatenverträge und
 begrenzten öffentlichen Historienimport. Keine Handelsfreigabe; Kosten/
 Marginregeln, Fundinghistorie und Ereignisledger vor Leistungsläufen offen.
