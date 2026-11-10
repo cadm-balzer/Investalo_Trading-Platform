@@ -487,3 +487,21 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   echter fest/Gewinnprofilvergleich bleiben IP-055. Branch
   feat/m1-seven-slot-profit-research basiert auf Mainab928ee plus noch
   ungemergtem Dokumentationscheckpointbc66262. Vertrag docs/profit-etapes.md.
+
+- 2026-11-10 Q37/IP-062: Nutzer plant später Futures statt Spot, starke
+  Uptrend-Regimes mit2x–10x; AVAX/HBAR/TRX/BGB/BAT/RENDER als Alternativen
+  zuXMR/ZEC/HYPE/XLM. Konkrete Antworten bestätigen isolierteUSDTM Long,
+  eigenes echtes Kapital inkl Kosten/Marginpuffer, keine automatischen
+  Nachschüsse anderer Baskets;−50% erster tatsächlicherFill und6%/8% erhalten,
+  Risiko reduziert Hebel oder sperrt Einstieg. Ungepostete Reserve kein Gapschutz.
+  Öffentlich20normalPerpetuals/40Trade+Markproben/52OHLC-Kerzen für13Coins.
+  AVAX/TRX2022-Proben vorhanden, andere vier Alternativen keine. XLMfuture
+  frühe Proben trotzSpotlücke; XMRaktuellerFuture vorhanden. RENDERfund4h,
+  übrigeAlternativen8h; keine historischenTier/Funding/Vollhistoriennachweise.
+  Neuer JSONrecord mitURLs/Responsehashes/Providerzeiten/aktuellenMetadaten;
+  boundedDecimal/OHLC/UTC/Identitäten/JSON geprüft; fachlicher Review samt
+  ersterFill-/geposteterMargin-Präzisierung. Profil/Daten/Docs, keine neuen
+  Codetests oder Runtime/DB/Broker/Public/Holdoutänderung. IP-063 eigene
+  Futuresökonomie nächster Schritt; exakteRegime/Lever/Budgetsplit nochoffen.
+  Branchfeat/m1-futures-candidate-preflight enthältIP06154d2a7d; Mainab928ee
+  erneutverifiziert. Vertragdocs/futures-research.md, D-067/BL-030.

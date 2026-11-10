@@ -1,5 +1,9 @@
 # Gewinnverwendung in Etappen
 
+Q37: späteres Futuresziel benötigt eigene Margin-/Funding-/Liquidationsökonomie.
+Die hier implementierte Spotgewinnversion bleibt Referenz; Futuresgewinne
+und -budgets nicht ohne neues Modell einsetzen. [Futuresvertrag](futures-research.md).
+
 2026-11-10, Q36/IP-061. Nutzer bestätigt Option1: **zuerst zusätzliche Slots
 bis maximal sieben gleichzeitige Baskets, danach größere zukünftige Budgets**.
 Anfangskapazität bleibt3–5. Der separate Offlinekern

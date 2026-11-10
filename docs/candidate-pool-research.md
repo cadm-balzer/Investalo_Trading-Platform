@@ -1,5 +1,10 @@
 # Kandidatenpool mit festen wiederbelegbaren Slots
 
+Q37 ergänzt sechs Alternativkandidaten und ein späteres Futuresziel.
+Spotverfügbarkeit ist kein Futuresbefund; neue Kontrakt-/Markpreisproben im
+[Futuresvertrag](futures-research.md). Die hier dokumentierte eingefrorene
+Spotversion/Whitelist bleibt unverändert.
+
 Aktuelle Ergänzung Q36/IP-061: separate Offlineversion für bestätigte
 Gewinnetappen, zuerst Slots bis sieben, danach höhere neue Budgets.
 Diese v1 bleibt der feste Vergleichskern. [Gewinnvertrag](profit-etapes.md).

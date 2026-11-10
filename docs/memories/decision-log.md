@@ -1106,3 +1106,30 @@ Keine Aussage zur Marktleistung des Gewinnprofils; Vollhistorien/Kohorten/
 Benchmark und echter Vergleich bleiben IP-055. Kein Holdout-, Dependency-,
 DB-, Runtime-, Broker- oder öffentlicher Dienstwechsel.
 [Vertrag](../profit-etapes.md).
+
+## 2026-11-10 — D-067: Futuresziel mit isoliertem Budget und erhaltenem Stress
+
+Q37: Nutzer nennt AVAX/HBAR/TRX/BGB/BAT/RENDER als Alternativen und plant
+später Futures mit marktphasenabhängigem2×–10× statt Spot. Auf konkrete
+Fragen bestätigt er isolierte USDT-M-Long-Baskets, echtes Budget inklusive
+Kosten/Marginpuffer, keine automatischen Nachschüsse anderer Baskets und
+weiter−50%-Stress/6%/8%. Hebel reduzieren oder Einstieg sperren statt
+Rückgangstoleranz still zu verkleinern. Exakte Regime-/Hebel-/Budgetaufteilung
+noch nicht definiert; keine Live-/Kontoänderung.
+
+IP-062 misst öffentliche Classic-V2-Daten:20 normal Perpetuals,40 kleine
+Trade-/Markproben,52 validierte frühe OHLC-Kerzen für13 Kontrakte. Alle sechs
+Alternativen aktuell verfügbar; nur AVAX/TRX mit2022-Proben. XLM hat
+Futuresproben trotz Spotlücke, XMR hat heutigen Kontrakt; heutiges Listing
+beweist keine Vollhistorie. RENDER aktuelles Fundingintervall4h, andere
+Alternativen8h. URLs/Responsehashes/Providerzeiten/Metadaten/OHLC gespeichert,
+JSON-/Identitäts-/Decimal-/UTC-Abnahme und fachlicher Review.
+
+Neue Entscheidung überschreibt späteres Spotziel, nicht alte frozen
+Strategie-/Daten-/Ergebnisrecords. Wirtschaftlich getrennte Futuresökonomie
+mit Nominal, Margin, Reserven, Markpreis, Funding und Maintenance/
+Liquidation in IP-063; keine Spot-PnL-Multiplikation. Früher−55%-Stop
+kann sonst hinter der Liquidation liegen. Keine Holdoutauswertung, neue
+Abhängigkeiten, DB-/Runtime-/Broker-/Publicaktivierung. Branch enthält
+noch ungemergten IP-06154d2a7d, Mainab928ee erneut verifiziert.
+[Vertrag und Daten](../futures-research.md).

@@ -6,10 +6,12 @@ Jeder Plattformnutzer erstellt einen eigenen dedizierten API-Key in seinem
 Bitget-Konto. Die Plattform verwaltet dessen freigegebene Kontoverbindung.
 Ein gemeinsamer Betreiberkey ist kein Ersatz für diese Nutzerbindung.
 
-Der bestätigte M1-Start bleibt BTC/USDT und ETH/USDT Spot ohne Hebel auf H4,
-zunächst Paper mit lesender Realkontoanbindung. Futuresbestände können separat
-beobachtet werden; Futureshandel und Echtgeldaktivierung haben spätere eigene
-Strategie-/Konto-/Risikofreigaben. Finanziertes Guthaben ist keine Livefreigabe.
+Das bestehende M1-Entwicklungspaper verwendet BTC/USDT und ETH/USDT Spot
+ohne Hebel auf H4. Q37 bestätigt inzwischen das spätere Ziel isolierter
+USDT-M-Long-Futures mit marktphasenabhängigem2×–10×, separat zu modellieren.
+Futuresbestände und Spotwallet bleiben getrennt; konkrete Execution-/
+Konto-/Echtgeldfreigaben fehlen weiterhin. Finanziertes Guthaben ist keine
+Livefreigabe. [Profil und Datenvorcheck](futures-research.md).
 
 ## Einrichtung im Cockpit
 

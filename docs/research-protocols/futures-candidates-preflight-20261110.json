@@ -1,0 +1,1747 @@
+{
+  "api_family": "ClassicV2_public_mix",
+  "assets": [
+    {
+      "candidate_role": "optional_replacement",
+      "contract_fields": {
+        "baseCoin": "AVAX",
+        "buyLimitPriceRatio": "0.1",
+        "deliveryPeriod": "",
+        "deliveryStartTime": "",
+        "deliveryTime": "",
+        "feeRateUpRatio": "0.005",
+        "fundInterval": "8",
+        "isRwa": "NO",
+        "launchTime": "",
+        "limitOpenTime": "-1",
+        "maintainTime": "",
+        "makerFeeRate": "0.0002",
+        "maxLever": "75",
+        "maxMarketOrderQty": "6800",
+        "maxOrderQty": "51000",
+        "maxPositionNum": "200",
+        "maxProductOrderNum": "1000",
+        "maxSymbolOrderNum": "200",
+        "minLever": "1",
+        "minTradeNum": "0.1",
+        "minTradeUSDT": "5",
+        "offTime": "-1",
+        "openCostUpRatio": "0.01",
+        "openTime": "",
+        "posLimit": "0.1",
+        "priceEndStep": "1",
+        "pricePlace": "3",
+        "quoteCoin": "USDT",
+        "sellLimitPriceRatio": "0.1",
+        "sizeMultiplier": "0.1",
+        "supportMarginCoins": [
+          "USDT"
+        ],
+        "symbol": "AVAXUSDT",
+        "symbolStatus": "normal",
+        "symbolType": "perpetual",
+        "takerFeeRate": "0.0006",
+        "volumePlace": "1"
+      },
+      "contract_found": true,
+      "mark_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": true,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:03.791538+00:00",
+        "provider_request_time_ms": 1794337443654,
+        "response_sha256": "88ecb6f0b9f86e01d1f009185ba58fab91a151a39282ba28ab1eff577c472b07",
+        "rows": [
+          {
+            "close": "24.094",
+            "high": "24.31",
+            "low": "23.592",
+            "open": "23.699",
+            "open_time": "2022-08-01T00:00:00+00:00"
+          },
+          {
+            "close": "23.792",
+            "high": "24.263",
+            "low": "23.318",
+            "open": "24.094",
+            "open_time": "2022-08-01T04:00:00+00:00"
+          }
+        ],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=AVAXUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      },
+      "symbol": "AVAXUSDT",
+      "trade_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": true,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:03.783591+00:00",
+        "provider_request_time_ms": 1794337443645,
+        "response_sha256": "cd94a4ed3cf882a83bcf7486d51b32113eac98c3e91f31c7a0d71d5375096f71",
+        "rows": [
+          {
+            "close": "24.094",
+            "high": "24.321",
+            "low": "23.589",
+            "open": "23.695",
+            "open_time": "2022-08-01T00:00:00+00:00"
+          },
+          {
+            "close": "23.798",
+            "high": "24.267",
+            "low": "23.322",
+            "open": "24.094",
+            "open_time": "2022-08-01T04:00:00+00:00"
+          }
+        ],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=AVAXUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      }
+    },
+    {
+      "candidate_role": "optional_replacement",
+      "contract_fields": {
+        "baseCoin": "BAT",
+        "buyLimitPriceRatio": "0.15",
+        "deliveryPeriod": "",
+        "deliveryStartTime": "",
+        "deliveryTime": "",
+        "feeRateUpRatio": "0.005",
+        "fundInterval": "8",
+        "isRwa": "NO",
+        "launchTime": "",
+        "limitOpenTime": "-1",
+        "maintainTime": "",
+        "makerFeeRate": "0.0002",
+        "maxLever": "50",
+        "maxMarketOrderQty": "250000",
+        "maxOrderQty": "950000",
+        "maxPositionNum": "200",
+        "maxProductOrderNum": "1000",
+        "maxSymbolOrderNum": "200",
+        "minLever": "1",
+        "minTradeNum": "0.1",
+        "minTradeUSDT": "5",
+        "offTime": "-1",
+        "openCostUpRatio": "0.01",
+        "openTime": "",
+        "posLimit": "0.1",
+        "priceEndStep": "1",
+        "pricePlace": "5",
+        "quoteCoin": "USDT",
+        "sellLimitPriceRatio": "0.15",
+        "sizeMultiplier": "0.1",
+        "supportMarginCoins": [
+          "USDT"
+        ],
+        "symbol": "BATUSDT",
+        "symbolStatus": "normal",
+        "symbolType": "perpetual",
+        "takerFeeRate": "0.0006",
+        "volumePlace": "1"
+      },
+      "contract_found": true,
+      "mark_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": false,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:03.801185+00:00",
+        "provider_request_time_ms": 1794337443658,
+        "response_sha256": "66b0815e42c15ffc578d7d0e9505030ba0028a8f9cf69e1319c15c452e2ff159",
+        "rows": [],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BATUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      },
+      "symbol": "BATUSDT",
+      "trade_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": false,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:03.781345+00:00",
+        "provider_request_time_ms": 1794337443635,
+        "response_sha256": "3c9aae4b21aaa722eb983228348a1d1f1efbd4bd74e9409f7e274dd00a4b8fde",
+        "rows": [],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BATUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      }
+    },
+    {
+      "candidate_role": "previous_spot_candidate",
+      "contract_fields": {
+        "baseCoin": "BCH",
+        "buyLimitPriceRatio": "0.05",
+        "deliveryPeriod": "",
+        "deliveryStartTime": "",
+        "deliveryTime": "",
+        "feeRateUpRatio": "0.005",
+        "fundInterval": "8",
+        "isRwa": "NO",
+        "launchTime": "",
+        "limitOpenTime": "-1",
+        "maintainTime": "",
+        "makerFeeRate": "0.0002",
+        "maxLever": "75",
+        "maxMarketOrderQty": "210",
+        "maxOrderQty": "1600",
+        "maxPositionNum": "200",
+        "maxProductOrderNum": "1000",
+        "maxSymbolOrderNum": "200",
+        "minLever": "1",
+        "minTradeNum": "0.01",
+        "minTradeUSDT": "5",
+        "offTime": "-1",
+        "openCostUpRatio": "0.01",
+        "openTime": "",
+        "posLimit": "0.1",
+        "priceEndStep": "1",
+        "pricePlace": "2",
+        "quoteCoin": "USDT",
+        "sellLimitPriceRatio": "0.05",
+        "sizeMultiplier": "0.01",
+        "supportMarginCoins": [
+          "USDT"
+        ],
+        "symbol": "BCHUSDT",
+        "symbolStatus": "normal",
+        "symbolType": "perpetual",
+        "takerFeeRate": "0.0006",
+        "volumePlace": "2"
+      },
+      "contract_found": true,
+      "mark_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": true,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:04.062293+00:00",
+        "provider_request_time_ms": 1794337443933,
+        "response_sha256": "7efe412ffaeb3b41a282429f8b9b9999f8cba6329602fb87fb576ef4940d19ae",
+        "rows": [
+          {
+            "close": "141.06",
+            "high": "142.15",
+            "low": "138.25",
+            "open": "139.24",
+            "open_time": "2022-08-01T00:00:00+00:00"
+          },
+          {
+            "close": "140.33",
+            "high": "141.78",
+            "low": "138.32",
+            "open": "141.06",
+            "open_time": "2022-08-01T04:00:00+00:00"
+          }
+        ],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BCHUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      },
+      "symbol": "BCHUSDT",
+      "trade_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": true,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:04.111568+00:00",
+        "provider_request_time_ms": 1794337443948,
+        "response_sha256": "b093ed24850abfdebaa7423c56d178240d6f772e8c963200775f965df7695321",
+        "rows": [
+          {
+            "close": "141.06",
+            "high": "142.12",
+            "low": "138.19",
+            "open": "139.2",
+            "open_time": "2022-08-01T00:00:00+00:00"
+          },
+          {
+            "close": "140.29",
+            "high": "141.73",
+            "low": "138.34",
+            "open": "141.06",
+            "open_time": "2022-08-01T04:00:00+00:00"
+          }
+        ],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BCHUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      }
+    },
+    {
+      "candidate_role": "optional_replacement",
+      "contract_fields": {
+        "baseCoin": "BGB",
+        "buyLimitPriceRatio": "0.05",
+        "deliveryPeriod": "",
+        "deliveryStartTime": "",
+        "deliveryTime": "",
+        "feeRateUpRatio": "0.005",
+        "fundInterval": "8",
+        "isRwa": "NO",
+        "launchTime": "",
+        "limitOpenTime": "-1",
+        "maintainTime": "",
+        "makerFeeRate": "0.0002",
+        "maxLever": "50",
+        "maxMarketOrderQty": "16000",
+        "maxOrderQty": "79000",
+        "maxPositionNum": "200",
+        "maxProductOrderNum": "1000",
+        "maxSymbolOrderNum": "200",
+        "minLever": "1",
+        "minTradeNum": "1",
+        "minTradeUSDT": "5",
+        "offTime": "-1",
+        "openCostUpRatio": "0.01",
+        "openTime": "1720432800000",
+        "posLimit": "0.1",
+        "priceEndStep": "1",
+        "pricePlace": "4",
+        "quoteCoin": "USDT",
+        "sellLimitPriceRatio": "0.05",
+        "sizeMultiplier": "1",
+        "supportMarginCoins": [
+          "USDT"
+        ],
+        "symbol": "BGBUSDT",
+        "symbolStatus": "normal",
+        "symbolType": "perpetual",
+        "takerFeeRate": "0.0006",
+        "volumePlace": "0"
+      },
+      "contract_found": true,
+      "mark_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": false,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:04.154777+00:00",
+        "provider_request_time_ms": 1794337444009,
+        "response_sha256": "74dca87319b3bb9b39806d4b70c354ffe7d51643e24caf265de078bdeb729874",
+        "rows": [],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BGBUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      },
+      "symbol": "BGBUSDT",
+      "trade_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": false,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:04.118123+00:00",
+        "provider_request_time_ms": 1794337443984,
+        "response_sha256": "7b70880d02591cf6af3012d945fd603587a00257095f92ca0b6bba40b4c420de",
+        "rows": [],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BGBUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      }
+    },
+    {
+      "candidate_role": "previous_spot_candidate",
+      "contract_fields": {
+        "baseCoin": "BNB",
+        "buyLimitPriceRatio": "0.07",
+        "deliveryPeriod": "",
+        "deliveryStartTime": "",
+        "deliveryTime": "",
+        "feeRateUpRatio": "0.005",
+        "fundInterval": "8",
+        "isRwa": "NO",
+        "launchTime": "",
+        "limitOpenTime": "-1",
+        "maintainTime": "",
+        "makerFeeRate": "0.0002",
+        "maxLever": "75",
+        "maxMarketOrderQty": "90",
+        "maxOrderQty": "650",
+        "maxPositionNum": "200",
+        "maxProductOrderNum": "1000",
+        "maxSymbolOrderNum": "200",
+        "minLever": "1",
+        "minTradeNum": "0.01",
+        "minTradeUSDT": "5",
+        "offTime": "-1",
+        "openCostUpRatio": "0.01",
+        "openTime": "",
+        "posLimit": "0.1",
+        "priceEndStep": "1",
+        "pricePlace": "2",
+        "quoteCoin": "USDT",
+        "sellLimitPriceRatio": "0.07",
+        "sizeMultiplier": "0.01",
+        "supportMarginCoins": [
+          "USDT"
+        ],
+        "symbol": "BNBUSDT",
+        "symbolStatus": "normal",
+        "symbolType": "perpetual",
+        "takerFeeRate": "0.0006",
+        "volumePlace": "2"
+      },
+      "contract_found": true,
+      "mark_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": true,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:04.451646+00:00",
+        "provider_request_time_ms": 1794337444299,
+        "response_sha256": "6dfa7f6dc13cb3c53190b9ac9e702b557ff80c30d6f0993cfed24c4b5d148d6e",
+        "rows": [
+          {
+            "close": "287.5",
+            "high": "290.5",
+            "low": "282.75",
+            "open": "283.33",
+            "open_time": "2022-08-01T00:00:00+00:00"
+          },
+          {
+            "close": "287.95",
+            "high": "288.63",
+            "low": "283.14",
+            "open": "287.5",
+            "open_time": "2022-08-01T04:00:00+00:00"
+          }
+        ],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BNBUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      },
+      "symbol": "BNBUSDT",
+      "trade_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": true,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:04.369623+00:00",
+        "provider_request_time_ms": 1794337444234,
+        "response_sha256": "394a6bc6d2ba3eb53c3e4330f4e16f8cce66f48eddb5bc277067f8e11ba3d84d",
+        "rows": [
+          {
+            "close": "287.46",
+            "high": "290.5",
+            "low": "282.73",
+            "open": "283.31",
+            "open_time": "2022-08-01T00:00:00+00:00"
+          },
+          {
+            "close": "288.07",
+            "high": "288.6",
+            "low": "283.13",
+            "open": "287.46",
+            "open_time": "2022-08-01T04:00:00+00:00"
+          }
+        ],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BNBUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      }
+    },
+    {
+      "candidate_role": "previous_spot_candidate",
+      "contract_fields": {
+        "baseCoin": "BTC",
+        "buyLimitPriceRatio": "0.05",
+        "deliveryPeriod": "",
+        "deliveryStartTime": "",
+        "deliveryTime": "",
+        "feeRateUpRatio": "0.005",
+        "fundInterval": "8",
+        "isRwa": "NO",
+        "launchTime": "",
+        "limitOpenTime": "-1",
+        "maintainTime": "",
+        "makerFeeRate": "0.0002",
+        "maxLever": "150",
+        "maxMarketOrderQty": "220",
+        "maxOrderQty": "1200",
+        "maxPositionNum": "200",
+        "maxProductOrderNum": "1000",
+        "maxSymbolOrderNum": "200",
+        "minLever": "1",
+        "minTradeNum": "0.0001",
+        "minTradeUSDT": "5",
+        "offTime": "-1",
+        "openCostUpRatio": "0.01",
+        "openTime": "",
+        "posLimit": "0.2",
+        "priceEndStep": "1",
+        "pricePlace": "1",
+        "quoteCoin": "USDT",
+        "sellLimitPriceRatio": "0.05",
+        "sizeMultiplier": "0.0001",
+        "supportMarginCoins": [
+          "USDT"
+        ],
+        "symbol": "BTCUSDT",
+        "symbolStatus": "normal",
+        "symbolType": "perpetual",
+        "takerFeeRate": "0.0006",
+        "volumePlace": "4"
+      },
+      "contract_found": true,
+      "mark_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": true,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:04.461370+00:00",
+        "provider_request_time_ms": 1794337444332,
+        "response_sha256": "b521556f876c775182ae8a4181c702485ec2c78ffe373f1895e08dcdcbc24333",
+        "rows": [
+          {
+            "close": "23366.3",
+            "high": "23450.16",
+            "low": "23248.06",
+            "open": "23287.39",
+            "open_time": "2022-08-01T00:00:00+00:00"
+          },
+          {
+            "close": "23307.08",
+            "high": "23399.99",
+            "low": "23107.84",
+            "open": "23366.3",
+            "open_time": "2022-08-01T04:00:00+00:00"
+          }
+        ],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      },
+      "symbol": "BTCUSDT",
+      "trade_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": true,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:04.453692+00:00",
+        "provider_request_time_ms": 1794337444312,
+        "response_sha256": "ecff66681c11187b39fa892b5fe69d5e555d0a83c81367dd71e60913d6408dcc",
+        "rows": [
+          {
+            "close": "23364.5",
+            "high": "23451.5",
+            "low": "23247.5",
+            "open": "23286",
+            "open_time": "2022-08-01T00:00:00+00:00"
+          },
+          {
+            "close": "23306.5",
+            "high": "23400",
+            "low": "23104",
+            "open": "23364.5",
+            "open_time": "2022-08-01T04:00:00+00:00"
+          }
+        ],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      }
+    },
+    {
+      "candidate_role": "previous_spot_candidate",
+      "contract_fields": {
+        "baseCoin": "ETH",
+        "buyLimitPriceRatio": "0.05",
+        "deliveryPeriod": "",
+        "deliveryStartTime": "",
+        "deliveryTime": "",
+        "feeRateUpRatio": "0.005",
+        "fundInterval": "8",
+        "isRwa": "NO",
+        "launchTime": "",
+        "limitOpenTime": "-1",
+        "maintainTime": "",
+        "makerFeeRate": "0.0002",
+        "maxLever": "150",
+        "maxMarketOrderQty": "1900",
+        "maxOrderQty": "9900",
+        "maxPositionNum": "200",
+        "maxProductOrderNum": "1000",
+        "maxSymbolOrderNum": "200",
+        "minLever": "1",
+        "minTradeNum": "0.01",
+        "minTradeUSDT": "5",
+        "offTime": "-1",
+        "openCostUpRatio": "0.01",
+        "openTime": "",
+        "posLimit": "0.1",
+        "priceEndStep": "1",
+        "pricePlace": "2",
+        "quoteCoin": "USDT",
+        "sellLimitPriceRatio": "0.05",
+        "sizeMultiplier": "0.01",
+        "supportMarginCoins": [
+          "USDT"
+        ],
+        "symbol": "ETHUSDT",
+        "symbolStatus": "normal",
+        "symbolType": "perpetual",
+        "takerFeeRate": "0.0006",
+        "volumePlace": "2"
+      },
+      "contract_found": true,
+      "mark_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": true,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:04.782936+00:00",
+        "provider_request_time_ms": 1794337444648,
+        "response_sha256": "8b27ad0e19e040c2c4e98cda5b02c7924d5d8b911240ea4aa4d86eeda536e8d6",
+        "rows": [
+          {
+            "close": "1691.23",
+            "high": "1704.4",
+            "low": "1674.29",
+            "open": "1678.19",
+            "open_time": "2022-08-01T00:00:00+00:00"
+          },
+          {
+            "close": "1692.39",
+            "high": "1696.72",
+            "low": "1673.55",
+            "open": "1691.23",
+            "open_time": "2022-08-01T04:00:00+00:00"
+          }
+        ],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      },
+      "symbol": "ETHUSDT",
+      "trade_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": true,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:04.690024+00:00",
+        "provider_request_time_ms": 1794337444537,
+        "response_sha256": "6f2f702e03052875d8c0565bf0ce74ce4d0e90dc41da4794d31c5914e263ea65",
+        "rows": [
+          {
+            "close": "1691.12",
+            "high": "1704.59",
+            "low": "1674.16",
+            "open": "1678",
+            "open_time": "2022-08-01T00:00:00+00:00"
+          },
+          {
+            "close": "1692.68",
+            "high": "1696.72",
+            "low": "1673.21",
+            "open": "1691.12",
+            "open_time": "2022-08-01T04:00:00+00:00"
+          }
+        ],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      }
+    },
+    {
+      "candidate_role": "optional_replacement",
+      "contract_fields": {
+        "baseCoin": "HBAR",
+        "buyLimitPriceRatio": "0.1",
+        "deliveryPeriod": "",
+        "deliveryStartTime": "",
+        "deliveryTime": "",
+        "feeRateUpRatio": "0.005",
+        "fundInterval": "8",
+        "isRwa": "NO",
+        "launchTime": "",
+        "limitOpenTime": "-1",
+        "maintainTime": "",
+        "makerFeeRate": "0.0002",
+        "maxLever": "75",
+        "maxMarketOrderQty": "790000",
+        "maxOrderQty": "5900000",
+        "maxPositionNum": "200",
+        "maxProductOrderNum": "1000",
+        "maxSymbolOrderNum": "200",
+        "minLever": "1",
+        "minTradeNum": "1",
+        "minTradeUSDT": "5",
+        "offTime": "-1",
+        "openCostUpRatio": "0.01",
+        "openTime": "",
+        "posLimit": "0.1",
+        "priceEndStep": "1",
+        "pricePlace": "5",
+        "quoteCoin": "USDT",
+        "sellLimitPriceRatio": "0.1",
+        "sizeMultiplier": "1",
+        "supportMarginCoins": [
+          "USDT"
+        ],
+        "symbol": "HBARUSDT",
+        "symbolStatus": "normal",
+        "symbolType": "perpetual",
+        "takerFeeRate": "0.0006",
+        "volumePlace": "0"
+      },
+      "contract_found": true,
+      "mark_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": false,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:04.798362+00:00",
+        "provider_request_time_ms": 1794337444656,
+        "response_sha256": "ad3480d1a7b9f5f795d65e034bc68e9ff3647e7d58a296c59699f8b8fe15f2a3",
+        "rows": [],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=HBARUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      },
+      "symbol": "HBARUSDT",
+      "trade_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": false,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:04.793212+00:00",
+        "provider_request_time_ms": 1794337444653,
+        "response_sha256": "653efa7ae573570581e1d5d28642c6360071321fec127023e778ccaa009a135f",
+        "rows": [],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=HBARUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      }
+    },
+    {
+      "candidate_role": "previous_spot_candidate",
+      "contract_fields": {
+        "baseCoin": "HYPE",
+        "buyLimitPriceRatio": "0.15",
+        "deliveryPeriod": "",
+        "deliveryStartTime": "",
+        "deliveryTime": "",
+        "feeRateUpRatio": "0.005",
+        "fundInterval": "4",
+        "isRwa": "NO",
+        "launchTime": "",
+        "limitOpenTime": "-1",
+        "maintainTime": "",
+        "makerFeeRate": "0.0002",
+        "maxLever": "75",
+        "maxMarketOrderQty": "5700",
+        "maxOrderQty": "42000",
+        "maxPositionNum": "200",
+        "maxProductOrderNum": "1000",
+        "maxSymbolOrderNum": "200",
+        "minLever": "1",
+        "minTradeNum": "0.01",
+        "minTradeUSDT": "5",
+        "offTime": "-1",
+        "openCostUpRatio": "0.01",
+        "openTime": "1734491016220",
+        "posLimit": "0.15",
+        "priceEndStep": "1",
+        "pricePlace": "3",
+        "quoteCoin": "USDT",
+        "sellLimitPriceRatio": "0.15",
+        "sizeMultiplier": "0.01",
+        "supportMarginCoins": [
+          "USDT"
+        ],
+        "symbol": "HYPEUSDT",
+        "symbolStatus": "normal",
+        "symbolType": "perpetual",
+        "takerFeeRate": "0.0006",
+        "volumePlace": "2"
+      },
+      "contract_found": true,
+      "mark_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": false,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:05.070489+00:00",
+        "provider_request_time_ms": 1794337444933,
+        "response_sha256": "2338b3a761a6ecde401225eac1702b793a655044f9f222753b4a96f98732a0b2",
+        "rows": [],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=HYPEUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      },
+      "symbol": "HYPEUSDT",
+      "trade_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": false,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:04.994530+00:00",
+        "provider_request_time_ms": 1794337444849,
+        "response_sha256": "fb88c894531408ca159a0ed59644a619de6b045a510c9c067cd7efce4ab930dc",
+        "rows": [],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=HYPEUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      }
+    },
+    {
+      "candidate_role": "previous_spot_candidate",
+      "contract_fields": {
+        "baseCoin": "LINK",
+        "buyLimitPriceRatio": "0.1",
+        "deliveryPeriod": "",
+        "deliveryStartTime": "",
+        "deliveryTime": "",
+        "feeRateUpRatio": "0.005",
+        "fundInterval": "8",
+        "isRwa": "NO",
+        "launchTime": "",
+        "limitOpenTime": "-1",
+        "maintainTime": "",
+        "makerFeeRate": "0.0002",
+        "maxLever": "75",
+        "maxMarketOrderQty": "47000",
+        "maxOrderQty": "370000",
+        "maxPositionNum": "200",
+        "maxProductOrderNum": "1000",
+        "maxSymbolOrderNum": "200",
+        "minLever": "1",
+        "minTradeNum": "1",
+        "minTradeUSDT": "5",
+        "offTime": "-1",
+        "openCostUpRatio": "0.01",
+        "openTime": "",
+        "posLimit": "0.15",
+        "priceEndStep": "1",
+        "pricePlace": "3",
+        "quoteCoin": "USDT",
+        "sellLimitPriceRatio": "0.1",
+        "sizeMultiplier": "1",
+        "supportMarginCoins": [
+          "USDT"
+        ],
+        "symbol": "LINKUSDT",
+        "symbolStatus": "normal",
+        "symbolType": "perpetual",
+        "takerFeeRate": "0.0006",
+        "volumePlace": "0"
+      },
+      "contract_found": true,
+      "mark_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": true,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:05.076731+00:00",
+        "provider_request_time_ms": 1794337444949,
+        "response_sha256": "17325d05defeeb96cf11e22adcb9af5dc153a7abc5ebc89fd9d45e71ce7d36b0",
+        "rows": [
+          {
+            "close": "7.7592",
+            "high": "7.8807",
+            "low": "7.6215",
+            "open": "7.6514",
+            "open_time": "2022-08-01T00:00:00+00:00"
+          },
+          {
+            "close": "7.6997",
+            "high": "7.8015",
+            "low": "7.5812",
+            "open": "7.7592",
+            "open_time": "2022-08-01T04:00:00+00:00"
+          }
+        ],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=LINKUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      },
+      "symbol": "LINKUSDT",
+      "trade_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": true,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:05.105446+00:00",
+        "provider_request_time_ms": 1794337444973,
+        "response_sha256": "5bedc23e40223e9851fad3ad8e0b81329079c1d0defc628dfe3f2c4adbd44cc9",
+        "rows": [
+          {
+            "close": "7.757",
+            "high": "7.879",
+            "low": "7.62",
+            "open": "7.652",
+            "open_time": "2022-08-01T00:00:00+00:00"
+          },
+          {
+            "close": "7.703",
+            "high": "7.805",
+            "low": "7.582",
+            "open": "7.757",
+            "open_time": "2022-08-01T04:00:00+00:00"
+          }
+        ],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=LINKUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      }
+    },
+    {
+      "candidate_role": "previous_spot_candidate",
+      "contract_fields": {
+        "baseCoin": "LTC",
+        "buyLimitPriceRatio": "0.07",
+        "deliveryPeriod": "",
+        "deliveryStartTime": "",
+        "deliveryTime": "",
+        "feeRateUpRatio": "0.005",
+        "fundInterval": "8",
+        "isRwa": "NO",
+        "launchTime": "",
+        "limitOpenTime": "-1",
+        "maintainTime": "",
+        "makerFeeRate": "0.0002",
+        "maxLever": "75",
+        "maxMarketOrderQty": "1100",
+        "maxOrderQty": "7900",
+        "maxPositionNum": "200",
+        "maxProductOrderNum": "1000",
+        "maxSymbolOrderNum": "200",
+        "minLever": "1",
+        "minTradeNum": "0.1",
+        "minTradeUSDT": "5",
+        "offTime": "-1",
+        "openCostUpRatio": "0.01",
+        "openTime": "",
+        "posLimit": "0.1",
+        "priceEndStep": "1",
+        "pricePlace": "2",
+        "quoteCoin": "USDT",
+        "sellLimitPriceRatio": "0.07",
+        "sizeMultiplier": "0.1",
+        "supportMarginCoins": [
+          "USDT"
+        ],
+        "symbol": "LTCUSDT",
+        "symbolStatus": "normal",
+        "symbolType": "perpetual",
+        "takerFeeRate": "0.0006",
+        "volumePlace": "1"
+      },
+      "contract_found": true,
+      "mark_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": true,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:05.384998+00:00",
+        "provider_request_time_ms": 1794337445241,
+        "response_sha256": "7d2cbe6c7375b5311374b484f3a415b1c3c2fff2991c849fcee083a79f51a0e5",
+        "rows": [
+          {
+            "close": "60.05",
+            "high": "60.71",
+            "low": "59.3",
+            "open": "59.71",
+            "open_time": "2022-08-01T00:00:00+00:00"
+          },
+          {
+            "close": "59.98",
+            "high": "60.54",
+            "low": "59.1",
+            "open": "60.05",
+            "open_time": "2022-08-01T04:00:00+00:00"
+          }
+        ],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=LTCUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      },
+      "symbol": "LTCUSDT",
+      "trade_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": true,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:05.337273+00:00",
+        "provider_request_time_ms": 1794337445167,
+        "response_sha256": "6bba275e625947f21cd2c66cfec9bb5b02386fcda5fe030642827e2b6b779307",
+        "rows": [
+          {
+            "close": "60.07",
+            "high": "60.72",
+            "low": "59.32",
+            "open": "59.7",
+            "open_time": "2022-08-01T00:00:00+00:00"
+          },
+          {
+            "close": "59.98",
+            "high": "60.53",
+            "low": "59.11",
+            "open": "60.07",
+            "open_time": "2022-08-01T04:00:00+00:00"
+          }
+        ],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=LTCUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      }
+    },
+    {
+      "candidate_role": "previous_spot_candidate",
+      "contract_fields": {
+        "baseCoin": "NEAR",
+        "buyLimitPriceRatio": "0.1",
+        "deliveryPeriod": "",
+        "deliveryStartTime": "",
+        "deliveryTime": "",
+        "feeRateUpRatio": "0.005",
+        "fundInterval": "8",
+        "isRwa": "NO",
+        "launchTime": "",
+        "limitOpenTime": "-1",
+        "maintainTime": "",
+        "makerFeeRate": "0.0002",
+        "maxLever": "75",
+        "maxMarketOrderQty": "120000",
+        "maxOrderQty": "950000",
+        "maxPositionNum": "200",
+        "maxProductOrderNum": "1000",
+        "maxSymbolOrderNum": "200",
+        "minLever": "1",
+        "minTradeNum": "1",
+        "minTradeUSDT": "5",
+        "offTime": "-1",
+        "openCostUpRatio": "0.01",
+        "openTime": "",
+        "posLimit": "0.15",
+        "priceEndStep": "1",
+        "pricePlace": "4",
+        "quoteCoin": "USDT",
+        "sellLimitPriceRatio": "0.1",
+        "sizeMultiplier": "1",
+        "supportMarginCoins": [
+          "USDT"
+        ],
+        "symbol": "NEARUSDT",
+        "symbolStatus": "normal",
+        "symbolType": "perpetual",
+        "takerFeeRate": "0.0006",
+        "volumePlace": "0"
+      },
+      "contract_found": true,
+      "mark_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": true,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:05.416118+00:00",
+        "provider_request_time_ms": 1794337445290,
+        "response_sha256": "026c096b01e050a1dae79629f00100012862a780498fac03bfb3713ea1f7ef45",
+        "rows": [
+          {
+            "close": "4.3448",
+            "high": "4.3633",
+            "low": "4.2077",
+            "open": "4.228",
+            "open_time": "2022-08-01T00:00:00+00:00"
+          },
+          {
+            "close": "4.3185",
+            "high": "4.3678",
+            "low": "4.2348",
+            "open": "4.3448",
+            "open_time": "2022-08-01T04:00:00+00:00"
+          }
+        ],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=NEARUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      },
+      "symbol": "NEARUSDT",
+      "trade_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": true,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:05.374329+00:00",
+        "provider_request_time_ms": 1794337445244,
+        "response_sha256": "67c79d48a51a25e3f8f8456f068cbd08517a90c1c04c085a7e32254fdadc016e",
+        "rows": [
+          {
+            "close": "4.3445",
+            "high": "4.364",
+            "low": "4.2075",
+            "open": "4.2255",
+            "open_time": "2022-08-01T00:00:00+00:00"
+          },
+          {
+            "close": "4.319",
+            "high": "4.367",
+            "low": "4.235",
+            "open": "4.3445",
+            "open_time": "2022-08-01T04:00:00+00:00"
+          }
+        ],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=NEARUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      }
+    },
+    {
+      "candidate_role": "optional_replacement",
+      "contract_fields": {
+        "baseCoin": "RENDER",
+        "buyLimitPriceRatio": "0.15",
+        "deliveryPeriod": "",
+        "deliveryStartTime": "",
+        "deliveryTime": "",
+        "feeRateUpRatio": "0.005",
+        "fundInterval": "4",
+        "isRwa": "NO",
+        "launchTime": "",
+        "limitOpenTime": "-1",
+        "maintainTime": "",
+        "makerFeeRate": "0.0002",
+        "maxLever": "50",
+        "maxMarketOrderQty": "25000",
+        "maxOrderQty": "170000",
+        "maxPositionNum": "200",
+        "maxProductOrderNum": "1000",
+        "maxSymbolOrderNum": "200",
+        "minLever": "1",
+        "minTradeNum": "0.1",
+        "minTradeUSDT": "5",
+        "offTime": "-1",
+        "openCostUpRatio": "0.01",
+        "openTime": "1721989286141",
+        "posLimit": "0.1",
+        "priceEndStep": "1",
+        "pricePlace": "4",
+        "quoteCoin": "USDT",
+        "sellLimitPriceRatio": "0.15",
+        "sizeMultiplier": "0.1",
+        "supportMarginCoins": [
+          "USDT"
+        ],
+        "symbol": "RENDERUSDT",
+        "symbolStatus": "normal",
+        "symbolType": "perpetual",
+        "takerFeeRate": "0.0006",
+        "volumePlace": "1"
+      },
+      "contract_found": true,
+      "mark_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": false,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:05.723384+00:00",
+        "provider_request_time_ms": 1794337445579,
+        "response_sha256": "31cdfd152688ad50c682d6dd1e9048853f1c1f5e9d73576079f403da4c7a6897",
+        "rows": [],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=RENDERUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      },
+      "symbol": "RENDERUSDT",
+      "trade_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": false,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:05.641692+00:00",
+        "provider_request_time_ms": 1794337445508,
+        "response_sha256": "309c6f020847d12432c519daa9fbfd9832a01a83dc5d770dd196354aac3cc4e7",
+        "rows": [],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=RENDERUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      }
+    },
+    {
+      "candidate_role": "previous_spot_candidate",
+      "contract_fields": {
+        "baseCoin": "SOL",
+        "buyLimitPriceRatio": "0.07",
+        "deliveryPeriod": "",
+        "deliveryStartTime": "",
+        "deliveryTime": "",
+        "feeRateUpRatio": "0.005",
+        "fundInterval": "8",
+        "isRwa": "NO",
+        "launchTime": "",
+        "limitOpenTime": "-1",
+        "maintainTime": "",
+        "makerFeeRate": "0.0002",
+        "maxLever": "100",
+        "maxMarketOrderQty": "4400",
+        "maxOrderQty": "46000",
+        "maxPositionNum": "200",
+        "maxProductOrderNum": "1000",
+        "maxSymbolOrderNum": "200",
+        "minLever": "1",
+        "minTradeNum": "0.1",
+        "minTradeUSDT": "5",
+        "offTime": "-1",
+        "openCostUpRatio": "0.01",
+        "openTime": "",
+        "posLimit": "0.15",
+        "priceEndStep": "1",
+        "pricePlace": "3",
+        "quoteCoin": "USDT",
+        "sellLimitPriceRatio": "0.07",
+        "sizeMultiplier": "0.1",
+        "supportMarginCoins": [
+          "USDT"
+        ],
+        "symbol": "SOLUSDT",
+        "symbolStatus": "normal",
+        "symbolType": "perpetual",
+        "takerFeeRate": "0.0006",
+        "volumePlace": "1"
+      },
+      "contract_found": true,
+      "mark_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": true,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:05.752414+00:00",
+        "provider_request_time_ms": 1794337445609,
+        "response_sha256": "f20b31ad4eabf840acbaa9e4a50397dde12eee6424bc0ab5a891185362819358",
+        "rows": [
+          {
+            "close": "42.9861",
+            "high": "43.1969",
+            "low": "42.0785",
+            "open": "42.309",
+            "open_time": "2022-08-01T00:00:00+00:00"
+          },
+          {
+            "close": "42.9152",
+            "high": "43.094",
+            "low": "42.247",
+            "open": "42.9861",
+            "open_time": "2022-08-01T04:00:00+00:00"
+          }
+        ],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=SOLUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      },
+      "symbol": "SOLUSDT",
+      "trade_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": true,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:05.697505+00:00",
+        "provider_request_time_ms": 1794337445562,
+        "response_sha256": "b82c6d72e3656d94d539f7fdbca6dd6e89ab84cc9d7156039150064f532ccfd7",
+        "rows": [
+          {
+            "close": "42.9845",
+            "high": "43.1986",
+            "low": "42.0631",
+            "open": "42.3057",
+            "open_time": "2022-08-01T00:00:00+00:00"
+          },
+          {
+            "close": "42.9201",
+            "high": "43.0968",
+            "low": "42.25",
+            "open": "42.9845",
+            "open_time": "2022-08-01T04:00:00+00:00"
+          }
+        ],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=SOLUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      }
+    },
+    {
+      "candidate_role": "optional_replacement",
+      "contract_fields": {
+        "baseCoin": "TRX",
+        "buyLimitPriceRatio": "0.07",
+        "deliveryPeriod": "",
+        "deliveryStartTime": "",
+        "deliveryTime": "",
+        "feeRateUpRatio": "0.005",
+        "fundInterval": "8",
+        "isRwa": "NO",
+        "launchTime": "",
+        "limitOpenTime": "-1",
+        "maintainTime": "",
+        "makerFeeRate": "0.0002",
+        "maxLever": "75",
+        "maxMarketOrderQty": "180000",
+        "maxOrderQty": "1400000",
+        "maxPositionNum": "200",
+        "maxProductOrderNum": "1000",
+        "maxSymbolOrderNum": "200",
+        "minLever": "1",
+        "minTradeNum": "1",
+        "minTradeUSDT": "5",
+        "offTime": "-1",
+        "openCostUpRatio": "0.01",
+        "openTime": "",
+        "posLimit": "0.1",
+        "priceEndStep": "1",
+        "pricePlace": "5",
+        "quoteCoin": "USDT",
+        "sellLimitPriceRatio": "0.07",
+        "sizeMultiplier": "1",
+        "supportMarginCoins": [
+          "USDT"
+        ],
+        "symbol": "TRXUSDT",
+        "symbolStatus": "normal",
+        "symbolType": "perpetual",
+        "takerFeeRate": "0.0006",
+        "volumePlace": "0"
+      },
+      "contract_found": true,
+      "mark_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": true,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:05.974866+00:00",
+        "provider_request_time_ms": 1794337445848,
+        "response_sha256": "d3df38a6db1e35e2148f6c55afb3c16d331a3562a860b7402240a4bbd11c6063",
+        "rows": [
+          {
+            "close": "0.06955",
+            "high": "0.06957",
+            "low": "0.06863",
+            "open": "0.06877",
+            "open_time": "2022-08-01T00:00:00+00:00"
+          },
+          {
+            "close": "0.06948",
+            "high": "0.06977",
+            "low": "0.06909",
+            "open": "0.06955",
+            "open_time": "2022-08-01T04:00:00+00:00"
+          }
+        ],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=TRXUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      },
+      "symbol": "TRXUSDT",
+      "trade_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": true,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:05.955402+00:00",
+        "provider_request_time_ms": 1794337445822,
+        "response_sha256": "a950642f47f52c8abd88b39e1128499ee1b11e3090b6ed14033f81ecbb01b202",
+        "rows": [
+          {
+            "close": "0.06955",
+            "high": "0.06956",
+            "low": "0.06863",
+            "open": "0.06877",
+            "open_time": "2022-08-01T00:00:00+00:00"
+          },
+          {
+            "close": "0.06951",
+            "high": "0.06978",
+            "low": "0.06908",
+            "open": "0.06955",
+            "open_time": "2022-08-01T04:00:00+00:00"
+          }
+        ],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=TRXUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      }
+    },
+    {
+      "candidate_role": "previous_spot_candidate",
+      "contract_fields": {
+        "baseCoin": "UNI",
+        "buyLimitPriceRatio": "0.1",
+        "deliveryPeriod": "",
+        "deliveryStartTime": "",
+        "deliveryTime": "",
+        "feeRateUpRatio": "0.005",
+        "fundInterval": "8",
+        "isRwa": "NO",
+        "launchTime": "",
+        "limitOpenTime": "-1",
+        "maintainTime": "",
+        "makerFeeRate": "0.0002",
+        "maxLever": "75",
+        "maxMarketOrderQty": "72000",
+        "maxOrderQty": "580000",
+        "maxPositionNum": "200",
+        "maxProductOrderNum": "1000",
+        "maxSymbolOrderNum": "200",
+        "minLever": "1",
+        "minTradeNum": "1",
+        "minTradeUSDT": "5",
+        "offTime": "-1",
+        "openCostUpRatio": "0.01",
+        "openTime": "",
+        "posLimit": "0.15",
+        "priceEndStep": "1",
+        "pricePlace": "3",
+        "quoteCoin": "USDT",
+        "sellLimitPriceRatio": "0.1",
+        "sizeMultiplier": "1",
+        "supportMarginCoins": [
+          "USDT"
+        ],
+        "symbol": "UNIUSDT",
+        "symbolStatus": "normal",
+        "symbolType": "perpetual",
+        "takerFeeRate": "0.0006",
+        "volumePlace": "0"
+      },
+      "contract_found": true,
+      "mark_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": true,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:06.055874+00:00",
+        "provider_request_time_ms": 1794337445919,
+        "response_sha256": "212ceb276ec8e8c94048123fde52d19eb618b85b2a22ae9f2cc602834246533e",
+        "rows": [
+          {
+            "close": "8.4516",
+            "high": "8.5756",
+            "low": "8.2921",
+            "open": "8.331",
+            "open_time": "2022-08-01T00:00:00+00:00"
+          },
+          {
+            "close": "8.4021",
+            "high": "8.4659",
+            "low": "8.2594",
+            "open": "8.4516",
+            "open_time": "2022-08-01T04:00:00+00:00"
+          }
+        ],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=UNIUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      },
+      "symbol": "UNIUSDT",
+      "trade_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": true,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:06.033076+00:00",
+        "provider_request_time_ms": 1794337445895,
+        "response_sha256": "b572e9327031be46078084b42032f6aedd4ffeda98529a1fd69fb4466ed357e0",
+        "rows": [
+          {
+            "close": "8.456",
+            "high": "8.579",
+            "low": "8.296",
+            "open": "8.327",
+            "open_time": "2022-08-01T00:00:00+00:00"
+          },
+          {
+            "close": "8.405",
+            "high": "8.469",
+            "low": "8.255",
+            "open": "8.456",
+            "open_time": "2022-08-01T04:00:00+00:00"
+          }
+        ],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=UNIUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      }
+    },
+    {
+      "candidate_role": "previous_spot_candidate",
+      "contract_fields": {
+        "baseCoin": "XLM",
+        "buyLimitPriceRatio": "0.07",
+        "deliveryPeriod": "",
+        "deliveryStartTime": "",
+        "deliveryTime": "",
+        "feeRateUpRatio": "0.005",
+        "fundInterval": "8",
+        "isRwa": "NO",
+        "launchTime": "",
+        "limitOpenTime": "-1",
+        "maintainTime": "",
+        "makerFeeRate": "0.0002",
+        "maxLever": "75",
+        "maxMarketOrderQty": "350000",
+        "maxOrderQty": "2700000",
+        "maxPositionNum": "200",
+        "maxProductOrderNum": "1000",
+        "maxSymbolOrderNum": "200",
+        "minLever": "1",
+        "minTradeNum": "1",
+        "minTradeUSDT": "5",
+        "offTime": "-1",
+        "openCostUpRatio": "0.01",
+        "openTime": "",
+        "posLimit": "0.1",
+        "priceEndStep": "1",
+        "pricePlace": "5",
+        "quoteCoin": "USDT",
+        "sellLimitPriceRatio": "0.07",
+        "sizeMultiplier": "1",
+        "supportMarginCoins": [
+          "USDT"
+        ],
+        "symbol": "XLMUSDT",
+        "symbolStatus": "normal",
+        "symbolType": "perpetual",
+        "takerFeeRate": "0.0006",
+        "volumePlace": "0"
+      },
+      "contract_found": true,
+      "mark_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": true,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:06.274141+00:00",
+        "provider_request_time_ms": 1794337446135,
+        "response_sha256": "ef1175ff742f3a2107a477a0618b4902bdafd47a0d7f46350042648c3f2f01f4",
+        "rows": [
+          {
+            "close": "0.11958",
+            "high": "0.11984",
+            "low": "0.11714",
+            "open": "0.1175",
+            "open_time": "2022-08-01T00:00:00+00:00"
+          },
+          {
+            "close": "0.11922",
+            "high": "0.12029",
+            "low": "0.11802",
+            "open": "0.11958",
+            "open_time": "2022-08-01T04:00:00+00:00"
+          }
+        ],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=XLMUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      },
+      "symbol": "XLMUSDT",
+      "trade_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": true,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:06.266821+00:00",
+        "provider_request_time_ms": 1794337446129,
+        "response_sha256": "0e02317f3d655744f6248b8ef99a74f3e0ca0c384db3689c79c707117edda48a",
+        "rows": [
+          {
+            "close": "0.11957",
+            "high": "0.11986",
+            "low": "0.11716",
+            "open": "0.11748",
+            "open_time": "2022-08-01T00:00:00+00:00"
+          },
+          {
+            "close": "0.11926",
+            "high": "0.12031",
+            "low": "0.118",
+            "open": "0.11957",
+            "open_time": "2022-08-01T04:00:00+00:00"
+          }
+        ],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=XLMUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      }
+    },
+    {
+      "candidate_role": "previous_spot_candidate",
+      "contract_fields": {
+        "baseCoin": "XMR",
+        "buyLimitPriceRatio": "0.07",
+        "deliveryPeriod": "",
+        "deliveryStartTime": "",
+        "deliveryTime": "",
+        "feeRateUpRatio": "0.005",
+        "fundInterval": "8",
+        "isRwa": "NO",
+        "launchTime": "",
+        "limitOpenTime": "-1",
+        "maintainTime": "",
+        "makerFeeRate": "0.0002",
+        "maxLever": "50",
+        "maxMarketOrderQty": "70",
+        "maxOrderQty": "240",
+        "maxPositionNum": "200",
+        "maxProductOrderNum": "1000",
+        "maxSymbolOrderNum": "200",
+        "minLever": "1",
+        "minTradeNum": "0.01",
+        "minTradeUSDT": "5",
+        "offTime": "-1",
+        "openCostUpRatio": "0.01",
+        "openTime": "1762851124083",
+        "posLimit": "0.1",
+        "priceEndStep": "1",
+        "pricePlace": "2",
+        "quoteCoin": "USDT",
+        "sellLimitPriceRatio": "0.07",
+        "sizeMultiplier": "0.01",
+        "supportMarginCoins": [
+          "USDT"
+        ],
+        "symbol": "XMRUSDT",
+        "symbolStatus": "normal",
+        "symbolType": "perpetual",
+        "takerFeeRate": "0.0006",
+        "volumePlace": "2"
+      },
+      "contract_found": true,
+      "mark_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": false,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:06.332488+00:00",
+        "provider_request_time_ms": 1794337446205,
+        "response_sha256": "47c420cd753fdf13fdb32c8fbafa801a600ac9335e071b8446d845ba0c2c9c31",
+        "rows": [],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=XMRUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      },
+      "symbol": "XMRUSDT",
+      "trade_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": false,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:06.343274+00:00",
+        "provider_request_time_ms": 1794337446206,
+        "response_sha256": "eb3e045b563636d09c5fb9b2802c3d491d1bf113279a810720c66e506d07beee",
+        "rows": [],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=XMRUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      }
+    },
+    {
+      "candidate_role": "previous_spot_candidate",
+      "contract_fields": {
+        "baseCoin": "XRP",
+        "buyLimitPriceRatio": "0.07",
+        "deliveryPeriod": "",
+        "deliveryStartTime": "",
+        "deliveryTime": "",
+        "feeRateUpRatio": "0.005",
+        "fundInterval": "8",
+        "isRwa": "NO",
+        "launchTime": "",
+        "limitOpenTime": "-1",
+        "maintainTime": "",
+        "makerFeeRate": "0.0002",
+        "maxLever": "125",
+        "maxMarketOrderQty": "460000",
+        "maxOrderQty": "3700000",
+        "maxPositionNum": "200",
+        "maxProductOrderNum": "1000",
+        "maxSymbolOrderNum": "200",
+        "minLever": "1",
+        "minTradeNum": "1",
+        "minTradeUSDT": "5",
+        "offTime": "-1",
+        "openCostUpRatio": "0.01",
+        "openTime": "",
+        "posLimit": "0.15",
+        "priceEndStep": "1",
+        "pricePlace": "4",
+        "quoteCoin": "USDT",
+        "sellLimitPriceRatio": "0.07",
+        "sizeMultiplier": "1",
+        "supportMarginCoins": [
+          "USDT"
+        ],
+        "symbol": "XRPUSDT",
+        "symbolStatus": "normal",
+        "symbolType": "perpetual",
+        "takerFeeRate": "0.0006",
+        "volumePlace": "0"
+      },
+      "contract_found": true,
+      "mark_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": true,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:06.573367+00:00",
+        "provider_request_time_ms": 1794337446444,
+        "response_sha256": "02f49a026928338d5ba26965ceece1728359b0159ff20ca030f0341baadc8061",
+        "rows": [
+          {
+            "close": "0.3813",
+            "high": "0.3856",
+            "low": "0.3779",
+            "open": "0.3789",
+            "open_time": "2022-08-01T00:00:00+00:00"
+          },
+          {
+            "close": "0.3803",
+            "high": "0.3836",
+            "low": "0.3767",
+            "open": "0.3813",
+            "open_time": "2022-08-01T04:00:00+00:00"
+          }
+        ],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=XRPUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      },
+      "symbol": "XRPUSDT",
+      "trade_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": true,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:06.596297+00:00",
+        "provider_request_time_ms": 1794337446454,
+        "response_sha256": "862647585c59f22549ed49fe2a42c1febcac46f1705c6ca3213c97846e2077c5",
+        "rows": [
+          {
+            "close": "0.3813",
+            "high": "0.3856",
+            "low": "0.378",
+            "open": "0.3791",
+            "open_time": "2022-08-01T00:00:00+00:00"
+          },
+          {
+            "close": "0.3805",
+            "high": "0.3837",
+            "low": "0.3766",
+            "open": "0.3813",
+            "open_time": "2022-08-01T04:00:00+00:00"
+          }
+        ],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=XRPUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      }
+    },
+    {
+      "candidate_role": "previous_spot_candidate",
+      "contract_fields": {
+        "baseCoin": "ZEC",
+        "buyLimitPriceRatio": "0.1",
+        "deliveryPeriod": "",
+        "deliveryStartTime": "",
+        "deliveryTime": "",
+        "feeRateUpRatio": "0.005",
+        "fundInterval": "8",
+        "isRwa": "NO",
+        "launchTime": "",
+        "limitOpenTime": "-1",
+        "maintainTime": "",
+        "makerFeeRate": "0.0002",
+        "maxLever": "75",
+        "maxMarketOrderQty": "430",
+        "maxOrderQty": "3400",
+        "maxPositionNum": "200",
+        "maxProductOrderNum": "1000",
+        "maxSymbolOrderNum": "200",
+        "minLever": "1",
+        "minTradeNum": "0.001",
+        "minTradeUSDT": "5",
+        "offTime": "-1",
+        "openCostUpRatio": "0.01",
+        "openTime": "1760612386667",
+        "posLimit": "0.15",
+        "priceEndStep": "1",
+        "pricePlace": "2",
+        "quoteCoin": "USDT",
+        "sellLimitPriceRatio": "0.1",
+        "sizeMultiplier": "0.001",
+        "supportMarginCoins": [
+          "USDT"
+        ],
+        "symbol": "ZECUSDT",
+        "symbolStatus": "normal",
+        "symbolType": "perpetual",
+        "takerFeeRate": "0.0006",
+        "volumePlace": "3"
+      },
+      "contract_found": true,
+      "mark_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": false,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:06.634786+00:00",
+        "provider_request_time_ms": 1794337446494,
+        "response_sha256": "108ae4c7ad42058fa1fa7b6bfdf7fb1a9622798c0a8d6bde4c99de3b8e8d383c",
+        "rows": [],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ZECUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      },
+      "symbol": "ZECUSDT",
+      "trade_sample": {
+        "code": "00000",
+        "exact_two_requested_bars_verified": false,
+        "http_status": 200,
+        "observed_at": "2026-11-10T19:04:06.673913+00:00",
+        "provider_request_time_ms": 1794337446527,
+        "response_sha256": "8839387967772d0de586cd073c1793bc3ed82b195c13aa4c78aa3c595010d4e5",
+        "rows": [],
+        "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ZECUSDT&productType=USDT-FUTURES&granularity=4H&startTime=1659312000000&endTime=1659340800000&limit=2"
+      }
+    }
+  ],
+  "broker_private_calls": false,
+  "candidate_selection_frozen": false,
+  "complete_three_year_history_verified": false,
+  "funding_history_verified": false,
+  "historical_margin_tiers_verified": false,
+  "holdout_evaluated": false,
+  "leverage_policy_frozen": false,
+  "metadata_evidence": {
+    "code": "00000",
+    "http_status": 200,
+    "observed_at": "2026-11-10T19:04:03.459213+00:00",
+    "provider_request_time_ms": 1794337443230,
+    "response_sha256": "88460ae12ed7a2908324eb167bd33fd14b20cce01cfedf5c3bf555c8423a767b",
+    "url": "https://api.bitget.com/api/v2/mix/market/contracts?productType=USDT-FUTURES"
+  },
+  "observed_at": "2026-11-10T19:04:06.674598+00:00",
+  "optional_replacements": [
+    "AVAX",
+    "HBAR",
+    "TRX",
+    "BGB",
+    "BAT",
+    "RENDER"
+  ],
+  "performance_evaluated": false,
+  "previous_spot_candidates": [
+    "BTC",
+    "ETH",
+    "SOL",
+    "BNB",
+    "XRP",
+    "ZEC",
+    "HYPE",
+    "XMR",
+    "LINK",
+    "XLM",
+    "NEAR",
+    "BCH",
+    "LTC",
+    "UNI"
+  ],
+  "product_type": "USDT-FUTURES",
+  "proposed_not_confirmed_contract_profile": "linear_USDT_perpetual_long_only",
+  "purpose": "public_research_only",
+  "requested_sample_end_exclusive": "2022-08-01T08:00:00+00:00",
+  "requested_sample_start": "2022-08-01T00:00:00+00:00",
+  "schema_version": "futures-candidate-preflight/1",
+  "user_requested_leverage_range": [
+    2,
+    10
+  ],
+  "venue": "bitget"
+}
