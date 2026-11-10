@@ -2,6 +2,16 @@
 
 Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
 
+- 2026-11-10:698146f in Main3bb0d0c verifiziert. IP-057 auf
+  feat/m1-portfolio-allocation-core: unverbundener Offlinevorschlag gleicher
+  3–5 Slots/Kosten und gemeinsamer Kauf-/Stressreservierung. min6%/8%-Headroom,
+  50%-Stress/Preisbindung, Kosten einmal, kein Budgetreset durch Exit.
+  Bei10k/1% anfangs~1002 Principal; fünf erste Stufen passen.
+  Größeres Forschungsprofil ausdrücklich erfragt, Antwort nicht unterstellen;
+  Coins ebenfalls offen.85 gepinnte Fälle/65 Subtests,81 Hostfälle/Review grün.
+  Keine Runtime-/DB-/Broker-/Holdoutänderung. Wiederbelegung/Priorität/
+  Forschungsadapter folgen IP-055. docs/portfolio-allocation.md / D-061.
+
 - 2026-11-09:9455bfe in Mainef18d74 verifiziert; IP-056 auf
   feat/m1-portfolio-research-core: gemeinsame Offline-BTC-/ETH-Baseline,
   atomare H4-Batches, Mitternacht/Kapitalbindung/passive Referenz. Unveränderte

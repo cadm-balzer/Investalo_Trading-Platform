@@ -4,7 +4,11 @@ IP-056 Offline-Research: `python3 infra/scripts/check-portfolio-research.py`
 liest als Hostowner ausschließlich die zwei bestehenden gefrorenen
 Researchdateien und vergleicht Digests/Ergebnisrecord. Kein Holdout/DB/Broker.
 Gezielte gepinnte Prüfung über check-paper-storage.sh mit Filter
-`TradingCoreTests or SimulatorTests or PaperRunnerTests or JointQuoteTests or PortfolioTests or test_computation`.
+`TradingCoreTests or SimulatorTests or PaperRunnerTests or JointQuoteTests or PortfolioTests or AllocationTests or test_computation`.
+
+IP-057 ist ein unverbundener Offline-Allokatorvorschlag. Hostprüfung:
+`PYTHONPATH=packages/trading/src python3 -m unittest discover -s tests/trading -p test_allocation.py -q`.
+Kein Deployment/Migrate für diese Prüfung. Profil: docs/portfolio-allocation.md.
 
 Skills define _how_ tools work. This file is for _your_ specifics — the stuff unique to your setup.
 

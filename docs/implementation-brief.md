@@ -1,6 +1,6 @@
 # Bestätigter M1-Umfang und Umsetzungsstand
 
-Stand 2026-11-09. Sachentscheidungen Q1–Q30 und Abschlussbestätigung Q31
+Stand 2026-11-10. Sachentscheidungen Q1–Q30 und Abschlussbestätigung Q31
 sind bestätigt. Der Nutzer beauftragt ausdrücklich den Umsetzungsstart.
 Dieser Stand bündelt die bestätigte Planung; lokale M1-Implementierung begonnen.
 Entscheidungsverlauf: [interview.md](interview.md).
@@ -17,6 +17,11 @@ IP-056 stellt die gemeinsame BTC-/ETH-Baseline für diese Erweiterung bereit:
 ein Konto, atomare H4-Batches, Kapitalbindung und passive Referenz.
 Die bestehenden500+5-Budgets bleiben dabei erhalten; erweiterte Allokation
 und Coinauswahl folgen IP-055. [Befund](portfolio-reference.md).
+
+IP-057 stellt gleiche Slots und gemeinsame Kauf-/Stressprüfung als geprüften
+Offlinevorschlag bereit. Aktivierung, Coins, Wiederbelegung/Signalpriorität
+und Forschungsintegration bleiben vor Leistungsläufen zu entscheiden.
+[Konkretes vorgeschlagenes Profil](portfolio-allocation.md).
 
 Das erste lokale Fundament umfasst gepinnte Compose-Dienste, HTTPS,
 MFA/OIDC-BFF, DB-Mandantenisolation, ein Cockpit mit ehrlichen Leerzuständen

@@ -535,8 +535,8 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   strategy/margin rules; no AI override of limits or delay of protection.
   Plan: docs/multi-basket-ai-plan.md; D-059 / BL-029 / IP-021/022/055.
 
-- Plan9455bfe merged into mainef18d74 (verified). Current branch:
-  feat/m1-portfolio-research-core. IP-056 prepares IP-055 with separate offline
+- Plan9455bfe merged into mainef18d74 (verified). IP-056 prepares IP-055
+  with separate offline
   joint BTC/ETH research on unchanged500+5 budgets/10k equity, not the expanded
   allocator. Complete atomic on_quotes validates all prices before shared risk;
   explicit historical midnight close checks previous6% before baseline reset.
@@ -554,6 +554,22 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   65 targeted pinned cases/26subtests +4 host inputguards, exact real research
   replay including benchmark loss bases and read-only final review passed.
   No new holdout/selection/physical-browser/public activation claim.
+
+- IP-056 checkpoint698146f merged into main3bb0d0c (verified). Current branch:
+  feat/m1-portfolio-allocation-core. IP-057 adds an unconnected stdlib proposal
+  for equal3–5 slots, explicit cost reserve and bound immutable buy reservations.
+  Shared cash/lifetime budget/min6%/8% headroom; proposed correlated50% stress
+  counts holdings/pending/candidate plus unused fees once. Further-buy price
+  caps <=first fill; no gain offset/silent clipping. Unknown/cancel-requested
+  buys stay reserved and deny new purchases. No release/retry/reset or durable
+  CAS/execution/authentication claim; caller supplies complete authoritative
+  account evidence.10k/1% reserve permits~1002 initial aggregate principal;
+  five first stages fit, later buys can fail. Larger budget/stress profile
+  explicitly asked before research integration; no answer inferred, coins also
+  undecided. Budgets do not renew on sale; cycle reuse/priority/research adapter
+  remain IP-055.85 pinned targeted tests/65subtests,81 host tests/review passed.
+  Existing strategy/DB/holdout/broker/public runtime unchanged.
+  Contract: docs/portfolio-allocation.md; D-061.
 
 ## Trading and implementation invariants
 
