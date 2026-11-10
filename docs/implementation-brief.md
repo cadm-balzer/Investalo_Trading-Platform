@@ -8,8 +8,9 @@ Entscheidungsverlauf: [interview.md](interview.md).
 Q33 ergänzt die Planung für3–5 gleichzeitige Coinbaskets und spätere
 KI-Prüfung von RSI-Signalen. Volle Kontokapitalzuordnung wird von tatsächlicher
 Investition getrennt;6%/8%-Kontolimits bleiben ausdrücklich bindend.
-Gemeinsamer Portfolio-Research folgt IP-055. Größere konkrete Kaufbudgets,
-zusätzliche Coins und Hebel/variable Stufen sind noch festzulegen/validieren;
+Gemeinsamer Portfolio-Research folgt IP-055. Die größere Budget-/Stressverteilung
+ist mit Q34 für Forschung bestätigt; zusätzliche Coins und Hebel/variable
+Stufen sind noch festzulegen/validieren;
 das bisherige Entwicklungsprofil bleibt unverändert.
 [Portfolio- und KI-Plan](multi-basket-ai-plan.md).
 
@@ -18,10 +19,12 @@ ein Konto, atomare H4-Batches, Kapitalbindung und passive Referenz.
 Die bestehenden500+5-Budgets bleiben dabei erhalten; erweiterte Allokation
 und Coinauswahl folgen IP-055. [Befund](portfolio-reference.md).
 
-IP-057 stellt gleiche Slots und gemeinsame Kauf-/Stressprüfung als geprüften
-Offlinevorschlag bereit. Aktivierung, Coins, Wiederbelegung/Signalpriorität
-und Forschungsintegration bleiben vor Leistungsläufen zu entscheiden.
+IP-057 stellt gleiche Slots und gemeinsame Kauf-/Stressprüfung bereit.
+Q34 bestätigt das Forschungsprofil; IP-058 verbindet die vollständige
+RSI-Nachkaufstaffel damit. Coins, Wiederbelegung/Signalpriorität und
+eingefrorene Leistungsläufe bleiben vor Aktivierung festzulegen.
 [Konkretes vorgeschlagenes Profil](portfolio-allocation.md).
+[Nachkaufadapter](staged-portfolio-research.md).
 
 Das erste lokale Fundament umfasst gepinnte Compose-Dienste, HTTPS,
 MFA/OIDC-BFF, DB-Mandantenisolation, ein Cockpit mit ehrlichen Leerzuständen

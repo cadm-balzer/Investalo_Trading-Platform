@@ -996,3 +996,29 @@ Stressregel kann Kapitalnutzung begrenzen; Vergleich erst nach Profilentscheidun
 85 gepinnte Fälle/65 Subtests,81 Hostfälle und gezielter Abschlussreview grün.
 Coins/Profil erfragt; Wiederbelegung, Priorität und Researchadapter offen.
 Kein DB-/Holdout-/Brokerzugriff oder Deploy. [Vorschlag](../portfolio-allocation.md).
+
+## 2026-11-10 — D-062: Forschungsprofil bestätigt, Nachkäufe integriert
+
+**Status: Q34 bestätigt, IP-058 umgesetzt.** Nutzer akzeptiert das konkrete
+Forschungsprofil und erinnert ausdrücklich an Nachkäufe zur Senkung des
+Durchschnittspreises. d31dcf3 in Main1f44b7f verifiziert. Gleiche3–5 Slots,
+1% Principal-Kostenreserve und zusätzliche gemeinsame50%-Stressablehnung
+sind für Offlineforschung freigegeben;6%/8% bleiben bindend.
+
+Eigene `allocated-rsi-research/1` verbindet den Allokator mit unveränderter
+CryptoEngine-/PaperSimulator-/PortfolioSimulator-Logik. Alle fünf regulären
+RSI-Stufen und manuelle sechste Stufe; keine Verkleinerung einer abgelehnten
+Stufe. Prüfung vor Intentaufnahme und unmittelbar beim simulierten Dispatch;
+eigene Reservierung dort nicht doppelt rechnen. Immutable Lifetime-Ausgaben
+enthalten tatsächliche Buyprincipal-/Buy-/Sellfees auch nach vollständigem
+Abschluss. Keine automatische Wiederbelegung/Resetfreigabe. Baseline v1 und
+deren Runtime-Snapshotloader/Whitelist bleiben unverändert.
+
+97 gezielte gepinnte Fälle/65 Subtests,93 Hostfälle und Abschlussreview grün;
+zwölf Adapterfälle nach Reviewergänzung nochmals gepinnt/Host bestanden.
+Test mit vorhandenem synthetischem Gewinn führt fünf Stufen und ausdrücklich
+bestätigte sechste samt Fill aus; Durchschnitt sinkt. Keine Leistungs-/MFA-
+Hardwareabnahme daraus. Coins und feste Slotwiederbelegung nach normalen
+abgeglichenen Exits konkret erfragt, vor erweitertem Mehrjahreslauf offen.
+Keine neuen Abhängigkeiten/DB-/Broker-/Holdout-/Runtimeaktivierung.
+[Vertrag und Zyklusvorschlag](../staged-portfolio-research.md).

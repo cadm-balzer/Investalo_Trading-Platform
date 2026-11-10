@@ -590,3 +590,17 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
 - **Lokale Revision ist keine dauerhafte Reservierung:** immutable View+1
   verhindert lokale Stale-Reuse, beweist keine globale Einmaligkeit.
   Budget-/Orderabgleich und persistente CAS vor Ausführung separat implementieren.
+- **Simulator verwendet privaten Dispatchcheck:** nur validate_dispatch zu
+  überschreiben schützt PaperSimulator._settle nicht. Sein tatsächlich
+  aufgerufener _buy_rejection_for_dispatch muss den Allokator erneut prüfen,
+  ohne die eigene Order doppelt zu reservieren; Sells ungehindert lassen.
+- **Abgeschlossener Basket löscht aktive Ausgaben:** v1 startet BasketState
+  nach vollständigem Exit neu. Eigene Research-Lifetime-Ausgaben separat
+  erhalten, sonst erscheinen Kosten/Principal fälschlich wieder unverbraucht.
+- **Neue Researchversion nicht als v1-Referenz etikettieren:** gemeinsamer
+  Portfolioloop hat harte Referenzlabels. Adapterreport explizit versionieren,
+  alle Policy-/Plan-/Config-/Kosten-/Datenbezüge erhalten. Runtime-Restore
+  darf neue Zustandsfelder nicht still akzeptieren.
+- **Exakte synthetische Quote geteilt durch Preis kann aufrunden:** Fillmenge
+  auf echte Fixture-Mengenpräzision nach unten runden. Winzige Überfüllung
+  löst sonst zu Recht einen Quote-Budget-Riskhalt im vorhandenen Kern aus.

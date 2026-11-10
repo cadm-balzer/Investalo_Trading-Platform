@@ -555,8 +555,8 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   replay including benchmark loss bases and read-only final review passed.
   No new holdout/selection/physical-browser/public activation claim.
 
-- IP-056 checkpoint698146f merged into main3bb0d0c (verified). Current branch:
-  feat/m1-portfolio-allocation-core. IP-057 adds an unconnected stdlib proposal
+- IP-056 checkpoint698146f merged into main3bb0d0c (verified).
+  IP-057 adds an unconnected stdlib proposal
   for equal3–5 slots, explicit cost reserve and bound immutable buy reservations.
   Shared cash/lifetime budget/min6%/8% headroom; proposed correlated50% stress
   counts holdings/pending/candidate plus unused fees once. Further-buy price
@@ -570,6 +570,26 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   remain IP-055.85 pinned targeted tests/65subtests,81 host tests/review passed.
   Existing strategy/DB/holdout/broker/public runtime unchanged.
   Contract: docs/portfolio-allocation.md; D-061.
+
+- IP-057 checkpointd31dcf3 merged into main1f44b7f (verified). Q34:
+  user explicitly accepts equal3–5 slots/1% principal cost reserve/additional
+  correlated50% stress for offline research, retaining6%/8%. Reminds staged
+  buys lower average cost. Current branch feat/m1-staged-allocation-research.
+  IP-058 connects the allocator to existing deterministic RSI/fill/portfolio
+  core with its own allocated-rsi-research/1 config/state/report. Two closed
+  RSI<30 bars first; further buys rearm>30 then<30 and >=5% below last actual
+  regular fill;25% growing stages, five regular plus explicit manual sixth.
+  Complete intent/dispatch assessment; own pending buy excluded at dispatch.
+  Actual buy principal/all fees retained across partial/closed sales and
+  duplicate fills. No cycles replenished yet; one full cycle per synthetic
+  slot until its next contract. User explicitly asked now for coin selection
+  and same nominal slot reuse after normal fully reconciled exits, no budget
+  growth/partial-release/risk-stop automatic resume. Answers still pending;
+  do not infer them from profile approval.97 targeted pinned cases/65subtests,
+  93 host cases,12 final adapter cases repeated pinned/host and scoped review
+  passed. No extra-market assets, profitability/MFAhardware proof, new
+  dependencies, DB/holdout/broker/normal runtime or snapshot activation.
+  docs/staged-portfolio-research.md; D-062.
 
 ## Trading and implementation invariants
 
