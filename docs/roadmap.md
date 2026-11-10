@@ -16,7 +16,12 @@ IP-056 bereitet IP-055 mit einer realen gemeinsamen BTC-/ETH-Baseline und
 Kapitalnutzungsdiagnose vor. Erweiterte Coins/Budget-/Stressablehnungsregeln
 vor größerem Leistungslauf festlegen. [Offline-Referenz](portfolio-reference.md).
 
-Stand 2026-11-09. Q1–Q5 bestätigen privaten Pilot, Paper zuerst, feste
+IP-057 konkretisiert gleiche größere Slots und gemeinsame Kaufreservierungen
+als Offlinevorschlag. Profilentscheidung, Wiederbelegung/Signalpriorität und
+Researchadapter folgen vor erweitertem Lauf.
+[Kapital- und Stressprüfung](portfolio-allocation.md).
+
+Stand 2026-11-10. Q1–Q5 bestätigen privaten Pilot, Paper zuerst, feste
 Risikolimits, kontrollierte KI und kostenlose externe Dienste.
 Q6–Q8 bestätigen beide Handelsintegrationen im MVP, Grundstack und eigene MFA.
 Q9–Q14 bestätigen BTC/ETH Spot H4, XAUUSD Trend/Pullback H1/M15,

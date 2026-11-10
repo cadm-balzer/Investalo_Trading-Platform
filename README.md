@@ -10,7 +10,11 @@ atomare H4-Kursbewertung und Kapitalnutzungs-/Benchmarkkennzahlen. Im Zeitmittel
 nur72,56 USDT Kaufprincipal bei10.000-USDT-Konto; erweiterte3–5-Coin-Allokation
 folgt nach genauer Profilfestlegung. [Referenzbefund](docs/portfolio-reference.md).
 
-**Stand: 2026-11-09 — M1-Implementierung gestartet, Q31 bestätigt.**
+IP-057 konkretisiert das größere Profil als Offlinevorschlag mit gleichen
+Slots, Kostenreserve und gemeinsamer Kauf-/Stressprüfung.
+[Budgets und Integrationsgrenzen](docs/portfolio-allocation.md).
+
+**Stand: 2026-11-10 — M1-Implementierung gestartet, Q31 bestätigt.**
 Das lokale Fundament läuft über Docker Compose: Cockpit, FastAPI, PostgreSQL,
 Authelia und zentraler HTTPS-Proxy. Versionen, Imagedigests und Paketlocks sind
 festgelegt. Der deterministische Crypto-Kern und ein isolierter Offline-

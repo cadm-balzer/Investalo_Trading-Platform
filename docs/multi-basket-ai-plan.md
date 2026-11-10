@@ -1,6 +1,6 @@
 # Gemeinsames Basketportfolio und spätere KI-Signalprüfung
 
-Stand2026-11-09. Q33 bestätigt das Planungsziel: drei bis fünf verschiedene
+Stand2026-11-10. Q33 bestätigt das Planungsziel: drei bis fünf verschiedene
 Coins gleichzeitig, das Kontokapital vollständig in der Kapitalplanung
 berücksichtigen und später RSI-Signale durch Marktanalyse prüfen.
 Der Nutzer bestätigt anschließend ausdrücklich: **6% Tagesverlust und8%
@@ -19,6 +19,13 @@ drei Coins rund3.333,33 USDT, für fünf Coins2.000 USDT je Slot ergeben.
 Diese Beträge enthalten noch keine Kostenaufteilung und sind **keine
 freigegebenen Kaufbudgets**. Volle Kontoplanung bedeutet weiterhin, dass
 Risikogates einen Teil der geplanten Einstiege sperren können.
+
+IP-057 konkretisiert diese Illustration mit einem geprüften Offlinevorschlag:
+gleich große Slots,1% Principal-Kostenreserve, unveränderte sechs Gewichte
+und zusätzliche gemeinsame Stressprüfung vor Käufen. Bei10k sind anfangs
+zusammen rund1002 USDT Kaufprincipal zulässig; fünf erste Stufen passen.
+Budget-/Stressprofil bleibt vor Integration ausdrücklich zu entscheiden.
+[Rechenregeln, Budgets und Ablehnungen](portfolio-allocation.md).
 
 Der Konflikt ist konkret: Bei gemeinsamem −50%-Rückgang vom jeweils ersten
 Fill und der bisherigen beispielhaften5%-Preisstaffel ergäben vollständig
@@ -43,6 +50,8 @@ vor: synchronisierte H4-Quotes, ein Konto und messbare Kapitalnutzung.
 [Offlinekern, Kennzahlen und Abnahme](portfolio-reference.md).
 Die Auswahl zusätzlicher Coins ist erfragt; die größere Allokation bleibt
 vor ihrem ersten Leistungslauf genau festzulegen.
+IP-057 liefert dafür jetzt den prüfbaren Allokatorvorschlag. Wiederbelegung,
+Signalpriorität und der versionierte Forschungsadapter bleiben offen.
 
 Die bisherigen BTC-/ETH-Läufe mit je eigenem10.000-USDT-Konto bleiben
 unverändert. Ihre Gewinne dürfen nicht als gemeinsames Portfolio addiert werden.

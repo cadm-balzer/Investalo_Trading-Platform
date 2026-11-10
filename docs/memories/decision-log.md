@@ -974,3 +974,25 @@ Peak-/Start-/Tagesbezug getrennt prüfen; keine Strategie-/Holdoutabnahme
 aus dem passiven Vergleich. Erweiterte Coins erfragt, Budget-/Reservierungs-/
 Stressablehnungs-/Prioritätsregeln bleiben IP-055. Kein DB-/Holdout-/Broker-
 zugriff, keine öffentliche Aktivierung. [Vertrag](../portfolio-reference.md).
+
+## 2026-11-10 — D-061: Allokation als prüfbarer Offlinevorschlag
+
+**Status: IP-057 umgesetzt; größeres Forschungsprofil zur Entscheidung gestellt.**
+698146f in Main3bb0d0c verifiziert. Separater stdlib-Kern plant gleiche3–5
+Slots mit expliziter Kostenquote; bestehendes Strategieprofil bleibt unverändert.
+Käufe teilen Cash, verbrauchte Slotbudgets, Kostenreserven und min6%/8%-
+Verlustspielraum. Vorgeschlagener korrelierter50%-Stress zählt positive
+Holdingverluste, halbes offenes/neues Principal und ungenutzte Kosten einmal.
+Weitere Käufe benötigen Maximalpreis ≤ erster Fill. Keine Gewinnkompensation,
+stilles Orderresizing oder Budgetfreigabe durch Exit.
+
+Immutable Reservierung bindet Identität/Plan/Revision; unklare/Storno-
+angeforderte Orders bleiben reserviert und sperren neue Käufe. Kein dauerhafter
+CAS-/Ausführungs-/Release-/Retry-/Zyklusresetvertrag. Vollständige authentifizierte
+Kontoevidenz ist Aufgabe der späteren Anwendung. Bei10k/1% Reserve anfangs
+rund1002 USDT Kaufprincipal; fünf erste Stufen passen. Die zusätzliche
+Stressregel kann Kapitalnutzung begrenzen; Vergleich erst nach Profilentscheidung.
+
+85 gepinnte Fälle/65 Subtests,81 Hostfälle und gezielter Abschlussreview grün.
+Coins/Profil erfragt; Wiederbelegung, Priorität und Researchadapter offen.
+Kein DB-/Holdout-/Brokerzugriff oder Deploy. [Vorschlag](../portfolio-allocation.md).

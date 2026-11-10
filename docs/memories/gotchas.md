@@ -580,3 +580,13 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
 - **primitive verarbeitet Dictwerte nicht rekursiv:** Replayreport/Policy
   normalisieren jeden Feldwert. Sonst Tuple/List-Drift beim JSON-Roundtrip
   oder nicht serialisierbares Decimal; globale alte Digestfunktion bewahren.
+- **50%-Principalstress braucht gebundenen Kaufpreis:** bei weiterem Kauf
+  oberhalb des ersten Fills wäre50% Principal kein ausreichender Verlust bis
+  zur Stressreferenz. Maximalpreis tatsächlich durchsetzen; ungültige Bindung
+  blockiert den Offlinevorschlag.
+- **Kostenreserve einmal zählen:** ungenutzte Slotreserve zählt bereits als
+  Stress/Cashbindung; Pending-/Kandidatenfee nicht nochmals addieren.
+  Bezahlte Fees stecken bereits in Cash/Equity. Zuordnungsrest nicht ausgeben.
+- **Lokale Revision ist keine dauerhafte Reservierung:** immutable View+1
+  verhindert lokale Stale-Reuse, beweist keine globale Einmaligkeit.
+  Budget-/Orderabgleich und persistente CAS vor Ausführung separat implementieren.

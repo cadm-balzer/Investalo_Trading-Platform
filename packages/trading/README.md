@@ -1,5 +1,10 @@
 # Deterministischer Crypto-Paperkern
 
+IP-057 ergänzt `investalo_trading.allocation` als unverbundenen Offlinevorschlag:
+gleiche3–5 Slots, gemeinsame Kosten-/Cash-/Stressprüfung und immutable
+Kaufreservierungen. Keine Aktivierung eines größeren Strategieprofils.
+[Konkrete Budgets und Grenzen](../../docs/portfolio-allocation.md).
+
 IP-056 ergänzt den separaten Offline-`PortfolioSimulator` für gemeinsame
 vollständige BTC-/ETH-Historien. Ein Konto, atomare Quote-Batches, Kapital-
 kennzahlen und passive kostenvergleichbare Referenz; ursprüngliche
