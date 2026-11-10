@@ -1,5 +1,12 @@
 # Bestandsaufnahme
 
+IP-061: `profit_research.py` ergänzt eigenständige immutable Gewinn-/Budgetepochen,
+`variable_budget.py` prüft3–7 unterschiedliche Slotbudgets mit ursprünglicher
+Risikobasis. Gemeinsamer RSI-/Fillkern erhält defaultneutrale Budgethooks.
+147 gezielte gepinnte Fälle/87 Subtests,143 Hostfälle; dreijährige BTC-/ETH-
+Baseline exakt reproduziert. Keine Runtime-/DB-/Dependencyänderung.
+[Vertrag](profit-etapes.md).
+
 IP-060: neuer Offlinepool mit unabhängig3–5 Slots, vollständigen RSI-Stufen,
 fixer Wiederbelegung nach normalen abgeglichenen Exits, quarantänisierten
 Riskexits und eigener Mindestmenge.114 gepinnte Fälle/65 Subtests.

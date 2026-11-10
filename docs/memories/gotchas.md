@@ -620,3 +620,21 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   ZEC/HYPE/XLM am2022-Forschungsbeginn keine Samplekerzen. Aktuelles launchTime
   beweist keine ursprüngliche Notierung. Separates neues Preflightrecord statt
   alte Pending-/Hashbelege nach Nutzerantwort umschreiben; Kohorten vor PnL einfrieren.
+- **Gewinnkapital ist kein neuer Kontostart:** erhöhte Budgetplanung darf nicht
+  initial_equity/8%-Startbasis neu setzen. Offene Baskets behalten ihre eigene
+  Budget-/Kostenepoche; kumulierte abgeschlossene Nettoergebnisse samt Verlusten
+  und bereits zugeordnetem Gewinnkapital prüfen. Die ursprüngliche Formulierung
+  „z.B. drei“ allein genehmigte keinen Rhythmus; Q36-Antwort bestätigt jetzt die
+  konkret erfragte Option1 mit drei neuen Abschlüssen je Freigabe und maximal7.
+- **Offene ältere Budgets sperren ihre künftige Erhöhung:** Summe der aktuell
+  nutzbaren Slotbudgets kann unter Planungskapital liegen. Differenz als
+  Zuordnungsrest weiter reservieren; nicht zusätzlich als freies Cash ausgeben.
+  Kostenreserve je tatsächlich aktiver Budgetepoche, nicht global neu skalieren.
+- **Realisierter Gewinn beweist weder Liquidität noch aktuelle Deckung:**
+  illiquide Positionen können positive Equity, offene Verluste verbrauchten
+  Gewinn ergeben. Neue Epoche braucht Netto-, Cash-, Equity- und korrelierte
+  Stressdeckung; Intent/Dispatch danach erneut unabhängig prüfen.
+- **Synthetische Nachkaufabnahme braucht echten Riskspielraum:** höhere Staffel
+  mit zusätzlichen echten synthetischen Abschlussfills finanzieren, ohne
+  Grenzwerte zu ändern oder Cash zu erfinden. Große Fixturegewinne zeigen
+  Abläufe, keine Marktprofitabilität.

@@ -233,6 +233,26 @@ Wachstum aus Gewinnen, kein automatischer Neustart nach Riskstop.
 Verfügbarkeit/Historiendaten sind separat nachzuweisen; kein Wechsel zu
 Futures/Hebel oder Livefreigabe. [Umsetzung](candidate-pool-research.md).
 
+### Q36: Realisierte Gewinne begrenzt in Etappen einbeziehen
+
+2026-11-10: Nutzer ändert die bisherige rein fixe Planung. Realisierte Gewinne
+geschlossener Baskets sollen gesammelt werden; sobald sie eine vollständige
+Basketstaffel finanzieren, sind zusätzliche Slots oder höhere zukünftige
+Basketbudgets gewünscht. Drei gewinnbringende Abschlüsse sind ein Beispiel.
+Zunächst erfragte Empfehlung:
+nach drei abgeglichenen Abschlüssen prüfen, Nettoüberschuss nach Kosten und
+Verlusten, ursprüngliches Vollbudget inklusive manueller/Kostenreserve als
+Schwelle; zuerst zusätzliche Slots, danach künftige Budgets erhöhen.
+Offene Budgets einfrieren, bestehende Risiko-/Signal-/MFA-Gates erhalten.
+**Bestätigte Antwort:** „Ja option1...erst zusätzliche slots dann Volumen
+erhöhen ... max7 gleichzeitige Baskets ... Ab7 steigern wir das Volumen.“
+Damit zusätzliche Slots bis sieben, danach höhere Budgets neuer Baskets;
+mindestens drei weitere abgeglichene Abschlüsse und eine ursprüngliche
+volle Basketstaffel je Etappe. Nettoverluste/Kosten und bereits zugeordnetes
+Gewinnkapital einrechnen. Keine neue Risikobasis oder Livefreigabe.
+IP-061 implementiert das separate Offlineprofil.
+[Vertrag und Beispiel](profit-etapes.md).
+
 Konkrete Umsetzungsfakten recherchieren wir: unterstützte Versionen exakt pinnen,
 Historienlänge/-qualität prüfen, Brokerkosten/Metadaten und Hostlast messen.
 Vor Pilotrollout müssen Domain/TLS, SMTP/Empfänger, Terminalbindung,

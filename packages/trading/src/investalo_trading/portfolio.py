@@ -161,8 +161,8 @@ class PortfolioSimulator:
             sum((max(D("0"), o.intent.maximum_quote - o.filled_principal)
                  for o in state.orders if o.unresolved and o.intent.side == Side.BUY), D("0")),
             len(active),
-            sum((min(max(D("0"), engine.config.basket_principal - b.principal_spent),
-                     max(D("0"), engine.config.allocations[5] - sum(
+            sum((min(max(D("0"), engine._cycle_budget(state, b.symbol)[0] - b.principal_spent),
+                     max(D("0"), engine._cycle_budget(state, b.symbol)[2][5] - sum(
                          (e.principal for e in b.entries if e.number == 6), D("0"))))
                  for b in active), D("0")),
         )

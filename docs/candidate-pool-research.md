@@ -1,5 +1,9 @@
 # Kandidatenpool mit festen wiederbelegbaren Slots
 
+Aktuelle Ergänzung Q36/IP-061: separate Offlineversion für bestätigte
+Gewinnetappen, zuerst Slots bis sieben, danach höhere neue Budgets.
+Diese v1 bleibt der feste Vergleichskern. [Gewinnvertrag](profit-etapes.md).
+
 2026-11-10, Q35/IP-060. Bestätigte Kandidaten: BTC, ETH, SOL, BNB, XRP,
 ZEC, HYPE, XMR, LINK, XLM, NEAR, BCH, LTC, UNI, jeweils USDT Spot ohne Hebel.
 Poolgröße14; unabhängig davon3–5 gleichzeitig finanzierte Baskets.

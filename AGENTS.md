@@ -635,6 +635,22 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 
 ## Trading and implementation invariants
 
+- IP-06022534b7 merged into mainab928ee (verified2026-11-10).
+  Q36 supersedes the no-growth planning preference: user wants staged reuse
+  of realized closed-basket profits once a full basket range is fundable,
+  confirmed option1: add funded slots from initial3–5 up to7, then increase
+  future cycle budgets. At least3 additional reconciled closes per grant,
+  net all costs/losses and already earmarked profit, one original full slot
+  incl manual/cost reserve per grant. Open cycles keep frozen budgets.
+  IP-061 adds separate seven-slot-profit-rsi-research/1 and variable per-slot
+  research allocator; immutable epochs bind closure prefix/cash/equity.
+  Earmarked future increases remain reserved while older cycles occupy slots.
+  Original6% daily/8% initial loss bases, cash/equity/stress/reconciliation
+  gates stay unchanged; no runtime/live activation. Existing pool v1 remains
+  fixed comparison baseline. Actual expanded historical net comparison,
+  durable reservation/reconciliation and Paper integration remain IP-055.
+  docs/profit-etapes.md; D-066. Branch feat/m1-seven-slot-profit-research.
+
 - Profitability is a measurable research objective, never a guarantee.
 - Use one versioned deterministic strategy core for backtest, paper, and live.
 - Risk limits are enforced independently of strategy/AI and before order dispatch.

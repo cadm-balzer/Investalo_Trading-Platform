@@ -45,6 +45,12 @@ in diese Prüfung. Die manuelle Reserve bleibt bewusst manuell.
 
 ## Nächster Forschungscheckpoint IP-055
 
+Q36/IP-061 bestätigt und implementiert begrenzte Gewinnetappen in eigener
+Offlineversion: zunächst weitere Slots bis sieben, danach größere zukünftige
+Budgets. Mindestens drei neue abgeglichene Abschlüsse und ein ursprüngliches
+Slotvollbudget je Freigabe; offene Budgetepochen und6%/8%-Basen bleiben.
+Feste IP-060-Version bleibt Vergleichsbasis. [Vertrag](profit-etapes.md).
+
 IP-056 bereitet ihn mit einer gemeinsamen unveränderten BTC-/ETH-Baseline
 vor: synchronisierte H4-Quotes, ein Konto und messbare Kapitalnutzung.
 [Offlinekern, Kennzahlen und Abnahme](portfolio-reference.md).
@@ -65,8 +71,9 @@ unverändert. Ihre Gewinne dürfen nicht als gemeinsames Portfolio addiert werde
 Geplant ist ein neuer versionierter Portfolio-Researchlauf:
 
 - Ein gemeinsames Konto und chronologische Ereignisverarbeitung über alle Coins.
-- Konfigurierbare Kapazität von drei bis fünf unterschiedlichen Coins; keine
-  erzwungenen Einstiege ohne Signal.
+- Anfangskapazität drei bis fünf unterschiedliche Coins; Gewinnprofil wächst
+  etappenweise bis sieben, anschließend neue Budgets. Keine erzwungenen
+  Einstiege ohne Signal.
 - Gemeinsame Reservierungen, Kosten, Equity, Kontorisikogates und Schutzaktionen.
   Regelmäßige RSI-Einstiege und der vorhandene deterministische Handelskern bleiben.
 - Nachvollziehbare Auswahl bei mehr gleichzeitigen Signalen als freien Slots;

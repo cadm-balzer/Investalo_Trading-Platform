@@ -66,6 +66,12 @@ class CryptoEngine:
     def _active(self, state: EngineState, basket: BasketState) -> tuple[OrderRecord, ...]:
         return tuple(o for o in state.orders if o.intent.basket_id == basket.basket_id and o.unresolved)
 
+    def _cycle_budget(self, state: EngineState, symbol: str) -> tuple[
+            Decimal, Decimal, tuple[Decimal, ...]]:
+        """Default frozen profile; research adapters may bind a cycle epoch."""
+        return (self.config.basket_principal, self.config.basket_cost_reserve,
+                self.config.allocations)
+
     @precise
     def risk_reasons(self, state: EngineState, now: datetime) -> tuple[str, ...]:
         self._validate(state)
@@ -303,7 +309,7 @@ class CryptoEngine:
         quote = state.quote(symbol)
         if basket.first_fill_price is not None and quote.bid <= basket.first_fill_price * self.config.emergency_exit_fraction:
             return "first_fill_55pct_exit"
-        if basket.costs_spent >= self.config.basket_cost_reserve:
+        if basket.costs_spent >= self._cycle_budget(state, symbol)[1]:
             return "cost_reserve_exhausted"
         return None
 
@@ -319,7 +325,8 @@ class CryptoEngine:
         if reason:
             return reason
         basket = state.basket(record.intent.symbol)
-        if basket.principal_spent + record.intent.maximum_quote > self.config.basket_principal:
+        principal_limit, cost_limit, _ = self._cycle_budget(state, record.intent.symbol)
+        if basket.principal_spent + record.intent.maximum_quote > principal_limit:
             return "basket_principal_limit"
         quote = state.quote(record.intent.symbol)
         if record.intent.maximum_price is not None and quote.ask > record.intent.maximum_price:
@@ -328,7 +335,7 @@ class CryptoEngine:
                                for o in without_own_reservation.orders
                                if o.unresolved and o.intent.side == Side.BUY), D("0"))
         if state.account.cash - reserved_others < record.intent.maximum_quote + (
-                self.config.basket_cost_reserve - basket.costs_spent):
+                cost_limit - basket.costs_spent):
             return "insufficient_cash"
         return None
 
@@ -355,8 +362,9 @@ class CryptoEngine:
         if reason:
             return Transition(state, events=(DomainEvent("entry_blocked", symbol, "", reason),))
         basket, rules = state.basket(symbol), self.rules(symbol)
-        amount = floor_step(self.config.allocations[stage - 1], rules.quote_step)
-        amount = min(amount, self.config.basket_principal - basket.principal_spent)
+        principal_limit, cost_limit, allocations = self._cycle_budget(state, symbol)
+        amount = floor_step(allocations[stage - 1], rules.quote_step)
+        amount = min(amount, principal_limit - basket.principal_spent)
         limit = None if stage == 1 else basket.last_regular_price * (1 - self.config.entry_drop)
         quote = state.quote(symbol)
         if limit is not None and quote.ask > limit:
@@ -365,7 +373,7 @@ class CryptoEngine:
             return Transition(state, events=(DomainEvent("entry_blocked", symbol, "", "below_minimum_quote"),))
         reserved = sum((max(D("0"), o.intent.maximum_quote - o.filled_principal)
                         for o in state.orders if o.unresolved and o.intent.side == Side.BUY), D("0"))
-        if state.account.cash - reserved < amount + self.config.basket_cost_reserve - basket.costs_spent:
+        if state.account.cash - reserved < amount + cost_limit - basket.costs_spent:
             return Transition(state, events=(DomainEvent("entry_blocked", symbol, "", "insufficient_cash"),))
         kind = "manual_reserve" if stage == 6 else "rsi_entry"
         identifier = self._new_id(state, basket, kind, event)
@@ -440,8 +448,9 @@ class CryptoEngine:
         quote = state.quote(symbol)
         if quote.ask > limit:
             raise TradingRejected("price_above_limit")
-        amount = floor_step(self.config.allocations[5], self.rules(symbol).quote_step)
-        maximum = min(amount, self.config.basket_principal - basket.principal_spent)
+        principal_limit, _, allocations = self._cycle_budget(state, symbol)
+        amount = floor_step(allocations[5], self.rules(symbol).quote_step)
+        maximum = min(amount, principal_limit - basket.principal_spent)
         state_digest = digest(state)
         identifier = digest((state_digest, symbol, now.isoformat(), str(maximum), str(limit)))
         return ManualPreview(identifier, state_digest, basket.basket_id, symbol, maximum,
@@ -573,9 +582,10 @@ class CryptoEngine:
                              costs_spent=basket.costs_spent + fill.fee,
                              exit_proceeds=basket.exit_proceeds + principal)
             cash = state.account.cash + principal - fill.fee
-        if basket.costs_spent > self.config.basket_cost_reserve:
+        principal_limit, cost_limit, _ = self._cycle_budget(state, intent.symbol)
+        if basket.costs_spent > cost_limit:
             violations.append("fill_exceeds_cost_reserve")
-        if basket.principal_spent > self.config.basket_principal:
+        if basket.principal_spent > principal_limit:
             violations.append("fill_exceeds_basket_principal")
         state = _basket(state, basket)
         state = replace(state, account=replace(state.account, cash=cash),
