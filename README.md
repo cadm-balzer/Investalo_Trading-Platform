@@ -18,6 +18,10 @@ IP-058 verbindet dieses bestätigte Forschungsprofil mit allen fünf regulären
 RSI-Nachkäufen, manueller Reserve und gemeinsamer Kaufprüfung.
 [Forschungsadapter](docs/staged-portfolio-research.md).
 
+Der [öffentliche Vorcheck](docs/portfolio-history-preflight.md) bestätigt
+Verfügbarkeit und aktuelle Spotregeln der fünf vorgeschlagenen Coins.
+Auswahl und feste Slotwiederbelegung warten auf die Nutzerentscheidung.
+
 **Stand: 2026-11-10 — M1-Implementierung gestartet, Q31 bestätigt.**
 Das lokale Fundament läuft über Docker Compose: Cockpit, FastAPI, PostgreSQL,
 Authelia und zentraler HTTPS-Proxy. Versionen, Imagedigests und Paketlocks sind

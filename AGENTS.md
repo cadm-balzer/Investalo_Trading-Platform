@@ -574,7 +574,7 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 - IP-057 checkpointd31dcf3 merged into main1f44b7f (verified). Q34:
   user explicitly accepts equal3–5 slots/1% principal cost reserve/additional
   correlated50% stress for offline research, retaining6%/8%. Reminds staged
-  buys lower average cost. Current branch feat/m1-staged-allocation-research.
+  buys lower average cost.
   IP-058 connects the allocator to existing deterministic RSI/fill/portfolio
   core with its own allocated-rsi-research/1 config/state/report. Two closed
   RSI<30 bars first; further buys rearm>30 then<30 and >=5% below last actual
@@ -590,6 +590,18 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   passed. No extra-market assets, profitability/MFAhardware proof, new
   dependencies, DB/holdout/broker/normal runtime or snapshot activation.
   docs/staged-portfolio-research.md; D-062.
+
+- IP-058 checkpoint4f56024 merged into main7ec9b41 (verified). Current branch:
+  feat/m1-portfolio-history-preflight. User asks clarification of coin and
+  reuse questions; clarified both, answers remain pending. IP-059 public
+  metadata/readiness only: five proposed SPOT USDT instruments online, exact
+  first two2022-08-01 H4 bars/asset parsed (10 total). No complete three-year
+  history/performance/holdout/market approval inferred. Current ETH minimum
+  quantity0.0005 needs a separate future research constraint; don't add fields
+  to frozen v1 rules/digests or treat current metadata as historical facts.
+  Actual responses/timestamps/hashes in docs/research-protocols/
+  portfolio-candidates-preflight-20261110.json. No runtime/DB/private/broker/
+  strategy change. docs/portfolio-history-preflight.md; D-063.
 
 ## Trading and implementation invariants
 

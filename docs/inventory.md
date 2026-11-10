@@ -1,5 +1,10 @@
 # Bestandsaufnahme
 
+IP-059: öffentlicher Kandidatenvorcheck bestätigt fünf Spotpaare/Metadaten
+und zehn H4-Kerzen am2022-08-01. Keine Assetaktivierung/Performanceauswertung;
+vollständige Dreijahreshistorie noch ungeprüft.
+[Belege](portfolio-history-preflight.md).
+
 IP-058 (2026-11-10): neuer eigener Offline-Forschungsadapter verbindet
 bestätigte Allokation und vorhandene deterministische RSI-Nachkauf-/Filllogik.
 Keine Legacyübernahme, neue Abhängigkeit oder DB-/Runtimeaktivierung.

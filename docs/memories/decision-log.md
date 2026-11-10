@@ -1022,3 +1022,18 @@ Hardwareabnahme daraus. Coins und feste Slotwiederbelegung nach normalen
 abgeglichenen Exits konkret erfragt, vor erweitertem Mehrjahreslauf offen.
 Keine neuen Abhängigkeiten/DB-/Broker-/Holdout-/Runtimeaktivierung.
 [Vertrag und Zyklusvorschlag](../staged-portfolio-research.md).
+
+## 2026-11-10 — D-063: Verfügbarkeitsprüfung vor Assetentscheidung
+
+4f56024 in Main7ec9b41 verifiziert. Nutzer bittet erneut um Erklärung der
+offenen Coins-/Wiederbelegungsfragen; beide konkret erläutert und erfragt.
+Keine Freigabe aus Mergemeldung abgeleitet. Unabhängiger öffentlicher Vorcheck
+bestätigt BTC/ETH/SOL/BNB/XRP online, heutige Spotregeln und je zwei H4-Kerzen
+am Forschungsbeginn. Responsehashes/Providerzeiten im eigenen Record.
+Kein vollständiger Historien-, Leistungs- oder Holdoutnachweis.
+
+ETH-Mindestmenge0,0005 ist im bisherigen v1-InstrumentRules nicht repräsentiert.
+Neuen Researchvertrag vorbereiten; kein Defaultfeld in alte Digestrecords
+einfügen oder heutige Metadaten als historische Regeln ausgeben. Fünf
+Antworten/zehn OHLC-Kerzen und JSON-Roundtrip geprüft; keine Runtime-, DB-,
+Privatadapter- oder Strategieänderung. [Vorcheck](../portfolio-history-preflight.md).

@@ -604,3 +604,7 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
 - **Exakte synthetische Quote geteilt durch Preis kann aufrunden:** Fillmenge
   auf echte Fixture-Mengenpräzision nach unten runden. Winzige Überfüllung
   löst sonst zu Recht einen Quote-Budget-Riskhalt im vorhandenen Kern aus.
+- **Mindestmenge ist nicht Mindestquote:** heutiges ETH-SPOT hat0,0005
+  Mindestmenge neben1USDT Mindestquote. V1-InstrumentRules bildet erstere
+  nicht ab. Separaten Researchvertrag verwenden; keine neuen Defaultfelder
+  in alte frozen Digests. Aktuelle Metadaten sind keine historischen Regeln.

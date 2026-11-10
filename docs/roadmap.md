@@ -26,6 +26,11 @@ und Filllogik. Zunächst synthetische Zyklen; neue Marktassets/Wiederbelegung
 und eingefrorene erweiterte Leistungsläufe folgen.
 [Nachkaufadapter](staged-portfolio-research.md).
 
+IP-059 bestätigt öffentlich die fünf vorgeschlagenen Spotpaare und
+Historienbeginn mit zehn H4-Proben. Coinauswahl/Wiederbelegung noch offen;
+vollständige gemeinsame Historie und aktueller Mindestmengenvertrag folgen.
+[Vorcheck](portfolio-history-preflight.md).
+
 Stand 2026-11-10. Q1–Q5 bestätigen privaten Pilot, Paper zuerst, feste
 Risikolimits, kontrollierte KI und kostenlose externe Dienste.
 Q6–Q8 bestätigen beide Handelsintegrationen im MVP, Grundstack und eigene MFA.

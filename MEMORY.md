@@ -2,6 +2,15 @@
 
 Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
 
+- 2026-11-10:4f56024 in Main7ec9b41 verifiziert; Branch
+  feat/m1-portfolio-history-preflight. Nutzer fragt nach offenen Coins-/
+  Wiederbelegungsfragen, beide konkret erläutert/erneut erfragt, noch offen.
+  IP-059 unabhängiger öffentlicher Vorcheck: fünf vorgeschlagene Spotpaare
+  online/aktuelle Metadaten und zehn echte H4-Kerzen am Forschungsbeginn.
+  Kein voller Dreijahres-/Leistungs-/Holdoutbeleg. ETH minimumqty0.0005
+  später separat modellieren, alte Digests/Whitelist unverändert.
+  docs/portfolio-history-preflight.md / D-063.
+
 - 2026-11-10: d31dcf3 in Main1f44b7f verifiziert. Q34 Nutzer akzeptiert
   gleiche Slots/1% Reserve/50%-Stressprofil für Forschung und erinnert an
   Nachkäufe/Averaging. IP-058 auf feat/m1-staged-allocation-research verbindet
