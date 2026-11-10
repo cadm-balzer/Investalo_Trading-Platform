@@ -1,5 +1,10 @@
 # Handelskonzept, Risiko und Nachweis
 
+IP-063: eigene Offline-Futuresökonomie und Kontostressprüfung implementiert,
+ohne Ereignisledger/Regimecaller. −50% vom ersten Fill erfordert anfänglich
+effektiven Hebel unter2×, auch bei eingestelltem10×; übrige Baskets, Costs
+und gestellte/ungepostete Margin separat prüfen. [Rechenvertrag](futures-economics.md).
+
 Q37 bestätigt als späteres Handelsziel isolierte USDT-M-Long-Futures,
 2×–10× nur bei starken, kausal belegten Uptrends und ausreichender Deckung.
 Eigenes echtes Basketkapital inklusive Marginpuffer, keine automatischen

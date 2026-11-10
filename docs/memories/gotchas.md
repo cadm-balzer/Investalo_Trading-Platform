@@ -650,3 +650,16 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
 - **Fundingintervall nicht pauschal8h:** aktuelles RENDER-Perpetual4h, andere
   geprüfte Alternativen8h. Historische Zeitpunkte/Raten erforderlich;
   heutige Metadaten weder rückdatieren noch fehlendes Funding mit Null füllen.
+- **Erster Fill setzt eine harte effektive Hebelgrenze:**−50% sofortiger
+  Marksprung braucht >50% Nominal als tatsächliche Margin inklusive
+  Maintenance-/Closefeeschutz. Effektiv<2×, auch wenn Broker10× auswählbar.
+  Setting, Nominal und gestellte Sicherheiten getrennt berichten.
+- **Geplante günstige Fills sind kein sofort verfügbarer Riskgewinn:**
+  maximaler Kaufpreis unter aktuellem Mark kann in einer naiven Projektion
+  Equity erhöhen. Erster konservativer Futuresrechner lehnt diese Bounds ab;
+  keine aktuelle Liquidation/Kontogrenze durch hypothetischen Kauf heilen.
+- **Tiervergleich muss den ganzen Stresspfad decken:** nur Maintenance am
+  niedrigeren Stresspreis kann obere schon durchlaufene Stufen unterschätzen.
+  Konservativen Maximalsatz zwischen aktuellem/Entry-/First-fill-Mark und
+  Stress verwenden, unvollständige Grenzen ablehnen; nicht als historischen
+  echten Brokerliquidationspreis etikettieren.

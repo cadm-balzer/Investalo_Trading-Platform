@@ -1,5 +1,10 @@
 # Gemeinsames Basketportfolio und spätere KI-Signalprüfung
 
+IP-063 ergänzt unabhängige Futures-Kaufstressrechner ohne Regimecaller.
+First-fill−50% erfordert effektiven Hebel<2; nominale Broker10× sind keine
+10×-Kapitalexposition. Ereignisledger/Futuresdaten und konkrete zeitpunktgetreue
+Regime-/Hebelauswahl folgen. [Rechenvertrag](futures-economics.md).
+
 Q37: späteres Ziel isolierte USDT-M-Long-Futures, risikobegrenzter Hebel2×–10×
 bei messbaren Uptrends. Alternativkandidaten AVAX/HBAR/TRX/BGB/BAT/RENDER
 öffentlich geprüft; keine eingefrorene Ersatzkohorte. Eigene Margin-/Funding-/

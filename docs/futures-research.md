@@ -84,8 +84,13 @@ Jeder Fillstand, auch der erste, benötigt unabhängig:
 
 ## Nächster Implementierungsschritt
 
-IP-063 entwickelt eine separat versionierte Offline-Futuresökonomie und
-Stressprüfung. Bestehende Spotdaten/-Digests/-Ergebnisse nicht umetikettieren.
+IP-063 implementiert jetzt separate Offline-Ökonomie und Kaufstressrechner:
+44 neue Fälle,191 gepinnte Fälle/135 Subtests bestanden. Nominal, gestellte
+Margin und Funding getrennt;−50%-Gap verlangt am ersten Fill effektiven
+Hebel unter2×. Ereignisledger/Teilfills/Gaps bleiben IP-063, ausdrücklich
+Futures-/Preisart gebundene Daten folgen IP-064.
+[Rechenvertrag und Beispiele](futures-economics.md).
+Bestehende Spotdaten/-Digests/-Ergebnisse nicht umetikettieren.
 Neue Futuresdatenverträge unterscheiden Markt und Preisart ausdrücklich.
 Danach vollständige Historien/Kohorten und Kostenannahmen einfrieren und
 feste Budgets gegen Gewinnetappen vergleichen, bevor Holdout/Paper folgen.

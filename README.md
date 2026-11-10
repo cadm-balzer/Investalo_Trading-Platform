@@ -1,8 +1,13 @@
 # Investalo Trading Platform
 
+IP-063 ergänzt Offline-Futuresökonomie und gemeinsame Kaufstressprüfung.
+191 gepinnte Fälle bestanden. −50%-Stress verlangt am ersten Fill effektiven
+Hebel unter2×; eine Brokerhebeleinstellung10× ändert diese Grenze nicht.
+Ereignisledger und lange Futuresdaten folgen. [Rechenvertrag](docs/futures-economics.md).
+
 Q37/IP-062: späteres Ziel sind isolierte USDT-M-Long-Futures mit risikobegrenztem
 marktphasenabhängigem Hebel2×–10×. Sechs Alternativcoins öffentlich geprüft;
-AVAX/TRX haben frühe Trade-/Markproben. Eigene Margin-/Fundingökonomie folgt,
+AVAX/TRX haben frühe Trade-/Markproben. Ereignisledger und Futureshistorien folgen,
 −50%-Stress und6%/8% bleiben verbindlich. [Futuresvertrag](docs/futures-research.md).
 
 Q36/IP-061 ergänzt ein separates Offlineprofil für Gewinnetappen: zuerst

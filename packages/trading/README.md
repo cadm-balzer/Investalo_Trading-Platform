@@ -1,5 +1,11 @@
 # Deterministischer Crypto-Paperkern
 
+IP-063: getrennte `futures_economics`- und `futures_risk`-Rechner für lineare
+isolierte USDT-Longs, signed Funding, Fees/Breakeven, konservative Maintenance-
+stufen und gemeinsame3–7-Slotprüfung. Keine Ereignis-/Orderausführung.
+44 neue Fälle,191 gepinnte Fälle/135 Subtests,187 Hostfälle bestanden.
+[Vertrag und Hebelgrenze](../../docs/futures-economics.md).
+
 IP-061: separate `profit_research`-Version für bestätigte Gewinnetappen:
 zunächst Slots von3–5 bis sieben, danach größere neue Budgets. Offene Zyklen
 behalten ihre Staffel; `variable_budget` prüft auch gemischte Budgets mit
