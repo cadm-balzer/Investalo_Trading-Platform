@@ -1,5 +1,14 @@
 # H4 research snapshots
 
+# Separater Futuresdatenvertrag
+
+`futures_snapshot.py`/`futures_bitget.py` ergänzen eigene Classic-V2-USDT-M-
+Perpetualdaten mit Preisarten `trade`/`mark`/`index`, markierter Candleidentität,
+unveränderlichen Digests und expliziter H4-Coverage. Separates `funding/1`
+speichert begrenzte signed Decimalraten mit tatsächlichen UTC-Zeitpunkten;
+keine implizite8h-Folge oder Vollständigkeitsbehauptung. Bestehendes Spot-v1
+und dessen Exporte bleiben unverändert. [Vertrag](../../docs/futures-marketdata.md).
+
 IP-050 adds `paper_feed.py`: fixed unsigned SPOT ticker/current-candle GETs,
 real bid/ask, closed UTC H4 coverage and freshness. Existing research history
 contract unchanged. Actual public BTC/ETH check passed; only bounded fixture

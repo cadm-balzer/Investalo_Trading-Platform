@@ -81,6 +81,10 @@ liegt dann **unter2×**, unabhängig von einer Brokerhebeleinstellung10×.
 Das folgt aus dem bestätigten Stressziel; Uptrends beseitigen keinen Gap.
 Bestehende Gewinne und spätere Staffeln verändern die konkrete Rechnung,
 nicht die verankerte First-fill-Stressbasis.
+Kein fester2×-Start und keine automatische Hebelsteigerung je Nachkauf.
+Jeder neue Fill braucht eine Prüfung der gesamten vergrößerten Position und
+aller parallelen Baskets. Ein niedrigerer Durchschnitt kann mehr Exposition
+erlauben; er garantiert sie nicht. Die konkrete Regime-/Hebelregel bleibt offen.
 
 Synthetischer Vergleich:10.000-USDT-Konto, fünf Budgets je2.000 inklusive
 20 Costreserve, Entry/Closefees je0,1%, Maintenance0,5%, Einstieg/Mark100:
@@ -110,8 +114,10 @@ Dreijahresreplay wurde diesmal nicht wiederholt, da keine alten Module
 geändert sind. Keine Historien-/Holdoutauswertung, DB-/Runtime-/Broker-/
 Cockpit-/Publicaktivierung. Exakte Regime-/Hebelwahl bleibt offen.
 IP-063 bleibt für Ereignisledger/Teilfills/Funding-/Gapablauf in Arbeit.
-IP-064 ergänzt ausdrücklich Futures-/Preisart gebundene Historienverträge;
-erst danach eingefrorene längere Nettoleistungsläufe in IP-055.
+IP-064 ergänzt ausdrücklich Futures-/Preisart gebundene Historienverträge und
+erste vollständige BTC-/ETH-Dreijahresstreams. Fundingarchive und historische
+Kosten-/Marginannahmen stehen vor längeren Nettoleistungsläufen in IP-055 aus.
+[Datenvertrag](futures-marketdata.md).
 
 Offizielle Modellgrundlagen:
 [Markpreis/isolierte Margin](https://www.bitget.com/support/articles/360058821652),

@@ -524,3 +524,16 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   in progress for eventledger/partialfills/funding/gaps; IP-064 separate
   futures price-type snapshots before historicalnetruns. No Holdout, DB,
   dependency, runtime, broker or public change. docs/futures-economics.md.
+- 2026-11-10 IP-064: user asks first2x/later higher leverage; explained no
+  automatic per-stage ladder, first effective<2 under confirmed50% stress.
+  IP-0630cf8a2b mergedmain6d06ec5 verified. New branch
+  feat/m1-futures-history-contract: separate explicit Classic-V2 USDT-M
+  trade/mark/index H4 and signed funding contracts; Spot unchanged.
+  FrozenBTCETH3y2022-08-01–2025-08-01;198publicpages six6576barstreams,
+  39,456 total, exactcommonUTCaxis/digest/filehash/roundtripverified.
+  Originals infra/local/futures-research-data/20261110-network ignored,
+  publicprotocol/receipt committed.23newhost/81pinnedtests147subtests passed.
+  No fundingarchive yet (ClassicpageNo lacksdatefilter), no historical
+  maintenance/fee/precisionrules, no netperformance/holdout/privatebroker/
+  DB/runtime/publicchange. IP064done; BL030/IP055remainingdata, IP063ledger.
+  docs/futures-marketdata.md; D069.

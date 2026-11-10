@@ -1,5 +1,10 @@
 # Bestandsaufnahme
 
+IP-064: neue separate `futures_snapshot.py`/`futures_bitget.py`, unsigned
+Classic-V2-H4-Importer und eigenes Fundingformat. Spotmodule/-Exports
+unverändert; Testhelper bindet nur neues Importscript/Protokoll readonly ein.
+[Vertrag und echte Datenabnahme](futures-marketdata.md).
+
 IP-063: neue pure `futures_economics.py`/`futures_risk.py`,44 neue Fälle,
 191 gezielte gepinnte Tests/135 Subtests. Keine alten Module geändert;
 keine Runtime-/Broker-/DB-/Dependencyaktivierung. Funding-/Fee-/Breakeven-

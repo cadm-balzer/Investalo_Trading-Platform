@@ -84,11 +84,14 @@ Jeder Fillstand, auch der erste, benötigt unabhängig:
 
 ## Nächster Implementierungsschritt
 
-IP-063 implementiert jetzt separate Offline-Ökonomie und Kaufstressrechner:
+IP-063 implementiert separate Offline-Ökonomie und Kaufstressrechner:
 44 neue Fälle,191 gepinnte Fälle/135 Subtests bestanden. Nominal, gestellte
 Margin und Funding getrennt;−50%-Gap verlangt am ersten Fill effektiven
 Hebel unter2×. Ereignisledger/Teilfills/Gaps bleiben IP-063, ausdrücklich
-Futures-/Preisart gebundene Daten folgen IP-064.
+Futures-/Preisart gebundene Daten sind in IP-064 ergänzt: BTC/ETH besitzen
+je6576 Trade-/Mark-/Indexkerzen für drei Jahre;81 gepinnte Daten-/Workerfälle
+grün. Fundingformat vorhanden, echte Fundinghistorie/historische Marginregeln
+offen. [Datenvertrag und Messrecord](futures-marketdata.md).
 [Rechenvertrag und Beispiele](futures-economics.md).
 Bestehende Spotdaten/-Digests/-Ergebnisse nicht umetikettieren.
 Neue Futuresdatenverträge unterscheiden Markt und Preisart ausdrücklich.

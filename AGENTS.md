@@ -673,7 +673,8 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   rules still unresolved; AI cannot relax independent risk gates.
   IP-063/BL-030; docs/futures-research.md; D-067.
   IP-06154d2a7d and IP-062f6617b6 merged into main168219f, verified.
-  Current branch feat/m1-isolated-futures-risk.
+  IP-0630cf8a2b merged into main6d06ec5, verified.
+  Current branch feat/m1-futures-history-contract.
 - IP-063 first checkpoint adds pure isolated-usdt-long-economics/1 and
   isolated-usdt-long-stress/1. Signed funding/full close PnL/netbreakeven,
   conservative whole-tier maintenance (explicit research assumption, not
@@ -692,8 +693,30 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   economic review has no remaining blocker. No old actual baseline rerun
   because existing modules unchanged. No DB/dependency/runtime/public/broker/
   holdout change. IP-063 event ledger/partialfills/funding/gap sequencing and
-  IP-064 separate futures price-type histories remain open.
+  IP-064 separate futures price-type histories are implemented below.
   docs/futures-economics.md; D-068.
+- IP-064 adds separate futures-h4-snapshot/1 and funding/1 contracts with
+  explicit Classic-V2 USDT-M perpetual/price-kind identity and bounded
+  immutable Decimal/UTC/coverage/digests. Candle suffix prevents old Spot
+  conversion/execution; old schemas/exports/worker defaults unchanged.
+  Public H4 importer: fixed trade/mark/index paths,200/page,52 pages,
+  10k bars,256KiB/response,10s timeout, paced, no redirect/retry.
+  Frozen protocol and198 public pages prove three-year BTC/ETH histories
+  2022-08-01 inclusive to2025-08-01 exclusive: six6576-bar streams,
+  39,456 bars with exact common axis/roundtrip/file+data hashes.
+  Ignored infra/local/futures-research-data/20261110-network has originals;
+  committed protocol/receipt has perpage canonical decoded-response hashes.
+  Create-only importer; no successful final receipt on incomplete execution.
+  Signed funding events deliberately have no cadence/completeness proof.
+  Funding transport/archives, other candidates and historical fee/precision/
+  maintenance assumptions remain BL-030/IP-055. No holdout requested.
+  23 new host tests and81 pinned tests/147 subtests passed; independent
+  review no blocker. Checkhelper adds two readonly script/protocol mounts;
+  no dependency/DB/worker/runtime/production/broker change.
+  User asks about2x first entry/higher later: no automatic leverage ladder
+  approved; whole enlarged position/account must pass independent gates.
+  IP-063 ledger/funding/partialfills/gaps and exact regime/budget rules open.
+  docs/futures-marketdata.md; D-069.
 
 - Profitability is a measurable research objective, never a guarantee.
 - Use one versioned deterministic strategy core for backtest, paper, and live.
