@@ -16,10 +16,15 @@ IP-056 bereitet IP-055 mit einer realen gemeinsamen BTC-/ETH-Baseline und
 Kapitalnutzungsdiagnose vor. Erweiterte Coins/Budget-/Stressablehnungsregeln
 vor größerem Leistungslauf festlegen. [Offline-Referenz](portfolio-reference.md).
 
-IP-057 konkretisiert gleiche größere Slots und gemeinsame Kaufreservierungen
-als Offlinevorschlag. Profilentscheidung, Wiederbelegung/Signalpriorität und
-Researchadapter folgen vor erweitertem Lauf.
+IP-057 konkretisiert gleiche größere Slots und gemeinsame Kaufreservierungen.
+Profilentscheidung ist mit Q34 bestätigt; Wiederbelegung/Signalpriorität und
+erweiterte Leistungsläufe folgen.
 [Kapital- und Stressprüfung](portfolio-allocation.md).
+
+IP-058 nutzt das bestätigte Forschungsprofil mit unveränderter RSI-/Nachkauf-
+und Filllogik. Zunächst synthetische Zyklen; neue Marktassets/Wiederbelegung
+und eingefrorene erweiterte Leistungsläufe folgen.
+[Nachkaufadapter](staged-portfolio-research.md).
 
 Stand 2026-11-10. Q1–Q5 bestätigen privaten Pilot, Paper zuerst, feste
 Risikolimits, kontrollierte KI und kostenlose externe Dienste.

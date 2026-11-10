@@ -208,6 +208,19 @@ Mit Q28 liegen Echtgeld-/FTMO-/AI-Provider- und
 Kundenentscheidungen ausdrücklich an späteren Gates. Der Interviewabschluss
 ist in Q31 bestätigt.
 
+### Q34: Größeres Offline-Forschungsprofil und Nachkaufstaffel
+
+2026-11-10, **bestätigt**: Nutzer antwortet „danke das passt so“ auf die
+konkrete Empfehlung gleicher3–5 Slots,1% Principal-Kostenreserve und
+zusätzlicher Kaufprüfung bei gemeinsamem−50%-Stress;6%/8% bleiben bindend.
+Er erinnert ausdrücklich daran, nach weiterem Kursfall nach der bisherigen
+Strategie nachzukaufen und den durchschnittlichen Einstand zu senken.
+RSI-Rearm,5%-Abstand zum letzten tatsächlichen Einstieg,25% Volumenzuwachs,
+fünf reguläre Stufen und manuelle sechste Reserve bleiben erhalten.
+Freigabe gilt für Offlineforschung, nicht Marktassets/Live-/Betriebsaktivierung.
+Zykluswiederbelegung und zusätzliche Coins noch konkret festlegen.
+[Nachkaufadapter](staged-portfolio-research.md).
+
 Konkrete Umsetzungsfakten recherchieren wir: unterstützte Versionen exakt pinnen,
 Historienlänge/-qualität prüfen, Brokerkosten/Metadaten und Hostlast messen.
 Vor Pilotrollout müssen Domain/TLS, SMTP/Empfänger, Terminalbindung,

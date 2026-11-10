@@ -11,7 +11,12 @@ wirtschaftliche Validierung werden daraus nicht abgeleitet. Nächster Schritt:
 Paperausführung mit demselben Kern und unabhängigem Risk Gate.
 [Protokoll und Grenzen](long-history-backtests.md).
 
-Stand: 2026-11-09. Der Originalauftrag beschreibt Strategieideen.
+IP-058 nutzt das Q34-bestätigte größere Forschungsprofil mit allen regulären
+RSI-Nachkäufen und gemeinsamer Kaufprüfung. Durchschnitt/Fills und manuelle
+Reserve bleiben im vorhandenen Kern; normale Paper-/Liveprofile unverändert.
+[Nachkaufadapter](staged-portfolio-research.md).
+
+Stand: 2026-11-10. Der Originalauftrag beschreibt Strategieideen.
 Q3/Q4 bestätigen unabhängige Risikogrenzen und kontrollierte Optimierung.
 Q6 plant beide Broker im MVP; Q9/Q10 bestätigen BTC/ETH Spot H4 ohne Hebel
 und XAUUSD Trend/Pullback H1/M15. Q15/Q17–Q19 bestätigen Signale,

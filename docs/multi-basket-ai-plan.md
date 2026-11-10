@@ -24,7 +24,7 @@ IP-057 konkretisiert diese Illustration mit einem geprüften Offlinevorschlag:
 gleich große Slots,1% Principal-Kostenreserve, unveränderte sechs Gewichte
 und zusätzliche gemeinsame Stressprüfung vor Käufen. Bei10k sind anfangs
 zusammen rund1002 USDT Kaufprincipal zulässig; fünf erste Stufen passen.
-Budget-/Stressprofil bleibt vor Integration ausdrücklich zu entscheiden.
+Budget-/Stressprofil wurde2026-11-10 für Forschung bestätigt.
 [Rechenregeln, Budgets und Ablehnungen](portfolio-allocation.md).
 
 Der Konflikt ist konkret: Bei gemeinsamem −50%-Rückgang vom jeweils ersten
@@ -48,10 +48,13 @@ in diese Prüfung. Die manuelle Reserve bleibt bewusst manuell.
 IP-056 bereitet ihn mit einer gemeinsamen unveränderten BTC-/ETH-Baseline
 vor: synchronisierte H4-Quotes, ein Konto und messbare Kapitalnutzung.
 [Offlinekern, Kennzahlen und Abnahme](portfolio-reference.md).
-Die Auswahl zusätzlicher Coins ist erfragt; die größere Allokation bleibt
-vor ihrem ersten Leistungslauf genau festzulegen.
-IP-057 liefert dafür jetzt den prüfbaren Allokatorvorschlag. Wiederbelegung,
-Signalpriorität und der versionierte Forschungsadapter bleiben offen.
+Die Auswahl zusätzlicher Coins ist erfragt; die bestätigte größere Allokation
+braucht vor ihrem ersten Leistungslauf eingefrorene Daten und Zyklusregeln.
+IP-058 verbindet das bestätigte Profil mit dem vorhandenen RSI-/Fillkern:
+alle fünf regulären Stufen, ausdrückliche manuelle sechste Stufe und gemeinsame
+Kaufprüfung vor Vorbereitung/Dispatch. Zunächst ein vollständiger Zyklus je
+synthetischem Slot; Wiederbelegung/Marktassets und größerer Leistungslauf offen.
+[Nachkaufadapter](staged-portfolio-research.md).
 
 Die bisherigen BTC-/ETH-Läufe mit je eigenem10.000-USDT-Konto bleiben
 unverändert. Ihre Gewinne dürfen nicht als gemeinsames Portfolio addiert werden.
@@ -68,10 +71,10 @@ Geplant ist ein neuer versionierter Portfolio-Researchlauf:
   Kosten und vergleichbarem Buy-and-hold-Benchmark.
 
 Vor Leistungsläufen festlegen: zusätzliche zulässige Coins neben BTC/ETH,
-verfügbare Historien und Instrumentregeln, exakte Budget-/Kostenverteilung,
-Ablehnungsregel bei korreliertem Stress/fehlendem Verlustspielraum,
-Resizing-/Wiederbelegungsregeln und Signalpriorität. Gleiche Slotgewichte sind
-ein Vorschlag, keine bestätigte Strategieentscheidung. Kandidaten und
+verfügbare Historien und Instrumentregeln,
+Resizing-/Wiederbelegungsregeln und Signalpriorität. Gleiche Slotgewichte,
+1% Kostenreserve und die zusätzliche Stressablehnung sind inzwischen für
+Forschung bestätigt; fehlender Riskspielraum sperrt auch Nachkäufe. Kandidaten und
 Auswahlregeln werden vor der Auswertung eingefroren; der vorhandene Holdout
 bleibt reserviert. Forschung und Paper erhalten eigene Versionsnachweise.
 Das laufende Entwicklungsprofil bleibt bis zur geprüften Umsetzung unverändert.

@@ -1,16 +1,18 @@
-# Offlinevorschlag: gemeinsame Kapital- und Kaufprüfung
+# Offlineprofil: gemeinsame Kapital- und Kaufprüfung
 
 Stand2026-11-10, IP-057. IP-056 (`698146f`) ist in Main`3bb0d0c` verifiziert.
 Q33 bestätigt3–5 Coinbaskets, volle Kontoplanung und weiterhin6% Tages-/
-8% Startkapitalverlust. **Gleiche größere Budgets und die zusätzliche
-Stressablehnungsregel sind ein prüfbarer Vorschlag, noch kein aktives Profil.**
+8% Startkapitalverlust. **2026-11-10 bestätigt der Nutzer gleiche größere
+Budgets und die zusätzliche Stressregel für den nächsten Offline-Forschungslauf.**
+IP-058 verbindet sie jetzt mit der vollständigen RSI-Nachkaufstaffel.
+[Forschungsadapter und Grenzen](staged-portfolio-research.md).
 
 `packages/trading/src/investalo_trading/allocation.py` enthält einen
-stdlib-Offlinekern. Bestehende Strategieversion, Paper-/Researchcaller,
+stdlib-Offlinekern. Bestehende Strategieversion, normale Paper-/Researchcaller,
 Snapshots, Datenbanken und Entwicklungsvorschau sind unverändert.
 Keine neuen Leistungsergebnisse oder Holdoutabnahme aus den folgenden Zahlen.
 
-## Konkretes vorgeschlagenes Profil
+## Bestätigtes Forschungsprofil
 
 10.000 USDT werden gleich auf ausgewählte3–5 Coins verteilt. Kostenreserve
 mindestens1% **des Principals**, wie bisher500+5. Geldrundung nach unten auf
@@ -111,9 +113,9 @@ fehlende Evidenz, unklare Orders und Decimalkontext.
 Gezielte gepinnte Regression umfasst außerdem bisherigen Trading-/Paperkern,
 joint Quotes, Portfolioreferenz und Workerberechnung; Ergebnis im Taskboard.
 
-Vor erweitertem Leistungslauf entscheiden: Coinauswahl/echte Instrumentregeln
-und verfügbare Historien, dieses Budget-/Stressprofil, Wiederbelegung und
-Signalpriorität. Dann eigener versionierter Forschungsadapter mit eingefrorenen
-Inputs und Ablehnungsjournal. Holdout bleibt bis Auswahl geschützt.
+Das Budget-/Stressprofil ist für Forschung bestätigt; IP-058 liefert einen
+eigenen versionierten Adapter mit Ablehnungsjournal. Vor erweitertem Leistungslauf
+noch Coinauswahl/echte Instrumentregeln/Historien, Wiederbelegung und
+Signalpriorität festlegen und Inputs einfrieren. Holdout bleibt bis Auswahl geschützt.
 Keine implizite Strategie-, öffentliche Deployment- oder Livefreigabe.
 [Gesamtplan](multi-basket-ai-plan.md).

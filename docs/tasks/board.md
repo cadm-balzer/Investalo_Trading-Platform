@@ -1,6 +1,6 @@
 # Git-basiertes Ticketboard
 
-Stand 2026-11-09. Dieses Board ist das initiale Task-/Ticketsystem ohne
+Stand 2026-11-10. Dieses Board ist das initiale Task-/Ticketsystem ohne
 zusätzliche Tools oder externe Veröffentlichung.
 
 Status: `READY` ausführbar, `IN_PROGRESS` aktiv, `WAITING_DECISION` benötigt
@@ -64,11 +64,20 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-052 | P1 / P3–P4 | DONE | Freigegebene H4-Mitternachtsbasis vor Paperfills speichern | Merge05ea009 in Main5d5c61e verifiziert; Q32 bestätigt. Eigener Tagesinput/Beleg/CAS, RSI unverändert.190 unterschiedliche gezielte Fälle/48 Subtests inkl43 PG/API,17 Cockpitfälle/Typecheck/Review grün.012 nur Fixture; Dauerbetrieb/Anzeigeaktivierung bleiben IP-047/BL-028 |
 | IP-053 | P1 / P3–P4 | DONE | Stabile lokale Paperidentität und begrenzten Beobachtungsdienst ergänzen | Mergec1703c1 in Maina996bf2 verifiziert; Fixture-LOGIN/Manifest/Singleton,24h-Zyklusstartbudget/sechs Fehler/Unknowncommit terminal.44 Workerfälle/3 Dateischutztests und echte Drift-/TLS-/Sessionabnahme grün. Feed82/84/86/Neustart88 ohne Fills; lokaler Dienst gesund. Nutzer-/Anzeigeintegration und längerfristiger Betrieb bleiben IP-047/BL-028 |
 | IP-054 | P1 / P3–P4 | DONE | Eigenen gespeicherten Paperstand in der Entwicklungsvorschau anzeigen | Merge03fee1e in Mainb0827ba verifiziert; normales012 nach zurückgerolltem Preflight, stabile eigene Paperidentität/ein begrenzter Kurslauf82 ohne Fills.34 Python/5 stdlib/17 Cockpit/29 HTTPS-MFA grün, Builds/Review. Lesende Anzeige aktiv, sensitive Routen503; laufender Previewworker/Betrieb bleiben IP-047/BL-028 |
-| IP-055 | P1 / P3 | IN_PROGRESS | Gemeinsamen Multi-Basket-Researchlauf vorbereiten | Q33:3–5 Coins, volle Kapitalplanung bei bindenden6%/8%. IP-056 gemeinsame BTC-/ETH-Baseline, IP-057 geprüfter Offline-Allokatorvorschlag. Coins und Budget-/Stressprofil erfragt; Wiederbelegung/Signalpriorität und Forschungsadapter vor größerem Lauf festlegen. [Plan](../multi-basket-ai-plan.md) |
+| IP-055 | P1 / P3 | IN_PROGRESS | Gemeinsamen Multi-Basket-Researchlauf vorbereiten | Q33/Q34:3–5 Coins, volle Planung, bindende6%/8%; gleiche Slots/1% Reserve/Stressprofil bestätigt. IP-056 Baseline, IP-057 Allokator, IP-058 Nachkaufadapter. Coins und feste Wiederbelegung erfragt; Historiendaten/Metadaten, Zyklusvertrag und eingefrorener größerer Lauf offen. [Plan](../multi-basket-ai-plan.md) |
 | IP-056 | P1 / P3 | DONE | Gemeinsame deterministische BTC-/ETH-Referenz und Kapitaldiagnose ergänzen | Mainef18d74 enthält9455bfe; separater Offlinekern, atomare H4-Batches/Tagesbasis und passive kostenvergleichbare Referenz.65 gepinnte Fälle/26 Subtests, vier Inputguards und Ergebnisreplay/Review grün. Reale Forschungnet228,72 USDT, zeitgewichtetes Kaufprincipal72,56. Erweiterter Allokator bleibt IP-055. [Vertrag](../portfolio-reference.md) |
 | IP-057 | P1 / P3 | DONE | Prüffähigen Offlinevorschlag für größere Slots und Kaufreservierung ergänzen | 698146f in Main3bb0d0c verifiziert; gleiche3–5 Slots, Kostenreserve, gebundene immutable Views/Revision und Kauf-/Cash-/Budget-/Stressdiagnose.85 gepinnte Fälle/65 Subtests,81 Hostfälle und Review grün. Profilentscheidung/Coins und Researchadapter bleiben IP-055. [Vorschlag](../portfolio-allocation.md) |
+| IP-058 | P1 / P3 | DONE | Bestätigtes Forschungsprofil mit vorhandener RSI-Nachkaufstaffel verbinden | d31dcf3 in Main1f44b7f verifiziert; eigene Researchversion, vollständige Staffel, Lifetime-Fillkosten und Allokation vor Intent/Dispatch.97 gepinnte Fälle/65 Subtests,93 Hostfälle;12 Adapterfälle nach manueller Fillergänzung erneut grün. Review ohne Blocker; bisher nur synthetische Zyklen, Marktassets/Wiederbelegung/Leistungslauf offen. [Vertrag](../staged-portfolio-research.md) |
 
 ## Abschlussbelege
+
+IP-058:97 unterschiedliche gezielte gepinnte Fälle/65 Subtests (93 Trading/
+Paper, vier Worker) und93 Hostfälle grün. Zwölf neue Adapterfälle anschließend
+auf Host und gepinnt nochmals mit tatsächlichem manuellem Fill/Ledger geprüft.
+Unabhängiger fokussierter Review ohne Blocker. Alle fünf regulären Stufen
+senken im kontrollierten Test mit vorhandenem synthetischem Gewinn den
+Durchschnitt; konkurrierende Reservierungen können Nachkauf sperren.
+Keine neue Rendite-/Holdout-/Browser-/Brokerabnahme oder Runtimeänderung.
 
 IP-057:85 gezielte gepinnte Fälle/65 Subtests (81 Trading/Paper, vier Worker),
 81 Hostfälle und unabhängiger gezielter Abschlussreview ohne Blocker.

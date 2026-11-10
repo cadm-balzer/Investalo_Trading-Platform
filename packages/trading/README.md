@@ -1,5 +1,11 @@
 # Deterministischer Crypto-Paperkern
 
+IP-058 verbindet das für Forschung bestätigte Allokationsprofil mit der
+vorhandenen RSI-/Nachkauf-/Filllogik. Eigene Researchversion, vollständige
+Staffel, gemeinsame Prüfung vor Intent/Dispatch und Lifetime-Ausgabenjournal.
+Zunächst ein vollständiger Zyklus je synthetischem Slot.
+[Vertrag](../../docs/staged-portfolio-research.md).
+
 IP-057 ergänzt `investalo_trading.allocation` als unverbundenen Offlinevorschlag:
 gleiche3–5 Slots, gemeinsame Kosten-/Cash-/Stressprüfung und immutable
 Kaufreservierungen. Keine Aktivierung eines größeren Strategieprofils.

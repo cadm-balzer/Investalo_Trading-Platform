@@ -1,5 +1,10 @@
 # Bestandsaufnahme
 
+IP-058 (2026-11-10): neuer eigener Offline-Forschungsadapter verbindet
+bestätigte Allokation und vorhandene deterministische RSI-Nachkauf-/Filllogik.
+Keine Legacyübernahme, neue Abhängigkeit oder DB-/Runtimeaktivierung.
+[Vertrag](staged-portfolio-research.md).
+
 IP-056 (2026-11-09): neuer separater gemeinsamer Offline-BTC-/ETH-Referenzkern,
 atomare H4-Bewertung, Kapitalnutzung und passive Kostenreferenz auf unverändertem
 500+5-Profil. Keine Legacyübernahme/zusätzliche Abhängigkeit, DB-/Runtime-

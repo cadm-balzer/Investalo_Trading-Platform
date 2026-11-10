@@ -2,6 +2,19 @@
 
 Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
 
+- 2026-11-10: d31dcf3 in Main1f44b7f verifiziert. Q34 Nutzer akzeptiert
+  gleiche Slots/1% Reserve/50%-Stressprofil für Forschung und erinnert an
+  Nachkäufe/Averaging. IP-058 auf feat/m1-staged-allocation-research verbindet
+  ursprüngliche RSI-/25%-/5%-/Fillregeln mit gemeinsamen Intent-/Dispatchgates.
+  Eigene Researchversion/Lifetime-Ausgaben; fünf reguläre und manuelle sechste
+  im synthetischen Test geprüft, Durchschnitt sinkt.97 gepinnte Fälle/65
+  Subtests,93 Hostfälle;12 final ergänzt nochmals Host/gepinnt/Review grün.
+  Keine neue Performance/Runtime-/Marktasset-/DB-/Holdoutaktivierung.
+  Coins und feste Wiederbelegung normal vollständig geschlossener Slots konkret
+  erfragt, noch nicht beantwortet. Aktuell ein voller Zyklus je synthetischem
+  Slot; Vorschlag ohne Budgetwachstum/automatischen Riskresume. D-062 /
+  docs/staged-portfolio-research.md.
+
 - 2026-11-10:698146f in Main3bb0d0c verifiziert. IP-057 auf
   feat/m1-portfolio-allocation-core: unverbundener Offlinevorschlag gleicher
   3–5 Slots/Kosten und gemeinsamer Kauf-/Stressreservierung. min6%/8%-Headroom,
