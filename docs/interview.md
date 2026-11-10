@@ -233,6 +233,20 @@ Wachstum aus Gewinnen, kein automatischer Neustart nach Riskstop.
 Verfügbarkeit/Historiendaten sind separat nachzuweisen; kein Wechsel zu
 Futures/Hebel oder Livefreigabe. [Umsetzung](candidate-pool-research.md).
 
+### Q36: Realisierte Gewinne begrenzt in Etappen einbeziehen
+
+2026-11-10: Nutzer ändert die bisherige rein fixe Planung. Realisierte Gewinne
+geschlossener Baskets sollen gesammelt werden; sobald sie eine vollständige
+Basketstaffel finanzieren, sind zusätzliche Slots oder höhere zukünftige
+Basketbudgets gewünscht. Drei gewinnbringende Abschlüsse sind ein Beispiel.
+**Richtung bestätigt; konkreter Modus/Schwelle/Rhythmus erfragt.** Empfehlung:
+nach drei abgeglichenen Abschlüssen prüfen, Nettoüberschuss nach Kosten und
+Verlusten, ursprüngliches Vollbudget inklusive manueller/Kostenreserve als
+Schwelle; zuerst bis fünf Slots, danach künftige Budgets erhöhen.
+Offene Budgets einfrieren, bestehende Risiko-/Signal-/MFA-Gates erhalten.
+Keine Freigabe für sechs Slots, neu gesetzte Risikobasis oder Live abgeleitet.
+[Reviewbarer Vorschlag](profit-etapes.md).
+
 Konkrete Umsetzungsfakten recherchieren wir: unterstützte Versionen exakt pinnen,
 Historienlänge/-qualität prüfen, Brokerkosten/Metadaten und Hostlast messen.
 Vor Pilotrollout müssen Domain/TLS, SMTP/Empfänger, Terminalbindung,

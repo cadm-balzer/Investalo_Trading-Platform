@@ -1061,3 +1061,21 @@ Vor Leistungsauswertung vollständige Daten und berechtigte Kohorten einfrieren.
 natürliche RSI-Zyklen/15 Käufe/10 Exits mit Wiederbelegung; finale Sellfee am
 Kontolimit separat getestet. Kein Profitabilitäts-/Holdoutnachweis oder
 Runtime-/Broker-/DB-/Dependencywechsel. [Vertrag](../candidate-pool-research.md).
+
+## 2026-11-10 — D-065: Gewinnetappen statt unbegrenztem Sofortwachstum
+
+22534b7 in Mainab928ee verifiziert. Nutzer erweitert die fixe Budgetpräferenz:
+Gewinne geschlossener Baskets sammeln und ab einer vollständigen Basketstaffel
+für weitere Slots oder höhere künftige Budgets nutzen. Drei profitable
+Abschlüsse sind ausdrücklich ein Beispiel. Konkreter Modus/Schwelle/Rhythmus
+erfragt; noch keine stille Strategie-/Budget-/Risikobasisänderung.
+
+Reviewbarer Vorschlag: Nettogewinne inklusive geschlossener Verluste/Kosten,
+bereits zugeordnetes Gewinnkapital nicht doppelt verwenden; Schwelle ein
+ursprüngliches Vollbudget inkl. manueller und Kostenreserve. Nach drei
+abgeglichenen Abschlüssen prüfen, zunächst bis fünf Slots, danach neue Budgets
+erhöhen; alternativ feste Kapazität. Offene Baskets ihre eingefrorene Staffel
+behalten lassen. Planungskapital und ursprüngliche8%-Risikobasis trennen.
+Keine sechste Position, Holdout-/Runtime-/Livefreigabe. Rechenbeispiele mit
+bestehendem PoolPlan geprüft; reine Dokumentationsänderung, keine neuen Tests.
+[Vorschlag](../profit-etapes.md).

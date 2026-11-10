@@ -45,6 +45,10 @@ in diese Prüfung. Die manuelle Reserve bleibt bewusst manuell.
 
 ## Nächster Forschungscheckpoint IP-055
 
+Q36 ergänzt begrenzte Gewinnverwendung in vollständigen Basketetappen.
+Eigene Budgetepochen vorbereiten; Modus/Schwelle/Rhythmus noch erfragt.
+Feste IP-060-Version bleibt Vergleichsbasis. [Entwurf](profit-etapes.md).
+
 IP-056 bereitet ihn mit einer gemeinsamen unveränderten BTC-/ETH-Baseline
 vor: synchronisierte H4-Quotes, ein Konto und messbare Kapitalnutzung.
 [Offlinekern, Kennzahlen und Abnahme](portfolio-reference.md).

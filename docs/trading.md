@@ -1,5 +1,9 @@
 # Handelskonzept, Risiko und Nachweis
 
+Q36 ergänzt begrenzte Gewinnverwendung in vollen Basketetappen. Konkreter
+Modus/Schwelle/Rhythmus noch erfragt; offene Staffeln und Risikobasen sollen
+erhalten bleiben. Bestehender fester Kern unverändert. [Entwurf](profit-etapes.md).
+
 IP-052 implementiert die freigegebene Q32-Paper-Tagesbasis aus Mitternachts-H4-Schlusskursen und vorherigen Mengen/Cash.6%/8%, RSI14/Wilder-Einstiege und echte Quote-Fills unverändert. Fehlende Belege sperren Käufe; Dauerbetrieb/Anzeigeaktivierung bleiben IP-047. [Vertrag](paper-midnight-basis.md).
 
 IP-046: Drei Jahre BTC/ETH-H4 werden im vorhandenen deterministischen

@@ -620,3 +620,8 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   ZEC/HYPE/XLM am2022-Forschungsbeginn keine Samplekerzen. Aktuelles launchTime
   beweist keine ursprüngliche Notierung. Separates neues Preflightrecord statt
   alte Pending-/Hashbelege nach Nutzerantwort umschreiben; Kohorten vor PnL einfrieren.
+- **Gewinnkapital ist kein neuer Kontostart:** erhöhte Budgetplanung darf nicht
+  initial_equity/8%-Startbasis neu setzen. Offene Baskets behalten ihre eigene
+  Budget-/Kostenepoche; kumulierte abgeschlossene Nettoergebnisse samt Verlusten
+  und bereits zugeordnetem Gewinnkapital prüfen. „Z.B. drei“ ist kein genehmigter
+  starrer Prüfrhythmus. Freigabe bleibt aus, solange die konkrete Variante offen ist.

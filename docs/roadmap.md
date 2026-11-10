@@ -1,5 +1,9 @@
 # Roadmap
 
+Q36: abgestufte Wiederanlage realisierter Gewinne gewünscht. Modusentscheidung
+und eigene Budgetepochen folgen; laufender Kern bleibt fest.
+[Vorschlag und Beispiele](profit-etapes.md).
+
 IP-047 ist aktiv: eigener gespeicherter Paperstand jetzt im Entwicklungscockpit sichtbar. IP-054 umfasst eigene Kontoprovisionierung, begrenzten Kurslauf und lesende Aktivierung. Als Nächstes eigener begrenzter Preview-Beobachtungsworker und längerfristige Betriebsabnahme. [Anzeige](paper-preview-integration.md).
 
 IP-013 berücksichtigt die Nutzerpriorität2026-11-09 zum Feintuning: zuerst

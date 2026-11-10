@@ -1,5 +1,8 @@
 # Investalo Trading Platform
 
+Q36 ergänzt die gewünschte Portfolioforschung um Gewinnetappen; konkrete
+Freigabeschwelle und Verwendung sind erfragt. [Entscheidungsentwurf](docs/profit-etapes.md).
+
 IP-054 macht den eigenen bestätigten Paperstand in Übersicht, Portfolio und Journal der freigegebenen Entwicklungsvorschau sichtbar. Neues simuliertes Konto, begrenzter BTC-/ETH-Kurslauf ohne Fills, unveränderte RSI-/Riskregeln.34 gezielte Pythonfälle,17 Cockpitfälle und29 echte HTTPS-/MFA-Prüfpunkte grün. [Anzeige und Grenzen](docs/paper-preview-integration.md).
 
 Mandantenfähiges Trading-Cockpit mit Portfolio, Journal, Backtests und

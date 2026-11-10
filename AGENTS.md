@@ -635,6 +635,21 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 
 ## Trading and implementation invariants
 
+- IP-06022534b7 merged into mainab928ee (verified2026-11-10).
+  Q36 supersedes the no-growth planning preference: user wants staged reuse
+  of realized closed-basket profits once a full basket range is fundable,
+  either another parallel basket or larger future3–5-slot budgets.
+  Three profitable closes are an example, not an approved fixed cadence.
+  Exact mode/threshold/cadence explicitly asked; do not activate unanswered
+  choices. Proposal: check every3 reconciled closes, net all costs/losses and
+  already earmarked profit, one original full slot incl manual/cost reserve;
+  add slots up to5 then increase future budgets, or retain fixed capacity.
+  Open cycles keep frozen budgets. No sixth slot, reset of8% initial capital,
+  risk weakening, runtime/live activation inferred. Immutable budget epochs
+  must separate planned capital from original risk basis and retain mixed
+  cycle cost reserves. Existing pool v1 remains fixed comparison baseline.
+  docs/profit-etapes.md; D-065. Current branch feat/m1-profit-etape-policy.
+
 - Profitability is a measurable research objective, never a guarantee.
 - Use one versioned deterministic strategy core for backtest, paper, and live.
 - Risk limits are enforced independently of strategy/AI and before order dispatch.
