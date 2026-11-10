@@ -1,5 +1,11 @@
 # Gemeinsames Basketportfolio und spätere KI-Signalprüfung
 
+Q37: späteres Ziel isolierte USDT-M-Long-Futures, risikobegrenzter Hebel2×–10×
+bei messbaren Uptrends. Alternativkandidaten AVAX/HBAR/TRX/BGB/BAT/RENDER
+öffentlich geprüft; keine eingefrorene Ersatzkohorte. Eigene Margin-/Funding-/
+Liquidationsökonomie vor Leistungsläufen;−50% und6%/8% bleiben verbindlich.
+[Futuresvertrag](futures-research.md).
+
 Stand2026-11-10. Q33 bestätigt das Planungsziel: drei bis fünf verschiedene
 Coins gleichzeitig, das Kontokapital vollständig in der Kapitalplanung
 berücksichtigen und später RSI-Signale durch Marktanalyse prüfen.

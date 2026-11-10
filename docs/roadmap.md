@@ -1,5 +1,11 @@
 # Roadmap
 
+Q37/IP-062: Futures-Grundprofil bestätigt,20 aktuelle USDT-M-Kontrakte und
+52 frühe Trade-/Markkerzen öffentlich geprüft. Alternativen AVAX/HBAR/TRX/
+BGB/BAT/RENDER; volle Historien noch offen. IP-063: eigene Margin-/Funding-/
+Liquidationsökonomie mit erhaltenem−50%- und6%/8%-Risk Gate, vor Futuresnettolauf.
+[Vertrag und Grenzen](futures-research.md).
+
 Q36/IP-061: bestätigte Gewinnetappen im separaten Offlinekern implementiert.
 Zuerst Slots bis sieben, danach höhere neue Budgets; offene Budgets und
 ursprüngliche6%/8%-Risikobasen erhalten.147 gepinnte Fälle/87 Subtests grün,

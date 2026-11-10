@@ -1,5 +1,10 @@
 # Bestätigter M1-Umfang und Umsetzungsstand
 
+Q37 ergänzt das spätere Ziel isolierter USDT-M-Long-Futures, marktphasenabhängig
+2×–10× nach unabhängiger Risiko-/Liquidationsprüfung. Eigene Marginpuffer,
+−50%-Stress vom ersten Fill und6%/8% bleiben; separate Futuresökonomie in IP-063.
+Entwicklungspaper/Spotreferenzen unverändert. [Vertrag](futures-research.md).
+
 Stand 2026-11-10. Sachentscheidungen Q1–Q30 und Abschlussbestätigung Q31
 sind bestätigt. Der Nutzer beauftragt ausdrücklich den Umsetzungsstart.
 Dieser Stand bündelt die bestätigte Planung; lokale M1-Implementierung begonnen.

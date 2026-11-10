@@ -638,3 +638,15 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   mit zusätzlichen echten synthetischen Abschlussfills finanzieren, ohne
   Grenzwerte zu ändern oder Cash zu erfinden. Große Fixturegewinne zeigen
   Abläufe, keine Marktprofitabilität.
+- **Spotbefunde nicht auf Futures übertragen:** XMR kann als Futures verfügbar
+  sein, XLM frühere Futureskerzen liefern. Markt-/Kontrakt-/Preisart explizit
+  binden, keine Spotkerzen als Futures-Markdaten umetikettieren.
+- **Hebeleinstellung ist nicht Nominalexposition:** bei gleicher Position senkt
+  höherer Hebel Mindestmargin, multipliziert nicht automatisch den PnL.
+  Basketgeld für Margin/Kosten/Puffer getrennt halten; ungepuffert kann
+  Liquidation vor der ersten Nachkaufstufe oder dem−55%-Stop eintreten.
+  −50% vom ersten tatsächlichen Fill prüfen; ungepostete eigene Reserven
+  schützen keinen sofortigen Gap und dürfen nicht vorweg als Margin zählen.
+- **Fundingintervall nicht pauschal8h:** aktuelles RENDER-Perpetual4h, andere
+  geprüfte Alternativen8h. Historische Zeitpunkte/Raten erforderlich;
+  heutige Metadaten weder rückdatieren noch fehlendes Funding mit Null füllen.

@@ -1,5 +1,11 @@
 # Bestandsaufnahme
 
+IP-062: öffentliche Classic-V2-Futuresinventur20 Kontrakte,40 Historienproben
+und52 frühe geprüfte Trade-/Markkerzen in neuem Messrecord. Alle sechs
+Alternativen aktuell normal; AVAX/TRX mit frühen Proben. Keine Futuresökonomie,
+neue Runtimewhitelist oder Hebelaktivierung implementiert.
+[Futuresvorcheck](futures-research.md).
+
 IP-061: `profit_research.py` ergänzt eigenständige immutable Gewinn-/Budgetepochen,
 `variable_budget.py` prüft3–7 unterschiedliche Slotbudgets mit ursprünglicher
 Risikobasis. Gemeinsamer RSI-/Fillkern erhält defaultneutrale Budgethooks.

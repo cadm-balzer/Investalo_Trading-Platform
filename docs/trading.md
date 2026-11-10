@@ -1,5 +1,12 @@
 # Handelskonzept, Risiko und Nachweis
 
+Q37 bestätigt als späteres Handelsziel isolierte USDT-M-Long-Futures,
+2×–10× nur bei starken, kausal belegten Uptrends und ausreichender Deckung.
+Eigenes echtes Basketkapital inklusive Marginpuffer, keine automatischen
+Nachschüsse aus anderen Baskets. −50%-Stress und6%/8% bleiben; Hebel reduzieren
+oder Einstieg sperren. Spotreferenzen bleiben unverändert; Futuresmodell und
+exakte Regimeregeln folgen. [Datenvorcheck/Vertrag](futures-research.md).
+
 Q36/IP-061 bestätigt und implementiert begrenzte Gewinnverwendung im separaten
 Offlineprofil: mindestens drei weitere abgeglichene Abschlüsse und eine
 ursprüngliche volle Basketstaffel pro Freigabe. Zuerst Slots bis sieben,

@@ -253,6 +253,23 @@ Gewinnkapital einrechnen. Keine neue Risikobasis oder Livefreigabe.
 IP-061 implementiert das separate Offlineprofil.
 [Vertrag und Beispiel](profit-etapes.md).
 
+### Q37: Späteres Futuresziel und Alternativkandidaten
+
+2026-11-10, **bestätigt**: AVAX/HBAR/TRX/BGB/BAT/RENDER sind mögliche
+Alternativen zu XMR/ZEC/HYPE/XLM. Nutzer plant später Futures statt Spot,
+Hebel2×–10× bei starken Uptrends. Anschließend explizit bestätigt:
+isolierte USDT-M-Long-Baskets, Budget als echtes Kapital einschließlich
+Kosten/Marginpuffer, keine automatischen Nachschüsse aus anderen Baskets;
+−50%-Stress sowie6%/8% bleiben verbindlich. Hebel nötigenfalls reduzieren
+oder Einstieg sperren, keine alternative kleinere Rückgangstoleranz gewählt.
+
+IP-062 prüft öffentlich20 aktuelle Kontrakte und frühe Trade-/Markproben.
+Exakte Regime-/Hebelauswahl, Budgetaufteilung und offene-Basket-Verhalten
+beim Regimewechsel noch zu spezifizieren; keine rückblickende Uptrendgewissheit.
+IP-063: eigene Futuresökonomie vor Leistungs-/Paperlauf. Keine endgültige
+Ersatzkohorte, Konto-/Hebeländerung oder Echtgeldfreigabe aus diesen Antworten.
+[Vertrag und Belege](futures-research.md).
+
 Konkrete Umsetzungsfakten recherchieren wir: unterstützte Versionen exakt pinnen,
 Historienlänge/-qualität prüfen, Brokerkosten/Metadaten und Hostlast messen.
 Vor Pilotrollout müssen Domain/TLS, SMTP/Empfänger, Terminalbindung,

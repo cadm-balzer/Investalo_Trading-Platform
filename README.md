@@ -1,5 +1,10 @@
 # Investalo Trading Platform
 
+Q37/IP-062: späteres Ziel sind isolierte USDT-M-Long-Futures mit risikobegrenztem
+marktphasenabhängigem Hebel2×–10×. Sechs Alternativcoins öffentlich geprüft;
+AVAX/TRX haben frühe Trade-/Markproben. Eigene Margin-/Fundingökonomie folgt,
+−50%-Stress und6%/8% bleiben verbindlich. [Futuresvertrag](docs/futures-research.md).
+
 Q36/IP-061 ergänzt ein separates Offlineprofil für Gewinnetappen: zuerst
 Slots bis maximal sieben, danach höhere neue Basketbudgets. Offene Staffeln
 bleiben eingefroren,6%/8%-Risikobasen bestehen. [Vertrag](docs/profit-etapes.md).

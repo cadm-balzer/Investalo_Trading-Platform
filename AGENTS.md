@@ -651,6 +651,30 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   durable reservation/reconciliation and Paper integration remain IP-055.
   docs/profit-etapes.md; D-066. Branch feat/m1-seven-slot-profit-research.
 
+- Q37 explicitly changes the later trading target to Futures, with
+  phase-dependent2x–10x only on strong causally evidenced uptrend signals.
+  User confirmed isolated USDT-M long-only; each basket's budget is actual
+  capital incl entries/costs/explicit margin buffer, no automatic contributions
+  from other baskets. Keep−50% stress and6% daily/8% original account limits;
+  reduce leverage or block entry if collateral/liquidation gates fail.
+  Stress is50% of first actual fill at every stage, including no RSI/rearm.
+  Unposted reserved margin does not protect an immediate gap.
+  No guaranteed minimum leverage or live/account settings activation.
+  AVAX/HBAR/TRX/BGB/BAT/RENDER are optional substitutes for XMR/ZEC/HYPE/XLM;
+  final replacement cohort not frozen. IP-062 public ClassicV2 check found20
+  normal perpetuals and52 early trade/mark bars across13 contracts.
+  AVAX/TRX early2022 samples available, other four alternatives not; XLM
+  futures has samples despite prior Spot absence. RENDER current funding4h,
+  others8h; do not treat current metadata as historical.
+  Existing Spot strategy/data/results/runtime whitelist remain unchanged.
+  Futures need separate nominal/margin/free collateral/funding/maintenance/
+  liquidation model, contracts/price-type snapshots and net research.
+  Exact regime/leverage mapping, budget split and open-cycle regime-change
+  rules still unresolved; AI cannot relax independent risk gates.
+  IP-063/BL-030; docs/futures-research.md; D-067.
+  Branch feat/m1-futures-candidate-preflight includes54d2a7d; last verified
+  mainab928ee, no merge inferred from latest new requirement.
+
 - Profitability is a measurable research objective, never a guarantee.
 - Use one versioned deterministic strategy core for backtest, paper, and live.
 - Risk limits are enforced independently of strategy/AI and before order dispatch.

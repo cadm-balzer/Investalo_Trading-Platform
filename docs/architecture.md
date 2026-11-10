@@ -1,5 +1,11 @@
 # Architektur und Stack
 
+Q37/IP-062 verlangt einen separaten Futures-Daten-/Ökonomievertrag für
+Trade-/Mark-/Fundingdaten, Nominal, isolierte Margin und Liquidationsstress.
+Bestehende Spotkern-/Snapshot-/Workerverträge nicht umetikettieren oder erweitern,
+ohne neue Version. Noch keine neue Abhängigkeit/Runtimeaktivierung.
+[Futuresvertrag](futures-research.md).
+
 IP-054 verbindet den eigenen normalen Entwicklungstenant mit einem beschränkten Einmal-Paperwriter und der lesenden Statusanzeige. Beide DBs012; eigener LOGIN/Account, keine Fixturekopie. Public-Preview plus Paperoverlay aktiviert ausschließlich Anzeigeflags; sensitive Funktionen bleiben gesperrt. [Vertrag](paper-preview-integration.md).
 
 IP-046: Drei Jahre BTC/ETH-H4 werden im vorhandenen deterministischen

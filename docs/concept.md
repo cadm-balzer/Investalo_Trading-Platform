@@ -1,5 +1,10 @@
 # Projektkonzept
 
+Aktualisierung2026-11-10/Q37: späteres Crypto-Handelsziel isolierte USDT-M-
+Long-Futures mit bedingtem2×–10×. Eigenes Basketkapital/Marginpuffer,
+erhaltener−50%-Stress und6%/8%; Hebel reduzieren oder Einstieg sperren.
+Eigene Futuresökonomie vor Research/Paper/Live, [Vertrag](futures-research.md).
+
 Stand: 2026-11-07. **Q31 bestätigt; lokale M1-Implementierung begonnen.**
 Das lokale Fundament läuft; vollständige Releaseabnahme steht aus.
 Grundstack, beide Broker im MVP, Startvarianten,
