@@ -1,0 +1,1516 @@
+{
+  "all_requested_streams_complete": true,
+  "execution_enabled": false,
+  "finished_at": "2026-11-10T20:34:20.729773Z",
+  "funding_imported": false,
+  "historical_maintenance_known": false,
+  "holdout_requested": false,
+  "output_directory": "/opt/Investalo_Trading-Platform/infra/local/futures-research-data/20261110-network",
+  "performance_evaluated": false,
+  "protocol_file": "docs/research-protocols/futures-history-20261110.json",
+  "protocol_sha256": "2274476e3300fbfcb8b9d188927f7c5ae47ba4f9b075e01b360f61e435389fa5",
+  "schema_version": "futures-history-import-receipt/1",
+  "started_at": "2026-11-10T20:32:44.161264Z",
+  "streams": [
+    {
+      "bars": 6576,
+      "coverage": {
+        "actual_end": "2025-08-01T00:00:00Z",
+        "actual_start": "2022-08-01T00:00:00Z",
+        "complete": true,
+        "missing_leading_bars": 0,
+        "missing_trailing_bars": 0,
+        "requested_end": "2025-08-01T00:00:00Z",
+        "requested_start": "2022-08-01T00:00:00Z"
+      },
+      "data_digest": "9c96c7e04684a07f73330ebadffcbbdde7e8ec8ae822533116bf5ce276fdfd68",
+      "file": "BTCUSDT-trade-4h.json",
+      "file_sha256": "b7244461140034ce1763b397e9e3012b36c4c813f31d53c31884063888a4a612",
+      "pages": [
+        {
+          "decoded_response_sha256": "4a8cb1be48433c8a1728dd7fc3b41e0119216431801a70821e50b043fc74dc23",
+          "observed_at": "2026-11-10T20:32:44.467936Z",
+          "provider_request_time_ms": 1794342764344,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1751126400000&endTime=1754006400000"
+        },
+        {
+          "decoded_response_sha256": "199d1a6147ce3fc1eb918bc662e3e5bc4a81ab09847e129b9ad106af9cb99823",
+          "observed_at": "2026-11-10T20:32:44.948697Z",
+          "provider_request_time_ms": 1794342764806,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1748246400000&endTime=1751126400000"
+        },
+        {
+          "decoded_response_sha256": "c47aecc7ae1fa6747ec7811e7980af151f3f3ad954f99a7fccd2cb5377377afd",
+          "observed_at": "2026-11-10T20:32:45.382488Z",
+          "provider_request_time_ms": 1794342765238,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1745366400000&endTime=1748246400000"
+        },
+        {
+          "decoded_response_sha256": "8bc5d55e241cd6722271389c6c039f066d65c1509f225a803a6c1e18ac5ad48b",
+          "observed_at": "2026-11-10T20:32:45.842314Z",
+          "provider_request_time_ms": 1794342765692,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1742486400000&endTime=1745366400000"
+        },
+        {
+          "decoded_response_sha256": "00642262b1b4d50b4f7878d8b3c4d89083d68bab7b723501e7250ed112b82472",
+          "observed_at": "2026-11-10T20:32:46.324745Z",
+          "provider_request_time_ms": 1794342766178,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1739606400000&endTime=1742486400000"
+        },
+        {
+          "decoded_response_sha256": "310c3b6181f64595203edb18e39c446fb53b06ab4a8d84ad4caa9e111f294d7f",
+          "observed_at": "2026-11-10T20:32:46.733986Z",
+          "provider_request_time_ms": 1794342766605,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1736726400000&endTime=1739606400000"
+        },
+        {
+          "decoded_response_sha256": "9eff2c4aa9d725b1a722a9acb39f87e1868cbb48851d34094e02ead4ad36af49",
+          "observed_at": "2026-11-10T20:32:47.195544Z",
+          "provider_request_time_ms": 1794342767059,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1733846400000&endTime=1736726400000"
+        },
+        {
+          "decoded_response_sha256": "1c80a270c3dfd9fed1ec38913b57b6c121c878fe2a4961f76e0c7a54d751ba7e",
+          "observed_at": "2026-11-10T20:32:47.620357Z",
+          "provider_request_time_ms": 1794342767480,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1730966400000&endTime=1733846400000"
+        },
+        {
+          "decoded_response_sha256": "365fee21c85c62dcc909b4b67d518ac9cddb2a19e141d64f7106222cd6543e35",
+          "observed_at": "2026-11-10T20:32:48.044899Z",
+          "provider_request_time_ms": 1794342767903,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1728086400000&endTime=1730966400000"
+        },
+        {
+          "decoded_response_sha256": "697f420ebf6035742a015efbf7f1690c6b2c6320474aa9c9f38ad647bd1f9846",
+          "observed_at": "2026-11-10T20:32:48.761929Z",
+          "provider_request_time_ms": 1794342768335,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1725206400000&endTime=1728086400000"
+        },
+        {
+          "decoded_response_sha256": "16dee217e8207a996efe9e854f1d7ce6d28faa435c42871d2b1f388395c69733",
+          "observed_at": "2026-11-10T20:32:49.177958Z",
+          "provider_request_time_ms": 1794342769039,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1722326400000&endTime=1725206400000"
+        },
+        {
+          "decoded_response_sha256": "5b9e9eae3bc55bd346c149af3871d708e229ebb9e5c3ef1fdaf0986bc5b88fa1",
+          "observed_at": "2026-11-10T20:32:49.639077Z",
+          "provider_request_time_ms": 1794342769500,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1719446400000&endTime=1722326400000"
+        },
+        {
+          "decoded_response_sha256": "fcd592a0eb515c9acc1832ac65b99fcee1a2139c73b959e102aea8e9fbd63181",
+          "observed_at": "2026-11-10T20:32:50.064090Z",
+          "provider_request_time_ms": 1794342769939,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1716566400000&endTime=1719446400000"
+        },
+        {
+          "decoded_response_sha256": "88804f4d52f612306f8b7d5e372681ff29ed0a313aadc3b1487b90c99a25d388",
+          "observed_at": "2026-11-10T20:32:50.488655Z",
+          "provider_request_time_ms": 1794342770355,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1713686400000&endTime=1716566400000"
+        },
+        {
+          "decoded_response_sha256": "76dd47a87f049b818deda7fb98b02ba4ef766a84aa6f7924255b19acc8286307",
+          "observed_at": "2026-11-10T20:32:50.939766Z",
+          "provider_request_time_ms": 1794342770796,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1710806400000&endTime=1713686400000"
+        },
+        {
+          "decoded_response_sha256": "15fc08758279da7808a4aff8c50ecfb2d33bdcdaa9e310817a298038c6ccab27",
+          "observed_at": "2026-11-10T20:32:51.385752Z",
+          "provider_request_time_ms": 1794342771254,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1707926400000&endTime=1710806400000"
+        },
+        {
+          "decoded_response_sha256": "91308e7328ee25fbb0edb13a51b8f20a1cae1d7ecc8acfd25e79ef8ac978c781",
+          "observed_at": "2026-11-10T20:32:51.912313Z",
+          "provider_request_time_ms": 1794342771762,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1705046400000&endTime=1707926400000"
+        },
+        {
+          "decoded_response_sha256": "d903b9ca221adafabcfde4713ce13bc15d2738a60ee9a51c51b43ed1f4401610",
+          "observed_at": "2026-11-10T20:32:52.398232Z",
+          "provider_request_time_ms": 1794342772253,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1702166400000&endTime=1705046400000"
+        },
+        {
+          "decoded_response_sha256": "56b78a8f80ee441407a2cc12db28443149435b765dc38417cc88a0d02816b81e",
+          "observed_at": "2026-11-10T20:32:52.839026Z",
+          "provider_request_time_ms": 1794342772694,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1699286400000&endTime=1702166400000"
+        },
+        {
+          "decoded_response_sha256": "98da1be3f56103356ee4926ab93325457c902633da0b1be452e3bd31727b6504",
+          "observed_at": "2026-11-10T20:32:53.283360Z",
+          "provider_request_time_ms": 1794342773142,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1696406400000&endTime=1699286400000"
+        },
+        {
+          "decoded_response_sha256": "d51ae1a03ad48934e1ab50b5e15c405ab27dae5bc6431a2005ad4d5518ee442c",
+          "observed_at": "2026-11-10T20:32:53.708911Z",
+          "provider_request_time_ms": 1794342773577,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1693526400000&endTime=1696406400000"
+        },
+        {
+          "decoded_response_sha256": "2166f5d88a1ee402dc589ded74f45053c7cffe97a4cd3fa846d902a266dd0903",
+          "observed_at": "2026-11-10T20:32:54.159191Z",
+          "provider_request_time_ms": 1794342774017,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1690646400000&endTime=1693526400000"
+        },
+        {
+          "decoded_response_sha256": "22a4baf46d8c1c9e10a88111c76a34d0aa7624ef85fdbe16016c7cd0a728df39",
+          "observed_at": "2026-11-10T20:32:54.596612Z",
+          "provider_request_time_ms": 1794342774459,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1687766400000&endTime=1690646400000"
+        },
+        {
+          "decoded_response_sha256": "7306df2846e0b8276d446b6d822f0c2d2ea32c3fc270efa1760f8bb2181c7d0c",
+          "observed_at": "2026-11-10T20:32:55.008414Z",
+          "provider_request_time_ms": 1794342774874,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1684886400000&endTime=1687766400000"
+        },
+        {
+          "decoded_response_sha256": "1f60ec664b11774a6c89e1db166f9410f4a95af7bffea30796ceba27935e17ec",
+          "observed_at": "2026-11-10T20:32:55.452748Z",
+          "provider_request_time_ms": 1794342775309,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1682006400000&endTime=1684886400000"
+        },
+        {
+          "decoded_response_sha256": "f3ad1977ff3e497824724ca03b9130fe787395b9e1e5bc72826a5bf08b8bad14",
+          "observed_at": "2026-11-10T20:32:55.858357Z",
+          "provider_request_time_ms": 1794342775734,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1679126400000&endTime=1682006400000"
+        },
+        {
+          "decoded_response_sha256": "7a3eb2a1a441ed087f2c077a8c73f7ba86350dc71be9c3775e645fc8a22d6416",
+          "observed_at": "2026-11-10T20:32:56.414813Z",
+          "provider_request_time_ms": 1794342776208,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1676246400000&endTime=1679126400000"
+        },
+        {
+          "decoded_response_sha256": "07f827d236ea5f4c88cb781d483c435ac2bfb92aeca7c205055e8093a88d3c0e",
+          "observed_at": "2026-11-10T20:32:56.933170Z",
+          "provider_request_time_ms": 1794342776750,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1673366400000&endTime=1676246400000"
+        },
+        {
+          "decoded_response_sha256": "6a19d4028fb1d2013f92e6b179a0a55eed17bbd4e2c9af3610f54e1e6b40e088",
+          "observed_at": "2026-11-10T20:32:57.396251Z",
+          "provider_request_time_ms": 1794342777259,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1670486400000&endTime=1673366400000"
+        },
+        {
+          "decoded_response_sha256": "c581f34efcb221e6cda24e88319b67ce6b99ae06dfdce48d1809fefe6f548b46",
+          "observed_at": "2026-11-10T20:32:57.856018Z",
+          "provider_request_time_ms": 1794342777722,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1667606400000&endTime=1670486400000"
+        },
+        {
+          "decoded_response_sha256": "37434cca2018c2248fe4ac2df06ee6832b83464bb5636b1f3a459fe903b4d493",
+          "observed_at": "2026-11-10T20:32:58.259768Z",
+          "provider_request_time_ms": 1794342778135,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1664726400000&endTime=1667606400000"
+        },
+        {
+          "decoded_response_sha256": "41d04f97f515ac1dd1025b724ed6642862c7a058e682db5e25015e7f41cf8577",
+          "observed_at": "2026-11-10T20:32:58.716214Z",
+          "provider_request_time_ms": 1794342778579,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1661846400000&endTime=1664726400000"
+        },
+        {
+          "decoded_response_sha256": "7c099dd527ecce4bd86fe3fbbf1fa2787ec0ca6f4c7c36d512c0dd87d291a6d2",
+          "observed_at": "2026-11-10T20:32:59.126611Z",
+          "provider_request_time_ms": 1794342778992,
+          "returned_rows": 176,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1659312000000&endTime=1661846400000"
+        }
+      ],
+      "price_kind": "trade",
+      "symbol": "BTCUSDT"
+    },
+    {
+      "bars": 6576,
+      "coverage": {
+        "actual_end": "2025-08-01T00:00:00Z",
+        "actual_start": "2022-08-01T00:00:00Z",
+        "complete": true,
+        "missing_leading_bars": 0,
+        "missing_trailing_bars": 0,
+        "requested_end": "2025-08-01T00:00:00Z",
+        "requested_start": "2022-08-01T00:00:00Z"
+      },
+      "data_digest": "d6720348c30a9038f36f13468cbd33b5eaa7ba6a825b85dc4bfc9c1af728cdf2",
+      "file": "BTCUSDT-mark-4h.json",
+      "file_sha256": "3752b6f40c2ed546790c4853b6326cd0bd3081c82ccd5fe71892d5b339499a6e",
+      "pages": [
+        {
+          "decoded_response_sha256": "45cf7023a5c184ad927d40422b772b08f7b2b5e3a53d88065da64189b2658716",
+          "observed_at": "2026-11-10T20:33:00.651011Z",
+          "provider_request_time_ms": 1794342780521,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1751126400000&endTime=1754006400000"
+        },
+        {
+          "decoded_response_sha256": "04c1521b75b1f718fa938ceb2783e3b8197d1f49ff6ff40aa8db0abc17fd77c8",
+          "observed_at": "2026-11-10T20:33:01.106875Z",
+          "provider_request_time_ms": 1794342780959,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1748246400000&endTime=1751126400000"
+        },
+        {
+          "decoded_response_sha256": "e5919e273916ab5ee5bc17b4b6e4b5ff0e97917ac8a4ad3471e5fe95b0f89b43",
+          "observed_at": "2026-11-10T20:33:01.571106Z",
+          "provider_request_time_ms": 1794342781422,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1745366400000&endTime=1748246400000"
+        },
+        {
+          "decoded_response_sha256": "0837cc4c4821ee98553f3be629ee2b3715be5478bddf9ed80d789c3c6935e17b",
+          "observed_at": "2026-11-10T20:33:01.993768Z",
+          "provider_request_time_ms": 1794342781854,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1742486400000&endTime=1745366400000"
+        },
+        {
+          "decoded_response_sha256": "0337700e59cec08f2d567d3a68c458742afe17f27e2b62bed80282db4531bec8",
+          "observed_at": "2026-11-10T20:33:02.415590Z",
+          "provider_request_time_ms": 1794342782280,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1739606400000&endTime=1742486400000"
+        },
+        {
+          "decoded_response_sha256": "0a622b824cda537bcc926394a1bf6686d8b345764a66437271c6f77ea99ec2eb",
+          "observed_at": "2026-11-10T20:33:02.879364Z",
+          "provider_request_time_ms": 1794342782733,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1736726400000&endTime=1739606400000"
+        },
+        {
+          "decoded_response_sha256": "f2c93de8845013fc7a2a295db0e777442493f2135a7c86b0cdc7b39280bbab58",
+          "observed_at": "2026-11-10T20:33:03.364604Z",
+          "provider_request_time_ms": 1794342783218,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1733846400000&endTime=1736726400000"
+        },
+        {
+          "decoded_response_sha256": "1bb9fbf14ef198f3380bcbbfbf1d4f180586334a6293811669005baad2950bf2",
+          "observed_at": "2026-11-10T20:33:03.776176Z",
+          "provider_request_time_ms": 1794342783645,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1730966400000&endTime=1733846400000"
+        },
+        {
+          "decoded_response_sha256": "e611e1f9d796fef608d81e87fff8d6e575529c1ed240150672ff20f928d10bdf",
+          "observed_at": "2026-11-10T20:33:04.187514Z",
+          "provider_request_time_ms": 1794342784055,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1728086400000&endTime=1730966400000"
+        },
+        {
+          "decoded_response_sha256": "91265a76c8c024dbbacc0c3311c124fd5dc450794730177c520be566c040af75",
+          "observed_at": "2026-11-10T20:33:04.629423Z",
+          "provider_request_time_ms": 1794342784491,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1725206400000&endTime=1728086400000"
+        },
+        {
+          "decoded_response_sha256": "5d45ec0f3817f9c2a4388db10795ce054316338f0207c5925bce7874c51f7b46",
+          "observed_at": "2026-11-10T20:33:05.062338Z",
+          "provider_request_time_ms": 1794342784927,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1722326400000&endTime=1725206400000"
+        },
+        {
+          "decoded_response_sha256": "3cffd0eba337b79b54935581c63b32f63fd9502408b7e7831130ae1754c17593",
+          "observed_at": "2026-11-10T20:33:05.508181Z",
+          "provider_request_time_ms": 1794342785369,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1719446400000&endTime=1722326400000"
+        },
+        {
+          "decoded_response_sha256": "164fd991d6d39d4eea8e92bbc15bda6d25a33fb42d39390c4c48439a79b034f6",
+          "observed_at": "2026-11-10T20:33:05.978450Z",
+          "provider_request_time_ms": 1794342785832,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1716566400000&endTime=1719446400000"
+        },
+        {
+          "decoded_response_sha256": "c2ff849bf4bc815e496a3099102acac07924c2ab1d702d4ee73beebdea274102",
+          "observed_at": "2026-11-10T20:33:06.430694Z",
+          "provider_request_time_ms": 1794342786287,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1713686400000&endTime=1716566400000"
+        },
+        {
+          "decoded_response_sha256": "0a0c6c50bdaa4ffbfa590a7b523c61f6b7c81669d607abfc58633dbc14d4262d",
+          "observed_at": "2026-11-10T20:33:06.876285Z",
+          "provider_request_time_ms": 1794342786741,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1710806400000&endTime=1713686400000"
+        },
+        {
+          "decoded_response_sha256": "9d34f76736bcecf92a4e97ea01d2ca052c67ef05baf0df5272cf7be81938b1c0",
+          "observed_at": "2026-11-10T20:33:07.323900Z",
+          "provider_request_time_ms": 1794342787189,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1707926400000&endTime=1710806400000"
+        },
+        {
+          "decoded_response_sha256": "83bd6829d21a44bca4b839a2d0b36b8c40854dd4facb21cebdc009dd1bd8e783",
+          "observed_at": "2026-11-10T20:33:07.753493Z",
+          "provider_request_time_ms": 1794342787625,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1705046400000&endTime=1707926400000"
+        },
+        {
+          "decoded_response_sha256": "332533d63979db0f87c005aeb73154a9cb99cdfe173b2c683a8b86c56ae2125a",
+          "observed_at": "2026-11-10T20:33:08.210257Z",
+          "provider_request_time_ms": 1794342788070,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1702166400000&endTime=1705046400000"
+        },
+        {
+          "decoded_response_sha256": "9849637ec058e08eeda28ca36ccce5875f1060a9aae3e8f45a0b25b7e0654253",
+          "observed_at": "2026-11-10T20:33:08.634485Z",
+          "provider_request_time_ms": 1794342788496,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1699286400000&endTime=1702166400000"
+        },
+        {
+          "decoded_response_sha256": "7a20f4e2c9e5b0ca2a7ec127ee041bdc0ca14cdb2d7b2acc13590cf2662b2cec",
+          "observed_at": "2026-11-10T20:33:09.067550Z",
+          "provider_request_time_ms": 1794342788923,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1696406400000&endTime=1699286400000"
+        },
+        {
+          "decoded_response_sha256": "33e9017d450d70937c1755c17c9bd3d1d930b5db24db7ab9e7876415299c6557",
+          "observed_at": "2026-11-10T20:33:09.507001Z",
+          "provider_request_time_ms": 1794342789357,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1693526400000&endTime=1696406400000"
+        },
+        {
+          "decoded_response_sha256": "ef0498ca9291ec30efeeb5b5d6e9d98c4adcd209a1dc4cce2a95cf6438588d12",
+          "observed_at": "2026-11-10T20:33:09.993961Z",
+          "provider_request_time_ms": 1794342789790,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1690646400000&endTime=1693526400000"
+        },
+        {
+          "decoded_response_sha256": "5398558b4a94509b35096afea61afb703f4b7ec3b37c8e5a53019368c816f6ad",
+          "observed_at": "2026-11-10T20:33:10.779382Z",
+          "provider_request_time_ms": 1794342790320,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1687766400000&endTime=1690646400000"
+        },
+        {
+          "decoded_response_sha256": "f7826c928c561807504fd39c138fdc08611e71ec4da2c6993536d09a0c6a1578",
+          "observed_at": "2026-11-10T20:33:11.224468Z",
+          "provider_request_time_ms": 1794342791087,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1684886400000&endTime=1687766400000"
+        },
+        {
+          "decoded_response_sha256": "217cf5237747dc90f539acdb37543f0b2fb76f79e8a8ca3494ce57f619aef46e",
+          "observed_at": "2026-11-10T20:33:11.664488Z",
+          "provider_request_time_ms": 1794342791525,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1682006400000&endTime=1684886400000"
+        },
+        {
+          "decoded_response_sha256": "e2b48287fbf362ec540b46dceeebe7c914334ce5360891b8ea501f2bc3226c00",
+          "observed_at": "2026-11-10T20:33:12.082417Z",
+          "provider_request_time_ms": 1794342791946,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1679126400000&endTime=1682006400000"
+        },
+        {
+          "decoded_response_sha256": "0caac9783df3f381a65be46ba0f2028015e45414c7940231ec6bca364e0f738b",
+          "observed_at": "2026-11-10T20:33:12.531853Z",
+          "provider_request_time_ms": 1794342792393,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1676246400000&endTime=1679126400000"
+        },
+        {
+          "decoded_response_sha256": "8fa3e67198b5ab6f157acaaa8af58aa339a8a7dae29b4d42f94b31204c5370d6",
+          "observed_at": "2026-11-10T20:33:12.989747Z",
+          "provider_request_time_ms": 1794342792848,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1673366400000&endTime=1676246400000"
+        },
+        {
+          "decoded_response_sha256": "52e764204f901350e999911c55bceb1b6f6010007383058e7e5ec478e8d69bce",
+          "observed_at": "2026-11-10T20:33:13.446746Z",
+          "provider_request_time_ms": 1794342793307,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1670486400000&endTime=1673366400000"
+        },
+        {
+          "decoded_response_sha256": "36b86ebe0da5542b5688ad065b822693d02c94d4be39d7119e452f8864f0b2bd",
+          "observed_at": "2026-11-10T20:33:13.915480Z",
+          "provider_request_time_ms": 1794342793769,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1667606400000&endTime=1670486400000"
+        },
+        {
+          "decoded_response_sha256": "ac408a66140bb440fe1eb50271225e1925f6e2949647531c000542875eef0c99",
+          "observed_at": "2026-11-10T20:33:14.356645Z",
+          "provider_request_time_ms": 1794342794205,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1664726400000&endTime=1667606400000"
+        },
+        {
+          "decoded_response_sha256": "9dbd471090f9f2a48631766af7a97598295baf4167a304d1355e546f7946c9dd",
+          "observed_at": "2026-11-10T20:33:14.763206Z",
+          "provider_request_time_ms": 1794342794629,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1661846400000&endTime=1664726400000"
+        },
+        {
+          "decoded_response_sha256": "76eed9f4ccbb1ff8959b4d57a6684f395fd39232e7edf2ee9ce76cae96b79cd7",
+          "observed_at": "2026-11-10T20:33:15.201573Z",
+          "provider_request_time_ms": 1794342795061,
+          "returned_rows": 176,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1659312000000&endTime=1661846400000"
+        }
+      ],
+      "price_kind": "mark",
+      "symbol": "BTCUSDT"
+    },
+    {
+      "bars": 6576,
+      "coverage": {
+        "actual_end": "2025-08-01T00:00:00Z",
+        "actual_start": "2022-08-01T00:00:00Z",
+        "complete": true,
+        "missing_leading_bars": 0,
+        "missing_trailing_bars": 0,
+        "requested_end": "2025-08-01T00:00:00Z",
+        "requested_start": "2022-08-01T00:00:00Z"
+      },
+      "data_digest": "8cfc11e38b442845e1caaa408f40269b9649b465491f23da133725d689a6af1a",
+      "file": "BTCUSDT-index-4h.json",
+      "file_sha256": "322c9d6a3742c0620c41871a59c9158b43428eaf4e8ab828a9eefede7d6294fe",
+      "pages": [
+        {
+          "decoded_response_sha256": "0bd24bac6d88f1425af230f8801cc78a4ac451db7abc04ce10f8d094aa6aba7c",
+          "observed_at": "2026-11-10T20:33:16.762278Z",
+          "provider_request_time_ms": 1794342796621,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1751126400000&endTime=1754006400000"
+        },
+        {
+          "decoded_response_sha256": "978c71ccacd108fde0a785bef0d5dd9e5b611c194159146d6c64c8099717dcb6",
+          "observed_at": "2026-11-10T20:33:17.253500Z",
+          "provider_request_time_ms": 1794342797111,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1748246400000&endTime=1751126400000"
+        },
+        {
+          "decoded_response_sha256": "8ae612b8e6783268efbf6bf72fed1a2ec3eaa4a9ea9372b69048711dc07017c3",
+          "observed_at": "2026-11-10T20:33:17.700526Z",
+          "provider_request_time_ms": 1794342797559,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1745366400000&endTime=1748246400000"
+        },
+        {
+          "decoded_response_sha256": "339f1ffec92ed5933966fe320872ab8c84e31b51bef19e3d363425966bc59f43",
+          "observed_at": "2026-11-10T20:33:18.113619Z",
+          "provider_request_time_ms": 1794342797973,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1742486400000&endTime=1745366400000"
+        },
+        {
+          "decoded_response_sha256": "511c4d2fd0e109374022d21f03a6a141302a72dc8d403702ad49cea9a70c1dbc",
+          "observed_at": "2026-11-10T20:33:18.876296Z",
+          "provider_request_time_ms": 1794342798421,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1739606400000&endTime=1742486400000"
+        },
+        {
+          "decoded_response_sha256": "66179c081a73eac0515aefbecac340e5e036bf7cf8c70536fc38d8a9f8d099b4",
+          "observed_at": "2026-11-10T20:33:19.277019Z",
+          "provider_request_time_ms": 1794342799141,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1736726400000&endTime=1739606400000"
+        },
+        {
+          "decoded_response_sha256": "a784dba4da2e3c6805291411b8bc69c18a3b0fbf4a737313440d99607de666d7",
+          "observed_at": "2026-11-10T20:33:19.692627Z",
+          "provider_request_time_ms": 1794342799555,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1733846400000&endTime=1736726400000"
+        },
+        {
+          "decoded_response_sha256": "70f77b0265b1d769c4219b96e666adbbd9e22ecf844f0c48ccfca8b79de62c0e",
+          "observed_at": "2026-11-10T20:33:20.120432Z",
+          "provider_request_time_ms": 1794342799979,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1730966400000&endTime=1733846400000"
+        },
+        {
+          "decoded_response_sha256": "b1373043fb6dab9ce407068d2bc9d9d8c941f960e56210a801cd925adb3c1286",
+          "observed_at": "2026-11-10T20:33:20.531830Z",
+          "provider_request_time_ms": 1794342800401,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1728086400000&endTime=1730966400000"
+        },
+        {
+          "decoded_response_sha256": "3db47c4415173b18e83a30b45aa82abf6e338cd2456fdf453c72943ed8f6d5c6",
+          "observed_at": "2026-11-10T20:33:20.979481Z",
+          "provider_request_time_ms": 1794342800809,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1725206400000&endTime=1728086400000"
+        },
+        {
+          "decoded_response_sha256": "c9ddc344f5b791bd4f2d8ea00a825b2b488757fa2d94b55bb6f3f28392d928aa",
+          "observed_at": "2026-11-10T20:33:21.391423Z",
+          "provider_request_time_ms": 1794342801261,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1722326400000&endTime=1725206400000"
+        },
+        {
+          "decoded_response_sha256": "fc7e69bb497f2daf2f609baed83c02a711e23b4362ea078a45cd56835329350d",
+          "observed_at": "2026-11-10T20:33:21.844801Z",
+          "provider_request_time_ms": 1794342801677,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1719446400000&endTime=1722326400000"
+        },
+        {
+          "decoded_response_sha256": "2b6c8b67b48755f48effb47f2b7ed208139f0c5939b92fbb6dcc1409528abf1c",
+          "observed_at": "2026-11-10T20:33:22.260760Z",
+          "provider_request_time_ms": 1794342802134,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1716566400000&endTime=1719446400000"
+        },
+        {
+          "decoded_response_sha256": "069b931e3c0f88e4a771f5874a4db32639d85c756e071db475125c9c1d577e4d",
+          "observed_at": "2026-11-10T20:33:22.687268Z",
+          "provider_request_time_ms": 1794342802560,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1713686400000&endTime=1716566400000"
+        },
+        {
+          "decoded_response_sha256": "45e827919588f677e3cd21214ecbe6ececf93deb0f64eedd3bf1c7c7dd45ef8f",
+          "observed_at": "2026-11-10T20:33:23.093135Z",
+          "provider_request_time_ms": 1794342802969,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1710806400000&endTime=1713686400000"
+        },
+        {
+          "decoded_response_sha256": "761b3aa4430388a2fe32166638c79f89edaa32d4d4e0675e8706a23f9cb882d1",
+          "observed_at": "2026-11-10T20:33:23.601537Z",
+          "provider_request_time_ms": 1794342803476,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1707926400000&endTime=1710806400000"
+        },
+        {
+          "decoded_response_sha256": "29604e4ef09745605bf2ee45678a8d844eb715e4deaeb1b9981de175d7992111",
+          "observed_at": "2026-11-10T20:33:24.016280Z",
+          "provider_request_time_ms": 1794342803882,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1705046400000&endTime=1707926400000"
+        },
+        {
+          "decoded_response_sha256": "d0f2dd9975c6009254798b8b634840f8c25903d9fef906ce4aec47e2b5cb4b47",
+          "observed_at": "2026-11-10T20:33:24.448391Z",
+          "provider_request_time_ms": 1794342804304,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1702166400000&endTime=1705046400000"
+        },
+        {
+          "decoded_response_sha256": "7184a999bfe9775f205278c38422df51880d9835f8e235fbb16c288cf12fba8b",
+          "observed_at": "2026-11-10T20:33:24.924960Z",
+          "provider_request_time_ms": 1794342804772,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1699286400000&endTime=1702166400000"
+        },
+        {
+          "decoded_response_sha256": "7d6421e02113b4a911e470095323d253702f1b9eccc82f400468a918d02c5974",
+          "observed_at": "2026-11-10T20:33:25.368194Z",
+          "provider_request_time_ms": 1794342805224,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1696406400000&endTime=1699286400000"
+        },
+        {
+          "decoded_response_sha256": "7465085fa9342f735bcea91919721bc198f772925add5b55726cf2d4806ace7a",
+          "observed_at": "2026-11-10T20:33:25.771422Z",
+          "provider_request_time_ms": 1794342805644,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1693526400000&endTime=1696406400000"
+        },
+        {
+          "decoded_response_sha256": "570543c97b6cbf3fa8f948c33c97d4ecc9aa2fc28f84b3e46bc4e48ac8c69175",
+          "observed_at": "2026-11-10T20:33:26.231220Z",
+          "provider_request_time_ms": 1794342806083,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1690646400000&endTime=1693526400000"
+        },
+        {
+          "decoded_response_sha256": "815812288df18aef21f36c1a3e9805e5660a386ce97907ffd739495d96c7c835",
+          "observed_at": "2026-11-10T20:33:26.683124Z",
+          "provider_request_time_ms": 1794342806546,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1687766400000&endTime=1690646400000"
+        },
+        {
+          "decoded_response_sha256": "ac0ed208072f7fd68abeca81301475f76f4cfcc0a27fe5b562e45482545a4aba",
+          "observed_at": "2026-11-10T20:33:27.143691Z",
+          "provider_request_time_ms": 1794342806998,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1684886400000&endTime=1687766400000"
+        },
+        {
+          "decoded_response_sha256": "4d397b44849f3d2a4346ebd0733db14f021c7adecf034d839d58f12711b86c06",
+          "observed_at": "2026-11-10T20:33:27.605700Z",
+          "provider_request_time_ms": 1794342807465,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1682006400000&endTime=1684886400000"
+        },
+        {
+          "decoded_response_sha256": "912d5967be4b3fd53e0f0b8520b01181e91104a5de6485960999fc8687ae51d6",
+          "observed_at": "2026-11-10T20:33:28.082941Z",
+          "provider_request_time_ms": 1794342807940,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1679126400000&endTime=1682006400000"
+        },
+        {
+          "decoded_response_sha256": "90de0599eae7f0b9e2528399498bb51f6caf2ecc36fa3417623a9b8b89ac700a",
+          "observed_at": "2026-11-10T20:33:28.553658Z",
+          "provider_request_time_ms": 1794342808423,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1676246400000&endTime=1679126400000"
+        },
+        {
+          "decoded_response_sha256": "6417efe5419298890317d722910f0d2dc908fc4be127af840cc51a211846bb30",
+          "observed_at": "2026-11-10T20:33:29.056309Z",
+          "provider_request_time_ms": 1794342808918,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1673366400000&endTime=1676246400000"
+        },
+        {
+          "decoded_response_sha256": "78be2cd73049e6013d32848572535aab370ba38de65bded1b5fc7fda31cf124b",
+          "observed_at": "2026-11-10T20:33:29.524662Z",
+          "provider_request_time_ms": 1794342809384,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1670486400000&endTime=1673366400000"
+        },
+        {
+          "decoded_response_sha256": "5be1b2b0d7d8f4089c5b6a7348725e4d90c6f309e46e1b607a1ccc3aad127057",
+          "observed_at": "2026-11-10T20:33:29.983522Z",
+          "provider_request_time_ms": 1794342809837,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1667606400000&endTime=1670486400000"
+        },
+        {
+          "decoded_response_sha256": "21732cfff8ac39a6fb5926e07f51bcb33e51cc7906921297ecae707b3a9554ab",
+          "observed_at": "2026-11-10T20:33:30.469269Z",
+          "provider_request_time_ms": 1794342810313,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1664726400000&endTime=1667606400000"
+        },
+        {
+          "decoded_response_sha256": "d5be94a5b04777127f1cd6c1c6b4728945445b1503e6350605dd666f7981902a",
+          "observed_at": "2026-11-10T20:33:30.881763Z",
+          "provider_request_time_ms": 1794342810748,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1661846400000&endTime=1664726400000"
+        },
+        {
+          "decoded_response_sha256": "6b4a97b1254354faae900bf8ad281f60cd46aeb09cebb1292f61fa452c670222",
+          "observed_at": "2026-11-10T20:33:31.298741Z",
+          "provider_request_time_ms": 1794342811168,
+          "returned_rows": 176,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=BTCUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1659312000000&endTime=1661846400000"
+        }
+      ],
+      "price_kind": "index",
+      "symbol": "BTCUSDT"
+    },
+    {
+      "bars": 6576,
+      "coverage": {
+        "actual_end": "2025-08-01T00:00:00Z",
+        "actual_start": "2022-08-01T00:00:00Z",
+        "complete": true,
+        "missing_leading_bars": 0,
+        "missing_trailing_bars": 0,
+        "requested_end": "2025-08-01T00:00:00Z",
+        "requested_start": "2022-08-01T00:00:00Z"
+      },
+      "data_digest": "e8878030f7fd9ccbaadf4aa1f6a33c634ee6e6072dff70a7617b0143b6a968d0",
+      "file": "ETHUSDT-trade-4h.json",
+      "file_sha256": "e4b46cd009a2f6ca7b3fd2787a5db8462c8335c523b6f3993fe9350cf7c141f9",
+      "pages": [
+        {
+          "decoded_response_sha256": "aee52fedd35c0fcab6891b7b824146b7615162685eb4e62cbcfc63015a292c1d",
+          "observed_at": "2026-11-10T20:33:33.064373Z",
+          "provider_request_time_ms": 1794342812932,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1751126400000&endTime=1754006400000"
+        },
+        {
+          "decoded_response_sha256": "9885dab676cce3aa51ef5143cb1edbdc012a3049d9d5d93afd65bdd790f5513f",
+          "observed_at": "2026-11-10T20:33:33.512281Z",
+          "provider_request_time_ms": 1794342813372,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1748246400000&endTime=1751126400000"
+        },
+        {
+          "decoded_response_sha256": "e96a6c152b22744b9b9fd37d43aedf1751eecd7f55ad0552c1a114370a662583",
+          "observed_at": "2026-11-10T20:33:33.963676Z",
+          "provider_request_time_ms": 1794342813829,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1745366400000&endTime=1748246400000"
+        },
+        {
+          "decoded_response_sha256": "d7b9ae6040a22739905246a2f9a1b2446a0d99076def774551697acfa78babe6",
+          "observed_at": "2026-11-10T20:33:34.404300Z",
+          "provider_request_time_ms": 1794342814268,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1742486400000&endTime=1745366400000"
+        },
+        {
+          "decoded_response_sha256": "d90173d5f398567fb0a68552995540ac7b6861729a7239910b95666f0978b7cc",
+          "observed_at": "2026-11-10T20:33:34.800364Z",
+          "provider_request_time_ms": 1794342814675,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1739606400000&endTime=1742486400000"
+        },
+        {
+          "decoded_response_sha256": "15bea032005f684487bf262b2c225bada61f5c7181882f637a2c095e080f19b5",
+          "observed_at": "2026-11-10T20:33:35.217163Z",
+          "provider_request_time_ms": 1794342815079,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1736726400000&endTime=1739606400000"
+        },
+        {
+          "decoded_response_sha256": "e9c3fff1be04eecc3f4e4f823afc8a54c459e1d1e70a9884f30439e1516c74b5",
+          "observed_at": "2026-11-10T20:33:35.625107Z",
+          "provider_request_time_ms": 1794342815499,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1733846400000&endTime=1736726400000"
+        },
+        {
+          "decoded_response_sha256": "f5cc030d408def5e754dd3491ac4463927a1ebb2b4e0f2a37007a473010d5e2a",
+          "observed_at": "2026-11-10T20:33:36.082389Z",
+          "provider_request_time_ms": 1794342815932,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1730966400000&endTime=1733846400000"
+        },
+        {
+          "decoded_response_sha256": "34ea825d1c92a255c068ae460dee01300a60ed07778aff59064ae2d2ce77b00e",
+          "observed_at": "2026-11-10T20:33:36.694313Z",
+          "provider_request_time_ms": 1794342816562,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1728086400000&endTime=1730966400000"
+        },
+        {
+          "decoded_response_sha256": "f5cde5b885c33ba9a0a1449dc737e4b103d1d2ab9772ada486e325888ca42eb4",
+          "observed_at": "2026-11-10T20:33:37.146620Z",
+          "provider_request_time_ms": 1794342817000,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1725206400000&endTime=1728086400000"
+        },
+        {
+          "decoded_response_sha256": "3fb27063d1bdc1af2ab825848dfd9574bc077b6c64be9c1ab4e74ec805529bda",
+          "observed_at": "2026-11-10T20:33:37.561062Z",
+          "provider_request_time_ms": 1794342817422,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1722326400000&endTime=1725206400000"
+        },
+        {
+          "decoded_response_sha256": "f9dd0610c17735a6114c83cd02eea5eeb41ffccdce15549085e2aa1bd3b1b5b5",
+          "observed_at": "2026-11-10T20:33:38.009075Z",
+          "provider_request_time_ms": 1794342817861,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1719446400000&endTime=1722326400000"
+        },
+        {
+          "decoded_response_sha256": "c6f37252da37a45faaef810d4e1daa487ed2a97b2990f60a017014e2a9316109",
+          "observed_at": "2026-11-10T20:33:38.464727Z",
+          "provider_request_time_ms": 1794342818297,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1716566400000&endTime=1719446400000"
+        },
+        {
+          "decoded_response_sha256": "c40dc4a268afe66803afd4e17f8c753bac93c6866cef3ee303d76629e89fbdec",
+          "observed_at": "2026-11-10T20:33:38.858562Z",
+          "provider_request_time_ms": 1794342818735,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1713686400000&endTime=1716566400000"
+        },
+        {
+          "decoded_response_sha256": "5c9585fb61cbc8ea9aaf4b56e1e06dd8591dfb1a5147ee16421f8d1026012283",
+          "observed_at": "2026-11-10T20:33:39.249198Z",
+          "provider_request_time_ms": 1794342819118,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1710806400000&endTime=1713686400000"
+        },
+        {
+          "decoded_response_sha256": "37ec0f1eb379797780c26ac7a041b11bb87df2dfff1b6eec9558a4d32194c8ad",
+          "observed_at": "2026-11-10T20:33:39.679911Z",
+          "provider_request_time_ms": 1794342819533,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1707926400000&endTime=1710806400000"
+        },
+        {
+          "decoded_response_sha256": "88cdde9131dd59b7b96782e2653044cb168aab58bbdfa7b4fcbaafa956ea7b41",
+          "observed_at": "2026-11-10T20:33:40.076176Z",
+          "provider_request_time_ms": 1794342819950,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1705046400000&endTime=1707926400000"
+        },
+        {
+          "decoded_response_sha256": "067f5621b7ef63901393f97b114606d27f0873f1486035c684203d72fc2592d6",
+          "observed_at": "2026-11-10T20:33:40.525752Z",
+          "provider_request_time_ms": 1794342820384,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1702166400000&endTime=1705046400000"
+        },
+        {
+          "decoded_response_sha256": "0996c2559d1704c42b5fd7c609779aa9d08b3b95083804bc5216b427ade7f721",
+          "observed_at": "2026-11-10T20:33:40.951977Z",
+          "provider_request_time_ms": 1794342820823,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1699286400000&endTime=1702166400000"
+        },
+        {
+          "decoded_response_sha256": "8b2b5a3dd13970824dbc5698c7a1c7c167b0b35bddd6f6e58a0c892c0c72f14b",
+          "observed_at": "2026-11-10T20:33:41.387945Z",
+          "provider_request_time_ms": 1794342821257,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1696406400000&endTime=1699286400000"
+        },
+        {
+          "decoded_response_sha256": "a4a5bf6ef4596788e3e48bb9a185415f46c863c181846c50f88b63cbb0929302",
+          "observed_at": "2026-11-10T20:33:41.789518Z",
+          "provider_request_time_ms": 1794342821659,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1693526400000&endTime=1696406400000"
+        },
+        {
+          "decoded_response_sha256": "c067d54eb5d6c5cb26ab78d0bccc9d1f5cb58b32985e415ece9db5e817e4417d",
+          "observed_at": "2026-11-10T20:33:42.236431Z",
+          "provider_request_time_ms": 1794342822091,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1690646400000&endTime=1693526400000"
+        },
+        {
+          "decoded_response_sha256": "02a38aa960900a03842e8f5b0a690b19567dc865d7abed779dc60f04ce078877",
+          "observed_at": "2026-11-10T20:33:42.675144Z",
+          "provider_request_time_ms": 1794342822534,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1687766400000&endTime=1690646400000"
+        },
+        {
+          "decoded_response_sha256": "5d062415d211ddfd765f93d288a4d7e6fe7d52e769e61ba8c6bca9998e06c209",
+          "observed_at": "2026-11-10T20:33:43.165659Z",
+          "provider_request_time_ms": 1794342822999,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1684886400000&endTime=1687766400000"
+        },
+        {
+          "decoded_response_sha256": "1f82e145582b809bdbe9bfdb0497b914a26d3487decb0815821f0b540567c013",
+          "observed_at": "2026-11-10T20:33:43.577761Z",
+          "provider_request_time_ms": 1794342823450,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1682006400000&endTime=1684886400000"
+        },
+        {
+          "decoded_response_sha256": "d75dc10cd9e5f9e9e2d470cec90ee9e9fa75626418419ca92a885620df6a9f15",
+          "observed_at": "2026-11-10T20:33:43.988725Z",
+          "provider_request_time_ms": 1794342823862,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1679126400000&endTime=1682006400000"
+        },
+        {
+          "decoded_response_sha256": "2bda0040cfc6cce3cc37219d2d5439adc37d0f1817c109b03ee4a1789bfa2549",
+          "observed_at": "2026-11-10T20:33:44.433215Z",
+          "provider_request_time_ms": 1794342824293,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1676246400000&endTime=1679126400000"
+        },
+        {
+          "decoded_response_sha256": "2dadd8b3e3781ad98cd918ab42d9f8fb6e16b273a666c604755a0ec43ebd2352",
+          "observed_at": "2026-11-10T20:33:44.882950Z",
+          "provider_request_time_ms": 1794342824740,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1673366400000&endTime=1676246400000"
+        },
+        {
+          "decoded_response_sha256": "ea7ad9b3dcb8c06f326f8ddc5293993889f8b13579a0ef91a96f554ab2fddfe0",
+          "observed_at": "2026-11-10T20:33:45.337835Z",
+          "provider_request_time_ms": 1794342825195,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1670486400000&endTime=1673366400000"
+        },
+        {
+          "decoded_response_sha256": "9063aeb156c60d0ee43bcba1f9f4526e0afc6ce13aea1127ef12242e15c5af76",
+          "observed_at": "2026-11-10T20:33:45.793811Z",
+          "provider_request_time_ms": 1794342825652,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1667606400000&endTime=1670486400000"
+        },
+        {
+          "decoded_response_sha256": "f3a2d2391fac605ffeff24cd6fa47c745c6f1750a04c1db2827943a3dd41a750",
+          "observed_at": "2026-11-10T20:33:46.279845Z",
+          "provider_request_time_ms": 1794342826120,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1664726400000&endTime=1667606400000"
+        },
+        {
+          "decoded_response_sha256": "d4cd674e85d2e88cdab7c5fef9594ac1a49f288a333c2d48a19a6402a742efee",
+          "observed_at": "2026-11-10T20:33:46.711935Z",
+          "provider_request_time_ms": 1794342826567,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1661846400000&endTime=1664726400000"
+        },
+        {
+          "decoded_response_sha256": "2d34b93d54acc74fba913012beb097df8ee7aa7e2ea0ea5e6a0f414cf960a298",
+          "observed_at": "2026-11-10T20:33:47.143852Z",
+          "provider_request_time_ms": 1794342827015,
+          "returned_rows": 176,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1659312000000&endTime=1661846400000"
+        }
+      ],
+      "price_kind": "trade",
+      "symbol": "ETHUSDT"
+    },
+    {
+      "bars": 6576,
+      "coverage": {
+        "actual_end": "2025-08-01T00:00:00Z",
+        "actual_start": "2022-08-01T00:00:00Z",
+        "complete": true,
+        "missing_leading_bars": 0,
+        "missing_trailing_bars": 0,
+        "requested_end": "2025-08-01T00:00:00Z",
+        "requested_start": "2022-08-01T00:00:00Z"
+      },
+      "data_digest": "e4304b569edfa4af197d9b1ebcafe224f44c89819b105edbab550be745d1e335",
+      "file": "ETHUSDT-mark-4h.json",
+      "file_sha256": "f4a1ef8c8600c3ca102d253558c2066cb71b0fa71341ec3b47b02128946c7556",
+      "pages": [
+        {
+          "decoded_response_sha256": "1d611d409c931c8a9d3d9d1fd548c0e6d4e5f70ef6beedfde3b9e60379238792",
+          "observed_at": "2026-11-10T20:33:48.686740Z",
+          "provider_request_time_ms": 1794342828547,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1751126400000&endTime=1754006400000"
+        },
+        {
+          "decoded_response_sha256": "ed388fae31a28ceb093198bc328b6dd45e4f9213f40a7e6ee797dd44a4631f2a",
+          "observed_at": "2026-11-10T20:33:49.094201Z",
+          "provider_request_time_ms": 1794342828972,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1748246400000&endTime=1751126400000"
+        },
+        {
+          "decoded_response_sha256": "5a886c8f6fe5cd60618706cdd378b4d7b4ea2c3babb0f1d59d45caf25a838014",
+          "observed_at": "2026-11-10T20:33:49.524505Z",
+          "provider_request_time_ms": 1794342829395,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1745366400000&endTime=1748246400000"
+        },
+        {
+          "decoded_response_sha256": "b3570ccdc69c85016804fe34610bf5ecda757d40f3ee4a662abfb5abf492ab58",
+          "observed_at": "2026-11-10T20:33:49.944341Z",
+          "provider_request_time_ms": 1794342829809,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1742486400000&endTime=1745366400000"
+        },
+        {
+          "decoded_response_sha256": "2bd7b8c48d2b9fa6ea0dac7a92e4cb103e8779ddd0baeae1aaa5dd54c3903ca9",
+          "observed_at": "2026-11-10T20:33:50.393861Z",
+          "provider_request_time_ms": 1794342830258,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1739606400000&endTime=1742486400000"
+        },
+        {
+          "decoded_response_sha256": "9f9e9716d34e09fe5d6267e52c4323ab9a97d15c140d7d610bd0d4fab57fdfa3",
+          "observed_at": "2026-11-10T20:33:50.887942Z",
+          "provider_request_time_ms": 1794342830726,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1736726400000&endTime=1739606400000"
+        },
+        {
+          "decoded_response_sha256": "f31892ad6f763add12819d4f01ae4ebe82cd79ddbbc828c8aa3997ba92fd12f3",
+          "observed_at": "2026-11-10T20:33:51.439645Z",
+          "provider_request_time_ms": 1794342831302,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1733846400000&endTime=1736726400000"
+        },
+        {
+          "decoded_response_sha256": "853e6947e625943d0a13c6ab07cc5d15b42c9fdbd739228fd0af0fd5ee705bcc",
+          "observed_at": "2026-11-10T20:33:51.849394Z",
+          "provider_request_time_ms": 1794342831717,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1730966400000&endTime=1733846400000"
+        },
+        {
+          "decoded_response_sha256": "e66891f8ac3dd1068c3e2914bd168528336e154c07f919a217b083abff50addd",
+          "observed_at": "2026-11-10T20:33:52.283315Z",
+          "provider_request_time_ms": 1794342832145,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1728086400000&endTime=1730966400000"
+        },
+        {
+          "decoded_response_sha256": "0410ce4904190641d2a6749b3f759aeb1ee3a00d49214b43a3f43f9a4be6499c",
+          "observed_at": "2026-11-10T20:33:52.701770Z",
+          "provider_request_time_ms": 1794342832564,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1725206400000&endTime=1728086400000"
+        },
+        {
+          "decoded_response_sha256": "972b34525028a604be9bd5c9b5dc26e41c11057eff6bc861e6de054028eae417",
+          "observed_at": "2026-11-10T20:33:53.128281Z",
+          "provider_request_time_ms": 1794342832997,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1722326400000&endTime=1725206400000"
+        },
+        {
+          "decoded_response_sha256": "a9ba65c9b0d0b91a47fea41d5573066b0451ec0b5fe693be8235942775d05ef6",
+          "observed_at": "2026-11-10T20:33:53.564196Z",
+          "provider_request_time_ms": 1794342833428,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1719446400000&endTime=1722326400000"
+        },
+        {
+          "decoded_response_sha256": "b372be2471612139336680996a2861125fd78c8b9c6c115593f42e1c730d4f38",
+          "observed_at": "2026-11-10T20:33:54.016338Z",
+          "provider_request_time_ms": 1794342833874,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1716566400000&endTime=1719446400000"
+        },
+        {
+          "decoded_response_sha256": "c50dfb9846e23df78aa3e348703326954861c309ced57e13f93c0a533d128622",
+          "observed_at": "2026-11-10T20:33:54.437118Z",
+          "provider_request_time_ms": 1794342834310,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1713686400000&endTime=1716566400000"
+        },
+        {
+          "decoded_response_sha256": "b4cb29a6bdf2c8a3c244a61daea41375be84604b4177eaa5276616b0bf9f374a",
+          "observed_at": "2026-11-10T20:33:54.837797Z",
+          "provider_request_time_ms": 1794342834715,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1710806400000&endTime=1713686400000"
+        },
+        {
+          "decoded_response_sha256": "89648584e16283fb59e9f094f8dbe54f06f95e743daa97c43f8ddc42d2b2d365",
+          "observed_at": "2026-11-10T20:33:55.254105Z",
+          "provider_request_time_ms": 1794342835124,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1707926400000&endTime=1710806400000"
+        },
+        {
+          "decoded_response_sha256": "fe212004ac782973e075fa42560f0871e640babed2bc63088c0c0d4ba3c2d2e7",
+          "observed_at": "2026-11-10T20:33:55.662719Z",
+          "provider_request_time_ms": 1794342835537,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1705046400000&endTime=1707926400000"
+        },
+        {
+          "decoded_response_sha256": "4fda2cdacbcb5ad7efa8d31834ad5b648fa10c7974bbd1f321e46e0271f09697",
+          "observed_at": "2026-11-10T20:33:56.116992Z",
+          "provider_request_time_ms": 1794342835975,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1702166400000&endTime=1705046400000"
+        },
+        {
+          "decoded_response_sha256": "d087787152c195ab5153fd987bb41f106054d5ee87067174923e38c6510beab7",
+          "observed_at": "2026-11-10T20:33:56.559484Z",
+          "provider_request_time_ms": 1794342836425,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1699286400000&endTime=1702166400000"
+        },
+        {
+          "decoded_response_sha256": "6f79e56dda7a4c80f20f19a1780f8ab18634dcc44c05ad20b9dca93e21fdee4c",
+          "observed_at": "2026-11-10T20:33:57.038802Z",
+          "provider_request_time_ms": 1794342836901,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1696406400000&endTime=1699286400000"
+        },
+        {
+          "decoded_response_sha256": "c790f4ec2a6bdb8344415a1fb1c7b92eb61eed3f123b2a667c367938a6245098",
+          "observed_at": "2026-11-10T20:33:57.463148Z",
+          "provider_request_time_ms": 1794342837332,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1693526400000&endTime=1696406400000"
+        },
+        {
+          "decoded_response_sha256": "c979dcfcf765f76e00ac63234466aa9efe957486fdda39c77e042d1238bce914",
+          "observed_at": "2026-11-10T20:33:57.883122Z",
+          "provider_request_time_ms": 1794342837745,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1690646400000&endTime=1693526400000"
+        },
+        {
+          "decoded_response_sha256": "3e53df92c13f8680b01c700011a401779b1927e0324424c39965d922f5754293",
+          "observed_at": "2026-11-10T20:33:58.292970Z",
+          "provider_request_time_ms": 1794342838163,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1687766400000&endTime=1690646400000"
+        },
+        {
+          "decoded_response_sha256": "84f99383d35f0dccd89aec35d22440d5f2ad6078d00ebe5c71ae502efc34b8e4",
+          "observed_at": "2026-11-10T20:33:58.764557Z",
+          "provider_request_time_ms": 1794342838623,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1684886400000&endTime=1687766400000"
+        },
+        {
+          "decoded_response_sha256": "7a495eca81bd107ef1729ed96fbfcc6f1c9250bffb1f3ea7a698e1f5c326016e",
+          "observed_at": "2026-11-10T20:33:59.179749Z",
+          "provider_request_time_ms": 1794342839045,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1682006400000&endTime=1684886400000"
+        },
+        {
+          "decoded_response_sha256": "8d96a354566e5832cb598d1a72f632ff877655153e2882260a0a5bc505bb29e5",
+          "observed_at": "2026-11-10T20:33:59.651345Z",
+          "provider_request_time_ms": 1794342839500,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1679126400000&endTime=1682006400000"
+        },
+        {
+          "decoded_response_sha256": "d33d3bb675c4bd9fe6294b39e4977c1327fe22c9a9710f6b5061af553b24b9e3",
+          "observed_at": "2026-11-10T20:34:00.078830Z",
+          "provider_request_time_ms": 1794342839933,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1676246400000&endTime=1679126400000"
+        },
+        {
+          "decoded_response_sha256": "3588b53e182c978a231e047803eb2f52aeda3fdfdb089c0291f693af3789e2d7",
+          "observed_at": "2026-11-10T20:34:00.517963Z",
+          "provider_request_time_ms": 1794342840376,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1673366400000&endTime=1676246400000"
+        },
+        {
+          "decoded_response_sha256": "0af1b0a66a03755d70ba3e08b7d5964985273f9cb87a21d0041823797fe74ee5",
+          "observed_at": "2026-11-10T20:34:00.977198Z",
+          "provider_request_time_ms": 1794342840848,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1670486400000&endTime=1673366400000"
+        },
+        {
+          "decoded_response_sha256": "decebbeb896967fb1a170d979977e48dcd67782c92357bc8587baabf9ef6d72a",
+          "observed_at": "2026-11-10T20:34:01.472481Z",
+          "provider_request_time_ms": 1794342841332,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1667606400000&endTime=1670486400000"
+        },
+        {
+          "decoded_response_sha256": "68f5dc7684bb23d2198daf3c412bc32e1a7ca583287545ba06ebe7a51ffbffad",
+          "observed_at": "2026-11-10T20:34:01.957164Z",
+          "provider_request_time_ms": 1794342841816,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1664726400000&endTime=1667606400000"
+        },
+        {
+          "decoded_response_sha256": "fab13959f781f825131ddc5975a8c9c3b41cfcb4744b93df9651c3add003eeda",
+          "observed_at": "2026-11-10T20:34:02.392784Z",
+          "provider_request_time_ms": 1794342842257,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1661846400000&endTime=1664726400000"
+        },
+        {
+          "decoded_response_sha256": "fc0c4ae2a87272ccc364a834c96858625650dcf2b79ff5dbb218b5a8e06f4ffd",
+          "observed_at": "2026-11-10T20:34:02.888509Z",
+          "provider_request_time_ms": 1794342842714,
+          "returned_rows": 176,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-mark-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1659312000000&endTime=1661846400000"
+        }
+      ],
+      "price_kind": "mark",
+      "symbol": "ETHUSDT"
+    },
+    {
+      "bars": 6576,
+      "coverage": {
+        "actual_end": "2025-08-01T00:00:00Z",
+        "actual_start": "2022-08-01T00:00:00Z",
+        "complete": true,
+        "missing_leading_bars": 0,
+        "missing_trailing_bars": 0,
+        "requested_end": "2025-08-01T00:00:00Z",
+        "requested_start": "2022-08-01T00:00:00Z"
+      },
+      "data_digest": "fe6e56bca075b5995f2fa3eb109ebf4a0eebab545f90ea7e9a4ae97f82c940bb",
+      "file": "ETHUSDT-index-4h.json",
+      "file_sha256": "576d8d2ae30b14465942b24e6ac3b42c9037617755379b7f698979076734c98c",
+      "pages": [
+        {
+          "decoded_response_sha256": "6e1703270c203f6720e5dcbd20cb714d6f804fa83e8e0ee93f561b5baa92c2ef",
+          "observed_at": "2026-11-10T20:34:04.832724Z",
+          "provider_request_time_ms": 1794342844685,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1751126400000&endTime=1754006400000"
+        },
+        {
+          "decoded_response_sha256": "6fe6460f91e1129d2537b38d9ac1c2d8313eda0813c79c255d9f2974779575c0",
+          "observed_at": "2026-11-10T20:34:05.251568Z",
+          "provider_request_time_ms": 1794342845117,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1748246400000&endTime=1751126400000"
+        },
+        {
+          "decoded_response_sha256": "029844f590cdca042d37752d3b20fe06779b970495a0df3aafe667cf5dfa3e14",
+          "observed_at": "2026-11-10T20:34:05.699954Z",
+          "provider_request_time_ms": 1794342845558,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1745366400000&endTime=1748246400000"
+        },
+        {
+          "decoded_response_sha256": "8dca006cdd96f3515196008d6df062e78e7cd8d53f7beb2c7943ec6a5badc033",
+          "observed_at": "2026-11-10T20:34:06.104394Z",
+          "provider_request_time_ms": 1794342845971,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1742486400000&endTime=1745366400000"
+        },
+        {
+          "decoded_response_sha256": "02b2438af774bec337514eb012629f321c9428cec3e6dacd08bd8ee4aa4461c7",
+          "observed_at": "2026-11-10T20:34:06.513960Z",
+          "provider_request_time_ms": 1794342846382,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1739606400000&endTime=1742486400000"
+        },
+        {
+          "decoded_response_sha256": "8522831dc1cfc532617f39796b521a3aee4a6c74524e7e926d8c4c340d75cd22",
+          "observed_at": "2026-11-10T20:34:06.943769Z",
+          "provider_request_time_ms": 1794342846820,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1736726400000&endTime=1739606400000"
+        },
+        {
+          "decoded_response_sha256": "1f9badcaa4e95dfc8e152ee3aeeea1475ecbbe9f471ea1b9fe29b4308a4ba3a3",
+          "observed_at": "2026-11-10T20:34:07.405447Z",
+          "provider_request_time_ms": 1794342847271,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1733846400000&endTime=1736726400000"
+        },
+        {
+          "decoded_response_sha256": "ec3d26b30d4f66630c9608c1664eb20ce161be5b6675492a4a5d832405e07450",
+          "observed_at": "2026-11-10T20:34:07.799014Z",
+          "provider_request_time_ms": 1794342847674,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1730966400000&endTime=1733846400000"
+        },
+        {
+          "decoded_response_sha256": "a5bb6e5dfa7dff5b75b072842d9d1723ab5f08012186691a468d7e9af2073ef0",
+          "observed_at": "2026-11-10T20:34:08.301821Z",
+          "provider_request_time_ms": 1794342848137,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1728086400000&endTime=1730966400000"
+        },
+        {
+          "decoded_response_sha256": "3d65479c4f9e99d083c8b8cfe6db302ed9e8922e2a162c97609ca554f61d1403",
+          "observed_at": "2026-11-10T20:34:08.721861Z",
+          "provider_request_time_ms": 1794342848584,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1725206400000&endTime=1728086400000"
+        },
+        {
+          "decoded_response_sha256": "8ce207fdc4eedc36f54af4901db57d9db39321082ad6049c5b3c9f21cf13e767",
+          "observed_at": "2026-11-10T20:34:09.212008Z",
+          "provider_request_time_ms": 1794342849062,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1722326400000&endTime=1725206400000"
+        },
+        {
+          "decoded_response_sha256": "28d987dbc6f0b73403067c85c67d7d7deaafa09f6e0be1dc5c6a526b3f48e7cf",
+          "observed_at": "2026-11-10T20:34:09.623839Z",
+          "provider_request_time_ms": 1794342849492,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1719446400000&endTime=1722326400000"
+        },
+        {
+          "decoded_response_sha256": "734bdc17ad6e9d1d48933e9122ab433b466641ba09ab989c618664434cd93113",
+          "observed_at": "2026-11-10T20:34:10.063854Z",
+          "provider_request_time_ms": 1794342849922,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1716566400000&endTime=1719446400000"
+        },
+        {
+          "decoded_response_sha256": "79d70dc30c91c0b8df3c0afaa89efcb618a833f5ac5750746f4d867eba6624c1",
+          "observed_at": "2026-11-10T20:34:10.481948Z",
+          "provider_request_time_ms": 1794342850343,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1713686400000&endTime=1716566400000"
+        },
+        {
+          "decoded_response_sha256": "1acdddc5551c96ab16958e91cfa334edc67e96f8411f127ac9a8c2a5370edd4a",
+          "observed_at": "2026-11-10T20:34:10.953942Z",
+          "provider_request_time_ms": 1794342850800,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1710806400000&endTime=1713686400000"
+        },
+        {
+          "decoded_response_sha256": "fcb33c5e6e09a17ca942549922cfbfbcf2c353b568bd610f7e61a45b20ce94bc",
+          "observed_at": "2026-11-10T20:34:11.362745Z",
+          "provider_request_time_ms": 1794342851237,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1707926400000&endTime=1710806400000"
+        },
+        {
+          "decoded_response_sha256": "a24bf151f65de14e2789abb9e43ba07059e356c50eb4b4d0dbce79f3dd0a0325",
+          "observed_at": "2026-11-10T20:34:11.811360Z",
+          "provider_request_time_ms": 1794342851669,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1705046400000&endTime=1707926400000"
+        },
+        {
+          "decoded_response_sha256": "944c1c3bdef8a9ffa9c7fce8ca6da5a27cebc152c80980de23d15a21f7b2577c",
+          "observed_at": "2026-11-10T20:34:12.300573Z",
+          "provider_request_time_ms": 1794342852149,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1702166400000&endTime=1705046400000"
+        },
+        {
+          "decoded_response_sha256": "d8c80abe8556eddce99c75b1751d6f0338f5e35a3aecde6cba0d43ad9e388a65",
+          "observed_at": "2026-11-10T20:34:12.747902Z",
+          "provider_request_time_ms": 1794342852619,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1699286400000&endTime=1702166400000"
+        },
+        {
+          "decoded_response_sha256": "63c86343a7b78a99242edb7c00b4a4fd5378f2572dcc431e81b7bcd3eba7bbda",
+          "observed_at": "2026-11-10T20:34:13.194178Z",
+          "provider_request_time_ms": 1794342853059,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1696406400000&endTime=1699286400000"
+        },
+        {
+          "decoded_response_sha256": "c64b69a297ad1d89b7d823eaf7d46efa61d77772ae6d10f9c1067f76caf4ea48",
+          "observed_at": "2026-11-10T20:34:13.640482Z",
+          "provider_request_time_ms": 1794342853492,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1693526400000&endTime=1696406400000"
+        },
+        {
+          "decoded_response_sha256": "a933d81e00f88c39e70b7fe447e8538e4a918513bb552bb0c0d56170714bd1fc",
+          "observed_at": "2026-11-10T20:34:14.111605Z",
+          "provider_request_time_ms": 1794342853977,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1690646400000&endTime=1693526400000"
+        },
+        {
+          "decoded_response_sha256": "fcefe1981ec82083fd9d8ecc8b9c814704b3edd63ac2a2a7d6a6c8fba157c171",
+          "observed_at": "2026-11-10T20:34:14.589680Z",
+          "provider_request_time_ms": 1794342854442,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1687766400000&endTime=1690646400000"
+        },
+        {
+          "decoded_response_sha256": "338644de064f0f4501bb82c3dacf75c2ab1c6fa4d248779d13979a1a9318b590",
+          "observed_at": "2026-11-10T20:34:15.011266Z",
+          "provider_request_time_ms": 1794342854880,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1684886400000&endTime=1687766400000"
+        },
+        {
+          "decoded_response_sha256": "12ecfd0099b4c05aba08f4c55370cc8a8be97effdb40f377789bd9a6d0923779",
+          "observed_at": "2026-11-10T20:34:15.427376Z",
+          "provider_request_time_ms": 1794342855297,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1682006400000&endTime=1684886400000"
+        },
+        {
+          "decoded_response_sha256": "d58ea2d0cb1f8b8677805b96751cef2a91894f9875551716cb9c0b6511c15093",
+          "observed_at": "2026-11-10T20:34:15.865511Z",
+          "provider_request_time_ms": 1794342855725,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1679126400000&endTime=1682006400000"
+        },
+        {
+          "decoded_response_sha256": "e04a1358400cbbcc32bde99c2bc3e20ad9b28879e624871a8319d6d8ced6c7c3",
+          "observed_at": "2026-11-10T20:34:16.314692Z",
+          "provider_request_time_ms": 1794342856171,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1676246400000&endTime=1679126400000"
+        },
+        {
+          "decoded_response_sha256": "dd2554ca3a02fc2b28ab221affd4bb0ed7230e0e34f4a1e7cdac917897cd4e94",
+          "observed_at": "2026-11-10T20:34:16.748670Z",
+          "provider_request_time_ms": 1794342856610,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1673366400000&endTime=1676246400000"
+        },
+        {
+          "decoded_response_sha256": "b6320ff359c9bc1c687e3092e49c7381e65a229d4d670b3577b8958f0ed39793",
+          "observed_at": "2026-11-10T20:34:17.167695Z",
+          "provider_request_time_ms": 1794342857037,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1670486400000&endTime=1673366400000"
+        },
+        {
+          "decoded_response_sha256": "2efb2ed90b6591234f4e35ef1d67b1f2b940baa84f82e82965fda4b7c6b24179",
+          "observed_at": "2026-11-10T20:34:17.605222Z",
+          "provider_request_time_ms": 1794342857471,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1667606400000&endTime=1670486400000"
+        },
+        {
+          "decoded_response_sha256": "7cc6914f19e4dbe2be3f8a54337ce83d2ab74cc7f9fa3a6fe5442dcaaa8656ad",
+          "observed_at": "2026-11-10T20:34:18.027608Z",
+          "provider_request_time_ms": 1794342857895,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1664726400000&endTime=1667606400000"
+        },
+        {
+          "decoded_response_sha256": "221823fbdd5dd88c54362ae117345c7356c14816aca864388970a7097347386f",
+          "observed_at": "2026-11-10T20:34:18.438324Z",
+          "provider_request_time_ms": 1794342858310,
+          "returned_rows": 200,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1661846400000&endTime=1664726400000"
+        },
+        {
+          "decoded_response_sha256": "8e8c8fb60980e9cf0ad9ea7754f2a501743dffbd6c1fef09883f0e62cd8aad08",
+          "observed_at": "2026-11-10T20:34:18.950269Z",
+          "provider_request_time_ms": 1794342858725,
+          "returned_rows": 176,
+          "url": "https://api.bitget.com/api/v2/mix/market/history-index-candles?symbol=ETHUSDT&productType=USDT-FUTURES&granularity=4H&limit=200&startTime=1659312000000&endTime=1661846400000"
+        }
+      ],
+      "price_kind": "index",
+      "symbol": "ETHUSDT"
+    }
+  ]
+}

@@ -1,5 +1,10 @@
 # Bestätigter M1-Umfang und Umsetzungsstand
 
+IP-064 ergänzt ausdrücklich getrennte Futures-H4-/Fundingdatenverträge und
+begrenzten öffentlichen Historienimport. Keine Handelsfreigabe; Kosten/
+Marginregeln, Fundinghistorie und Ereignisledger vor Leistungsläufen offen.
+[Datenvertrag](futures-marketdata.md).
+
 IP-063 ergänzt isolierte Futuresrechner,44 neue Fälle/191 gepinnte Prüfungen.
 Nominal/Margin/Funding/Kontostress getrennt; First-fill−50% bedeutet anfänglich
 effektiven Hebel unter2×. Ledger, Futuresdaten und Regimecaller folgen.

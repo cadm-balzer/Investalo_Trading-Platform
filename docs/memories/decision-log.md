@@ -1164,3 +1164,31 @@ wiederholt. IP-063 bleibt bis Ereignisledger/Teilfills/Funding-/Gapabnahme offen
 IP-064 eigene Futures-/Preisartdaten vor langem Nettovergleich.
 Kein Holdout-, Dependency-, DB-, Runtime-, Broker- oder Publicwechsel.
 [Rechenvertrag](../futures-economics.md).
+
+## 2026-11-10 — D-069: Futureshistorien mit gebundener Preisart
+
+IP-063`0cf8a2b` in Main`6d06ec5` verifiziert; Nutzer erlaubt Fortsetzung.
+Frage nach2×-Start und höheren Nachkaufhebeln beantwortet: kein fester
+effektiver2×-Start unter bestehendem−50%-Stress, keine automatische Leiter
+oder geänderte Risikofreigabe. Jeder Fill braucht gesamte Basket-/Kontoprüfung.
+
+IP-064 ergänzt eigene H4-/Fundingversionen, explicit Classic-V2 USDT-M
+perpetual und trade/mark/index in Quelle/Digest/Candleidentität gebunden.
+Spotkern kann markierte Candles nicht ausführen; alte Contracts unverändert.
+Funding signed und tatsächliche UTC-Zeitpunkte, ohne angenommene Kadenz,
+Nullergänzung oder Vollständigkeitsbehauptung. Öffentlicher OHLCimport bounded,
+ohne Redirect/Retry; Fundingtransport wegen fehlendem Datumsfilter offen.
+
+Vorab eingefrorenes reines Datenprotokoll BTC/ETH2022-08-01–2025-08-01,
+keine PnL-/Kosten-/Regimeauswahl.198 öffentliche Pages, alle sechs Streams
+je6576 lückenlose H4-Kerzen,39.456 insgesamt. Identische UTC-Achsen,
+strict Roundtrips, Datei-/Datendigest und Protokollhash geprüft.
+Messrecord bindet perpage kanonische dekodierte Responsehashes.
+Originale ignoriert lokal, Protokoll/Quittung im Git. Kein Holdout angefragt.
+
+23 neue Hostfälle,81 gepinnte Daten-/Workerfälle mit147 Subtests bestanden.
+Testhelper nur um zwei readonly Script-/Protokollmounts ergänzt; keine
+Dependencies, Migrationen, Runtime-/Privatebroker-/Publicänderungen.
+IP-064 abgeschlossen; Fundingarchive/andere Kandidaten/historische Kontrakt-
+annahmen BL-030/IP-055, Ereignisledger/Teilfills/Gaps IP-063 weiter offen.
+[Datenvertrag](../futures-marketdata.md).

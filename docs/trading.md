@@ -1,5 +1,10 @@
 # Handelskonzept, Risiko und Nachweis
 
+IP-064 bindet Futures-Handels-, Mark- und Indexpreise ausdrücklich getrennt.
+Funding hat eigene signed Raten/Zeitpunkte; vollständige Funding-/historische
+Marginregeln und Ereignisledger stehen vor Nettoleistungsläufen noch aus.
+Keine automatische Hebelsteigerung je Kaufstufe. [Datenvertrag](futures-marketdata.md).
+
 IP-063: eigene Offline-Futuresökonomie und Kontostressprüfung implementiert,
 ohne Ereignisledger/Regimecaller. −50% vom ersten Fill erfordert anfänglich
 effektiven Hebel unter2×, auch bei eingestelltem10×; übrige Baskets, Costs

@@ -663,3 +663,17 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   Konservativen Maximalsatz zwischen aktuellem/Entry-/First-fill-Mark und
   Stress verwenden, unvollständige Grenzen ablehnen; nicht als historischen
   echten Brokerliquidationspreis etikettieren.
+- **Futurespreisart muss Candlegrenzen überleben:** ein neutraler BTCUSDT-
+  Candle könnte unbeabsichtigt im alten Spotkern landen. Neue Daten behalten
+  USDT-M/Trade-Mark-Index im Symbol und Digest; keine neutrale Konvertierung
+  ohne ausdrücklichen Futuresadapter. Snapshotcoverage beweist nur OHLC.
+- **Fundingseiten sind kein Datumsexport:** Classic-V2 bietet pageNo/pageSize,
+  keinen dokumentierten Zeitraumfilter. Separates Fundingformat allein belegt
+  keine vollständige Historie. Fehlende Raten weder mit Null noch aktueller
+  Kadenz auffüllen; Preisarchive allein noch kein kompletter Nettobacktest.
+- **Messhash benennen:** kanonischer Hash des dekodierten Responseobjekts
+  ist kein Rohbytehash. Importquittung hält beide Funktionen getrennt:
+  OHLC-Datendigest/Dateihash und ausdrücklich decoded_response_sha256.
+- **Hostunittest ist keine pytest-Umgebung:** breite Marketdata-Discovery
+  umfasst pytest-Paperfeedfälle. Ohne Hostpytest gezielt unittest-Futuresfälle
+  und vollständige Marktdaten-/Workerfälle im vorhandenen gepinnten Container.

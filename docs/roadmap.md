@@ -1,5 +1,9 @@
 # Roadmap
 
+IP-064 ergänzt eigene Futures-H4-/Fundingverträge mit Markt-/Preisartbindung
+und begrenztem öffentlichen Import; danach Funding-/Maintenanceannahmen und
+IP-063-Ereignisledger vervollständigen. [Datenvertrag](futures-marketdata.md).
+
 IP-063: Offlineökonomie/Kaufstress mit44 neuen Fällen implementiert;
 191 gepinnte Fälle/135 Subtests grün. Ereignisledger, Teilfills und Funding-
 buchungen folgen; IP-064 zuerst eigene Futures-/Preisart gebundene

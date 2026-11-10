@@ -1,5 +1,10 @@
 # Architektur und Stack
 
+IP-064 ergänzt getrennte `futures-h4-snapshot/1`-/`funding/1`-Datenverträge
+und einen begrenzten öffentlichen Classic-V2-Historienimport. Markt/Preisart
+bleiben in Digest und Candleidentität gebunden; keine Spot-/Worker-/Runtime-
+Umwidmung. [Datenvertrag](futures-marketdata.md).
+
 IP-063: Futuresökonomie und Riskrechner bleiben separate Offline-Domainmodule.
 Vertrauenswürdige vollständige Snapshots/Budgets und gebundene Revision
 ersetzen keine persistente Reservierung oder Executionautorisierung.
