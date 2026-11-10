@@ -441,3 +441,18 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   alle Migrationsprüfsummen normal007/fixture009 geprüft.
   Schlüsselbetrieb, provisionierte Identitäten, Quoten/Reconciliation/Recovery,
   echter Broker und Browser-/physische Abnahme bleiben offene M1-Gates.
+
+- 2026-11-10 Q35/IP-060: Nutzer bestätigt14 Kandidaten BTC/ETH/SOL/BNB/XRP/
+  ZEC/HYPE/XMR/LINK/XLM/NEAR/BCH/LTC/UNI und feste Slotwiederbelegung.
+  Unabhängig3–5 Baskets, neue RSI-Signale, normale vollständig abgeglichene
+  Exits, gleiche nominale Budgets, kein automatischer Riskneustart.
+  Neuer Poolresearchkern mit Slotprojektion, aktuellen Zyklusbudgets versus
+  Lifetime-/Abschlussbelegen und separat geprüfter Mindestmenge. Report nach
+  Kapazität, Benchmark explizit nicht berechnet.114 gepinnte gezielte Fälle/
+  65 Subtests,17 neue Poolfälle/Review grün. Natürliche synthetische H4-Replay:
+  15 Käufe über3 RSI-Zyklen,10 Trailingexits/freigegebene Slots; kein PnL-Nachweis.
+  Öffentliche Metadaten13 online, XMR40034; ZEC/HYPE/XLM ohne2022-Sample.
+  Neue JSON-Belege, alter Record unverändert. Keine Holdout-/Runtime-/DB-/
+  Broker-/Dependencyänderung. Vollhistorien/Kohorten/Benchmark/Marktlauf folgen.
+  Branch feat/m1-candidate-pool-reuse enthält IP-059b944be1, das beim Fetch
+  noch nicht in Main7ec9b41 war. Vertrag docs/candidate-pool-research.md.

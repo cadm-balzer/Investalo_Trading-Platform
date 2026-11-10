@@ -218,8 +218,20 @@ Strategie nachzukaufen und den durchschnittlichen Einstand zu senken.
 RSI-Rearm,5%-Abstand zum letzten tatsächlichen Einstieg,25% Volumenzuwachs,
 fünf reguläre Stufen und manuelle sechste Reserve bleiben erhalten.
 Freigabe gilt für Offlineforschung, nicht Marktassets/Live-/Betriebsaktivierung.
-Zykluswiederbelegung und zusätzliche Coins noch konkret festlegen.
+Zykluswiederbelegung und zusätzliche Coins wurden anschließend in Q35 bestätigt.
 [Nachkaufadapter](staged-portfolio-research.md).
+
+### Q35: Kandidatenpool und feste Slotwiederbelegung
+
+2026-11-10, **bestätigt**: Nutzer ergänzt die vorgeschlagenen BTC/ETH/SOL/BNB/XRP
+um ZEC/HYPE/XMR/LINK/XLM/NEAR/BCH/LTC/UNI. Einstiegssignale entstehen zeitversetzt;
+der Pool umfasst14 Kandidaten, weiterhin höchstens3–5 gleichzeitige Baskets.
+Auf die feste Wiederbelegung nach vollständigem normalem abgeglichenem
+Gewinn-/Trailingexit antwortet er „Ja klar“. Gleiches nominales Slotbudget,
+neues RSI-Signal und sämtliche Risiko-/Kosten-/Abgleichgates; kein automatisches
+Wachstum aus Gewinnen, kein automatischer Neustart nach Riskstop.
+Verfügbarkeit/Historiendaten sind separat nachzuweisen; kein Wechsel zu
+Futures/Hebel oder Livefreigabe. [Umsetzung](candidate-pool-research.md).
 
 Konkrete Umsetzungsfakten recherchieren wir: unterstützte Versionen exakt pinnen,
 Historienlänge/-qualität prüfen, Brokerkosten/Metadaten und Hostlast messen.

@@ -1,5 +1,12 @@
 # Deterministischer Crypto-Paperkern
 
+IP-060: separat versionierter `pool_research` mit14 bestätigten Kandidaten,
+unabhängig3–5 finanzierten Slots und fester Wiederbelegung nach normalen
+abgeglichenen Exits. Eigene Mindestmenge, Slot-/Zyklus-/Lifetime-Nachweise,
+Kapital-/Belegungskurven; alte v1- und staged-Versionen bleiben unverändert.
+114 gezielte gepinnte Fälle/65 Subtests grün. Offline, ohne Runtimecaller.
+[Poolvertrag](../../docs/candidate-pool-research.md).
+
 IP-058 verbindet das für Forschung bestätigte Allokationsprofil mit der
 vorhandenen RSI-/Nachkauf-/Filllogik. Eigene Researchversion, vollständige
 Staffel, gemeinsame Prüfung vor Intent/Dispatch und Lifetime-Ausgabenjournal.

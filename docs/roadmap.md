@@ -26,10 +26,11 @@ und Filllogik. Zunächst synthetische Zyklen; neue Marktassets/Wiederbelegung
 und eingefrorene erweiterte Leistungsläufe folgen.
 [Nachkaufadapter](staged-portfolio-research.md).
 
-IP-059 bestätigt öffentlich die fünf vorgeschlagenen Spotpaare und
-Historienbeginn mit zehn H4-Proben. Coinauswahl/Wiederbelegung noch offen;
-vollständige gemeinsame Historie und aktueller Mindestmengenvertrag folgen.
-[Vorcheck](portfolio-history-preflight.md).
+Q35/IP-060 bestätigt14 Kandidaten und setzt3–5 feste wiederbelegbare Slots
+mit unverändertem RSI-/Nachkaufkern um.114 gepinnte Fälle/65 Subtests grün.
+XMR aktuell nicht gefunden, ZEC/HYPE/XLM ohne2022-Sample. Eigene erweiterte
+Datenverträge, vollständige Historien, eingefrorener Benchmark und echter
+größerer Leistungslauf folgen. [Pool und Vorcheck](candidate-pool-research.md).
 
 Stand 2026-11-10. Q1–Q5 bestätigen privaten Pilot, Paper zuerst, feste
 Risikolimits, kontrollierte KI und kostenlose externe Dienste.

@@ -48,13 +48,17 @@ in diese Prüfung. Die manuelle Reserve bleibt bewusst manuell.
 IP-056 bereitet ihn mit einer gemeinsamen unveränderten BTC-/ETH-Baseline
 vor: synchronisierte H4-Quotes, ein Konto und messbare Kapitalnutzung.
 [Offlinekern, Kennzahlen und Abnahme](portfolio-reference.md).
-Die Auswahl zusätzlicher Coins ist erfragt; die bestätigte größere Allokation
-braucht vor ihrem ersten Leistungslauf eingefrorene Daten und Zyklusregeln.
+Coins und feste Wiederbelegung sind mit Q35 bestätigt; vor dem größeren
+Leistungslauf braucht es eingefrorene datenberechtigte Kohorten, vollständige
+Historien und einen vergleichbaren Benchmark.
 IP-058 verbindet das bestätigte Profil mit dem vorhandenen RSI-/Fillkern:
 alle fünf regulären Stufen, ausdrückliche manuelle sechste Stufe und gemeinsame
 Kaufprüfung vor Vorbereitung/Dispatch. Zunächst ein vollständiger Zyklus je
-synthetischem Slot; Wiederbelegung/Marktassets und größerer Leistungslauf offen.
+synthetischem Slot. IP-060 ergänzt14 Kandidaten/3–5 dynamisch belegte Slots
+und feste Wiederbelegung nach vollständig abgeglichenen normalen Exits;
+Riskexits quarantänisieren. Marktleistung bleibt offen.
 [Nachkaufadapter](staged-portfolio-research.md).
+[Poolvertrag](candidate-pool-research.md).
 
 Die bisherigen BTC-/ETH-Läufe mit je eigenem10.000-USDT-Konto bleiben
 unverändert. Ihre Gewinne dürfen nicht als gemeinsames Portfolio addiert werden.
@@ -70,11 +74,11 @@ Geplant ist ein neuer versionierter Portfolio-Researchlauf:
 - Auswertung von Kontorendite, Kapitalbindung, Drawdown, korreliertem Stress,
   Kosten und vergleichbarem Buy-and-hold-Benchmark.
 
-Vor Leistungsläufen festlegen: zusätzliche zulässige Coins neben BTC/ETH,
-verfügbare Historien und Instrumentregeln,
-Resizing-/Wiederbelegungsregeln und Signalpriorität. Gleiche Slotgewichte,
-1% Kostenreserve und die zusätzliche Stressablehnung sind inzwischen für
-Forschung bestätigt; fehlender Riskspielraum sperrt auch Nachkäufe. Kandidaten und
+Vor Leistungsläufen Historien, Instrumentannahmen, Kohorten und Benchmark
+einfrieren. Q35: BTC/ETH/SOL/BNB/XRP/ZEC/HYPE/XMR/LINK/XLM/NEAR/BCH/LTC/UNI,
+gleiche feste wiederbelegbare3–5 Slots; technische kanonische Priorität in IP-060.
+1% Kostenreserve und zusätzliche Stressablehnung bestätigt; fehlender
+Riskspielraum sperrt auch Nachkäufe. Kandidaten und
 Auswahlregeln werden vor der Auswertung eingefroren; der vorhandene Holdout
 bleibt reserviert. Forschung und Paper erhalten eigene Versionsnachweise.
 Das laufende Entwicklungsprofil bleibt bis zur geprüften Umsetzung unverändert.

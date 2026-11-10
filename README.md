@@ -18,9 +18,11 @@ IP-058 verbindet dieses bestätigte Forschungsprofil mit allen fünf regulären
 RSI-Nachkäufen, manueller Reserve und gemeinsamer Kaufprüfung.
 [Forschungsadapter](docs/staged-portfolio-research.md).
 
-Der [öffentliche Vorcheck](docs/portfolio-history-preflight.md) bestätigt
-Verfügbarkeit und aktuelle Spotregeln der fünf vorgeschlagenen Coins.
-Auswahl und feste Slotwiederbelegung warten auf die Nutzerentscheidung.
+Q35 bestätigt14 Kandidaten und feste Slotwiederbelegung. IP-060 setzt den
+Offlinepool mit3–5 finanzierten Slots, RSI-Nachkäufen und abgeglichenen
+Trailingexits um.114 gepinnte Fälle/65 Subtests bestanden. XMR aktuell bei
+Bitget Spot nicht gefunden; ZEC/HYPE/XLM ohne Sample am bisherigen
+Forschungsbeginn. [Pool, Datenbelege und Grenzen](docs/candidate-pool-research.md).
 
 **Stand: 2026-11-10 — M1-Implementierung gestartet, Q31 bestätigt.**
 Das lokale Fundament läuft über Docker Compose: Cockpit, FastAPI, PostgreSQL,

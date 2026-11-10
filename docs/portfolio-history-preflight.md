@@ -1,5 +1,9 @@
 # Öffentlicher Vorcheck der vorgeschlagenen Coins
 
+Historischer IP-059-Vorcheck vor der Nutzerantwort. Q35 bestätigt inzwischen
+14 Kandidaten und feste Wiederbelegung; IP-060 ergänzt die neun zusätzlichen
+Beobachtungen in einem eigenen Record. [Aktueller Stand](candidate-pool-research.md).
+
 Stand2026-11-10, IP-059. Ausgangscheckpoint IP-058 (`4f56024`) ist in
 Main`7ec9b41` verifiziert. Die Auswahl zwischen fünf Coins
 (BTC/ETH/SOL/BNB/XRP) und drei Coins (BTC/ETH/SOL) sowie feste
