@@ -1,5 +1,10 @@
 # Architektur und Stack
 
+IP-063: Futuresökonomie und Riskrechner bleiben separate Offline-Domainmodule.
+Vertrauenswürdige vollständige Snapshots/Budgets und gebundene Revision
+ersetzen keine persistente Reservierung oder Executionautorisierung.
+Kein Runtimecaller/Regimebeweis/Eventledger. [Rechenvertrag](futures-economics.md).
+
 Q37/IP-062 verlangt einen separaten Futures-Daten-/Ökonomievertrag für
 Trade-/Mark-/Fundingdaten, Nominal, isolierte Margin und Liquidationsstress.
 Bestehende Spotkern-/Snapshot-/Workerverträge nicht umetikettieren oder erweitern,

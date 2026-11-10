@@ -1,5 +1,11 @@
 # Bestandsaufnahme
 
+IP-063: neue pure `futures_economics.py`/`futures_risk.py`,44 neue Fälle,
+191 gezielte gepinnte Tests/135 Subtests. Keine alten Module geändert;
+keine Runtime-/Broker-/DB-/Dependencyaktivierung. Funding-/Fee-/Breakeven-
+ökonomie und isolierter/gemeinsamer Kaufstress, kein Ledger/Orderadapter.
+[Vertrag](futures-economics.md).
+
 IP-062: öffentliche Classic-V2-Futuresinventur20 Kontrakte,40 Historienproben
 und52 frühe geprüfte Trade-/Markkerzen in neuem Messrecord. Alle sechs
 Alternativen aktuell normal; AVAX/TRX mit frühen Proben. Keine Futuresökonomie,

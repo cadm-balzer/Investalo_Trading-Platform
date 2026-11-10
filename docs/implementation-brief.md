@@ -1,5 +1,10 @@
 # Bestätigter M1-Umfang und Umsetzungsstand
 
+IP-063 ergänzt isolierte Futuresrechner,44 neue Fälle/191 gepinnte Prüfungen.
+Nominal/Margin/Funding/Kontostress getrennt; First-fill−50% bedeutet anfänglich
+effektiven Hebel unter2×. Ledger, Futuresdaten und Regimecaller folgen.
+[Rechenvertrag](futures-economics.md).
+
 Q37 ergänzt das spätere Ziel isolierter USDT-M-Long-Futures, marktphasenabhängig
 2×–10× nach unabhängiger Risiko-/Liquidationsprüfung. Eigene Marginpuffer,
 −50%-Stress vom ersten Fill und6%/8% bleiben; separate Futuresökonomie in IP-063.

@@ -1133,3 +1133,34 @@ kann sonst hinter der Liquidation liegen. Keine Holdoutauswertung, neue
 Abhängigkeiten, DB-/Runtime-/Broker-/Publicaktivierung. Branch enthält
 noch ungemergten IP-06154d2a7d, Mainab928ee erneut verifiziert.
 [Vertrag und Daten](../futures-research.md).
+
+## 2026-11-10 — D-068: Getrennte Futuresrechnung ohne fiktiven Hebelgewinn
+
+Nutzer bestätigt alle Merges;54d2a7d/f6617b6 in Main168219f verifiziert.
+IP-063 ergänzt zwei pure Offlineversionen für lineare USDT-Longökonomie
+und gemeinsame Kaufstressprüfung. Nominal, tatsächliche Nettomargin,
+unposted Cash und übrige Slot-/Costreserven getrennt; Margintransfer kein
+Equitygewinn, Funding signed, Fees nicht doppelt abbuchen.
+
+Maintenance bewusst als konservative Whole-tier-Annahme, keine exakte
+historische Bitgetliquidation. Vollständige begrenzte monotone Stufen, Source-
+Assumptionsdigest und Kosten/Precision gebunden; fehlende Deckung blockiert.
+First-fill−50% auch nach Durchschnittssenkung, reale gestellte Margin und
+gesamte3–7-Basketverluste gegen original6%/8%; kein ungeposteter Gapschutz.
+Aktuelle Halts/Liquidationsgefährdung vorher prüfen. Alle ungeklärten Orders
+und Fillbound unter Mark im ersten Rechner blockieren.
+
+Erster Fill ohne Buchgewinn benötigt >50% Nominal als Margin; effektiver
+Entryhebel<2, auch wenn Broker10× eingestellt ist. Diese Konsequenz der
+bestätigten Q37-Regeln erklärt, warum bloßes Einstellen10× keinen zehnfachen
+PnL ergibt. Noch keine Uptrend-/Marginaufteilung oder Strategiepromotion.
+
+44 neue Fälle,187 Host-/191 gepinnte Fälle mit135 Subtests grün.
+Unabhängiger Review ohne verbleibenden wirtschaftlichen/Accountingblocker.
+Reviewfix verhindert Sofortgewinn aus theoretischem Kaufpreis unter Mark.
+Nur neue Module, keine Spotexports/-Schemas/-Digests verändert; alte
+Trading-/Workerfälle bestanden, echter alter Dreijahresreplay diesmal nicht
+wiederholt. IP-063 bleibt bis Ereignisledger/Teilfills/Funding-/Gapabnahme offen,
+IP-064 eigene Futures-/Preisartdaten vor langem Nettovergleich.
+Kein Holdout-, Dependency-, DB-, Runtime-, Broker- oder Publicwechsel.
+[Rechenvertrag](../futures-economics.md).

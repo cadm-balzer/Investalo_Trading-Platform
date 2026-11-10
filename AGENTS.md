@@ -672,8 +672,28 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   Exact regime/leverage mapping, budget split and open-cycle regime-change
   rules still unresolved; AI cannot relax independent risk gates.
   IP-063/BL-030; docs/futures-research.md; D-067.
-  Branch feat/m1-futures-candidate-preflight includes54d2a7d; last verified
-  mainab928ee, no merge inferred from latest new requirement.
+  IP-06154d2a7d and IP-062f6617b6 merged into main168219f, verified.
+  Current branch feat/m1-isolated-futures-risk.
+- IP-063 first checkpoint adds pure isolated-usdt-long-economics/1 and
+  isolated-usdt-long-stress/1. Signed funding/full close PnL/netbreakeven,
+  conservative whole-tier maintenance (explicit research assumption, not
+  exact historical broker liquidation), and3–7 mixed funded slot assessment.
+  Project one worst-price full fill; move collateral once, debit entryfee
+  once, reserve all remaining slot margin/costs/remainder against cash.
+  Current account and isolated liquidation gates run before projection.
+  First-fill50% stress and original6%/8% bases unchanged; missing tier
+  coverage, all unresolved orders and fill bound below mark reject.
+  Unposted buffers do not protect gaps. First fill needs >50% nominal posted,
+  so effective entry leverage is below2x regardless of broker10x setting.
+  Frozen plan binds assumptions/precision/fees/budgets; actor inputs trusted,
+  no proof of funded profit epochs, persistent reservation, regime or dispatch.
+  execution_enabled always false; no default/running module changed.
+  44 new tests,187 host and191 pinned tests/135 subtests passed; independent
+  economic review has no remaining blocker. No old actual baseline rerun
+  because existing modules unchanged. No DB/dependency/runtime/public/broker/
+  holdout change. IP-063 event ledger/partialfills/funding/gap sequencing and
+  IP-064 separate futures price-type histories remain open.
+  docs/futures-economics.md; D-068.
 
 - Profitability is a measurable research objective, never a guarantee.
 - Use one versioned deterministic strategy core for backtest, paper, and live.

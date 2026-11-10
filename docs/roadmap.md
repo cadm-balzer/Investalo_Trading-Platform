@@ -1,5 +1,10 @@
 # Roadmap
 
+IP-063: Offlineökonomie/Kaufstress mit44 neuen Fällen implementiert;
+191 gepinnte Fälle/135 Subtests grün. Ereignisledger, Teilfills und Funding-
+buchungen folgen; IP-064 zuerst eigene Futures-/Preisart gebundene
+Historienverträge vor längerem Nettovergleich. [Rechenvertrag](futures-economics.md).
+
 Q37/IP-062: Futures-Grundprofil bestätigt,20 aktuelle USDT-M-Kontrakte und
 52 frühe Trade-/Markkerzen öffentlich geprüft. Alternativen AVAX/HBAR/TRX/
 BGB/BAT/RENDER; volle Historien noch offen. IP-063: eigene Margin-/Funding-/
