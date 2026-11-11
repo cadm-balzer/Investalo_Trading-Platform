@@ -1,5 +1,11 @@
 # Roadmap
 
+Q39/IP-072: Nutzer priorisiert tatsächlichen H1/H4-Nettovergleich mit
+vollständiger bestätigter Basket-Kapitalplanung. Eigener Spotvergleich auf
+gleicher nativer Fünf-Coin-Quelle mit drei/fünf Slots und Kostenstress.
+H4-Runtime bleibt unverändert; Futuresökonomie/Nettovergleich IP-069 bleibt
+eine separate nächste Auswertung. [Vergleich](h1-h4-basket-comparison.md).
+
 IP-071: vollständiges Langlaufjournal/ID-Historien und synthetischer
 Dreijahresmechanik-/Wiederanlaufbeleg vorhanden. IP-069 als Nächstes
 wirtschaftliches Profil/Fundingpreisbezug/passende native Kohorte und

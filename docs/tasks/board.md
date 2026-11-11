@@ -632,6 +632,19 @@ Abschlussbelege oben und [vollständiger Vertrag](../long-history-backtests.md).
 IP-047 ist der nächste konkrete Papercheckpoint mit demselben Handelskern,
 Journal und Crash-/Replay-/Riskprüfung; privater Brokerzugang dafür nicht nötig.
 
+## IP-072 — H1/H4 mit bestätigter Kapitalplanung
+
+DONE: sechs tatsächliche Dreijahresläufe;355 gepinnte Trading/Quellenfälle,
+64 abschließende betroffene Prüfungen plus neuer Kosten-Fillfall grün,
+356 unterschiedliche Fälle/18 neue. Alte Dreijahresbaseline unverändert.
+
+Q39: gemeinsamer10.000-USDT-Spotvergleich für fünf bestätigte Coins,
+drei/fünf feste wiederbelegbare Slots, alle regulären Nachkäufe und
+unveränderte6%/8%/−50%-Gates. Vier Grund- und zwei vorab eingefrorene
+Kostenstressläufe. Native H1-Quelle und daraus gebildetes H4 verwenden
+dasselbe deklarierte Unterbrechungsfenster. Ergebnis und Abnahme:
+[Vergleich](../h1-h4-basket-comparison.md).
+
 ## Routine
 
 Vor Beginn Status setzen, relevante Entscheidungs-/Pitfallnotizen lesen.

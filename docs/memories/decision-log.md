@@ -1411,3 +1411,31 @@ Nächstes IP-069: wirtschaftliches Forschungsprotokoll mit Fundingpreisbezug
 und echter passender Kohorte, dann Nettovergleich. Native Binanceartefakte
 bislang BTC/ETH,3–7-Symbol-Profil braucht echte weitere Daten; keine synthetische
 dritte Coinperformance. `docs/futures-long-replay-journal.md`.
+
+## 2026-11-11 — D-077: H1/H4 mit größeren festen Basketbudgets vergleichen
+
+Nutzer beauftragt ausdrücklich H1-Test und H4 mit korrekter größerer
+Basket-Kapitalplanung. Q39/IP-072 verwendet zunächst den vorhandenen Spotkern,
+ein10.000-USDT-Konto und dieselben fünf bestätigten BNB/BTC/ETH/SOL/XRP-
+Kandidaten in drei/fünf Slots; kein synthetischer Coin und keine Futuresrendite.
+RSI/Rearm/5%-Abstand/25%-Staffel/manuelle Reserve und6%/8%/−50% unverändert.
+Native Binance-H1 bildet auch H4; vier Grundfälle plus zwei vorab bestimmte
+doppelte Kostenfälle, kein Holdout/Parametersuchen/Runtimewechsel.
+
+Native Unterbrechung2023-03-24:13h fehlt,12h verkürzt. Gemeinsamer12–16h-Block
+vor erster Marktperformance ausdrücklich ausgeschlossen, Indikatoren danach
+neu starten, Kaufpending stornieren; echte Holdings/Stopps/Halts/Belege erhalten.
+Erste streng lückenfreie Quelle wurde vor Leistung verworfen/archiviert,
+kein Forwardfill/Lookahead. Quelle/Dateien im create-only Manifest versiegelt.
+Vertrag und vollständige Ergebnisse: `docs/h1-h4-basket-comparison.md`.
+
+Sechs echte Marktläufe beendet. H1/H4 drei Slots+725,04/+1251,79 USDT;
+fünf Slots+985,30/+1064,30; DD H1 höher. Nachkäufe fünf Slots66/47,
+zusätzliche Stressprüfung sperrt1740/186 Versuche, Stufe5 nie ausgeführt.
+Doppelte Kosten fünf Slots+1015,72/+1554,99: tatsächliche höhere Gebühren
+geprüft, Handelspfad ändert sich durch Fill-/Stoppschwellen; kein Beweis
+Kostenrobustheit/höhere Gebühren vorteilhaft. H4 als Referenz behalten,
+keine automatische Promotion; Ausführungs-/Stoppsensitivität vor Holdout.
+135GETs, je26303 native H1/26300 evaluierte H1/6575 H4, sechs volle Kurven
+geprüft.18 neue/356 unterschiedliche gepinnte Fälle, alte228,7169/56-
+Baseline exakt reproduziert. Keine DB/Dependencies/Public-/Runtimeänderung.

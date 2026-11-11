@@ -281,6 +281,13 @@ keine Konto-/Echtgeld-/Livefreigabe. IP-070 belegt die Datenbasis; wirtschaftlic
 Protokoll und Nettoleistungslauf folgen IP-069.
 [Datenvertrag und Abnahme](binance-futures-research-data.md).
 
+Q39,2026-11-11: Nutzer beauftragt ausdrücklich H1-Forschung und einen
+H4-Vergleich mit dem bestätigten größeren Basket-Kapitalprofil. IP-072:
+gleiche Binance-Spot-Daten,10.000 USDT, drei/fünf feste Slots und unveränderte
+Nachkauf-/Risikoregeln. Keine automatische Paper-/Live-Zeitrahmenumstellung
+oder vorweggenommene Futuresrendite.
+[Vergleich](h1-h4-basket-comparison.md).
+
 Konkrete Umsetzungsfakten recherchieren wir: unterstützte Versionen exakt pinnen,
 Historienlänge/-qualität prüfen, Brokerkosten/Metadaten und Hostlast messen.
 Vor Pilotrollout müssen Domain/TLS, SMTP/Empfänger, Terminalbindung,

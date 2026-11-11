@@ -784,3 +784,11 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   und7672 behaltene IDs belegen Journal/Restore. Echte Binance-Nettoforschung
   braucht Gebühren/Fundingnominal-/Ausführungskontrakt und passende echte
   Kohorte; BTC/ETH plus synthetischer dritter Coin ist keine native3-Symbol-Performance.
+- **Mehr Stundenkerzen sind keine garantierten Nachkäufe:** RSI-Rearm und5%
+  Abstand bleiben gleichzeitig erforderlich; gemeinsame−50%-Stressprüfung
+  kann größere Stufen sperren. Nur gleicher Kandidatenpool, Kosten und volle
+  Slotkapitalplanung ergeben einen brauchbaren H1/H4-Vergleich.
+- **Native Spothistorie kann verkürzte Kerzen enthalten:** Binance2023-03-24
+  12h vorzeitig geschlossen,13h fehlt. Originalschlusszeit erhalten, denselben
+  Vierstundenblock vor Performance für beide Varianten ausschließen; Indikatoren
+  neu starten, Holdings/Stopps/Halts/alle Belege erhalten. Keine Ersatzpreise.
