@@ -1,5 +1,9 @@
 # Investalo Trading Platform
 
+IP-065 ergänzt den Futures-Buchungsledger für Teilkäufe/-verkäufe, Funding,
+Margin und Gapverluste.222 gepinnte Tests bestanden. Die Order-/Riskintegration
+folgt IP-066; Fundingarchive bleiben offen. [Ledgervertrag](docs/futures-event-ledger.md).
+
 IP-064 ergänzt getrennte Futures-H4-Daten für Handelspreis, Mark und Index
 sowie signed Fundingereignisse. Der begrenzte öffentliche Historienimport
 ändert die bestehenden Spotdaten nicht. [Datenvertrag](docs/futures-marketdata.md).

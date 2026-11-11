@@ -1,5 +1,10 @@
 # Handelskonzept, Risiko und Nachweis
 
+IP-065 bucht Teilfills, signed Funding und Gapdefizite getrennt von Kauf-
+autorisierung.2× bleibt Mindestwert des Forschungs-Brokersettings; rechtzeitig
+gestellter Zusatzpuffer muss vor spätem Dispatch belegt sein. Keine automatische
+Hebelleiter. [Ledgervertrag](futures-event-ledger.md).
+
 IP-064 bindet Futures-Handels-, Mark- und Indexpreise ausdrücklich getrennt.
 Funding hat eigene signed Raten/Zeitpunkte; vollständige Funding-/historische
 Marginregeln und Ereignisledger stehen vor Nettoleistungsläufen noch aus.

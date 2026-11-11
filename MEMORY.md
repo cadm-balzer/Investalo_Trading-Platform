@@ -537,3 +537,20 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   maintenance/fee/precisionrules, no netperformance/holdout/privatebroker/
   DB/runtime/publicchange. IP064done; BL030/IP055remainingdata, IP063ledger.
   docs/futures-marketdata.md; D069.
+- 2026-11-10 IP-065: user clarifies2x minimum/reportsmerge. IP0647007e90
+  verifiedmainab2b6bb; branchfeat/m1-futures-event-ledger. Brokerresearch2–10
+  remains, effectivelever and actual timelypostedbuffer separate; no auto
+  per-stage ladder/no weaker50%/6%/8%. First-fill broker buffer timing not
+  yetproven; sequential APIcalls cannot implicitly protectinstantgap.
+  Pure ledgercallerreconciled3–7slots/partialfills/closePnL/signedfunding/
+  margincapitalvsnetbalance/currenthalts+exactdaybasis/revision/hashchain.
+  Fundingoncepersymboltimestamp, no costepochreset; knownunsafeoutcomes/
+  deficitsbooked. Normal lossreserveshortfalldistinctfrompermanenthalt.
+  31newcases/218host/222pinned157subtestspassed; rootselfreview, no delegation
+  afteruserreplacedAGENTinstructions. Obsoleteautomaticdelegation/CLImodel
+  directivesremovedfromrepoAGENTS. Existingmodules/export unchanged.
+  No brokerorderauthority/persistence/globalFillIDdedupe/unknownorderretry.
+  V3fundofficial90days; nopublicfundarchivefoundinDownloadCenterdocs.
+  No actualdata/holdoutdownloads/DB/runtime/dependencies/publicchange.
+  IP065done; IP066intent/pending/riskbridge, IP063/BL030model/data stillopen.
+  docs/futures-event-ledger.md; D070.

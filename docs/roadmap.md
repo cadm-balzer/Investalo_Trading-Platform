@@ -1,5 +1,9 @@
 # Roadmap
 
+IP-065: Futures-Buchungsledger für Teilfills/Funding/Gaps vorhanden.
+IP-066 verbindet als Nächstes Intents, Pending-/Teilfillabgleich und Kaufprüfung;
+Fundingarchive/historische Regeln vor Nettoläufen offen. [Vertrag](futures-event-ledger.md).
+
 IP-064 ergänzt eigene Futures-H4-/Fundingverträge mit Markt-/Preisartbindung
 und begrenztem öffentlichen Import; danach Funding-/Maintenanceannahmen und
 IP-063-Ereignisledger vervollständigen. [Datenvertrag](futures-marketdata.md).

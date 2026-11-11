@@ -677,3 +677,34 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
 - **Hostunittest ist keine pytest-Umgebung:** breite Marketdata-Discovery
   umfasst pytest-Paperfeedfälle. Ohne Hostpytest gezielt unittest-Futuresfälle
   und vollständige Marktdaten-/Workerfälle im vorhandenen gepinnten Container.
+- **Marginbudget ist nicht Fundingnettostand:** Kapitalzuordnung getrennt
+  von signed isoliertem Saldo halten. Fundingcredit darf nicht scheinbar die
+  eigene Marginkapitalgrenze verletzen oder automatisch neue Budgets erlauben.
+  Zinsen/Fees einmal buchen; Kostenepoche nicht nach jedem Close zurücksetzen.
+- **Ereignisledger darf bekannte Verluste nicht wegvalidieren:** actual Gap/
+  Close/Fundingdefizit signed erhalten, keinen Liquidations-/Stopfill erfinden.
+  Reine Buchung ist keine nachträgliche Kaufgenehmigung; Kosten-/Riskkontrollen
+  vor künftigen Intents bleiben zwingend. Späterer Marginpuffer heilt keinen Halt.
+- **Reserveshortfall nicht zu Dauerhalt machen:** kleiner normaler Verlust
+  kann zukünftige volle Budgetdeckung verhindern, ohne6%/8% oder aktuelle
+  isolierte Equity zu verletzen. Finanzierungs-/Kaufblock separat ausweisen.
+- **Neue Revision schützt nicht allein vor semantischen Duplikaten:** gleicher
+  Fundingtimestamp braucht own-symbol Once-Prüfung. Globale Broker-Fill-ID-
+  Dedupe bleibt zusätzlich erforderlich; Hashkette ersetzt kein persistentes CAS.
+- **Broker2× plus Puffer braucht zeitlichen Nachweis:** Zusatzmargin nach dem
+  ersten Fill kann vor einem sofortigen Gap zu spät kommen. Ein Ledgerfill mit
+  gestelltem Puffer ist deklarierte Evidence, kein Nachweis atomarer Brokerdeckung.
+- **Funding-V3 ist aktuell nur90 Tage:** zusätzliche Cursorpages oder heute
+  gelesene Raten beweisen keine dreijährige damalige Historie. Downloadcenter
+  OHLC/Trades/Depth und persönliche Fundingabrechnungen nicht gleichsetzen.
+- **Teilfill braucht keinen zweiten Margintransfer:** ein späteres Fragment
+  darf0 Zusatzmargin haben, wenn vorher bereits genug gestellt wurde. Margin
+  bleibt als eigener Betrag gebucht, nicht automatisch je Fragment verdoppelt.
+- **Testzahlen gezielt ändern:** numerische Stringersetzung kann zufällig
+  Git-Hashes oder historische Abnahmen verändern. Ganze aktuelle Testangaben
+  mit Abschnittskontext ersetzen und Diff vor dem Commit prüfen.
+- **Funding aus Kaufmargin braucht gedecktes Kostenposting:** Debit vom
+  isolierten Nettostand plus reduzierte ungenutzte Kostenreserve darf keinen
+  ungedeckten Cashspielraum freigeben. Wiederherstellung bis zum tatsächlich
+  ausstehenden Principaldebit explizit buchen, ohne Kaufbudget oder Kosten
+  nochmals zu erhöhen; kein automatischer Nachschuss.

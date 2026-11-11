@@ -1,5 +1,9 @@
 # Architektur und Stack
 
+IP-065: Futuresledger als neuer reiner Offline-Reducer, Revision/Hashkette
+und signed Accounting. Keine Persistenz-/Orderautorität; Risk-/Pendingadapter
+IP-066, Bruttozuordnung und Fundingnettostand getrennt. [Vertrag](futures-event-ledger.md).
+
 IP-064 ergänzt getrennte `futures-h4-snapshot/1`-/`funding/1`-Datenverträge
 und einen begrenzten öffentlichen Classic-V2-Historienimport. Markt/Preisart
 bleiben in Digest und Candleidentität gebunden; keine Spot-/Worker-/Runtime-

@@ -5,6 +5,10 @@ verifiziert. Zwei neue, separat versionierte Offline-Rechner:
 `isolated-usdt-long-economics/1` und `isolated-usdt-long-stress/1`.
 Keine neuen Abhängigkeiten oder Änderungen an alten Spotkernen/-Records.
 
+IP-065 ergänzt inzwischen den reinen Buchungsledger für abgeglichene Teilfills,
+signed Funding und Gap-/Close-Ergebnisse.222 gepinnte Fälle/157 Subtests grün.
+Intent-/Pending-/Riskintegration bleibt IP-066. [Ledgervertrag](futures-event-ledger.md).
+
 ## Ökonomische Größen
 
 `futures_economics.py` rechnet lineare USDT-Longpositionen:

@@ -1,5 +1,11 @@
 # Deterministischer Crypto-Paperkern
 
+IP-065 ergänzt `futures_ledger`: reiner abgeglichener Forschungsbuchungsstand,
+Teilfills/Closes, signed Funding, eigene Marginkapitalzuordnung/Nettostand
+getrennt.31 neue Fälle,222 gepinnte Fälle/157 Subtests grün. Keine Kauf-
+oder Ausführungsautorität; Pending-/Riskintegration IP-066.
+[Ledgervertrag](../../docs/futures-event-ledger.md).
+
 IP-063: getrennte `futures_economics`- und `futures_risk`-Rechner für lineare
 isolierte USDT-Longs, signed Funding, Fees/Breakeven, konservative Maintenance-
 stufen und gemeinsame3–7-Slotprüfung. Keine Ereignis-/Orderausführung.

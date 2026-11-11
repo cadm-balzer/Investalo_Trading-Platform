@@ -84,6 +84,11 @@ Jeder Fillstand, auch der erste, benötigt unabhängig:
 
 ## Nächster Implementierungsschritt
 
+IP-065 ergänzt den abgeglichenen Offlinebuchungsledger: Teil-/Vollfills,
+Funding, Margintransfer und Gapdefizite.31 neue Fälle/222 gepinnte Fälle mit
+157 Subtests grün. Keine Order-/Kaufgenehmigung; Intent-/Pending-/Riskadapter
+folgen IP-066. [Vertrag und Brokerpuffergate](futures-event-ledger.md).
+
 IP-063 implementiert separate Offline-Ökonomie und Kaufstressrechner:
 44 neue Fälle,191 gepinnte Fälle/135 Subtests bestanden. Nominal, gestellte
 Margin und Funding getrennt;−50%-Gap verlangt am ersten Fill effektiven

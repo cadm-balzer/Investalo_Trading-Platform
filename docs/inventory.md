@@ -1,5 +1,9 @@
 # Bestandsaufnahme
 
+IP-065: neues `futures_ledger.py` und31 Fälle für abgeglichene Teilfills,
+Funding/Close-PnL/Gaps.218 Host-/222 gepinnte Trading-/Workerfälle mit157
+Subtests bestanden. Bestehende Module/Exporte unverändert. [Vertrag](futures-event-ledger.md).
+
 IP-064: neue separate `futures_snapshot.py`/`futures_bitget.py`, unsigned
 Classic-V2-H4-Importer und eigenes Fundingformat. Spotmodule/-Exports
 unverändert; Testhelper bindet nur neues Importscript/Protokoll readonly ein.

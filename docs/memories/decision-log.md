@@ -1192,3 +1192,39 @@ Dependencies, Migrationen, Runtime-/Privatebroker-/Publicänderungen.
 IP-064 abgeschlossen; Fundingarchive/andere Kandidaten/historische Kontrakt-
 annahmen BL-030/IP-055, Ereignisledger/Teilfills/Gaps IP-063 weiter offen.
 [Datenvertrag](../futures-marketdata.md).
+
+## 2026-11-10 — D-070: Abgeglichene Futuresbuchungen ohne Kaufautorität
+
+IP-0647007e90 in Mainab2b6bb verifiziert. Nutzer erläutert2× als Minimum;
+Brokerprofil2–10 bleibt, effektiver Hebel mit bereits gestelltem Puffer
+separat. Keine Hebelleiter oder schwächere−50%/6%/8%-Regel daraus ableiten.
+Broker muss Puffer vor unmittelbarem First-fill-Gap wirksam nachweisen;
+zwei sequenzielle API-Aufrufe sind keine atomare Marginbereitstellung.
+
+IP-065 ergänzt pure Ereignisbuchungen mit3–7 Budgets, Tenant/Plan/Revision/
+Hashkette. Tatsächliche Teilkäufe, Teil-/Vollschließungen, signed Funding,
+eigene Marginpostings, komplette Marks und explizite Vormutations-Tagesbasis.
+Gross Marginzuordnung von Fundingnettostand getrennt; Kostenbudget je Epoche
+nicht beim Abschluss erneuern. Signed Defizite korrekt buchen, keine
+fiktiven Stop-/Liquidationsfills oder automatischen Nachschüsse anderer Baskets.
+Halts bleiben nach Kurs-/Margin-/Tageserholung; normale Verlustabschlüsse
+erzeugen gegebenenfalls Reserveshortfall, nicht allein einen permanenten Halt.
+
+Versionierte konservative Gleichzeitigkeit Mark/Tag/Funding/Margin/Entry/Exit.
+Fundingzeitpunkt je Symbol einmal verbrauchen; genaue Revision verhindert
+identischen Commandreplay. Globale Broker-Fill-Dedupe/Journal-CAS/Orderabgleich
+fehlen; keine Kaufgenehmigung. Proportionale Teilclose-Marginfreigabe bewusst
+Forschungsannahme, keine historische Brokerformel oder Strategiepromotion.
+
+31 neue Fälle,218 Host-/222 gepinnte Trading-/Workerfälle mit157 Subtests grün.
+Eigenprüfung korrigiert Reserveshortfall-vs-Halt und doppelte Fundingtimestamps;
+vollständiger deklarierter Fill entspricht bisheriger Kaufprojektion3/5/7 Slots.
+Keine neue Agentdelegation nach ersetzten Nutzer-AGENT-Anweisungen; obsolete
+automatische Delegations-/CLI-Modelldirektiven im Repository entfernt.
+
+Offizielle V3-Fundingquelle90 Tage/cursor statt Zeitraum; öffentlicher
+Downloadcenter nennt keine vollständige Fundinghistorie. Keine Marktarchive/
+Holdoutabfragen oder Ersatzraten verwendet. Fundingarchive/historische Regeln
+BL-030/IP-055, Intent-/Pending-/Riskadapter IP-066, IP-063 weiterhin offen.
+Keine bestehenden Kernänderungen, Dependencies, Migrationen, DB-/Runtime-/
+Broker-/Publicaktivierung. [Ledgervertrag](../futures-event-ledger.md).
