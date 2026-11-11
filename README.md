@@ -1,8 +1,13 @@
 # Investalo Trading Platform
 
+IP-066 verbindet Futures-Kaufprüfung und Buchungsstand mit begrenzten
+Kaufreservierungen, Teilfill-Deduplizierung und terminalem Orderabgleich.
+Fundingnettostand und Marginkapital bleiben getrennt; unklare Aufträge sperren
+neue Käufe. Offline, ohne Orderversand. [Vertrag](docs/futures-pending-research.md).
+
 IP-065 ergänzt den Futures-Buchungsledger für Teilkäufe/-verkäufe, Funding,
-Margin und Gapverluste.222 gepinnte Tests bestanden. Die Order-/Riskintegration
-folgt IP-066; Fundingarchive bleiben offen. [Ledgervertrag](docs/futures-event-ledger.md).
+Margin und Gapverluste.222 gepinnte Tests bestanden; Fundingarchive bleiben
+offen. [Ledgervertrag](docs/futures-event-ledger.md).
 
 IP-064 ergänzt getrennte Futures-H4-Daten für Handelspreis, Mark und Index
 sowie signed Fundingereignisse. Der begrenzte öffentliche Historienimport

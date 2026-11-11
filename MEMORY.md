@@ -554,3 +554,17 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   No actualdata/holdoutdownloads/DB/runtime/dependencies/publicchange.
   IP065done; IP066intent/pending/riskbridge, IP063/BL030model/data stillopen.
   docs/futures-event-ledger.md; D070.
+- 2026-11-11 IP-066: IP06512c2b6c merged into mainffd4211 verified;
+  branchfeat/m1-futures-pending-research. New pure pending/1 ledger-riskbridge,
+  grossallocatedcapital vs signednetfunding and outstandingcostrestoration.
+  One pendingintent/account; reserve no cashmutation, exactterminaltotals,
+  unknown no timeout/retry/localcancel. Fill/orderIDdedupe within preserved
+  lineage, bound1024 neverevict, no persistent CAS/restore/brokerproof.
+  Knownunexpectedfills book + latchseparatewrapperhalt; ledgerhashunchanged.
+  28newcases;246distincthost/250pinned167subtests passed (245/249full+newcase).
+  Rootreview catches first-fragment path: cheaperfirstfill changesstressfloor,
+  maxpricefullfill is not safecontinuationproof. IP067 causalrestfill/gapstress
+  before RSI/replay; no originalassessment reuseasdispatchauthority.
+  No delegation, changedoldcores/data/holdout/DB/dependencies/runtime/public.
+  IP066boundedcheckpointdone, IP063/067/BL030 model/history/persistence open.
+  docs/futures-pending-research.md; D071.

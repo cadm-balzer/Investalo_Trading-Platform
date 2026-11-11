@@ -1,8 +1,13 @@
 # Architektur und Stack
 
+IP-066 ergänzt einen begrenzten Offlinewrapper über Ledger-v1 mit eigener
+Revision/Hashkette und Abgleichsperren; keine DB-CAS oder Orderautorität.
+Bruttoallokation und Fundingnettostand bleiben getrennt.
+[Vertrag](futures-pending-research.md).
+
 IP-065: Futuresledger als neuer reiner Offline-Reducer, Revision/Hashkette
-und signed Accounting. Keine Persistenz-/Orderautorität; Risk-/Pendingadapter
-IP-066, Bruttozuordnung und Fundingnettostand getrennt. [Vertrag](futures-event-ledger.md).
+und signed Accounting. Keine Persistenz-/Orderautorität.
+[Vertrag](futures-event-ledger.md).
 
 IP-064 ergänzt getrennte `futures-h4-snapshot/1`-/`funding/1`-Datenverträge
 und einen begrenzten öffentlichen Classic-V2-Historienimport. Markt/Preisart

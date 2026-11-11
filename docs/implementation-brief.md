@@ -1,7 +1,12 @@
 # Bestätigter M1-Umfang und Umsetzungsstand
 
+IP-066 ergänzt ledgerbasierte Futures-Kaufprüfung, begrenzte Intents/
+Teilfill-Dedupe und Terminalabgleich. Kein Dispatch oder persistenter Restore;
+Restfill-/Gapstress vor Signal-/Replayadapter IP-067.
+[Vertrag](futures-pending-research.md).
+
 IP-065 ergänzt reine abgeglichene Futuresbuchungen;222 gepinnte Fälle grün.
-Keine Ordergenehmigung: Pending-/Risk-/Persistenzintegration IP-066, echte
+Keine Ordergenehmigung: persistenter Abgleich, echte
 Fundingarchive und Brokerpuffergate weiter offen. [Vertrag](futures-event-ledger.md).
 
 IP-064 ergänzt ausdrücklich getrennte Futures-H4-/Fundingdatenverträge und

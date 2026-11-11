@@ -1,5 +1,10 @@
 # Handelskonzept, Risiko und Nachweis
 
+IP-066 prüft neue Futures-Käufe direkt am tatsächlichen Brutto-/Nettobuchungsstand.
+Teilfills und terminaler Abgleich erhalten Reservierungen bis zur Klärung;
+ein unklarer Auftrag sperrt weitere Käufe. Restfill-/Gapfortsetzung folgt
+IP-067 vor einem Executor. [Vertrag](futures-pending-research.md).
+
 IP-065 bucht Teilfills, signed Funding und Gapdefizite getrennt von Kauf-
 autorisierung.2× bleibt Mindestwert des Forschungs-Brokersettings; rechtzeitig
 gestellter Zusatzpuffer muss vor spätem Dispatch belegt sein. Keine automatische

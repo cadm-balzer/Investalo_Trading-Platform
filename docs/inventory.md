@@ -1,5 +1,10 @@
 # Bestandsaufnahme
 
+IP-066: neues `futures_pending.py`,28 synthetische Fälle; gebundene
+Kaufreservierungen, vollständiger Terminalabgleich, begrenzte Broker-ID-Dedupe
+und Kaufstress direkt aus Bruttozuordnung/signed Ledgernettostand.
+Keine alten Kerne/Exports geändert. [Vertrag](futures-pending-research.md).
+
 IP-065: neues `futures_ledger.py` und31 Fälle für abgeglichene Teilfills,
 Funding/Close-PnL/Gaps.218 Host-/222 gepinnte Trading-/Workerfälle mit157
 Subtests bestanden. Bestehende Module/Exporte unverändert. [Vertrag](futures-event-ledger.md).
