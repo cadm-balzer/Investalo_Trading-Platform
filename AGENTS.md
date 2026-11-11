@@ -675,7 +675,8 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   IP-06154d2a7d and IP-062f6617b6 merged into main168219f, verified.
   IP-0630cf8a2b merged into main6d06ec5, verified.
   IP-0647007e90 merged into mainab2b6bb, verified.
-  Current branch feat/m1-futures-event-ledger.
+  IP-06512c2b6c merged into mainffd4211, verified.
+  Current branch feat/m1-futures-pending-research.
 - IP-063 first checkpoint adds pure isolated-usdt-long-economics/1 and
   isolated-usdt-long-stress/1. Signed funding/full close PnL/netbreakeven,
   conservative whole-tier maintenance (explicit research assumption, not
@@ -750,6 +751,31 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   No substituted rates, data downloads/holdout reads, dependency/migration/
   runtime/broker/public activation. IP-063 remains open; IP-066/BL-030 next.
   docs/futures-event-ledger.md; D-070.
+- IP-066 adds pure isolated-usdt-long-pending/1 above unchanged ledger/risk-v1.
+  Ledger-based assessment separates gross own margin budget from signed net
+  collateral, charges and outstanding principal-cost restoration. Original
+  6%/8%/first-fill50% stress and 3–7 funded slots stay unchanged.
+  One pending purchase per research account; immutable request/revision/hash,
+  no cash movement at reservation. Unknown attempted order never times out,
+  retries or locally cancels; exact terminal cumulative quantity/margin/fees
+  required. Real partial fills book once, including zero extra margin.
+  Unexpected/out-of-envelope fills book truthfully and latch wrapper quarantine;
+  ledger-v1 audit/hash unchanged. Broker fill/order IDs consumed across cycles
+  within retained state lineage; 1024 per identity list, never evict.
+  Not persistent/global broker dedupe, DB-CAS, restore or dispatch authority.
+  Start wrapper assumes trusted reconciled ledger, not unknown-order recovery.
+  All timestamps chronological; authentic broker evidence remains caller duty.
+  A max-price full-fill projection does not prove all fragment price paths:
+  cheaper actual first fragment can lower the stress floor for the remaining
+  order. Regression records this and blocks a later purchase; IP-067 must
+  assess causal remaining-fill envelope/gaps before continuation/replay.
+  Original evidence cannot authorize remaining fills or brokerbuffer timing.
+  28 new tests;246 distinct host/250 distinct pinned Trading/Worker tests with
+  167 subtests passed (full245/249 then new boundary case focused). Root review,
+  no delegation/broad unchanged credential/DB/public repeats. No original
+  module/export/data/holdout/dependency/migration/runtime/broker/public changes.
+  IP-066 bounded checkpoint done; IP-067/063/BL-030 remain. Contract:
+  docs/futures-pending-research.md; D-071.
 
 - Profitability is a measurable research objective, never a guarantee.
 - Use one versioned deterministic strategy core for backtest, paper, and live.

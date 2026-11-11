@@ -1,9 +1,14 @@
 # Deterministischer Crypto-Paperkern
 
+IP-066 ergänzt `futures_pending`: ledgerbasierte Brutto-/Netto-Kaufprüfung,
+ein ausstehender Kaufintent, Teilfill-Dedupe und expliziter Terminalabgleich.
+28 neue Fälle, keine dauerhafte CAS-/Dispatchautorität.
+[Vertrag und Grenzen](../../docs/futures-pending-research.md).
+
 IP-065 ergänzt `futures_ledger`: reiner abgeglichener Forschungsbuchungsstand,
 Teilfills/Closes, signed Funding, eigene Marginkapitalzuordnung/Nettostand
 getrennt.31 neue Fälle,222 gepinnte Fälle/157 Subtests grün. Keine Kauf-
-oder Ausführungsautorität; Pending-/Riskintegration IP-066.
+oder Ausführungsautorität; begrenzte Pending-/Riskintegration jetzt IP-066.
 [Ledgervertrag](../../docs/futures-event-ledger.md).
 
 IP-063: getrennte `futures_economics`- und `futures_risk`-Rechner für lineare

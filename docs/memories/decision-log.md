@@ -1228,3 +1228,36 @@ Holdoutabfragen oder Ersatzraten verwendet. Fundingarchive/historische Regeln
 BL-030/IP-055, Intent-/Pending-/Riskadapter IP-066, IP-063 weiterhin offen.
 Keine bestehenden Kernänderungen, Dependencies, Migrationen, DB-/Runtime-/
 Broker-/Publicaktivierung. [Ledgervertrag](../futures-event-ledger.md).
+
+## 2026-11-11 — D-071: Ledgerbasierte Kaufprüfung mit begrenztem Orderabgleich
+
+Nutzer bestätigt IP-065;12c2b6c in Mainffd4211 verifiziert. IP-066 ergänzt
+einen reinen versionierten Researchwrapper über unveränderte Futureskerne.
+Bruttomarginkapital, signed Fundingnettostand, verbrauchte Kosten und
+unwiederhergestellte Fundingprincipaldebits separat prüfen.
+Originale6%/8%/First-fill−50%, eigene Budgetgrenzen und3–7 Slots unverändert.
+
+Ein ausstehender Kaufintent sperrt neue Käufe. Reservierung bewegt kein Cash,
+Teilfills vermindern nur tatsächlich verbrauchte Restreserven. Attempt
+zeichnet Unsicherheit auf, erteilt keine Ordergenehmigung; keine Timeout-
+Freigabe/automatische Wiederholung. Exakte abgeglichene Terminalsummen
+erforderlich; bekannte ungeplante/überreservierte Fills dennoch buchen und
+dauerhaft im Wrapper sperren, ursprüngliche Ledgerhashkette erhalten.
+
+Fill-/Order-/Eventidentitäten im bewahrten State dedupliziert, nicht dauerhaft
+im Brokerbetrieb.1024 Einträge je Liste; nie automatisch leeren/evicten.
+Neuer Wrapper ist kein Restore-/Herkunftsbeweis. Chronologische Evidence und
+Terminaldigest bleiben vertrauenswürdige Callerannahmen; keine DB-CAS.
+
+Eigenprüfung hält zusätzlich unterschiedliche First-fragment-Preispfade fest:
+Maximalpreis-Vollfill ist kein Beweis sicherer restlicher Fills. Nach
+tatsächlichem günstigerem First Fill wird der nächste Kauf am echten
+Stressanker gesperrt. IP-067 muss Restfillhülle/Gaps vor kausalem
+Signal-/Replayadapter prüfen; keine ursprüngliche Freigabe wiederverwenden.
+
+28 neue Fälle;246 unterschiedliche Host-/250 gepinnte Trading-/Workerfälle
+mit167 Subtests grün: Vollsuite245/249, neuer Grenzfall anschließend gezielt.
+Keine neue Delegation oder Broadcredential-/DB-/Publicchecks, keine
+Dependencies/Migrationen/alten Kerne/Daten-/Holdout-/Runtimeänderungen.
+Funding-/historische Regeln und Brokerpuffertiming BL-030 weiterhin offen.
+[Vertrag](../futures-pending-research.md).

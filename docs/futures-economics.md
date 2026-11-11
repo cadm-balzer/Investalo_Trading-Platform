@@ -7,7 +7,9 @@ Keine neuen Abhängigkeiten oder Änderungen an alten Spotkernen/-Records.
 
 IP-065 ergänzt inzwischen den reinen Buchungsledger für abgeglichene Teilfills,
 signed Funding und Gap-/Close-Ergebnisse.222 gepinnte Fälle/157 Subtests grün.
-Intent-/Pending-/Riskintegration bleibt IP-066. [Ledgervertrag](futures-event-ledger.md).
+IP-066 verbindet jetzt die ledgerbasierte Brutto-/Netto-Kaufprüfung mit
+begrenzten Intents/Teilfillabgleich. [Vertrag](futures-pending-research.md).
+[Ledgervertrag](futures-event-ledger.md).
 
 ## Ökonomische Größen
 

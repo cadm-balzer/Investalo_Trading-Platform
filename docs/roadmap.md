@@ -1,7 +1,11 @@
 # Roadmap
 
+IP-066 verbindet ledgerbasierte Kaufprüfung, begrenzte Pendingreservierung,
+Teilfill-Dedupe und terminalen Abgleich. IP-067 ergänzt kausalen Stress für
+Restfills/Gaps vor Signal-/Replayintegration. Dauerhafter Abgleich und echte
+Fundingarchive bleiben offen. [Vertrag](futures-pending-research.md).
+
 IP-065: Futures-Buchungsledger für Teilfills/Funding/Gaps vorhanden.
-IP-066 verbindet als Nächstes Intents, Pending-/Teilfillabgleich und Kaufprüfung;
 Fundingarchive/historische Regeln vor Nettoläufen offen. [Vertrag](futures-event-ledger.md).
 
 IP-064 ergänzt eigene Futures-H4-/Fundingverträge mit Markt-/Preisartbindung

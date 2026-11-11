@@ -708,3 +708,16 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   ungedeckten Cashspielraum freigeben. Wiederherstellung bis zum tatsächlich
   ausstehenden Principaldebit explizit buchen, ohne Kaufbudget oder Kosten
   nochmals zu erhöhen; kein automatischer Nachschuss.
+- **Pending ist kein Timeoutbudget:** ein möglicherweise gesendeter Auftrag
+  darf Reserven nicht durch Ablauf/lokalen Storno freigeben. Exakte gebuchte
+  Terminalsummen und eigener Orderkontext erforderlich; keine blinden Retries.
+- **Forschungs-ID-Listen sind keine persistente Dedupe:**1024er Listen nie
+  leeren, bei Kapazität stoppen. Neuer Wrapper über altem Ledger beweist keine
+  früheren IDs/Orders; Restart/unklare Commits brauchen echten Journalspeicher.
+- **Maximalpreis-Vollfill beweist keine Teilfillfolge:** günstigeres erstes
+  Fragment senkt den−50%-Stressanker für spätere höhere Fills. Erste Projektion
+  nicht als laufende Restfill-/Dispatchgenehmigung wiederverwenden; kausale
+  Restfillhülle/Gaps vor Integration separat prüfen.
+- **Wrapperhalt nicht in alte Ledgerhashkette hineinschreiben:** ungeplante
+  bekannte Fills normal buchen, separate terminale Abgleichssperre im neuen
+  Statehash binden. Ledgertransition und Wrapperledger müssen übereinstimmen.

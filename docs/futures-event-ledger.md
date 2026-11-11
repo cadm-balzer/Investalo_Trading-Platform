@@ -126,8 +126,9 @@ Fehlender Nachweis blockiert die spätere entsprechende Ausführung.
 2× ist die bestätigte Untergrenze unseres Forschungsprofils; aktuelle
 Kontraktmetadaten und effektiver Hebel sind davon getrennte Größen.
 
-IP-066 verbindet als Nächstes Kaufprüfung, pending Intents/Teilfills,
+IP-066 verbindet inzwischen Kaufprüfung, begrenzte pending Intents/Teilfills,
 Abgleich und Buchungszustand mit expliziten tatsächlichen Margin-/Costgrößen.
+[Vertrag und Herkunftsgrenzen](futures-pending-research.md).
 Historische Funding-/Fee-/Maintenanceannahmen, exakte Regime-/Budgetregeln
 und echte Futuresnettoläufe bleiben IP-055/063/BL-030.
 Keine neuen Dependencies, Migrationen, Runtime-/Broker-/Publicänderungen.
