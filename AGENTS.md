@@ -679,7 +679,8 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   IP-06640d8ba6 merged into main1d06dd3, verified.
   IP-067f18188d merged into mainf844b66, verified.
   IP-06891a1547 merged into main56877b0, verified.
-  Current branch feat/m1-futures-funding-history.
+  IP-06957b2858 merged into mainf37be4b, verified.
+  Current branch feat/m1-binance-futures-history.
 - IP-063 first checkpoint adds pure isolated-usdt-long-economics/1 and
   isolated-usdt-long-stress/1. Signed funding/full close PnL/netbreakeven,
   conservative whole-tier maintenance (explicit research assumption, not
@@ -938,3 +939,24 @@ Skills provide your tools. When you need one, check its `SKILL.md`. Keep local n
   Optional userpreference for separate free Binance research comparison asked;
   no answer yet, no venue substitution or new data/job enabled. Bitget target
   unchanged. docs/futures-funding-availability.md; D-074.
+
+- Q38 explicitly approved separate free Binance futures research comparison.
+  Bitget remains trading target; no account/private key/live approval.
+  IP-070 own immutable binance-usdt-futures-research/1 + frozen create-only
+  unsigned importer: BTC/ETH each6576 trade/mark/index H4 bars and3288 signed
+  funding events2022-08-01..2025-08-01 exclusive.52 GETs/8 artifacts/digests
+  verified, all price axes complete; declared8h bucket missing/duplicate/
+  unexpected0. Original funding offsets up to29ms preserved, not rounded.
+  Each1369 native funding settlement markprices absent; remain None.
+  H4 markbars do not prove exact settlement price; later economic protocol
+  must declare reference/cost envelope. Calendar not historical schedule/
+  tier/fee/liquidation proof; no netperformance/holdout requested.
+  28newcases,130distinctpinnedmarketdata passed (127full then28focused).
+  Eigenreview; two readonly testmounts only, no dependencies/migrations/
+  credentials/DB/runtime/public activation or unchanged broad repeats.
+  Raw data infra/local/binance-futures-research-data/20261111-native-network;
+  committed protocol/receipt docs/research-protocols/binance-futures-history*.
+  Initial sandbox DNS failure retained no receipt; authorized new network run.
+  IP-069 remains economic profile + long journal without dropping1024 IDs,
+  then actual netresearch. Never mix Binance funding into native Bitget claims.
+  docs/binance-futures-research-data.md; D-075.

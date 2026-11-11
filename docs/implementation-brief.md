@@ -1,5 +1,10 @@
 # Bestätigter M1-Umfang und Umsetzungsstand
 
+Q38/IP-070 ergänzt den bestätigten separaten Binancevergleich: BTC/ETH drei
+Jahre native Trade-/Mark-/Indexkerzen und Fundingraten vollständig importiert.
+Bitget bleibt Handelsziel. Wirtschaftliches Profil/Langlaufjournal und echte
+Nettoauswertung folgen IP-069. [Vertrag](binance-futures-research-data.md).
+
 IP-069 erster Quellencheckpoint: Fundingimport/Lückenprüfung mit25 neuen
 Fällen,102 gepinnten Marktdatafällen grün.540 echte jüngste BTC/ETH-Abrechnungen,
 Dreijahresfenster unvollständig; wirtschaftliches Langreplay weiterhin offen.
