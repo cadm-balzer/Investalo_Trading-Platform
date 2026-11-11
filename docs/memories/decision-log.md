@@ -1261,3 +1261,39 @@ Keine neue Delegation oder Broadcredential-/DB-/Publicchecks, keine
 Dependencies/Migrationen/alten Kerne/Daten-/Holdout-/Runtimeänderungen.
 Funding-/historische Regeln und Brokerpuffertiming BL-030 weiterhin offen.
 [Vertrag](../futures-pending-research.md).
+
+## 2026-11-11 — D-072: Kausale Restfill-/Gapstresshülle ohne Dispatch
+
+IP-06640d8ba6 in Main1d06dd3 verifiziert. IP-067 ergänzt continuation/1
+als separaten reinen Rechner über unverändertem Ledger-/Pendingstand.
+Echter First Fill und bereits gestellter signed Nettostand decken aktuelle
+Position sowie volle Restmenge am eingefrorenen Preis-/Fee-/Hebelmodell.
+Alle Plansymbole, strikte volle Maintenance,6%/8%/−50%, Bruttobudgets,
+gebuchte Kosten/Funding und ausstehende Principalrestoration bleiben geprüft.
+Keine ungepostete Reserve, zukünftige Wiederauffüllung oder andere Baskets
+als Gaprettung vorwegnehmen.
+
+Endpunktprüfung deckt lineare Zwischenmengen bei festem tatsächlichem
+First Fill und innerhalb der deklarierten abwärts gerichteten Markhülle.
+Volle restliche Entryfee schon am Nullmengenendpunkt vorsichtig abziehen.
+Eigenprüfung ergänzt Kostendeckung an beiden Endpunkten: ein im Stress
+günstiger hypothetischer Restfill darf fehlende freie Kostenreserven vor
+weiteren Fills nicht heilen. Echte Tageswechsel-/Markfolge bildet den
+Gegenbeispieltest; ursprünglicher günstiger First Fill sperrt schon seine
+restlichen teureren Fragmente.
+
+Keine Ordergenehmigung: risk_covered bezeichnet nur ökonomische Research-
+deckung; requires_reconciliation=true/execution_enabled=false unveränderlich.
+Mindestmargin/Fehlbetrag nur Anzeige, kein Posting oder Haltreset.
+Keine First-fill-Puffertiming-, Zukunftskosten-/Markupper- oder dauerhafte
+Broker-/Restore-/Strategiezyklusautorität. Chronologische Callerannahmen
+und begrenzte Pending-IDs bleiben; IP-068 muss ursprünglichen Zyklus binden.
+
+31 neue Fälle;277 unterschiedliche Host-/281 gepinnte Trading-/Workerfälle
+mit219 Subtests grün (Vollsuite276/280, danach alle31 aktualisierten
+Modulfälle gezielt).45 Zwischenmengen-/Preis-/Feekombinationen,3/5/7 Slots.
+Keine Delegation/Broadregressionen/alten Versionen/Daten-/Holdout-/DB-/
+Dependency-/Runtime-/Broker-/Publicänderungen. IP-068 RSI-/Staffel-/Zyklus-
+Replay unter expliziten Forschungsannahmen folgt; Fundingarchive/historische
+Kontrakt-/Regime-/Budgetregeln IP-055/063/BL-030 offen.
+[Vertrag](../futures-continuation-stress.md).

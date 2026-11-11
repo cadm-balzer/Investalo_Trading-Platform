@@ -116,8 +116,9 @@ First-fragment-Prüfung innerhalb28 gezielter Fälle).
 Agentdelegation oder unveränderte Credentials-/DB-/Publicregression.
 Keine Dependencies/Migrationen oder öffentlichen Container geändert.
 
-IP-067 ergänzt als Nächstes kausale Fortsetzungs-/Gapstressprüfung und den
-anschließenden Signal-/Replayadapter. Vollständige tatsächliche Fundingarchive,
+IP-067 ergänzt inzwischen kausale Restfill-/Gapstressprüfung.
+[Vertrag und Endpunktgrenzen](futures-continuation-stress.md).
+Signal-/Replay-/Zyklusadapter folgt IP-068. Vollständige tatsächliche Fundingarchive,
 historische Kontraktannahmen und exakte Regime-/Budgetaufteilung bleiben
 IP-055/063/BL-030. Bestehende Dreijahresdaten und reservierter Holdout bleiben
 unverändert; noch kein neuer Futuresnetto-Backtest.

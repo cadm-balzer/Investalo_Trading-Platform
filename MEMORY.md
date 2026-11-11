@@ -568,3 +568,18 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   No delegation, changedoldcores/data/holdout/DB/dependencies/runtime/public.
   IP066boundedcheckpointdone, IP063/067/BL030 model/history/persistence open.
   docs/futures-pending-research.md; D071.
+- 2026-11-11 IP-067: IP06640d8ba6 merged into main1d06dd3 verified;
+  branchfeat/m1-futures-continuation-stress. New pure continuation/1 uses
+  actual first fill + signed alreadypostednet for zero/full remaining-fill
+  gap endpoints. Capped fill prices/full conservative tier/full remaining
+  fee; free costs at BOTH endpoints, no prospective topup/fakeprofits.
+  Rootreview adds cheap-restfill hypotheticalprofit vs prefillcostshortfall
+  regression using causal daybasis/marks. No mutation/dispatch/orderrelease.
+  31newcases,277distincthost/281pinned219subtests passed (276/280fullthen31
+  finalmodulechecks focused),45 quantity/price/fee prefixes +3/5/7slots.
+  Missingfirstposition blocks: no invented first-fill/brokerbufferproof.
+  Coverage not future funding/uppermark/durableIDs/exactcycleauthority.
+  IP068 RSI/staffel/intentcycle replay adapter next, frozenresearch assumptions
+  before netruns; IP055/063/BL030 archives/rules remain. No delegation/oldcores/
+  data/holdout/DB/dependencies/runtime/public changes. Contract:
+  docs/futures-continuation-stress.md; D072.

@@ -1,5 +1,10 @@
 # Investalo Trading Platform
 
+IP-067 prüft die ausstehende Futures-Restmenge gegen tatsächlichen First Fill,
+bereits gestellte Margin und gemeinsame Gapverluste.281 unterschiedliche gepinnte Fälle grün.
+Als Nächstes RSI-/Staffel-Replayadapter; Forschungsdeckung ohne Orderfreigabe.
+[Vertrag](docs/futures-continuation-stress.md).
+
 IP-066 verbindet Futures-Kaufprüfung und Buchungsstand mit begrenzten
 Kaufreservierungen, Teilfill-Deduplizierung und terminalem Orderabgleich.
 Fundingnettostand und Marginkapital bleiben getrennt; unklare Aufträge sperren

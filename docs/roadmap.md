@@ -1,8 +1,12 @@
 # Roadmap
 
+IP-067: kausale Restfill-/Gapdeckung implementiert,31 neue Fälle;
+281 unterschiedliche gepinnte Fälle/219 Subtests grün. IP-068 verbindet RSI-/Staffel-/Zyklus-
+autorität mit begrenztem Futures-Replay unter expliziten Forschungsannahmen.
+[Vertrag](futures-continuation-stress.md).
+
 IP-066 verbindet ledgerbasierte Kaufprüfung, begrenzte Pendingreservierung,
-Teilfill-Dedupe und terminalen Abgleich. IP-067 ergänzt kausalen Stress für
-Restfills/Gaps vor Signal-/Replayintegration. Dauerhafter Abgleich und echte
+Teilfill-Dedupe und terminalen Abgleich. Dauerhafter Abgleich und echte
 Fundingarchive bleiben offen. [Vertrag](futures-pending-research.md).
 
 IP-065: Futures-Buchungsledger für Teilfills/Funding/Gaps vorhanden.

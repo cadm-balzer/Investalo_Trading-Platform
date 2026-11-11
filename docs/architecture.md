@@ -1,5 +1,10 @@
 # Architektur und Stack
 
+IP-067 ergänzt einen reinen Restfill-/Gapstressrechner über unverändertem
+Pending-/Ledgerstate. Befund bindet State, Szenario und Zeit; positiver
+Riskbefund ersetzt keinen dauerhaften Abgleich oder Orderauthority.
+[Vertrag](futures-continuation-stress.md).
+
 IP-066 ergänzt einen begrenzten Offlinewrapper über Ledger-v1 mit eigener
 Revision/Hashkette und Abgleichsperren; keine DB-CAS oder Orderautorität.
 Bruttoallokation und Fundingnettostand bleiben getrennt.

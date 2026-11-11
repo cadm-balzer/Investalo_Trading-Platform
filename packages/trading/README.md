@@ -1,5 +1,11 @@
 # Deterministischer Crypto-Paperkern
 
+IP-067 ergänzt `futures_continuation`: kausaler Restfill-/Gapstress mit echtem
+First-fill-Anker und tatsächlich gestellter Margin.31 neue Fälle,
+277 unterschiedliche Host-/281 gepinnte Fälle/219 Subtests grün. Unklare Orders bleiben
+abzugleichen, keine Fortsetzungsautorität.
+[Vertrag](../../docs/futures-continuation-stress.md).
+
 IP-066 ergänzt `futures_pending`: ledgerbasierte Brutto-/Netto-Kaufprüfung,
 ein ausstehender Kaufintent, Teilfill-Dedupe und expliziter Terminalabgleich.
 28 neue Fälle, keine dauerhafte CAS-/Dispatchautorität.
