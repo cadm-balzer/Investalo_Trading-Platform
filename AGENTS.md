@@ -680,7 +680,8 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   IP-067f18188d merged into mainf844b66, verified.
   IP-06891a1547 merged into main56877b0, verified.
   IP-06957b2858 merged into mainf37be4b, verified.
-  Current branch feat/m1-binance-futures-history.
+  IP-0700ebb98b merged into main629901b, verified.
+  Current branch feat/m1-futures-long-replay-journal.
 - IP-063 first checkpoint adds pure isolated-usdt-long-economics/1 and
   isolated-usdt-long-stress/1. Signed funding/full close PnL/netbreakeven,
   conservative whole-tier maintenance (explicit research assumption, not
@@ -960,3 +961,28 @@ Skills provide your tools. When you need one, check its `SKILL.md`. Keep local n
   IP-069 remains economic profile + long journal without dropping1024 IDs,
   then actual netresearch. Never mix Binance funding into native Bitget claims.
   docs/binance-futures-research-data.md; D-075.
+
+- IP-071 adds explicit Pending/2 immutable identity histories, default50000
+  bounded1..100000, no eviction; original Pending/1 tuple1024 remains default.
+  Four own namespaces/count/root receipts; compact snapshot primitive only for
+  this new type. Rootreceipt alone cannot restore. Fresh longstart requires
+  flat ledgerrevision0, never reset an existing evidence ledger.
+  Local JSONL journal genesis/profile/actor/plan/protocol/dataset/policies bound;
+  full typed input replay restores indicators/unknownorders/partialfills/
+  terminalstate/globalIDs/latched quarantine. No broker authority.
+  Owned0600/no leafsymlink/hardlink/exclusive lock; write+fsync before stateack.
+  Unknownwrite closes/readbacks, no retry/tailrepair;256KiB/128MiB/100000commands.
+  minimum_receipt external retained acknowledged anchor detects even whole
+  tail loss; pass it for recovery. Unanchored inspection cannot detect valid
+  prefix rollback. Local hashchain not sourceauthenticity/admin resistance.
+  Full synthetic6576H4/1096midnights/7672retainedIDs exact restored,9.544.108
+  bytes; firstID/indicators retained.59.228s write/62.707s originalrestore,
+  additional full anchored restore passed. No real market netperformance.
+  25newcases/342distinctpinnedTrading+worker green (337full,25focused,final
+  53Pending/Journal37subtests after halt-type guard);
+  eigenreview/noagents/dependencies/PG/migrations/runtime/public changes.
+  Source contracts/strategy/risk unchanged; existing cores shared with explicit
+  new identity type. IP-069 needs economic fundingprice/cost/cohort protocol.
+  Native Binance assets BTC/ETH only;3–7-symbol portfolio requires genuine
+  suitable cohort, never add synthetic third coin as native performance.
+  docs/futures-long-replay-journal.md; D-076.

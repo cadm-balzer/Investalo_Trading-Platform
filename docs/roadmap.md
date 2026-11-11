@@ -1,5 +1,10 @@
 # Roadmap
 
+IP-071: vollständiges Langlaufjournal/ID-Historien und synthetischer
+Dreijahresmechanik-/Wiederanlaufbeleg vorhanden. IP-069 als Nächstes
+wirtschaftliches Profil/Fundingpreisbezug/passende native Kohorte und
+tatsächlicher Nettovergleich. [Vertrag](futures-long-replay-journal.md).
+
 Q38/IP-070: separater Binancevergleich bestätigt, native Dreijahresdaten
 vollständig importiert. Bitget bleibt Handelsziel. Als Nächstes IP-069:
 wirtschaftliches Profil einschließlich Funding-Markpreisbezug und Langlaufjournal

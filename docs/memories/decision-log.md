@@ -1377,3 +1377,37 @@ Gebühren/Maintenance/Settlementpreisvalidierung.
 Nächstes IP-069: wirtschaftliches Profil mit ausdrücklich benanntem Fundingpreis
 und Langlaufjournal jenseits1024 IDs ohne Eviction, dann Nettovergleich.
 `docs/binance-futures-research-data.md`.
+
+## 2026-11-11 — D-076: Langes Journal hält alle IDs und offene Orderzustände
+
+Nutzer bestätigt IP-070-Merge;0ebb98b in Main629901b verifiziert.
+IP-071 eigener Long-Pending/2-Modus mit immutable vollständigen vier ID-
+Historien, default50000/max100000. Vorheriger Pending/1-Standard1024 und
+bestehende Wirtschaftlichkeits-/RSI-/Risikoprüfungen bleiben identisch.
+Logarithmischer Insert/Lookup, Root/Count/Namespace/Kapazität im expliziten
+Snapshotprimitive; allein kein Restore. Kein Convert/Reset eines bereits
+fortgeschrittenen Ledgers als angebliche Historienübernahme.
+
+Eigenes create-only lokales JSONL-Journal; genesis/Profil/Plan/Actor/Kosten/
+Protokoll/Datasets gebunden, Inputs typisiert, Sequence/Head/States geprüft.
+Write+fsync vor Ack; Unknown sperrt Reads/weitere Writes bis Close/Fullreadback,
+kein Retry/automatische Tailreparatur. Separat behaltene `minimum_receipt`
+erkennt auch ganze verlorene letzte Records; ohne extern behaltenen Anker
+keine Erkennung gültiger früherer Präfixe/keine Broker-/Manipulationsautorität.
+Restore faltet vollständige Inputs inklusive Unknownorder/Teilfill/Terminal/
+Wilder/Quarantäne, kein Snapshotshortcut. Linux-Owner0600/Regular/no leaf
+symlink/hardlink/Writerlock und256KiB/128MiB/100000Commands explizit begrenzt.
+
+25 neue Fälle,337 ursprüngliche gepinnte Trading-/Workerfälle/253 Subtests,
+25 Journalfälle/26 Subtests, finale53 Pending-/Journalfälle/37 Subtests nach
+Halt-Typprüfung grün;342 unterschiedliche Fälle insgesamt.
+Voller synthetischer6576-H4-/1096-Mitternachtslauf,7672 IDs/9.544.108 Bytes,
+exakter vollständiger Restore und zusätzliche vollständige Ankerprüfung.
+59,228s Schreiben/62,707s ursprünglicher Restore auf diesem Host.
+Keine Marktperformance, reale Orders, Holdout-/Fundingkosten-/Profitvalidierung.
+Eigenreview/keine Agents/Dependencies/PostgreSQL/Migrations-/Publicänderung.
+
+Nächstes IP-069: wirtschaftliches Forschungsprotokoll mit Fundingpreisbezug
+und echter passender Kohorte, dann Nettovergleich. Native Binanceartefakte
+bislang BTC/ETH,3–7-Symbol-Profil braucht echte weitere Daten; keine synthetische
+dritte Coinperformance. `docs/futures-long-replay-journal.md`.

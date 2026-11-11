@@ -11,10 +11,12 @@ from .futures_ledger import (
 from .futures_risk import FuturesPurchase
 from .models import floor_step, precise
 from .snapshot import digest
+from .identity_history import IdentityHistory, NAMESPACES
 
 D = Decimal
 ZERO = D("0")
 VERSION = "isolated-usdt-long-pending/1"
+LONG_VERSION = "isolated-usdt-long-pending/2"
 MAX_IDENTITIES = 1024
 
 
@@ -80,10 +82,10 @@ class PendingResearchState:
     revision: int
     as_of: datetime
     pending: PendingPurchase | None
-    intent_ids: tuple[str, ...]
-    order_ids: tuple[str, ...]
-    fill_ids: tuple[str, ...]
-    event_ids: tuple[str, ...]
+    intent_ids: tuple[str, ...] | IdentityHistory
+    order_ids: tuple[str, ...] | IdentityHistory
+    fill_ids: tuple[str, ...] | IdentityHistory
+    event_ids: tuple[str, ...] | IdentityHistory
     completed_intents: int
     reconciliation_halts: tuple[str, ...]
     audit_head: str
@@ -97,8 +99,18 @@ class PendingResearchState:
         if self.as_of < self.ledger.as_of:
             raise ValueError("wrapper predates economic ledger")
         identifier(self.audit_head)
-        for values in (self.intent_ids, self.order_ids, self.fill_ids, self.event_ids,
-                       self.reconciliation_halts):
+        if type(self.reconciliation_halts) is not tuple:
+            raise ValueError("immutable halt reasons required")
+        histories = (self.intent_ids, self.order_ids, self.fill_ids, self.event_ids)
+        if all(isinstance(values, IdentityHistory) for values in histories):
+            if (tuple(values.namespace for values in histories) != NAMESPACES
+                    or len({values.capacity for values in histories}) != 1):
+                raise ValueError("own canonical long identity histories required")
+        elif not all(type(values) is tuple for values in histories):
+            raise ValueError("cannot mix bounded and long identity histories")
+        for values in (*histories, self.reconciliation_halts):
+            if isinstance(values, IdentityHistory):
+                continue
             if (type(values) is not tuple or len(values) > MAX_IDENTITIES
                     or len(set(values)) != len(values)):
                 raise ValueError("bounded unique immutable identities required")
@@ -117,7 +129,11 @@ class PendingResearchState:
 
     @property
     def state_digest(self):
-        return digest((VERSION, self))
+        return digest((self.version, self))
+
+    @property
+    def version(self):
+        return LONG_VERSION if isinstance(self.intent_ids, IdentityHistory) else VERSION
 
 
 @dataclass(frozen=True)
@@ -163,6 +179,16 @@ def start_pending_research(ledger: FuturesLedgerState) -> PendingResearchState:
                                 digest((VERSION, ledger.state_digest)))
 
 
+def start_long_pending_research(ledger: FuturesLedgerState, *, identity_capacity=50_000):
+    """Fresh research genesis only. Existing evidence cannot be reset or converted."""
+    if (not isinstance(ledger, FuturesLedgerState) or ledger.revision != 0
+            or any(b.quantity or b.cycle for b in ledger.baskets)):
+        raise ValueError("fresh flat ledger genesis required; not a restore API")
+    histories = tuple(IdentityHistory(namespace, identity_capacity) for namespace in NAMESPACES)
+    return PendingResearchState(ledger, 0, ledger.as_of, None, *histories, 0, (),
+                                digest((LONG_VERSION, ledger.state_digest, histories)))
+
+
 @precise
 def assess_ledger_purchase(state: PendingResearchState, request: FuturesPurchase,
                            now: datetime) -> LedgerPurchaseAssessment:
@@ -191,7 +217,7 @@ def assess_ledger_purchase(state: PendingResearchState, request: FuturesPurchase
         reasons.append("account_loss_limit")
     if state.pending is not None:
         reasons.append("orders_require_reconciliation")
-    if any(len(ids) >= MAX_IDENTITIES for ids in (
+    if any(len(ids) >= (ids.capacity if isinstance(ids, IdentityHistory) else MAX_IDENTITIES) for ids in (
             state.intent_ids, state.order_ids, state.fill_ids, state.event_ids)):
         reasons.append("identity_capacity_exhausted")
     index = plan.symbols.index(request.symbol)
@@ -276,7 +302,7 @@ def assess_ledger_purchase(state: PendingResearchState, request: FuturesPurchase
     effective = projected.quantity * projected.average_entry / projected.isolated_balance \
         if projected.isolated_balance > 0 else None
     return LedgerPurchaseAssessment(
-        not reasons, tuple(dict.fromkeys(reasons)), state.state_digest, digest((VERSION, request)),
+        not reasons, tuple(dict.fromkeys(reasons)), state.state_digest, digest((state.version, request)),
         ledger.equity, equity_after, headroom, stress_loss, remaining, unused_costs,
         restoration, cash_after, required, effective,
     )
@@ -292,6 +318,8 @@ def _check(state, expected_revision, at):
 
 
 def _append(values, value):
+    if isinstance(values, IdentityHistory):
+        return values.append(value)
     identifier(value)
     if value in values:
         raise ValueError("duplicate evidence identity")
@@ -302,9 +330,9 @@ def _append(values, value):
 
 def _finish(state, at, body, *, ledger_transition=None, assessment=None, **changes):
     provisional = replace(state, revision=state.revision + 1, as_of=at, **changes)
-    command_digest = digest((VERSION, state.revision, at, body))
+    command_digest = digest((state.version, state.revision, at, body))
     result = replace(provisional, audit_head=digest((
-        VERSION, state.audit_head, command_digest, provisional.state_digest,
+        state.version, state.audit_head, command_digest, provisional.state_digest,
     )))
     return PendingTransition(result, state.state_digest, command_digest, ledger_transition, assessment)
 

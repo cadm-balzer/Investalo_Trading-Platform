@@ -771,3 +771,16 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
 - **Gesamtfenster und Pagefenster unterscheiden:** eine begrenzte1000-H4-URL
   nicht für den gesamten6576-H4-Lauf zur Vorprüfung konstruieren. Gesamtfenster
   vor IO separat prüfen, jede tatsächliche Query auf ihre Pagegrenze begrenzen.
+- **Rootreceipt ist kein Dedupe-Restore:** vollständige immutable ID-Historie
+  bindet Membership, der kleine Snapshotroot lädt allein keine IDs zurück.
+  Langjournal vollständig aus Genesis falten, keine1024-Tuples leeren.
+- **Gültiges Präfix kann einen verlorenen ganzen Tail verbergen:** letzten
+  bestätigten Receipt separat halten und als `minimum_receipt` beim Restore
+  prüfen. Ohne solchen Anker belegt die Dateikette nicht den letzten Ack.
+- **Unknownwrite ist kein No-write:** fehlende fsync-Bestätigung kann trotz
+  vorhandener voller Zeile auftreten; sperren/close/readback. Kurzwrite
+  dagegen bleibt unvollständig; keine automatische Tailreparatur/Retry.
+- **Dreijahresmechanik ist keine Futuresrendite:**6576 synthetische Frames
+  und7672 behaltene IDs belegen Journal/Restore. Echte Binance-Nettoforschung
+  braucht Gebühren/Fundingnominal-/Ausführungskontrakt und passende echte
+  Kohorte; BTC/ETH plus synthetischer dritter Coin ist keine native3-Symbol-Performance.

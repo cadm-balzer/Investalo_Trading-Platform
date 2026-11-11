@@ -632,3 +632,20 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   Dataignoredinfra/local/binance-futures-research-data/20261111-native-network.
   IP069economicprofile/longjournalwithout1024eviction then actualnetresearch.
   docs/binance-futures-research-data.md; D075.
+
+- 2026-11-11 IP071: usermergedIP0700ebb98b/main629901b verified; branch
+  feat/m1-futures-long-replay-journal. LongPending/2 preserves all four own
+  immutable IDhistories (default50000/bounded100000); oldtuple1024 default
+  unchanged. Compact rootreceipt notrestore. Genesisrevision0 only.
+  Own localJSONL fullinputrestore/actor+profile+cost+protocol+data bindings,
+  seq/head/state checks; unknownwrite no retry/tailrepair, close/readback.
+  minimum_receipt externalack anchor detects whole-tail loss; unanchored
+  inspection cannot detect validprefix rollback. No broker/authenticity proof.
+  Synthetic6576H4/1096midnights/7672retainedIDs/9.544.108bytes exactrestore,
+  additional fullanchoredrestore,59.228s write/62.707s initialrestore.
+  25newcases/342distinctpinnedTradingWorker (337full/25focused/final53Pending
+  Journal37subtests afterhalt-typecheck) green;
+  eigenreview/noagents/deps/PG/migrations/public changes. No marketperformance.
+  IP069economic fundingprice/cost/execution protocol/nativecohort next;
+  BTCETH only actualdata,3–7symbol plan needs additional genuine assets.
+  docs/futures-long-replay-journal.md; D076.

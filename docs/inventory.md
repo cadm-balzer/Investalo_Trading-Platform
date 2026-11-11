@@ -1,5 +1,11 @@
 # Bestandsaufnahme
 
+IP-071: `identity_history.py`/`futures_replay_journal.py`, ausdrücklicher
+Pending/2-Modus; bestehender Standard1024 unverändert. Vollständiger
+6576-Frame-Synthetiklauf mit7672 erhaltenen IDs/Restore.25 neue Fälle/
+342 unterschiedliche gepinnte Trading-/Workerprüfungen.
+[Vertrag](futures-long-replay-journal.md).
+
 IP-070: eigenes `binance_futures.py`, gefrorene create-only ImportCLI und
 belegter separater Binance-Dreijahresdatensatz: je BTC/ETH6576 H4-Kerzen pro
 Trade/Mark/Index und3288 Fundingraten.28 neue Fälle/130 unterschiedliche
