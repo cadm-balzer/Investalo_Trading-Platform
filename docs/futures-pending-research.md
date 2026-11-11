@@ -118,7 +118,8 @@ Keine Dependencies/Migrationen oder öffentlichen Container geändert.
 
 IP-067 ergänzt inzwischen kausale Restfill-/Gapstressprüfung.
 [Vertrag und Endpunktgrenzen](futures-continuation-stress.md).
-Signal-/Replay-/Zyklusadapter folgt IP-068. Vollständige tatsächliche Fundingarchive,
+Signal-/Replay-/Zyklusadapter ist durch [IP-068](futures-signal-replay.md) ergänzt.
+Vollständige tatsächliche Fundingarchive,
 historische Kontraktannahmen und exakte Regime-/Budgetaufteilung bleiben
 IP-055/063/BL-030. Bestehende Dreijahresdaten und reservierter Holdout bleiben
 unverändert; noch kein neuer Futuresnetto-Backtest.

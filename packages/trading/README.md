@@ -1,5 +1,11 @@
 # Deterministischer Crypto-Paperkern
 
+IP-068 ergänzt `futures_signals`: kausale H4-/RSI-/Staffel-/Zyklusbindung,
+abgeglichene tatsächliche Stufen-VWAPs, getrennte manuelle Reserve/Puffer
+und Nettofloor.36 neue Fälle,317 gepinnte Fälle/228 Subtests grün.
+Deklarierte Forschungsfills, kein automatischer Performance-/Orderlauf.
+[Vertrag](../../docs/futures-signal-replay.md).
+
 IP-067 ergänzt `futures_continuation`: kausaler Restfill-/Gapstress mit echtem
 First-fill-Anker und tatsächlich gestellter Margin.31 neue Fälle,
 277 unterschiedliche Host-/281 gepinnte Fälle/219 Subtests grün. Unklare Orders bleiben

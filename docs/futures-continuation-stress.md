@@ -117,10 +117,11 @@ andere Basketgaps, Revision/Tagesbasis und dauerhaft gebuchte Halts.
 Eigenprüfung; keine neue Agentdelegation und keine unveränderten
 Credential-/DB-/Publicregressionen wiederholt.
 
-IP-068 verbindet als Nächstes RSI14/Wilder, bestätigte Nachkaufstaffel und
+IP-068 verbindet inzwischen RSI14/Wilder, bestätigte Nachkaufstaffel und
 exakte Basket-/Intentzyklusbindung mit einem begrenzten Futures-Replayadapter.
 Ein erstes Replay braucht explizit eingefrorene Margin-/Kosten-/Regimeannahmen
 und eine deklarierte First-fill-Pufferannahme; vollständige historische
 Funding-/Kontraktregeln bleiben für belastbare Nettoleistungsläufe
 IP-055/063/BL-030. Keine neuen Daten/Dependencies/Migrationen, Holdoutabfragen
 oder Runtime-/Broker-/Publicaktivierung.
+[Adaptervertrag und nächster Schritt IP-069](futures-signal-replay.md).

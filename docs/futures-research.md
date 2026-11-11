@@ -84,9 +84,17 @@ Jeder Fillstand, auch der erste, benötigt unabhängig:
 
 ## Nächster Implementierungsschritt
 
+IP-068 verbindet inzwischen gemeinsame Wilderindikatoren, fünf reguläre
+Stufen, tatsächliche Teilfill-VWAPs und gebundene Intent-/Basketzyklen.
+317 gepinnte Fälle/228 Subtests grün. Explizite Puffer-/Kostenannahmen,
+2×-Basis und deklarierte First-fragment-Margin ohne Brokerbeweis.
+IP-069 prüft historische Fundingquelle und eingefrorenes langes
+Replayprotokoll; noch keine neuen Futuresleistungsergebnisse.
+[Vertrag und Grenzen](futures-signal-replay.md).
+
 IP-067 ergänzt kausalen Stress der Restmenge gegen bereits gestellte Margin
 und wirklichen First Fill;281 unterschiedliche gepinnte Fälle/219 Subtests grün.
-IP-068: RSI-/Staffel-/Zyklus-Replayadapter unter eingefrorenen expliziten
+IP-068 ergänzt RSI-/Staffel-/Zyklus-Replayadapter unter eingefrorenen expliziten
 Forschungsannahmen. [Vertrag und Grenzen](futures-continuation-stress.md).
 
 IP-066 ergänzt ledgerbasierte Kaufprüfung, begrenzte Pendingreservierungen,

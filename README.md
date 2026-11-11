@@ -1,8 +1,13 @@
 # Investalo Trading Platform
 
+IP-068 verbindet Futures-RSI-Signale, fünf Kaufstufen und echte Teilfill-VWAPs
+mit gebundenen Basketzyklen.317 gepinnte Fälle grün; manuelle Reserve und
+Marginpuffer bleiben getrennt. Historische Fundingquelle/Replays folgen IP-069.
+[Vertrag](docs/futures-signal-replay.md).
+
 IP-067 prüft die ausstehende Futures-Restmenge gegen tatsächlichen First Fill,
 bereits gestellte Margin und gemeinsame Gapverluste.281 unterschiedliche gepinnte Fälle grün.
-Als Nächstes RSI-/Staffel-Replayadapter; Forschungsdeckung ohne Orderfreigabe.
+RSI-/Staffel-Replayadapter jetzt IP-068; Forschungsdeckung ohne Orderfreigabe.
 [Vertrag](docs/futures-continuation-stress.md).
 
 IP-066 verbindet Futures-Kaufprüfung und Buchungsstand mit begrenzten

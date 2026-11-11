@@ -677,7 +677,8 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   IP-0647007e90 merged into mainab2b6bb, verified.
   IP-06512c2b6c merged into mainffd4211, verified.
   IP-06640d8ba6 merged into main1d06dd3, verified.
-  Current branch feat/m1-futures-continuation-stress.
+  IP-067f18188d merged into mainf844b66, verified.
+  Current branch feat/m1-futures-signal-replay.
 - IP-063 first checkpoint adds pure isolated-usdt-long-economics/1 and
   isolated-usdt-long-stress/1. Signed funding/full close PnL/netbreakeven,
   conservative whole-tier maintenance (explicit research assumption, not
@@ -892,3 +893,25 @@ Capture what matters. Decisions, context, things to remember. Skip the secrets u
 ## Tools
 
 Skills provide your tools. When you need one, check its `SKILL.md`. Keep local notes (SSH details, commands, jobs, etc.) in `TOOLS.md`.
+
+- IP-068 adds pure isolated-usdt-long-signals/1 over unchanged indicator/risk/
+  ledger/pending/continuation cores. Canonical complete native trade/mark H4
+  frames; RSI14/Wilder, actual-stage VWAP -5% reentry, five regular stages,
+  manual sixth and explicit own buffer separate. Constant2x bounded research
+  baseline, no inferred regime or stage leverage ladder. Profile requires
+  declared-full-intent-margin-with-first-fragment/research-only: every first
+  order fragment reports full own intent margin, no broker atomicity proof.
+  Bind profile/symbol/cycle/stage/intent/causal signal/quantity/price/margins.
+  Completed stages require exact terminal reconciliation; last-fill resets
+  RSI, terminal preserves genuine rearm since that fill. Known outside-cycle/
+  after-protection fills book truth and latch global quarantine. Normal flat
+  cycles preserve indicator history; unknown orders never timeout or retry.
+  +5% trade-close protection uses whole-cycle fee/funding/partial-exit netfloor;
+  no pre-fill close reused as profit, no fictional stop fills. Insolvent gap
+  marks continue without fabricated positive midnight basis. Existing1024
+  ID limits remain; not persistence/restore/dispatch or a performance job.
+  36newcases,313distincthost/317pinned228subtests passed; focused eigenreview,
+  no delegation/data/holdout/dependency/migration/runtime/public changes.
+  Next IP-069 actual funding provenance and frozen long-replay protocol;
+  economic regime/budget/buffer choices and archives remain IP-055/063/BL-030.
+  docs/futures-signal-replay.md; D-073.

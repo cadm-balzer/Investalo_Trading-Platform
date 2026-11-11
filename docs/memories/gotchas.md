@@ -731,3 +731,16 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
 - **Riskcovered setzt Orderstatus nicht zurück:** ein positiver reiner Befund
   beweist keine erfolgreiche Stornierung, Brokerpuffer-/Restartherkunft oder
   die ursprüngliche Strategiezyklusbindung. Unknown bleibt bis echtem Abgleich.
+
+- **Terminalabgleich ist kein neuer Fill:** echter RSI-Rearm seit dem letzten
+  Teilfill bleibt bei bestätigtem Teilstorno erhalten. Neue tatsächliche
+  Kauffragmente setzen Rearm zurück, bloßes terminales Ack nicht.
+- **Kauffill ist keine neue Tradebeobachtung:** günstiger Fill plus vorheriger
+  hoher H4-Close beweist keinen sofortigen +5%-Gewinn. Schutz nur mit später
+  beobachtetem Close aktivieren; bekannte Nachschutz-Fills buchen/quarantänisieren.
+- **Altorder nach vollständigem Verkauf bindet alten Zyklus:** später bekannter
+  Kauf kann den wirtschaftlichen Ledgerzyklus wieder öffnen. Nicht als normale
+  neue Kaufstufe zählen und nicht durch Reset globale Quarantäne entfernen.
+- **Insolvente Mitternacht nicht positiv erfinden:** DailyBasis braucht positive
+  Equity. Bei bereits terminalem Halt bekannte Marks weiter buchen und alte
+  Basis behalten; Intraday keinen fehlenden Mitternachtswert nachholen.
