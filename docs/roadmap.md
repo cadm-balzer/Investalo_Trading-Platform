@@ -1,11 +1,18 @@
 # Roadmap
 
+Q42: Tabellenbeträge sind Eigenkapital, Kaufnominal=Kapital×Hebel.
+Nutzer akzeptiert Liquidation vor Abschluss der regulären Staffel;
+neue Variante ohne verpflichtende−50%-Überlebensgarantie.
+Tatsächliche Initialmargin/Budgets/Liquidation verbuchen. Spätere kausale
+AI-Regimewahl2×–10×; Startfixierung oder Neubewertung je Nachkauf noch gefragt.
+[Kapitalprofil und mechanischer Vergleich](futures-capital-ladder.md).
+
 Q41,2026-11-12: Nutzer bestätigt volle Staffelbudgets und hebt für die neue
 Futuresvariante die sperrende Rolle der6%/8%-Kontolimits und des gemeinsamen
 −50%-Kontostresstests auf. Als Warnungen/Diagnose berichten; Budget,
 tatsächliche Liquidationsdeckung, Signale und−55%-Notausstieg erhalten.
-Vor konkreter Marginplanung Tabellenbeträge als Eigenkapital oder Nominal
-klären. Bestehende Rechenkerne/Paper und eingefrorene Ergebnisse unverändert.
+Eigenkapitalfrage inzwischen durch Q42 geklärt. Bestehende Rechenkerne/Paper
+und eingefrorene Ergebnisse unverändert.
 [Entscheidung](interview.md#q41-vollständige-kaufstaffel-statt-begrenzendem-kontostressprofil).
 
 Q40: nächste Leistungsforschung auf Futures fokussieren; Spot-Investing

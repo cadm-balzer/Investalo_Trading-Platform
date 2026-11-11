@@ -655,8 +655,12 @@ vor Leistung wirtschaftliches Profil und passende native Kohorte einfrieren.
 Spot-Investing folgt als separate spätere Strategie.
 Q41 ersetzt für die neue Variante die sperrenden6%/8%-Kontogates und den
 gemeinsamen−50%-Kontostress durch Warnungen/Diagnose; Margin/Budget/−55%
-bleiben getrennte Bedingungen. Tabellenbeträge als Eigenkapital oder Nominal
-sind noch gefragt; bisherige Module wurden dadurch nicht umgestellt.
+bleiben getrennte Bedingungen. Q42 bestätigt Tabellenbeträge als Eigenkapital
+und akzeptiert Liquidationen vor Abschluss der Staffel; hypothetische−50%-
+Liquidation wird diagnostisch statt sperrend bewertet. Tatsächliche
+Initialmargin/aktuelle Liquidation bleiben Grenzen. Fixierung/Neubewertung
+des späteren AI-Hebels ist noch gefragt; bisherige Module nicht umgestellt.
+[Konkretes Kapitalprofil](../futures-capital-ladder.md).
 
 Vor Beginn Status setzen, relevante Entscheidungs-/Pitfallnotizen lesen.
 Nach fachlichem Abschluss passende Prüfungen einmal ausführen, Ergebnis

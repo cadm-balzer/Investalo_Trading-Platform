@@ -23,9 +23,14 @@ ohne begrenzende Kontoschutzgates. Für eine neue, getrennte Futuresvariante
 werden6%/8% Warnschwellen und der gemeinsame−50%-Kontostress Diagnose.
 Aktuelle Module sind noch nicht umgestellt; alte Ergebnisse bleiben gebunden.
 Tatsächliche Budget-/Margin-/Liquidationsdeckung und−55%-Notausstieg bleiben
-relevant. Tabellenbeträge als eigenes Einstiegskapital oder Positionsnominal
-sind noch ausdrücklich gefragt. Keine ungeklärte Marginaufteilung annehmen.
-[Entscheidung und offene Frage](interview.md#q41-vollständige-kaufstaffel-statt-begrenzendem-kontostressprofil).
+relevant. Q42 klärt Tabellenbeträge ausdrücklich als eigenes Einstiegskapital:
+Kaufnominal=Eigenkapital×Hebel. Nutzer akzeptiert Liquidationen vor allen
+fünf regulären Käufen; künftiger−50%-Liquidationsstress ist Diagnose statt
+Überlebensgarantie für jeden Fillstand. Tatsächlich fehlende Initialmargin,
+aktuelle Liquidation und Budgetdeckung bleiben echte Grenzen. Die spätere
+AI-Hebelwahl ist nicht implementiert; Startfixierung versus Neubewertung bei
+Nachkäufen ist noch gefragt.
+[Aktuelles Kapitalprofil und Modellbeispiel](futures-capital-ladder.md).
 
 ## Öffentliche Kontrakt- und Historienproben
 

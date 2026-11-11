@@ -1477,3 +1477,26 @@ späterer AI-Filter hebt Budget/Margin/Orderwahrheit nicht auf.
 Offen per Nutzerfrage: Tabellenbeträge eigenes Einstiegskapital oder Nominal.
 Keine konkrete Futures-Marginaufteilung vor Antwort; alte Rechenkerne und
 gefrorene Marktresultate bleiben unverändert, keine Live/Publicaktivierung.
+
+## 2026-11-12 — D-080: Eigenkapitalstaffel mit akzeptierter Liquidation
+
+Q42:293,13 erste Stufe ist eigenes Kapital; Kaufnominal=Kapital×Hebel.
+Späterer AI-Agent soll2×–10× marktphasenabhängig wählen. Nutzer akzeptiert
+bei höherem Hebel Liquidation vor allen fünf Käufen, damit frühere
+−50%-Überlebensgarantie je Fillstand für neue Variante aufgehoben.
+Keine tatsächlichen marginlosen Käufe/Weiterkäufe nach Liquidation;
+ungenutzte Stufen bleiben getrennt, manuelle Stufe6 und keine Fremdbasket-
+Nachschüsse erhalten. Hypothetische spätere Liquidation diagnostisch.
+Fixierung je Basket oder Neubewertung je Nachkauf ist noch gefragt;
+keine rückblickende perfekte AI/garantierte profitable Erholung.
+
+Lesende Modellrechnung vorhandener Kern,10000/drei Slots, feste2/5/10×,
+Kaufpreise100/95/90,25/85,7375/81,450625, angenommene RSI-Signale,
+Maintenance0,5%/Closefeeschutz0,1%, keine Puffer/Funding:
+2×/5× erreichen fünf Käufe, letzte Modellgrenzen44,282902/70,852643.
+10× nach vier Käufen Grenze82,534159 vor fünftem Preis81,450625;
+gestellte Stufenmargin1690,09875224, ungestellte Reststaffel1610,23128073.
+Keine historische Liquidationshäufigkeit/Nettoleistung/Brokerpreis.
+Kapitalprofil und Grenzen `docs/futures-capital-ladder.md`.
+Keine Rechenmodule/Dependencies/DB/Public geändert; Entscheidung und
+arithmetisches Beispiel, Marktleistung weiterhin eigenes eingefrorenes Profil.

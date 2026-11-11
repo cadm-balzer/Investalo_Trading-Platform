@@ -334,10 +334,29 @@ Der spätere AI-Filter ist kein Beleg garantierter Erholung/Profitabschlüsse
 oder rechtzeitiger Liquidationsdeckung. Rückkehr zum Netto-Breakeven und
 belegbare Margin bis zum Ausstieg sind auch bei langsamem Rückgang offen.
 
-**Noch gefragt:** Sind die Tabellenbeträge eigenes Einstiegskapital
+**Damals gefragt, durch Q42 beantwortet:** Sind die Tabellenbeträge eigenes Einstiegskapital
 (Nominal bei2× doppelt) oder bereits Positionsnominal (Margin entsprechend
 kleiner)? Die Antwort ist vor einem konkreten Futures-Marginprofil nötig.
 Eine automatische Puffergröße oder2×–10×-Profitrechnung wird nicht erfunden.
+
+### Q42: Eigenkapital je Einstieg und akzeptierte Liquidationen
+
+2026-11-12, bestätigt:293,13 USDT sind Eigenkapital für den ersten Einstieg;
+Hebel bestimmt daraus Kaufnominal. Später wählt ein AI-Agent den Hebel nach
+Marktphase innerhalb des bisherigen2×–10×-Rahmens. Nutzer akzeptiert bei
+höherem Hebel ausdrücklich Liquidationen vor Abschluss der fünf Käufe.
+Damit ist die frühere−50%-Überlebensgarantie jedes einzelnen Fillstands
+für das neue Forschungsprofil aufgehoben; tatsächliche Initialmargin,
+Budgetdeckung und Liquidationen werden weiterhin korrekt berücksichtigt.
+Keine automatische Umwidmung unbenutzter Nachkäufe zu zusätzlicher Margin
+oder Finanzierung aus anderen Baskets. Bisherige manuelle Stufe6 bleibt.
+AI- oder garantierte Erholung nicht als bereits validierte Wirkung ausgeben.
+
+Noch gefragt: Hebel je Basket beim Start einfrieren oder je Nachkauf neu
+bewerten? Empfehlung für erstes Profil: je Basket festhalten; keine
+automatische Hebelsteigerung nach Stufennummer. Historische Daten/Regime
+müssen zum jeweiligen Zeitpunkt bekannt gewesen sein.
+[Kapitalrechnung, Modellbeispiel und Forschungsregeln](futures-capital-ladder.md).
 
 Konkrete Umsetzungsfakten recherchieren wir: unterstützte Versionen exakt pinnen,
 Historienlänge/-qualität prüfen, Brokerkosten/Metadaten und Hostlast messen.
