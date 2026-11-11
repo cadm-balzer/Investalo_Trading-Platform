@@ -1,5 +1,10 @@
 # Architektur und Stack
 
+IP-068 ergänzt `futures_signals` als reinen gebundenen H4-Ereignisadapter
+über unveränderten Ledger-/Pending-/Riskkernen und gemeinsamen Indikatoren.
+Eigenständige Revision/Hashkette, gebundene Intentzyklen, keine Persistenz/
+Dispatch-/Brokerautorität. [Vertrag](futures-signal-replay.md).
+
 IP-067 ergänzt einen reinen Restfill-/Gapstressrechner über unverändertem
 Pending-/Ledgerstate. Befund bindet State, Szenario und Zeit; positiver
 Riskbefund ersetzt keinen dauerhaften Abgleich oder Orderauthority.

@@ -1,8 +1,13 @@
 # Bestätigter M1-Umfang und Umsetzungsstand
 
+IP-068 verbindet RSI und Nachkaufstaffel mit begrenztem Futuresereignisreplay.
+36 neue Fälle,317 gepinnte Fälle/228 Subtests grün; manuelle Reserve/Puffer
+getrennt und echte Basket-/Intentzyklen gebunden. Historische Fundingquelle
+und langes Replayprotokoll folgen IP-069. [Vertrag](futures-signal-replay.md).
+
 IP-067 ergänzt reine Restfill-/Gapstressdeckung;281 unterschiedliche gepinnte Fälle/219 Subtests
 grün. Erst tatsächlichen First Fill/Collateral kennen, keine zukünftige Margin
-anrechnen. RSI-/Staffel-/Zyklus-Replayadapter folgt IP-068.
+anrechnen. RSI-/Staffel-/Zyklus-Replayadapter ist durch IP-068 ergänzt.
 [Vertrag](futures-continuation-stress.md).
 
 IP-066 ergänzt ledgerbasierte Futures-Kaufprüfung, begrenzte Intents/

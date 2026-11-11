@@ -1,7 +1,12 @@
 # Roadmap
 
+IP-068: begrenzter Futures-RSI-/Staffel-/Zyklusadapter vorhanden,
+36 neue Fälle/317 gepinnte Fälle grün. IP-069 prüft Fundingprovenienz und
+langes Replayprotokoll mit expliziten wirtschaftlichen Annahmen.
+[Vertrag](futures-signal-replay.md).
+
 IP-067: kausale Restfill-/Gapdeckung implementiert,31 neue Fälle;
-281 unterschiedliche gepinnte Fälle/219 Subtests grün. IP-068 verbindet RSI-/Staffel-/Zyklus-
+281 unterschiedliche gepinnte Fälle/219 Subtests grün. IP-068 ergänzt RSI-/Staffel-/Zyklus-
 autorität mit begrenztem Futures-Replay unter expliziten Forschungsannahmen.
 [Vertrag](futures-continuation-stress.md).
 

@@ -1,5 +1,10 @@
 # Bestandsaufnahme
 
+IP-068: neues `futures_signals.py`,36 synthetische Fälle für RSI/Wilder,
+Nachkäufe, tatsächliche Teilfill-VWAPs, Zyklen und Nettofloor.313 unterschiedliche
+Host-/317 gepinnte Trading-/Workerfälle/228 Subtests grün; alte Module und
+Exporte unverändert. [Vertrag](futures-signal-replay.md).
+
 IP-067: neues `futures_continuation.py` und31 Fälle für vorhandene/volle
 Restmenge, signed Nettostand und korrelierte Gapstresshülle. Keine bestehenden
 Module/Exports geändert;277 unterschiedliche Host-/281 gepinnte Fälle/219 Subtests grün.

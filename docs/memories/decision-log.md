@@ -1297,3 +1297,29 @@ Dependency-/Runtime-/Broker-/Publicänderungen. IP-068 RSI-/Staffel-/Zyklus-
 Replay unter expliziten Forschungsannahmen folgt; Fundingarchive/historische
 Kontrakt-/Regime-/Budgetregeln IP-055/063/BL-030 offen.
 [Vertrag](../futures-continuation-stress.md).
+
+## 2026-11-11 — D-073: Kausaler Futures-RSI-/Staffelreplay ohne Performancebehauptung
+
+Nutzer bestätigt IP-067;f18188d in Mainf844b66 verifiziert. IP-068 verbindet
+bestehende Wilderindikatoren mit nativen vollständigen H4-Trade-/Markframes,
+fünf regulären Stufen, tatsächlichem abgeglichenem Teilfill-VWAP und bindet
+jede Order an Profil/Signal/Intent/Basketzyklus. Manuelle sechste Stufe und
+eigener Marginpuffer bleiben getrennt.2× konstant als begrenzte Forschungsbasis;
+keine neue bestätigte Regime-/Budgetaufteilung oder automatische Hebeltreppe.
+
+Explizit eingefrorene Forschungsannahme: volle eigene Intentmargin mit erstem
+Fragment, ohne Broker-Timing-/Atomizitätsbeweis. Bekannte abweichende/alte oder
+nach Gewinnschutz eintreffende Fills korrekt buchen und global quarantänisieren.
+Unbekannte Orders behalten Reserven, terminaler Abgleich erhält seit letztem
+Fill beobachteten RSI-Rearm. Vollständiger normaler Close startet neuen Zyklus
+mit alter Indikatorhistorie; Risiko-/Quarantänesperren bleiben.
+
++5%-Close aktiviert Schutz mit fee-/funding-/Teilexitbereinigtem Nettofloor;
+kein vorheriger Close als erfundener Nachfillgewinn oder garantierter Stopfill.
+Negative Gap-Equity bleibt gebucht, keine positive Mitternachtsbasis erfinden.
+36 neue Fälle/313 unterschiedliche Host-/317 gepinnte Fälle mit228 Subtests
+grün; Eigenprüfung ohne Delegation. Keine alten Module/Exports, Daten/Holdouts,
+Dependencies, Migrationen oder öffentlichen Dienste verändert.
+IP-069: historische Fundingquelle und langes eingefrorenes Replayprotokoll;
+noch keine neue wirtschaftliche Futuresperformance. IP-055/063/BL-030 offen.
+Vertrag: `docs/futures-signal-replay.md`.

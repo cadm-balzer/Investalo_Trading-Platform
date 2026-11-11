@@ -1,8 +1,14 @@
 # Handelskonzept, Risiko und Nachweis
 
+IP-068 verbindet RSI14/Wilder und fünf Nachkaufstufen mit tatsächlichen
+Teilfills und Basketzyklen. Manuelle Reserve/Puffer getrennt, 2×-Basis
+mit deklarierter First-fragment-Marginannahme; keine Hebelsteigerung je Stufe.
+Fundingbereinigter Gewinnschutz, keine erfundenen Stopfills.
+[Vertrag](futures-signal-replay.md).
+
 IP-067 beurteilt Restfills am wirklichen First Fill und ausschließlich schon
 gestellter Nettomargin. Fehlendes Polster wird nicht als zukünftiger Transfer
-angenommen; Kontogaps schließen alle Baskets ein. Danach RSI-/Staffeladapter
+angenommen; Kontogaps schließen alle Baskets ein. RSI-/Staffeladapter jetzt
 IP-068. [Vertrag](futures-continuation-stress.md).
 
 IP-066 prüft neue Futures-Käufe direkt am tatsächlichen Brutto-/Nettobuchungsstand.

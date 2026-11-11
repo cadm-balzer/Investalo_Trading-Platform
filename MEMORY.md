@@ -583,3 +583,20 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   before netruns; IP055/063/BL030 archives/rules remain. No delegation/oldcores/
   data/holdout/DB/dependencies/runtime/public changes. Contract:
   docs/futures-continuation-stress.md; D072.
+
+- 2026-11-11 IP-068: IP067f18188d merged into mainf844b66 verified;
+  branchfeat/m1-futures-signal-replay. Pure signals/1 uses unchanged Wilder/
+  futures cores, canonical trade/mark closed H4, actual-stage VWAP/rearm/drop,
+  five regular +manual sixth separate from explicit own marginbuffer. Fixed2x
+  research baseline and explicit full-intent-margin-with-first-fragment model,
+  NOT broker atomictiming proof or approved economic allocation/regime map.
+  Immutable profile/intent/signal/symbol/cycle/stage/q/price/margins. Known late/
+  outsidecycle/afterprotection fills book truth+global latched quarantine.
+  Terminal keeps real rearm since lastfill; every actualentry resets it.
+  +5% close protection uses wholecycle fee/funding/partialexit netfloor; no
+  prefillclose fakeprofit, invented stopfill or positive insolventdaybasis.
+  36newcases/313distincthost/317pinned228subtests passed; eigenreview. Existing
+  bounded1024 identities not durable CAS/restore; no dispatch/performance job.
+  No delegation/oldcores/exports/data/holdouts/deps/migrations/runtime/public
+  changes. IP069 funding provenance/frozenlongreplay next, IP055/063/BL030 open.
+  docs/futures-signal-replay.md; D073.
