@@ -1,5 +1,13 @@
 # Roadmap
 
+Q40: nächste Leistungsforschung auf Futures fokussieren; Spot-Investing
+ist eine spätere separate Strategie. H4-RSI-Einstiege mit H1-Supertrend
+als Forschungsvariante vergleichen, beide Stopvarianten auf derselben
+feineren Preisachse. Geschlossene Kerzen, Nachkäufe,+5%/Nettofloor,
+−55%/−50%/6%/8% erhalten. IP-069 braucht zuerst passende native Futures-H1-
+Kohorte und eingefrorene Kosten-/Funding-/Marginannahmen. Kein Runtimewechsel.
+[Entscheidung](interview.md#q40-futures-priorisieren-und-h4-einstiege-mit-h1-schutz-vergleichen).
+
 Q39/IP-072: Nutzer priorisiert tatsächlichen H1/H4-Nettovergleich mit
 vollständiger bestätigter Basket-Kapitalplanung. Eigener Spotvergleich auf
 gleicher nativer Fünf-Coin-Quelle mit drei/fünf Slots und Kostenstress.

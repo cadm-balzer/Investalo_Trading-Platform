@@ -1439,3 +1439,26 @@ keine automatische Promotion; Ausführungs-/Stoppsensitivität vor Holdout.
 135GETs, je26303 native H1/26300 evaluierte H1/6575 H4, sechs volle Kurven
 geprüft.18 neue/356 unterschiedliche gepinnte Fälle, alte228,7169/56-
 Baseline exakt reproduziert. Keine DB/Dependencies/Public-/Runtimeänderung.
+
+## 2026-11-11 — D-078: Futuresvergleich und H1-Supertrend priorisieren
+
+Q40: Nutzer ordnet Basketstrategie ausdrücklich Futures zu; separate spätere
+Spot-Investingstrategie, alte Spotreferenzen unverändert. Vorschlag als
+Forschungsvariante aufnehmen: geschlossene H4-RSI-Einstiege/Nachkäufe,
+geschlossener H1-Supertrend für Schutz. +5%-Aktivierung, Nettofloor,
+aufwärts ratcheted Stop/Kaufstopp, manuelle Reserve und−55%/−50%/6%/8%
+erhalten; Nachfrage zu Kontolimits ist keine Lockerungsfreigabe.
+Auf identischer feinerer Futurespreisachse H4- und H1-Supertrend vergleichen,
+Indikatoränderung nicht mit veränderter Stopausführung vermischen.
+IP-069 priorisiert; native H1-Kohorte und eingefrorene Funding-/Kosten-/
+Marginannahmen fehlen noch, keine Runtime-/Livefreigabe.
+
+Zusätzlicher lesender Replay des veröffentlichten H4-Fünf-Slot-Spotfalls
+reproduziert+1064,3000798076551643529605 USDT exakt:
+49 positive Abschlüsse zusammen+1360,2861442755689801642355,
+38 negative zusammen−295,986064467913815811275.
+37 negative Trailing-Stop-Abschlüsse und ein SOL−55%-Notausstieg
+mit−160,5093522835841240205 USDT. Coarse OHLC-Stopausführung kann Verluste
+überschätzen; keine reale Stopfillqualität aus diesen Abschlüssen ableiten.
+Maximaler Equitydrawdown3,813586%:10542,6314058 am2024-07-22 02:00Z
+zu10140,5790659 am2024-08-05 13:00Z, weiterhin über10000 Initialkapital.

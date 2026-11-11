@@ -647,6 +647,13 @@ dasselbe deklarierte Unterbrechungsfenster. Ergebnis und Abnahme:
 
 ## Routine
 
+Nächster priorisierter Leistungsnachweis IP-069/Q40: tatsächlicher
+Futures-Nettovergleich mit nativer gemeinsamer H1-Ausführungsachse,
+H4-RSI-Einstiegen und getrennten H4-/H1-Supertrend-Varianten.
+Funding/Kosten/Margin/Liquidation und bestehende Risikolimits einbeziehen;
+vor Leistung wirtschaftliches Profil und passende native Kohorte einfrieren.
+Spot-Investing folgt als separate spätere Strategie.
+
 Vor Beginn Status setzen, relevante Entscheidungs-/Pitfallnotizen lesen.
 Nach fachlichem Abschluss passende Prüfungen einmal ausführen, Ergebnis
 dokumentieren, betroffene Generaldocs aktualisieren und Arbeit in Git sichern.

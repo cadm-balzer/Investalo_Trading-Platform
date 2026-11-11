@@ -288,6 +288,31 @@ Nachkauf-/Risikoregeln. Keine automatische Paper-/Live-Zeitrahmenumstellung
 oder vorweggenommene Futuresrendite.
 [Vergleich](h1-h4-basket-comparison.md).
 
+### Q40: Futures priorisieren und H4-Einstiege mit H1-Schutz vergleichen
+
+2026-11-11: Nutzer bestätigt die Bedeutung des beobachteten SOL-Notausstiegs
+und schlägt H4-Einstiege mit nachgezogenem H1-Supertrend vor.
+Die Basketstrategie soll als Futuresstrategie untersucht werden; eine andere
+Spot-Investingstrategie folgt später separat. Bestehende Spotläufe bleiben
+historische Referenzen, keine Umbenennung in Futuresperformance.
+Die Nachfrage nach6%/8% widerruft die bestätigten Kontolimits nicht.
+
+Forschungsvariante: geschlossene H4-RSI-Signale und bestätigte Nachkäufe,
+geschlossener H1-Supertrend ATR10/Wilder×3 für den Schutz.
+Bestehende+5%-Aktivierung, Netto-Breakeven-Untergrenze, nur aufwärts
+nachgezogener Stop/Kaufstopp, manuelle sechste Stufe und−55%/−50%/6%/8%
+bleiben erhalten. Keine rückblickende Verwendung unfertiger H1-Kerzen.
+Dies ist ein Forschungsauftrag, keine automatische Runtime-/Liveumstellung.
+
+Für einen kontrollierten Futuresvergleich H4- und H1-Supertrend auf derselben
+feineren Ausführungszeitachse auswerten; feinere Preisbeobachtung und anderer
+Indikatorzeitrahmen sind getrennte Änderungen. Funding/Kosten/isolierte Margin
+und Liquidationspuffer gehören zur Nettoauswertung. Passende native
+Futures-H1-Daten und wirtschaftliches Protokoll bleiben vor Leistung nötig;
+Spot-H1 oder synthetische weitere Coins ersetzen diese nicht.
+IP-069 ist hierfür priorisiert; bestehende Bitget-Handelszielentscheidung
+und Holdoutschutz bleiben erhalten.
+
 Konkrete Umsetzungsfakten recherchieren wir: unterstützte Versionen exakt pinnen,
 Historienlänge/-qualität prüfen, Brokerkosten/Metadaten und Hostlast messen.
 Vor Pilotrollout müssen Domain/TLS, SMTP/Empfänger, Terminalbindung,
