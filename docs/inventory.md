@@ -1,5 +1,10 @@
 # Bestandsaufnahme
 
+IP-067: neues `futures_continuation.py` und31 Fälle für vorhandene/volle
+Restmenge, signed Nettostand und korrelierte Gapstresshülle. Keine bestehenden
+Module/Exports geändert;277 unterschiedliche Host-/281 gepinnte Fälle/219 Subtests grün.
+[Vertrag](futures-continuation-stress.md).
+
 IP-066: neues `futures_pending.py`,28 synthetische Fälle; gebundene
 Kaufreservierungen, vollständiger Terminalabgleich, begrenzte Broker-ID-Dedupe
 und Kaufstress direkt aus Bruttozuordnung/signed Ledgernettostand.

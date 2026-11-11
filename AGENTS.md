@@ -676,7 +676,8 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   IP-0630cf8a2b merged into main6d06ec5, verified.
   IP-0647007e90 merged into mainab2b6bb, verified.
   IP-06512c2b6c merged into mainffd4211, verified.
-  Current branch feat/m1-futures-pending-research.
+  IP-06640d8ba6 merged into main1d06dd3, verified.
+  Current branch feat/m1-futures-continuation-stress.
 - IP-063 first checkpoint adds pure isolated-usdt-long-economics/1 and
   isolated-usdt-long-stress/1. Signed funding/full close PnL/netbreakeven,
   conservative whole-tier maintenance (explicit research assumption, not
@@ -776,6 +777,30 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   module/export/data/holdout/dependency/migration/runtime/broker/public changes.
   IP-066 bounded checkpoint done; IP-067/063/BL-030 remain. Contract:
   docs/futures-pending-research.md; D-071.
+- IP-067 adds pure isolated-usdt-long-continuation/1, unchanged old modules.
+  Tenant/account/plan/revision/intent/order + complete downward gap floors.
+  Actual first-fill anchor, signed already-posted collateral only; pending
+  margin/restoration/crossbasket topups never assumed. Existing and full
+  remaining quantity endpoint bounds cover affine prefixes with fixed first
+  fill, capped prices, full conservative tier and full remaining entry fee.
+  Free costs must remain covered at BOTH gap endpoints: hypothetical cheap
+  remainder profit cannot heal zero-remainder cost shortfall.
+  Current/prior-gap/post-fill isolation, 6%/8% aggregate stress, original gross
+  budgets/funding restoration/costs, original leverage and fresh day/marks
+  remain checked. Missing first-fill position blocks without inventing timing.
+  Shows required collateral/deficit, never automatically posts or clears halt.
+  risk_covered is economic research only; requires_reconciliation=true and
+  execution_enabled=false. Unknown order/reservations unchanged. Not a proof
+  of future funding, upper mark paths, broker timing, durable IDs or exact
+  original strategy-cycle authority. Pending guard cannot replace that binding.
+  31 new cases;277 distinct host/281 pinned Trading/Worker tests219 subtests
+  passed (full276/280 then all31 updated module cases focused). Root economic
+  review, no new delegation or unchanged credential/DB/public repeats.
+  No old exports/versions/data/holdout/dependencies/migrations/runtime changes.
+  IP-067 done; IP-068 causal RSI/staffel/intent-cycle replay adapter next with
+  explicitly frozen research costs/margin/regime and first-fill assumptions.
+  Fundingarchives/historical rules remain IP-055/063/BL-030. Contract:
+  docs/futures-continuation-stress.md; D-072.
 
 - Profitability is a measurable research objective, never a guarantee.
 - Use one versioned deterministic strategy core for backtest, paper, and live.

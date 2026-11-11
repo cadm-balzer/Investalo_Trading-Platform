@@ -84,9 +84,14 @@ Jeder Fillstand, auch der erste, benötigt unabhängig:
 
 ## Nächster Implementierungsschritt
 
+IP-067 ergänzt kausalen Stress der Restmenge gegen bereits gestellte Margin
+und wirklichen First Fill;281 unterschiedliche gepinnte Fälle/219 Subtests grün.
+IP-068: RSI-/Staffel-/Zyklus-Replayadapter unter eingefrorenen expliziten
+Forschungsannahmen. [Vertrag und Grenzen](futures-continuation-stress.md).
+
 IP-066 ergänzt ledgerbasierte Kaufprüfung, begrenzte Pendingreservierungen,
 Teilfill-Dedupe und genaue Terminalsummen. Fortsetzungsstress für die tatsächliche
-First-fill-/Restfillfolge sowie kausaler Signal-/Replayadapter folgen IP-067.
+First-fill-/Restfillfolge inzwischen IP-067, Signal-/Replayadapter IP-068.
 [Vertrag und Grenzen](futures-pending-research.md).
 
 IP-065 ergänzt den abgeglichenen Offlinebuchungsledger: Teil-/Vollfills,

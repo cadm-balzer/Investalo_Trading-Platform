@@ -1,8 +1,12 @@
 # Bestätigter M1-Umfang und Umsetzungsstand
 
+IP-067 ergänzt reine Restfill-/Gapstressdeckung;281 unterschiedliche gepinnte Fälle/219 Subtests
+grün. Erst tatsächlichen First Fill/Collateral kennen, keine zukünftige Margin
+anrechnen. RSI-/Staffel-/Zyklus-Replayadapter folgt IP-068.
+[Vertrag](futures-continuation-stress.md).
+
 IP-066 ergänzt ledgerbasierte Futures-Kaufprüfung, begrenzte Intents/
-Teilfill-Dedupe und Terminalabgleich. Kein Dispatch oder persistenter Restore;
-Restfill-/Gapstress vor Signal-/Replayadapter IP-067.
+Teilfill-Dedupe und Terminalabgleich. Kein Dispatch oder persistenter Restore.
 [Vertrag](futures-pending-research.md).
 
 IP-065 ergänzt reine abgeglichene Futuresbuchungen;222 gepinnte Fälle grün.

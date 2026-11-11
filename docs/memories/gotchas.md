@@ -721,3 +721,13 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
 - **Wrapperhalt nicht in alte Ledgerhashkette hineinschreiben:** ungeplante
   bekannte Fills normal buchen, separate terminale Abgleichssperre im neuen
   Statehash binden. Ledgertransition und Wrapperledger müssen übereinstimmen.
+- **Restfilldeckung braucht gestellten Nettostand:** ungenutzte Intentmargin
+  ist kein aktuelles Collateral. Futuretransfer/Fundingrestoration nicht in
+  den vorhandenen oder vollständigen Restfill-Gapendpunkt hineinsimulieren.
+- **Kosten an beiden Gapendpunkten sichern:** Preislimit unter Stressmark
+  kann hypothetischen Restfillprofit ergeben. Dessen Kostendeckung heilt
+  nicht die fehlende Reserve vor dem ersten weiteren Fill. Nullrestmenge mit
+  voller Feehülle plus freie Kostenreserve separat prüfen.
+- **Riskcovered setzt Orderstatus nicht zurück:** ein positiver reiner Befund
+  beweist keine erfolgreiche Stornierung, Brokerpuffer-/Restartherkunft oder
+  die ursprüngliche Strategiezyklusbindung. Unknown bleibt bis echtem Abgleich.

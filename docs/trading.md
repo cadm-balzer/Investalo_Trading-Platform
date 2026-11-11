@@ -1,9 +1,14 @@
 # Handelskonzept, Risiko und Nachweis
 
+IP-067 beurteilt Restfills am wirklichen First Fill und ausschließlich schon
+gestellter Nettomargin. Fehlendes Polster wird nicht als zukünftiger Transfer
+angenommen; Kontogaps schließen alle Baskets ein. Danach RSI-/Staffeladapter
+IP-068. [Vertrag](futures-continuation-stress.md).
+
 IP-066 prüft neue Futures-Käufe direkt am tatsächlichen Brutto-/Nettobuchungsstand.
 Teilfills und terminaler Abgleich erhalten Reservierungen bis zur Klärung;
-ein unklarer Auftrag sperrt weitere Käufe. Restfill-/Gapfortsetzung folgt
-IP-067 vor einem Executor. [Vertrag](futures-pending-research.md).
+ein unklarer Auftrag sperrt weitere Käufe.
+[Vertrag](futures-pending-research.md).
 
 IP-065 bucht Teilfills, signed Funding und Gapdefizite getrennt von Kauf-
 autorisierung.2× bleibt Mindestwert des Forschungs-Brokersettings; rechtzeitig
