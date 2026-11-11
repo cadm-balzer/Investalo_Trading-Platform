@@ -1,5 +1,9 @@
 # Futures-Kaufprüfung und begrenzter Orderabgleich
 
+Ergänzung IP-071: Der folgende1024-ID-Standardmodus bleibt unverändert.
+Ein ausdrücklicher Long-Pending/2-Modus und Vollinputjournal halten alle IDs
+und erlauben Forschungsrestore; siehe [Langlaufvertrag](futures-long-replay-journal.md).
+
 2026-11-11, IP-066. IP-065`12c2b6c` in Main`ffd4211` verifiziert.
 Neues separates Offline-Modul `futures_pending.py`,
 Version `isolated-usdt-long-pending/1`. Bestehende Spot-/Paper-,

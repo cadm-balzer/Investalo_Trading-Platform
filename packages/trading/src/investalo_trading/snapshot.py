@@ -12,11 +12,14 @@ from typing import Any, Union, get_args, get_origin, get_type_hints
 import types
 
 from . import models
+from .identity_history import IdentityHistory
 
 SCHEMA_VERSION = 1
 
 
 def primitive(value: Any) -> Any:
+    if isinstance(value, IdentityHistory):
+        return value.record()
     if dataclasses.is_dataclass(value):
         return {f.name: primitive(getattr(value, f.name)) for f in dataclasses.fields(value)}
     if isinstance(value, Decimal):

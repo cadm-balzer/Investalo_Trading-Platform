@@ -1,5 +1,10 @@
 # Bestätigter M1-Umfang und Umsetzungsstand
 
+IP-071 ergänzt Long-Pending/Journal mit vollständig erhaltenen IDs und
+Replayrestore,6576 synthetische H4-Schritte/7672 IDs belegt. Keine
+Marktperformance; wirtschaftliches Protokoll/Nettovergleich IP-069.
+[Vertrag](futures-long-replay-journal.md).
+
 Q38/IP-070 ergänzt den bestätigten separaten Binancevergleich: BTC/ETH drei
 Jahre native Trade-/Mark-/Indexkerzen und Fundingraten vollständig importiert.
 Bitget bleibt Handelsziel. Wirtschaftliches Profil/Langlaufjournal und echte
