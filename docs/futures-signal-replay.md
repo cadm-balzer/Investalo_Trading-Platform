@@ -131,3 +131,6 @@ Lange Läufe benötigen zusätzlich einen geeigneten Ereignisspeicher;
 die1024er Identitätsgrenze wird nicht durch periodisches Leeren umgangen.
 Belastbare tatsächliche Nettovergleiche bleiben bis zu dieser Provenienz
 IP-055/063/BL-030. Keine neue Live-/Produktionsfreigabe.
+
+Der erste IP-069-[Quellencheckpoint](futures-funding-availability.md) belegt
+die aktuelle90-Tage-Lücke der nativen Funding-API ausdrücklich.

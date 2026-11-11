@@ -84,6 +84,13 @@ Jeder Fillstand, auch der erste, benötigt unabhängig:
 
 ## Nächster Implementierungsschritt
 
+IP-069 erster Quellencheckpoint: native Classic-V2-Fundinghistorie fürBTC/ETH
+je270 Abrechnungen vom2026-08-13 bis2026-11-11. Null im angefragten2022–2025-
+Fenster; vollständiger historischer Quellenbeleg bleibt offen. Create-only
+Importer und explizite Kalenderdiagnose, kein Nullratenersatz oder Venuewechsel.
+25 neue Fälle/102 unterschiedliche gepinnte Marktdatafälle grün.
+[Quelle und Vertrag](futures-funding-availability.md).
+
 IP-068 verbindet inzwischen gemeinsame Wilderindikatoren, fünf reguläre
 Stufen, tatsächliche Teilfill-VWAPs und gebundene Intent-/Basketzyklen.
 317 gepinnte Fälle/228 Subtests grün. Explizite Puffer-/Kostenannahmen,

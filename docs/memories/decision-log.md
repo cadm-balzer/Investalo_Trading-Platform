@@ -1323,3 +1323,30 @@ Dependencies, Migrationen oder öffentlichen Dienste verändert.
 IP-069: historische Fundingquelle und langes eingefrorenes Replayprotokoll;
 noch keine neue wirtschaftliche Futuresperformance. IP-055/063/BL-030 offen.
 Vertrag: `docs/futures-signal-replay.md`.
+
+## 2026-11-11 — D-074: Fundinglücken belegen statt kostenlose Finanzierung erfinden
+
+Nutzer bestätigt IP-068;91a1547 in Main56877b0 verifiziert. IP-069 erster
+Quellencheckpoint ergänzt reinen öffentlichen Classic-V2-Fundingimport,
+expliziten erwarteten Settlementkalender und create-only gepinntes CLI.
+Bestehende Funding-/Futures-/Spotformate und Tradingkerne bleiben unverändert.
+
+Offizielle aktuelle V3-Dokumentation nennt90 Tage, ältere Legacyseite nicht.
+Native V2-Abnahme: BTC/ETH je270 Ereignisse2026-08-13T16Z..2026-11-11T08Z,
+je vier Pages einschließlich leerem Abschluss, insgesamt8 protokollierte
+GETs/540 Beobachtungen. Angefragtes2022–2025-Fenster hat jeweils0 Ereignisse;
+gegen deklarierte8h-Annahme je3288 Missing, keine Nullsubstitution. Jüngste
+Raten bleiben im eigenen Snapshot. Historischer Kalender bleibt unbelegt.
+
+25 neue Hostfälle/102 unterschiedliche gepinnte Marktdatafälle/187 Subtests
+grün (101 Regression, finale25 Modulchecks). Vier echte Datei-/Datendigests
+und acht Pagehashes geprüft, Receipt mit Protokollchecksum committed; rohe
+Snapshots ignored. Keine Delegation/Trading-/Credential-/DB-Wiederholung,
+Dependencies, Migrationen, Holdoutjobs oder öffentliche Aktivierung. Nur
+zwei Fixturemounts readonly ergänzt. Eigenprüfung.
+
+IP-069 bleibt offen für vollständige historische native Quellen, konkrete
+wirtschaftliche Forschungsannahmen und Langlaufjournal ohne ID-Verwerfen.
+Optional Nutzerpräferenz zu getrenntem kostenlosem Binance-Futuresvergleich
+erfragt, noch unbeantwortet; keine Venue-/Fundingumwidmung oder Handelsänderung.
+Bitget bleibt Tradingziel. `docs/futures-funding-availability.md`.

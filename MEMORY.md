@@ -600,3 +600,20 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   No delegation/oldcores/exports/data/holdouts/deps/migrations/runtime/public
   changes. IP069 funding provenance/frozenlongreplay next, IP055/063/BL030 open.
   docs/futures-signal-replay.md; D073.
+
+- 2026-11-11 IP-069 first checkpoint: IP06891a1547 merged main56877b0 verified;
+  branchfeat/m1-futures-funding-history. New bounded unsigned ClassicV2 funding
+  adapter, explicit expectedcalendar diagnostics, create-only protocol-pinned CLI.
+  Native BTC/ETH each270 events2026-08-13T16Z..2026-11-11T08Z;8receiptGETs,
+  540 observations; requested2022-08-01..2025-08-01 each0. Declared8h calendar
+  missing3288 each, NOT verified historical schedule; no missing0/venue swap.
+  Observed recent/requested windows separate funding/1;4artifacts/8page hashes
+  verified; raw ignored, receipt committed. CurrentofficialV3 says90d; legacy
+  wording differs.25hostnew/102distinctpinnedmarketdata187subtests pass
+  (101full,final25module). Eigenreview/noagents/oldcores/deps/DB/holdout/public
+  changes;2readonly checkmounts only. DNSsandboxfailedrun no receipt; authorized
+  network runnewdirinfra/local/futures-funding-data/20261111-native-network.
+  IP069 still open: native archives/economic profile/longjournal. Optional
+  userpreference for separate free Binance research asked, no answer yet;
+  Bitget trading target unchanged, no othervenue data/job enabled.
+  docs/futures-funding-availability.md; D074.

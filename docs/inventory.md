@@ -1,5 +1,9 @@
 # Bestandsaufnahme
 
+IP-069: neues `futures_funding.py`, create-only ImportCLI, gefrorenes
+Quellenprüfprotokoll und echte Receipt.25 neue Fälle/102 gepinnte Marktdatafälle
+grün. Bestehende Snapshots/Tradingkerne unverändert. [Vertrag](futures-funding-availability.md).
+
 IP-068: neues `futures_signals.py`,36 synthetische Fälle für RSI/Wilder,
 Nachkäufe, tatsächliche Teilfill-VWAPs, Zyklen und Nettofloor.313 unterschiedliche
 Host-/317 gepinnte Trading-/Workerfälle/228 Subtests grün; alte Module und

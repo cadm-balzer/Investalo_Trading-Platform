@@ -1,5 +1,9 @@
 # Futuresdaten: Markt, Preisart und Funding getrennt
 
+IP-069 ergänzt inzwischen den bounded nativen Fundingtransport und explizite
+Kalenderdiagnose. Je270 jüngste BTC/ETH-Abrechnungen, keine alte
+Forschungsabdeckung. [Vertrag](futures-funding-availability.md).
+
 2026-11-10, IP-064. IP-063`0cf8a2b` in Main`6d06ec5` verifiziert.
 Eigenes `futures-h4-snapshot/1` und `funding/1` statt Spotdaten umetikettieren.
 Keine neuen Abhängigkeiten, Migrationen, Dienste oder Handelsfreigaben.
@@ -65,9 +69,9 @@ Bei einem Fehler gibt es keine erfolgreiche Gesamtquittung.
 python3 infra/scripts/import-futures-history.py /absolute/new/directory
 ```
 
-Fundingtransport bleibt offen: die dokumentierte Classic-V2-Fundinghistorie
-paginiert mit `pageNo`/`pageSize`, ohne Datumsfilter. Ein sauber begrenzter,
-belegter Archivweg ist noch erforderlich; heutige Raten ersetzen keine Historie.
+Fundingtransport ist durch IP-069 ergänzt: Classic-V2 paginiert mit
+`pageNo`/`pageSize` ohne Datumsfilter; die tatsächlichen jüngsten Ereignisse
+bleiben getrennt. Vollständiger historischer Archivweg bleibt erforderlich.
 Keine private Kontoverbindung und kein Holdout angefragt oder ausgewertet.
 Der vorhandene reservierte Spot-Holdout bleibt unverändert.
 

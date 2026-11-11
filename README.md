@@ -1,5 +1,10 @@
 # Investalo Trading Platform
 
+IP-069 ergänzt einen öffentlichen Fundingimport mit expliziter Lückenprüfung.
+BTC/ETH je270 echte jüngste Abrechnungen; Forschungsfenster2022–2025 weiter
+unvollständig.25 neue Fälle/102 gepinnte Marktdatafälle grün.
+[Quellenbefund und Vertrag](docs/futures-funding-availability.md).
+
 IP-068 verbindet Futures-RSI-Signale, fünf Kaufstufen und echte Teilfill-VWAPs
 mit gebundenen Basketzyklen.317 gepinnte Fälle grün; manuelle Reserve und
 Marginpuffer bleiben getrennt. Historische Fundingquelle/Replays folgen IP-069.

@@ -1,5 +1,10 @@
 # Bestätigter M1-Umfang und Umsetzungsstand
 
+IP-069 erster Quellencheckpoint: Fundingimport/Lückenprüfung mit25 neuen
+Fällen,102 gepinnten Marktdatafällen grün.540 echte jüngste BTC/ETH-Abrechnungen,
+Dreijahresfenster unvollständig; wirtschaftliches Langreplay weiterhin offen.
+[Vertrag](futures-funding-availability.md).
+
 IP-068 verbindet RSI und Nachkaufstaffel mit begrenztem Futuresereignisreplay.
 36 neue Fälle,317 gepinnte Fälle/228 Subtests grün; manuelle Reserve/Puffer
 getrennt und echte Basket-/Intentzyklen gebunden. Historische Fundingquelle

@@ -1,5 +1,10 @@
 # H4 research snapshots
 
+IP-069 ergänzt `futures_funding.py`: bounded Classic-V2-Fundingimport, signed
+Abrechnungen und expliziter erwarteter Settlementkalender mit Missing-/Unexpected-
+Diagnose. Je270 native jüngste BTC/ETH-Ereignisse; null im Dreijahresfenster.
+[Vertrag](../../docs/futures-funding-availability.md).
+
 # Separater Futuresdatenvertrag
 
 `futures_snapshot.py`/`futures_bitget.py` ergänzen eigene Classic-V2-USDT-M-

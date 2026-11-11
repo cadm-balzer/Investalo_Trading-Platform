@@ -1,5 +1,9 @@
 # Architektur und Stack
 
+IP-069 ergänzt einen bounded öffentlichen Fundingadapter und unabhängige
+Kalenderdiagnose über unverändertem `funding/1`. Create-only Artefakte/Receipts;
+keine Trading-/DB-/Runtimeaktivierung. [Vertrag](futures-funding-availability.md).
+
 IP-068 ergänzt `futures_signals` als reinen gebundenen H4-Ereignisadapter
 über unveränderten Ledger-/Pending-/Riskkernen und gemeinsamen Indikatoren.
 Eigenständige Revision/Hashkette, gebundene Intentzyklen, keine Persistenz/

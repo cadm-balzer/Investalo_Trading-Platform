@@ -678,7 +678,8 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   IP-06512c2b6c merged into mainffd4211, verified.
   IP-06640d8ba6 merged into main1d06dd3, verified.
   IP-067f18188d merged into mainf844b66, verified.
-  Current branch feat/m1-futures-signal-replay.
+  IP-06891a1547 merged into main56877b0, verified.
+  Current branch feat/m1-futures-funding-history.
 - IP-063 first checkpoint adds pure isolated-usdt-long-economics/1 and
   isolated-usdt-long-stress/1. Signed funding/full close PnL/netbreakeven,
   conservative whole-tier maintenance (explicit research assumption, not
@@ -915,3 +916,25 @@ Skills provide your tools. When you need one, check its `SKILL.md`. Keep local n
   Next IP-069 actual funding provenance and frozen long-replay protocol;
   economic regime/budget/buffer choices and archives remain IP-055/063/BL-030.
   docs/futures-signal-replay.md; D-073.
+
+- IP-069 first checkpoint adds bounded unsigned Classic-V2 funding importer,
+  explicit calendar diagnostics and create-only checksum-pinned protocol CLI.
+  Exact fixed GET URL/no keys/cookies/redirects/retry,100 rows/page,100 pages,
+ 256KiB/10s; strict descending advancing pages, identical overlaps deduped,
+  revised/future/foreign/bad rows or capacity exhaustion fail. Native BTC/ETH
+  each270 events2026-08-13T16Z..2026-11-11T08Z,8GETs,540 observations;
+  actual requested2022-08-01..2025-08-01 has0 events each. Declared8h calendar
+  expects3288 each; missing never0 rates, calendar not historical attestation.
+  Separate requested/recent funding/1 snapshots,4 artifacts/8 page hashes
+  verified; official V3 current docs explicitly90d, old legacy wording differs.
+  Failed sandbox DNS run retains no receipt; authorized network run separate
+  infra/local/futures-funding-data/20261111-native-network. Tracked receipt:
+  docs/research-protocols/futures-funding-receipt-20261111.json.
+ 25newhostcases/102distinctpinnedmarketdata187subtests passed (101full, final25
+  modulechecks). Eigenreview, no delegation/trading/DB/credentials repeats.
+  Only2readonly fixturemounts; no dependencies/migrations/holdout jobs/runtime/
+  publicactivation. Existing formats/cores/exports unchanged. IP-069 still
+  open: full native historical provenance/economic profile/long journal.
+  Optional userpreference for separate free Binance research comparison asked;
+  no answer yet, no venue substitution or new data/job enabled. Bitget target
+  unchanged. docs/futures-funding-availability.md; D-074.
