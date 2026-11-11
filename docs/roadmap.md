@@ -1,5 +1,10 @@
 # Roadmap
 
+Q38/IP-070: separater Binancevergleich bestätigt, native Dreijahresdaten
+vollständig importiert. Bitget bleibt Handelsziel. Als Nächstes IP-069:
+wirtschaftliches Profil einschließlich Funding-Markpreisbezug und Langlaufjournal
+vor dem tatsächlichen Nettovergleich. [Datenbasis](binance-futures-research-data.md).
+
 IP-069 erster Checkpoint: native Fundingbeobachtungen/Lückenprüfung belegt.
 Für2022–2025 keine Abrechnungen aus aktueller Bitget-API; vollständige Quelle,
 wirtschaftliches Protokoll und Langlaufjournal weiter offen.

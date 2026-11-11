@@ -1,0 +1,17 @@
+{
+  "schema_version": "binance-futures-source-protocol/1",
+  "venue": "binance",
+  "symbols": ["BTCUSDT", "ETHUSDT"],
+  "price_kinds": ["trade", "mark", "index"],
+  "start": "2022-08-01T00:00:00Z",
+  "end_exclusive": "2025-08-01T00:00:00Z",
+  "expected_h4_bars_per_stream": 6576,
+  "funding_calendar": "declared-8h-buckets-diagnostic-only",
+  "native_funding_timestamps": "preserve-milliseconds-without-rounding",
+  "missing_rate_policy": "never-substitute-zero-or-other-venue",
+  "bitget_trading_target_unchanged": true,
+  "historical_fee_and_maintenance_rules_verified": false,
+  "performance_evaluated": false,
+  "holdout_requested": false,
+  "execution_enabled": false
+}

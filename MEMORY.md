@@ -617,3 +617,18 @@ Nur in direkter Hauptsession laden. Keine Credentials oder privaten Kontodaten.
   userpreference for separate free Binance research asked, no answer yet;
   Bitget trading target unchanged, no othervenue data/job enabled.
   docs/futures-funding-availability.md; D074.
+
+- 2026-11-11 Q38: user explicitly accepts separate free Binance futures
+  comparison. Bitget remains trading target, no account/live authority.
+  IP06957b2858 merged mainf37be4b verified; branchfeat/m1-binance-futures-history.
+  IP070 own source contract + frozen create-only importer: BTC/ETH each6576
+  native trade/mark/index H4 and3288 genuine signed Funding2022-08-01..
+  2025-08-01 exclusive.52GETs/8artifact hashes/digests verified, completeaxes,
+  declared8h missing/duplicate/unexpected0. Originaloffsets up to29ms retained;
+  each1369 native settlement marks absent, None, not fabricated. Later economic
+  profile declares fundingreference/cost envelope; H4 not exact settlementprice.
+  28newcases/130distinctpinnedmarketdata (127full then28focused) passed;
+  eigenreview/noagents,2readonly mounts, no deps/DB/holdout/runtime/public changes.
+  Dataignoredinfra/local/binance-futures-research-data/20261111-native-network.
+  IP069economicprofile/longjournalwithout1024eviction then actualnetresearch.
+  docs/binance-futures-research-data.md; D075.

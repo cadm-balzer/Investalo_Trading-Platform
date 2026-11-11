@@ -758,3 +758,16 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
 - **Create-only Netzwerkrerun braucht neues Verzeichnis:** fehlgeschlagenen
   sandboxgesperrten Lauf erhalten; getrennt autorisierter Zugriff darf keine
   halbfertigen Artefakte überschreiben oder Fehlreceipt als Erfolg ausgeben.
+- **Fundingoffsets sind native Daten:** Binanceabrechnungen2022–2025 teilweise
+  bis29ms nach voller8h-Grenze. Originalzeit erhalten; Bucketdiagnose ist kein
+  stilles Runden oder Beleg der kausalen Abrechnungsreihenfolge.
+- **Vorhandene Rate ist kein exakter Fundingnominalpreis:** je BTC/ETH1369
+  alte Binanceereignisse ohne Settlementmark. Native Mark-H4 vollständig,
+  aber H4open/close nicht als exakten Millisekundenmark ausgeben. Späterer
+  Kostenvergleich braucht deklarierte Nominalreferenz/Kostenhülle.
+- **Venuevergleich braucht eigene Preise und Identität:** Q38 erlaubt Binance
+  ausdrücklich als separate Forschung; Bitget bleibt Handelsziel. Keine
+  Binancefunding-Beimischung in behauptete native Bitgetperformance.
+- **Gesamtfenster und Pagefenster unterscheiden:** eine begrenzte1000-H4-URL
+  nicht für den gesamten6576-H4-Lauf zur Vorprüfung konstruieren. Gesamtfenster
+  vor IO separat prüfen, jede tatsächliche Query auf ihre Pagegrenze begrenzen.

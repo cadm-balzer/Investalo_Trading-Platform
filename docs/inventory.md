@@ -1,5 +1,10 @@
 # Bestandsaufnahme
 
+IP-070: eigenes `binance_futures.py`, gefrorene create-only ImportCLI und
+belegter separater Binance-Dreijahresdatensatz: je BTC/ETH6576 H4-Kerzen pro
+Trade/Mark/Index und3288 Fundingraten.28 neue Fälle/130 unterschiedliche
+gepinnt grün. Kein Nettoleistungslauf. [Vertrag](binance-futures-research-data.md).
+
 IP-069: neues `futures_funding.py`, create-only ImportCLI, gefrorenes
 Quellenprüfprotokoll und echte Receipt.25 neue Fälle/102 gepinnte Marktdatafälle
 grün. Bestehende Snapshots/Tradingkerne unverändert. [Vertrag](futures-funding-availability.md).

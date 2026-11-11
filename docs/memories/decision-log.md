@@ -1350,3 +1350,30 @@ wirtschaftliche Forschungsannahmen und Langlaufjournal ohne ID-Verwerfen.
 Optional Nutzerpräferenz zu getrenntem kostenlosem Binance-Futuresvergleich
 erfragt, noch unbeantwortet; keine Venue-/Fundingumwidmung oder Handelsänderung.
 Bitget bleibt Tradingziel. `docs/futures-funding-availability.md`.
+
+## 2026-11-11 — D-075: Zusätzliche Binanceforschung ausdrücklich bestätigt
+
+Nutzer beantwortet die konkret erläuterte Binancefrage mit „Ja können wir
+gern machen“. Q38: eigene Binance-Kurs-/Fundingdaten für separaten kostenlosen
+Dreijahresvergleich; Bitget bleibt Handelsziel, keine Konto-/Livefreigabe.
+IP-06957b2858 in Mainf37be4b verifiziert.
+
+IP-070 eigene immutable Venue/Preisart/Fensteridentität und bounded unsigned
+Transport/Importer. BTC/ETH je6576 H4-Trade/Mark/Index und3288 signed Fundingraten
+2022-08-01..2025-08-01 exklusiv,52 GETs. Acht Snapshots erneut geladen/Datei/
+Datasetdigests/Achsen geprüft, H4 vollständig, null fehlende/doppelte/fremde
+deklarierte8h-Buckets. Originaloffsets bis29ms, je1369 fehlende native
+Settlement-Markpreise None. Keine Rundung/Null-/Venueersatzdaten.
+
+25 neue Hostfälle,127 gepinnte Marktdatafälle/229 Subtests zunächst grün;
+final28 Binancefälle/44 Subtests nach Grenzprüfungen grün.130 unterschiedliche
+gepinnt insgesamt, keine Addition überlappender Läufe. Eigenreview, kein Agent,
+nur zwei readonly Testmounts, keine Dependencies/DB/Migration/Paper/Publicänderung.
+Initialer Sandbox-DNS-Lauf ohne Receipt erhalten, neuer autorisierter
+Netzwerklauf im ignorierten20261111-native-network. Checksumprotokoll vor
+Import/create-only. Receipt behauptet weder Nettoergebnis noch Holdout/
+Gebühren/Maintenance/Settlementpreisvalidierung.
+
+Nächstes IP-069: wirtschaftliches Profil mit ausdrücklich benanntem Fundingpreis
+und Langlaufjournal jenseits1024 IDs ohne Eviction, dann Nettovergleich.
+`docs/binance-futures-research-data.md`.

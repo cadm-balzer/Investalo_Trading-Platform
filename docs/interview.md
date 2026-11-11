@@ -270,6 +270,17 @@ IP-063: eigene Futuresökonomie vor Leistungs-/Paperlauf. Keine endgültige
 Ersatzkohorte, Konto-/Hebeländerung oder Echtgeldfreigabe aus diesen Antworten.
 [Vertrag und Belege](futures-research.md).
 
+### Q38: Zusätzlicher separater Binance-Futuresvergleich
+
+2026-11-11, **bestätigt** mit „Ja können wir gern machen“: dreijährigen
+zusätzlichen Futuresvergleich mit frei verfügbaren eigenen Binance-Kurs- und
+Fundingdaten vorbereiten. Ergebnisse als Binanceforschung kennzeichnen;
+Bitget bleibt geplantes Handelsziel. Kein Binancekonto/private Keys nötig,
+keine Binancefunding-Beimischung in angeblich native Bitgetperformance,
+keine Konto-/Echtgeld-/Livefreigabe. IP-070 belegt die Datenbasis; wirtschaftliches
+Protokoll und Nettoleistungslauf folgen IP-069.
+[Datenvertrag und Abnahme](binance-futures-research-data.md).
+
 Konkrete Umsetzungsfakten recherchieren wir: unterstützte Versionen exakt pinnen,
 Historienlänge/-qualität prüfen, Brokerkosten/Metadaten und Hostlast messen.
 Vor Pilotrollout müssen Domain/TLS, SMTP/Empfänger, Terminalbindung,

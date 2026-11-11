@@ -1,5 +1,10 @@
 # Öffentliche Fundinghistorie und Abdeckungsprüfung
 
+Q38 ist inzwischen ausdrücklich bestätigt: IP-070 liefert den separaten
+Binancevergleich mit echten vollständigen Dreijahres-Kursen/Fundingraten.
+Der folgende native Bitgetbefund bleibt bestehen; Bitget bleibt Handelsziel.
+[Binance-Datenbasis und Grenzen](binance-futures-research-data.md).
+
 Erster IP-069-Checkpoint; IP-068`91a1547` ist in Main`56877b0` verifiziert.
 Branch `feat/m1-futures-funding-history`. Neues reines Modul
 `futures_funding.py`; bestehende Funding-/Futures-/Spotformate und Tradingkerne
