@@ -7,6 +7,16 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- Q41,2026-11-12 supersedes earlier mandatory6%/8% account-admission guidance
+  for the next Futures research variant: user requires the approved full
+  six-stage budget, without account-loss/correlated-stress gates preventing
+  its use. Record6%/8% as warnings and−50% correlated account stress as
+  diagnostics in the new profile, not hard gates. Preserve actual budget,
+  signal/manual-reserve, execution-integrity and liquidation constraints,
+  and−55% emergency exit. Old frozen research/Paper profiles remain historical.
+  Whether each table amount is own entry capital or position notional is
+  explicitly awaiting user clarification; do not fabricate Futures margins.
+  No live/public activation. See Q41 in `docs/interview.md`.
 - Confirmed Q1–Q5: private invitation pilot, cockpit/backtests/paper before live,
   independent hard risk limits, controlled AI promotion, and free external
   tools/accounts first. TradingView Essentials is the existing paid subscription.

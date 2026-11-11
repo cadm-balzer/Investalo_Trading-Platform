@@ -313,6 +313,32 @@ Spot-H1 oder synthetische weitere Coins ersetzen diese nicht.
 IP-069 ist hierfür priorisiert; bestehende Bitget-Handelszielentscheidung
 und Holdoutschutz bleiben erhalten.
 
+### Q41: Vollständige Kaufstaffel statt begrenzendem Kontostressprofil
+
+2026-11-12: Nutzer bestätigt die Tabelle für10000 USDT/drei Baskets:
+je3333,33 Gesamtbudget,3300,33 Sechsstufenpool und33,00 Kostenreserve;
+fünf reguläre Beträge293,13/366,42/458,02/572,53/715,66 und manuelle
+Reserve894,57, gerundete Darstellung der bereits implementierten Gewichte.
+Kontoschutzgrenzen dürfen die geplanten Nachkäufe nicht verhindern.
+Dies ändert die frühere Q37/Q40-Vorgabe verbindlicher6%/8%-Kontolimits
+für die nächste Futures-Forschungsvariante.
+
+Umsetzung der Richtung:6%/8% als Warnschwellen, gemeinsamer−50%-Kontostress
+als Diagnose statt sperrende Kaufprüfung. Keine ungekennzeichnete Änderung
+alter eingefrorener Ergebnisse oder laufender Paperprofile.
+Budgetdeckung, tatsächliche Margin/Liquidation, vollständige Signale,
+−55%-Notausstieg, Schutzaktivierung/Nettofloor und die ausschließlich
+manuelle sechste Stufe bleiben gesonderte Bedingungen. Vollständige Planung
+erzwingt keine Käufe ohne RSI/Rearm/5%-Abstand oder manuelle Freigabe.
+Der spätere AI-Filter ist kein Beleg garantierter Erholung/Profitabschlüsse
+oder rechtzeitiger Liquidationsdeckung. Rückkehr zum Netto-Breakeven und
+belegbare Margin bis zum Ausstieg sind auch bei langsamem Rückgang offen.
+
+**Noch gefragt:** Sind die Tabellenbeträge eigenes Einstiegskapital
+(Nominal bei2× doppelt) oder bereits Positionsnominal (Margin entsprechend
+kleiner)? Die Antwort ist vor einem konkreten Futures-Marginprofil nötig.
+Eine automatische Puffergröße oder2×–10×-Profitrechnung wird nicht erfunden.
+
 Konkrete Umsetzungsfakten recherchieren wir: unterstützte Versionen exakt pinnen,
 Historienlänge/-qualität prüfen, Brokerkosten/Metadaten und Hostlast messen.
 Vor Pilotrollout müssen Domain/TLS, SMTP/Empfänger, Terminalbindung,

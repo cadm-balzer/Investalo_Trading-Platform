@@ -6,8 +6,9 @@ Forschungsprofil: **USDT-M, nur Long, isolierte Margin**. Das Basketbudget ist
 echtes Kapital für Einstiege, Kosten und ausdrücklich reservierte Marginpuffer;
 keine automatischen Nachschüsse aus anderen Baskets.
 
-**−50%-Stress und6% Tages-/8% ursprünglicher Startkapitalverlust bleiben
-verbindlich.** Das Risikomodell darf Hebel reduzieren oder Einstiege sperren.
+**Historisches Q37-Profil:**−50%-Stress und6% Tages-/8% ursprünglicher
+Startkapitalverlust sind in den bisher implementierten Rechenkernen verbindlich.
+Das Risikomodell darf Hebel reduzieren oder Einstiege sperren.
 Stresspreis ist50% des **ersten tatsächlichen Einstiegfills**, nicht des
 später abgesenkten Durchschnittspreises. Jeden Fillstand einschließlich
 ausbleibender weiterer RSI-/Rearm-Signale prüfen.
@@ -16,6 +17,15 @@ und die bestätigten Gewinnetappen bleiben Planungsziele; Futures-Gewinne müsse
 zusätzlich Funding und alle Abschluss-/Liquidationskosten berücksichtigen.
 Diese Richtung ersetzt das bisherige spätere Spotziel; laufende Spotmodelle
 bleiben unveränderte Forschungsreferenz und Entwicklungspaper.
+
+**Q41,2026-11-12:** Nutzer verlangt die vollständige bestätigte Kaufstaffel
+ohne begrenzende Kontoschutzgates. Für eine neue, getrennte Futuresvariante
+werden6%/8% Warnschwellen und der gemeinsame−50%-Kontostress Diagnose.
+Aktuelle Module sind noch nicht umgestellt; alte Ergebnisse bleiben gebunden.
+Tatsächliche Budget-/Margin-/Liquidationsdeckung und−55%-Notausstieg bleiben
+relevant. Tabellenbeträge als eigenes Einstiegskapital oder Positionsnominal
+sind noch ausdrücklich gefragt. Keine ungeklärte Marginaufteilung annehmen.
+[Entscheidung und offene Frage](interview.md#q41-vollständige-kaufstaffel-statt-begrenzendem-kontostressprofil).
 
 ## Öffentliche Kontrakt- und Historienproben
 

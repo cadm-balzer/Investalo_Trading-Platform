@@ -1462,3 +1462,18 @@ mit−160,5093522835841240205 USDT. Coarse OHLC-Stopausführung kann Verluste
 überschätzen; keine reale Stopfillqualität aus diesen Abschlüssen ableiten.
 Maximaler Equitydrawdown3,813586%:10542,6314058 am2024-07-22 02:00Z
 zu10140,5790659 am2024-08-05 13:00Z, weiterhin über10000 Initialkapital.
+
+## 2026-11-12 — D-079: Kontogates dürfen volle geplante Staffel nicht sperren
+
+Q41: Nutzer bestätigt vollständige Tabelle und verlangt, dass Schutzgrenzen
+ihre Ausführung nicht verhindern. Für nächste getrennte Futuresvariante
+frühere6%/8%-Hardgates durch Warnschwellen und gemeinsamen−50%-Kontostress
+durch Diagnose ersetzen; keine Behauptung schon aktivierter Codeänderung.
+Die Erklärung nahezu unmöglicher sofortiger−50%/immer nutzbarer Erholung
+ist keine gemessene Marktgarantie. Auch langsamer Rückgang kann ohne erneutes
+RSI-Rearm/unterschrittenem Netto-Breakeven zum Notausstieg/Liquidation führen;
+späterer AI-Filter hebt Budget/Margin/Orderwahrheit nicht auf.
+−55% und übrige Signal-/manuelle Reserve-/Liquidationsbedingungen erhalten.
+Offen per Nutzerfrage: Tabellenbeträge eigenes Einstiegskapital oder Nominal.
+Keine konkrete Futures-Marginaufteilung vor Antwort; alte Rechenkerne und
+gefrorene Marktresultate bleiben unverändert, keine Live/Publicaktivierung.

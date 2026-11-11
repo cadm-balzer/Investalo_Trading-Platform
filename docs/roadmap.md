@@ -1,5 +1,13 @@
 # Roadmap
 
+Q41,2026-11-12: Nutzer bestätigt volle Staffelbudgets und hebt für die neue
+Futuresvariante die sperrende Rolle der6%/8%-Kontolimits und des gemeinsamen
+−50%-Kontostresstests auf. Als Warnungen/Diagnose berichten; Budget,
+tatsächliche Liquidationsdeckung, Signale und−55%-Notausstieg erhalten.
+Vor konkreter Marginplanung Tabellenbeträge als Eigenkapital oder Nominal
+klären. Bestehende Rechenkerne/Paper und eingefrorene Ergebnisse unverändert.
+[Entscheidung](interview.md#q41-vollständige-kaufstaffel-statt-begrenzendem-kontostressprofil).
+
 Q40: nächste Leistungsforschung auf Futures fokussieren; Spot-Investing
 ist eine spätere separate Strategie. H4-RSI-Einstiege mit H1-Supertrend
 als Forschungsvariante vergleichen, beide Stopvarianten auf derselben

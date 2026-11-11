@@ -650,9 +650,13 @@ dasselbe deklarierte Unterbrechungsfenster. Ergebnis und Abnahme:
 Nächster priorisierter Leistungsnachweis IP-069/Q40: tatsächlicher
 Futures-Nettovergleich mit nativer gemeinsamer H1-Ausführungsachse,
 H4-RSI-Einstiegen und getrennten H4-/H1-Supertrend-Varianten.
-Funding/Kosten/Margin/Liquidation und bestehende Risikolimits einbeziehen;
+Funding/Kosten/Margin/Liquidation und das unten aktualisierte Risikoprofil einbeziehen;
 vor Leistung wirtschaftliches Profil und passende native Kohorte einfrieren.
 Spot-Investing folgt als separate spätere Strategie.
+Q41 ersetzt für die neue Variante die sperrenden6%/8%-Kontogates und den
+gemeinsamen−50%-Kontostress durch Warnungen/Diagnose; Margin/Budget/−55%
+bleiben getrennte Bedingungen. Tabellenbeträge als Eigenkapital oder Nominal
+sind noch gefragt; bisherige Module wurden dadurch nicht umgestellt.
 
 Vor Beginn Status setzen, relevante Entscheidungs-/Pitfallnotizen lesen.
 Nach fachlichem Abschluss passende Prüfungen einmal ausführen, Ergebnis
