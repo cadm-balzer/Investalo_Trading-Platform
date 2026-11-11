@@ -1,5 +1,9 @@
 # Deterministischer Crypto-Paperkern
 
+IP-069 prüft die tatsächliche Fundingkostenquelle vor Leistungsläufen: native
+Bitgethistorie aktuell rund90 Tage, kein Nullratenersatz im Dreijahresfenster.
+Tradingkerne unverändert. [Befund](../../docs/futures-funding-availability.md).
+
 IP-068 ergänzt `futures_signals`: kausale H4-/RSI-/Staffel-/Zyklusbindung,
 abgeglichene tatsächliche Stufen-VWAPs, getrennte manuelle Reserve/Puffer
 und Nettofloor.36 neue Fälle,317 gepinnte Fälle/228 Subtests grün.

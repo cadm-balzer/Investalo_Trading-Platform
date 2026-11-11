@@ -1,5 +1,10 @@
 # Lokale Compose-Entwicklung
 
+IP-069: create-only `import-futures-funding.py` erfasst native öffentliche
+Fundingbeobachtungen getrennt vom unvollständigen Forschungsfenster.
+Der Fixturehelper mountet nur CLI/Protokoll zusätzlich readonly; keine neue
+Serviceaktivierung. [Vertrag](../docs/futures-funding-availability.md).
+
 IP-054 aktiviert die lesende Paperanzeige über das zusätzliche `compose.paper-preview.yaml`, stets zusammen mit dem Public-Preview-Overlay. Eigene normale Paperidentität; beide DBs012, sensitive Aktionsrouten weiter aus. Nur API/Cockpit aktualisiert. [Bedienung/Rückfall](../docs/paper-preview-integration.md).
 
 Aktueller Researchstand IP-046: reale BTC/ETH-H4-Fenster2022-08-01–2025-08-01

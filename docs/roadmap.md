@@ -1,5 +1,10 @@
 # Roadmap
 
+IP-069 erster Checkpoint: native Fundingbeobachtungen/Lückenprüfung belegt.
+Für2022–2025 keine Abrechnungen aus aktueller Bitget-API; vollständige Quelle,
+wirtschaftliches Protokoll und Langlaufjournal weiter offen.
+[Befund](futures-funding-availability.md).
+
 IP-068: begrenzter Futures-RSI-/Staffel-/Zyklusadapter vorhanden,
 36 neue Fälle/317 gepinnte Fälle grün. IP-069 prüft Fundingprovenienz und
 langes Replayprotokoll mit expliziten wirtschaftlichen Annahmen.

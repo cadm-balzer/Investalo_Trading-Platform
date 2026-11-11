@@ -1,5 +1,9 @@
 # Handelskonzept, Risiko und Nachweis
 
+IP-069 bestätigt native jüngste Fundingereignisse, aber keine2022–2025-
+Abdeckung. Fehlende Abrechnungen werden nicht zu Nullkosten; deklarierter
+Kalender ist kein historischer Beweis. [Befund](futures-funding-availability.md).
+
 IP-068 verbindet RSI14/Wilder und fünf Nachkaufstufen mit tatsächlichen
 Teilfills und Basketzyklen. Manuelle Reserve/Puffer getrennt, 2×-Basis
 mit deklarierter First-fragment-Marginannahme; keine Hebelsteigerung je Stufe.

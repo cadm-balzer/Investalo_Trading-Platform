@@ -744,3 +744,17 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
 - **Insolvente Mitternacht nicht positiv erfinden:** DailyBasis braucht positive
   Equity. Bei bereits terminalem Halt bekannte Marks weiter buchen und alte
   Basis behalten; Intraday keinen fehlenden Mitternachtswert nachholen.
+
+- **Jüngste Fundingraten ersetzen kein altes Fenster:** pageNo ohne Datefilter
+  kann nur270 aktuelle Ereignisse liefern. Eigenen jüngsten Snapshot speichern;
+  angefragtes altes Fenster bleibt leer, keine Nullrates/Zeitenverschiebung.
+- **Kalender ist eine Annahme, keine Quellenautorität:** aktuelle8h-Abstände
+  beweisen damalige Abrechnungsintervalle nicht. Missing und Unexpected inklusive
+  innerer Lücken prüfen; Coverage gegen deklarierte Zeiten ersetzt keinen
+  historischen Schedule-/Kosten-/Marginbeleg oder wirtschaftliches Profil.
+- **Fundingpages müssen wirklich fortschreiten:** kurze Page nicht schon als
+  volle Vergangenheit interpretieren. Gleiche Grenze deduplizieren, widersprechende
+  Rates/nicht fortschreitende Pages/Kapazitätserreichung ohne Erfolgsreceipt.
+- **Create-only Netzwerkrerun braucht neues Verzeichnis:** fehlgeschlagenen
+  sandboxgesperrten Lauf erhalten; getrennt autorisierter Zugriff darf keine
+  halbfertigen Artefakte überschreiben oder Fehlreceipt als Erfolg ausgeben.
