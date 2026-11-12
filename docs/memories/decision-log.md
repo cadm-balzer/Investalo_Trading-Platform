@@ -1645,3 +1645,52 @@ DB-/Runtime-/Publicänderungen oder weiteren Markt-/Broker-/Holdoutzugriffe.
 Nächster Nettojob: wirtschaftliches Profil vor Auswertung einfrieren,
 Fundingnominalreferenz/Fees/Slippage/Intrabarweg/Maintenance/Liquidations-
 abrechnung samt Kostenstress; gemeinsamer nativer H1-/H4-Schutzvergleich.
+
+## 2026-11-12 — D-086: Eingefrorene Wirtschaftsannahmen und native Fundinggrenzen
+
+Nutzer bestätigt IP-076-Merge;29d76d9 als Ancestor von Mainef2aa9b verifiziert.
+Featurebranch `feat/m1-futures-economic-profile`. GH-CLI-PR zur Nutzerfreigabe;
+keine eigene Merge-/Deploy-/Livefreigabe.
+
+IP-077 vor erster Marktleistung eingefroren:
+futures-capital-economics-20261112.json,
+shaeb9a278513facb4f7560413c6ae269dc2fd44adf917eec00ebec9925ddcc8c06.
+Fünf feste native Slots BNB/BTC/ETH/SOL/XRP,10000 USDT, bestätigte Staffel
+mit1%-Costreserve. Sechs Basisfälle2×/5×/10× und H1/H4-Schutz; zwei2×-
+Kostenstress- und zwei2×-Reihenfolgefälle. Feste deklarierte Baskethebel,
+keine AI-/Gewinnetappenwahl. Normale Slotreuse, liquidierte Slots terminal.
+Gebühren/Slippage/Maintenance/Lot/Insurance sind deklarierte Modelle,
+keine historischen Binance-/Bitgettarife oder Brokeracceptance.
+
+NativeFundings unverändert, vorhandene Marks oder explizite H1-open-Näherung;
+Kostenstress verdoppelt nur positive Raten. Quellheader bleibt nativer Ticker,
+Kerzen BINANCE:<ticker>:USDT-M:<kind>, neue Ledgeridentitäten BINANCE:<ticker>.
+10937 native Ereignisse exakt auf voller Stunde brauchen valued_hour-
+Markbewertung vor Tagesbasis, keine Markphase0 nach Tagesphase1/Zeitenverschiebung.
+Gleichzeitige Settlements als kanonischer atomarer Fundingbatch, einzeln
+behaltene IDs und vollständiger Journalrestore; spätes Scheitern ohne halben
+Append. Unveränderte normale Hour-Replays bleiben geprüft.
+Gapexits können unter Nettofloor verlieren; Liquidation inklusive ausdrücklich
+angenommener isolierter Versicherung separat abgeglichen. Erholung ersetzt
+ursprüngliches unsicheres Preisbild nicht; unveränderter Preis plus fälliger
+Fundingcredit benötigt ursprünglichen unsicheren Zustand als trusted Input.
+
+Create-only nativer Quellenpreflight: alle15 Hash-/Datasetbindungen/
+Fenster/Achsen und sämtliche Fundingreferenzen für zehn Profile geprüft.
+263040 Preise,16515 Settlements,3363 Zeitgruppen/max5, je Profil9595 native
+Marks/6920 Open-Näherungen. Kostenstress verändert11335 positive Raten.
+Receiptsha2252c6f78054a482a2eb67ecdc344d517aeb46083ce518141ccf0c00b549064c.
+Erster Lauf ohne Receipt am fehlenden Venuepräfix abgewiesen; nächster eigener
+Lauf wegen unnötiger vollständiger Datasetdigest-Neuberechnung pro Referenz
+gezielt beendet. Nach Cache pro Stream neuer eigener Output erfolgreich;
+keine Rohdaten-/Receiptüberschreibung oder performancebasierte Protokollwahl.
+
+53 erste gepinnte Fälle/26 Subtests,16 korrigierte Profilfälle, drei neue
+Preflightfälle/finale Identität sowie drei verschärfte Liquidationsevidenzfälle:
+27 neue/56 unterschiedliche gezielte gepinnte Fälle bestanden, keine Addition
+überlappender Läufe. Native readback/Hashes zusätzlich erfolgreich.
+Eigenreview, keine Agentdelegation/breiten Wiederholungen/Dependencies/
+Migrationen/DB-/Runtime-/Publicänderungen oder zusätzlichen Netzwerkimporte.
+Noch kein Nettoleistungslauf; nächstes IP-074/IP-069 ist vollständiger nativer
+Marktjob mit allen eingefrorenen Fällen, Funding/Costs/Exits/Liquidation/
+Endbewertung und Journal. Holdout und tatsächliche Broker/AI bleiben aus.

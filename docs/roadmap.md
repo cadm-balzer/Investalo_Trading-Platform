@@ -1,5 +1,12 @@
 # Roadmap
 
+IP-077 friert zehn Futures-Vergleichsfälle vor Auswertung ein und ergänzt
+native exakte Fundinggrenzen: fünf feste Slots,2×/5×/10×, beide Schutzintervalle,
+Kosten- und Preisreihenfolgetests. Nativer Quellen-/Profilpreflight vollständig.
+Nächstes IP-074/IP-069: den vollständigen Marktjob mit Funding/Costs/Exits/
+Liquidation/Endbewertung und Journal fortsetzen, dann alle Fälle netto berichten.
+[Eingefrorenes Profil](futures-economic-profile.md).
+
 IP-076 ergänzt den vollständigen neuen Kapital-/Signaljournalrestore und
 größere behaltene Ereignishistorien. Fünf Nachkäufe, Funding, Tagesbasen,
 feste Hebelzyklen und terminale Liquidationsverluste bleiben beim Wiederanlauf

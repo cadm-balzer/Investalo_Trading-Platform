@@ -837,3 +837,16 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
 - **JSON-Feldordnung ist keine Funktionsargumentordnung:** Journalargumente
   gemäß fester typisierter Schematabelle lesen, nicht nach der sortierten
   JSON-Dictionary-Reihenfolge an Reducer weiterreichen.
+- **Native Binance-Kerzen haben ein Venuepräfix:** H1-Quellen verwenden
+  BINANCE:<ticker>:USDT-M:<kind>, Header weiterhin den nativen Ticker.
+  Neue Ledgerpläne daher mit BINANCE:<ticker> erzeugen; keine Quellumschreibung.
+- **Funding an voller Stunde kollidiert sonst mit Tagesphasen:**10937 native
+  Abrechnungen liegen exakt auf H. Vollständige Settlement-Markbewertung vor
+  Tagesbasis in valued_hour einfrieren, dann atomaren Fundingbatch;
+  kein Markphase0 nach Tagesphase1 oder Millisekunden-Shifting.
+- **Datasetdigest einmal pro unveränderlichem Stream berechnen:** property
+  serialisiert das ganze Dataset. In jeder Fundingreferenz erneut auswerten
+  erzeugt unnötige quadratische Arbeit; validierten Digest vorher binden.
+- **Isolierte Versicherung ist im neuen Vergleich eine erklärte Annahme:**
+  negatives Terminalsaldo nicht still nullen; Gutschrift separat buchen und
+  reporten. Kein historischer Brokerbeleg; kein Preisrecovery vor Liquidationsabschluss.
