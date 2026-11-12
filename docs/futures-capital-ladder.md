@@ -87,14 +87,17 @@ Abwärtstrend vor dem−55%-Notausstieg die Modellgrenze zu erreichen.
 Keine Rendite, Liquidationshäufigkeit oder Erholungswahrscheinlichkeit
 aus diesem mechanischen Beispiel ableiten.
 
-## Noch zu spezifizieren
+## Hebelentscheidung und verbleibende Validierung
 
 AI-Hebel2×–10× aus zum Entscheidungszeitpunkt bekannten Marktdaten;
 keine rückblickend perfekte Marktphase. Der AI-Filter ist später vorgesehen,
 nicht Bestandteil der bisherigen Ergebnisse.
-Nutzerfrage gestellt: Hebel beim Basketstart festlegen oder vor jedem
-Nachkauf neu bewerten? Empfehlung für das erste Profil: je Basket einfrieren.
-Illustrative konstante Hebel sind keine bereits bestätigte AI-Regel.
+Q43 bestätigt die Markt-/Risikobewertung vor dem ersten Kauf: Der AI-Agent
+legt den Hebel für den gesamten Basket fest. Alle Nachkäufe und die manuelle
+sechste Stufe verwenden denselben Hebel. Eine spätere Marktphase ändert
+den Hebel dieses offenen Baskets nicht; neue Baskets erhalten neue Bewertungen.
+Die beispielhaften2×/5×/10× sind mechanische Vergleichsfälle, keine bereits
+implementierte AI-Auswahl. Exakte Kriterien und Modellvalidierung bleiben offen.
 Vor Marktleistung passendes natives Futures-H1-/Funding-/Kostenprofil
 einfrieren und alle gewählten Hebelvarianten einschließlich Liquidationen
 berichten. Bestehender Holdout bleibt geschützt.

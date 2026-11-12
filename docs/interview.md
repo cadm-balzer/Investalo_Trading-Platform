@@ -352,11 +352,23 @@ Keine automatische Umwidmung unbenutzter Nachkäufe zu zusätzlicher Margin
 oder Finanzierung aus anderen Baskets. Bisherige manuelle Stufe6 bleibt.
 AI- oder garantierte Erholung nicht als bereits validierte Wirkung ausgeben.
 
-Noch gefragt: Hebel je Basket beim Start einfrieren oder je Nachkauf neu
+Damals gefragt, durch Q43 beantwortet: Hebel je Basket beim Start einfrieren oder je Nachkauf neu
 bewerten? Empfehlung für erstes Profil: je Basket festhalten; keine
 automatische Hebelsteigerung nach Stufennummer. Historische Daten/Regime
 müssen zum jeweiligen Zeitpunkt bekannt gewesen sein.
 [Kapitalrechnung, Modellbeispiel und Forschungsregeln](futures-capital-ladder.md).
+
+### Q43: AI-Hebel vor erstem Kauf für kompletten Basket einfrieren
+
+2026-11-12, ausdrücklich bestätigt: Das spätere AI-Profil bewertet Marktphase
+und Risiko vor dem ersten Kauf und legt den Hebel für den gesamten Basket fest.
+Alle folgenden regulären Käufe und eine bestätigte manuelle sechste Stufe
+verwenden denselben Hebel. Keine Erhöhung nach Stufennummer und keine
+Hebelanpassung eines offenen Baskets bei einem späteren Regimewechsel.
+Ein neuer Basket erhält eine neue Bewertung. Hebelrahmen2×–10× aus Q37/Q42.
+Exakte Kriterien/Modellfreigabe und kausale historische Marktphasenprüfung
+bleiben ausstehend; bislang keine aktive AI oder validierte AI-Rendite.
+Isolierte Margin, Budget-/Orderwahrheit und Q41/Q42-Risikoprofil erhalten.
 
 Konkrete Umsetzungsfakten recherchieren wir: unterstützte Versionen exakt pinnen,
 Historienlänge/-qualität prüfen, Brokerkosten/Metadaten und Hostlast messen.

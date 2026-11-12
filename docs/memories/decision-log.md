@@ -1500,3 +1500,14 @@ Keine historische Liquidationshäufigkeit/Nettoleistung/Brokerpreis.
 Kapitalprofil und Grenzen `docs/futures-capital-ladder.md`.
 Keine Rechenmodule/Dependencies/DB/Public geändert; Entscheidung und
 arithmetisches Beispiel, Marktleistung weiterhin eigenes eingefrorenes Profil.
+
+## 2026-11-12 — D-081: AI-Hebel für gesamten Basket beim Start festlegen
+
+Q43 bestätigt explizit: AI-Profil bewertet Marktphase/Risiko vor dem ersten
+Kauf und friert den Hebel für den kompletten Basket ein. Alle regulären
+Nachkäufe und bestätigte manuelle Stufe6 verwenden denselben Hebel.
+Keine stufenweise Erhöhung oder Regimeanpassung offener Baskethebel.
+Neue Baskets erhalten neue Bewertungen.2×–10×-Rahmen und Q41/Q42 erhalten.
+Exakte Kriterien/kausale Regimevalidierung noch offen, keine aktive AI,
+Renditebehauptung oder Runtimeänderung. Die bisher offene Hebelfixierungsfrage
+ist damit beantwortet; Kapital-/Hebelprofil und Navigation aktualisiert.

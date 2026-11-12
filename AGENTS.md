@@ -18,9 +18,11 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   notional is that amount times leverage. User accepts liquidation before all
   five regular buys at higher leverage; no mandatory−50% survival gate for the
   new variant. Initialmargin/current liquidation/budget/order integrity still
-  apply. AI chooses regime leverage later; fixed per basket versus reassessed
-  per buy was asked and remains open. No active AI or live/public activation.
-  See Q41/Q42 in `docs/interview.md` and `docs/futures-capital-ladder.md`.
+  apply. Q43 confirms later AI regime/risk evaluation before the first buy
+  freezes leverage for that entire basket, including all subsequent buys.
+  No reassessment changes an open basket's leverage. Exact AI criteria remain
+  unvalidated; no active AI or live/public activation.
+  See Q41–Q43 in `docs/interview.md` and `docs/futures-capital-ladder.md`.
 - Confirmed Q1–Q5: private invitation pilot, cockpit/backtests/paper before live,
   independent hard risk limits, controlled AI promotion, and free external
   tools/accounts first. TradingView Essentials is the existing paid subscription.

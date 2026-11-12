@@ -1,10 +1,16 @@
 # Roadmap
 
+Q43: Späterer AI-Agent bewertet Marktphase/Risiko vor dem ersten Kauf und
+friert den Hebel für den kompletten Basket ein. Nachkäufe/manuelle Stufe6
+verwenden denselben Hebel; neue Bewertung erst für neue Baskets.
+Exakte kausale AI-Kriterien/Modellvalidierung weiterhin offen.
+[Bestätigtes Kapital-/Hebelprofil](futures-capital-ladder.md).
+
 Q42: Tabellenbeträge sind Eigenkapital, Kaufnominal=Kapital×Hebel.
 Nutzer akzeptiert Liquidation vor Abschluss der regulären Staffel;
 neue Variante ohne verpflichtende−50%-Überlebensgarantie.
 Tatsächliche Initialmargin/Budgets/Liquidation verbuchen. Spätere kausale
-AI-Regimewahl2×–10×; Startfixierung oder Neubewertung je Nachkauf noch gefragt.
+AI-Regimewahl2×–10×; Startfixierung für gesamten Basket inzwischen Q43 bestätigt.
 [Kapitalprofil und mechanischer Vergleich](futures-capital-ladder.md).
 
 Q41,2026-11-12: Nutzer bestätigt volle Staffelbudgets und hebt für die neue

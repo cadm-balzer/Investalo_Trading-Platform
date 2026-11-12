@@ -658,8 +658,9 @@ gemeinsamen−50%-Kontostress durch Warnungen/Diagnose; Margin/Budget/−55%
 bleiben getrennte Bedingungen. Q42 bestätigt Tabellenbeträge als Eigenkapital
 und akzeptiert Liquidationen vor Abschluss der Staffel; hypothetische−50%-
 Liquidation wird diagnostisch statt sperrend bewertet. Tatsächliche
-Initialmargin/aktuelle Liquidation bleiben Grenzen. Fixierung/Neubewertung
-des späteren AI-Hebels ist noch gefragt; bisherige Module nicht umgestellt.
+Initialmargin/aktuelle Liquidation bleiben Grenzen. Q43 bestätigt spätere
+AI-Markt-/Risikobewertung vor dem ersten Kauf und festen Hebel für alle
+Käufe des kompletten Baskets; bisherige Module/AI noch nicht umgestellt.
 [Konkretes Kapitalprofil](../futures-capital-ladder.md).
 
 Vor Beginn Status setzen, relevante Entscheidungs-/Pitfallnotizen lesen.

@@ -28,8 +28,10 @@ Kaufnominal=Eigenkapital×Hebel. Nutzer akzeptiert Liquidationen vor allen
 fünf regulären Käufen; künftiger−50%-Liquidationsstress ist Diagnose statt
 Überlebensgarantie für jeden Fillstand. Tatsächlich fehlende Initialmargin,
 aktuelle Liquidation und Budgetdeckung bleiben echte Grenzen. Die spätere
-AI-Hebelwahl ist nicht implementiert; Startfixierung versus Neubewertung bei
-Nachkäufen ist noch gefragt.
+AI-Hebelwahl ist nicht implementiert. Q43 bestätigt Bewertung von Marktphase
+und Risiko vor dem ersten Kauf und festen Hebel für den gesamten Basket,
+einschließlich aller Nachkäufe und manueller Stufe6. Neue Bewertung für
+neue Baskets; keine Anpassung des Hebels eines offenen Baskets.
 [Aktuelles Kapitalprofil und Modellbeispiel](futures-capital-ladder.md).
 
 ## Öffentliche Kontrakt- und Historienproben
@@ -145,9 +147,10 @@ feste Budgets gegen Gewinnetappen vergleichen, bevor Holdout/Paper folgen.
 
 Noch zu spezifizieren: exakte messbare Uptrend-/Regimekriterien, Verhalten
 außerhalb dieser Phase, Hebelauswahl, Aufteilung Kaufmargin/Marginpuffer/
-Kosten sowie Behandlung eines Regimewechsels bei offenen Baskets.
+Kosten. Q43 legt bei Regimewechseln den Hebel offener Baskets unverändert fest.
 „Definitiver Uptrend“ ist kein vorab verfügbares Wissen; nur zum damaligen
-Zeitpunkt belegte Signale verwenden. KI darf Margin-/Kontogates nicht lockern.
+Zeitpunkt belegte Signale verwenden. KI muss tatsächliche Margin-/Budget-
+und Orderbedingungen einhalten;6%/8% sind nach Q41 Warnschwellen.
 Keine neuen Abhängigkeiten, Migrationen, Konto-/Hebeländerungen, Brokerorders,
 öffentliche Dienständerungen oder Echtgeldaktivierung in IP-062.
 
