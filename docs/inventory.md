@@ -1,5 +1,18 @@
 # Bestandsaufnahme
 
+IP-073: eigener `futures_capital_research.py` und deklarierte vollständige
+`LiquidationSettlement`-Buchung. Legacyprofile behalten ihre Identität/Gates.
+Eigenkapitalstaffel/fester Zyklushebel, Warnungen statt Kontostresssperren,
+Restmargin/Versicherungsbeleg und ungestellte Reserven getrennt.
+Kapitalmodell ohne RSI-/Broker-/Persistenzautorität.
+[Vertrag](futures-capital-research.md).
+
+IP-072: `timeframe_spot.py`, `timeframe_research.py` und create-only
+`research-timeframes.py` für den beauftragten echten H1/H4-Basketvergleich.
+Eigene Offlineversion verwendet bestehenden RSI-/Pool-/Fill-/Risikokern,
+volle Drei-/Fünf-Slotbudgets und fünf bestätigte Coins. Standard weiterhin H4.
+[Vertrag und Ergebnisse](h1-h4-basket-comparison.md).
+
 IP-071: `identity_history.py`/`futures_replay_journal.py`, ausdrücklicher
 Pending/2-Modus; bestehender Standard1024 unverändert. Vollständiger
 6576-Frame-Synthetiklauf mit7672 erhaltenen IDs/Restore.25 neue Fälle/

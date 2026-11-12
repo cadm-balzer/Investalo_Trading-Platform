@@ -784,3 +784,27 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   und7672 behaltene IDs belegen Journal/Restore. Echte Binance-Nettoforschung
   braucht Gebühren/Fundingnominal-/Ausführungskontrakt und passende echte
   Kohorte; BTC/ETH plus synthetischer dritter Coin ist keine native3-Symbol-Performance.
+- **Mehr Stundenkerzen sind keine garantierten Nachkäufe:** RSI-Rearm und5%
+  Abstand bleiben gleichzeitig erforderlich; gemeinsame−50%-Stressprüfung
+  kann größere Stufen sperren. Nur gleicher Kandidatenpool, Kosten und volle
+  Slotkapitalplanung ergeben einen brauchbaren H1/H4-Vergleich.
+- **Native Spothistorie kann verkürzte Kerzen enthalten:** Binance2023-03-24
+  12h vorzeitig geschlossen,13h fehlt. Originalschlusszeit erhalten, denselben
+  Vierstundenblock vor Performance für beide Varianten ausschließen; Indikatoren
+  neu starten, Holdings/Stopps/Halts/alle Belege erhalten. Keine Ersatzpreise.
+- **Liquidation verbraucht gestellte Margin, nicht die ganze Reststaffel:**
+  bei Q41–Q43 verlorene Margin nicht als neue volle Slotreserve ansetzen.
+  Ungestellte Stufen separat behalten; keine Rettungsüberweisung voraussetzen.
+  Terminalreststand/Fees/Versicherungsdeckung ausdrücklich abgleichen,
+  Gapminus nicht still nullen. Die1%-Kostenreserve ist nicht automatisch
+  bei jedem Hebel ausreichend.
+- **First-fill-Stresspreis ist keine aktuelle Initialmarginbasis:** neue
+  verbilligte Positionen aus tatsächlichem Einstand/Mark modellieren; alten
+  First-fill-Anker nur für getrennte Stressdiagnose verwenden.
+- **Kostenreserve pro neuem Zyklus, keine Gebührenerstattung:** bei Q41–Q43
+  normale Abschlüsse setzen den Kostenzähler für den nächsten Basket zurück.
+  Cash/Nettoergebnis behalten alle bezahlten Gebühren; tatsächliche
+  Überschreitungen bleiben Budgetfehler. Keine Wiederbelegung liquidierter Slots.
+- **Neuer Kapitalkern ist keine Order-/RSI-/Restoreautorität:** synthetische
+  Vollfills/immutable Hashwurzel ersetzen weder Pending-/Teilfillabgleich
+  noch geschlossene Signalprüfung oder vollständigen Journalrestore.

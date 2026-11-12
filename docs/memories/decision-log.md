@@ -1411,3 +1411,134 @@ Nächstes IP-069: wirtschaftliches Forschungsprotokoll mit Fundingpreisbezug
 und echter passender Kohorte, dann Nettovergleich. Native Binanceartefakte
 bislang BTC/ETH,3–7-Symbol-Profil braucht echte weitere Daten; keine synthetische
 dritte Coinperformance. `docs/futures-long-replay-journal.md`.
+
+## 2026-11-11 — D-077: H1/H4 mit größeren festen Basketbudgets vergleichen
+
+Nutzer beauftragt ausdrücklich H1-Test und H4 mit korrekter größerer
+Basket-Kapitalplanung. Q39/IP-072 verwendet zunächst den vorhandenen Spotkern,
+ein10.000-USDT-Konto und dieselben fünf bestätigten BNB/BTC/ETH/SOL/XRP-
+Kandidaten in drei/fünf Slots; kein synthetischer Coin und keine Futuresrendite.
+RSI/Rearm/5%-Abstand/25%-Staffel/manuelle Reserve und6%/8%/−50% unverändert.
+Native Binance-H1 bildet auch H4; vier Grundfälle plus zwei vorab bestimmte
+doppelte Kostenfälle, kein Holdout/Parametersuchen/Runtimewechsel.
+
+Native Unterbrechung2023-03-24:13h fehlt,12h verkürzt. Gemeinsamer12–16h-Block
+vor erster Marktperformance ausdrücklich ausgeschlossen, Indikatoren danach
+neu starten, Kaufpending stornieren; echte Holdings/Stopps/Halts/Belege erhalten.
+Erste streng lückenfreie Quelle wurde vor Leistung verworfen/archiviert,
+kein Forwardfill/Lookahead. Quelle/Dateien im create-only Manifest versiegelt.
+Vertrag und vollständige Ergebnisse: `docs/h1-h4-basket-comparison.md`.
+
+Sechs echte Marktläufe beendet. H1/H4 drei Slots+725,04/+1251,79 USDT;
+fünf Slots+985,30/+1064,30; DD H1 höher. Nachkäufe fünf Slots66/47,
+zusätzliche Stressprüfung sperrt1740/186 Versuche, Stufe5 nie ausgeführt.
+Doppelte Kosten fünf Slots+1015,72/+1554,99: tatsächliche höhere Gebühren
+geprüft, Handelspfad ändert sich durch Fill-/Stoppschwellen; kein Beweis
+Kostenrobustheit/höhere Gebühren vorteilhaft. H4 als Referenz behalten,
+keine automatische Promotion; Ausführungs-/Stoppsensitivität vor Holdout.
+135GETs, je26303 native H1/26300 evaluierte H1/6575 H4, sechs volle Kurven
+geprüft.18 neue/356 unterschiedliche gepinnte Fälle, alte228,7169/56-
+Baseline exakt reproduziert. Keine DB/Dependencies/Public-/Runtimeänderung.
+
+## 2026-11-11 — D-078: Futuresvergleich und H1-Supertrend priorisieren
+
+Q40: Nutzer ordnet Basketstrategie ausdrücklich Futures zu; separate spätere
+Spot-Investingstrategie, alte Spotreferenzen unverändert. Vorschlag als
+Forschungsvariante aufnehmen: geschlossene H4-RSI-Einstiege/Nachkäufe,
+geschlossener H1-Supertrend für Schutz. +5%-Aktivierung, Nettofloor,
+aufwärts ratcheted Stop/Kaufstopp, manuelle Reserve und−55%/−50%/6%/8%
+erhalten; Nachfrage zu Kontolimits ist keine Lockerungsfreigabe.
+Auf identischer feinerer Futurespreisachse H4- und H1-Supertrend vergleichen,
+Indikatoränderung nicht mit veränderter Stopausführung vermischen.
+IP-069 priorisiert; native H1-Kohorte und eingefrorene Funding-/Kosten-/
+Marginannahmen fehlen noch, keine Runtime-/Livefreigabe.
+
+Zusätzlicher lesender Replay des veröffentlichten H4-Fünf-Slot-Spotfalls
+reproduziert+1064,3000798076551643529605 USDT exakt:
+49 positive Abschlüsse zusammen+1360,2861442755689801642355,
+38 negative zusammen−295,986064467913815811275.
+37 negative Trailing-Stop-Abschlüsse und ein SOL−55%-Notausstieg
+mit−160,5093522835841240205 USDT. Coarse OHLC-Stopausführung kann Verluste
+überschätzen; keine reale Stopfillqualität aus diesen Abschlüssen ableiten.
+Maximaler Equitydrawdown3,813586%:10542,6314058 am2024-07-22 02:00Z
+zu10140,5790659 am2024-08-05 13:00Z, weiterhin über10000 Initialkapital.
+
+## 2026-11-12 — D-079: Kontogates dürfen volle geplante Staffel nicht sperren
+
+Q41: Nutzer bestätigt vollständige Tabelle und verlangt, dass Schutzgrenzen
+ihre Ausführung nicht verhindern. Für nächste getrennte Futuresvariante
+frühere6%/8%-Hardgates durch Warnschwellen und gemeinsamen−50%-Kontostress
+durch Diagnose ersetzen; keine Behauptung schon aktivierter Codeänderung.
+Die Erklärung nahezu unmöglicher sofortiger−50%/immer nutzbarer Erholung
+ist keine gemessene Marktgarantie. Auch langsamer Rückgang kann ohne erneutes
+RSI-Rearm/unterschrittenem Netto-Breakeven zum Notausstieg/Liquidation führen;
+späterer AI-Filter hebt Budget/Margin/Orderwahrheit nicht auf.
+−55% und übrige Signal-/manuelle Reserve-/Liquidationsbedingungen erhalten.
+Offen per Nutzerfrage: Tabellenbeträge eigenes Einstiegskapital oder Nominal.
+Keine konkrete Futures-Marginaufteilung vor Antwort; alte Rechenkerne und
+gefrorene Marktresultate bleiben unverändert, keine Live/Publicaktivierung.
+
+## 2026-11-12 — D-080: Eigenkapitalstaffel mit akzeptierter Liquidation
+
+Q42:293,13 erste Stufe ist eigenes Kapital; Kaufnominal=Kapital×Hebel.
+Späterer AI-Agent soll2×–10× marktphasenabhängig wählen. Nutzer akzeptiert
+bei höherem Hebel Liquidation vor allen fünf Käufen, damit frühere
+−50%-Überlebensgarantie je Fillstand für neue Variante aufgehoben.
+Keine tatsächlichen marginlosen Käufe/Weiterkäufe nach Liquidation;
+ungenutzte Stufen bleiben getrennt, manuelle Stufe6 und keine Fremdbasket-
+Nachschüsse erhalten. Hypothetische spätere Liquidation diagnostisch.
+Fixierung je Basket oder Neubewertung je Nachkauf ist noch gefragt;
+keine rückblickende perfekte AI/garantierte profitable Erholung.
+
+Lesende Modellrechnung vorhandener Kern,10000/drei Slots, feste2/5/10×,
+Kaufpreise100/95/90,25/85,7375/81,450625, angenommene RSI-Signale,
+Maintenance0,5%/Closefeeschutz0,1%, keine Puffer/Funding:
+2×/5× erreichen fünf Käufe, letzte Modellgrenzen44,282902/70,852643.
+10× nach vier Käufen Grenze82,534159 vor fünftem Preis81,450625;
+gestellte Stufenmargin1690,09875224, ungestellte Reststaffel1610,23128073.
+Keine historische Liquidationshäufigkeit/Nettoleistung/Brokerpreis.
+Kapitalprofil und Grenzen `docs/futures-capital-ladder.md`.
+Keine Rechenmodule/Dependencies/DB/Public geändert; Entscheidung und
+arithmetisches Beispiel, Marktleistung weiterhin eigenes eingefrorenes Profil.
+
+## 2026-11-12 — D-081: AI-Hebel für gesamten Basket beim Start festlegen
+
+Q43 bestätigt explizit: AI-Profil bewertet Marktphase/Risiko vor dem ersten
+Kauf und friert den Hebel für den kompletten Basket ein. Alle regulären
+Nachkäufe und bestätigte manuelle Stufe6 verwenden denselben Hebel.
+Keine stufenweise Erhöhung oder Regimeanpassung offener Baskethebel.
+Neue Baskets erhalten neue Bewertungen.2×–10×-Rahmen und Q41/Q42 erhalten.
+Exakte Kriterien/kausale Regimevalidierung noch offen, keine aktive AI,
+Renditebehauptung oder Runtimeänderung. Die bisher offene Hebelfixierungsfrage
+ist damit beantwortet; Kapital-/Hebelprofil und Navigation aktualisiert.
+
+## 2026-11-12 — D-082: Separater Futures-Kapitalkern setzt Q41–Q43 um
+
+Nutzer beauftragt weitere Implementierung. Main bleibtd749081;49c93b6
+noch nicht gemerged, daher bestehender Branch fortgesetzt.
+IP-073 CapitalPlan/State/Assessment im eigenen Modul, bestätigte sechs
+Eigenkapitalgewichte, feste2×–10×-Zyklusentscheidung, nur fünf automatische
+Kapitaladmissions. Keine AI-/RSI-/Brokerautorität aus diesen Methoden.
+6%/8% Warnungen und−50%/hypothetische Liquidation Diagnosen, tatsächliche
+Deckung/Fees/Raster/Tag/Revision weiter verbindlich.
+Initialmarginbasis im neuen Modell aus tatsächlichem Einstand/Mark,
+First-fill-Anker ausschließlich Stress; deklarierte Modellannahme.
+
+Neue explizite volle Liquidation mit Restmargin/Fees/Versicherungsbeleg,
+Abgleich in einem reinen Ledgerübergang; kein angenommener Nullreststand.
+Liquidierter Zyklus gesperrt, ungestellte Reserven getrennt; verlorene Margin
+nicht erneut finanzieren und andere korrekt gedeckte Baskets nicht deswegen
+sperren. Altplan-Hooks defaultidentisch, neue Pläne explizit aus Legacy-
+Pending/RSI-Adaptern ausgeschlossen. Sieben akzeptierte Legacyzustände
+gegen HEAD exakt gleiche Digests. Normale Abschlüsse erneuern das
+Kostenbudget pro Zyklus, ohne bezahlte Gebühren zu erstatten; tatsächliche
+Überschreitungen bleiben Budgetfehler.35 abgeschlossene Zyklen belegt.
+Neue24 synthetische Fälle grün;
+293 gepinnte Futuresfälle/379 Subtests im ersten Lauf inkl22 neuer,
+danach87 Kapital/Pending/Signal mit34 und21 Langpending/Journal mit17
+Subtests grün. Abschließend55 Kapital/Ledger mit37 Subtests und erneut
+identischen sieben Legacydigests:295 unterschiedliche Fälle insgesamt,
+24 neue, keine Summenaddition.
+Keine Dependencies/DB/Migrationen/Credential-/Runtime-/Publicänderungen.
+Nächstes IP-074: RSI/H1-Schutz/nativer Marktvergleich inklFunding und
+vollständigem Langrestore; heutige Hashwurzel allein kein Restore.

@@ -7,6 +7,30 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- IP-073 implements Q41–Q43 in separate `futures_capital_research.py`:
+  own-capital stages, frozen per-cycle leverage, account/stress diagnostics,
+  reconciled own-basket liquidation and unused-reserve accounting. Capital
+  admission/full synthetic fills only, not RSI or broker authority. Legacy
+  pending/signal wrappers explicitly reject the new plan. No active AI,
+  journal restore, native-market net result or runtime activation. Next IP-074:
+  RSI/H1-Supertrend integration and frozen native Futures research profile.
+  See `docs/futures-capital-research.md`.
+- Q41,2026-11-12 supersedes earlier mandatory6%/8% account-admission guidance
+  for the next Futures research variant: user requires the approved full
+  six-stage budget, without account-loss/correlated-stress gates preventing
+  its use. Record6%/8% as warnings and−50% correlated account stress as
+  diagnostics in the new profile, not hard gates. Preserve actual budget,
+  signal/manual-reserve, execution-integrity and liquidation constraints,
+  and−55% emergency exit. Old frozen research/Paper profiles remain historical.
+  Q42 resolves the table amounts as own entry capital; position purchase
+  notional is that amount times leverage. User accepts liquidation before all
+  five regular buys at higher leverage; no mandatory−50% survival gate for the
+  new variant. Initialmargin/current liquidation/budget/order integrity still
+  apply. Q43 confirms later AI regime/risk evaluation before the first buy
+  freezes leverage for that entire basket, including all subsequent buys.
+  No reassessment changes an open basket's leverage. Exact AI criteria remain
+  unvalidated; no active AI or live/public activation.
+  See Q41–Q43 in `docs/interview.md` and `docs/futures-capital-ladder.md`.
 - Confirmed Q1–Q5: private invitation pilot, cockpit/backtests/paper before live,
   independent hard risk limits, controlled AI promotion, and free external
   tools/accounts first. TradingView Essentials is the existing paid subscription.
@@ -986,3 +1010,27 @@ Skills provide your tools. When you need one, check its `SKILL.md`. Keep local n
   Native Binance assets BTC/ETH only;3–7-symbol portfolio requires genuine
   suitable cohort, never add synthetic third coin as native performance.
   docs/futures-long-replay-journal.md; D-076.
+
+- 2026-11-11: user explicitly requests H1 research plus H4 with correct larger
+  basket capital. IP-07132fd13c merged into maind749081 verified.
+  Q39/IP-072 offline Spot comparison: same native Binance BNB/BTC/ETH/SOL/XRP
+  H1 source, H4 aggregated from identical hours, shared10000USDT,3/5 fixed
+  reusable slots,1% principal costs; no profit etapes or leverage in this study.
+  RSI14/rearm/5%/25%/manual sixth and6%/8%/minus50% remain unchanged.
+  Native2023-03-24 missing13h/shortened12h explicitly excludes same12–16h block
+  for both variants before market performance. Cancel pending buys/restart
+  Wilder confirmations; retain holdings/stops/halts/all bar evidence.
+  Four base cases plus two predefined doubled-cost cases; holdout untouched.
+  New H1 engine is offline only; default Candle/engine/runtime stay H4.
+  Source/price/config/policy manifests and artifacts:
+  docs/h1-h4-basket-comparison.md. Futures net study remains separate IP-069.
+  All six real3y runs complete: H1/H4 three slots net725.04/1251.79USDT;
+  five slots985.30/1064.30; more H1five averaging fills66/47 but higherDD.
+  Doubled-cost five slots1015.72/1554.99; altered fill/stop path, not evidence
+  higher costs beneficial. Isolated fill test confirms real0.2% costs.
+  H4 remains reference; fine-execution/stop sensitivity and holdout before
+  promotion.135 public GETs; each26303 native H1,26300 evaluatedH1/6575H4,
+  all evidence retained, all six full curves checked.18new/356distinctpinned
+  cases (355full,64targeted,1newcostcase overlap), legacy228.7169/56 exact.
+  No dependencies/migrations/services/public changes. Results/monthly CSV
+  tracked; raw source/curves ignored. No independent economic validation.

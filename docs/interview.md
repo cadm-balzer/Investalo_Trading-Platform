@@ -281,6 +281,95 @@ keine Konto-/Echtgeld-/Livefreigabe. IP-070 belegt die Datenbasis; wirtschaftlic
 Protokoll und Nettoleistungslauf folgen IP-069.
 [Datenvertrag und Abnahme](binance-futures-research-data.md).
 
+Q39,2026-11-11: Nutzer beauftragt ausdrücklich H1-Forschung und einen
+H4-Vergleich mit dem bestätigten größeren Basket-Kapitalprofil. IP-072:
+gleiche Binance-Spot-Daten,10.000 USDT, drei/fünf feste Slots und unveränderte
+Nachkauf-/Risikoregeln. Keine automatische Paper-/Live-Zeitrahmenumstellung
+oder vorweggenommene Futuresrendite.
+[Vergleich](h1-h4-basket-comparison.md).
+
+### Q40: Futures priorisieren und H4-Einstiege mit H1-Schutz vergleichen
+
+2026-11-11: Nutzer bestätigt die Bedeutung des beobachteten SOL-Notausstiegs
+und schlägt H4-Einstiege mit nachgezogenem H1-Supertrend vor.
+Die Basketstrategie soll als Futuresstrategie untersucht werden; eine andere
+Spot-Investingstrategie folgt später separat. Bestehende Spotläufe bleiben
+historische Referenzen, keine Umbenennung in Futuresperformance.
+Die Nachfrage nach6%/8% widerruft die bestätigten Kontolimits nicht.
+
+Forschungsvariante: geschlossene H4-RSI-Signale und bestätigte Nachkäufe,
+geschlossener H1-Supertrend ATR10/Wilder×3 für den Schutz.
+Bestehende+5%-Aktivierung, Netto-Breakeven-Untergrenze, nur aufwärts
+nachgezogener Stop/Kaufstopp, manuelle sechste Stufe und−55%/−50%/6%/8%
+bleiben erhalten. Keine rückblickende Verwendung unfertiger H1-Kerzen.
+Dies ist ein Forschungsauftrag, keine automatische Runtime-/Liveumstellung.
+
+Für einen kontrollierten Futuresvergleich H4- und H1-Supertrend auf derselben
+feineren Ausführungszeitachse auswerten; feinere Preisbeobachtung und anderer
+Indikatorzeitrahmen sind getrennte Änderungen. Funding/Kosten/isolierte Margin
+und Liquidationspuffer gehören zur Nettoauswertung. Passende native
+Futures-H1-Daten und wirtschaftliches Protokoll bleiben vor Leistung nötig;
+Spot-H1 oder synthetische weitere Coins ersetzen diese nicht.
+IP-069 ist hierfür priorisiert; bestehende Bitget-Handelszielentscheidung
+und Holdoutschutz bleiben erhalten.
+
+### Q41: Vollständige Kaufstaffel statt begrenzendem Kontostressprofil
+
+2026-11-12: Nutzer bestätigt die Tabelle für10000 USDT/drei Baskets:
+je3333,33 Gesamtbudget,3300,33 Sechsstufenpool und33,00 Kostenreserve;
+fünf reguläre Beträge293,13/366,42/458,02/572,53/715,66 und manuelle
+Reserve894,57, gerundete Darstellung der bereits implementierten Gewichte.
+Kontoschutzgrenzen dürfen die geplanten Nachkäufe nicht verhindern.
+Dies ändert die frühere Q37/Q40-Vorgabe verbindlicher6%/8%-Kontolimits
+für die nächste Futures-Forschungsvariante.
+
+Umsetzung der Richtung:6%/8% als Warnschwellen, gemeinsamer−50%-Kontostress
+als Diagnose statt sperrende Kaufprüfung. Keine ungekennzeichnete Änderung
+alter eingefrorener Ergebnisse oder laufender Paperprofile.
+Budgetdeckung, tatsächliche Margin/Liquidation, vollständige Signale,
+−55%-Notausstieg, Schutzaktivierung/Nettofloor und die ausschließlich
+manuelle sechste Stufe bleiben gesonderte Bedingungen. Vollständige Planung
+erzwingt keine Käufe ohne RSI/Rearm/5%-Abstand oder manuelle Freigabe.
+Der spätere AI-Filter ist kein Beleg garantierter Erholung/Profitabschlüsse
+oder rechtzeitiger Liquidationsdeckung. Rückkehr zum Netto-Breakeven und
+belegbare Margin bis zum Ausstieg sind auch bei langsamem Rückgang offen.
+
+**Damals gefragt, durch Q42 beantwortet:** Sind die Tabellenbeträge eigenes Einstiegskapital
+(Nominal bei2× doppelt) oder bereits Positionsnominal (Margin entsprechend
+kleiner)? Die Antwort ist vor einem konkreten Futures-Marginprofil nötig.
+Eine automatische Puffergröße oder2×–10×-Profitrechnung wird nicht erfunden.
+
+### Q42: Eigenkapital je Einstieg und akzeptierte Liquidationen
+
+2026-11-12, bestätigt:293,13 USDT sind Eigenkapital für den ersten Einstieg;
+Hebel bestimmt daraus Kaufnominal. Später wählt ein AI-Agent den Hebel nach
+Marktphase innerhalb des bisherigen2×–10×-Rahmens. Nutzer akzeptiert bei
+höherem Hebel ausdrücklich Liquidationen vor Abschluss der fünf Käufe.
+Damit ist die frühere−50%-Überlebensgarantie jedes einzelnen Fillstands
+für das neue Forschungsprofil aufgehoben; tatsächliche Initialmargin,
+Budgetdeckung und Liquidationen werden weiterhin korrekt berücksichtigt.
+Keine automatische Umwidmung unbenutzter Nachkäufe zu zusätzlicher Margin
+oder Finanzierung aus anderen Baskets. Bisherige manuelle Stufe6 bleibt.
+AI- oder garantierte Erholung nicht als bereits validierte Wirkung ausgeben.
+
+Damals gefragt, durch Q43 beantwortet: Hebel je Basket beim Start einfrieren oder je Nachkauf neu
+bewerten? Empfehlung für erstes Profil: je Basket festhalten; keine
+automatische Hebelsteigerung nach Stufennummer. Historische Daten/Regime
+müssen zum jeweiligen Zeitpunkt bekannt gewesen sein.
+[Kapitalrechnung, Modellbeispiel und Forschungsregeln](futures-capital-ladder.md).
+
+### Q43: AI-Hebel vor erstem Kauf für kompletten Basket einfrieren
+
+2026-11-12, ausdrücklich bestätigt: Das spätere AI-Profil bewertet Marktphase
+und Risiko vor dem ersten Kauf und legt den Hebel für den gesamten Basket fest.
+Alle folgenden regulären Käufe und eine bestätigte manuelle sechste Stufe
+verwenden denselben Hebel. Keine Erhöhung nach Stufennummer und keine
+Hebelanpassung eines offenen Baskets bei einem späteren Regimewechsel.
+Ein neuer Basket erhält eine neue Bewertung. Hebelrahmen2×–10× aus Q37/Q42.
+Exakte Kriterien/Modellfreigabe und kausale historische Marktphasenprüfung
+bleiben ausstehend; bislang keine aktive AI oder validierte AI-Rendite.
+Isolierte Margin, Budget-/Orderwahrheit und Q41/Q42-Risikoprofil erhalten.
+
 Konkrete Umsetzungsfakten recherchieren wir: unterstützte Versionen exakt pinnen,
 Historienlänge/-qualität prüfen, Brokerkosten/Metadaten und Hostlast messen.
 Vor Pilotrollout müssen Domain/TLS, SMTP/Empfänger, Terminalbindung,

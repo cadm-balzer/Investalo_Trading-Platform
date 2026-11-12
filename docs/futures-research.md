@@ -6,8 +6,9 @@ Forschungsprofil: **USDT-M, nur Long, isolierte Margin**. Das Basketbudget ist
 echtes Kapital für Einstiege, Kosten und ausdrücklich reservierte Marginpuffer;
 keine automatischen Nachschüsse aus anderen Baskets.
 
-**−50%-Stress und6% Tages-/8% ursprünglicher Startkapitalverlust bleiben
-verbindlich.** Das Risikomodell darf Hebel reduzieren oder Einstiege sperren.
+**Historisches Q37-Profil:**−50%-Stress und6% Tages-/8% ursprünglicher
+Startkapitalverlust sind in den bisher implementierten Rechenkernen verbindlich.
+Das Risikomodell darf Hebel reduzieren oder Einstiege sperren.
 Stresspreis ist50% des **ersten tatsächlichen Einstiegfills**, nicht des
 später abgesenkten Durchschnittspreises. Jeden Fillstand einschließlich
 ausbleibender weiterer RSI-/Rearm-Signale prüfen.
@@ -16,6 +17,23 @@ und die bestätigten Gewinnetappen bleiben Planungsziele; Futures-Gewinne müsse
 zusätzlich Funding und alle Abschluss-/Liquidationskosten berücksichtigen.
 Diese Richtung ersetzt das bisherige spätere Spotziel; laufende Spotmodelle
 bleiben unveränderte Forschungsreferenz und Entwicklungspaper.
+
+**Q41,2026-11-12:** Nutzer verlangt die vollständige bestätigte Kaufstaffel
+ohne begrenzende Kontoschutzgates. Für eine neue, getrennte Futuresvariante
+werden6%/8% Warnschwellen und der gemeinsame−50%-Kontostress Diagnose.
+IP-073 ergänzt inzwischen einen eigenen Kapitalkern; Legacyprofile und alte
+Ergebnisse bleiben gebunden. [Implementierung](futures-capital-research.md).
+Tatsächliche Budget-/Margin-/Liquidationsdeckung und−55%-Notausstieg bleiben
+relevant. Q42 klärt Tabellenbeträge ausdrücklich als eigenes Einstiegskapital:
+Kaufnominal=Eigenkapital×Hebel. Nutzer akzeptiert Liquidationen vor allen
+fünf regulären Käufen; künftiger−50%-Liquidationsstress ist Diagnose statt
+Überlebensgarantie für jeden Fillstand. Tatsächlich fehlende Initialmargin,
+aktuelle Liquidation und Budgetdeckung bleiben echte Grenzen. Die spätere
+AI-Hebelwahl ist nicht implementiert. Q43 bestätigt Bewertung von Marktphase
+und Risiko vor dem ersten Kauf und festen Hebel für den gesamten Basket,
+einschließlich aller Nachkäufe und manueller Stufe6. Neue Bewertung für
+neue Baskets; keine Anpassung des Hebels eines offenen Baskets.
+[Aktuelles Kapitalprofil und Modellbeispiel](futures-capital-ladder.md).
 
 ## Öffentliche Kontrakt- und Historienproben
 
@@ -130,9 +148,10 @@ feste Budgets gegen Gewinnetappen vergleichen, bevor Holdout/Paper folgen.
 
 Noch zu spezifizieren: exakte messbare Uptrend-/Regimekriterien, Verhalten
 außerhalb dieser Phase, Hebelauswahl, Aufteilung Kaufmargin/Marginpuffer/
-Kosten sowie Behandlung eines Regimewechsels bei offenen Baskets.
+Kosten. Q43 legt bei Regimewechseln den Hebel offener Baskets unverändert fest.
 „Definitiver Uptrend“ ist kein vorab verfügbares Wissen; nur zum damaligen
-Zeitpunkt belegte Signale verwenden. KI darf Margin-/Kontogates nicht lockern.
+Zeitpunkt belegte Signale verwenden. KI muss tatsächliche Margin-/Budget-
+und Orderbedingungen einhalten;6%/8% sind nach Q41 Warnschwellen.
 Keine neuen Abhängigkeiten, Migrationen, Konto-/Hebeländerungen, Brokerorders,
 öffentliche Dienständerungen oder Echtgeldaktivierung in IP-062.
 

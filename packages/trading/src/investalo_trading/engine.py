@@ -47,18 +47,21 @@ class CryptoEngine:
             AccountState(tenant_id, account_id, self.config.initial_equity,
                          self.config.initial_equity, at.date(), self.config.initial_equity),
             tuple(BasketState(symbol) for symbol in self.config.symbols),
-            configuration_digest=digest((self.config, self.instrument_rules)),
+            configuration_digest=self._configuration_digest(),
         )
 
     def _validate(self, state: EngineState, symbol: str | None = None) -> None:
         if state.version != self.config.version or state.account.initial_equity != self.config.initial_equity:
             raise ValueError("state and strategy configuration differ")
-        if state.configuration_digest != digest((self.config, self.instrument_rules)):
+        if state.configuration_digest != self._configuration_digest():
             raise ValueError("state belongs to a different immutable configuration")
         if tuple(b.symbol for b in state.baskets) != self.config.symbols:
             raise ValueError("state symbols differ from strategy configuration")
         if symbol is not None and symbol not in self.config.symbols:
             raise TradingRejected("unsupported_symbol")
+
+    def _configuration_digest(self) -> str:
+        return digest((self.config, self.instrument_rules))
 
     def rules(self, symbol: str) -> InstrumentRules:
         return next((r for r in self.instrument_rules if r.symbol == symbol), InstrumentRules(symbol))
@@ -387,22 +390,20 @@ class CryptoEngine:
     @precise
     def on_bar(self, state: EngineState, bar: Candle, *, observed_at: datetime | None = None) -> Transition:
         self._validate(state, bar.symbol)
+        self._validate_bar(bar)
         now = utc(observed_at or bar.close_time)
         if now < bar.close_time:
             raise TradingRejected("unfinished_candle")
         basket = state.basket(bar.symbol)
         bar_digest = digest(bar)
         bar_id = f"{bar.symbol}:{bar.open_time.isoformat()}"
-        previous_digest = next((d for key, d in state.processed_bars if key == bar_id), None)
-        if previous_digest is not None:
-            if previous_digest == bar_digest:
-                return Transition(state)
-            raise TradingRejected("out_of_order_or_revised_candle")
+        if self._seen_bar(state, bar_id, bar_digest):
+            return Transition(state)
         if basket.last_bar_open is not None and bar.open_time <= basket.last_bar_open:
             if bar.open_time == basket.last_bar_open and bar_digest == basket.last_bar_digest:
                 return Transition(state)
             raise TradingRejected("out_of_order_or_revised_candle")
-        if basket.last_bar_open is not None and bar.open_time != basket.last_bar_open + timedelta(hours=4):
+        if basket.last_bar_open is not None and bar.open_time != basket.last_bar_open + self._bar_interval():
             return Transition(state, events=(DomainEvent("data_rejected", bar.symbol, "", "candle_gap"),))
         indicator = advance(basket.indicators, bar, self.config)
         below = indicator.rsi is not None and indicator.rsi < D("30")
@@ -413,7 +414,7 @@ class CryptoEngine:
                          sub30_count=basket.sub30_count + 1 if below else 0,
                          rearmed=rearmed, last_bar_open=bar.open_time, last_bar_digest=bar_digest)
         state = _basket(state, basket)
-        state = replace(state, processed_bars=state.processed_bars + ((bar_id, bar_digest),))
+        state = self._remember_bar(state, bar.symbol, bar_id, bar_digest)
         risk = self._risk_exit(state, now)
         protected = self._protect(risk.state, bar.symbol, now)
         state, basket = protected.state, protected.state.basket(bar.symbol)
@@ -430,6 +431,27 @@ class CryptoEngine:
             purchase = self._buy(state, bar.symbol, number, now, bar.close_time.isoformat()) if ready else Transition(state)
         return Transition(purchase.state, risk.intents + protected.intents + purchase.intents,
                           risk.events + protected.events + purchase.events)
+
+    def _bar_interval(self) -> timedelta:
+        """Research variants bind their own interval; the default stays H4."""
+        return timedelta(hours=4)
+
+    def _validate_bar(self, bar: Candle) -> None:
+        interval = self._bar_interval()
+        if (not isinstance(bar, Candle) or bar.close_time - bar.open_time != interval
+                or bar.open_time.minute or bar.open_time.second or bar.open_time.microsecond
+                or bar.open_time.hour % (interval.seconds // 3600)):
+            raise ValueError("candle differs from the configured interval")
+
+    def _seen_bar(self, state: EngineState, bar_id: str, bar_digest: str) -> bool:
+        previous = next((d for key, d in state.processed_bars if key == bar_id), None)
+        if previous is not None and previous != bar_digest:
+            raise TradingRejected("out_of_order_or_revised_candle")
+        return previous is not None
+
+    def _remember_bar(self, state: EngineState, symbol: str,
+                      bar_id: str, bar_digest: str) -> EngineState:
+        return replace(state, processed_bars=state.processed_bars + ((bar_id, bar_digest),))
 
     @precise
     def preview_manual(self, state: EngineState, symbol: str, now: datetime) -> ManualPreview:

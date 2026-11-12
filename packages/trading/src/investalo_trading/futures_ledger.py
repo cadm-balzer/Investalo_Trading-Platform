@@ -87,6 +87,20 @@ class ExitFill:
 
 
 @dataclass(frozen=True)
+class LiquidationSettlement(ExitFill):
+    """Explicit terminal evidence; never infer insurance credit from a gap."""
+    returned_margin: Decimal
+    insurance_credit: Decimal
+    evidence_digest: str
+
+    def __post_init__(self):
+        super().__post_init__()
+        number(self.returned_margin, nonnegative=True)
+        number(self.insurance_credit, nonnegative=True)
+        identifier(self.evidence_digest)
+
+
+@dataclass(frozen=True)
 class FundingSettlement:
     symbol: str
     mark: Decimal
@@ -123,9 +137,9 @@ class DailyBasis:
         identifier(self.evidence_digest)
 
 
-Payload = MarkBatch | DailyBasis | FundingSettlement | MarginPosting | EntryFill | ExitFill
+Payload = MarkBatch | DailyBasis | FundingSettlement | MarginPosting | EntryFill | ExitFill | LiquidationSettlement
 PHASES = {MarkBatch: 0, DailyBasis: 1, FundingSettlement: 2, MarginPosting: 3,
-          EntryFill: 4, ExitFill: 5}
+          EntryFill: 4, ExitFill: 5, LiquidationSettlement: 5}
 
 
 @dataclass(frozen=True)
@@ -291,6 +305,17 @@ class ClosedBasket:
 
 
 @dataclass(frozen=True)
+class LiquidatedBasket(ClosedBasket):
+    insurance_credit: Decimal
+    evidence_digest: str
+
+    @property
+    @precise
+    def net_pnl(self):
+        return super().net_pnl + self.insurance_credit
+
+
+@dataclass(frozen=True)
 class LedgerTransition:
     state: FuturesLedgerState
     event_digest: str
@@ -332,7 +357,7 @@ def _halt_reasons(state: FuturesLedgerState) -> tuple[str, ...]:
                 reasons.append("contract_leverage_breach")
         except ValueError:
             reasons.append("missing_margin_coverage")
-    return tuple(dict.fromkeys(reasons))
+    return state.plan.ledger_halt_reasons(reasons)
 
 
 @precise
@@ -366,6 +391,9 @@ def apply_futures_event(state: FuturesLedgerState, command: LedgerCommand) -> Le
     if command.expected_revision != state.revision:
         raise ValueError("stale ledger revision")
     payload = command.payload
+    if (isinstance(payload, LiquidationSettlement)
+            and not getattr(state.plan, "supports_capital_liquidations", False)):
+        raise ValueError("liquidation settlement requires its separate capital research plan")
     phase = PHASES[type(payload)]
     if command.occurred_at < state.as_of or command.occurred_at == state.as_of and phase < state.phase:
         raise ValueError("backdated or ambiguous equal-time event ordering")
@@ -432,9 +460,28 @@ def apply_futures_event(state: FuturesLedgerState, command: LedgerCommand) -> Le
                         b.entered_quantity, b.realized_price_pnl + pnl, b.entry_fees,
                         b.exit_fees + payload.fee, b.funding_net,
                     )
+                    if isinstance(payload, LiquidationSettlement):
+                        if released + pnl - payload.fee + payload.insurance_credit != payload.returned_margin:
+                            raise ValueError("liquidation terminal balance does not reconcile")
+                        cash += payload.insurance_credit
+                        closed = LiquidatedBasket(
+                            b.symbol, b.cycle, b.opened_at, command.occurred_at, b.first_fill,
+                            b.entered_quantity, b.realized_price_pnl + pnl, b.entry_fees,
+                            b.exit_fees + payload.fee, b.funding_net,
+                            payload.insurance_credit, payload.evidence_digest,
+                        )
+                    if (getattr(state.plan, "per_cycle_cost_budgets", False)
+                            and not isinstance(payload, LiquidationSettlement)):
+                        if costs > state.plan.budgets[index].cost_reserve:
+                            extra_reasons.append("basket_budget_breach")
+                        next_costs = ZERO
+                    else:
+                        next_costs = costs
                     b = LedgerBasket(b.symbol, b.mark, b.marked_at, cycle=b.cycle,
-                                     charges_in_budget_epoch=costs, last_funding_at=b.last_funding_at)
+                                     charges_in_budget_epoch=next_costs, last_funding_at=b.last_funding_at)
                 else:
+                    if isinstance(payload, LiquidationSettlement):
+                        raise ValueError("liquidation settlement must close the entire basket")
                     b = replace(b, quantity=b.quantity - payload.quantity,
                                 margin_committed=b.margin_committed - committed,
                                 isolated_balance=b.isolated_balance - released,

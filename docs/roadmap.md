@@ -1,5 +1,46 @@
 # Roadmap
 
+IP-073: bestätigtes Eigenkapital-/Warnungs-/Liquidationsprofil als
+eigenständiger Kapitalkern umgesetzt; Legacy unverändert. Nächstes IP-074:
+RSI/Nachkäufe/H1-Supertrend verbinden und native Futureskohorte samt
+Kosten/Funding/Journalrestore vor echtem Nettovergleich einfrieren.
+[Implementierung](futures-capital-research.md).
+
+Q43: Späterer AI-Agent bewertet Marktphase/Risiko vor dem ersten Kauf und
+friert den Hebel für den kompletten Basket ein. Nachkäufe/manuelle Stufe6
+verwenden denselben Hebel; neue Bewertung erst für neue Baskets.
+Exakte kausale AI-Kriterien/Modellvalidierung weiterhin offen.
+[Bestätigtes Kapital-/Hebelprofil](futures-capital-ladder.md).
+
+Q42: Tabellenbeträge sind Eigenkapital, Kaufnominal=Kapital×Hebel.
+Nutzer akzeptiert Liquidation vor Abschluss der regulären Staffel;
+neue Variante ohne verpflichtende−50%-Überlebensgarantie.
+Tatsächliche Initialmargin/Budgets/Liquidation verbuchen. Spätere kausale
+AI-Regimewahl2×–10×; Startfixierung für gesamten Basket inzwischen Q43 bestätigt.
+[Kapitalprofil und mechanischer Vergleich](futures-capital-ladder.md).
+
+Q41,2026-11-12: Nutzer bestätigt volle Staffelbudgets und hebt für die neue
+Futuresvariante die sperrende Rolle der6%/8%-Kontolimits und des gemeinsamen
+−50%-Kontostresstests auf. Als Warnungen/Diagnose berichten; Budget,
+tatsächliche Liquidationsdeckung, Signale und−55%-Notausstieg erhalten.
+Eigenkapitalfrage inzwischen durch Q42 geklärt. Bestehende Rechenkerne/Paper
+und eingefrorene Ergebnisse unverändert.
+[Entscheidung](interview.md#q41-vollständige-kaufstaffel-statt-begrenzendem-kontostressprofil).
+
+Q40: nächste Leistungsforschung auf Futures fokussieren; Spot-Investing
+ist eine spätere separate Strategie. H4-RSI-Einstiege mit H1-Supertrend
+als Forschungsvariante vergleichen, beide Stopvarianten auf derselben
+feineren Preisachse. Geschlossene Kerzen, Nachkäufe,+5%/Nettofloor,
+−55%/−50%/6%/8% erhalten. IP-069 braucht zuerst passende native Futures-H1-
+Kohorte und eingefrorene Kosten-/Funding-/Marginannahmen. Kein Runtimewechsel.
+[Entscheidung](interview.md#q40-futures-priorisieren-und-h4-einstiege-mit-h1-schutz-vergleichen).
+
+Q39/IP-072: Nutzer priorisiert tatsächlichen H1/H4-Nettovergleich mit
+vollständiger bestätigter Basket-Kapitalplanung. Eigener Spotvergleich auf
+gleicher nativer Fünf-Coin-Quelle mit drei/fünf Slots und Kostenstress.
+H4-Runtime bleibt unverändert; Futuresökonomie/Nettovergleich IP-069 bleibt
+eine separate nächste Auswertung. [Vergleich](h1-h4-basket-comparison.md).
+
 IP-071: vollständiges Langlaufjournal/ID-Historien und synthetischer
 Dreijahresmechanik-/Wiederanlaufbeleg vorhanden. IP-069 als Nächstes
 wirtschaftliches Profil/Fundingpreisbezug/passende native Kohorte und

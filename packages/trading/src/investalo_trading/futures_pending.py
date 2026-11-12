@@ -8,7 +8,7 @@ from .futures_ledger import (
     EntryFill, ExitFill, FuturesLedgerState, LedgerCommand, LedgerTransition,
     PHASES, apply_futures_event, number, timestamp,
 )
-from .futures_risk import FuturesPurchase
+from .futures_risk import FuturesPlan, FuturesPurchase
 from .models import floor_step, precise
 from .snapshot import digest
 from .identity_history import IdentityHistory, NAMESPACES
@@ -175,13 +175,16 @@ class PendingTransition:
 
 def start_pending_research(ledger: FuturesLedgerState) -> PendingResearchState:
     """Wrap a trusted reconciled ledger, not restore an uncertain broker account."""
+    if type(ledger.plan) is not FuturesPlan:
+        raise ValueError("legacy pending wrapper requires its legacy futures plan")
     return PendingResearchState(ledger, 0, ledger.as_of, None, (), (), (), (), 0, (),
                                 digest((VERSION, ledger.state_digest)))
 
 
 def start_long_pending_research(ledger: FuturesLedgerState, *, identity_capacity=50_000):
     """Fresh research genesis only. Existing evidence cannot be reset or converted."""
-    if (not isinstance(ledger, FuturesLedgerState) or ledger.revision != 0
+    if (not isinstance(ledger, FuturesLedgerState) or type(ledger.plan) is not FuturesPlan
+            or ledger.revision != 0
             or any(b.quantity or b.cycle for b in ledger.baskets)):
         raise ValueError("fresh flat ledger genesis required; not a restore API")
     histories = tuple(IdentityHistory(namespace, identity_capacity) for namespace in NAMESPACES)
