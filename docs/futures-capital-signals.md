@@ -90,10 +90,13 @@ Eigenreview; keine Agentdelegation, Dependencies, Migrationen oder Publicänderu
 
 **Noch kein neuer Futures-Nettoleistungsbefund.** IP-075 ergänzt inzwischen
 die [gemeinsame H1-Kohorte](futures-hourly-history.md) für fünf echte Coins.
-Es fehlen ein erklärter
-Nominalpreisbezug für ältere Fundingabrechnungen ohne Settlement-Markpreis,
-gefrorene Kosten-/Margin-/Liquidations-/Intrabarannahmen.
+IP-077 friert den erklärten
+Nominalpreisbezug für ältere Fundingabrechnungen ohne Settlement-Markpreis
+sowie Kosten-/Margin-/Liquidations-/Intrabarannahmen ein.
 IP-076 ergänzt inzwischen den [eigenen vollständigen Journalrestore](futures-capital-journal.md)
 mit ausreichender erklärter Ereigniskapazität. Das alte Legacyjournal bleibt
-getrennt. Das wirtschaftliche Profil und der Leistungslauf bleiben
-IP-074/IP-069; Holdout unverändert gesperrt.
+getrennt. Explizite valued-hour/Fundingbatch-Commands erhalten native
+gleichzeitige Abrechnungen und restaurieren sie vollständig.
+Der vollständige Marktjob/Leistungslauf bleibt IP-074/IP-069;
+historische Brokertarife unbewiesen, Holdout unverändert gesperrt.
+[Wirtschaftsprofil](futures-economic-profile.md).

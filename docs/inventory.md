@@ -1,5 +1,12 @@
 # Bestandsaufnahme
 
+IP-077: eingefrorenes `futures_research_profile.py`, create-only
+`preflight-futures-capital.py` und explizite valued-hour/Fundingbatch-
+Journalcommands. Native Quellenidentität/Settlementzeiten bleiben erhalten,
+Kosten und Versicherungsdeckung sind erklärte Modellannahmen.
+Keine vollständige Marktjob-/Performance- oder Runtimeaktivierung.
+[Wirtschaftsprofil](futures-economic-profile.md).
+
 IP-076: eigener `futures_capital_journal.py` und versionierte größere
 `capital_identity_history.py`. Vollständiger Restore des neuen Q41–Q43-
 Kapital-/H4-RSI-/H1/H4-Schutzprofils, eigene Genesis, bestätigter Mindestanker

@@ -7,6 +7,24 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- IP-076 `29d76d9` merged into main `ef2aa9b` (verified). IP-077 freezes
+  own economic protocol shaeb9a278513facb4f7560413c6ae269dc2fd44adf917eec00ebec9925ddcc8c06:
+  five native BINANCE-prefixed slots,2×/5×/10× and H1/H4 protection plus
+  predefined2× cost/path sensitivities (ten total). Fees/maintenance/lot/
+  insurance are declared assumptions, not historical broker acceptance.
+  Native funding reference uses settlement mark or explicit H1-open approximation;
+  no timestamp shifts. valued_hour freezes exact boundary marks before day basis;
+  atomic funding_batch keeps per-settlement IDs and full journal restore.
+  Current liquidation checked before restoration/new price; no phantom recovery.
+  Native preflight verified15 artifact hashes/263040 prices/16515 settlements,
+  10937 exact-hour events/3363 groups;9595 native marks/6920 approximations.
+  Successful receipt2252c6f78054a482a2eb67ecdc344d517aeb46083ce518141ccf0c00b549064c.
+  27 new/56 distinct focused pinned cases passed. First failed/killed preflights
+  have no receipt; preserve their directories. Cache datasetdigest per stream.
+  No market performance, DB/migrations/dependencies or runtime activation.
+  Next IP-074/IP-069: implement complete native market job and metrics/journal
+  with all frozen scenarios, then report net results; no more source import needed.
+  See `docs/futures-economic-profile.md`.
 - IP-075 `fd99018` merged into main `d0fa375` (verified); user approves
   continuing and PR creation with working GH CLI. IP-076 adds own
   `futures_capital_journal.py` plus versioned larger capital identity policy:

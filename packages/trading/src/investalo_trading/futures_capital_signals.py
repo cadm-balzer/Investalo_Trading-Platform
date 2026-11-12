@@ -175,6 +175,21 @@ class CapitalSignalAssessment:
             raise ValueError("typed own capital assessment required")
 
 
+@dataclass(frozen=True)
+class CapitalFundingBatch:
+    settlements: tuple[FundingSettlement, ...]
+    evidence_digest: str
+
+    def __post_init__(self):
+        identifier(self.evidence_digest)
+        if (type(self.settlements) is not tuple or not 1 <= len(self.settlements) <= 7
+                or any(type(p) is not FundingSettlement for p in self.settlements)):
+            raise ValueError("bounded immutable simultaneous funding batch required")
+        symbols = tuple(p.symbol for p in self.settlements)
+        if symbols != tuple(sorted(set(symbols))):
+            raise ValueError("canonical unique simultaneous funding symbols required")
+
+
 def _prices(prices, symbols):
     if (type(prices) is not tuple or any(type(p) is not LedgerMark for p in prices)
             or tuple(p.symbol for p in prices) != symbols):
@@ -265,7 +280,8 @@ def observe_capital_prices(state, trade, mark, event_id, expected_revision, at):
 
 
 @precise
-def replay_capital_hour(state, frame, expected_revision, observed_at):
+def replay_capital_hour(state, frame, expected_revision, observed_at, *,
+                        close_valuation=None, valuation_evidence=None):
     observed_at = _check(state, expected_revision, observed_at)
     if type(frame) is not CapitalHour:
         raise ValueError("typed capital H1 frame required")
@@ -275,15 +291,25 @@ def replay_capital_hour(state, frame, expected_revision, observed_at):
         raise ValueError("native futures trade/mark price kinds required")
     if observed_at < frame.close_time:
         raise ValueError("unfinished H1 frame")
+    if close_valuation is not None:
+        _prices(close_valuation, symbols)
+        identifier(valuation_evidence)
+    elif valuation_evidence is not None:
+        raise ValueError("valuation evidence needs complete marks")
     if state.last_hour is not None and frame == state.last_hour:
+        if close_valuation is not None:
+            raise ValueError("duplicate or revised valued hour")
         return state
     previous_close = state.last_hour.close_time if state.last_hour else state.economic.ledger.day_started_at
     if frame.trade[0].open_time != previous_close or frame.close_time <= state.economic.as_of:
         raise ValueError("revised, old or gapped H1 evidence")
     trade = tuple(LedgerMark(s, b.close) for s, b in zip(symbols, frame.trade, strict=True))
-    mark = tuple(LedgerMark(s, b.close) for s, b in zip(symbols, frame.mark, strict=True))
+    mark = close_valuation if close_valuation is not None else tuple(
+        LedgerMark(s, b.close) for s, b in zip(symbols, frame.mark, strict=True))
+    evidence = (digest((VERSION, "valued-hour", frame.frame_digest, mark, valuation_evidence))
+                if close_valuation is not None else frame.frame_digest)
     economic = record_capital_event(
-        state.economic, MarkBatch(mark), "hour-" + frame.frame_digest,
+        state.economic, MarkBatch(mark), "hour-" + evidence,
         state.economic.revision, frame.close_time)
     midnight = frame.close_time.replace(hour=0, minute=0, second=0, microsecond=0)
     if midnight > economic.ledger.day_started_at:
@@ -291,8 +317,8 @@ def replay_capital_hour(state, frame, expected_revision, observed_at):
             raise ValueError("missing exact midnight evidence")
         if economic.ledger.equity > 0:
             economic = record_capital_event(
-                economic, DailyBasis(economic.ledger.equity, frame.frame_digest),
-                "day-" + frame.frame_digest, economic.revision, midnight)
+                economic, DailyBasis(economic.ledger.equity, evidence),
+                "day-" + evidence, economic.revision, midnight)
     # Evaluate the old stop before using the newly closed protection candle.
     signals = _protected(state.profile, economic, state.signals, trade)
     group = (*state.h4_buffer, frame)
@@ -316,10 +342,40 @@ def replay_capital_hour(state, frame, expected_revision, observed_at):
                 signal.protection_indicator, protection_bar, IndicatorParameters()))
         updated.append(signal)
     return _finish(
-        state, observed_at, ("hour", frame.frame_digest), economic=economic,
+        state, observed_at, ("hour", frame.frame_digest) if close_valuation is None else (
+            "valued-hour", frame.frame_digest, mark, valuation_evidence), economic=economic,
         trade_prices=trade, trade_at=frame.close_time, last_hour=frame, h4_buffer=group,
         last_entry_at=frame.close_time if h4 is not None else state.last_entry_at,
         signals=_protected(state.profile, economic, tuple(updated), trade))
+
+
+def replay_valued_capital_hour(state, frame, marks, evidence_digest, expected_revision, observed_at):
+    """Exact boundary valuation before day basis/funding; candles remain native."""
+    return replay_capital_hour(
+        state, frame, expected_revision, observed_at,
+        close_valuation=marks, valuation_evidence=evidence_digest)
+
+
+def record_signal_funding_batch(state, batch, event_id, expected_revision, at):
+    """One signal/journal transition: fresh valuation, then all same-time settlements."""
+    at = _check(state, expected_revision, at)
+    if type(batch) is not CapitalFundingBatch:
+        raise ValueError("typed simultaneous funding evidence required")
+    identifier(event_id)
+    baskets = {b.symbol: b for b in state.economic.ledger.baskets}
+    if (any(b.marked_at != at for b in baskets.values())
+            or any(p.symbol not in baskets or p.mark != baskets[p.symbol].mark
+                   for p in batch.settlements)):
+        raise ValueError("simultaneous funding needs complete exact-time valuation")
+    economic = state.economic
+    for payload in batch.settlements:
+        economic = record_capital_event(
+            economic, payload, "fund-" + digest((VERSION, event_id, batch.evidence_digest, payload.symbol)),
+            economic.revision, at)
+    return _finish(
+        state, at, ("funding-batch", event_id, batch), economic=economic,
+        signals=_protected(state.profile, economic, state.signals, state.trade_prices,
+                           evaluate_price=False))
 
 
 @precise

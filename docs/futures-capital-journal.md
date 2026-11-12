@@ -41,6 +41,8 @@ Jeder Command enthält Revision, UTC-Zeit und typisierten vollständigen
 Input. Unterstützt:
 
 - native vollständige H1-Trade-/Markframes;
+- IP-077: explizite vollständige close-Valuation vor Tagesbasis sowie
+  atomare gleichzeitige Fundingbatches mit einzeln behaltenen IDs;
 - ausdrücklich erklärte feinere Trade-/Markbeobachtungen;
 - feste Baskethebelentscheidung vor dem Erstkauf;
 - gebundene Signal-/Kapitalassessment und synthetischen vollständigen Kauf;
@@ -111,8 +113,7 @@ Zustand und Receipt; die erste Preisbeobachtung bleibt vorhanden.
 Ein eigener Baumtest behält und prüft alle100005 IDs jenseits des alten Limits.
 Diese Tests belegen Mechanik, keine native Marktrendite.
 
-IP-074/IP-069 benötigen nun das vor Leistungsauswertung eingefrorene
-wirtschaftliche Profil: Fundingnominalreferenz für fehlende native
-Settlement-Marks, Gebühren/Slippage/Intrabarweg, Maintenance- und
-Liquidationsabrechnung samt Kostenstress. Danach gleicher H1-/H4-Schutzvergleich
-auf derselben nativen Quelle; Holdout und AI bleiben aus.
+IP-077 ergänzt inzwischen das vor Leistungsauswertung
+[eingefrorene wirtschaftliche Profil](futures-economic-profile.md).
+IP-074/IP-069 benötigen nun den vollständigen Marktjob und gleichen
+H1-/H4-Schutzvergleich auf derselben nativen Quelle; Holdout und AI bleiben aus.

@@ -10,9 +10,9 @@ from .allocation import revision
 from .capital_identity_history import CapitalIdentityHistory
 from .futures_capital_research import CapitalPlan, start_capital_research
 from .futures_capital_signals import (
-    CapitalHour, CapitalSignalAssessment, CapitalSignalProfile, declare_signal_leverage,
+    CapitalFundingBatch, CapitalHour, CapitalSignalAssessment, CapitalSignalProfile, declare_signal_leverage,
     observe_capital_prices, record_signal_economic_event, replay_capital_hour,
-    simulate_signal_entry, start_capital_signals,
+    record_signal_funding_batch, replay_valued_capital_hour, simulate_signal_entry, start_capital_signals,
 )
 from .futures_ledger import (
     ExitFill, FundingSettlement, LedgerMark, LiquidationSettlement, MarginPosting, MarkBatch,
@@ -28,6 +28,8 @@ MAX_COMMANDS = 250_000
 MAX_LINE_BYTES = 256 * 1024
 ARGUMENTS = {
     "hour": {"frame": CapitalHour},
+    "valued_hour": {"frame": CapitalHour, "marks": tuple[LedgerMark, ...], "evidence_digest": str},
+    "funding_batch": {"batch": CapitalFundingBatch, "event_id": str},
     "prices": {"trade": tuple[LedgerMark, ...], "mark": tuple[LedgerMark, ...], "event_id": str},
     "leverage": {"symbol": str, "leverage": Decimal, "evidence_digest": str, "event_id": str},
     "entry": {"assessment": CapitalSignalAssessment, "price": Decimal, "event_id": str},
@@ -62,7 +64,9 @@ def _apply(state, command):
     at = timestamp(_decode(datetime, command["at"]))
     args = _arguments(kind, command["arguments"])
     functions = {
-        "hour": replay_capital_hour, "prices": observe_capital_prices,
+        "hour": replay_capital_hour, "valued_hour": replay_valued_capital_hour,
+        "funding_batch": record_signal_funding_batch,
+        "prices": observe_capital_prices,
         "leverage": declare_signal_leverage, "entry": simulate_signal_entry,
         "economic": record_signal_economic_event,
     }
@@ -86,7 +90,7 @@ def _command(kind, expected_revision, at, arguments):
                 raise ValueError("typed capital economic input required")
             raw[key] = {"kind": type(value).__name__, "value": primitive(value)}
         else:
-            expected = tuple if key in ("trade", "mark") else cls
+            expected = tuple if key in ("trade", "mark", "marks") else cls
             if type(value) is not expected:
                 raise ValueError("typed capital journal input required")
             raw[key] = primitive(value)
