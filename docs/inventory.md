@@ -1,5 +1,12 @@
 # Bestandsaufnahme
 
+IP-078: vollständiger `futures_capital_backtest.py` und create-only
+`backtest-futures-capital.py` für zehn eingefrorene native Dreijahresvarianten.
+Wiederverwendet den bestehenden Kapitalkern, Signaladapter und vollständigen
+Journalrestore. Eigene byteidentische `capital_digest.py`-Beschleunigung;
+begrenzte feste Snapshot-Schemata gecacht. Keine Broker-/Runtimeautorität.
+[Marktvergleich](futures-market-backtest.md).
+
 IP-077: eingefrorenes `futures_research_profile.py`, create-only
 `preflight-futures-capital.py` und explizite valued-hour/Fundingbatch-
 Journalcommands. Native Quellenidentität/Settlementzeiten bleiben erhalten,

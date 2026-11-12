@@ -1,5 +1,6 @@
 """Q41–Q43 capital-only research. No RSI authority, broker or durable executor."""
 from dataclasses import dataclass, field, replace
+from functools import cached_property
 from datetime import datetime, timedelta
 from decimal import Decimal
 
@@ -16,7 +17,7 @@ from .futures_risk import (
 )
 from .identity_history import IdentityHistory
 from .models import floor_step, precise
-from .snapshot import digest
+from .capital_digest import CapitalCanonical, digest
 
 D = Decimal
 ZERO = D("0")
@@ -27,7 +28,7 @@ DIAGNOSTIC_REASONS = {
 
 
 @dataclass(frozen=True)
-class CapitalPlan(FuturesPlan):
+class CapitalPlan(FuturesPlan, CapitalCanonical):
     capital_policy: str = field(default=VERSION, init=False)
 
     def __post_init__(self):
@@ -35,7 +36,7 @@ class CapitalPlan(FuturesPlan):
         if self.remainder + sum((b.capital for b in self.budgets), ZERO) != self.initial_equity:
             raise ValueError("complete funded capital allocation required")
 
-    @property
+    @cached_property
     def plan_digest(self):
         return digest((VERSION, self, "fixed-cycle-leverage", "six-own-capital-stages"))
 
@@ -82,7 +83,7 @@ def equal_capital_plan(tenant_id, account_id, policy_digest, contracts,
 
 
 @dataclass(frozen=True)
-class LeverageDecision:
+class LeverageDecision(CapitalCanonical):
     symbol: str
     cycle: int
     leverage: Decimal
@@ -100,7 +101,7 @@ class LeverageDecision:
 
 
 @dataclass(frozen=True)
-class StageReceipt:
+class StageReceipt(CapitalCanonical):
     symbol: str
     cycle: int
     stage: int
@@ -120,7 +121,7 @@ class StageReceipt:
 
 
 @dataclass(frozen=True)
-class StoppedBasket:
+class StoppedBasket(CapitalCanonical):
     symbol: str
     cycle: int
     unposted_stage_capital: Decimal
@@ -136,7 +137,7 @@ class StoppedBasket:
 
 
 @dataclass(frozen=True)
-class CapitalResearchState:
+class CapitalResearchState(CapitalCanonical):
     ledger: FuturesLedgerState
     revision: int
     as_of: datetime
@@ -181,7 +182,7 @@ class CapitalResearchState:
             if stages != list(range(1, len(stages) + 1)):
                 raise ValueError("actual regular stages must be consecutive")
 
-    @property
+    @cached_property
     def state_digest(self):
         return digest((VERSION, self))
 

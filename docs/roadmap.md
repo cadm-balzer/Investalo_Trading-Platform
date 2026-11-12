@@ -1,5 +1,16 @@
 # Roadmap
 
+IP-078 implementiert den vollständigen nativen Futures-Nettojob für alle zehn
+vorab eingefrorenen Varianten, mit tatsächlichen RSI-Kaufstufen, Gebühren/
+Funding, Gapexits/Liquidation, End-MTM und vollständigem Journalrestore.
+Alle zehn tatsächlichen Marktjobs und vollständigen Restores sind abgeschlossen,
+451193 Commands/40 Artefakthashes belegt. Zwei Modellbremsen verhindern
+durchgehenden Handel: Brutto-Fundingbudget und Reservierung sämtlicher leerer Slots.
+IP-079 prüft als Nächstes separate korrigierte Cash-/aktive Rangebindung.
+Historische Brokerregeln, Holdout, AI und echte Ausführung bleiben offen.
+[Ergebnisse](futures-market-results-20261112.md).
+[Marktvergleich](futures-market-backtest.md).
+
 IP-077 friert zehn Futures-Vergleichsfälle vor Auswertung ein und ergänzt
 native exakte Fundinggrenzen: fünf feste Slots,2×/5×/10×, beide Schutzintervalle,
 Kosten- und Preisreihenfolgetests. Nativer Quellen-/Profilpreflight vollständig.

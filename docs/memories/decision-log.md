@@ -1694,3 +1694,72 @@ Migrationen/DB-/Runtime-/Publicänderungen oder zusätzlichen Netzwerkimporte.
 Noch kein Nettoleistungslauf; nächstes IP-074/IP-069 ist vollständiger nativer
 Marktjob mit allen eingefrorenen Fällen, Funding/Costs/Exits/Liquidation/
 Endbewertung und Journal. Holdout und tatsächliche Broker/AI bleiben aus.
+
+## 2026-11-12 — D-087: Vollständiger nativer Marktjob und Modellbremsen
+
+Nutzer bestätigt PR48-Merge und erwartet den Backtest. `ca98561` ist Ancestor
+von Main`ab3b4ab`; neuer Branch`feat/m1-futures-market-backtest`. Umsetzung
+und GH-PR bleiben autorisiert, ohne eigene Merge-/Deploy-/Livefreigabe.
+
+IP-078 verwendet die unveränderten zehn eingefrorenen IP-077-Varianten und
+dieselbe native Fünf-Coin-Kohorte2022-08-01..2025-08-01. Create-only Ausgaben:
+vollständiges Journal, stündliche Equity samt Ereignis-Min/Max, geschlossene
+Basketbelege, realisiertes/offenes Netto, Gebühren/Funding/Insurance, Kaufstufen,
+Kapitalablehnungen und Marginbindung. Erfolg erst nach vollständigem Fold ab
+Genesis gegen bestätigten Mindestanker. Alle zehn Fälle vor Gesamtreceipt.
+
+Offener Modellpreis bei+1s, bestehende Exitpflichten zuerst; bei+2s vollständige
+Bewertung desselben frischen Open, eigene Costrestoration und mögliche Käufe.
+Erster synthetischer Job hatte wegen unvollständiger same-time Markevidenz
+nur den ersten Slot zugelassen; Ursache korrigiert, fünf gleichzeitige Baskets
+geprüft. Native Fundings inklusive0/18ms unverändert, keine zwischenzeitlichen
+Käufe im Batch. Keine Auto-Stufe6, Liquidation vor Erholung/Nachschuss,
+Endbestände ausschließlich MTM. Wirtschaftlich leere Intrabarquotes entfallen;
+Vergleich mit vollständigen Quotes erhält alle wirtschaftlichen Kennzahlen.
+
+Eigene gecachte kanonische Kapital-JSON-Fragmente sind byteidentisch zum alten
+Snapshotdigest, einschließlich aller Ereignisse/Staffelbelege. Begrenzte
+Dataclass-Schemata und unveränderliche Digestproperties gecacht. Keine neuen
+Hashfelder/Versionen oder Historyverkürzung. Original335-Command-Journal mit
+gleichem Receipt restauriert; zusätzlich alle57044 native Commands plus
+Genesis und26305 Equitypunkte vor/nach Optimierung bytegleich.
+115 unterschiedliche gezielte gepinnte Tests/166 Subtests bestanden, sieben
+neue Marktjobfälle; überlappende Läufe nicht addieren.
+
+Paralleler Prozesskanal zuerst von Sandbox verweigert; freigegebener Hostpool
+verlor anschließend einen Prozess. Ursache nicht endgültig bewiesen. Auf dem
+2-GB-Host nur eine geladene Kohorte/Variante gleichzeitig. Erster sequenzieller
+Lauf nach Hashnachweis während Restore gezielt beendet; sämtliche gescheiterten/
+unterbrochenen Outputs ohne Erfolgsreceipt erhalten. Aktueller tatsächlicher
+Lauf: `infra/local/futures-capital-research/20261112-market-canonical`.
+
+Erste vollständig restaurierte Basisbefunde:2× H1+687,70 USDT,
+Drawdown6,83%,51 geschlossene Baskets/eine Liquidation; Käufe51/18/7/1/1.
+2× H4−7,28 USDT/fünf geschlossene Baskets;5× H1+1670,50 USDT/
+Drawdown9,53%/zwei Liquidationen. Alle zehn Varianten inzwischen abgeschlossen:
+451193 vollständig restaurierte Commands,40 Artefakthashes/907593935 Bytes.
+Basis-H4 netto−7,28/−213,35/−725,44 USDT bei2×/5×/10×; H1−625,65 bei10×.
+Kostenstress H1/H4+406,00/−11,88; alternative Reihenfolge+659,81/−7,28.
+Erfolgsreceiptsha9e7802ecbc7d99bb44d8430ae4b9200c37633cfab5d276c0f8ec5c3e31bc5897.
+Host-Python3.14.4; Checks gepinnt3.14.10. Kopierte Einzelreports stimmen mit
+Gesamtreceipt überein, Marktjob-Implementationshash geprüft. Keine offenen
+Endbaskets im realen Kohortenlauf; offene End-MTM synthetisch belegt.
+
+Wichtige Modellbremsen statt Leistungsfreigabe: BNB2× H1 stoppt am2023-10-27
+wegen19,94285425 kumulierter Brutto-Kosten gegen19,80198020 Reserve trotz
++38,63514762 Fundingnetto und nur0,27569574 Costrestoration. Gutschriften
+vermindern den historischen Brutto-Kostenzähler nicht. H4 reserviert alle
+ursprünglichen Ranges auch für leere Slots; kleiner realisierter Verlust
+blockiert deshalb weitere Einstiege (887 Cashablehnungen). Keine6%/8%-Gates.
+Vor Rendite-Feintuning separates neues Forschungsprofil mit echten eigenen
+Cash-/Fundingkosten und vollständiger Rangebindung für aktive/neu aufzunehmende
+Baskets prüfen. Keine rückwirkende Änderung der eingefrorenen Varianten oder
+Zusage verbesserter Rendite; bisherige Stufen/Manualreserve/Finanzierungs-/
+Margin-/Liquidationsconstraints bleiben zu sichern.
+
+Eigenreview, keine Agentdelegation, Dependencies, Migrationen, DB-/Public-
+Änderungen, neuen Marktimporte, Holdout, private Broker oder aktive AI.
+Cockpit/auth reguläres TLS/HTTPS200 nach vollständigem Lauf. IP-074/IP-078
+technisch abgeschlossen; IP-069 wirtschaftliche Broker-/Kalibrierungsprüfung
+offen, nächste Modellkorrektur IP-079 separat. Results:
+`docs/futures-market-results-20261112.md`.

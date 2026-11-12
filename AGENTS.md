@@ -7,6 +7,24 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- IP-077 `ca98561` merged into main `ab3b4ab` (verified). IP-078 implements
+  the complete ten-scenario native market job, explicit Open+1s exits/
+  Open+2s same-price valuation/restoration/entries, funding/native offsets,
+  terminal liquidation, event drawdown and end-MTM without forced profit exits.
+  Seven new/115 distinct focused pinned tests and166 subtests passed;
+  byte-identical cached capital JSON plus original335-command journal restore.
+  One source cohort/scenario at a time on the2-GB host; failed/terminated
+  output directories preserved without successreceipt. Current full native job:
+  infra/local/futures-capital-research/20261112-market-canonical.
+  All ten native reports/full restores complete:451193 journalcommands and
+  40 hashed artifacts. Receiptsha9e7802ecbc7d99bb44d8430ae4b9200c37633cfab5d276c0f8ec5c3e31bc5897.
+  Base H1 net2×+687.70/5×+1670.50/10×−625.65 USDT; H4−7.28/−213.35/−725.44.
+  Findings are model-only: gross funding cap despite credits, and all-empty-slot
+  range reservation halt trading early. Next IP-079: separate corrected cash/
+  active-range profile before performance tuning; retain funded six stages,
+  manual reserve, real capital/margin/liquidation constraints and frozen baseline.
+  No public/DB/dependency/holdout/broker/AI activation.
+  See `docs/futures-market-backtest.md` and `docs/futures-market-results-20261112.md`.
 - IP-076 `29d76d9` merged into main `ef2aa9b` (verified). IP-077 freezes
   own economic protocol shaeb9a278513facb4f7560413c6ae269dc2fd44adf917eec00ebec9925ddcc8c06:
   five native BINANCE-prefixed slots,2×/5×/10× and H1/H4 protection plus

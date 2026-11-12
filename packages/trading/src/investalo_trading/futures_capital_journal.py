@@ -20,7 +20,8 @@ from .futures_ledger import (
 )
 from .futures_replay_journal import JournalCommitUnknown, _fields, _json, _open, _sha
 from .futures_risk import FuturesPlan
-from .snapshot import _decode, digest, primitive
+from .snapshot import _decode, primitive
+from .capital_digest import digest
 
 VERSION = "isolated-usdt-capital-replay-journal/1"
 MAX_FILE_BYTES = 512 * 1024 * 1024

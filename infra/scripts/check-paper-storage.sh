@@ -20,6 +20,7 @@ exec bash "$paper_root/infra/scripts/compose.sh" --profile checks run --rm --no-
   -v "$paper_root/infra/scripts/import-futures-h1-history.py:/app/infra/scripts/import-futures-h1-history.py:ro" \
   -v "$paper_root/docs/research-protocols/futures-h1-history-20261112.json:/app/docs/research-protocols/futures-h1-history-20261112.json:ro" \
   -v "$paper_root/infra/scripts/preflight-futures-capital.py:/app/infra/scripts/preflight-futures-capital.py:ro" \
+  -v "$paper_root/infra/scripts/backtest-futures-capital.py:/app/infra/scripts/backtest-futures-capital.py:ro" \
   -v "$paper_root/docs/research-protocols/futures-capital-economics-20261112.json:/app/docs/research-protocols/futures-capital-economics-20261112.json:ro" \
   -v "$paper_root/tests/paper:/app/tests/paper:ro" \
   api-checks python -m pytest /app/tests/paper /app/tests/trading /app/tests/marketdata \
