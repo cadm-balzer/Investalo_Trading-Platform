@@ -1,0 +1,21 @@
+{
+  "schema_version": "futures-hourly-source-protocol/1",
+  "venue": "binance",
+  "market": "USDT-M-perpetual",
+  "symbols": ["BNBUSDT", "BTCUSDT", "ETHUSDT", "SOLUSDT", "XRPUSDT"],
+  "price_kinds": ["trade", "mark"],
+  "interval": "1h",
+  "start": "2022-08-01T00:00:00Z",
+  "end_exclusive": "2025-08-01T00:00:00Z",
+  "expected_h1_bars_per_stream": 26304,
+  "cohort_selection": "previously-declared-five-coins; no-performance-ranking",
+  "funding_calendar": "declared-8h-buckets-diagnostic-only",
+  "native_funding_timestamps": "preserve-milliseconds-without-rounding",
+  "missing_rate_policy": "never-substitute-zero-or-other-venue",
+  "missing_mark_policy": "retain-null; economic-price-reference-not-yet-frozen",
+  "bitget_trading_target_unchanged": true,
+  "historical_fee_and_maintenance_rules_verified": false,
+  "performance_evaluated": false,
+  "holdout_requested": false,
+  "execution_enabled": false
+}

@@ -7,6 +7,17 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- IP-074 `2d7878f` merged into main `507cb87` (verified). IP-075 adds own
+  native H1 source/import for BNB/BTC/ETH/SOL/XRP,2022-08-01..2025-08-01:
+  263040 trade/mark candles,16515 fundingevents,295 unsigned GETs. All fifteen
+  saved hashes/digests and ten axes verified. SOL has75 additional unique
+  settlements within8h diagnostic buckets in November2022; preserve them.
+  BTC/ETH funding unchanged, six H1-aggregated versus native-H4 differences
+  recorded; do not silently repair old sources or mix comparison axes.
+  22 new cases/50 distinct focused pinned cases passed. No holdout, market
+  performance or runtime activation. Next: frozen economic assumptions and
+  full new-profile journal/identity capacity before net study. See
+  `docs/futures-hourly-history.md`.
 - IP-073 `b9a9c0e` merged into main `452c9d8` (verified). IP-074 adds
   `futures_capital_signals.py`: closed H4 RSI/rearm, five own-capital buys,
   frozen basket leverage and separate closed H1/H4 Supertrend protection.
@@ -96,6 +107,10 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 - 2026-11-12: user also authorizes creating Pull Requests; they review/approve
   them themselves. No merge authorization inferred. Existing deploy SSH identity
   supports pushes; PR creation still requires an authenticated GitHub API/plugin.
+- User provisioned GH CLI2.46.0 on host; authenticated cadm-balzer with
+  repo/read:org verified. Use `gh pr create --body-file` for reviewed checkpoints.
+  Network sandbox can falsely report an invalid token on `gh auth status`;
+  retry outside it before changing authentication. Never print `gh auth token`.
 - Default foundation: `infra/README.md` starts five services behind loopback and
   the optional offline research worker. Immutable H4 snapshots, frozen jobs and
   persisted net results/equity charts are implemented. A real 90-day BTC import

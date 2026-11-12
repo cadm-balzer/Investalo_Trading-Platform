@@ -818,3 +818,11 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   Signaladapter hält die Abrechnungspflicht bis zum typisierten terminalen
   Beleg fest, auch wenn eine spätere Markbewertung wieder solvent aussieht.
   Normale Exitfills/neue Einstiege können diese Pflicht nicht umgehen.
+- **8h-Fundingbuckets sind keine garantierte native Frequenz:** SOL liefert im
+  November2022 zusätzlich75 verschiedene Abrechnungen innerhalb solcher
+  Buckets. Behalten, nicht deduplizieren oder auf8h abrunden. Ein falsches
+  Kalenderdiagnoseflag beweist hier keine doppelten nativen Timestamps.
+- **Native H4 ist nicht immer identisch zu aggregierter H1:** in der neuen
+  BTC/ETH-Quelle je zwei Trade- und eine Mark-H4-Abweichung zum alten Import.
+  Alte Quellen unverändert lassen; beide neuen Stopvarianten müssen aus
+  derselben H1-Achse ihre H4-Signale erzeugen. Ursache nicht attestiert.

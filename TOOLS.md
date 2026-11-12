@@ -45,7 +45,8 @@ _Add whatever helps you do your job. This is your cheat sheet._
 - Host: Ubuntu 26.04.1 LTS, 2 vCPU, 1.9 GiB RAM, no swap.
 - Present tools: Python 3.14.4, Node 26.13.0, Git 2.53.0,
   Codex 0.167.0, Gemini 0.67.0. Docker 29.9.3 / Compose 5.7.0 installed;
-  GitHub CLI not found in PATH. Exact package/image pins: `docs/runtime-pins.md`.
+  GitHub CLI2.46.0 provisioned by user2026-11-12 and authenticated.
+  Exact package/image pins: `docs/runtime-pins.md`.
 - Local interview skill: `SKILLS/grill-me/SKILL.md`.
 - Local admin skill targets Ubuntu 24.04; validate against 26.04 before use.
 - User domains: `cockpit.investalo.de`, `auth.cockpit.investalo.de`; public
@@ -81,6 +82,11 @@ _Add whatever helps you do your job. This is your cheat sheet._
   `infra/local/research-data/btc-research.json`, alternative `--snapshot-file PATH`.
 - GitHub intermediate pushes explicitly authorized. Origin:
   `github.com:cadm-balzer/Investalo_Trading-Platform.git`.
+  User also authorizes Pull Request creation, keeping approval/merge themselves.
+  GH CLI2.46.0 installed/authenticated as cadm-balzer on2026-11-12.
+  Use explicit --repo/--base/--head and --body-file. Network sandbox may
+  falsely report invalid authentication; escalate network check before changing
+  the existing login. Never print token output or copy credentials into this repo.
   Existing host Deploy-Key `/opt/github-project-ssh-key` is used via
   `git -c 'core.sshCommand=ssh -i /opt/github-project-ssh-key -o IdentityAgent=none -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=15 -o ServerAliveInterval=15 -o ServerAliveCountMax=2' push -u origin feat/m1-credential-private-transport`.
   Never copy the private key into the repository or print its contents.

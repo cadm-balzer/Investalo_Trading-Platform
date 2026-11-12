@@ -1571,3 +1571,38 @@ Keine bestehende Modulmutation, Dependencies, Migrationen oder Publicänderungen
 Native H1-Kohorte mit mindestens drei echten Coins, Fundingnominal-/Kosten-/
 Margin-/Liquidationsannahmen und neuer vollständiger Journalrestore bleiben
 IP-074/IP-069. Keine neue native Futuresrendite oder Holdoutauswertung.
+
+## 2026-11-12 — D-084: Native H1-Kohorte und bestätigte GH-CLI
+
+Nutzer bestätigt Merge;2d7878f als Ancestor von Main507cb87 verifiziert.
+GitHubplugin meldet installiert, Werkzeuge noch nicht in Sitzung verfügbar.
+Nutzer richtet Konto ein und provisioniert anschließend GH CLI auf dem Host.
+GH2.46.0 ist als cadm-balzer mit repo/read:org angemeldet. Ein sandboxbedingtes
+„invalid token“ wurde durch erlaubte externe Statusprüfung widerlegt; keine
+Authänderung, kein Tokenoutput. Nutzer erlaubt eigene PRs und genehmigt sie
+selbst; keine eigenständige Merge-/Deployfreigabe.
+
+IP-075 eigener H1-/Fundingvertrag für die bereits erklärte Fünf-Coin-Kohorte:
+BNB/BTC/ETH/SOL/XRP,2022-08-01..2025-08-01. Protokoll vor Netzwerk eingefroren,
+sha3b3ecdd1b9c630a59e0b5f33f1255b0012c73dce7274bba81ee3435224336c57.
+Create-only Import mit gleicher nativer Trade-/Markachse; alle15 tatsächlichen
+Dateien unabhängig zurückgelesen und Hash-/Datasetdigest-/Fensterabgleich.
+263040 native Kerzen,16515 Fundingevents,295 öffentliche GETs. Erster
+sandboxgesperrter DNS-Lauf ohne Receipt, ausdrücklich autorisierter neuer
+Netzwerklauf in eigenem Ziel erfolgreich. Kein Holdout oder anderer Markt.
+
+SOL:75 zusätzliche einzigartige native Abrechnungen in den erklärten8h-
+Buckets2022-11-09..18; behalten, keine Dedupe/Zeitrundung/Nullersetzung.
+Alle8h-Buckets sind belegt, aber Kalenderdiagnose „alle gleich“ korrekt false.
+6920 ältere native Settlement-Markpreise fehlen weiterhin; Raten vorhanden.
+BTC/ETH-Funding identisch zur alten Quelle. Je Coin zwei H4-Trade- und eine
+H4-Markabweichung zwischen H1-Aggregation und alter nativer H4-Quelle, vollständige
+Preise/Hashes dokumentiert. Ursache offen, keine stillen Quellkorrekturen.
+Beide neuen Schutzvarianten verwenden dieselbe H1-Achse.
+
+22 neue Hostfälle; zunächst49 gepinnte Quellenfälle/78 Subtests, abschließend
+17 H1-Fälle/34 Subtests inkl zusätzlichem SOL-Kalenderfall.50 unterschiedliche
+geprüfte Fälle, Überschneidungen nicht addiert. Eigenreview, keine Delegation.
+Keine neuen Dependencies, Migrationen, privaten Calls oder Runtimeaktivierung.
+Nächster Nettojob benötigt erklärte Kosten/Fundingnominal-/Margin-/Liquidations-
+annahmen sowie vollständigen Restore/Kapazität des neuen Kapital-/Signalprofils.
