@@ -792,3 +792,19 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   12h vorzeitig geschlossen,13h fehlt. Originalschlusszeit erhalten, denselben
   Vierstundenblock vor Performance für beide Varianten ausschließen; Indikatoren
   neu starten, Holdings/Stopps/Halts/alle Belege erhalten. Keine Ersatzpreise.
+- **Liquidation verbraucht gestellte Margin, nicht die ganze Reststaffel:**
+  bei Q41–Q43 verlorene Margin nicht als neue volle Slotreserve ansetzen.
+  Ungestellte Stufen separat behalten; keine Rettungsüberweisung voraussetzen.
+  Terminalreststand/Fees/Versicherungsdeckung ausdrücklich abgleichen,
+  Gapminus nicht still nullen. Die1%-Kostenreserve ist nicht automatisch
+  bei jedem Hebel ausreichend.
+- **First-fill-Stresspreis ist keine aktuelle Initialmarginbasis:** neue
+  verbilligte Positionen aus tatsächlichem Einstand/Mark modellieren; alten
+  First-fill-Anker nur für getrennte Stressdiagnose verwenden.
+- **Kostenreserve pro neuem Zyklus, keine Gebührenerstattung:** bei Q41–Q43
+  normale Abschlüsse setzen den Kostenzähler für den nächsten Basket zurück.
+  Cash/Nettoergebnis behalten alle bezahlten Gebühren; tatsächliche
+  Überschreitungen bleiben Budgetfehler. Keine Wiederbelegung liquidierter Slots.
+- **Neuer Kapitalkern ist keine Order-/RSI-/Restoreautorität:** synthetische
+  Vollfills/immutable Hashwurzel ersetzen weder Pending-/Teilfillabgleich
+  noch geschlossene Signalprüfung oder vollständigen Journalrestore.

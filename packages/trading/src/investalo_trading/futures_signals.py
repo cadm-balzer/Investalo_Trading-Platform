@@ -40,7 +40,7 @@ class ReplayProfile:
     first_fill_model: str
 
     def __post_init__(self):
-        if not isinstance(self.plan, FuturesPlan):
+        if type(self.plan) is not FuturesPlan:
             raise ValueError("frozen futures plan required")
         identifier(self.assumptions_digest)
         number(self.slippage, nonnegative=True)

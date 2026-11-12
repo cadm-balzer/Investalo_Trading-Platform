@@ -1,5 +1,11 @@
 # Roadmap
 
+IP-073: bestätigtes Eigenkapital-/Warnungs-/Liquidationsprofil als
+eigenständiger Kapitalkern umgesetzt; Legacy unverändert. Nächstes IP-074:
+RSI/Nachkäufe/H1-Supertrend verbinden und native Futureskohorte samt
+Kosten/Funding/Journalrestore vor echtem Nettovergleich einfrieren.
+[Implementierung](futures-capital-research.md).
+
 Q43: Späterer AI-Agent bewertet Marktphase/Risiko vor dem ersten Kauf und
 friert den Hebel für den kompletten Basket ein. Nachkäufe/manuelle Stufe6
 verwenden denselben Hebel; neue Bewertung erst für neue Baskets.

@@ -21,7 +21,8 @@ bleiben unveränderte Forschungsreferenz und Entwicklungspaper.
 **Q41,2026-11-12:** Nutzer verlangt die vollständige bestätigte Kaufstaffel
 ohne begrenzende Kontoschutzgates. Für eine neue, getrennte Futuresvariante
 werden6%/8% Warnschwellen und der gemeinsame−50%-Kontostress Diagnose.
-Aktuelle Module sind noch nicht umgestellt; alte Ergebnisse bleiben gebunden.
+IP-073 ergänzt inzwischen einen eigenen Kapitalkern; Legacyprofile und alte
+Ergebnisse bleiben gebunden. [Implementierung](futures-capital-research.md).
 Tatsächliche Budget-/Margin-/Liquidationsdeckung und−55%-Notausstieg bleiben
 relevant. Q42 klärt Tabellenbeträge ausdrücklich als eigenes Einstiegskapital:
 Kaufnominal=Eigenkapital×Hebel. Nutzer akzeptiert Liquidationen vor allen

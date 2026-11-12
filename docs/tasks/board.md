@@ -81,6 +81,8 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-069 | P1 / P2–P3 | IN_PROGRESS | Historische Fundingquelle und eingefrorenes langes Futures-Replayprotokoll prüfen | Bitget aktuell je270 jüngste Abrechnungen, null2022–2025. Q38/IP-070 separater Binancevergleich mit vollständigen3y-Preisen/Raten; IP-071 Langjournal/Restore ohne ID-Verwerfen belegt. Wirtschaftliches Profil inkl. Fundingpreisbezug/passender nativer Kohorte und tatsächlicher Nettovergleich weiter offen; Holdout gesperrt. [Vertrag](../futures-long-replay-journal.md) |
 | IP-070 | P1 / P3 | DONE | Bestätigten separaten Binancevergleich mit Dreijahresdaten vorbereiten | Q38: eigener Vergleich, Bitget bleibt Handelsziel. BTC/ETH je6576 native H4-Trade/Mark/Index und3288 echte Fundingraten;52 GETs/8 Artefakte/Hashes, null deklarierte8h-Bucketlücken. Originaloffsets bis29ms, je1369 fehlende Settlement-Markpreise sichtbar.28 neue Fälle/130 unterschiedliche gepinnte Marktdatafälle grün. Keine Performance/Holdout/Runtimeänderung; wirtschaftliches Profil/Langlaufjournal IP-069. [Vertrag](../binance-futures-research-data.md) |
 | IP-071 | P1 / P3 | DONE | Vollständige Futures-ID-Historien und langes dauerhaftes Replayjournal ergänzen | Eigener Pending/2-Modus mit allen immutable IDs, Journalrestore faltet vollständige Inputs einschließlich Unknownorders/Teilfills/Halts; bestätigter Mindestanker erkennt verlorene ganze Tails.6576 synthetische H4-Schritte/7672 IDs/identischer vollständiger Restore belegt.25 neue Fälle/342 unterschiedliche gepinnte Trading-/Workerfälle grün. Kein Markt-Nettoleistungslauf; wirtschaftliches Profil/Kohorte IP-069. [Vertrag](../futures-long-replay-journal.md) |
+| IP-073 | P1 / P3 | DONE | Bestätigten Futures-Kapital-/Liquidationskern separat implementieren | Q41–Q43: Eigenkapitalstaffel/fester Zyklushebel, Warnungen/Stressdiagnosen, eigene Liquidation mit terminalem Beleg und unverbrauchter Reserve.24 neue/295 unterschiedliche gepinnte Fälle; Legacydigests identisch,35 normale Zyklen ohne Gebührenerstattung. Kein RSI-/Broker-/Journalrestore-/Marktjob. [Vertrag](../futures-capital-research.md) |
+| IP-074 | P1 / P3 | TODO | Neues Kapitalprofil an RSI und H1-Supertrend anschließen | IP-073; geschlossene H4-Einstiege/kausale Nachkäufe, H1-Schutz auf gemeinsamer feiner Preisachse; native Futures-/Fundingkohorte und Kosten/Restore vor tatsächlichem Nettovergleich einfrieren |
 
 ## Abschlussbelege
 
@@ -660,7 +662,8 @@ und akzeptiert Liquidationen vor Abschluss der Staffel; hypothetische−50%-
 Liquidation wird diagnostisch statt sperrend bewertet. Tatsächliche
 Initialmargin/aktuelle Liquidation bleiben Grenzen. Q43 bestätigt spätere
 AI-Markt-/Risikobewertung vor dem ersten Kauf und festen Hebel für alle
-Käufe des kompletten Baskets; bisherige Module/AI noch nicht umgestellt.
+Käufe des kompletten Baskets. IP-073 ergänzt den separaten Kapitalkern;
+RSI/H1-Supertrend und native Marktleistung folgen IP-074, AI bleibt aus.
 [Konkretes Kapitalprofil](../futures-capital-ladder.md).
 
 Vor Beginn Status setzen, relevante Entscheidungs-/Pitfallnotizen lesen.

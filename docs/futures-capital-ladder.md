@@ -52,9 +52,10 @@ Brokerposition mit eigener Liquidationsgrenze.
   Nettofloor und gewünschter H1-Supertrend bleiben.−55% ist ein Kursnotausstieg,
   der eine zuvor eintretende Liquidation nicht verhindern kann.
 
-Diese Richtung ist dokumentiert, aber bisherige Rechenkerne/Replayprofile
-sind noch nicht umgestellt. Alle alten eingefrorenen Ergebnisse bleiben
-historische Referenz. Keine AI-Hebelwahl oder Marktperformance behauptet.
+IP-073 implementiert inzwischen diese Kapitalbedingungen als
+[separaten Offlinekern](futures-capital-research.md). Alte Replayprofile
+bleiben unverändert; RSI/H1-Supertrend und native Marktperformance sind
+noch anzuschließen. Keine aktive AI-Hebelwahl oder Marktperformance.
 
 ## Mechanisches Beispiel mit vorhandenem Rechenkern
 

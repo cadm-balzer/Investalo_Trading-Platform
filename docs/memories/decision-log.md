@@ -1511,3 +1511,34 @@ Neue Baskets erhalten neue Bewertungen.2×–10×-Rahmen und Q41/Q42 erhalten.
 Exakte Kriterien/kausale Regimevalidierung noch offen, keine aktive AI,
 Renditebehauptung oder Runtimeänderung. Die bisher offene Hebelfixierungsfrage
 ist damit beantwortet; Kapital-/Hebelprofil und Navigation aktualisiert.
+
+## 2026-11-12 — D-082: Separater Futures-Kapitalkern setzt Q41–Q43 um
+
+Nutzer beauftragt weitere Implementierung. Main bleibtd749081;49c93b6
+noch nicht gemerged, daher bestehender Branch fortgesetzt.
+IP-073 CapitalPlan/State/Assessment im eigenen Modul, bestätigte sechs
+Eigenkapitalgewichte, feste2×–10×-Zyklusentscheidung, nur fünf automatische
+Kapitaladmissions. Keine AI-/RSI-/Brokerautorität aus diesen Methoden.
+6%/8% Warnungen und−50%/hypothetische Liquidation Diagnosen, tatsächliche
+Deckung/Fees/Raster/Tag/Revision weiter verbindlich.
+Initialmarginbasis im neuen Modell aus tatsächlichem Einstand/Mark,
+First-fill-Anker ausschließlich Stress; deklarierte Modellannahme.
+
+Neue explizite volle Liquidation mit Restmargin/Fees/Versicherungsbeleg,
+Abgleich in einem reinen Ledgerübergang; kein angenommener Nullreststand.
+Liquidierter Zyklus gesperrt, ungestellte Reserven getrennt; verlorene Margin
+nicht erneut finanzieren und andere korrekt gedeckte Baskets nicht deswegen
+sperren. Altplan-Hooks defaultidentisch, neue Pläne explizit aus Legacy-
+Pending/RSI-Adaptern ausgeschlossen. Sieben akzeptierte Legacyzustände
+gegen HEAD exakt gleiche Digests. Normale Abschlüsse erneuern das
+Kostenbudget pro Zyklus, ohne bezahlte Gebühren zu erstatten; tatsächliche
+Überschreitungen bleiben Budgetfehler.35 abgeschlossene Zyklen belegt.
+Neue24 synthetische Fälle grün;
+293 gepinnte Futuresfälle/379 Subtests im ersten Lauf inkl22 neuer,
+danach87 Kapital/Pending/Signal mit34 und21 Langpending/Journal mit17
+Subtests grün. Abschließend55 Kapital/Ledger mit37 Subtests und erneut
+identischen sieben Legacydigests:295 unterschiedliche Fälle insgesamt,
+24 neue, keine Summenaddition.
+Keine Dependencies/DB/Migrationen/Credential-/Runtime-/Publicänderungen.
+Nächstes IP-074: RSI/H1-Schutz/nativer Marktvergleich inklFunding und
+vollständigem Langrestore; heutige Hashwurzel allein kein Restore.

@@ -91,6 +91,10 @@ class FuturesPlan:
     def plan_digest(self):
         return digest((RISK_VERSION, self, D(".06"), D(".08"), D(".5"), 30))
 
+    def ledger_halt_reasons(self, reasons):
+        """Legacy policy remains hard; separate research plans may specialize it."""
+        return tuple(dict.fromkeys(reasons))
+
 
 @dataclass(frozen=True)
 class FuturesExposure:

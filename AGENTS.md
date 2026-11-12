@@ -7,6 +7,14 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- IP-073 implements Q41–Q43 in separate `futures_capital_research.py`:
+  own-capital stages, frozen per-cycle leverage, account/stress diagnostics,
+  reconciled own-basket liquidation and unused-reserve accounting. Capital
+  admission/full synthetic fills only, not RSI or broker authority. Legacy
+  pending/signal wrappers explicitly reject the new plan. No active AI,
+  journal restore, native-market net result or runtime activation. Next IP-074:
+  RSI/H1-Supertrend integration and frozen native Futures research profile.
+  See `docs/futures-capital-research.md`.
 - Q41,2026-11-12 supersedes earlier mandatory6%/8% account-admission guidance
   for the next Futures research variant: user requires the approved full
   six-stage budget, without account-loss/correlated-stress gates preventing
