@@ -14,6 +14,14 @@ from investalo_marketdata.futures_research_profile import PROTOCOL_SHA256, load_
 from investalo_marketdata.snapshot import canonical, decode_json, iso
 
 PREFLIGHT_SHA256 = "2252c6f78054a482a2eb67ecdc344d517aeb46083ce518141ccf0c00b549064c"
+CASH_PROTOCOL_SHA256 = "1dfc67d29dcc5f89e72a610d43823b7041470810f10e3757d7fd2d135effb4fa"
+
+
+def cash_protocol():
+    raw = (ROOT / "docs/research-protocols/futures-capital-cash-20261112.json").read_bytes()
+    if hashlib.sha256(raw).hexdigest() != CASH_PROTOCOL_SHA256:
+        raise ValueError("frozen corrected cash protocol changed")
+    return CASH_PROTOCOL_SHA256
 
 
 def load_sources():
@@ -55,9 +63,12 @@ def progress(scenario_id, hours, equity):
 def main():
     scenarios = load_economic_protocol(
         (ROOT / "docs/research-protocols/futures-capital-economics-20261112.json").read_bytes())
-    if len(sys.argv) != 2:
-        raise SystemExit("usage: backtest-futures-capital.py NEW_OUTPUT_DIRECTORY (all ten frozen cases)")
-    output = Path(sys.argv[1]).resolve()
+    corrected = len(sys.argv) == 3 and sys.argv[1] == "--cash-budgets"
+    if not corrected and len(sys.argv) != 2:
+        raise SystemExit("usage: backtest-futures-capital.py [--cash-budgets] NEW_OUTPUT_DIRECTORY")
+    budget_protocol = cash_protocol() if corrected else None
+    protocol_digest = budget_protocol or PROTOCOL_SHA256
+    output = Path(sys.argv[-1]).resolve()
     output.mkdir(mode=0o700, parents=True, exist_ok=False)
     # Small development host: retain one cohort, one journal, one scenario.
     streams, digests = load_sources()
@@ -65,7 +76,8 @@ def main():
     for scenario in scenarios:
         print(f"{scenario.scenario_id}: verified sources; starting full market replay and restore", flush=True)
         report = run_scenario(streams, scenario, output / scenario.scenario_id,
-                              PROTOCOL_SHA256, digests, progress=progress)
+                              protocol_digest, digests, progress=progress,
+                              cash_budget_protocol=budget_protocol)
         reports.append(report)
         print(f"{scenario.scenario_id}: restored complete journal; net {report['net_pnl']}", flush=True)
     artifacts = []
@@ -80,10 +92,25 @@ def main():
                               "bytes": path.stat().st_size, "sha256": h.hexdigest()})
     receipt = {
         "schema_version": VERSION, "completed_at": iso(datetime.now(timezone.utc)),
-        "protocol_sha256": PROTOCOL_SHA256, "preflight_sha256": PREFLIGHT_SHA256,
+        "protocol_sha256": protocol_digest, "economic_protocol_sha256": PROTOCOL_SHA256,
+        "preflight_sha256": PREFLIGHT_SHA256,
+        "budget_variant": "own-cash-active-ranges" if corrected else "historical-gross-all-slots",
         "research_start": "2022-08-01T00:00:00Z", "research_end_exclusive": "2025-08-01T00:00:00Z",
         "implementation_sha256": hashlib.sha256(
             (ROOT / "packages/marketdata/src/investalo_marketdata/futures_capital_backtest.py").read_bytes()).hexdigest(),
+        "implementation_files": {
+            name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest()
+            for name in (
+                "packages/trading/src/investalo_trading/futures_risk.py",
+                "packages/trading/src/investalo_trading/futures_ledger.py",
+                "packages/trading/src/investalo_trading/futures_capital_research.py",
+                "packages/trading/src/investalo_trading/futures_capital_signals.py",
+                "packages/trading/src/investalo_trading/futures_capital_journal.py",
+                "packages/marketdata/src/investalo_marketdata/futures_research_profile.py",
+                "packages/marketdata/src/investalo_marketdata/futures_capital_backtest.py",
+                "infra/scripts/backtest-futures-capital.py",
+            )
+        },
         "reports": reports, "artifacts": artifacts, "performance_evaluated": True,
         "full_journal_restore_verified": True, "holdout_requested": False,
         "python_version": sys.version.split()[0], "parallel_scenarios": 1,

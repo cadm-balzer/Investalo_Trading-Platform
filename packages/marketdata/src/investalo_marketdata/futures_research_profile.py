@@ -1,11 +1,11 @@
 """Frozen declared Futures costs and native funding references; no performance job."""
-from dataclasses import dataclass
+from dataclasses import dataclass, fields
 from datetime import datetime, timedelta
 from decimal import Decimal
 import hashlib
 import re
 
-from investalo_trading.futures_capital_research import equal_capital_plan
+from investalo_trading.futures_capital_research import CapitalCashPlan, equal_capital_plan
 from investalo_trading.futures_capital_signals import (
     CapitalFundingBatch, CapitalHour, CapitalSignalProfile, CapitalSignalState,
 )
@@ -72,7 +72,9 @@ class EconomicScenario:
     def assumptions_digest(self):
         return digest((VERSION, PROTOCOL_SHA256, self))
 
-    def profile(self, tenant_id="offline-research", account_id="futures-capital-five"):
+    def profile(self, tenant_id="offline-research", account_id="futures-capital-five", *, cash_budgets=False):
+        if type(cash_budgets) is not bool:
+            raise ValueError("explicit research cash policy required")
         contracts = tuple(FuturesContract(
             f"BINANCE:{s}", D(".00000001"), D(".00000001"), D(5),
             self.costs.entry_fee_rate, self.costs.exit_fee_rate,
@@ -82,6 +84,8 @@ class EconomicScenario:
         plan = equal_capital_plan(
             tenant_id, account_id, self.assumptions_digest, contracts,
             initial_equity=D(10000), cost_ratio=D(".01"), quantum=D(".00000001"))
+        if cash_budgets:
+            plan = CapitalCashPlan(**{f.name: getattr(plan, f.name) for f in fields(plan) if f.init})
         return CapitalSignalProfile(plan, self.protection_hours, self.costs.slippage,
                                     self.assumptions_digest)
 
@@ -172,7 +176,9 @@ def declared_exit(state, symbol, scenario, *, unsafe_state=None):
     """Typed simulated outcome, never a broker receipt or guaranteed stop fill."""
     if type(state) is not CapitalSignalState or type(scenario) is not EconomicScenario:
         raise ValueError("typed capital signal state and declared scenario required")
-    if state.profile != scenario.profile(state.profile.plan.tenant_id, state.profile.plan.account_id):
+    if state.profile != scenario.profile(
+            state.profile.plan.tenant_id, state.profile.plan.account_id,
+            cash_budgets=type(state.profile.plan) is CapitalCashPlan):
         raise ValueError("foreign economic scenario")
     index = state.profile.plan.symbols.index(symbol)
     basket, signal = state.economic.ledger.baskets[index], state.signals[index]

@@ -7,6 +7,16 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- User disputes weak IP-078 performance and authorizes diagnosing/correcting
+  bucket brakes. IP-079 separate CapitalCashPlan capital-cash/2 fixes gross
+  funding cost and hypothetical empty-slot reservation; old CapitalPlan stays
+  frozen. New byte-pinned protocol precedes all-ten native A/B jobs:
+  infra/local/futures-capital-research/20261112-cash-corrected.
+  Tests cover full five-stage/sixth manual reserve capital, four funded ranges
+  after small loss/fifth refused, credited funding, true cost exhaustion and
+  full new-policy market journal restore. No live/AI/holdout/public changes.
+  PR49 remains OPEN (verified); add reviewed correction to existing branch.
+  See docs/futures-cash-budgets.md.
 - IP-077 `ca98561` merged into main `ab3b4ab` (verified). IP-078 implements
   the complete ten-scenario native market job, explicit Open+1s exits/
   Open+2s same-price valuation/restoration/entries, funding/native offsets,

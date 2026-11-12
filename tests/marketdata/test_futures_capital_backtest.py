@@ -53,6 +53,21 @@ def run(streams, scenario, output):
 
 
 class CapitalMarketBacktestTests(unittest.TestCase):
+    def test_corrected_policy_is_bound_and_fully_restores_native_journal(self):
+        from investalo_trading.futures_capital_research import CapitalCashPlan
+        with TemporaryDirectory() as directory:
+            output = Path(directory) / "cash"
+            report = run_scenario(fixture(), cases()[0], output, "b" * 64,
+                                  tuple(sorted({s.data_digest for s in fixture().values()})),
+                                  cash_budget_protocol="b" * 64)
+            self.assertEqual(report["capital_policy"], CapitalCashPlan.capital_policy)
+            self.assertTrue(report["full_journal_restore_verified"])
+            self.assertEqual(report["maximum_active_baskets"], 5)
+            self.assertNotIn("6", report["stage_fill_counts"])
+            header = json.loads((output / "journal.jsonl").open().readline())
+            self.assertEqual(header["profile"]["plan"]["capital_policy"], CapitalCashPlan.capital_policy)
+            self.assertEqual(header["protocol_digest"], "b" * 64)
+
     def test_complete_native_job_funding_stages_net_and_full_restore(self):
         with TemporaryDirectory() as directory:
             output = Path(directory) / "run"

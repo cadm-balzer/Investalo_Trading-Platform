@@ -1,5 +1,11 @@
 # Bestandsaufnahme
 
+IP-079: separates `CapitalCashPlan` im bestehenden Kapitalkern, expliziter
+`--cash-budgets`-Marktjob und bytegebundenes neues Protokoll. Wiederverwendet
+Ledger/Signal/Funding/Journal mit unverändertem Legacydefault; volle aktive
+Ranges und eigene tatsächliche Kosten statt unbeanspruchter Leerslot-/Bruttolimits.
+[Cashbudgets](futures-cash-budgets.md).
+
 IP-078: vollständiger `futures_capital_backtest.py` und create-only
 `backtest-futures-capital.py` für zehn eingefrorene native Dreijahresvarianten.
 Wiederverwendet den bestehenden Kapitalkern, Signaladapter und vollständigen

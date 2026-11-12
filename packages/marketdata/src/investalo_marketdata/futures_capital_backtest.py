@@ -4,6 +4,7 @@ from datetime import timedelta
 from decimal import Decimal
 
 from investalo_trading.futures_capital_journal import CapitalReplayJournal
+from investalo_trading.futures_capital_research import CapitalCashPlan
 from investalo_trading.futures_capital_signals import CapitalHour, assess_capital_signal, _entry_signal
 from investalo_trading.futures_ledger import LedgerMark, LiquidationSettlement, MarginPosting, MarkBatch
 from investalo_trading.models import floor_step, precise
@@ -42,6 +43,8 @@ class MarketReplay:
         self.journal, self.scenario, self.curve = journal, scenario, curve
         self.closed = []
         self.blocked = Counter()
+        self.signal_filters = Counter()
+        self.h4_candidates = 0
         self.stage_counts = Counter()
         self.warning_hours = Counter()
         self.fees = ZERO
@@ -117,8 +120,11 @@ class MarketReplay:
         for b, budget in zip(self.state.economic.ledger.baskets, self.state.profile.plan.budgets, strict=True):
             if not b.quantity:
                 continue
+            usage = self.state.profile.plan.basket_cost_usage(b)
+            if type(self.state.profile.plan) is CapitalCashPlan:
+                usage = b.entry_fees + b.exit_fees + b.cost_restored
             amount = floor_step(min(max(ZERO, b.margin_committed - b.isolated_balance),
-                                    max(ZERO, budget.cost_reserve - b.charges_in_budget_epoch)),
+                                    max(ZERO, budget.cost_reserve - usage)),
                                 self.state.profile.plan.quantum)
             if amount > 0:
                 self.append("economic", at, payload=MarginPosting(b.symbol, amount, True),
@@ -240,6 +246,9 @@ class MarketReplay:
             "decimal_reconciliation_residual": str(residual),
             "declared_insurance_credit": str(self.insurance), "cost_restoration": str(self.restored),
             "stage_fill_counts": dict(sorted(self.stage_counts.items())), "capital_rejections": dict(self.blocked),
+            "eligible_closed_h4_candidates": self.h4_candidates,
+            "closed_h4_signal_filters": dict(self.signal_filters),
+            "closed_exit_reasons": dict(Counter(r for b in self.closed for r in b["reasons"])),
             "account_warning_hours": dict(self.warning_hours), "maximum_posted_margin": str(self.maximum_margin),
             "time_weighted_posted_margin": str(self.margin_seconds / seconds),
             "maximum_active_baskets": self.maximum_active,
@@ -253,10 +262,15 @@ class MarketReplay:
 
 
 def run_scenario(streams, scenario, output, protocol_digest, dataset_digests, *,
-                 progress=None, full_flat_quotes=False):
+                 progress=None, full_flat_quotes=False, cash_budget_protocol=None):
     symbols, anchor = validate_cohort(streams)
     output.mkdir(mode=0o700, exist_ok=False)
-    profile = scenario.profile()
+    if cash_budget_protocol is not None:
+        if cash_budget_protocol != protocol_digest:
+            raise ValueError("cash budget protocol must bind the journal")
+    # Funding references bind unchanged economics; the plan discriminator and
+    # journal protocol bind corrected cash semantics.
+    profile = scenario.profile(cash_budgets=cash_budget_protocol is not None)
     references = {}
     for symbol in symbols:
         stream = streams[symbol, "funding"]
@@ -295,8 +309,11 @@ def run_scenario(streams, scenario, output, protocol_digest, dataset_digests, *,
                     _entry_signal(replay.state, symbol, trade[j].open * (1 + scenario.costs.slippage),
                                   opened + timedelta(seconds=2))
                     needs_open = True
-                except ValueError:
-                    pass
+                    if replay.state.last_entry_at == opened:
+                        replay.h4_candidates += 1
+                except ValueError as error:
+                    if replay.state.last_entry_at == opened:
+                        replay.signal_filters[str(error)] += 1
             # Flat, ineligible baskets have no intrabar economic exposure. Every
             # native close/funding remains consumed, including RSI warmup and halts.
             if needs_open:
@@ -318,6 +335,7 @@ def run_scenario(streams, scenario, output, protocol_digest, dataset_digests, *,
             if progress and (i + 1) % 2000 == 0:
                 progress(scenario.scenario_id, i + 1, replay.state.economic.ledger.equity)
         report = replay.report(anchor.start, anchor.end)
+        report["capital_policy"] = profile.plan.capital_policy
         report["economically_empty_flat_quotes_omitted"] = not full_flat_quotes
         closed = replay.closed
         receipt = journal.receipt

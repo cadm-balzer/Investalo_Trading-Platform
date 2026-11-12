@@ -341,7 +341,7 @@ def _halt_reasons(state: FuturesLedgerState) -> tuple[str, ...]:
     if state.equity <= state.plan.initial_equity * D(".92"):
         reasons.append("initial_loss_limit")
     for b, c, budget in zip(state.baskets, state.plan.contracts, state.plan.budgets, strict=True):
-        if b.margin_committed > budget.margin_capital or b.charges_in_budget_epoch > budget.cost_reserve:
+        if b.margin_committed > budget.margin_capital or state.plan.basket_cost_usage(b) > budget.cost_reserve:
             reasons.append("basket_budget_breach")
         if not b.quantity:
             continue
@@ -472,7 +472,9 @@ def apply_futures_event(state: FuturesLedgerState, command: LedgerCommand) -> Le
                         )
                     if (getattr(state.plan, "per_cycle_cost_budgets", False)
                             and not isinstance(payload, LiquidationSettlement)):
-                        if costs > state.plan.budgets[index].cost_reserve:
+                        closing = replace(b, exit_fees=b.exit_fees + payload.fee,
+                                          charges_in_budget_epoch=costs)
+                        if state.plan.basket_cost_usage(closing) > state.plan.budgets[index].cost_reserve:
                             extra_reasons.append("basket_budget_breach")
                         next_costs = ZERO
                     else:

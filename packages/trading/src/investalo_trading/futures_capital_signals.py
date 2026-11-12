@@ -6,7 +6,7 @@ from decimal import Decimal
 
 from .allocation import identifier, revision
 from .futures_capital_research import (
-    CapitalAssessment, CapitalPlan, CapitalResearchState, freeze_basket_leverage,
+    CapitalAssessment, CapitalPlan, CapitalCashPlan, CapitalResearchState, freeze_basket_leverage,
     prepare_capital_entry, record_capital_event, simulate_capital_fill,
 )
 from .futures_ledger import (
@@ -32,7 +32,7 @@ class CapitalSignalProfile(CapitalCanonical):
     assumptions_digest: str
 
     def __post_init__(self):
-        if type(self.plan) is not CapitalPlan:
+        if type(self.plan) not in (CapitalPlan, CapitalCashPlan):
             raise ValueError("separate capital plan required")
         if type(self.protection_hours) is not int or self.protection_hours not in (1, 4):
             raise ValueError("closed H1 or H4 protection required")

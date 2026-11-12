@@ -1,5 +1,11 @@
 # Roadmap
 
+IP-079 korrigiert die nachgewiesenen Cash-/Leerslotbremsen in einem eigenen
+Forschungsprofil. Finanzielle Regressionen und vollständiger synthetischer
+Marktpfad/Restore geprüft; der erneute native Zehn-Varianten-Vergleich läuft.
+Quellen, Gebühren, Hebel, RSI-/Schutzregeln bleiben identisch.
+[Cashbudgets](futures-cash-budgets.md).
+
 IP-078 implementiert den vollständigen nativen Futures-Nettojob für alle zehn
 vorab eingefrorenen Varianten, mit tatsächlichen RSI-Kaufstufen, Gebühren/
 Funding, Gapexits/Liquidation, End-MTM und vollständigem Journalrestore.
