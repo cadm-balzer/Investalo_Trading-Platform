@@ -87,9 +87,12 @@ Liquidation, Fill-/Gap-/Puffertiming und Budgetprofil benötigen eigene
 Forschungsannahmen beziehungsweise Quellen. Binancefunding nicht in angeblich
 native Bitgetperformance mischen.
 
-Das lange Replayjournal muss vor dem Leistungslauf mehr als1024 Ereignisse
-ohne ID-Verwerfen/Restarts zur Limitumgehung beherrschen. Bisherige RSI/
-Nachkauf/manuelle Reserve/6%/8%/−50%-Regeln gelten weiter.
+Das lange Replayjournal muss vor dem Leistungslauf vollständige Ereignisse
+ohne ID-Verwerfen/Restarts zur Limitumgehung beherrschen. IP-071 belegt dies
+für das alte Profil; das neue Q41–Q43-Kapital-/Signalprofil braucht einen
+eigenen vollständigen Restore. RSI/Nachkauf/manuelle Reserve bleiben erhalten;
+6%/8% sind im neuen Profil Warnungen und−50% ist eine Diagnose.
+Für den H1/H4-Schutzvergleich fehlt eine native gemeinsame H1-Kohorte.
 Receipt meldet `net_backtest_ready=false`, `performance_evaluated=false`,
 `execution_enabled=false`.
 

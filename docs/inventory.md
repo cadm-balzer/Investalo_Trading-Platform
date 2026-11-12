@@ -1,5 +1,12 @@
 # Bestandsaufnahme
 
+IP-074: `futures_capital_signals.py` verbindet den eigenen Kapitalkern mit
+geschlossenem H4-RSI und getrenntem H1/H4-Supertrend. Wiederverwendet Wilder-
+Indikatoren und neutrale ResearchCandle/H4-Aggregation; Defaults unverändert.
+Volle tatsächliche fünf Stufen, genaue Fundingbewertung und Liquidationsvorrang.
+Kein Brokerpending, neuer Journalrestore oder nativer Nettojob.
+[Vertrag](futures-capital-signals.md).
+
 IP-073: eigener `futures_capital_research.py` und deklarierte vollständige
 `LiquidationSettlement`-Buchung. Legacyprofile behalten ihre Identität/Gates.
 Eigenkapitalstaffel/fester Zyklushebel, Warnungen statt Kontostresssperren,

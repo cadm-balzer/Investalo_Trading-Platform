@@ -7,6 +7,15 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- IP-073 `b9a9c0e` merged into main `452c9d8` (verified). IP-074 adds
+  `futures_capital_signals.py`: closed H4 RSI/rearm, five own-capital buys,
+  frozen basket leverage and separate closed H1/H4 Supertrend protection.
+  Explicit finer trade/mark observations, latched liquidation before new
+  entries, truthful funding/partial-exit net floor; genesis-only start.
+  27 new cases and105 focused pinned cases/46 subtests passed. Capital-only
+  full-fill research, no broker/AI/runtime authority. Native H1 cohort,
+  frozen market assumptions and new-profile full journal restore remain
+  IP-074/IP-069 before market performance. See `docs/futures-capital-signals.md`.
 - IP-073 implements Q41–Q43 in separate `futures_capital_research.py`:
   own-capital stages, frozen per-cycle leverage, account/stress diagnostics,
   reconciled own-basket liquidation and unused-reserve accounting. Capital
@@ -84,6 +93,9 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 - The user explicitly authorized intermediate commits and GitHub pushes.
   Push reviewed feature checkpoints with the existing repository deploy identity;
   this does not authorize production deployment, history rewrite or force-push.
+- 2026-11-12: user also authorizes creating Pull Requests; they review/approve
+  them themselves. No merge authorization inferred. Existing deploy SSH identity
+  supports pushes; PR creation still requires an authenticated GitHub API/plugin.
 - Default foundation: `infra/README.md` starts five services behind loopback and
   the optional offline research worker. Immutable H4 snapshots, frozen jobs and
   persisted net results/equity charts are implemented. A real 90-day BTC import

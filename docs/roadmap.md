@@ -1,5 +1,12 @@
 # Roadmap
 
+IP-074: Kapitalkern mit tatsächlichen H4-RSI-/Nachkaufsignalen und separatem
+geschlossenem H1/H4-Supertrend verbunden. Feinere Preisbeobachtungen,
+Liquidationsvorrang und Funding-/Teilverkaufs-Nettofloor geprüft.
+Als Nächstes passende native H1-Kohorte, wirtschaftliche Annahmen und
+vollständigen Restore einfrieren, anschließend gleicher Futures-Nettovergleich.
+[Signaladapter](futures-capital-signals.md).
+
 IP-073: bestätigtes Eigenkapital-/Warnungs-/Liquidationsprofil als
 eigenständiger Kapitalkern umgesetzt; Legacy unverändert. Nächstes IP-074:
 RSI/Nachkäufe/H1-Supertrend verbinden und native Futureskohorte samt
