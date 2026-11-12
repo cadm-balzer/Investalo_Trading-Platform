@@ -1606,3 +1606,42 @@ geprüfte Fälle, Überschneidungen nicht addiert. Eigenreview, keine Delegation
 Keine neuen Dependencies, Migrationen, privaten Calls oder Runtimeaktivierung.
 Nächster Nettojob benötigt erklärte Kosten/Fundingnominal-/Margin-/Liquidations-
 annahmen sowie vollständigen Restore/Kapazität des neuen Kapital-/Signalprofils.
+
+## 2026-11-12 — D-085: Vollständiger Kapital-/Signalrestore mit größeren ID-Historien
+
+Nutzer bestätigt erfolgreichen GH-CLI-PR und Merge; Weiterarbeit autorisiert.
+IP-075`fd99018` als Ancestor von Main`d0fa375` verifiziert; Featurebranch
+`feat/m1-futures-capital-journal`. Eigene PRs zur Nutzerfreigabe, kein Selfmerge.
+
+IP-076 ergänzt eigenes `futures_capital_journal.py`, ausdrücklich neue
+Genesis mit vollständigem Kapital-/Kostenplan, H1/H4-Schutz, ursprünglichen
+Trade-/Markpreisen, UTC-Mitternacht, Protokoll-/Datasetdigests und Grenzen.
+Alle typisierten Stunden/feineren Beobachtungen/Leverageentscheidungen/
+Assessment-Vollkäufe/Funding/Mark-only/Marginrestoration/Teil-/Vollexits/
+Liquidationsbelege werden durch den vorhandenen Kern gefaltet.
+H4-Puffer, RSI-Rearm, fünf Stufen, feste Hebelzyklen, Tagesbasen, alle Kosten,
+Trailings und terminale Verluste bleiben erhalten. Kein automatischer Stufe6-
+Input oder Neustart über fortgeschrittener Ökonomie.
+
+Eigene `CapitalIdentityHistory` mit separater Hashdomäne/balancierten immutable
+Knoten; Default250000, explizit1..1000000 IDs. Alter100000-Maximalvertrag und
+alle bestehenden Module/Exporte/Codec unverändert. Largerpolicy nur in neuer
+flat Journalgenesis, niemals ID-Verwerfen oder Bestandskonvertierung.
+Record256KiB/Datei512MiB/Commands250000; Ressourcenerschöpfung ohne Erfolg.
+0600/Owner/Regular/Leaf-Symlink-/Hardlinkschutz/exklusiver Writerlock,
+vollständiger Write/fsync und Parentfsync. Unknownwrite sperrt Reads/Appends;
+vollständiger Readback mit bestätigtem Mindestanker statt Retry/Tailreparatur.
+
+22 erste gepinnte neue Fälle/28 Subtests,77 direkt angrenzende Fälle/
+45 Subtests einschließlich ergänztem Funding-/Marginfall. Abschließend
+Mark-only-Variante dieses Falls einzeln Host/gepinnt grün:23 neue/
+99 unterschiedliche gepinnte Fälle, überlappende Läufe nicht addiert.
+Synthetischer Fünf-Coin-Lauf1200 Stunden/vier feinere Quotes je Stunde:
+6000 Commands,6050 retained IDs; vollständiger Restore mit gleichem State,
+Receipt und ursprünglicher ID. Baumtest prüft alle100005 IDs jenseits
+Legacymaximum und alte immutable Präfixe. Kein nativer Renditebefund.
+Eigenreview, keine Delegation/breiten Wiederholungen/Dependencies/Migrationen/
+DB-/Runtime-/Publicänderungen oder weiteren Markt-/Broker-/Holdoutzugriffe.
+Nächster Nettojob: wirtschaftliches Profil vor Auswertung einfrieren,
+Fundingnominalreferenz/Fees/Slippage/Intrabarweg/Maintenance/Liquidations-
+abrechnung samt Kostenstress; gemeinsamer nativer H1-/H4-Schutzvergleich.

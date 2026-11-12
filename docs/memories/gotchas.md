@@ -826,3 +826,14 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   BTC/ETH-Quelle je zwei Trade- und eine Mark-H4-Abweichung zum alten Import.
   Alte Quellen unverändert lassen; beide neuen Stopvarianten müssen aus
   derselben H1-Achse ihre H4-Signale erzeugen. Ursache nicht attestiert.
+- **H1-Langlauf braucht mehr als100000 IDs:** allein26304 Stunden mit vier
+  feineren Quotes plus Close überschreiten das alte Maximum. Eigene versionierte
+  Politik in neuer Genesis verwenden; alte IDs/Hashes nicht löschen oder
+  bestehende Profile still auf größere Grenzen umstellen.
+- **CapitalPlan hat einen init=False-Discriminator:** allgemeiner Snapshotdecode
+  kann `capital_policy` nicht als Konstruktorargument übergeben. Im neuen
+  Journal ausdrücklich prüfen und den unveränderten Basisplan dekodieren;
+  weder Legacycodec erweitern noch Policy beim Restore verlieren.
+- **JSON-Feldordnung ist keine Funktionsargumentordnung:** Journalargumente
+  gemäß fester typisierter Schematabelle lesen, nicht nach der sortierten
+  JSON-Dictionary-Reihenfolge an Reducer weiterreichen.

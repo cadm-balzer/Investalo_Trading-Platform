@@ -74,7 +74,8 @@ einen erklärten wirtschaftlichen Nominalpreisbezug. Historische Kosten-/
 Maintenance-/Liquidationsannahmen und die feinere Ausführungsreihenfolge
 müssen für beide Schutzvarianten gleich eingefroren werden. Der neue
 Kapital-/Signaladapter benötigt vor dem Marktvergleich vollständigen
-Journalrestore und ausreichende Ereigniskapazität. AI bleibt aus.
+Journalrestore und ausreichende Ereigniskapazität; beides ergänzt inzwischen
+[IP-076](futures-capital-journal.md). AI bleibt aus.
 
 ## Tatsächlicher Import und Quellenabweichungen
 

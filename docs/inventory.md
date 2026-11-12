@@ -1,5 +1,11 @@
 # Bestandsaufnahme
 
+IP-076: eigener `futures_capital_journal.py` und versionierte größere
+`capital_identity_history.py`. Vollständiger Restore des neuen Q41–Q43-
+Kapital-/H4-RSI-/H1/H4-Schutzprofils, eigene Genesis, bestätigter Mindestanker
+und Unknownwrite ohne Retry. Legacy-Module/Exporte unverändert.
+[Wiederanlauf](futures-capital-journal.md).
+
 IP-075: eigener `binance_futures_hourly.py` und create-only
 `import-futures-h1-history.py`. Fünf bekannte Coins, native H1-Trade-/Mark-
 und Fundingquellen; Legacy-H4-/Bitgetformate unverändert. Wiederverwendet
