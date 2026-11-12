@@ -808,3 +808,13 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
 - **Neuer Kapitalkern ist keine Order-/RSI-/Restoreautorität:** synthetische
   Vollfills/immutable Hashwurzel ersetzen weder Pending-/Teilfillabgleich
   noch geschlossene Signalprüfung oder vollständigen Journalrestore.
+- **H1-Schutz ist kein H1-Einstieg:** im neuen Q41–Q43-Signaladapter aggregieren
+  ausschließlich vier vollständige H1-Trade-Kerzen einen H4-RSI-Eingang.
+  Keine zusätzliche Unter30-Bestätigung oder RSI-Rearm pro Stunde.
+- **Markbewertung ist kein neuer Tradepreis:** exakt vor Funding bewerten,
+  ohne einen alten Close nach billigem Fill als Gewinnschutz zu interpretieren.
+  Erst neue Tradebeobachtung aktiviert+5%; der geschlossene H1-Stop ist kausal.
+- **Beobachtete Liquidation verschwindet nicht durch Erholung:** der neue
+  Signaladapter hält die Abrechnungspflicht bis zum typisierten terminalen
+  Beleg fest, auch wenn eine spätere Markbewertung wieder solvent aussieht.
+  Normale Exitfills/neue Einstiege können diese Pflicht nicht umgehen.

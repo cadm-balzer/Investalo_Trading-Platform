@@ -1542,3 +1542,32 @@ identischen sieben Legacydigests:295 unterschiedliche Fälle insgesamt,
 Keine Dependencies/DB/Migrationen/Credential-/Runtime-/Publicänderungen.
 Nächstes IP-074: RSI/H1-Schutz/nativer Marktvergleich inklFunding und
 vollständigem Langrestore; heutige Hashwurzel allein kein Restore.
+
+## 2026-11-12 — D-083: H4-RSI und kausaler H1-Schutz am neuen Kapitalkern
+
+Nutzer bestätigt Merge und erlaubt eigene Pull Requests zur Nutzerfreigabe.
+`b9a9c0e` als Ancestor von Main`452c9d8` verifiziert; neuer Featurebranch
+`feat/m1-futures-rsi-h1-protection`. Keine eigenständige Mergefreigabe.
+GitHub-PR-Integration gesucht/vorgeschlagen; Deploy-SSH kann pushen, besitzt
+keine automatisch abgeleitete API-/PR-Authentifizierung.
+
+IP-074 eigener `futures_capital_signals.py`: vollständige geschlossene H1-
+Trade-/Markachsen, vier Stunden exakt zu H4-RSI14/Wilder aggregiert; strikt
+zwei Unter30-Erstwerte, tatsächlicher Rearm und5%-Abstand für fünf Stufen.
+Die sechste bleibt manuell. Feste Basketentscheidung vor Erstkauf; keine AI.
+Getrennte H1/H4-Supertrendindikatoren auf derselben Preisachse, alte Stopprüfung
+vor neuer geschlossener Linie; explizite Intrabarbeobachtungen statt OHLC-Pfadfantasie.
+6%/8% nur Warnungen, echte Deckung/Integritätsconstraints bleiben.
+
+Liquidation ist vor neuen Einstiegen terminal abzugleichen; eine Erholung
+löscht die bereits beobachtete Pflicht nicht. Mark-only-Evidence vor Funding
+erfindet keine Tradebeobachtung. Netfloor berücksichtigt signed Funding und
+Teilverkaufs-PnL; normale Zykluswechsel erhalten Indikator-/Gebührenhistorie.
+Genesis-only-Start, kein frischer Wrapperrestore über fortgeschrittener Ökonomie.
+
+27 neue Host-/gepinnt synthetische Fälle,105 gezielte Kapital/Legacy-Signal/
+Timeframefälle mit46 Subtests grün. Eigenreview, keine Agentdelegation.
+Keine bestehende Modulmutation, Dependencies, Migrationen oder Publicänderungen.
+Native H1-Kohorte mit mindestens drei echten Coins, Fundingnominal-/Kosten-/
+Margin-/Liquidationsannahmen und neuer vollständiger Journalrestore bleiben
+IP-074/IP-069. Keine neue native Futuresrendite oder Holdoutauswertung.

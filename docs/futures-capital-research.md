@@ -97,9 +97,11 @@ Falls grün; sieben Legacydigests erneut identisch.
 295 unterschiedliche gepinnte Fälle insgesamt; Überschneidungen nicht
 addieren. Keine breiten Credential-/DB-/API- oder alten Spotmarktläufe.
 
-Nächstes IP-074: RSI-/Nachkaufsignale mit diesem Kapitalkern und separatem
-geschlossenem H1-Supertrend verbinden, Exit-/Liquidationsreihenfolge und
-native Futures-H1-/Fundingkohorte einfrieren. Vor tatsächlicher langer
+IP-074 verbindet inzwischen RSI-/Nachkaufsignale mit diesem Kapitalkern
+und separatem geschlossenem H1/H4-Supertrend einschließlich Vorrang
+bekannter Liquidation; [Signaladapter](futures-capital-signals.md).
+Native Futures-H1-/Fundingkohorte und wirtschaftliche Ausführung bleiben
+einzufrieren. Vor tatsächlicher langer
 Marktleistung vollständigen Journalrestore und benötigte Identitätskapazität
 für die gewählte Preisachse nachweisen. Die heutige State-/Merklewurzel ist
 kein Restore. Holdout unverändert gesperrt; keine AI-/Paper-/Liveaktivierung.
