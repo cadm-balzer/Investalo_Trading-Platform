@@ -1,16 +1,23 @@
 # Roadmap
 
+IP-076 ergänzt den vollständigen neuen Kapital-/Signaljournalrestore und
+größere behaltene Ereignishistorien. Fünf Nachkäufe, Funding, Tagesbasen,
+feste Hebelzyklen und terminale Liquidationsverluste bleiben beim Wiederanlauf
+identisch. Nächstes: wirtschaftliches Profil vor Leistungsauswertung einfrieren,
+anschließend native Futures-Nettobacktests mit gleichem H1-/H4-Schutzvergleich.
+[Wiederanlaufvertrag](futures-capital-journal.md).
+
 IP-075 ergänzt die gemeinsame native H1-Futures-/Fundingquelle für
 BNB/BTC/ETH/SOL/XRP im unveränderten Dreijahres-Forschungsfenster.
-Anschließend wirtschaftliche Annahmen und neuen vollständigen Restore
-einfrieren, danach H1-/H4-Schutz mit gleichen Markt-/Kosteneingaben vergleichen.
+Eigener neuer Restore inzwischen IP-076; anschließend wirtschaftliche Annahmen
+einfrieren und H1-/H4-Schutz mit gleichen Markt-/Kosteneingaben vergleichen.
 [H1-Quellenvertrag](futures-hourly-history.md).
 
 IP-074: Kapitalkern mit tatsächlichen H4-RSI-/Nachkaufsignalen und separatem
 geschlossenem H1/H4-Supertrend verbunden. Feinere Preisbeobachtungen,
 Liquidationsvorrang und Funding-/Teilverkaufs-Nettofloor geprüft.
-Als Nächstes passende native H1-Kohorte, wirtschaftliche Annahmen und
-vollständigen Restore einfrieren, anschließend gleicher Futures-Nettovergleich.
+Native H1-Kohorte IP-075 und voller Restore IP-076 vorhanden. Als Nächstes
+wirtschaftliche Annahmen einfrieren, anschließend gleicher Futures-Nettovergleich.
 [Signaladapter](futures-capital-signals.md).
 
 IP-073: bestätigtes Eigenkapital-/Warnungs-/Liquidationsprofil als

@@ -7,6 +7,20 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- IP-075 `fd99018` merged into main `d0fa375` (verified); user approves
+  continuing and PR creation with working GH CLI. IP-076 adds own
+  `futures_capital_journal.py` plus versioned larger capital identity policy:
+  full genesis replay of H4-RSI/five stages/H1 or H4 protection, fixed
+  leverage cycles, funding, day bases and terminal liquidation losses.
+  Default250000 retained IDs, explicit max1000000; legacy max100000 unchanged.
+  23 new/99 distinct focused pinned cases passed; synthetic five-coin1200h/
+  6000-command/6050-ID full restore and all100005 retained IDs verified.
+  Owned0600 create-only/exclusive file,512MiB/250000-command bound,
+  acknowledged minimum receipt and unknownwrite stop/readback, no retries.
+  No existing module/codec/dependency/DB/runtime mutation or market job.
+  Next IP-074/IP-069: freeze economic costs/funding nominal/margin/liquidation/
+  intrabar assumptions, then native net comparison on shared IP-075 source.
+  See `docs/futures-capital-journal.md`.
 - IP-074 `2d7878f` merged into main `507cb87` (verified). IP-075 adds own
   native H1 source/import for BNB/BTC/ETH/SOL/XRP,2022-08-01..2025-08-01:
   263040 trade/mark candles,16515 fundingevents,295 unsigned GETs. All fifteen

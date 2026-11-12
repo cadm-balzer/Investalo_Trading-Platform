@@ -92,7 +92,8 @@ Eigenreview; keine Agentdelegation, Dependencies, Migrationen oder Publicänderu
 die [gemeinsame H1-Kohorte](futures-hourly-history.md) für fünf echte Coins.
 Es fehlen ein erklärter
 Nominalpreisbezug für ältere Fundingabrechnungen ohne Settlement-Markpreis,
-gefrorene Kosten-/Margin-/Liquidations-/Intrabarannahmen und vollständiger
-Restore dieses neuen Profils mit ausreichender Ereigniskapazität.
-Das alte Legacyjournal kann den neuen Plan nicht übernehmen.
-Diese Arbeiten bleiben IP-074/IP-069; Holdout unverändert gesperrt.
+gefrorene Kosten-/Margin-/Liquidations-/Intrabarannahmen.
+IP-076 ergänzt inzwischen den [eigenen vollständigen Journalrestore](futures-capital-journal.md)
+mit ausreichender erklärter Ereigniskapazität. Das alte Legacyjournal bleibt
+getrennt. Das wirtschaftliche Profil und der Leistungslauf bleiben
+IP-074/IP-069; Holdout unverändert gesperrt.
