@@ -45,3 +45,9 @@ Wirtschaftsprofil und vollständiger neuer synthetischer Marktpfad.
 Der Vergleich protokolliert finanzielle Ablehnungen getrennt von den
 Signalfiltern an frischen H4-Grenzen; diese Zähler sind Diagnose, keine neue
 Einstiegsautorität. Keine breite Credential-/DB-/Frontend-Testwiederholung.
+
+Beide nativen 2×-Referenzfälle und ihre vollständigen Restores bestätigt:
+H1/H4 netto +2507,71/+2410,79 USDT statt +687,70/−7,28,107/106 Abschlüsse,
+keine Budgethaltes. [Zwischenbeleg](futures-cash-interim-20261112.md).
+Der umfassende Zehn-Varianten-Job läuft separat unter IP-069 weiter;
+keine abgeschlossene Gesamtauswertung oder wirtschaftliche Freigabe.

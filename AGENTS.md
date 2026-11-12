@@ -17,6 +17,18 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   full new-policy market journal restore. No live/AI/holdout/public changes.
   PR49 remains OPEN (verified); add reviewed correction to existing branch.
   See docs/futures-cash-budgets.md.
+  Both full native2× reference jobs/restores now verified: H1/H4 net
+  +2507.71/+2410.79 USDT,107/106 closures, no budgethaltes; mean own margin
+  605.87/701.74 USDT. Interim receiptsha
+  9ee1731f5859ead3edbd577e6d0f519b71df002c1a3c5f468a2c8b2b93dd33a9.
+  IP-079 financial correction done; all-ten economic job remains IP-069.
+  Running PID71771 / execsession18028, feature codecheckpoint4146877.
+  DO NOT edit eight implementation files in the CLI receipt while it runs:
+  final hashes must match loaded code. Nextturn read reports/job before edits.
+  Temporary verified final export helper /tmp/investalo-export-cash-results.py
+  requires completed receipt and creates separate final docs; do not run early.
+  IP-080 is the already-authorized H1-RSI Futures entry comparison, same
+  own-capital ladder/H1 protection initially, new frozen signal identity.
 - IP-077 `ca98561` merged into main `ab3b4ab` (verified). IP-078 implements
   the complete ten-scenario native market job, explicit Open+1s exits/
   Open+2s same-price valuation/restoration/entries, funding/native offsets,

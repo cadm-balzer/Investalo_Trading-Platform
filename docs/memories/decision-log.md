@@ -1763,3 +1763,41 @@ Cockpit/auth reguläres TLS/HTTPS200 nach vollständigem Lauf. IP-074/IP-078
 technisch abgeschlossen; IP-069 wirtschaftliche Broker-/Kalibrierungsprüfung
 offen, nächste Modellkorrektur IP-079 separat. Results:
 `docs/futures-market-results-20261112.md`.
+
+## 2026-11-12 — D-088: Nachgewiesene Basket-Budgetbremsen korrigieren
+
+**Status: beauftragt; Implementierung geprüft, Marktvergleich läuft.** Nutzer
+beanstandet die geringe Dreijahresperformance und vermutet blockierte Baskets.
+IP-079 korrigiert die zwei IP-078-Nachweise in separatem
+`isolated-usdt-capital-cash/2`, statt die alten Ergebnisse umzudeuten:
+alle Gebühren plus max(Restoration, negatives Nettofunding,0) als eigene
+Kosten; Fundingcredits bleiben isoliert und decken spätere Belastungen.
+Cash muss nur aktive/beantragte vollständige Ranges sowie gestoppte Reserven
+decken, keine hypothetischen unbeanspruchten Leerslots.
+
+Eigenkapitalstaffel/Manualreserve/fester Zyklushebel und reale Margin-/
+Liquidations-/Kosten-/Orderregeln bleiben verbindlich; 6%/8% Warnungen.
+Originalauftrag ausdrücklich erneut abgeglichen: RSI-Rearm und 5%-Abstand
+bleiben auch für reguläre Nachkäufe erhalten. Kein automatischer Kauf nur
+wegen Kursrückgang; keine KI-/Live-/Holdoutaktivierung oder Kostenkalibrierung.
+
+Vor erneutem Lauf bytegebundenes Protokollsha
+1dfc67d29dcc5f89e72a610d43823b7041470810f10e3757d7fd2d135effb4fa,
+identische zehn Wirtschaftsfälle/nativer Quellenbestand. 160 unterschiedliche
+gezielte gepinnte Tests/101 Subtests grün, einschließlich vollständigem
+neuem Marktjournalrestore. Finanzielle Ablehnungen und frische H4-Signalfilter
+getrennt gezählt. Eigenreview ohne Agentdelegation; kein breiter DB-/UI-Testlauf.
+Codecheckpoint4146877; PR49 noch OPEN, Korrektur wird dort ergänzt.
+`docs/futures-cash-budgets.md`.
+
+IP-079 Abschlussbeleg der technischen Korrektur: beide vollständigen nativen
+2×-Jobs/Restores bestanden, H1/H4 netto+2507,71/+2410,79USDT statt
++687,70/−7,28;107/106 geschlossene Baskets, je eine Liquidation, keine
+Budgethaltes/offenen Endbaskets. Reguläre Stufen107/38/16/6/2 und106/38/16/6/2;
+mittlere Eigenmargin605,87/701,74USDT. Acht geprüfte Artefakthashes;
+Zwischenreceiptsha9ee1731f5859ead3edbd577e6d0f519b71df002c1a3c5f468a2c8b2b93dd33a9.
+All-ten-Gesamtauswertung läuft lokal unter IP-069 weiter, nicht abgeschlossen.
+Kein weiterer LLM-/Agentaufruf innerhalb des Python-Datenjobs.
+Nächster bereits autorisierter H1-RSI-Einstiegsvergleich IP-080; keine
+Änderung der laufenden acht gebundenen Implementationsdateien bis Jobende.
+`docs/futures-cash-interim-20261112.md`.

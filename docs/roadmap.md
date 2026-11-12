@@ -2,9 +2,13 @@
 
 IP-079 korrigiert die nachgewiesenen Cash-/Leerslotbremsen in einem eigenen
 Forschungsprofil. Finanzielle Regressionen und vollständiger synthetischer
-Marktpfad/Restore geprüft; der erneute native Zehn-Varianten-Vergleich läuft.
+Marktpfad/Restore geprüft; beide native2×-Referenzfälle/Restores bestätigt:
+H1/H4+2507,71/+2410,79 USDT, keine Budgethaltes. Der breite native
+Zehn-Varianten-Vergleich läuft unter IP-069 weiter.
 Quellen, Gebühren, Hebel, RSI-/Schutzregeln bleiben identisch.
-[Cashbudgets](futures-cash-budgets.md).
+Nächster bereits beauftragter Vergleich IP-080: echte H1-RSI-Einstiege
+mit gleicher Cashstaffel und zunächst gleichem H1-Schutz; neue Identität
+vor Leistung einfrieren. [Referenzbelege](futures-cash-interim-20261112.md).
 
 IP-078 implementiert den vollständigen nativen Futures-Nettojob für alle zehn
 vorab eingefrorenen Varianten, mit tatsächlichen RSI-Kaufstufen, Gebühren/

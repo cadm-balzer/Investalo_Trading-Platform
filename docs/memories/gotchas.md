@@ -863,3 +863,15 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   JSON-Fragmente nur für validierte tief unveränderliche Records. Keine neuen
   Felder/Hashdomänen, keine Historykürzung; vollständiger alter Journalrestore
   plus Primitive-/Hash-/Ersatzobjektvergleiche vor längerem Lauf.
+- **Bruttofunding ist kein tatsächlicher eigener Cashverbrauch:** erhaltene
+  Credits können spätere Debits im selben isolierten Basket decken. Neue
+  capital-cash/2-Politik separat; alte Budget-/Hashsemantik nicht ändern.
+  Bereits bezahlte Restoration bleibt bis Abschluss eigenes ausgegebenes Cash.
+- **Leere Slots beanspruchen noch keine vollständige Range:** aktive/neue
+  Ranges bleiben voll finanziert, nach kleinem Verlust nicht sämtliche Käufe
+  blockieren. Tatsächlich fünfte Range bei Cashmangel weiter verweigern;
+  kein Verkleinern anderer Baskets oder Zugriff auf Manual-/Liquidationsreserve.
+- **Neue Budgetidentität ist keine neue Fundingannahme:** Fundingreferenzen
+  bleiben an eingefrorene Economics gebunden; Cashplan und Journalprotokoll
+  binden die Korrektur. declared_exit muss weiterhin das vollständige exakt
+  passende Szenarioprofil vergleichen, auch mit explizitem Cashplan.
