@@ -95,6 +95,10 @@ class FuturesPlan:
         """Legacy policy remains hard; separate research plans may specialize it."""
         return tuple(dict.fromkeys(reasons))
 
+    def basket_cost_usage(self, basket):
+        """Frozen legacy budgets count gross charges."""
+        return basket.charges_in_budget_epoch
+
 
 @dataclass(frozen=True)
 class FuturesExposure:

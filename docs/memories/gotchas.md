@@ -850,3 +850,28 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
 - **Isolierte Versicherung ist im neuen Vergleich eine erklärte Annahme:**
   negatives Terminalsaldo nicht still nullen; Gutschrift separat buchen und
   reporten. Kein historischer Brokerbeleg; kein Preisrecovery vor Liquidationsabschluss.
+- **Gleichzeitige Käufe brauchen gleichzeitige vollständige Markevidenz:**
+  nach dem ersten Fill ist ledger.as_of verändert. Markbewertung ausdrücklich
+  auf den Ausführungszeitpunkt setzen, sonst sperrt incomplete_mark_batch
+  den zweiten bis fünften Slot. Ausstiege an +1s, Bewertung/Restoration/Käufe
+  an +2s mit denselben frischen Openreferenzen.
+- **Große Datenkohorte auf kleinem Host nur einmal halten:** getrennte
+  Prozessworker laden den gesamten Bestand erneut. Auf dem2-GB-Entwicklungshost
+  sequenziell, ohne Cockpitdienste zu stoppen. Gescheiterte/unterbrochene
+  Verzeichnisse ohne Erfolgsreceipt erhalten, nicht überschreiben.
+- **Kapitalhashbeschleunigung muss byteidentisch sein:** gecachte kanonische
+  JSON-Fragmente nur für validierte tief unveränderliche Records. Keine neuen
+  Felder/Hashdomänen, keine Historykürzung; vollständiger alter Journalrestore
+  plus Primitive-/Hash-/Ersatzobjektvergleiche vor längerem Lauf.
+- **Bruttofunding ist kein tatsächlicher eigener Cashverbrauch:** erhaltene
+  Credits können spätere Debits im selben isolierten Basket decken. Neue
+  capital-cash/2-Politik separat; alte Budget-/Hashsemantik nicht ändern.
+  Bereits bezahlte Restoration bleibt bis Abschluss eigenes ausgegebenes Cash.
+- **Leere Slots beanspruchen noch keine vollständige Range:** aktive/neue
+  Ranges bleiben voll finanziert, nach kleinem Verlust nicht sämtliche Käufe
+  blockieren. Tatsächlich fünfte Range bei Cashmangel weiter verweigern;
+  kein Verkleinern anderer Baskets oder Zugriff auf Manual-/Liquidationsreserve.
+- **Neue Budgetidentität ist keine neue Fundingannahme:** Fundingreferenzen
+  bleiben an eingefrorene Economics gebunden; Cashplan und Journalprotokoll
+  binden die Korrektur. declared_exit muss weiterhin das vollständige exakt
+  passende Szenarioprofil vergleichen, auch mit explizitem Cashplan.

@@ -1,0 +1,20 @@
+{
+  "schema_version": "futures-capital-cash-protocol/2",
+  "capital_policy": "isolated-usdt-capital-cash/2",
+  "economic_protocol_sha256": "eb9a278513facb4f7560413c6ae269dc2fd44adf917eec00ebec9925ddcc8c06",
+  "source_preflight_sha256": "2252c6f78054a482a2eb67ecdc344d517aeb46083ce518141ccf0c00b549064c",
+  "comparisons": "all-ten-identical-economic-scenarios",
+  "cost_usage": "entry-fees-plus-exit-fees-plus-max-own-cost-restoration-negative-net-funding-zero",
+  "funding_credits": "remain-isolated; cover-later-debits; never-transfer-to-other-baskets",
+  "cost_restoration": "only-outstanding-principal-debit; from-own-unspent-cost-reserve",
+  "range_binding": "complete-unused-principal-and-cost-reserve-for-active-and-new-candidate-baskets; no-claim-for-unrequested-empty-slots",
+  "stopped_ranges": "preserve-unposted-stage-capital-and-cost-reserve; no-implicit-recovery",
+  "capital_stages": "unchanged-six-own-capital-stages; five-regular-RSI; sixth-manual-unsimulated",
+  "constraints": "own-budget-cash-initial-margin-current-liquidation-execution-integrity-remain-hard",
+  "price_and_signal_models": "unchanged-frozen-economic-protocol",
+  "account_limits": "6-percent-daily-and-8-percent-initial-warnings",
+  "profit_reinvestment": "disabled",
+  "parameter_tuning": false,
+  "holdout_requested": false,
+  "execution_enabled": false
+}

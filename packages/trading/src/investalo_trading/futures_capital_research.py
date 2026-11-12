@@ -1,5 +1,6 @@
 """Q41–Q43 capital-only research. No RSI authority, broker or durable executor."""
 from dataclasses import dataclass, field, replace
+from functools import cached_property
 from datetime import datetime, timedelta
 from decimal import Decimal
 
@@ -16,7 +17,7 @@ from .futures_risk import (
 )
 from .identity_history import IdentityHistory
 from .models import floor_step, precise
-from .snapshot import digest
+from .capital_digest import CapitalCanonical, digest
 
 D = Decimal
 ZERO = D("0")
@@ -27,7 +28,7 @@ DIAGNOSTIC_REASONS = {
 
 
 @dataclass(frozen=True)
-class CapitalPlan(FuturesPlan):
+class CapitalPlan(FuturesPlan, CapitalCanonical):
     capital_policy: str = field(default=VERSION, init=False)
 
     def __post_init__(self):
@@ -35,7 +36,7 @@ class CapitalPlan(FuturesPlan):
         if self.remainder + sum((b.capital for b in self.budgets), ZERO) != self.initial_equity:
             raise ValueError("complete funded capital allocation required")
 
-    @property
+    @cached_property
     def plan_digest(self):
         return digest((VERSION, self, "fixed-cycle-leverage", "six-own-capital-stages"))
 
@@ -60,6 +61,23 @@ class CapitalPlan(FuturesPlan):
         return tuple(floor_step(pool * w / sum(weights), self.quantum) for w in weights)
 
 
+@dataclass(frozen=True)
+class CapitalCashPlan(CapitalPlan):
+    """Separate corrected research policy; historical CapitalPlan stays frozen."""
+    capital_policy: str = field(default="isolated-usdt-capital-cash/2", init=False)
+
+    @cached_property
+    def plan_digest(self):
+        return digest((self.capital_policy, self, "active-full-range", "own-cash-costs"))
+
+    @precise
+    def basket_cost_usage(self, basket):
+        # Credits already in isolated cash cover subsequent funding debits.
+        # A prior restoration remains actual own cash spent until closure.
+        return basket.entry_fees + basket.exit_fees + max(
+            basket.cost_restored, -basket.funding_net, ZERO)
+
+
 @precise
 def equal_capital_plan(tenant_id, account_id, policy_digest, contracts,
                        initial_equity=D("10000"), cost_ratio=D(".01"), quantum=D(".00000001")):
@@ -82,7 +100,7 @@ def equal_capital_plan(tenant_id, account_id, policy_digest, contracts,
 
 
 @dataclass(frozen=True)
-class LeverageDecision:
+class LeverageDecision(CapitalCanonical):
     symbol: str
     cycle: int
     leverage: Decimal
@@ -100,7 +118,7 @@ class LeverageDecision:
 
 
 @dataclass(frozen=True)
-class StageReceipt:
+class StageReceipt(CapitalCanonical):
     symbol: str
     cycle: int
     stage: int
@@ -120,7 +138,7 @@ class StageReceipt:
 
 
 @dataclass(frozen=True)
-class StoppedBasket:
+class StoppedBasket(CapitalCanonical):
     symbol: str
     cycle: int
     unposted_stage_capital: Decimal
@@ -136,7 +154,7 @@ class StoppedBasket:
 
 
 @dataclass(frozen=True)
-class CapitalResearchState:
+class CapitalResearchState(CapitalCanonical):
     ledger: FuturesLedgerState
     revision: int
     as_of: datetime
@@ -181,7 +199,7 @@ class CapitalResearchState:
             if stages != list(range(1, len(stages) + 1)):
                 raise ValueError("actual regular stages must be consecutive")
 
-    @property
+    @cached_property
     def state_digest(self):
         return digest((VERSION, self))
 
@@ -224,7 +242,7 @@ class CapitalAssessment:
 
 
 def start_capital_research(plan, marks, at, evidence_digest, *, identity_capacity=50000):
-    if type(plan) is not CapitalPlan:
+    if type(plan) not in (CapitalPlan, CapitalCashPlan):
         raise ValueError("explicit capital plan required")
     ledger = start_futures_ledger(plan, marks, at, evidence_digest)
     return CapitalResearchState(
@@ -299,7 +317,7 @@ def prepare_capital_entry(state, symbol, maximum_price, at):
     exposures = tuple(FuturesExposure(
         row.symbol, row.mark, row.marked_at,
         LongPosition(row.quantity, row.average_entry, row.first_fill, row.isolated_balance)
-        if row.quantity else None, row.charges_in_budget_epoch,
+        if row.quantity else None, plan.basket_cost_usage(row),
     ) for row in state.ledger.baskets)
     view = FuturesView(
         plan.tenant_id, plan.account_id, plan.plan_digest, state.revision,
@@ -323,14 +341,21 @@ def prepare_capital_entry(state, symbol, maximum_price, at):
     reserves = plan.remainder
     stopped = {r.symbol: r for r in state.stopped}
     for row, budget in zip(state.ledger.baskets, plan.budgets, strict=True):
+        if (type(plan) is CapitalCashPlan and not row.quantity
+                and row.symbol != symbol and row.symbol not in stopped):
+            continue  # No capital claim for an empty, unrequested slot.
         committed = row.margin_committed + (capital if row.symbol == symbol else ZERO)
-        fees = row.charges_in_budget_epoch + (
+        fees = plan.basket_cost_usage(row) + (
             quantity * maximum_price * contract.entry_fee_rate if row.symbol == symbol else ZERO)
         reserves += stopped[row.symbol].unposted_stage_capital if row.symbol in stopped else max(
             ZERO, budget.margin_capital - committed)
         reserves += max(ZERO, budget.cost_reserve - fees)
         # Keep principal restoration backing separate from unused cost reserve.
-        reserves += max(ZERO, row.margin_committed - row.isolated_balance)
+        if type(plan) is CapitalCashPlan:
+            reserves += max(ZERO, plan.basket_cost_usage(row)
+                            - row.entry_fees - row.exit_fees - row.cost_restored)
+        else:
+            reserves += max(ZERO, row.margin_committed - row.isolated_balance)
     if legacy.unposted_cash_after < reserves:
         reasons.append("insufficient_unposted_cash")
     diagnostics = tuple(dict.fromkeys((*state.warnings,

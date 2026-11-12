@@ -1,5 +1,26 @@
 # Roadmap
 
+IP-079 korrigiert die nachgewiesenen Cash-/Leerslotbremsen in einem eigenen
+Forschungsprofil. Finanzielle Regressionen und vollständiger synthetischer
+Marktpfad/Restore geprüft; beide native2×-Referenzfälle/Restores bestätigt:
+H1/H4+2507,71/+2410,79 USDT, keine Budgethaltes. Der breite native
+Zehn-Varianten-Vergleich läuft unter IP-069 weiter.
+Quellen, Gebühren, Hebel, RSI-/Schutzregeln bleiben identisch.
+Nächster bereits beauftragter Vergleich IP-080: echte H1-RSI-Einstiege
+mit gleicher Cashstaffel und zunächst gleichem H1-Schutz; neue Identität
+vor Leistung einfrieren. [Referenzbelege](futures-cash-interim-20261112.md).
+
+IP-078 implementiert den vollständigen nativen Futures-Nettojob für alle zehn
+vorab eingefrorenen Varianten, mit tatsächlichen RSI-Kaufstufen, Gebühren/
+Funding, Gapexits/Liquidation, End-MTM und vollständigem Journalrestore.
+Alle zehn tatsächlichen Marktjobs und vollständigen Restores sind abgeschlossen,
+451193 Commands/40 Artefakthashes belegt. Zwei Modellbremsen verhindern
+durchgehenden Handel: Brutto-Fundingbudget und Reservierung sämtlicher leerer Slots.
+IP-079 prüft als Nächstes separate korrigierte Cash-/aktive Rangebindung.
+Historische Brokerregeln, Holdout, AI und echte Ausführung bleiben offen.
+[Ergebnisse](futures-market-results-20261112.md).
+[Marktvergleich](futures-market-backtest.md).
+
 IP-077 friert zehn Futures-Vergleichsfälle vor Auswertung ein und ergänzt
 native exakte Fundinggrenzen: fünf feste Slots,2×/5×/10×, beide Schutzintervalle,
 Kosten- und Preisreihenfolgetests. Nativer Quellen-/Profilpreflight vollständig.

@@ -8,7 +8,7 @@ from pathlib import Path
 
 from .allocation import revision
 from .capital_identity_history import CapitalIdentityHistory
-from .futures_capital_research import CapitalPlan, start_capital_research
+from .futures_capital_research import CapitalPlan, CapitalCashPlan, start_capital_research
 from .futures_capital_signals import (
     CapitalFundingBatch, CapitalHour, CapitalSignalAssessment, CapitalSignalProfile, declare_signal_leverage,
     observe_capital_prices, record_signal_economic_event, replay_capital_hour,
@@ -20,7 +20,8 @@ from .futures_ledger import (
 )
 from .futures_replay_journal import JournalCommitUnknown, _fields, _json, _open, _sha
 from .futures_risk import FuturesPlan
-from .snapshot import _decode, digest, primitive
+from .snapshot import _decode, primitive
+from .capital_digest import digest
 
 VERSION = "isolated-usdt-capital-replay-journal/1"
 MAX_FILE_BYTES = 512 * 1024 * 1024
@@ -115,10 +116,12 @@ def _genesis(header):
     profile_raw = _fields(header["profile"], ("plan", "protection_hours", "slippage", "assumptions_digest"))
     # CapitalPlan has a frozen init=False policy discriminator: decode explicitly.
     plan_raw = dict(profile_raw["plan"])
-    if plan_raw.pop("capital_policy", None) != CapitalPlan.capital_policy:
+    policy = plan_raw.pop("capital_policy", None)
+    plan_type = {p.capital_policy: p for p in (CapitalPlan, CapitalCashPlan)}.get(policy)
+    if plan_type is None:
         raise ValueError("own frozen capital policy required")
     plan = _decode(FuturesPlan, plan_raw)
-    plan = CapitalPlan(**{key: getattr(plan, key) for key in plan_raw})
+    plan = plan_type(**{key: getattr(plan, key) for key in plan_raw})
     profile = CapitalSignalProfile(
         plan, _decode(int, profile_raw["protection_hours"]),
         _decode(Decimal, profile_raw["slippage"]), _decode(str, profile_raw["assumptions_digest"]),

@@ -1,11 +1,12 @@
 """Closed H4 RSI and H1/H4 protection for Q41–Q43; pure research only."""
 from dataclasses import dataclass, replace
+from functools import cached_property
 from datetime import datetime, timedelta
 from decimal import Decimal
 
 from .allocation import identifier, revision
 from .futures_capital_research import (
-    CapitalAssessment, CapitalPlan, CapitalResearchState, freeze_basket_leverage,
+    CapitalAssessment, CapitalPlan, CapitalCashPlan, CapitalResearchState, freeze_basket_leverage,
     prepare_capital_entry, record_capital_event, simulate_capital_fill,
 )
 from .futures_ledger import (
@@ -15,7 +16,7 @@ from .futures_ledger import (
 from .futures_signals import IndicatorParameters
 from .indicators import advance
 from .models import IndicatorState, precise
-from .snapshot import digest
+from .capital_digest import CapitalCanonical, digest
 from .timeframe_research import ResearchCandle, aggregate_h4
 
 D = Decimal
@@ -24,14 +25,14 @@ VERSION = "isolated-usdt-capital-signals/1"
 
 
 @dataclass(frozen=True)
-class CapitalSignalProfile:
+class CapitalSignalProfile(CapitalCanonical):
     plan: CapitalPlan
     protection_hours: int
     slippage: Decimal
     assumptions_digest: str
 
     def __post_init__(self):
-        if type(self.plan) is not CapitalPlan:
+        if type(self.plan) not in (CapitalPlan, CapitalCashPlan):
             raise ValueError("separate capital plan required")
         if type(self.protection_hours) is not int or self.protection_hours not in (1, 4):
             raise ValueError("closed H1 or H4 protection required")
@@ -40,14 +41,14 @@ class CapitalSignalProfile:
         if self.slippage >= 1:
             raise ValueError("invalid declared slippage")
 
-    @property
+    @cached_property
     def profile_digest(self):
         return digest((VERSION, self, IndicatorParameters(), "H4-RSI", 30, 2,
                        D(".95"), D("1.05"), D(".45"), "no-automatic-sixth"))
 
 
 @dataclass(frozen=True)
-class CapitalHour:
+class CapitalHour(CapitalCanonical):
     trade: tuple[ResearchCandle, ...]
     mark: tuple[ResearchCandle, ...]
 
@@ -64,13 +65,13 @@ class CapitalHour:
     def close_time(self):
         return self.trade[0].close_time
 
-    @property
+    @cached_property
     def frame_digest(self):
         return digest((VERSION, self))
 
 
 @dataclass(frozen=True)
-class CapitalSymbol:
+class CapitalSymbol(CapitalCanonical):
     symbol: str
     cycle: int
     entry_indicator: IndicatorState = IndicatorState()
@@ -102,7 +103,7 @@ class CapitalSymbol:
 
 
 @dataclass(frozen=True)
-class CapitalSignalState:
+class CapitalSignalState(CapitalCanonical):
     profile: CapitalSignalProfile
     economic: CapitalResearchState
     revision: int
@@ -151,7 +152,7 @@ class CapitalSignalState:
                             self.last_entry_at.microsecond))):
                 raise ValueError("closed H4 signal time required")
 
-    @property
+    @cached_property
     def state_digest(self):
         return digest((VERSION, self))
 

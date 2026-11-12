@@ -8,6 +8,7 @@ import json
 from datetime import date, datetime
 from decimal import Decimal
 from enum import Enum
+from functools import lru_cache
 from typing import Any, Union, get_args, get_origin, get_type_hints
 import types
 
@@ -17,11 +18,21 @@ from .identity_history import IdentityHistory
 SCHEMA_VERSION = 1
 
 
+@lru_cache(maxsize=128)
+def _record_fields(kind):
+    return dataclasses.fields(kind)
+
+
+@lru_cache(maxsize=128)
+def _record_hints(kind):
+    return get_type_hints(kind)
+
+
 def primitive(value: Any) -> Any:
     if isinstance(value, IdentityHistory):
         return value.record()
     if dataclasses.is_dataclass(value):
-        return {f.name: primitive(getattr(value, f.name)) for f in dataclasses.fields(value)}
+        return {f.name: primitive(getattr(value, f.name)) for f in _record_fields(type(value))}
     if isinstance(value, Decimal):
         return str(value)
     if isinstance(value, (datetime, date)):
@@ -72,10 +83,10 @@ def _decode(kind: Any, value: Any) -> Any:
     if isinstance(kind, type) and issubclass(kind, Enum):
         return kind(value)
     if dataclasses.is_dataclass(kind):
-        fields = {f.name for f in dataclasses.fields(kind)}
+        fields = {f.name for f in _record_fields(kind)}
         if set(value) != fields:
             raise ValueError("snapshot record fields differ from schema")
-        hints = get_type_hints(kind)
+        hints = _record_hints(kind)
         return kind(**{name: _decode(hints[name], item) for name, item in value.items()})
     if kind is bool and type(value) is not bool:
         raise ValueError("invalid boolean")
