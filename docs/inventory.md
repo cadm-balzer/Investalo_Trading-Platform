@@ -1,5 +1,12 @@
 # Bestandsaufnahme
 
+IP-075: eigener `binance_futures_hourly.py` und create-only
+`import-futures-h1-history.py`. Fünf bekannte Coins, native H1-Trade-/Mark-
+und Fundingquellen; Legacy-H4-/Bitgetformate unverändert. Wiederverwendet
+geprüfte Fundingzeilen/Canonical-/UTC-/Preis-/NoRedirect-Helfer und neutrales
+ResearchCandle. Kein wirtschaftlicher Replayjob oder Brokerzugriff.
+[Quelle](futures-hourly-history.md).
+
 IP-074: `futures_capital_signals.py` verbindet den eigenen Kapitalkern mit
 geschlossenem H4-RSI und getrenntem H1/H4-Supertrend. Wiederverwendet Wilder-
 Indikatoren und neutrale ResearchCandle/H4-Aggregation; Defaults unverändert.

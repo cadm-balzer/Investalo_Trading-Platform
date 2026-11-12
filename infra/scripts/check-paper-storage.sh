@@ -17,6 +17,8 @@ exec bash "$paper_root/infra/scripts/compose.sh" --profile checks run --rm --no-
   -v "$paper_root/docs/research-protocols/futures-funding-20261111.json:/app/docs/research-protocols/futures-funding-20261111.json:ro" \
   -v "$paper_root/infra/scripts/import-binance-futures-history.py:/app/infra/scripts/import-binance-futures-history.py:ro" \
   -v "$paper_root/docs/research-protocols/binance-futures-history-20261111.json:/app/docs/research-protocols/binance-futures-history-20261111.json:ro" \
+  -v "$paper_root/infra/scripts/import-futures-h1-history.py:/app/infra/scripts/import-futures-h1-history.py:ro" \
+  -v "$paper_root/docs/research-protocols/futures-h1-history-20261112.json:/app/docs/research-protocols/futures-h1-history-20261112.json:ro" \
   -v "$paper_root/tests/paper:/app/tests/paper:ro" \
   api-checks python -m pytest /app/tests/paper /app/tests/trading /app/tests/marketdata \
   /app/tests/workers/test_computation.py -q --tb=short -p no:cacheprovider "$@"

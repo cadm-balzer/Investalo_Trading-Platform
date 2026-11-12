@@ -1,5 +1,11 @@
 # Roadmap
 
+IP-075 ergänzt die gemeinsame native H1-Futures-/Fundingquelle für
+BNB/BTC/ETH/SOL/XRP im unveränderten Dreijahres-Forschungsfenster.
+Anschließend wirtschaftliche Annahmen und neuen vollständigen Restore
+einfrieren, danach H1-/H4-Schutz mit gleichen Markt-/Kosteneingaben vergleichen.
+[H1-Quellenvertrag](futures-hourly-history.md).
+
 IP-074: Kapitalkern mit tatsächlichen H4-RSI-/Nachkaufsignalen und separatem
 geschlossenem H1/H4-Supertrend verbunden. Feinere Preisbeobachtungen,
 Liquidationsvorrang und Funding-/Teilverkaufs-Nettofloor geprüft.

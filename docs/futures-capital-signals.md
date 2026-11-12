@@ -88,9 +88,9 @@ Liquidation vor−55%, Erholung ohne Liquidationsumgehung, Funding/Teilverkaufs-
 Nettofloor und volle ursprüngliche Kontostart-/Mitternachtsbasis geprüft.
 Eigenreview; keine Agentdelegation, Dependencies, Migrationen oder Publicänderungen.
 
-**Noch kein neuer Futures-Nettoleistungsbefund.** Die vorhandene native
-Binancequelle enthält drei Jahre H4 für BTC/ETH und Fundingraten. Es fehlen
-die passende H1-Kohorte für mindestens drei echte Kandidaten, ein erklärter
+**Noch kein neuer Futures-Nettoleistungsbefund.** IP-075 ergänzt inzwischen
+die [gemeinsame H1-Kohorte](futures-hourly-history.md) für fünf echte Coins.
+Es fehlen ein erklärter
 Nominalpreisbezug für ältere Fundingabrechnungen ohne Settlement-Markpreis,
 gefrorene Kosten-/Margin-/Liquidations-/Intrabarannahmen und vollständiger
 Restore dieses neuen Profils mit ausreichender Ereigniskapazität.
