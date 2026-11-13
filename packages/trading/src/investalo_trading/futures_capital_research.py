@@ -7,7 +7,7 @@ from decimal import Decimal
 from .allocation import identifier, revision
 from .futures_economics import LongPosition
 from .futures_ledger import (
-    DailyBasis, EntryFill, ExitFill, FundingSettlement, FuturesLedgerState,
+    ClosedBasket, DailyBasis, EntryFill, ExitFill, FundingSettlement, FuturesLedgerState,
     LedgerCommand, LedgerMark, LiquidationSettlement, MarginPosting, MarkBatch, PHASES,
     apply_futures_event, number, start_futures_ledger, timestamp,
 )
@@ -76,6 +76,21 @@ class CapitalCashPlan(CapitalPlan):
         # A prior restoration remains actual own cash spent until closure.
         return basket.entry_fees + basket.exit_fees + max(
             basket.cost_restored, -basket.funding_net, ZERO)
+
+
+@dataclass(frozen=True)
+class CapitalRealizedCashPlan(CapitalCashPlan):
+    """Q44: only an acknowledged full profitable exit may cover its own overrun."""
+    capital_policy: str = field(default="isolated-usdt-capital-realized-cash/3", init=False)
+
+    @precise
+    def closing_cost_overrun_covered(self, basket, closed):
+        reserve = self.budgets[self.symbols.index(basket.symbol)].cost_reserve
+        overrun = self.basket_cost_usage(basket) - reserve
+        return (type(closed) is ClosedBasket
+                and (closed.symbol, closed.cycle) == (basket.symbol, basket.cycle)
+                and overrun > ZERO and closed.net_pnl > ZERO
+                and closed.net_pnl >= overrun)
 
 
 @precise
@@ -242,7 +257,7 @@ class CapitalAssessment:
 
 
 def start_capital_research(plan, marks, at, evidence_digest, *, identity_capacity=50000):
-    if type(plan) not in (CapitalPlan, CapitalCashPlan):
+    if type(plan) not in (CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan):
         raise ValueError("explicit capital plan required")
     ledger = start_futures_ledger(plan, marks, at, evidence_digest)
     return CapitalResearchState(
@@ -341,7 +356,7 @@ def prepare_capital_entry(state, symbol, maximum_price, at):
     reserves = plan.remainder
     stopped = {r.symbol: r for r in state.stopped}
     for row, budget in zip(state.ledger.baskets, plan.budgets, strict=True):
-        if (type(plan) is CapitalCashPlan and not row.quantity
+        if (type(plan) in (CapitalCashPlan, CapitalRealizedCashPlan) and not row.quantity
                 and row.symbol != symbol and row.symbol not in stopped):
             continue  # No capital claim for an empty, unrequested slot.
         committed = row.margin_committed + (capital if row.symbol == symbol else ZERO)
@@ -351,7 +366,7 @@ def prepare_capital_entry(state, symbol, maximum_price, at):
             ZERO, budget.margin_capital - committed)
         reserves += max(ZERO, budget.cost_reserve - fees)
         # Keep principal restoration backing separate from unused cost reserve.
-        if type(plan) is CapitalCashPlan:
+        if type(plan) in (CapitalCashPlan, CapitalRealizedCashPlan):
             reserves += max(ZERO, plan.basket_cost_usage(row)
                             - row.entry_fees - row.exit_fees - row.cost_restored)
         else:

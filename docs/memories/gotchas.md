@@ -875,3 +875,15 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   bleiben an eingefrorene Economics gebunden; Cashplan und Journalprotokoll
   binden die Korrektur. declared_exit muss weiterhin das vollständige exakt
   passende Szenarioprofil vergleichen, auch mit explizitem Cashplan.
+- **H1-Einstieg braucht eigene Identität:** Keine Standardfelder an eingefrorene
+  CapitalSignalProfile anhängen. Eigene H1-Policy/Journalgenesis dekodieren;
+  RSI nur aus geschlossenen nativen H1-Kerzen, Nachkaufrearm erst nach echtem
+  Fill und anschließendem RSI>30. H4-Schutz/Einstieg nicht verwechseln.
+- **Dreijahresfenster beweist keinen Dreijahreshandel:** IP-080 endet durch
+  Kontobudgethalt am2023-01-16. Letzten Abschluss/Halt und tatsächlich
+  ausgeführte Stufen neben Netto/DD berichten; mittlere Margin enthält
+  danach Jahre ohne Positionen. Keine annualisierte Renditehochrechnung.
+- **Q44 ist eng:** Nur positiver eigener vollständiger normaler Abschlussnetto
+  deckt gesamten Kostenüberhang; keine Extra-Cashbuchung. Vorher offene
+  Budgethaltes bleiben terminal, ebenso Teilverkaufs-/Liquidationsfälle.
+  Unrealisierte oder fremde Gewinne sind keine freigegebene Finanzierung.

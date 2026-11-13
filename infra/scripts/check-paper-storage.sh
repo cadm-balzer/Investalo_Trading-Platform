@@ -23,6 +23,10 @@ exec bash "$paper_root/infra/scripts/compose.sh" --profile checks run --rm --no-
   -v "$paper_root/infra/scripts/backtest-futures-capital.py:/app/infra/scripts/backtest-futures-capital.py:ro" \
   -v "$paper_root/docs/research-protocols/futures-capital-economics-20261112.json:/app/docs/research-protocols/futures-capital-economics-20261112.json:ro" \
   -v "$paper_root/docs/research-protocols/futures-capital-cash-20261112.json:/app/docs/research-protocols/futures-capital-cash-20261112.json:ro" \
+  -v "$paper_root/docs/research-protocols/futures-capital-h1-entry-20261112.json:/app/docs/research-protocols/futures-capital-h1-entry-20261112.json:ro" \
+  -v "$paper_root/docs/research-protocols/futures-capital-cash-market-receipt-20261112.json:/app/docs/research-protocols/futures-capital-cash-market-receipt-20261112.json:ro" \
+  -v "$paper_root/docs/research-protocols/futures-capital-h1-realized-cost-20261112.json:/app/docs/research-protocols/futures-capital-h1-realized-cost-20261112.json:ro" \
+  -v "$paper_root/docs/research-protocols/futures-capital-h1-entry-market-receipt-20261112.json:/app/docs/research-protocols/futures-capital-h1-entry-market-receipt-20261112.json:ro" \
   -v "$paper_root/tests/paper:/app/tests/paper:ro" \
   api-checks python -m pytest /app/tests/paper /app/tests/trading /app/tests/marketdata \
   /app/tests/workers/test_computation.py -q --tb=short -p no:cacheprovider "$@"

@@ -1,10 +1,11 @@
 """Declared native-history market replay; no broker, AI or holdout access."""
 from collections import Counter
+from dataclasses import replace
 from datetime import timedelta
 from decimal import Decimal
 
 from investalo_trading.futures_capital_journal import CapitalReplayJournal
-from investalo_trading.futures_capital_research import CapitalCashPlan
+from investalo_trading.futures_capital_research import CapitalCashPlan, CapitalRealizedCashPlan
 from investalo_trading.futures_capital_signals import CapitalHour, assess_capital_signal, _entry_signal
 from investalo_trading.futures_ledger import LedgerMark, LiquidationSettlement, MarginPosting, MarkBatch
 from investalo_trading.models import floor_step, precise
@@ -44,7 +45,7 @@ class MarketReplay:
         self.closed = []
         self.blocked = Counter()
         self.signal_filters = Counter()
-        self.h4_candidates = 0
+        self.entry_candidates = 0
         self.stage_counts = Counter()
         self.warning_hours = Counter()
         self.fees = ZERO
@@ -110,6 +111,10 @@ class MarketReplay:
                 "reasons": list(signal.exit_reasons), "liquidated": type(payload) is LiquidationSettlement,
                 "price_pnl": str(pnl), "fees": str(b.entry_fees + b.exit_fees + payload.fee),
                 "funding_net": str(b.funding_net), "insurance_credit": str(credit), "net_pnl": str(net),
+                "closing_cost_usage": str(self.state.profile.plan.basket_cost_usage(
+                    replace(b, exit_fees=b.exit_fees + payload.fee,
+                            charges_in_budget_epoch=b.charges_in_budget_epoch + payload.fee))),
+                "cost_reserve": str(self.state.profile.plan.budgets[index].cost_reserve),
             })
             self.append("economic", at, payload=payload, event_id=self.event_id("exit"))
             self.fees += payload.fee
@@ -121,7 +126,7 @@ class MarketReplay:
             if not b.quantity:
                 continue
             usage = self.state.profile.plan.basket_cost_usage(b)
-            if type(self.state.profile.plan) is CapitalCashPlan:
+            if type(self.state.profile.plan) in (CapitalCashPlan, CapitalRealizedCashPlan):
                 usage = b.entry_fees + b.exit_fees + b.cost_restored
             amount = floor_step(min(max(ZERO, b.margin_committed - b.isolated_balance),
                                     max(ZERO, budget.cost_reserve - usage)),
@@ -246,7 +251,7 @@ class MarketReplay:
             "decimal_reconciliation_residual": str(residual),
             "declared_insurance_credit": str(self.insurance), "cost_restoration": str(self.restored),
             "stage_fill_counts": dict(sorted(self.stage_counts.items())), "capital_rejections": dict(self.blocked),
-            "eligible_closed_h4_candidates": self.h4_candidates,
+            "eligible_closed_h4_candidates": self.entry_candidates,
             "closed_h4_signal_filters": dict(self.signal_filters),
             "closed_exit_reasons": dict(Counter(r for b in self.closed for r in b["reasons"])),
             "account_warning_hours": dict(self.warning_hours), "maximum_posted_margin": str(self.maximum_margin),
@@ -262,7 +267,8 @@ class MarketReplay:
 
 
 def run_scenario(streams, scenario, output, protocol_digest, dataset_digests, *,
-                 progress=None, full_flat_quotes=False, cash_budget_protocol=None):
+                 progress=None, full_flat_quotes=False, cash_budget_protocol=None, entry_hours=4,
+                 realized_exit_costs=False):
     symbols, anchor = validate_cohort(streams)
     output.mkdir(mode=0o700, exist_ok=False)
     if cash_budget_protocol is not None:
@@ -270,7 +276,8 @@ def run_scenario(streams, scenario, output, protocol_digest, dataset_digests, *,
             raise ValueError("cash budget protocol must bind the journal")
     # Funding references bind unchanged economics; the plan discriminator and
     # journal protocol bind corrected cash semantics.
-    profile = scenario.profile(cash_budgets=cash_budget_protocol is not None)
+    profile = scenario.profile(cash_budgets=cash_budget_protocol is not None, entry_hours=entry_hours,
+                               realized_exit_costs=realized_exit_costs)
     references = {}
     for symbol in symbols:
         stream = streams[symbol, "funding"]
@@ -310,7 +317,7 @@ def run_scenario(streams, scenario, output, protocol_digest, dataset_digests, *,
                                   opened + timedelta(seconds=2))
                     needs_open = True
                     if replay.state.last_entry_at == opened:
-                        replay.h4_candidates += 1
+                        replay.entry_candidates += 1
                 except ValueError as error:
                     if replay.state.last_entry_at == opened:
                         replay.signal_filters[str(error)] += 1
@@ -336,6 +343,10 @@ def run_scenario(streams, scenario, output, protocol_digest, dataset_digests, *,
                 progress(scenario.scenario_id, i + 1, replay.state.economic.ledger.equity)
         report = replay.report(anchor.start, anchor.end)
         report["capital_policy"] = profile.plan.capital_policy
+        report["entry_timeframe"] = f"H{profile.entry_hours}"
+        if profile.entry_hours == 1:
+            report["eligible_closed_h1_candidates"] = report.pop("eligible_closed_h4_candidates")
+            report["closed_h1_signal_filters"] = report.pop("closed_h4_signal_filters")
         report["economically_empty_flat_quotes_omitted"] = not full_flat_quotes
         closed = replay.closed
         receipt = journal.receipt

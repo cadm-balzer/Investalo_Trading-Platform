@@ -53,6 +53,46 @@ def run(streams, scenario, output):
 
 
 class CapitalMarketBacktestTests(unittest.TestCase):
+    def test_realized_cash_policy_has_own_identity_and_full_h1_journal_restore(self):
+        from investalo_trading.futures_capital_research import CapitalRealizedCashPlan
+        streams, scenario = fixture(), cases()[0]
+        with TemporaryDirectory() as directory:
+            report = run_scenario(
+                streams, scenario, Path(directory) / "realized", "c" * 64,
+                tuple(sorted({s.data_digest for s in streams.values()})),
+                cash_budget_protocol="c" * 64, entry_hours=1, realized_exit_costs=True)
+        self.assertTrue(report["full_journal_restore_verified"])
+        self.assertEqual(report["entry_timeframe"], "H1")
+        self.assertEqual(report["capital_policy"], CapitalRealizedCashPlan.capital_policy)
+        self.assertNotEqual(report["profile_digest"],
+                            scenario.profile(cash_budgets=True, entry_hours=1).profile_digest)
+        self.assertNotIn("6", report["stage_fill_counts"])
+
+    def test_h1_entries_use_closed_hours_with_same_costs_and_full_journal_restore(self):
+        from investalo_trading.futures_capital_journal import H1_VERSION
+        streams = fixture()
+        bindings = tuple(sorted({s.data_digest for s in streams.values()}))
+        with TemporaryDirectory() as directory:
+            output = Path(directory) / "h1"
+            report = run_scenario(streams, cases()[0], output, "b" * 64, bindings,
+                                  cash_budget_protocol="b" * 64, entry_hours=1)
+            self.assertTrue(report["full_journal_restore_verified"])
+            self.assertEqual(report["entry_timeframe"], "H1")
+            self.assertNotIn("closed_h4_signal_filters", report)
+            self.assertIn("closed_h1_signal_filters", report)
+            self.assertNotIn("6", report["stage_fill_counts"])
+            self.assertEqual(report["maximum_active_baskets"], 5)
+            with (output / "journal.jsonl").open() as handle:
+                header = json.loads(next(handle))
+                commands = [json.loads(line)["command"] for line in handle]
+            self.assertEqual(header["schema_version"], H1_VERSION)
+            first = next(c for c in commands if c["kind"] == "entry")
+            self.assertEqual(first["at"], "2024-01-01T16:00:02+00:00")
+            baseline = run_scenario(streams, cases()[0], Path(directory) / "h4",
+                                    "b" * 64, bindings, cash_budget_protocol="b" * 64)
+            self.assertNotEqual(report["profile_digest"], baseline["profile_digest"])
+            self.assertEqual(report["assumptions_digest"], baseline["assumptions_digest"])
+
     def test_corrected_policy_is_bound_and_fully_restores_native_journal(self):
         from investalo_trading.futures_capital_research import CapitalCashPlan
         with TemporaryDirectory() as directory:
