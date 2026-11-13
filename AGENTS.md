@@ -7,6 +7,24 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR52 merged: head8d71aeb ancestor of main5a89712 (GH/fetch verified).
+  IP-084 on feat/m1-futures-broker-calibration captures one unsigned public
+  Classic USDT contract GET (2026-11-13); five selected original objects
+  and source hashes saved. Current quantity steps BNB.01/BTC.0001/ETH.01/
+  SOL.1/XRP1; these are current Bitget rules, not historical Binance rules.
+  Sixteen focused pinned cases/twenty subtests pass. Static probes of all51
+  frozen IP-083 rows: no proposed quantity on current grid; floor alone
+  covers all19 margin-only XRP residuals under unchanged old margin arithmetic,
+  headroom.00377589–1.10892819 USDT. No price-grid/fee-freeze/acceptance/PNL claim.
+  Exact USDT money quantum/rounding remain unknown, no epsilon introduced.
+  Classic long opening loss applies order>mark, not mark>order;
+  old price guard remains uncalibrated. No UTA formula transfer.
+  Metadata receiptsha61c50ac6bc85b86ee176f1c7d926153d899f16c4b4cbeec35437a1a1a37d6e5c;
+  probe receiptshad95eb94d18a46e67f67fd6e0f31de59cfd6186905715028de4be5cba64a22ab1.
+  Ten baseline implementation hashes unchanged; no full fold/new performance/
+  economic policy/runtime/DB/dependency change. Failed local captures/probes
+  preserved without success receipt. Next IP-085: separate grid-aware frozen
+  research assumptions before leverage comparison. See docs/futures-broker-calibration.md.
 - PR51 merged by user; head7c239a2 is ancestor of main165c5f4
   (GH/fetch verified). IP-083 on feat/m1-futures-admission-audit adds a
   read-only reconstruction of remaining native admission rejections.

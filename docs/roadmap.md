@@ -34,6 +34,12 @@ ausgeführt.19 reine XRP-Marginablehnungen sind Rundungsreste unter1E−8 trotz
 verfügbarer eigener Restoration;32 Preisgrenzen sind deklarierte Modellguards.
 Nächster Schritt: Geldquantisierung und Broker-/Kosten-/Preisregelkalibrierung
 mit eigenem Referenzanker vor weiterem Hebelvergleich und unabhängigem Holdout.
+IP-084 sichert aktuelle Classic-Bitget-Verträge und51 statische Rasterproben:
+19 reine XRP-Marginreste durch Mengenfloor unter alter Formel gedeckt.
+USDT-Geldrundung und historische Brokerregeln bleiben unbekannt.
+IP-085 friert einen eigenen rastergerechten Forschungsvergleich ein;
+Referenz/Staffel/Cash-/Liquidationsgrenzen bleiben erhalten.
+[Aktuelle Brokerkalibrierung](futures-broker-calibration.md).
 [Diagnoseergebnisse](futures-admission-results-20261113.md).
 [Neuer Budgetvertrag](futures-reserved-budget.md).
 [Vollständige Ergebnisse](futures-reserved-budget-results-20261113.md).

@@ -1886,6 +1886,43 @@ Profitabschlüsse. Keine Budget-/Cashablehnung;29 deklarierte Initialmargin-
 und32 Fillbound-Ablehnungen bleiben für separate IP-083-Diagnose.
 Keine stillen Änderungen der Margin-/Preisgrenzen oder neuen Geldquellen.
 
+## 2026-11-13 — D-092: Aktuelle Classic-Raster getrennt von Geldrundung sichern
+
+**Status: IP-084 abgeschlossen, keine wirtschaftliche Policyänderung.**
+Nutzer bestätigt PR52 gemerged; head8d71aeb ist Vorfahr von main5a89712.
+Eigener Featurebranch feat/m1-futures-broker-calibration.
+Ein fixer unsigned Bitget-Classic-USDT-Contract-GET;685029 Antwortbytes
+lokal hashgebunden, fünf originale Objekte im Repository gesichert.
+Aktuelle Mengenraster BNB.01/BTC.0001/ETH.01/SOL.1/XRP1,
+öffentlicher Takertarif.0006, nicht individuelles Konto oder historische Regel.
+Diese2026-Bitget-Quelle wird nicht als2022–2025-Binance-Brokerregel ausgegeben.
+Receiptsha61c50ac6bc85b86ee176f1c7d926153d899f16c4b4cbeec35437a1a1a37d6e5c.
+
+Alle51 hashgebundenen IP-083-Ablehnungszeilen statisch geprüft, keine Menge
+bereits auf aktuellem Raster. Nur vorgeschlagene Menge heruntergerundet,
+altes Basis-/Mark-/Preis-/Kapitalmodell unverändert. Alle19 reinen XRP-
+Marginreste dadurch unter alter Formel gedeckt; Headroom.0037758872 bis
+1.1089281855 USDT. Kein neuer Fill/Journalfold/PNL-Nachweis; Preisraster,
+Gebührenfreeze und weitere Brokerzulassung werden nicht behauptet.
+Probereceiptshad95eb94d18a46e67f67fd6e0f31de59cfd6186905715028de4be5cba64a22ab1.
+Zehn Referenzmodule unverändert, neue drei Implementationshashes gebunden.
+
+Classic-Marginguide beschreibt Long-Eröffnungsverlust bei Order>Mark.
+Das bestätigt nicht den bisherigen pauschalen Mark>Maxfill-Guard.
+Keine UTA-Formelübertragung, keine Ableitung von USDT-Buchungspräzision
+aus Preis-/Mengenstellen und kein ungeprüftes Money-Epsilon.
+Geldquantum/Rundungsrichtung, historische Tiers und Kontotarife bleiben offen.
+IP-085 plant eine eigene vorab eingefrorene rastergerechte Forschungsvariante.
+
+16 unterschiedliche fokussierte gepinnte Fälle/20 Subtests bestehen.
+Der erste Netzwerksandboxversuch scheiterte ohne Receipt; ein bewusster
+neuer Capture außerhalb der Sandbox erfolgreich. Erste lokale Proben
+stoppten an der größeren audit-internen Dezimalpräzision. Begrenzter eigener
+Auditcodec plus reale XRP-Referenz beheben dies ohne bestehenden Codec zu
+ändern. Fehlordner erhalten. Eigenreview, kein Subagent/breiter unveränderter
+Regressionstest/neuer Marktjob/AI-/Live-/Holdout-/Public-/DB-/Dependencywechsel.
+Siehe docs/futures-broker-calibration.md.
+
 ## 2026-11-13 — D-091: Verbleibende Ablehnungen vollständig erklärt
 
 **Status: IP-083 abgeschlossen, wirtschaftliche Regeln unverändert.**

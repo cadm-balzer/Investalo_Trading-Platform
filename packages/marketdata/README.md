@@ -1,5 +1,11 @@
 # H4 research snapshots
 
+IP-084 adds isolated `futures_broker_calibration.py`: one fixed unsigned
+Classic contract metadata GET, bounded current five-symbol grid parsing,
+offline limit-quantity/opening-loss arithmetic and static IP-083 grid probes.
+No historical acceptance, money-rounding authority, PNL or runtime caller.
+[Current metadata and evidence](../../docs/futures-broker-calibration.md).
+
 IP-069 ergänzt `futures_funding.py`: bounded Classic-V2-Fundingimport, signed
 Abrechnungen und expliziter erwarteter Settlementkalender mit Missing-/Unexpected-
 Diagnose. Je270 native jüngste BTC/ETH-Ereignisse; null im Dreijahresfenster.
