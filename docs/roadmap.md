@@ -28,9 +28,13 @@ Gebührenbacking und alle sechs Kapitalstufen. 183 gezielte gepinnte Fälle/
 109440 Commands/vier Artefakte/acht unveränderte Start-End-Hashes.
 Netto+9579,93 USDT/DD17,62%,269 Abschlüsse/24 volle Fünfstufen-Baskets,
 keine Liquidationen oder Kontohaltes. Tatsächlicher letzter Einstieg
-2025-07-29, zwei offene Endpositionen zum Markkurs. IP-083 diagnostiziert
-29 deklarierte Initialmargin-/32 Preisgrenzenablehnungen vor Brokerkalibrierung
-und unabhängigen Holdout; die Regeln werden nicht still aufgehoben.
+2025-07-29, zwei offene Endpositionen zum Markkurs. IP-083 hat die verbleibenden
+Ablehnungen vollständig diagnostiziert:51 Versuche/34 Zyklusstufen,33 später
+ausgeführt.19 reine XRP-Marginablehnungen sind Rundungsreste unter1E−8 trotz
+verfügbarer eigener Restoration;32 Preisgrenzen sind deklarierte Modellguards.
+Nächster Schritt: Geldquantisierung und Broker-/Kosten-/Preisregelkalibrierung
+mit eigenem Referenzanker vor weiterem Hebelvergleich und unabhängigem Holdout.
+[Diagnoseergebnisse](futures-admission-results-20261113.md).
 [Neuer Budgetvertrag](futures-reserved-budget.md).
 [Vollständige Ergebnisse](futures-reserved-budget-results-20261113.md).
 [Ergebnisse](futures-realized-cost-results-20261112.md).

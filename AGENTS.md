@@ -7,6 +7,29 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR51 merged by user; head7c239a2 is ancestor of main165c5f4
+  (GH/fetch verified). IP-083 on feat/m1-futures-admission-audit adds a
+  read-only reconstruction of remaining native admission rejections.
+  Nine focused pinned cases/ten subtests pass; actual funding depletion
+  and overlapping mark/margin denials verified synthetically.
+  Full baseline fold/export complete after daemon interruption and a corrected
+  JSON export (shallow dict primitive/text-byte mismatch); three affected
+  pinned cases pass. Final output:
+  infra/local/futures-admission-audit/20261113-native-export-corrected,
+  109440 commands/530 entries/581 candidates/exact final receipt.
+  Four original artifact and ten start/end implementation hashes verified.
+  Audit receiptsha4e4b5bf91f13cd8771c0f18b051d28b79305a34e4e8695ea90f3d0faa8d5c86b.
+  51 denied attempts/34 cycle-stages; 50 attempts/33 cycle-stages filled later.
+  19 margin-only attempts are XRP rounding residuals below1E-8 with7.77–14.01
+  USDT own restoration capacity; all filled later. One additional XRP attempt
+  combines that residual with price bound. Other nine margin denials are
+  first-fill mark premium, up to0.90 USDT; all filled later.
+  32 price bounds are a model guard, not proven historical broker rejection.
+  One XRP cycle49/stage5 price denial never fills. Next: money precision and
+  broker/cost calibration, retain frozen reference and real cash constraints.
+  Interrupted/failed earlier directories preserved without success receipt.
+  No active job, new performance/risk rule/source or AI/live/holdout/public/
+  DB/dependency change. See docs/futures-admission-results-20261113.md.
 - PR50 merged by user; head6dfde31 ancestor of mainbde1cee verified via
   GH/fetch. IP-082 on feat/m1-futures-reserved-budget implements Q45's own
   reserved-budget instruction: separate reserved-cash/4. Funding debits
