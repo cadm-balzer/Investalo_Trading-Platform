@@ -1962,3 +1962,42 @@ finaler Lauf20261113-native-export-corrected; fehlgeschlagene Ordner ohne
 Erfolgsreceipt erhalten. Keine breite Regression oder Marktperformance
 wiederholt, kein Agent, neue Abhängigkeit/DB/Public-/AI-/Live-/Holdoutänderung.
 IP-082 bleibt netto+9579,93/DD17,62% ohne Kontohalt/Liquidation.
+
+
+## 2026-11-13 — D-093: Separaten aktuellen Rastervergleich vollständig auswerten
+
+**Status: lokale Umsetzung und Forschung im fortgesetzten M1-Auftrag.**
+PR53 headfa993f5 ist Vorfahr von main174ac6f; GH/Fetch verifiziert.
+IP-085 auf feat/m1-futures-grid-comparison friert vor Performance das eigene
+Protokollsha8f24a3f0d9a7ba0af3daf497bf5ed2925a5478db35da138ed96a2b95afe84a8d
+und die aktuelle Bitget-Quelle ein. Eigene current-grid/5-Policy mit
+vollständiger Genesisidentität: Menge ab-, Kaufpreis auf-, Exitpreis abrunden,
+aktuelle Minima/Marketmaxima. Übergröße beim vollständigen Exit stoppt den Job.
+Alle sechs Eigenkapitalbeträge/2×/RSI-Rearm/5%-Nachkäufe, eigenes Funding,
+Cash-/Liquidations-/Margin-/Preisguards und Modellgebühren bleiben erhalten.
+Keine Broker-USDT-Präzision oder vollständige Classic-Orderfreeze behauptet.
+Alte Defaultprofildigests bleiben identisch; vier IP-082-Artefakte unverändert.
+
+Ein nativer Job und voller Restore erfolgreich:108427 Commands/122675 IDs,
+vier Artefakte/elf unveränderte Start-End-Implementationshashes. Unverändert
+exportierter Erfolgsreceiptsha
+727911a2f49e9814c9aa488ad365a4e451dc7ae86bd933d0d522acb9f95debfd.
+Netto+9596,82 USDT/95,97%, DD18,01%,273 Abschlüsse/233 positive/40 negative,
+keine Liquidationen oder Kontohaltes.275/128/72/37/24 tatsächliche Stufen;
+536 Käufe und273 Exits zusätzlich direkt auf eingefrorenen Rastern geprüft.
+Letzter Einstieg2025-07-29, zwei Endbaskets zum Mark bewertet.
+Gegenüber IP-082 nur+16,90 Netto und+0,40 Prozentpunkte Drawdown;
+29 Marginablehnungen entfallen,28 bisherige Preisguards verbleiben.
+Ein ETH-Notausstieg−1243,66 netto und39 negative Schutzausstiege−443,86
+sind im Nettogewinn enthalten; kein Versprechen ausschließlich positiver Exits.
+
+13 neue/122 unterschiedliche gezielte gepinnte Fälle/88 Subtests bestehen.
+Nach korrigierter expliziter Genesis-Whitelist24 betroffene Legacyfälle erneut,
+Fundingfixtures um notwendige gleichzeitige Marks ergänzt; Produktionsschutz
+unverändert. Zusätzlicher synthetischer Gaptest bestätigt fünf terminale
+Liquidationen und vollen Restore. Kein Agent, kein breiter Suite-/Marktjobrerun.
+Keine DB-/Dependency-/Public-/AI-/Live-/Holdoutänderung. Aktuelle2026-Bitget-
+Raster auf2022–2025-Binance-Daten sind keine historische Brokerzulassung.
+Nächster Schritt: getrennte vollständige Classic-Orderfreeze-/Margin-/
+Preisguard-Kalibrierung vor weiteren Hebelvergleichen.
+[Ergebnisse](../futures-current-grid-results-20261113.md).

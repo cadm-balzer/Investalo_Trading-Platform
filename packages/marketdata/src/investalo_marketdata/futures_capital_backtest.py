@@ -6,6 +6,7 @@ from decimal import Decimal
 
 from investalo_trading.futures_capital_journal import CapitalReplayJournal
 from investalo_trading.futures_capital_research import CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan
+from investalo_trading.futures_capital_grid import CapitalGridPlan
 from investalo_trading.futures_capital_signals import CapitalHour, assess_capital_signal, _entry_signal
 from investalo_trading.futures_ledger import LedgerMark, LiquidationSettlement, MarginPosting, MarkBatch
 from investalo_trading.models import floor_step, precise
@@ -123,7 +124,7 @@ class MarketReplay:
     @precise
     def restoration_amount(self, b, budget):
         plan = self.state.profile.plan
-        if type(plan) is CapitalReservedCashPlan:
+        if isinstance(plan, CapitalReservedCashPlan):
             capacity = plan.cost_restoration_capacity(b)
         else:
             usage = plan.basket_cost_usage(b)
@@ -148,6 +149,8 @@ class MarketReplay:
     def enter(self, at):
         for i, symbol in enumerate(self.state.profile.plan.symbols):
             maximum = self.state.trade_prices[i].price * (1 + self.scenario.costs.slippage)
+            if type(self.state.profile.plan) is CapitalGridPlan:
+                maximum = self.state.profile.plan.adverse_price(symbol, maximum, buy=True)
             try:
                 _entry_signal(self.state, symbol, maximum, at)
             except ValueError:
@@ -203,7 +206,7 @@ class MarketReplay:
                     eligible = True
                 except ValueError:
                     pass
-            if type(self.state.profile.plan) is CapitalReservedCashPlan:
+            if isinstance(self.state.profile.plan, CapitalReservedCashPlan):
                 restoration = any(b.quantity and self.restoration_amount(b, budget) > 0
                     for b, budget in zip(self.state.economic.ledger.baskets, self.state.profile.plan.budgets))
             else:
@@ -281,7 +284,7 @@ class MarketReplay:
 
 def run_scenario(streams, scenario, output, protocol_digest, dataset_digests, *,
                  progress=None, full_flat_quotes=False, cash_budget_protocol=None, entry_hours=4,
-                 realized_exit_costs=False, reserved_cash=False):
+                 realized_exit_costs=False, reserved_cash=False, current_grids=False):
     symbols, anchor = validate_cohort(streams)
     output.mkdir(mode=0o700, exist_ok=False)
     if cash_budget_protocol is not None:
@@ -290,7 +293,8 @@ def run_scenario(streams, scenario, output, protocol_digest, dataset_digests, *,
     # Funding references bind unchanged economics; the plan discriminator and
     # journal protocol bind corrected cash semantics.
     profile = scenario.profile(cash_budgets=cash_budget_protocol is not None, entry_hours=entry_hours,
-                               realized_exit_costs=realized_exit_costs, reserved_cash=reserved_cash)
+                               realized_exit_costs=realized_exit_costs, reserved_cash=reserved_cash,
+                               current_grids=current_grids)
     references = {}
     for symbol in symbols:
         stream = streams[symbol, "funding"]
@@ -356,6 +360,10 @@ def run_scenario(streams, scenario, output, protocol_digest, dataset_digests, *,
                 progress(scenario.scenario_id, i + 1, replay.state.economic.ledger.equity)
         report = replay.report(anchor.start, anchor.end)
         report["capital_policy"] = profile.plan.capital_policy
+        if current_grids:
+            report["grid_source_digest"] = profile.plan.grid_source_digest
+            report["grid_price_rounding"] = "adverse entry ceiling / exit floor"
+            report["broker_admission_verified"] = False
         report["entry_timeframe"] = f"H{profile.entry_hours}"
         if profile.entry_hours == 1:
             report["eligible_closed_h1_candidates"] = report.pop("eligible_closed_h4_candidates")

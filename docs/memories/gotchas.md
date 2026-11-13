@@ -2,6 +2,13 @@
 
 Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem behoben.
 
+- **Rastervergleich braucht adverse Preise und vollständige Genesis:** Käufe
+  zum nächsten Tick auf-, Verkäufe abrunden; sonst erzeugt die Quantisierung
+  günstige Fakefills. Nur die Menge wird im Eigenkapital-/Nominalrahmen
+  abgerundet. Übersteigt der volle Exit das deklarierte Marketmaximum,
+  stoppt der Full-Fill-Forschungsjob statt unbekannte Splitorders zu erfinden.
+  Neue Grid-Policy im Kapitalstart, Signalprofil und Journaldecoder explizit
+  zulassen; alle Raster-/Quellendetails müssen im Genesisdigest stehen.
 - **Classic-Vertragsraster ist keine Geldpräzision:** `sizeMultiplier` und
   `volumePlace` betreffen Mengen; `priceEndStep ×10^−pricePlace` den Preistick.
   Aktuell XRP1/SOL.1 statt Forschungsraster1E−8. USDT-Margin-/Fee-/Funding-

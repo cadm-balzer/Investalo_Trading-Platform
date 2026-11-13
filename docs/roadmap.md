@@ -39,6 +39,17 @@ IP-084 sichert aktuelle Classic-Bitget-Verträge und51 statische Rasterproben:
 USDT-Geldrundung und historische Brokerregeln bleiben unbekannt.
 IP-085 friert einen eigenen rastergerechten Forschungsvergleich ein;
 Referenz/Staffel/Cash-/Liquidationsgrenzen bleiben erhalten.
+Protokollsha8f24a3f0d9a7ba0af3daf497bf5ed2925a5478db35da138ed96a2b95afe84a8d
+vor Performance gefroren; eigene current-grid/5-Policy,109 Legacy- und
+dreizehn neue gezielte gepinnte Fälle grün. Nativer2×-H1-Lauf und voller
+Restore abgeschlossen:108427 Commands/vier Artefakte/elf Start-End-Hashes,
+netto+9596,82/DD18,01%,273 Abschlüsse/keine Liquidationen oder Kontohaltes.
+Alle29 bisherigen Marginablehnungen entfallen;28 Modellpreisguards bleiben.
+Mehrnetto16,90 USDT bei0,40 Prozentpunkten mehr Drawdown ist kein großer
+Optimierungsgewinn. Vollständige Classic-Orderfreeze-/Marginabbildung und
+Preisguard-Kalibrierung folgen separat vor weiterem Hebelvergleich.
+[Rasterergebnisse](futures-current-grid-results-20261113.md).
+[Rastervergleich](futures-current-grid-comparison.md).
 [Aktuelle Brokerkalibrierung](futures-broker-calibration.md).
 [Diagnoseergebnisse](futures-admission-results-20261113.md).
 [Neuer Budgetvertrag](futures-reserved-budget.md).

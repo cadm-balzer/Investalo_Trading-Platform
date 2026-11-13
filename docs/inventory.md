@@ -1,5 +1,16 @@
 # Bestandsaufnahme
 
+IP-085: eigener `futures_capital_grid.py` und bytegebundener
+`futures_grid_profile.py`; expliziter `--h1-current-grids`-Job verwendet
+bestehenden Kapital-/Ledger-/Signal-/Funding-/Journalablauf.
+Plan-/Profilidentity enthält Mengen-/Preisraster/Marketgrenzen/Quellendigest,
+alte Defaultdigests bleiben gleich. Nur zwei zusätzliche read-only
+Testmounts, kein Runtime-/Dependencywechsel. Vollständiger nativer Job/Restore
+und alle536 Entry-/273 Exitrasternachweise abgeschlossen; vier Artefakte
+und elf unveränderte Start-End-Implementationshashes gesichert.
+[Ergebnisse](futures-current-grid-results-20261113.md).
+[Vergleichsvertrag](futures-current-grid-comparison.md).
+
 IP-084: isolierter `futures_broker_calibration.py`, create-only
 `capture-futures-broker-rules.py` und lokale `probe-futures-broker-grids.py`.
 Ein fixer öffentlicher Classic-GET; strikte fünf USDT-Perpetualverträge,
