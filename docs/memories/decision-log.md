@@ -1847,3 +1847,41 @@ kein Draft, mergebar. Nutzer übernimmt Review/Merge. Öffentliche
 Cockpit-/Auth-HTTPS-Abfragen beide200, laufende Container unverändert.
 Zusätzliche reine read-only Protokollmounts im Prüfscript mit `bash -n`
 geprüft; keine weitere wirtschaftliche Codeänderung oder breite Wiederholung.
+
+## 2026-11-13 — D-090: Reserviertes Budget ohne zusätzlichen Fundingquotenhalt
+
+**Status: beauftragt, Q45; Umsetzung separat vor Auswertung eingefroren.**
+PR50 gemerged, head6dfde31 Vorfahr von mainbde1cee über GH/Fetch geprüft.
+Nutzer verlangt, dass das fest reservierte Basketbudget keine zusätzliche
+Handelsbremse erhält. Interpretation: Funding ist bereits aus eigener
+isolierter Margin bezahlt; nur tatsächliche Walletgebühren/Restoration
+verbrauchen die Kostenbarreserve. Neues reserved-cash/4-Profil,
+keine Änderung historischer Policys1–3. Restoration hält Gebühren für
+restliche reguläre Käufe/deklarierten vollständigen Ausstieg zurück.
+Alle sechs Eigenkapitalbeträge bleiben identisch, keine manuelle/fremde
+Reserve oder unrealisierten Gewinne als erfundene zusätzliche Cashquelle.
+Echte Initialmargin, Liquidation und Gelddeckung bleiben verbindlich.
+Q44 gilt weiterhin für eigenen vollständigen profitablen Normalabschluss.
+
+183 unterschiedliche gezielte gepinnte Prüfungen/108 Subtests bestehen,
+neun neue. Ein Test-Fixture erhielt höhere Fundingbelastung, um den alten
+Halt tatsächlich auszulösen; nur die betroffenen zwei Markttests wiederholt.
+Full-Genesis-Restore des neuen Profils synthetisch geprüft. Rootreview,
+keine Delegation, breiten DB/Credential/UI-Suites oder neue Abhängigkeiten.
+Protokollsha b1892df1eac4a66f157b0576b1efef7017f0e62bccc10c2bedb110441316be21
+vor nativer Leistung eingefroren. Eigene acht Startimplementationshashes
+in /tmp/investalo-reserved-implementation-start.json;
+Job20261113-h1-reserved-cash läuft, unveränderte fünf native Coins/
+Dreijahresquelle/2×/H1-Signal und Schutz. Keine aktive AI, Live, Holdout,
+Reinvestition, öffentliche Profiländerung oder Migration.
+
+Nativer Job/Vollrestore abgeschlossen und vor weiteren Implementationsänderungen
+exportiert:109440 Commands, vier rehashte Artefakte und acht Start-/End-
+Implementationshashes stimmen. Receiptsha
+4e7d902c7127b317932c75e3b3878ffcaa3971c7863f077f477d2ca490713cec.
+Netto+9579,93 USDT/DD17,62%,269 Abschlüsse/keine Liquidationen/Kontohaltes,
+Stufen271/126/72/37/24. Letzter tatsächlicher Einstieg2025-07-29,
+letzter Abschluss2025-07-28; zwei Endpositionen zum Markkurs, keine erzwungenen
+Profitabschlüsse. Keine Budget-/Cashablehnung;29 deklarierte Initialmargin-
+und32 Fillbound-Ablehnungen bleiben für separate IP-083-Diagnose.
+Keine stillen Änderungen der Margin-/Preisgrenzen oder neuen Geldquellen.

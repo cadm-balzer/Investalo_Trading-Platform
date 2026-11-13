@@ -9,7 +9,7 @@ from pathlib import Path
 from .allocation import revision
 from .capital_identity_history import CapitalIdentityHistory
 from .futures_capital_research import (
-    CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan, start_capital_research,
+    CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan, start_capital_research,
 )
 from .futures_capital_signals import (
     CapitalFundingBatch, CapitalHour, CapitalSignalAssessment, CapitalSignalProfile,
@@ -127,7 +127,7 @@ def _genesis(header):
     plan_raw = dict(profile_raw["plan"])
     policy = plan_raw.pop("capital_policy", None)
     plan_type = {p.capital_policy: p for p in (
-        CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan)}.get(policy)
+        CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan)}.get(policy)
     if plan_type is None:
         raise ValueError("own frozen capital policy required")
     plan = _decode(FuturesPlan, plan_raw)

@@ -5,7 +5,9 @@ from decimal import Decimal
 import hashlib
 import re
 
-from investalo_trading.futures_capital_research import CapitalCashPlan, CapitalRealizedCashPlan, equal_capital_plan
+from investalo_trading.futures_capital_research import (
+    CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan, equal_capital_plan,
+)
 from investalo_trading.futures_capital_signals import (
     CapitalFundingBatch, CapitalHour, CapitalSignalProfile, CapitalH1SignalProfile, CapitalSignalState,
 )
@@ -73,10 +75,12 @@ class EconomicScenario:
         return digest((VERSION, PROTOCOL_SHA256, self))
 
     def profile(self, tenant_id="offline-research", account_id="futures-capital-five", *,
-                cash_budgets=False, entry_hours=4, realized_exit_costs=False):
+                cash_budgets=False, entry_hours=4, realized_exit_costs=False, reserved_cash=False):
         if (type(cash_budgets) is not bool or type(realized_exit_costs) is not bool
                 or type(entry_hours) is not int or entry_hours not in (1, 4)
-                or realized_exit_costs and not cash_budgets):
+                or realized_exit_costs and not cash_budgets
+                or type(reserved_cash) is not bool
+                or reserved_cash and not (cash_budgets and realized_exit_costs)):
             raise ValueError("explicit research cash policy required")
         contracts = tuple(FuturesContract(
             f"BINANCE:{s}", D(".00000001"), D(".00000001"), D(5),
@@ -88,7 +92,8 @@ class EconomicScenario:
             tenant_id, account_id, self.assumptions_digest, contracts,
             initial_equity=D(10000), cost_ratio=D(".01"), quantum=D(".00000001"))
         if cash_budgets:
-            plan_type = CapitalRealizedCashPlan if realized_exit_costs else CapitalCashPlan
+            plan_type = (CapitalReservedCashPlan if reserved_cash else
+                         CapitalRealizedCashPlan if realized_exit_costs else CapitalCashPlan)
             plan = plan_type(**{f.name: getattr(plan, f.name) for f in fields(plan) if f.init})
         return (CapitalH1SignalProfile if entry_hours == 1 else CapitalSignalProfile)(
             plan, self.protection_hours, self.costs.slippage, self.assumptions_digest)
@@ -182,9 +187,10 @@ def declared_exit(state, symbol, scenario, *, unsafe_state=None):
         raise ValueError("typed capital signal state and declared scenario required")
     if state.profile != scenario.profile(
             state.profile.plan.tenant_id, state.profile.plan.account_id,
-            cash_budgets=type(state.profile.plan) in (CapitalCashPlan, CapitalRealizedCashPlan),
+            cash_budgets=type(state.profile.plan) in (CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan),
             entry_hours=state.profile.entry_hours,
-            realized_exit_costs=type(state.profile.plan) is CapitalRealizedCashPlan):
+            realized_exit_costs=type(state.profile.plan) in (CapitalRealizedCashPlan, CapitalReservedCashPlan),
+            reserved_cash=type(state.profile.plan) is CapitalReservedCashPlan):
         raise ValueError("foreign economic scenario")
     index = state.profile.plan.symbols.index(symbol)
     basket, signal = state.economic.ledger.baskets[index], state.signals[index]

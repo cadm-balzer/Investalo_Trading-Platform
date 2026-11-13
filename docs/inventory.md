@@ -1,5 +1,14 @@
 # Bestandsaufnahme
 
+IP-082: separates `CapitalReservedCashPlan`; tatsächliche Walletkosten und
+eigenes isoliertes Funding sind getrennt. Kapitalkern, Ledgerbuchungen,
+Signalrearm, normaler Q44-Abschluss und Full-Genesis-Journal wiederverwendet.
+Restoration lässt Gebühren für reguläre Restkäufe/deklarierten vollständigen
+Ausstieg in der eigenen Barreserve; nur der neue Trigger verwendet diese
+gleiche Kapazität. `--h1-reserved-cash` bindet ein neues Protokoll an den
+vollständigen IP-081-Receipt. Keine neue Broker-/Runtimeautorität.
+[Reserviertes Budget](futures-reserved-budget.md).
+
 IP-081: separates `CapitalRealizedCashPlan` mit default-striktem
 Ledgerabschluss-Hook. Q44 erlaubt ausschließlich positiven eigenen
 vollständigen Abschlussgewinn als Kostendeckung; keine neue Cashbuchung.

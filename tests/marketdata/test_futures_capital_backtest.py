@@ -53,6 +53,44 @@ def run(streams, scenario, output):
 
 
 class CapitalMarketBacktestTests(unittest.TestCase):
+    def test_reserved_cash_survives_funding_quota_and_restores_its_full_journal(self):
+        from investalo_trading.futures_capital_research import CapitalReservedCashPlan
+        streams, scenario = fixture(), cases()[0]
+        for symbol in SYMBOLS:
+            stream = streams[symbol, "funding"]
+            streams[symbol, "funding"] = replace(stream, rows=tuple(
+                replace(row, rate=D(".1")) if row.timestamp == AT + timedelta(hours=64) else row
+                for row in stream.rows))
+        bindings = tuple(sorted({s.data_digest for s in streams.values()}))
+        with TemporaryDirectory() as directory:
+            report = run_scenario(
+                streams, scenario, Path(directory) / "reserved", "d" * 64,
+                bindings,
+                cash_budget_protocol="d" * 64, entry_hours=1,
+                realized_exit_costs=True, reserved_cash=True)
+            historical = run_scenario(
+                streams, scenario, Path(directory) / "historical", "d" * 64, bindings,
+                cash_budget_protocol="d" * 64, entry_hours=1, realized_exit_costs=True)
+        self.assertTrue(report["full_journal_restore_verified"])
+        self.assertEqual(report["capital_policy"], CapitalReservedCashPlan.capital_policy)
+        self.assertNotEqual(report["profile_digest"], scenario.profile(
+            cash_budgets=True, entry_hours=1, realized_exit_costs=True).profile_digest)
+        self.assertEqual(report["assumptions_digest"], scenario.assumptions_digest)
+        self.assertEqual(report["final_halt_reasons"], [])
+        self.assertIn("basket_budget_breach", historical["final_halt_reasons"])
+        self.assertLess(D(report["funding_net"]), -D(100))
+        self.assertNotIn("6", report["stage_fill_counts"])
+        self.assertLess(abs(D(report["decimal_reconciliation_residual"])), D(".00000001"))
+
+    def test_reserved_cash_requires_explicit_budget_and_closing_policies(self):
+        for args in (
+            {"reserved_cash": True},
+            {"cash_budgets": True, "reserved_cash": True},
+            {"cash_budgets": True, "realized_exit_costs": True, "reserved_cash": 1},
+        ):
+            with self.subTest(args=args), self.assertRaises(ValueError):
+                cases()[0].profile(**args)
+
     def test_realized_cash_policy_has_own_identity_and_full_h1_journal_restore(self):
         from investalo_trading.futures_capital_research import CapitalRealizedCashPlan
         streams, scenario = fixture(), cases()[0]

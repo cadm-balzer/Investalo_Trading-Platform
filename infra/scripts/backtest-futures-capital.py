@@ -19,6 +19,8 @@ H1_PROTOCOL_SHA256 = "23aefed3d96ff6cb9eb6b404209fc67f227529904131463941ec0c2fb7
 BASELINE_RECEIPT_SHA256 = "979880a5b9fdcadc1a8aa8f11f23e7e1af158c86b68d4ea3d27c2b282470476e"
 REALIZED_PROTOCOL_SHA256 = "719716bcc813c1fa22de769c2b86ed43d72b4e0d29a9d133065c06cf0cbf339a"
 H1_RECEIPT_SHA256 = "3c6fdfb5b1c5ec6129f9bc7e4c4f1368ec19761f06e0d628707f8b72f12ed130"
+RESERVED_PROTOCOL_SHA256 = "b1892df1eac4a66f157b0576b1efef7017f0e62bccc10c2bedb110441316be21"
+REALIZED_RECEIPT_SHA256 = "893bfedeb260b9f4b44589c2719a9135e4876ceda72c87f6285a5294b0c952db"
 
 
 def cash_protocol():
@@ -44,6 +46,15 @@ def realized_protocol():
             or hashlib.sha256(baseline).hexdigest() != H1_RECEIPT_SHA256):
         raise ValueError("frozen realized-cost comparison or verified H1 baseline changed")
     return REALIZED_PROTOCOL_SHA256
+
+
+def reserved_protocol():
+    raw = (ROOT / "docs/research-protocols/futures-capital-h1-reserved-cash-20261113.json").read_bytes()
+    baseline = (ROOT / "docs/research-protocols/futures-capital-h1-realized-cost-market-receipt-20261112.json").read_bytes()
+    if (hashlib.sha256(raw).hexdigest() != RESERVED_PROTOCOL_SHA256
+            or hashlib.sha256(baseline).hexdigest() != REALIZED_RECEIPT_SHA256):
+        raise ValueError("frozen reserved-budget comparison or verified Q44 baseline changed")
+    return RESERVED_PROTOCOL_SHA256
 
 
 def load_sources():
@@ -86,11 +97,12 @@ def main():
     scenarios = load_economic_protocol(
         (ROOT / "docs/research-protocols/futures-capital-economics-20261112.json").read_bytes())
     corrected = len(sys.argv) == 3 and sys.argv[1] == "--cash-budgets"
-    realized = len(sys.argv) == 3 and sys.argv[1] == "--h1-realized-costs"
-    h1 = len(sys.argv) == 3 and sys.argv[1] in ("--h1-entries", "--h1-realized-costs")
+    reserved = len(sys.argv) == 3 and sys.argv[1] == "--h1-reserved-cash"
+    realized = len(sys.argv) == 3 and sys.argv[1] in ("--h1-realized-costs", "--h1-reserved-cash")
+    h1 = len(sys.argv) == 3 and sys.argv[1] in ("--h1-entries", "--h1-realized-costs", "--h1-reserved-cash")
     if not corrected and not h1 and (len(sys.argv) != 2 or sys.argv[1].startswith("--")):
-        raise SystemExit("usage: backtest-futures-capital.py [--cash-budgets|--h1-entries|--h1-realized-costs] NEW_OUTPUT_DIRECTORY")
-    budget_protocol = (realized_protocol() if realized else h1_protocol() if h1
+        raise SystemExit("usage: backtest-futures-capital.py [--cash-budgets|--h1-entries|--h1-realized-costs|--h1-reserved-cash] NEW_OUTPUT_DIRECTORY")
+    budget_protocol = (reserved_protocol() if reserved else realized_protocol() if realized else h1_protocol() if h1
                        else cash_protocol() if corrected else None)
     if h1:
         scenarios = tuple(s for s in scenarios if s.scenario_id == "base-h1-2x")
@@ -105,7 +117,7 @@ def main():
         report = run_scenario(streams, scenario, output / scenario.scenario_id,
                               protocol_digest, digests, progress=progress,
                               cash_budget_protocol=budget_protocol, entry_hours=1 if h1 else 4,
-                              realized_exit_costs=realized)
+                              realized_exit_costs=realized, reserved_cash=reserved)
         reports.append(report)
         print(f"{scenario.scenario_id}: restored complete journal; net {report['net_pnl']}", flush=True)
     artifacts = []
@@ -124,7 +136,7 @@ def main():
         "preflight_sha256": PREFLIGHT_SHA256,
         "budget_variant": "own-cash-active-ranges" if corrected or h1 else "historical-gross-all-slots",
         "entry_timeframe": "H1" if h1 else "H4",
-        "baseline_receipt_sha256": H1_RECEIPT_SHA256 if realized else BASELINE_RECEIPT_SHA256 if h1 else None,
+        "baseline_receipt_sha256": REALIZED_RECEIPT_SHA256 if reserved else H1_RECEIPT_SHA256 if realized else BASELINE_RECEIPT_SHA256 if h1 else None,
         "realized_exit_costs": realized,
         "research_start": "2022-08-01T00:00:00Z", "research_end_exclusive": "2025-08-01T00:00:00Z",
         "implementation_sha256": hashlib.sha256(
@@ -147,6 +159,9 @@ def main():
         "python_version": sys.version.split()[0], "parallel_scenarios": 1,
         "historical_broker_rules_verified": False, "execution_enabled": False,
     }
+    if reserved:
+        receipt["budget_variant"] = "own-wallet-costs-isolated-funding"
+        receipt["reserved_cash"] = True
     with (output / "receipt.json").open("x") as handle:
         handle.write(canonical(receipt) + "\n")
     print(f"all {len(scenarios)} declared comparisons complete: {output / 'receipt.json'}", flush=True)
