@@ -77,15 +77,19 @@ class EconomicScenario:
 
     def profile(self, tenant_id="offline-research", account_id="futures-capital-five", *,
                 cash_budgets=False, entry_hours=4, realized_exit_costs=False, reserved_cash=False,
-                current_grids=False):
+                current_grids=False, grid_leverage_comparison=False):
         if (type(cash_budgets) is not bool or type(realized_exit_costs) is not bool
                 or type(entry_hours) is not int or entry_hours not in (1, 4)
                 or realized_exit_costs and not cash_budgets
                 or type(reserved_cash) is not bool
                 or reserved_cash and not (cash_budgets and realized_exit_costs)
                 or type(current_grids) is not bool
+                or type(grid_leverage_comparison) is not bool
+                or grid_leverage_comparison and not current_grids
                 or current_grids and not (reserved_cash and entry_hours == 1
-                    and self.scenario_id == "base-h1-2x")):
+                    and self.cost_kind == "base" and self.protection_hours == 1
+                    and self.path == "open-low-high-close"
+                    and (grid_leverage_comparison or self.leverage == 2))):
             raise ValueError("explicit research cash policy required")
         contracts = tuple(FuturesContract(
             f"BINANCE:{s}", D(".00000001"), D(".00000001"), D(5),
@@ -104,7 +108,7 @@ class EconomicScenario:
             plan, self.protection_hours, self.costs.slippage, self.assumptions_digest)
         if current_grids:
             from .futures_grid_profile import build_grid_profile
-            profile = build_grid_profile(profile)
+            profile = build_grid_profile(profile, leverage_comparison=grid_leverage_comparison)
         return profile
 
 
@@ -194,13 +198,18 @@ def declared_exit(state, symbol, scenario, *, unsafe_state=None):
     """Typed simulated outcome, never a broker receipt or guaranteed stop fill."""
     if type(state) is not CapitalSignalState or type(scenario) is not EconomicScenario:
         raise ValueError("typed capital signal state and declared scenario required")
+    from .futures_grid_profile import leverage_grid_digest
+    leverage_grids = (type(state.profile.plan) is CapitalGridPlan
+                     and state.profile.plan.policy_digest == leverage_grid_digest(
+                         scenario.assumptions_digest))
     if state.profile != scenario.profile(
             state.profile.plan.tenant_id, state.profile.plan.account_id,
             cash_budgets=isinstance(state.profile.plan, CapitalCashPlan),
             entry_hours=state.profile.entry_hours,
             realized_exit_costs=isinstance(state.profile.plan, CapitalRealizedCashPlan),
             reserved_cash=isinstance(state.profile.plan, CapitalReservedCashPlan),
-            current_grids=type(state.profile.plan) is CapitalGridPlan):
+            current_grids=type(state.profile.plan) is CapitalGridPlan,
+            grid_leverage_comparison=leverage_grids):
         raise ValueError("foreign economic scenario")
     index = state.profile.plan.symbols.index(symbol)
     basket, signal = state.economic.ledger.baskets[index], state.signals[index]

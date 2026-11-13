@@ -7,6 +7,21 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR54 merged: head0bcdcd2 ancestor of main9999671 (GH/fetch verified).
+  IP-086 on feat/m1-futures-grid-leverage follows user's requested direct
+  leverage comparison: same declared grid/cash/margin/price-guard economics,
+  fixed whole-basket2×/5×/10×, no simultaneous Classic recalibration.
+  Separate explicit grid_leverage_comparison flag and plan/profile protocol
+  binding; original2× default digest/restrictions retained. Reuse verified
+  IP-0852× receipt/four artifacts; only5×/10× new native jobs, one at a time.
+  Frozen protocolsha
+  c2d458f9a62331e94c96865fa7bc4a78039a3996e7de89180abc716edc2a2ac3.
+  Six new/35 focused pinned cases/58 subtests pass; two strengthened
+  synthetic restore cases additionally check foreign genesis rejection.
+  Full native fold pending; do not edit eleven GRID_IMPLEMENTATION_FILES
+  while it runs. Full Classic mapping/historical broker acceptance remain
+  separate; no AI/live/holdout/public/DB/dependency change.
+  See docs/futures-grid-leverage-comparison.md.
 - PR53 merged: headfa993f5 ancestor of main174ac6f (GH/fetch verified).
   IP-085 on feat/m1-futures-grid-comparison adds separate current-grid/5:
   current quantity/minimum/market bounds, adverse tick ceiling for buys/

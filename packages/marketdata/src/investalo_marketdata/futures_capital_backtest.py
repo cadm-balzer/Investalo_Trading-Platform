@@ -284,7 +284,8 @@ class MarketReplay:
 
 def run_scenario(streams, scenario, output, protocol_digest, dataset_digests, *,
                  progress=None, full_flat_quotes=False, cash_budget_protocol=None, entry_hours=4,
-                 realized_exit_costs=False, reserved_cash=False, current_grids=False):
+                 realized_exit_costs=False, reserved_cash=False, current_grids=False,
+                 grid_leverage_comparison=False):
     symbols, anchor = validate_cohort(streams)
     output.mkdir(mode=0o700, exist_ok=False)
     if cash_budget_protocol is not None:
@@ -294,7 +295,8 @@ def run_scenario(streams, scenario, output, protocol_digest, dataset_digests, *,
     # journal protocol bind corrected cash semantics.
     profile = scenario.profile(cash_budgets=cash_budget_protocol is not None, entry_hours=entry_hours,
                                realized_exit_costs=realized_exit_costs, reserved_cash=reserved_cash,
-                               current_grids=current_grids)
+                               current_grids=current_grids,
+                               grid_leverage_comparison=grid_leverage_comparison)
     references = {}
     for symbol in symbols:
         stream = streams[symbol, "funding"]
@@ -364,6 +366,9 @@ def run_scenario(streams, scenario, output, protocol_digest, dataset_digests, *,
             report["grid_source_digest"] = profile.plan.grid_source_digest
             report["grid_price_rounding"] = "adverse entry ceiling / exit floor"
             report["broker_admission_verified"] = False
+            if grid_leverage_comparison:
+                report["grid_leverage_comparison"] = True
+                report["fixed_cycle_leverage"] = str(scenario.leverage)
         report["entry_timeframe"] = f"H{profile.entry_hours}"
         if profile.entry_hours == 1:
             report["eligible_closed_h1_candidates"] = report.pop("eligible_closed_h4_candidates")

@@ -37,6 +37,12 @@ mit eigenem Referenzanker vor weiterem Hebelvergleich und unabhängigem Holdout.
 IP-084 sichert aktuelle Classic-Bitget-Verträge und51 statische Rasterproben:
 19 reine XRP-Marginreste durch Mengenfloor unter alter Formel gedeckt.
 USDT-Geldrundung und historische Brokerregeln bleiben unbekannt.
+IP-086 priorisiert nach Nutzerauftrag den direkten festen2×/5×/10×-Vergleich
+auf derselben deklarierten Rasterökonomie.2×-Referenz bleibt unverändert;
+nur5×/10× neue native Jobs/Restores, vollständige Classic-Kalibrierung
+weiterhin separat. Sechs neue/35 gepinnte Fälle/58 Subtests grün.
+[Hebelvergleich](futures-grid-leverage-comparison.md).
+
 IP-085 friert einen eigenen rastergerechten Forschungsvergleich ein;
 Referenz/Staffel/Cash-/Liquidationsgrenzen bleiben erhalten.
 Protokollsha8f24a3f0d9a7ba0af3daf497bf5ed2925a5478db35da138ed96a2b95afe84a8d
