@@ -22,6 +22,7 @@ from .passkey_credential_authorizations import create_passkey_credential_authori
 from .database import SCHEMA_VERSION, assert_runtime, connect, transaction
 from .settings import Settings
 from .paper_status import read_status
+from .futures_paper_settings import BasketSettingsRequest, read_settings, write_settings
 from .research_result import publish_result
 from .research_spec import public_source, specification
 
@@ -172,6 +173,25 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             raise HTTPException(404, "Not found")
         with transaction(application.state.settings, identity) as (db, user):
             return read_status(db, user, identity)
+
+    @application.get("/v1/futures-paper-settings")
+    def futures_paper_settings(identity: Identity):
+        if not application.state.settings.futures_paper_settings_preview:
+            raise HTTPException(404, "Not found")
+        with transaction(application.state.settings, identity) as (db, user):
+            return read_settings(db, identity, user)
+
+    @application.post("/v1/futures-paper-settings/{account_id}")
+    def update_futures_paper_settings(account_id: UUID, body: BasketSettingsRequest, identity: Identity):
+        if not application.state.settings.futures_paper_settings_preview:
+            raise HTTPException(404, "Not found")
+        with transaction(application.state.settings, identity) as (db, user):
+            result = write_settings(db, identity, user, account_id, body)
+        # transaction exit must acknowledge commit before success is published.
+        return {
+            "schema_version": "futures-paper-settings/1", "tenant_id": str(identity.tenant_id),
+            "mode": "paper", "live_enabled": False, "accounts": [result],
+        }
 
     @application.get("/v1/credential-actions/{account_id}")
     def credential_actions(account_id: UUID, identity: Identity):

@@ -7,6 +7,24 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- Q47 prioritizes Futures trading implementation after the leverage comparison:
+ 2× first Paper baseline; dashboard basket limit and actual-capital recommendation.
+ IP-089 persists own USDT-Paper planning3–7, owner/trader CAS + atomic audit,
+ default-off API/BFF/portfolio. Additive013 ONLY in fixture after rollback
+ preflight, sha78f1c339f6ff8b5bf6827d7eae3d987b6ed6a8bd32b69dcfcc45a88a94753645;
+ fixture001–012 and development migration set unchanged. Capacity helper
+ retains all remaining regular/manual/fee reserves, acknowledged profit
+ capacity and eligible asset count; future/stale cash or shortage rejects.
+ Fixed acknowledged range amount cannot grow just because free cash grows.
+ 28 new/56 focused pinned cases/18 subtests, nine Cockpit tests, typecheck
+ and pinned build passed. Runtime Futures cash/minimum-range adapter absent: recommendation=null,
+ runtime_ready=false. Next IP-090: durable dedicated Futures Paper runtime,
+ H1-RSI/stages/H1 protection/mark/funding, journal/restart, own dashboard
+ and IP-088 recovery; then calibrated Bitget demo orders. More simultaneous
+ coins do not guarantee greater stable returns; initial3–5, phased profits
+ to7 retained. No live/public/AI activation. PR56 merged into PR55 branch
+ 8ffafea (verified); PR55 remains OPEN/main not updated. Current branch
+ feat/m1-futures-paper-settings. See docs/futures-paper-settings.md.
 - IP-087 fully complete; no active job.3×106752/4×102760 commands,
   209512 total, eight final artifacts/13 unchanged completion hashes;
   eleven original native files still matchada2029. Original4× exit137

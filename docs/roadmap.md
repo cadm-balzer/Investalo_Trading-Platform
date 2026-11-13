@@ -1,5 +1,16 @@
 # Roadmap
 
+Q47 priorisiert jetzt die Handelsimplementierung mit2×. IP-089 verbindet eine
+gespeicherte eigene Basket-Obergrenze3–7 mit Default-off-Portfolio/API/BFF;
+initial3–5, spätere zusätzliche Slots weiterhin nur über Q36-Gewinnetappen.
+Kapazitätsvorschlag erhält alle offenen regulären/manuellen/Kostenreserven;
+echte Futureskontodaten und Mindest-Rangeadapter fehlen noch ausdrücklich.
+**Nächster Umsetzungsschritt IP-090:** dauerhafter eigener Futures-Paperdienst
+mit H1-RSI/Nachkäufen/H1-Schutz/Mark/Funding, Budgetbindung, Journal/CAS und
+Wiederanlauf; dabei Q46-Recovery/IP-088 und aktuelle Cockpitanzeige verbinden.
+Danach Bitget-Demoausführung und separate Echtgeldabnahme. Keine neuen
+Hebelstudien davor. [Vertrag](futures-paper-settings.md).
+
 IP-087 abgeschlossen: gleiche Modellachse2×/3×/4×/5×/10×;2× bleibt beste
 Referenz.3×+85,23%/DD23,54%/zwei Liquidationen,4×+94,64%/DD29,65%/drei
 Liquidationen. Unterbrochener4×-Export per vollständigem readonly Restore
