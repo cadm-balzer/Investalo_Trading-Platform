@@ -23,7 +23,7 @@ Working Project Folder: /opt/Investalo_Trading-Platform
  and IP-088 recovery; then calibrated Bitget demo orders. More simultaneous
  coins do not guarantee greater stable returns; initial3–5, phased profits
  to7 retained. No live/public/AI activation. PR56 merged into PR55 branch
- 8ffafea (verified); PR55 remains OPEN/main not updated. Current branch
+ 8ffafea; PR55 now merged into main51c2f68 (GH/fetch ancestry verified). Current branch
  feat/m1-futures-paper-settings. See docs/futures-paper-settings.md.
 - IP-087 fully complete; no active job.3×106752/4×102760 commands,
   209512 total, eight final artifacts/13 unchanged completion hashes;
@@ -41,7 +41,7 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   typecheck/build pass. IP-088 runtime/persistence/API integration remains open;
   UI/BFF default off, no public or broker activation.
   See docs/futures-moderate-results-20261113.md.
-- PR55 still OPEN (GH verified); IP-087 branches from4ad9a4e on
+- PR55 was OPEN when IP-087 branched from4ad9a4e on
   feat/m1-futures-moderate-leverage. User requests3×/4× on same model axis
   and Q46 manual liquidation recovery with visible dashboard blockers.
   Separate moderate scenario/explicit flag/protocol; old constructor and

@@ -2104,8 +2104,8 @@ Gewinnetappen-/Kandidatenbelege. Vollrangebetrag aus bestätigter Budgetetappe
 beibehalten; mehr freies Cash skaliert ihn nicht still. Mindestbeträge aufrunden.
 Aktuelle Futuresruntime und Mindest-Rangeadapter fehlen: recommendation=null.
 013 nur Fixture nach Rollbackvorprüfung, Entwicklung unverändert.
-PR56 in Vorgängerbranch8ffafea gemerged, PR55 weiterhin offen; Main fehlt
-der neue Stand. Nächster IP-090 dauerhafter eigener Futures-Paperdienst mit
+PR56 in Vorgängerbranch8ffafea gemerged, PR55 inzwischen in Main51c2f68;
+Ancestry per GH/fetch verifiziert. Nächster IP-090 eigener Futures-Paperdienst mit
 H1-RSI/fünf Käufen/manueller Reserve/H1-Schutz/Mark/Funding/Journal/Restart,
 Einstellungsübernahme für neue Baskets, Cockpitstatus und Q46-Recovery.
 Danach Bitget-Demo-/Orderkalibrierung, separate Echtgeld-/AI-Freigabe.
