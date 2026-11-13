@@ -1,5 +1,13 @@
 # Bestandsaufnahme
 
+IP-084: isolierter `futures_broker_calibration.py`, create-only
+`capture-futures-broker-rules.py` und lokale `probe-futures-broker-grids.py`.
+Ein fixer öffentlicher Classic-GET; strikte fünf USDT-Perpetualverträge,
+genaue Decimalraster und begrenzte Auditpräzision. Keine Runtimecaller oder
+Änderung an zehn Referenzmodulen. 16 gepinnte Tests/20 Subtests,
+hashgebundene aktuelle Metadaten und51 statische Proben.
+[Vertrag und Grenzen](futures-broker-calibration.md).
+
 IP-083: eigener nur lesender `futures_admission_audit.py` und fester
 `audit-futures-admissions.py`-CLI. Der bestehende Journaldecoder/Reducer,
 Signalassessment und Kapitalplan werden unverändert wiederverwendet.

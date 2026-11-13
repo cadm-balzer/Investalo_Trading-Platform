@@ -2,6 +2,16 @@
 
 Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem behoben.
 
+- **Classic-Vertragsraster ist keine Geldpräzision:** `sizeMultiplier` und
+  `volumePlace` betreffen Mengen; `priceEndStep ×10^−pricePlace` den Preistick.
+  Aktuell XRP1/SOL.1 statt Forschungsraster1E−8. USDT-Margin-/Fee-/Funding-
+  Rundung daraus nicht ableiten. Classic-Long-Eröffnungsverlust hat
+  Order>Mark als Vorzeichen; UTA-Formeln und aktuelle2026-Bitget-Metadaten
+  sind keine historischen2022–2025-Binance-Zulassungsregeln.
+- **Auditmargin braucht eigene begrenzte Dezimalpräzision:** IP-083-Derivate
+  behalten mehr Stellen als der API-Preiscodec. Eigener nur lesender
+  Auditcodec; den allgemeinen Preisparser deshalb nicht lockern.
+  Rasterfloor kann Nanoreste decken, beweist keine Ausführung/Mehrperformance.
 - **Authelia/TLS:** Sessiondomain weder localhost noch reine IP.
   Private Domainauflösung, Browserhostname und TLS müssen zusammenpassen;
   interne CA auch in den OIDC-beteiligten Containern vertrauen.
