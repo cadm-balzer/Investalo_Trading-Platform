@@ -2048,3 +2048,45 @@ Feste höhere Hebel sind hier schlechter als2×; selektive AI-/Regimewirkung
 unbewiesen. Separate kausale Regimekriterien und echte Recovery-/Kapitaldeckung
 vor anderen Varianten, keine implizite Terminalregelaufhebung.
 [Vollständige Ergebnisse](../futures-grid-leverage-results-20261113.md).
+
+
+## 2026-11-13 — D-095: 3×/4× ergänzen und manuelle Liquidationsfreigabe
+
+Nutzerauftrag: gleicher Hebelvergleich zusätzlich3×/4×; spätere AI-Range
+aus Forschung ableiten, noch keine kausale AI-Wirkung. Separate Protokollachse
+sha79308ab0b727f848ec1c446b096a1c501392ab8592ae6d67fbbc39a0669b760e
+vor Performance.38 fokussierte gepinnte Fälle/66 Subtests bestehen.
+Nur zwei neue native Jobs/volle Restores; zwölf alte Artefakte wiederverwenden.
+PR55 noch offen, neuer Branch baut auf4ad9a4e auf. Keine Auto-Recovery
+in den Vergleichszahlen. Q46 verlangt manuelle Wiederbelebung, Assetdetails
+und sichtbaren Startseitenblocker. Verlust bleibt erhalten; eigenes volles
+Neubudget und aktuelle Flat-/Order-/Buchungsreconciliation vor Freigabe,
+frisches RSI/neuer fester Baskethebel danach. Runtime derzeit Spot-Paper,
+Futures offline; produktive Recoveryanbindung separat. Keine DB-/Dependency-/
+Live-/Public-/AI-/Holdoutaktivierung. [Vertrag](../futures-moderate-leverage.md).
+
+
+IP-088 enthält einen reinen manuellen Recoverykandidaten/Receipt und neue
+Startseiten-/Portfolio-Komponenten mit Default-off-BFF. Fünf gepinnte
+Pythonfälle/13 Subtests, fünf Cockpitfälle und Typecheck bestehen. Atomare
+Futures-Persistenz/Reconciliation/API-Anbindung noch ausstehend; kein Live-
+oder öffentlicher Rollout. Verlust/alte Zyklen bleiben, frische RSI-Bestätigungen
+und neue Hebelentscheidung nötig. [Recoveryvertrag](../futures-manual-recovery.md).
+
+Originale IP-087-3×-Auswertung/Restore fertig;4× kompletter Marktinput,
+Exit137 während Restore, Ursache unbestätigt. Originalverzeichnis bleibt
+ohne Erfolgsreceipt. Separate nur lesende Journalmetriken/Abschlusshelper
+prüfen Checkpointada2029/Quellen/Referenzen und vollständigen4×-Restore.
+Synthetic normal/gap liefert exakt gleiche Finanzmetriken. Nicht gespeicherte
+Admissionversuche werden ausgelassen statt als0 gemeldet; keine neue
+Performancewirtschaft und kein wiederholter Marktjob.
+
+Abschluss IP-087:209512 Commands, acht Artefakte/13 stabile Hashes,
+elf native Dateien identischada2029; Quellen15/Referenzartefakte12 rehashed.
+Receiptsha0b382391c2fedb92d1c32a3094992a976f049c77b5dd09d769381066d8ad1b7c.
+3×+8523,18/85,23%/DD23,54%,208 Abschlüsse/zwei Liquidationen;
+4×+9464,20/94,64%/DD29,65%,163 Abschlüsse/drei Liquidationen.
+Kein Konto-Halt/keine Auto-Recovery, je ein BTC End-MTM. Keine aktiven Jobs.
+2× bleibt beste Referenz;2× Basis und3×/4× Regimeforschung nur Empfehlung,
+kein geänderter genehmigter Rahmen und keine aktive AI.
+[Ergebnisse](../futures-moderate-results-20261113.md).

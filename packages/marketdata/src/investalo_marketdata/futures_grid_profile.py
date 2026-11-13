@@ -17,10 +17,12 @@ METADATA_FILE = "docs/research-protocols/futures-bitget-classic-contracts-202611
 METADATA_SHA256 = "2fd4704081bdf1df22d45b56780cfd7c1ffc6c18cb8dac97b9a6c83e331091f6"
 LEVERAGE_PROTOCOL_FILE = "docs/research-protocols/futures-capital-grid-leverage-20261113.json"
 LEVERAGE_PROTOCOL_SHA256 = "c2d458f9a62331e94c96865fa7bc4a78039a3996e7de89180abc716edc2a2ac3"
+MODERATE_PROTOCOL_FILE = "docs/research-protocols/futures-capital-grid-moderate-leverage-20261113.json"
+MODERATE_PROTOCOL_SHA256 = "79308ab0b727f848ec1c446b096a1c501392ab8592ae6d67fbbc39a0669b760e"
 
 
-def leverage_grid_digest(economic_digest):
-    return digest((economic_digest, LEVERAGE_PROTOCOL_SHA256, METADATA_SHA256,
+def leverage_grid_digest(economic_digest, *, moderate=False):
+    return digest((economic_digest, MODERATE_PROTOCOL_SHA256 if moderate else LEVERAGE_PROTOCOL_SHA256, METADATA_SHA256,
                    "current-grid-leverage-axis"))
 
 
@@ -36,13 +38,17 @@ def frozen_grid_rules():
     return rules
 
 
-def build_grid_profile(profile, *, leverage_comparison=False):
+def build_grid_profile(profile, *, leverage_comparison=False, moderate=False):
     if (type(profile.plan) is not CapitalReservedCashPlan or profile.entry_hours != 1
-            or type(leverage_comparison) is not bool):
+            or type(leverage_comparison) is not bool or type(moderate) is not bool
+            or moderate and not leverage_comparison):
         raise ValueError("grid comparison requires own reserved cash and H1 entries")
     if leverage_comparison and hashlib.sha256(
             (ROOT / LEVERAGE_PROTOCOL_FILE).read_bytes()).hexdigest() != LEVERAGE_PROTOCOL_SHA256:
         raise ValueError("frozen grid leverage protocol changed")
+    if moderate and hashlib.sha256(
+            (ROOT / MODERATE_PROTOCOL_FILE).read_bytes()).hexdigest() != MODERATE_PROTOCOL_SHA256:
+        raise ValueError("frozen moderate leverage protocol changed")
     bindings = {f"BINANCE:{r.symbol}": r for r in frozen_grid_rules()}
     plan = profile.plan
     contracts = tuple(replace(
@@ -55,7 +61,7 @@ def build_grid_profile(profile, *, leverage_comparison=False):
     ) for c in plan.contracts)
     values = {f.name: getattr(plan, f.name) for f in fields(plan) if f.init}
     values.update(contracts=contracts, policy_digest=(
-        leverage_grid_digest(plan.policy_digest) if leverage_comparison else digest((
+        leverage_grid_digest(plan.policy_digest, moderate=moderate) if leverage_comparison else digest((
             plan.policy_digest, PROTOCOL_SHA256, METADATA_SHA256, "current-grid-axis"))))
     return replace(profile, plan=CapitalGridPlan(
         **values, grid_rules=execution, grid_source_digest=METADATA_SHA256))
