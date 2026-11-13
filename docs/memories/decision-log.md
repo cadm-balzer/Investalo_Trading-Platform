@@ -1801,3 +1801,42 @@ Kein weiterer LLM-/Agentaufruf innerhalb des Python-Datenjobs.
 Nächster bereits autorisierter H1-RSI-Einstiegsvergleich IP-080; keine
 Änderung der laufenden acht gebundenen Implementationsdateien bis Jobende.
 `docs/futures-cash-interim-20261112.md`.
+
+## 2026-11-12 — D-089: H1-Futuresvergleich und bestätigte eigene Abschlusskostendeckung
+
+**Status: beauftragt, Q44 bestätigt.** PR49-Merge verifiziert:
+head0cd45d5 in main0c0c7ce. Alle zehn IP-079-Jobs/Restores fertig;
+666180 Commands/40 erneut geprüfte Artefakthashes, Receiptsha
+979880a5b9fdcadc1a8aa8f11f23e7e1af158c86b68d4ea3d27c2b282470476e.
+Neue Arbeit auf feat/m1-futures-h1-entries.
+
+IP-080 vor Leistung eingefroren, neue H1-Signal-/Journalidentität,
+gleiche Cashstaffel/H1-Schutz/2×. Native Auswertung vollständig restauriert:
++2643,89 USDT, DD17,62%,43 Abschlüsse, keine Liquidationen, Stufen43/23/15/9/7.
+Receiptsha3c6fdfb5b1c5ec6129f9bc7e4c4f1368ec19761f06e0d628707f8b72f12ed130.
+Handel endet bereits2023-01-16: profitabler BTC-Zyklus4 (+446,84 netto)
+überschreitet Kostenreserve um2,29516530 beim vollständigen Exit und löst
+globalen Halt aus. Inputkostenfold/Command17473 deckt sich mit Abschluss.
+
+Nutzer bestätigt Q44 ausdrücklich: „Ja, nur aus dem eigenen abgeschlossenen
+Basketgewinn (empfohlen)“. IP-081 separate realized-cash/3-Policy erlaubt
+nur vollständigen normalen eigenen Abschlussnettogewinn≥gesamten Überhang.
+Alle Gebühren/Funding weiter einmal vollständig netto; keine Zusatzgutschrift,
+fremde/unrealisierte Gewinne, Teilverkäufe, Liquidationsexzeption oder
+Haltlöschung. Offene Budgets, volle Kaufstaffel und manuelle Reserve bleiben.
+174 unterschiedliche gezielte gepinnte Tests/103 Subtests grün,
+14 neue Fälle in080/081. Neue Protocolsha
+719716bcc813c1fa22de769c2b86ed43d72b4e0d29a9d133065c06cf0cbf339a
+vor separatem nativen H1-/2×-Lauf eingefroren.
+Nach Daemonrestart2026-11-13 tatsächliche vollständige Receipt geprüft:
+64277 Commands, vier Artefakt- und acht Implementationshashes erneut geprüft.
+Receiptsha893bfedeb260b9f4b44589c2719a9135e4876ceda72c87f6285a5294b0c952db.
+Netto+3928,28 USDT/DD17,62%,98 Abschlüsse/keine Liquidationen,
+Stufen98/48/30/16/13. Der vorherige profitable BTC-Abschluss löst keinen
+Halt mehr aus. Nächster Halt2023-10-02, XRP-Zyklus21, Fundingbatch43858:
+eigene offene Kosten19,94101471 überschreiten19,80198020 um0,13903451.
+Dieser offene Fall ist ausdrücklich nicht in Q44 enthalten. Kein
+durchgehender Dreijahreshandel. IP-082 bereitet einen separaten konkreten
+Funding-/Haltedauerbudgetvorschlag vor; neue offene Limits nicht unterstellen.
+Keine Agentdelegation, DB-/Credential-/Frontendwiederholungen oder
+AI-/Holdout-/Live-/öffentliche Aktivierung.

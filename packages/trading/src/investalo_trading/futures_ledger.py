@@ -474,7 +474,8 @@ def apply_futures_event(state: FuturesLedgerState, command: LedgerCommand) -> Le
                             and not isinstance(payload, LiquidationSettlement)):
                         closing = replace(b, exit_fees=b.exit_fees + payload.fee,
                                           charges_in_budget_epoch=costs)
-                        if state.plan.basket_cost_usage(closing) > state.plan.budgets[index].cost_reserve:
+                        if (state.plan.basket_cost_usage(closing) > state.plan.budgets[index].cost_reserve
+                                and not state.plan.closing_cost_overrun_covered(closing, closed)):
                             extra_reasons.append("basket_budget_breach")
                         next_costs = ZERO
                     else:

@@ -7,28 +7,46 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
-- User disputes weak IP-078 performance and authorizes diagnosing/correcting
-  bucket brakes. IP-079 separate CapitalCashPlan capital-cash/2 fixes gross
-  funding cost and hypothetical empty-slot reservation; old CapitalPlan stays
-  frozen. New byte-pinned protocol precedes all-ten native A/B jobs:
-  infra/local/futures-capital-research/20261112-cash-corrected.
-  Tests cover full five-stage/sixth manual reserve capital, four funded ranges
-  after small loss/fifth refused, credited funding, true cost exhaustion and
-  full new-policy market journal restore. No live/AI/holdout/public changes.
-  PR49 remains OPEN (verified); add reviewed correction to existing branch.
-  See docs/futures-cash-budgets.md.
-  Both full native2× reference jobs/restores now verified: H1/H4 net
-  +2507.71/+2410.79 USDT,107/106 closures, no budgethaltes; mean own margin
-  605.87/701.74 USDT. Interim receiptsha
-  9ee1731f5859ead3edbd577e6d0f519b71df002c1a3c5f468a2c8b2b93dd33a9.
-  IP-079 financial correction done; all-ten economic job remains IP-069.
-  Running PID71771 / execsession18028, feature codecheckpoint4146877.
-  DO NOT edit eight implementation files in the CLI receipt while it runs:
-  final hashes must match loaded code. Nextturn read reports/job before edits.
-  Temporary verified final export helper /tmp/investalo-export-cash-results.py
-  requires completed receipt and creates separate final docs; do not run early.
-  IP-080 is the already-authorized H1-RSI Futures entry comparison, same
-  own-capital ladder/H1 protection initially, new frozen signal identity.
+- User confirmed PR49 merged; head0cd45d5 is ancestor of main0c0c7ce
+  (verified). All ten corrected native jobs and full restores now complete:
+  666180 commands/40 hashes; receiptsha
+  979880a5b9fdcadc1a8aa8f11f23e7e1af158c86b68d4ea3d27c2b282470476e.
+  Exported and rehashed BEFORE further implementation edits.
+  Base2× H1/H4 protection nets+2507.71/+2410.79, no budgethaltes;
+  5× and stress cases can exhaust real cost reserve; 10× loses all five
+  slots to terminal liquidations. See docs/futures-cash-results-20261112.md.
+  IP-080 now implements the already-authorized actual H1-RSI entry comparison
+  on new feat/m1-futures-h1-entries: distinct signal policy/journal schema,
+  old H4 identities unchanged, same full CashPlan/H1 protection and2×.
+  Protocolsha23aefed3d96ff6cb9eb6b404209fc67f227529904131463941ec0c2fb7cb39f1
+  was frozen before performance.85 distinct focused pinned tests/57 subtests
+  passed (seven new). Native H1 job/full restore complete:46212 commands/
+  four rehashed artifacts, receiptsha
+  3c6fdfb5b1c5ec6129f9bc7e4c4f1368ec19761f06e0d628707f8b72f12ed130.
+  Net+2643.89, DD17.62%,43 closures, no liquidations, stages43/23/15/9/7.
+  Real trading stops2023-01-16: profitable BTC cycle4 (+446.84 net)
+  costs22.09714550 exceed19.80198020 reserve at full exit, latching global
+  budgethalt (command17473). This is not a three-year active H1 result.
+  Q44 now explicitly CONFIRMED: only own completed basketprofit covers
+  closing overrun. IP-081 separate CapitalRealizedCashPlan realized-cash/3:
+  complete normal exit only, same symbol/cycle, net positive after all costs
+  and at least entire overrun; never extra cash/profit credit. Open budgets,
+  partial exits, other/unrealized profit, liquidations and existing halts
+  receive no exception. All six-stage capital/manual reserves unchanged.
+  174 distinct focused pinned checks/103 subtests pass (14 new across080/081).
+  Frozen protocolsha719716bcc813c1fa22de769c2b86ed43d72b4e0d29a9d133065c06cf0cbf339a.
+  Native Q44 job/restore complete after daemon restart, rehashed2026-11-13:
+  infra/local/futures-capital-research/20261112-h1-realized-costs;
+  64277 commands/four artifact/eight implementation hashes verified,
+  receiptsha893bfedeb260b9f4b44589c2719a9135e4876ceda72c87f6285a5294b0c952db.
+  Net+3928.28/DD17.62%,98 closures/no liquidations; stages98/48/30/16/13.
+  Stops2023-10-02 at XRP cycle21 fundingbatch (command43858):
+  open cost19.94101471 exceeds19.80198020 by0.13903451. Q44 does NOT
+  exempt this open breach. Existing global halt remains terminal.
+  Next IP-082: dimension fundingreserve/holding horizon with full own entry
+  budgets; changing open constraints requires a new decision. No active job.
+  No AI/live/holdout/public/DB/dependency change. See
+  docs/futures-h1-entry-results-20261112.md and docs/futures-realized-cost-results-20261112.md.
 - IP-077 `ca98561` merged into main `ab3b4ab` (verified). IP-078 implements
   the complete ten-scenario native market job, explicit Open+1s exits/
   Open+2s same-price valuation/restoration/entries, funding/native offsets,

@@ -1,5 +1,18 @@
 # Bestandsaufnahme
 
+IP-081: separates `CapitalRealizedCashPlan` mit default-striktem
+Ledgerabschluss-Hook. Q44 erlaubt ausschließlich positiven eigenen
+vollständigen Abschlussgewinn als Kostendeckung; keine neue Cashbuchung.
+`--h1-realized-costs` bindet ein separates Protokoll an IP-080-Receipt.
+[Abschlusskosten](futures-realized-exit-costs.md).
+
+IP-080: explizites `CapitalH1SignalProfile` und eigene H1-Journaldomäne.
+Geschlossener H1-RSI aus demselben nativen Input; bestehender Signal-/Ledger-/
+Fundingschutz und Replay wiederverwendet. `--h1-entries` bindet vorab
+eingefrorenen 2×-Vergleich an vollständig geprüfte H4-Einstiegsreferenz.
+Keine neue Abhängigkeit, Broker- oder Runtimeautorität.
+[H1-Einstiegsvergleich](futures-h1-entry-comparison.md).
+
 IP-079: separates `CapitalCashPlan` im bestehenden Kapitalkern, expliziter
 `--cash-budgets`-Marktjob und bytegebundenes neues Protokoll. Wiederverwendet
 Ledger/Signal/Funding/Journal mit unverändertem Legacydefault; volle aktive

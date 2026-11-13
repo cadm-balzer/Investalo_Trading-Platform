@@ -1,12 +1,13 @@
-"""Closed H4 RSI and H1/H4 protection for Q41–Q43; pure research only."""
-from dataclasses import dataclass, replace
+"""Separate closed H4/H1 RSI identities with causal protection; research only."""
+from dataclasses import dataclass, field, replace
 from functools import cached_property
 from datetime import datetime, timedelta
 from decimal import Decimal
 
 from .allocation import identifier, revision
 from .futures_capital_research import (
-    CapitalAssessment, CapitalPlan, CapitalCashPlan, CapitalResearchState, freeze_basket_leverage,
+    CapitalAssessment, CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan,
+    CapitalResearchState, freeze_basket_leverage,
     prepare_capital_entry, record_capital_event, simulate_capital_fill,
 )
 from .futures_ledger import (
@@ -22,6 +23,7 @@ from .timeframe_research import ResearchCandle, aggregate_h4
 D = Decimal
 ZERO = D("0")
 VERSION = "isolated-usdt-capital-signals/1"
+H1_VERSION = "isolated-usdt-capital-signals-h1/2"
 
 
 @dataclass(frozen=True)
@@ -32,7 +34,7 @@ class CapitalSignalProfile(CapitalCanonical):
     assumptions_digest: str
 
     def __post_init__(self):
-        if type(self.plan) not in (CapitalPlan, CapitalCashPlan):
+        if type(self.plan) not in (CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan):
             raise ValueError("separate capital plan required")
         if type(self.protection_hours) is not int or self.protection_hours not in (1, 4):
             raise ValueError("closed H1 or H4 protection required")
@@ -45,6 +47,34 @@ class CapitalSignalProfile(CapitalCanonical):
     def profile_digest(self):
         return digest((VERSION, self, IndicatorParameters(), "H4-RSI", 30, 2,
                        D(".95"), D("1.05"), D(".45"), "no-automatic-sixth"))
+
+    @property
+    def entry_hours(self):
+        return 4
+
+
+@dataclass(frozen=True)
+class CapitalH1SignalProfile(CapitalSignalProfile):
+    """Separate research identity; existing H4 fields and hashes stay frozen."""
+    signal_policy: str = field(default=H1_VERSION, init=False)
+
+    def __post_init__(self):
+        super().__post_init__()
+        if type(self.plan) not in (CapitalCashPlan, CapitalRealizedCashPlan) or self.protection_hours != 1:
+            raise ValueError("H1 entry comparison requires corrected cash and H1 protection")
+
+    @property
+    def entry_hours(self):
+        return 1
+
+    @cached_property
+    def profile_digest(self):
+        return digest((H1_VERSION, self, IndicatorParameters(), "H1-RSI", 30, 2,
+                       D(".95"), D("1.05"), D(".45"), "no-automatic-sixth"))
+
+
+def signal_version(profile):
+    return H1_VERSION if type(profile) is CapitalH1SignalProfile else VERSION
 
 
 @dataclass(frozen=True)
@@ -121,7 +151,7 @@ class CapitalSignalState(CapitalCanonical):
         timestamp(self.as_of)
         timestamp(self.trade_at)
         identifier(self.audit_head)
-        if (type(self.profile) is not CapitalSignalProfile
+        if (type(self.profile) not in (CapitalSignalProfile, CapitalH1SignalProfile)
                 or type(self.economic) is not CapitalResearchState
                 or self.profile.plan != self.economic.ledger.plan
                 or self.as_of < self.economic.as_of or self.trade_at > self.as_of):
@@ -147,14 +177,14 @@ class CapitalSignalState(CapitalCanonical):
                 raise ValueError("aggregation must end at the last closed hour")
         if self.last_entry_at is not None:
             timestamp(self.last_entry_at)
-            if (self.last_entry_at > self.as_of or self.last_entry_at.hour % 4
+            if (self.last_entry_at > self.as_of or self.last_entry_at.hour % self.profile.entry_hours
                     or any((self.last_entry_at.minute, self.last_entry_at.second,
                             self.last_entry_at.microsecond))):
-                raise ValueError("closed H4 signal time required")
+                raise ValueError("closed entry timeframe signal time required")
 
     @cached_property
     def state_digest(self):
-        return digest((VERSION, self))
+        return digest((signal_version(self.profile), self))
 
     @property
     def execution_enabled(self):
@@ -199,7 +229,8 @@ def _prices(prices, symbols):
 
 def start_capital_signals(profile, economic, initial_trade):
     """Genesis only. Full replay, not a fresh wrapper, is required for restore."""
-    if (type(profile) is not CapitalSignalProfile or type(economic) is not CapitalResearchState
+    if (type(profile) not in (CapitalSignalProfile, CapitalH1SignalProfile)
+            or type(economic) is not CapitalResearchState
             or profile.plan != economic.ledger.plan or economic.revision
             or economic.ledger.revision or economic.decisions or economic.stages
             or economic.stopped or economic.ledger.halted
@@ -210,7 +241,7 @@ def start_capital_signals(profile, economic, initial_trade):
         profile, economic, 0, economic.as_of,
         tuple(CapitalSymbol(s, 1) for s in profile.plan.symbols), initial_trade,
         economic.as_of, (), None, None,
-        digest((VERSION, profile.profile_digest, economic.state_digest, initial_trade)),
+        digest((signal_version(profile), profile.profile_digest, economic.state_digest, initial_trade)),
     )
 
 
@@ -225,7 +256,7 @@ def _check(state, expected_revision, at):
 def _finish(state, at, body, **changes):
     candidate = replace(state, revision=state.revision + 1, as_of=at, **changes)
     return replace(candidate, audit_head=digest((
-        VERSION, state.audit_head, body, at, candidate.state_digest,
+        signal_version(state.profile), state.audit_head, body, at, candidate.state_digest,
     )))
 
 
@@ -329,8 +360,10 @@ def replay_capital_hour(state, frame, expected_revision, observed_at, *,
         group = ()
     updated = []
     for i, (signal, basket) in enumerate(zip(signals, economic.ledger.baskets, strict=True)):
-        if h4 is not None:
-            indicator = advance(signal.entry_indicator, h4[i], IndicatorParameters())
+        entry_bar = frame.trade[i] if state.profile.entry_hours == 1 else (
+            h4[i] if h4 is not None else None)
+        if entry_bar is not None:
+            indicator = advance(signal.entry_indicator, entry_bar, IndicatorParameters())
             below = indicator.rsi is not None and indicator.rsi < 30
             signal = replace(signal, entry_indicator=indicator,
                              below_count=signal.below_count + 1 if below else 0,
@@ -346,7 +379,8 @@ def replay_capital_hour(state, frame, expected_revision, observed_at, *,
         state, observed_at, ("hour", frame.frame_digest) if close_valuation is None else (
             "valued-hour", frame.frame_digest, mark, valuation_evidence), economic=economic,
         trade_prices=trade, trade_at=frame.close_time, last_hour=frame, h4_buffer=group,
-        last_entry_at=frame.close_time if h4 is not None else state.last_entry_at,
+        last_entry_at=frame.close_time if state.profile.entry_hours == 1 or h4 is not None
+        else state.last_entry_at,
         signals=_protected(state.profile, economic, tuple(updated), trade))
 
 
@@ -385,7 +419,7 @@ def _entry_signal(state, symbol, maximum_price, at):
     if any("liquidation_settlement_required" in s.exit_reasons for s in state.signals):
         raise ValueError("unsettled liquidation blocks new entries")
     if state.last_entry_at is None or not timedelta(0) <= at - state.last_entry_at <= timedelta(seconds=30):
-        raise ValueError("missing or stale closed H4 entry signal")
+        raise ValueError(f"missing or stale closed H{state.profile.entry_hours} entry signal")
     index = state.profile.plan.symbols.index(symbol)
     signal, basket = state.signals[index], state.economic.ledger.baskets[index]
     stages = tuple(r for r in state.economic.stages if (r.symbol, r.cycle) == (symbol, signal.cycle))

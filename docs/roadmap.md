@@ -1,14 +1,27 @@
 # Roadmap
 
-IP-079 korrigiert die nachgewiesenen Cash-/Leerslotbremsen in einem eigenen
-Forschungsprofil. Finanzielle Regressionen und vollständiger synthetischer
-Marktpfad/Restore geprüft; beide native2×-Referenzfälle/Restores bestätigt:
-H1/H4+2507,71/+2410,79 USDT, keine Budgethaltes. Der breite native
-Zehn-Varianten-Vergleich läuft unter IP-069 weiter.
-Quellen, Gebühren, Hebel, RSI-/Schutzregeln bleiben identisch.
-Nächster bereits beauftragter Vergleich IP-080: echte H1-RSI-Einstiege
-mit gleicher Cashstaffel und zunächst gleichem H1-Schutz; neue Identität
-vor Leistung einfrieren. [Referenzbelege](futures-cash-interim-20261112.md).
+IP-079: alle zehn korrigierten nativen Jobs und Restores abgeschlossen;
+666180 Commands/40 Artefakthashes belegt.2× H1/H4-Schutz liefert
++2507,71/+2410,79 USDT ohne Budgethaltes.5×/Stress kann echte Kostenreserve
+erschöpfen;10× verliert die fünf Slots durch terminale Liquidationen.
+[Vollständige Ergebnisse](futures-cash-results-20261112.md).
+
+IP-080 implementiert echte H1-RSI-Einstiege mit gleicher Cashstaffel,
+zunächst gleichem H1-Schutz und2×. Neue Signal-/Journalidentität und
+Referenzbindung vor Leistung eingefroren;85 gezielte gepinnte Fälle/
+57 Subtests grün. Nativer Vergleich/Restore abgeschlossen: +2643,89 USDT,
+DD17,62%, sieben volle Fünfstufen-Baskets. Halt bereits2023-01-16 durch
+2,30 USDT Kostenüberhang beim profitablen BTC-Abschluss.
+[Ergebnisse und Auslöser](futures-h1-entry-results-20261112.md).
+
+Q44 bestätigt ausschließlich eigene vollständig realisierte Abschlussgewinne
+als Deckung des Kostenüberhangs. Separate IP-081-Policy implementiert,
+174 gezielte gepinnte Fälle/103 Subtests grün. Neuer H1-/2×-Vergleich
+vollständig restauriert: +3928,28 USDT,98 Abschlüsse,13 volle Fünfstufen-
+Baskets, DD17,62%, keine Liquidationen. Neuer Halt2023-10-02 durch offenes
+XRP-Fundingbudget; diese Grenze bleibt hart. IP-082 bereitet konkrete
+Funding-/Haltedauerbudgets mit vollständig gedeckter Kaufstaffel vor.
+[Ergebnisse](futures-realized-cost-results-20261112.md).
 
 IP-078 implementiert den vollständigen nativen Futures-Nettojob für alle zehn
 vorab eingefrorenen Varianten, mit tatsächlichen RSI-Kaufstufen, Gebühren/

@@ -370,6 +370,27 @@ Exakte Kriterien/Modellfreigabe und kausale historische Marktphasenprüfung
 bleiben ausstehend; bislang keine aktive AI oder validierte AI-Rendite.
 Isolierte Margin, Budget-/Orderwahrheit und Q41/Q42-Risikoprofil erhalten.
 
+### Q44: Kostenreserve am vollständig profitablen Abschluss
+
+2026-11-12, **bestätigt**. IP-080 H1-RSI-Test:
+BTC-Zyklus4 schließt mit446,84 USDT Nettogewinn. Gebühren/Funding22,10 USDT
+übersteigen19,80 USDT Kostenreserve um2,30 USDT und sperren dadurch das
+gesamte Konto ab2023-01-16. Voller Replay-/Kostenbeleg:
+[H1-Ergebnisse](futures-h1-entry-results-20261112.md).
+
+Gefragt für einen separaten Forschungsvergleich: Darf ausschließlich beim
+vollständig geschlossenen profitablen Basket der eigene realisierte Gewinn
+die Kostenreserveüberschreitung decken, ohne globale Kontosperre?
+Empfehlung: ja, alle Kosten weiter netto verbuchen; offene Kosten-/Margin-/
+Liquidationsgrenzen, tatsächliche Kaufstaffel und manuelle Reserve erhalten.
+Keine Finanzierung aus anderen Baskets oder noch unrealisierten Gewinnen.
+Nutzerantwort: **„Ja, nur aus dem eigenen abgeschlossenen Basketgewinn
+(empfohlen)“**. Neue separate Policy erlaubt nur vollständige normale
+Abschlüsse mit positivem Netto nach allen Kosten, das mindestens den gesamten
+Kostenüberhang deckt. Keine zusätzliche Cashgutschrift oder doppelte
+Gewinnbuchung; alte Halts werden nicht gelöscht. Q41 bindet alle übrigen
+Budgets weiter. Bestehende eingefrorene Profile bleiben historisch.
+
 Konkrete Umsetzungsfakten recherchieren wir: unterstützte Versionen exakt pinnen,
 Historienlänge/-qualität prüfen, Brokerkosten/Metadaten und Hostlast messen.
 Vor Pilotrollout müssen Domain/TLS, SMTP/Empfänger, Terminalbindung,

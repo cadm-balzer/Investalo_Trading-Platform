@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run all ten frozen native research cases, create-only; no network or holdout."""
+"""Run frozen native cases or the explicit H1 entry comparison; create-only."""
 from datetime import datetime, timezone
 import hashlib
 from pathlib import Path
@@ -15,6 +15,10 @@ from investalo_marketdata.snapshot import canonical, decode_json, iso
 
 PREFLIGHT_SHA256 = "2252c6f78054a482a2eb67ecdc344d517aeb46083ce518141ccf0c00b549064c"
 CASH_PROTOCOL_SHA256 = "1dfc67d29dcc5f89e72a610d43823b7041470810f10e3757d7fd2d135effb4fa"
+H1_PROTOCOL_SHA256 = "23aefed3d96ff6cb9eb6b404209fc67f227529904131463941ec0c2fb7cb39f1"
+BASELINE_RECEIPT_SHA256 = "979880a5b9fdcadc1a8aa8f11f23e7e1af158c86b68d4ea3d27c2b282470476e"
+REALIZED_PROTOCOL_SHA256 = "719716bcc813c1fa22de769c2b86ed43d72b4e0d29a9d133065c06cf0cbf339a"
+H1_RECEIPT_SHA256 = "3c6fdfb5b1c5ec6129f9bc7e4c4f1368ec19761f06e0d628707f8b72f12ed130"
 
 
 def cash_protocol():
@@ -22,6 +26,24 @@ def cash_protocol():
     if hashlib.sha256(raw).hexdigest() != CASH_PROTOCOL_SHA256:
         raise ValueError("frozen corrected cash protocol changed")
     return CASH_PROTOCOL_SHA256
+
+
+def h1_protocol():
+    raw = (ROOT / "docs/research-protocols/futures-capital-h1-entry-20261112.json").read_bytes()
+    baseline = (ROOT / "docs/research-protocols/futures-capital-cash-market-receipt-20261112.json").read_bytes()
+    if (hashlib.sha256(raw).hexdigest() != H1_PROTOCOL_SHA256
+            or hashlib.sha256(baseline).hexdigest() != BASELINE_RECEIPT_SHA256):
+        raise ValueError("frozen H1 comparison or verified H4 baseline changed")
+    return H1_PROTOCOL_SHA256
+
+
+def realized_protocol():
+    raw = (ROOT / "docs/research-protocols/futures-capital-h1-realized-cost-20261112.json").read_bytes()
+    baseline = (ROOT / "docs/research-protocols/futures-capital-h1-entry-market-receipt-20261112.json").read_bytes()
+    if (hashlib.sha256(raw).hexdigest() != REALIZED_PROTOCOL_SHA256
+            or hashlib.sha256(baseline).hexdigest() != H1_RECEIPT_SHA256):
+        raise ValueError("frozen realized-cost comparison or verified H1 baseline changed")
+    return REALIZED_PROTOCOL_SHA256
 
 
 def load_sources():
@@ -64,9 +86,14 @@ def main():
     scenarios = load_economic_protocol(
         (ROOT / "docs/research-protocols/futures-capital-economics-20261112.json").read_bytes())
     corrected = len(sys.argv) == 3 and sys.argv[1] == "--cash-budgets"
-    if not corrected and len(sys.argv) != 2:
-        raise SystemExit("usage: backtest-futures-capital.py [--cash-budgets] NEW_OUTPUT_DIRECTORY")
-    budget_protocol = cash_protocol() if corrected else None
+    realized = len(sys.argv) == 3 and sys.argv[1] == "--h1-realized-costs"
+    h1 = len(sys.argv) == 3 and sys.argv[1] in ("--h1-entries", "--h1-realized-costs")
+    if not corrected and not h1 and (len(sys.argv) != 2 or sys.argv[1].startswith("--")):
+        raise SystemExit("usage: backtest-futures-capital.py [--cash-budgets|--h1-entries|--h1-realized-costs] NEW_OUTPUT_DIRECTORY")
+    budget_protocol = (realized_protocol() if realized else h1_protocol() if h1
+                       else cash_protocol() if corrected else None)
+    if h1:
+        scenarios = tuple(s for s in scenarios if s.scenario_id == "base-h1-2x")
     protocol_digest = budget_protocol or PROTOCOL_SHA256
     output = Path(sys.argv[-1]).resolve()
     output.mkdir(mode=0o700, parents=True, exist_ok=False)
@@ -77,7 +104,8 @@ def main():
         print(f"{scenario.scenario_id}: verified sources; starting full market replay and restore", flush=True)
         report = run_scenario(streams, scenario, output / scenario.scenario_id,
                               protocol_digest, digests, progress=progress,
-                              cash_budget_protocol=budget_protocol)
+                              cash_budget_protocol=budget_protocol, entry_hours=1 if h1 else 4,
+                              realized_exit_costs=realized)
         reports.append(report)
         print(f"{scenario.scenario_id}: restored complete journal; net {report['net_pnl']}", flush=True)
     artifacts = []
@@ -94,7 +122,10 @@ def main():
         "schema_version": VERSION, "completed_at": iso(datetime.now(timezone.utc)),
         "protocol_sha256": protocol_digest, "economic_protocol_sha256": PROTOCOL_SHA256,
         "preflight_sha256": PREFLIGHT_SHA256,
-        "budget_variant": "own-cash-active-ranges" if corrected else "historical-gross-all-slots",
+        "budget_variant": "own-cash-active-ranges" if corrected or h1 else "historical-gross-all-slots",
+        "entry_timeframe": "H1" if h1 else "H4",
+        "baseline_receipt_sha256": H1_RECEIPT_SHA256 if realized else BASELINE_RECEIPT_SHA256 if h1 else None,
+        "realized_exit_costs": realized,
         "research_start": "2022-08-01T00:00:00Z", "research_end_exclusive": "2025-08-01T00:00:00Z",
         "implementation_sha256": hashlib.sha256(
             (ROOT / "packages/marketdata/src/investalo_marketdata/futures_capital_backtest.py").read_bytes()).hexdigest(),
@@ -118,7 +149,7 @@ def main():
     }
     with (output / "receipt.json").open("x") as handle:
         handle.write(canonical(receipt) + "\n")
-    print(f"all ten declared comparisons complete: {output / 'receipt.json'}", flush=True)
+    print(f"all {len(scenarios)} declared comparisons complete: {output / 'receipt.json'}", flush=True)
 
 
 if __name__ == "__main__":

@@ -99,6 +99,10 @@ class FuturesPlan:
         """Frozen legacy budgets count gross charges."""
         return basket.charges_in_budget_epoch
 
+    def closing_cost_overrun_covered(self, basket, closed):
+        """Default policies retain their strict closing cost limit."""
+        return False
+
 
 @dataclass(frozen=True)
 class FuturesExposure:

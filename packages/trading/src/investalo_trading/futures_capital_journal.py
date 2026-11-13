@@ -8,9 +8,12 @@ from pathlib import Path
 
 from .allocation import revision
 from .capital_identity_history import CapitalIdentityHistory
-from .futures_capital_research import CapitalPlan, CapitalCashPlan, start_capital_research
+from .futures_capital_research import (
+    CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan, start_capital_research,
+)
 from .futures_capital_signals import (
-    CapitalFundingBatch, CapitalHour, CapitalSignalAssessment, CapitalSignalProfile, declare_signal_leverage,
+    CapitalFundingBatch, CapitalHour, CapitalSignalAssessment, CapitalSignalProfile,
+    CapitalH1SignalProfile, declare_signal_leverage,
     observe_capital_prices, record_signal_economic_event, replay_capital_hour,
     record_signal_funding_batch, replay_valued_capital_hour, simulate_signal_entry, start_capital_signals,
 )
@@ -24,6 +27,7 @@ from .snapshot import _decode, primitive
 from .capital_digest import digest
 
 VERSION = "isolated-usdt-capital-replay-journal/1"
+H1_VERSION = "isolated-usdt-capital-replay-journal-h1/2"
 MAX_FILE_BYTES = 512 * 1024 * 1024
 MAX_COMMANDS = 250_000
 MAX_LINE_BYTES = 256 * 1024
@@ -102,7 +106,7 @@ def _genesis(header):
     _fields(header, ("schema_version", "profile", "initial_trade", "initial_mark", "at",
                      "evidence_digest", "protocol_digest", "dataset_digests", "identity_capacity",
                      "command_capacity", "execution_enabled"))
-    if header["schema_version"] != VERSION or header["execution_enabled"] is not False:
+    if header["schema_version"] not in (VERSION, H1_VERSION) or header["execution_enabled"] is not False:
         raise ValueError("unsupported or executable capital journal")
     _sha(header["protocol_digest"])
     datasets = header["dataset_digests"]
@@ -113,16 +117,22 @@ def _genesis(header):
         _sha(value)
     if type(header["command_capacity"]) is not int or not 1 <= header["command_capacity"] <= MAX_COMMANDS:
         raise ValueError("bounded capital command capacity required")
-    profile_raw = _fields(header["profile"], ("plan", "protection_hours", "slippage", "assumptions_digest"))
+    h1 = header["schema_version"] == H1_VERSION
+    profile_raw = _fields(header["profile"], (
+        "plan", "protection_hours", "slippage", "assumptions_digest",
+        *(("signal_policy",) if h1 else ())))
+    if h1 and profile_raw["signal_policy"] != CapitalH1SignalProfile.signal_policy:
+        raise ValueError("own frozen H1 signal policy required")
     # CapitalPlan has a frozen init=False policy discriminator: decode explicitly.
     plan_raw = dict(profile_raw["plan"])
     policy = plan_raw.pop("capital_policy", None)
-    plan_type = {p.capital_policy: p for p in (CapitalPlan, CapitalCashPlan)}.get(policy)
+    plan_type = {p.capital_policy: p for p in (
+        CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan)}.get(policy)
     if plan_type is None:
         raise ValueError("own frozen capital policy required")
     plan = _decode(FuturesPlan, plan_raw)
     plan = plan_type(**{key: getattr(plan, key) for key in plan_raw})
-    profile = CapitalSignalProfile(
+    profile = (CapitalH1SignalProfile if h1 else CapitalSignalProfile)(
         plan, _decode(int, profile_raw["protection_hours"]),
         _decode(Decimal, profile_raw["slippage"]), _decode(str, profile_raw["assumptions_digest"]),
     )
@@ -147,7 +157,8 @@ class CapitalReplayJournal:
                protocol_digest, dataset_digests, identity_capacity=250_000,
                command_capacity=MAX_COMMANDS):
         header = {
-            "schema_version": VERSION, "profile": primitive(profile),
+            "schema_version": H1_VERSION if type(profile) is CapitalH1SignalProfile else VERSION,
+            "profile": primitive(profile),
             "initial_trade": primitive(initial_trade), "initial_mark": primitive(initial_mark),
             "at": timestamp(at).isoformat(), "evidence_digest": evidence_digest,
             "protocol_digest": protocol_digest, "dataset_digests": list(dataset_digests),
@@ -156,7 +167,7 @@ class CapitalReplayJournal:
         }
         state = _genesis(header)
         handle = _open(path, create=True)
-        journal = cls(handle, header, state, digest((VERSION, header)), 0)
+        journal = cls(handle, header, state, digest((header["schema_version"], header)), 0)
         try:
             journal._write(header)
             directory = os.open(Path(path).parent, os.O_DIRECTORY | os.O_RDONLY)
@@ -181,14 +192,15 @@ class CapitalReplayJournal:
                     or header["protocol_digest"] != protocol_digest
                     or header["dataset_digests"] != list(dataset_digests)):
                 raise ValueError("foreign capital profile/protocol/dataset journal")
-            head, sequence = digest((VERSION, header)), 0
+            version = header["schema_version"]
+            head, sequence = digest((version, header)), 0
             if minimum_receipt is not None:
                 _fields(minimum_receipt, ("schema_version", "context_digest", "sequence", "head",
                                          "state_digest", "execution_enabled"))
                 revision(minimum_receipt["sequence"])
                 _sha(minimum_receipt["head"])
                 _sha(minimum_receipt["state_digest"])
-                if (minimum_receipt["schema_version"] != VERSION
+                if (minimum_receipt["schema_version"] != version
                         or minimum_receipt["context_digest"] != digest(header)
                         or minimum_receipt["execution_enabled"] is not False):
                     raise ValueError("foreign acknowledged capital receipt")
@@ -207,7 +219,7 @@ class CapitalReplayJournal:
                         or sequence >= header["command_capacity"]):
                     raise ValueError("capital journal sequence or prior binding mismatch")
                 candidate = _apply(state, record["command"])
-                expected = digest((VERSION, head, record["command"], candidate.state_digest, sequence + 1))
+                expected = digest((version, head, record["command"], candidate.state_digest, sequence + 1))
                 if record["state_digest"] != candidate.state_digest or record["head"] != expected:
                     raise ValueError("capital journal replay or chain digest mismatch")
                 state, head, sequence = candidate, expected, sequence + 1
@@ -233,7 +245,7 @@ class CapitalReplayJournal:
     @property
     def receipt(self):
         self._usable()
-        return {"schema_version": VERSION, "context_digest": digest(self._header),
+        return {"schema_version": self._header["schema_version"], "context_digest": digest(self._header),
                 "sequence": self._sequence, "head": self._head,
                 "state_digest": self._state.state_digest, "execution_enabled": False}
 
@@ -255,7 +267,8 @@ class CapitalReplayJournal:
             raise ValueError("capital journal command capacity exhausted; never evict evidence")
         command = _command(kind, expected_revision, at, arguments)
         candidate = _apply(self._state, command)
-        head = digest((VERSION, self._head, command, candidate.state_digest, self._sequence + 1))
+        head = digest((self._header["schema_version"], self._head, command,
+                       candidate.state_digest, self._sequence + 1))
         record = {"sequence": self._sequence + 1, "prior_head": self._head,
                   "prior_state_digest": self._state.state_digest, "command": command,
                   "state_digest": candidate.state_digest, "head": head}
