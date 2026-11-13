@@ -24,6 +24,29 @@ def moderate_cases():
 
 
 class ModerateGridLeverageTests(unittest.TestCase):
+    def test_readonly_metric_restore_exactly_matches_original_normal_and_gap_results(self):
+        from investalo_marketdata.futures_journal_metrics import restore_metrics
+        for crash in (False, True):
+            streams = fixture(crash=crash)
+            anchor = streams["BNBUSDT", "trade"]
+            bindings = tuple(sorted(s.data_digest for s in streams.values()))
+            with TemporaryDirectory() as directory:
+                scenario = moderate_cases()[1]
+                output = Path(directory) / scenario.scenario_id
+                original = run_scenario(
+                    streams, scenario, output, MODERATE_PROTOCOL_SHA256, bindings,
+                    cash_budget_protocol=MODERATE_PROTOCOL_SHA256, entry_hours=1,
+                    realized_exit_costs=True, reserved_cash=True, **FLAGS)
+                recovered, closed = restore_metrics(output / "journal.jsonl", scenario,
+                    MODERATE_PROTOCOL_SHA256, bindings, anchor.start, anchor.end)
+                self.assertEqual(closed, json.loads((output / "closed-baskets.json").read_text()))
+                for key in ("net_pnl", "maximum_event_drawdown_pct", "fees", "funding_net",
+                            "cost_restoration", "liquidations", "stage_fill_counts",
+                            "profit_factor", "maximum_posted_margin", "journal_receipt",
+                            "time_weighted_posted_margin", "decimal_reconciliation_residual"):
+                    self.assertEqual(recovered[key], original[key], (crash, key))
+                self.assertNotIn("capital_rejections", recovered)
+
     def test_legacy_constructor_still_rejects_3x_and_4x(self):
         for v in (3, 4):
             with self.subTest(v=v), self.assertRaises(ValueError):

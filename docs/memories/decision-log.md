@@ -2064,3 +2064,19 @@ Neubudget und aktuelle Flat-/Order-/Buchungsreconciliation vor Freigabe,
 frisches RSI/neuer fester Baskethebel danach. Runtime derzeit Spot-Paper,
 Futures offline; produktive Recoveryanbindung separat. Keine DB-/Dependency-/
 Live-/Public-/AI-/Holdoutaktivierung. [Vertrag](../futures-moderate-leverage.md).
+
+
+IP-088 enthält einen reinen manuellen Recoverykandidaten/Receipt und neue
+Startseiten-/Portfolio-Komponenten mit Default-off-BFF. Fünf gepinnte
+Pythonfälle/13 Subtests, fünf Cockpitfälle und Typecheck bestehen. Atomare
+Futures-Persistenz/Reconciliation/API-Anbindung noch ausstehend; kein Live-
+oder öffentlicher Rollout. Verlust/alte Zyklen bleiben, frische RSI-Bestätigungen
+und neue Hebelentscheidung nötig. [Recoveryvertrag](../futures-manual-recovery.md).
+
+Originale IP-087-3×-Auswertung/Restore fertig;4× kompletter Marktinput,
+Exit137 während Restore, Ursache unbestätigt. Originalverzeichnis bleibt
+ohne Erfolgsreceipt. Separate nur lesende Journalmetriken/Abschlusshelper
+prüfen Checkpointada2029/Quellen/Referenzen und vollständigen4×-Restore.
+Synthetic normal/gap liefert exakt gleiche Finanzmetriken. Nicht gespeicherte
+Admissionversuche werden ausgelassen statt als0 gemeldet; keine neue
+Performancewirtschaft und kein wiederholter Marktjob.

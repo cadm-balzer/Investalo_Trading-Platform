@@ -50,3 +50,28 @@ Die aktuelle Runtime betreibt Spot-Paper; native Futures sind bislang lokale
 Forschungsjobs. Eine produktive Futures-Reconciliation und dauerhafte
 Aktionsanbindung sind daher ein eigener Implementationsschritt IP-088.
 Keine Aktivierung von Echtgeldhandel oder AI durch diesen Forschungsauftrag.
+
+[Implementierter Recovery-Prüfkern und Dashboardvorbereitung](futures-manual-recovery.md).
+
+## Unterbrochener Export
+
+Der originale3×-Job/Restore ist vollständig abgeschlossen;4× hat den
+vollständigen Marktinput geschrieben, wurde jedoch während des Restores
+mit Exit137 beendet. Ursache nicht bestätigt. Das ursprüngliche Verzeichnis
+bleibt unverändert und erhält keinen Erfolgsreceipt.
+
+`complete-futures-moderate.py` prüft alle elf nativen Implementationsdateien
+gegen Checkpointada2029, Quellen und zwölf alte Referenzartefakte.
+Der eigene nur lesende Beobachter `futures_journal_metrics.py` rekonstruiert
+alle ausgeführten Finanzereignisse und restauriert das komplette4×-Journal,
+ohne den Marktjob erneut auszuführen. Normal-/Gapfixtures bestätigen exakt
+Netto, eventuellen Drawdown, Gebühren/Funding, Restorationsbeträge, Stufen,
+Liquidationen, Marginzeitgewicht und vollständigen Endreceipt.
+
+Nicht gespeicherte abgelehnte Versuche/Signalfilter/Warnungsstunden werden
+im wiederhergestellten4×-Bericht ausgelassen, ausdrücklich nicht als0
+ausgegeben. Originaljournal/-kurve und originaler3×-Bericht bleiben erhalten.
+Die neue Abschlussausgabe entsteht separat unter
+`infra/local/futures-capital-research/20261113-h1-grid-moderate-completed`;
+dreizehn Implementationshashes und sämtliche Originalbytes werden vor/nach
+dem Restore geprüft. Erst dann entsteht ihr eigener Abschlussreceipt.
