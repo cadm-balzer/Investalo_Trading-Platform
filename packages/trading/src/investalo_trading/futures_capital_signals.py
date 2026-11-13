@@ -6,7 +6,7 @@ from decimal import Decimal
 
 from .allocation import identifier, revision
 from .futures_capital_research import (
-    CapitalAssessment, CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan,
+    CapitalAssessment, CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan,
     CapitalResearchState, freeze_basket_leverage,
     prepare_capital_entry, record_capital_event, simulate_capital_fill,
 )
@@ -34,7 +34,7 @@ class CapitalSignalProfile(CapitalCanonical):
     assumptions_digest: str
 
     def __post_init__(self):
-        if type(self.plan) not in (CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan):
+        if type(self.plan) not in (CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan):
             raise ValueError("separate capital plan required")
         if type(self.protection_hours) is not int or self.protection_hours not in (1, 4):
             raise ValueError("closed H1 or H4 protection required")
@@ -60,7 +60,7 @@ class CapitalH1SignalProfile(CapitalSignalProfile):
 
     def __post_init__(self):
         super().__post_init__()
-        if type(self.plan) not in (CapitalCashPlan, CapitalRealizedCashPlan) or self.protection_hours != 1:
+        if type(self.plan) not in (CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan) or self.protection_hours != 1:
             raise ValueError("H1 entry comparison requires corrected cash and H1 protection")
 
     @property

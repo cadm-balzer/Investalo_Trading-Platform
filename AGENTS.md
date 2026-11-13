@@ -7,12 +7,31 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
-- IP-080/081 implementation checkpoint65a5513 pushed on
-  feat/m1-futures-h1-entries. PR50 OPEN/non-draft/MERGEABLE verified:
-  https://github.com/cadm-balzer/Investalo_Trading-Platform/pull/50.
-  User reviews/merges. Routine TLS checks cockpit/auth both200;
-  public containers unchanged. New readonly fixture protocol mounts have
-  shell syntax checked; no extra economic code or broad regression.
+- PR50 merged by user; head6dfde31 ancestor of mainbde1cee verified via
+  GH/fetch. IP-082 on feat/m1-futures-reserved-budget implements Q45's own
+  reserved-budget instruction: separate reserved-cash/4. Funding debits
+  own isolated cash, no additional global net-funding-quota halt. Only actual
+  entry/exit fees and paid restoration consume wallet cost reserve.
+  Restoration retains declared remaining regular entry/full exit fee backing;
+  unused regular/manual capital never funds restoration. Actual cash,
+  initialmargin and liquidation remain hard; full five fills are not promised
+  after funding depletion. Q44 own profitable full closing exception persists.
+  Frozen protocolsha
+  b1892df1eac4a66f157b0576b1efef7017f0e62bccc10c2bedb110441316be21.
+  183 distinct focused pinned checks/108 subtests passed (nine new).
+  Native H1 job/full restore complete:
+  infra/local/futures-capital-research/20261113-h1-reserved-cash,
+  109440 commands/four artifacts/eight unchanged start/end implementation
+  hashes verified before export. Receiptsha
+  4e7d902c7127b317932c75e3b3878ffcaa3971c7863f077f477d2ca490713cec.
+  Net+9579.93/DD17.62%,269 closures/no liquidations/no account halt,
+  stages271/126/72/37/24; last real entry2025-07-29. Two end-open baskets
+  valued at mark; no forced profit exits.29 declared-initialmargin and32
+  fill-bound rejections remain; no budget/cash rejection. No active job.
+  Historical policies1–3 frozen.
+  No AI/live/holdout/public/DB/dependency changes.
+  See docs/futures-reserved-budget.md and
+  docs/futures-reserved-budget-results-20261113.md. User reviews/merges PRs.
 - User confirmed PR49 merged; head0cd45d5 is ancestor of main0c0c7ce
   (verified). All ten corrected native jobs and full restores now complete:
   666180 commands/40 hashes; receiptsha
@@ -49,8 +68,8 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   Stops2023-10-02 at XRP cycle21 fundingbatch (command43858):
   open cost19.94101471 exceeds19.80198020 by0.13903451. Q44 does NOT
   exempt this open breach. Existing global halt remains terminal.
-  Next IP-082: dimension fundingreserve/holding horizon with full own entry
-  budgets; changing open constraints requires a new decision. No active job.
+  This historical IP-081 remains frozen; Q45 now authorizes the separate
+  IP-082 own-reserved-budget interpretation above.
   No AI/live/holdout/public/DB/dependency change. See
   docs/futures-h1-entry-results-20261112.md and docs/futures-realized-cost-results-20261112.md.
 - IP-077 `ca98561` merged into main `ab3b4ab` (verified). IP-078 implements

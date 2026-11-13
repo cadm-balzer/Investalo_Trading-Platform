@@ -391,6 +391,26 @@ Kostenüberhang deckt. Keine zusätzliche Cashgutschrift oder doppelte
 Gewinnbuchung; alte Halts werden nicht gelöscht. Q41 bindet alle übrigen
 Budgets weiter. Bestehende eingefrorene Profile bleiben historisch.
 
+### Q45: Reserviertes Basketbudget ohne zusätzlichen Fundingquotenhalt
+
+2026-11-13, **beauftragt**. Nutzer bestätigt den Merge von PR50 und erklärt:
+„Die Buckets bekommen ja ein festes reservierts Budget was zur Verfügung
+steht entsprechend darf es keinen Blocker geben.“
+
+Konkrete Umsetzung dieses Auftrags: separates reserved-cash/4-Forschungsprofil.
+Funding wird bereits aus der eigenen isolierten Margin bezahlt und erhält
+keinen weiteren globalen Kostenquotenhalt. Tatsächlich aus der Wallet
+gezahlte Gebühren und Restoration bleiben im eigenen Kostenbudget;
+Gebührenbacking für verbleibende Käufe/Ausstieg wird vor Restoration
+zurückgehalten. Alle sechs Eigenkapitalstufen bleiben identisch reserviert,
+keine automatische Verwendung der manuellen Stufe oder fremder Baskets.
+Tatsächliche Initialmargin, Liquidation und Gelddeckung bleiben verbindlich.
+Dies ist die Umsetzungsinterpretation des Budgetauftrags, keine zusätzliche
+Nutzerentscheidung zu einer anderen Aufteilung oder unbegrenzten Fundingreserve.
+Q44 gilt weiter bei vollständig profitablen normalen Abschlüssen.
+Historische Policys und ihre Ergebnisse bleiben eingefroren.
+[Vertrag und Grenzen](futures-reserved-budget.md).
+
 Konkrete Umsetzungsfakten recherchieren wir: unterstützte Versionen exakt pinnen,
 Historienlänge/-qualität prüfen, Brokerkosten/Metadaten und Hostlast messen.
 Vor Pilotrollout müssen Domain/TLS, SMTP/Empfänger, Terminalbindung,

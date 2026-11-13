@@ -5,7 +5,7 @@ from datetime import timedelta
 from decimal import Decimal
 
 from investalo_trading.futures_capital_journal import CapitalReplayJournal
-from investalo_trading.futures_capital_research import CapitalCashPlan, CapitalRealizedCashPlan
+from investalo_trading.futures_capital_research import CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan
 from investalo_trading.futures_capital_signals import CapitalHour, assess_capital_signal, _entry_signal
 from investalo_trading.futures_ledger import LedgerMark, LiquidationSettlement, MarginPosting, MarkBatch
 from investalo_trading.models import floor_step, precise
@@ -121,16 +121,24 @@ class MarketReplay:
             self.insurance += credit
 
     @precise
+    def restoration_amount(self, b, budget):
+        plan = self.state.profile.plan
+        if type(plan) is CapitalReservedCashPlan:
+            capacity = plan.cost_restoration_capacity(b)
+        else:
+            usage = plan.basket_cost_usage(b)
+            if type(plan) in (CapitalCashPlan, CapitalRealizedCashPlan):
+                usage = b.entry_fees + b.exit_fees + b.cost_restored
+            capacity = max(ZERO, budget.cost_reserve - usage)
+        return floor_step(min(max(ZERO, b.margin_committed - b.isolated_balance), capacity),
+                          plan.quantum)
+
+    @precise
     def restore_costs(self, at):
         for b, budget in zip(self.state.economic.ledger.baskets, self.state.profile.plan.budgets, strict=True):
             if not b.quantity:
                 continue
-            usage = self.state.profile.plan.basket_cost_usage(b)
-            if type(self.state.profile.plan) in (CapitalCashPlan, CapitalRealizedCashPlan):
-                usage = b.entry_fees + b.exit_fees + b.cost_restored
-            amount = floor_step(min(max(ZERO, b.margin_committed - b.isolated_balance),
-                                    max(ZERO, budget.cost_reserve - usage)),
-                                self.state.profile.plan.quantum)
+            amount = self.restoration_amount(b, budget)
             if amount > 0:
                 self.append("economic", at, payload=MarginPosting(b.symbol, amount, True),
                             event_id=self.event_id("restore"))
@@ -195,11 +203,16 @@ class MarketReplay:
                     eligible = True
                 except ValueError:
                     pass
-            restoration = any(b.quantity and floor_step(
-                min(max(ZERO, b.margin_committed - b.isolated_balance),
-                    max(ZERO, budget.cost_reserve - b.charges_in_budget_epoch)),
-                self.state.profile.plan.quantum) > 0
-                for b, budget in zip(self.state.economic.ledger.baskets, self.state.profile.plan.budgets))
+            if type(self.state.profile.plan) is CapitalReservedCashPlan:
+                restoration = any(b.quantity and self.restoration_amount(b, budget) > 0
+                    for b, budget in zip(self.state.economic.ledger.baskets, self.state.profile.plan.budgets))
+            else:
+                # Frozen historical trigger retained in the earlier variants.
+                restoration = any(b.quantity and floor_step(
+                    min(max(ZERO, b.margin_committed - b.isolated_balance),
+                        max(ZERO, budget.cost_reserve - b.charges_in_budget_epoch)),
+                    self.state.profile.plan.quantum) > 0
+                    for b, budget in zip(self.state.economic.ledger.baskets, self.state.profile.plan.budgets))
             if not eligible and not restoration:
                 return
             # All fills share a complete same-time valuation, including later symbols.
@@ -268,7 +281,7 @@ class MarketReplay:
 
 def run_scenario(streams, scenario, output, protocol_digest, dataset_digests, *,
                  progress=None, full_flat_quotes=False, cash_budget_protocol=None, entry_hours=4,
-                 realized_exit_costs=False):
+                 realized_exit_costs=False, reserved_cash=False):
     symbols, anchor = validate_cohort(streams)
     output.mkdir(mode=0o700, exist_ok=False)
     if cash_budget_protocol is not None:
@@ -277,7 +290,7 @@ def run_scenario(streams, scenario, output, protocol_digest, dataset_digests, *,
     # Funding references bind unchanged economics; the plan discriminator and
     # journal protocol bind corrected cash semantics.
     profile = scenario.profile(cash_budgets=cash_budget_protocol is not None, entry_hours=entry_hours,
-                               realized_exit_costs=realized_exit_costs)
+                               realized_exit_costs=realized_exit_costs, reserved_cash=reserved_cash)
     references = {}
     for symbol in symbols:
         stream = streams[symbol, "funding"]

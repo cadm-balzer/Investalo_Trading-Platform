@@ -887,3 +887,11 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   deckt gesamten Kostenüberhang; keine Extra-Cashbuchung. Vorher offene
   Budgethaltes bleiben terminal, ebenso Teilverkaufs-/Liquidationsfälle.
   Unrealisierte oder fremde Gewinne sind keine freigegebene Finanzierung.
+- **Fundingzahlung und Walletbacking unterscheiden:** Q45 reserved-cash/4
+  bucht Funding weiter im eigenen isolierten Saldo. Ein darüber hinaus
+  belasteter Kostenquotenanspruch ist keine zusätzliche Zahlung.
+  Tatsächlich gezahlte Restoration/Fees bleiben jedoch Walletverbrauch.
+  Gebührengeld vor Restoration zurückhalten; nie manual/unverbrauchte
+  Stufen als Rettungsmargin verwenden. Nur neuer Trigger nutzt die gleiche
+  Kapazität wie der neue Restorationbetrag; historische Trigger eingefroren.
+  Wegfall des globalen Quotenhalts hebt Initialmargin/Liquidation nicht auf.

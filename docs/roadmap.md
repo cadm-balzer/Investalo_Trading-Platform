@@ -19,8 +19,20 @@ als Deckung des Kostenüberhangs. Separate IP-081-Policy implementiert,
 174 gezielte gepinnte Fälle/103 Subtests grün. Neuer H1-/2×-Vergleich
 vollständig restauriert: +3928,28 USDT,98 Abschlüsse,13 volle Fünfstufen-
 Baskets, DD17,62%, keine Liquidationen. Neuer Halt2023-10-02 durch offenes
-XRP-Fundingbudget; diese Grenze bleibt hart. IP-082 bereitet konkrete
-Funding-/Haltedauerbudgets mit vollständig gedeckter Kaufstaffel vor.
+XRP-Fundingbudget; diese Grenze bleibt im eingefrorenen IP-081 hart.
+Q45 beauftragt nun IP-082: das fest reservierte Budget vollständig verwenden,
+Funding innerhalb der eigenen isolierten Margin statt zusätzlichem globalem
+Quotenhalt. Neue reserved-cash/4 zählt tatsächliche Walletzahlungen, behält
+Gebührenbacking und alle sechs Kapitalstufen. 183 gezielte gepinnte Fälle/
+108 Subtests grün; nativer H1-/2×-Vergleich vollständig restauriert:
+109440 Commands/vier Artefakte/acht unveränderte Start-End-Hashes.
+Netto+9579,93 USDT/DD17,62%,269 Abschlüsse/24 volle Fünfstufen-Baskets,
+keine Liquidationen oder Kontohaltes. Tatsächlicher letzter Einstieg
+2025-07-29, zwei offene Endpositionen zum Markkurs. IP-083 diagnostiziert
+29 deklarierte Initialmargin-/32 Preisgrenzenablehnungen vor Brokerkalibrierung
+und unabhängigen Holdout; die Regeln werden nicht still aufgehoben.
+[Neuer Budgetvertrag](futures-reserved-budget.md).
+[Vollständige Ergebnisse](futures-reserved-budget-results-20261113.md).
 [Ergebnisse](futures-realized-cost-results-20261112.md).
 
 IP-078 implementiert den vollständigen nativen Futures-Nettojob für alle zehn

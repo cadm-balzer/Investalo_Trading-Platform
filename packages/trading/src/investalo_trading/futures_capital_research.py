@@ -93,6 +93,36 @@ class CapitalRealizedCashPlan(CapitalCashPlan):
                 and closed.net_pnl >= overrun)
 
 
+@dataclass(frozen=True)
+class CapitalReservedCashPlan(CapitalRealizedCashPlan):
+    """Q45: funding uses isolated cash; only actual wallet spending uses its reserve."""
+    capital_policy: str = field(default="isolated-usdt-capital-reserved-cash/4", init=False)
+
+    @precise
+    def basket_cost_usage(self, basket):
+        return basket.entry_fees + basket.exit_fees + basket.cost_restored
+
+    @precise
+    def cost_restoration_capacity(self, basket):
+        """Keep remaining regular entry fees and a declared exit fee in own cash.
+
+        Future exit prices are unbounded: this is a current-price planning
+        allowance, not a guaranteed fee quote or authority to spend manual cash.
+        """
+        if not basket.quantity:
+            return ZERO
+        contract = self.contracts[self.symbols.index(basket.symbol)]
+        budget = self.budgets[self.symbols.index(basket.symbol)]
+        regular = sum(self.stage_capital(basket.symbol)[:5], ZERO)
+        remaining = max(ZERO, regular - basket.margin_committed)
+        future_nominal = remaining * basket.broker_leverage
+        exit_nominal = max(regular * basket.broker_leverage,
+                           basket.quantity * basket.mark + future_nominal)
+        fee_backing = (future_nominal * contract.entry_fee_rate
+                       + exit_nominal * contract.protective_exit_fee_rate)
+        return max(ZERO, budget.cost_reserve - self.basket_cost_usage(basket) - fee_backing)
+
+
 @precise
 def equal_capital_plan(tenant_id, account_id, policy_digest, contracts,
                        initial_equity=D("10000"), cost_ratio=D(".01"), quantum=D(".00000001")):
@@ -257,7 +287,7 @@ class CapitalAssessment:
 
 
 def start_capital_research(plan, marks, at, evidence_digest, *, identity_capacity=50000):
-    if type(plan) not in (CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan):
+    if type(plan) not in (CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan):
         raise ValueError("explicit capital plan required")
     ledger = start_futures_ledger(plan, marks, at, evidence_digest)
     return CapitalResearchState(
@@ -356,7 +386,7 @@ def prepare_capital_entry(state, symbol, maximum_price, at):
     reserves = plan.remainder
     stopped = {r.symbol: r for r in state.stopped}
     for row, budget in zip(state.ledger.baskets, plan.budgets, strict=True):
-        if (type(plan) in (CapitalCashPlan, CapitalRealizedCashPlan) and not row.quantity
+        if (type(plan) in (CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan) and not row.quantity
                 and row.symbol != symbol and row.symbol not in stopped):
             continue  # No capital claim for an empty, unrequested slot.
         committed = row.margin_committed + (capital if row.symbol == symbol else ZERO)
@@ -366,7 +396,7 @@ def prepare_capital_entry(state, symbol, maximum_price, at):
             ZERO, budget.margin_capital - committed)
         reserves += max(ZERO, budget.cost_reserve - fees)
         # Keep principal restoration backing separate from unused cost reserve.
-        if type(plan) in (CapitalCashPlan, CapitalRealizedCashPlan):
+        if type(plan) in (CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan):
             reserves += max(ZERO, plan.basket_cost_usage(row)
                             - row.entry_fees - row.exit_fees - row.cost_restored)
         else:
