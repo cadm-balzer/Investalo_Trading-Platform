@@ -59,7 +59,11 @@ vollständigen Restores und je fünf terminalen Gapliquidationen. Die zwei
 Markt-/Gapfälle wurden nach ergänzter Fremdgenesis-Ablehnung gezielt erneut
 geprüft (vier Subtests); keine breite Wiederholung unveränderter Suites.
 
-Ergebnisse folgen erst nach beiden vollständigen Restores und Hashabgleich.
+Beide nativen Jobs/Restores und Hashabgleiche sind abgeschlossen:
+130889 Commands/acht neue Artefakte/elf unveränderte Start-End-Hashes.
+2× bleibt bei+95,97%/DD18,01%;5×+64,34%/DD29,44% mit vier Liquidationen,
+10×−11,52%/DD18,15% mit fünf terminalen Liquidationen bis Oktober2022.
+[Vollständige Ergebnisse und tatsächliche Handelsdauer](futures-grid-leverage-results-20261113.md).
 Historische Brokerregeln, individuelle Kosten/USDT-Geldrundung sowie komplette
 Classic-Orderfreeze-/Margin-/Preisguard-Abbildung sind weiterhin unbestätigt.
 Dieser direkte Hebelvergleich beansprucht nur dieselbe deklarierte Modellachse;

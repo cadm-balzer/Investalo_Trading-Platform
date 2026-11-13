@@ -41,6 +41,13 @@ IP-086 priorisiert nach Nutzerauftrag den direkten festen2×/5×/10×-Vergleich
 auf derselben deklarierten Rasterökonomie.2×-Referenz bleibt unverändert;
 nur5×/10× neue native Jobs/Restores, vollständige Classic-Kalibrierung
 weiterhin separat. Sechs neue/35 gepinnte Fälle/58 Subtests grün.
+Beide vollen Restores abgeschlossen:130889 Commands/acht neue Artefakte/
+elf Start-End-Hashes.5×+64,34%/DD29,44%/vier Liquidationen,
+10×−11,52%/DD18,15%/alle fünf Slots bis Oktober2022 terminal.
+2× erzielt im festen Vergleich das höchste Netto. Für selektiven höheren
+Hebel kausale Regimekriterien einfrieren; Slotwiederbelegung nach Liquidation
+braucht eine eigene Recovery-/Reconciliation-/Kapitaldeckungsregel.
+[Ergebnisse](futures-grid-leverage-results-20261113.md).
 [Hebelvergleich](futures-grid-leverage-comparison.md).
 
 IP-085 friert einen eigenen rastergerechten Forschungsvergleich ein;

@@ -2,6 +2,13 @@
 
 Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem behoben.
 
+- **Terminale Slots begrenzen die Aussage eines Hebelvergleichs:** IP-08610×
+  verliert alle fünf Slots bis2022-10-13; danach flache Equity trotz komplett
+  verarbeiteter Dreijahresquelle.18,15% Drawdown ist keine fortlaufende
+  Risikobestätigung. Nicht verbrauchtes Stufenkapital bleibt im Konto, aber
+  Slotrecovery/Reconciliation/Neukapitaldeckung sind nicht implementiert.
+  Keine stille Slotlöschung oder hypothetische spätere Rettungskäufe.
+
 - **Rastervergleich braucht adverse Preise und vollständige Genesis:** Käufe
   zum nächsten Tick auf-, Verkäufe abrunden; sonst erzeugt die Quantisierung
   günstige Fakefills. Nur die Menge wird im Eigenkapital-/Nominalrahmen

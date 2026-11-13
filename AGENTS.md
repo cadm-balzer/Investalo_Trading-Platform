@@ -18,10 +18,25 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   c2d458f9a62331e94c96865fa7bc4a78039a3996e7de89180abc716edc2a2ac3.
   Six new/35 focused pinned cases/58 subtests pass; two strengthened
   synthetic restore cases additionally check foreign genesis rejection.
-  Full native fold pending; do not edit eleven GRID_IMPLEMENTATION_FILES
-  while it runs. Full Classic mapping/historical broker acceptance remain
+  Full native fold/restore complete:
+  infra/local/futures-capital-research/20261113-h1-grid-leverage,
+  implementation checkpoint8e440e2. Native5×96344/10×34545 commands,
+  total130889; eight new artifacts/eleven unchanged start-end hashes.
+  Receiptsha a1c7c03a0e6487f22024edf586d5a0378e88fe16beed764e4af4de1e00786dde.
+  All252 new entries/126 normal exits/nine liquidations verified on grids;
+  actual entry/decision leverage always equals frozen whole-basket scenario.
+  2× reference+9596.82/DD18.01%/zero liquidations retained;
+  5×+6434.15/DD29.44%/four liquidations, stages117/60/28/11/7;
+  10×−1151.95/DD18.15%/five liquidations, stages19/7/3/0/0.
+  No account halt, but stopped slots remain terminal:5× only BTC after
+  2024-08-05;10× last real entry2022-10-11/last liquidation2022-10-13.
+  10× is not three years active trading. Own unused stage capital remains.
+  Further selective leverage needs frozen causal regime criteria;
+  liquidation reentry requires separate reconciliation/recovery and real
+  capital admission, no implicit reset. No active job.
+  Full Classic mapping/historical broker acceptance remain
   separate; no AI/live/holdout/public/DB/dependency change.
-  See docs/futures-grid-leverage-comparison.md.
+  See docs/futures-grid-leverage-results-20261113.md.
 - PR53 merged: headfa993f5 ancestor of main174ac6f (GH/fetch verified).
   IP-085 on feat/m1-futures-grid-comparison adds separate current-grid/5:
   current quantity/minimum/market bounds, adverse tick ceiling for buys/

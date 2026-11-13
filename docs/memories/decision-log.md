@@ -2001,3 +2001,50 @@ Raster auf2022–2025-Binance-Daten sind keine historische Brokerzulassung.
 Nächster Schritt: getrennte vollständige Classic-Orderfreeze-/Margin-/
 Preisguard-Kalibrierung vor weiteren Hebelvergleichen.
 [Ergebnisse](../futures-current-grid-results-20261113.md).
+
+
+## 2026-11-13 — D-094: Gewünschten direkten Hebelvergleich auf gleicher Modellachse priorisieren
+
+**Status: fortgesetzter lokaler M1-Forschungsauftrag.** Nach Merge von PR54
+wünscht der Nutzer Vergleiche anderer Hebel. Head0bcdcd2 ist Vorfahr von
+main9999671; GH/Fetch verifiziert. IP-086 auf feat/m1-futures-grid-leverage
+vergleicht feste ganze Baskethebel2×/5×/10×, ohne zugleich unbestätigte
+Classic-Orderfreeze-/Margin-/Preisregeln einzuführen. Vollständige
+Brokerkalibrierung bleibt separat; keine historische Brokerzulassung behauptet.
+
+Protokollsha c2d458f9a62331e94c96865fa7bc4a78039a3996e7de89180abc716edc2a2ac3
+vor jeder Performance eingefroren. Neue explizite Auswahl/Digestbindung;
+originaler2×-Griddefault/Digest und bisherige Einschränkungen bleiben erhalten.
+2×-IP-085-Receipt und vier Originalausgaben erneut gehasht; Wiederverwendung
+statt eines erneuten nativen Baselinejobs. Nur5×/10× neue native Jobs und
+vollständige Restores, eine Kohorte/ein Szenario zur Zeit. Eigenkapitalstaffel,
+Kosten/Funding/Cash-/Liquidations-/Margin-/Preisguards unverändert; keine AI.
+35 gezielte gepinnte Fälle/58 Subtests, sechs neue, bestehen. Zwei vollständige
+synthetische Markt-/Gapfälle nach zusätzlicher Fremdgenesis-Ablehnung erneut
+geprüft (vier Subtests). Elf Implementationsdateien während des nativen
+Laufs eingefroren; Ergebnisse erst nach vollständigen Restores/Hashabgleich.
+Keine neue DB-/Dependency-/Paper-/Public-/Live-/Holdoutaktivierung.
+[Vergleichsvertrag](../futures-grid-leverage-comparison.md).
+
+
+IP-086 vollständig abgeschlossen:5×96344/10×34545 Journalcommands,
+insgesamt130889, acht neue Artefakte/elf unveränderte Start-End-Hashes.
+Erfolgsreceipt unverändert exportiert, SHA256
+`a1c7c03a0e6487f22024edf586d5a0378e88fe16beed764e4af4de1e00786dde`.
+Alle252 neuen Käufe/126 normalen Exits/neun Liquidationen auf Raster und
+sämtliche Kauf-/Leverageentscheidungen auf festen Szenariohebel geprüft.
+2×-Referenz+9596,82/DD18,01% bleibt unverändert.
+5×+6434,15/64,34%/DD29,44%,116 Abschlüsse/vier Liquidationen,
+117/60/28/11/7 tatsächliche Stufen; am Ende nur BTC offen/verfügbar.
+10×−1151,95/−11,52%/DD18,15%,19 Abschlüsse/fünf Liquidationen,
+19/7/3/0/0 Stufen. Letzter tatsächlicher Kauf2022-10-11, letzter Slot
+liquidiert2022-10-13: kein durchgehend aktiver Dreijahreshandel.
+Kein globaler Kontohalt; Slots bleiben terminal ohne Recovery. Unverbrauchte
+Eigenkapitalstufen bleiben erhalten, keine fiktive Verlust-/Rettungsbuchung.
+Deklarierter isolierter Insurancecredit568,82/270,10 ist Modellannahme,
+keine historische Brokerdeckung.105/4 Initialmarginablehnungen nach
+unveränderten Regeln; Einzelursachen nicht erneut vollständig auditiert.
+Feste höhere Hebel sind hier schlechter als2×; selektive AI-/Regimewirkung
+unbewiesen. Separate kausale Regimekriterien und echte Recovery-/Kapitaldeckung
+vor anderen Varianten, keine implizite Terminalregelaufhebung.
+[Vollständige Ergebnisse](../futures-grid-leverage-results-20261113.md).

@@ -4,7 +4,10 @@ IP-086: explizite `grid_leverage_comparison`-Achse im vorhandenen
 Rasterprofil/Marktjob. Gleicher Gridplan-/Journaldecoder mit zusätzlicher
 Protokollbindung im Policydigest, alte2×-Defaultidentität unverändert.
 `--h1-grid-leverage` faltet5×/10× vollständig und bindet die wiederverwendete
-2×-Referenz an deren vier unveränderte Ausgabeartefakte.
+2×-Referenz an deren vier unveränderte Ausgabeartefakte. Beide vollen
+nativen Restores130889 Commands/acht neue Artefakte/elf Start-End-Hashes
+und252 neue Käufe mit konstantem Hebel auf Raster geprüft.
+[Ergebnisse](futures-grid-leverage-results-20261113.md).
 Keine neue Abhängigkeit oder Laufzeitaktivierung.
 [Vergleich](futures-grid-leverage-comparison.md).
 
