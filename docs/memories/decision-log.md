@@ -1840,3 +1840,10 @@ durchgehender Dreijahreshandel. IP-082 bereitet einen separaten konkreten
 Funding-/Haltedauerbudgetvorschlag vor; neue offene Limits nicht unterstellen.
 Keine Agentdelegation, DB-/Credential-/Frontendwiederholungen oder
 AI-/Holdout-/Live-/öffentliche Aktivierung.
+
+IP-080/081-Checkpoint65a5513 gepusht; PR50
+https://github.com/cadm-balzer/Investalo_Trading-Platform/pull/50 offen,
+kein Draft, mergebar. Nutzer übernimmt Review/Merge. Öffentliche
+Cockpit-/Auth-HTTPS-Abfragen beide200, laufende Container unverändert.
+Zusätzliche reine read-only Protokollmounts im Prüfscript mit `bash -n`
+geprüft; keine weitere wirtschaftliche Codeänderung oder breite Wiederholung.

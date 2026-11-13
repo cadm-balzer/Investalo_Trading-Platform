@@ -7,6 +7,12 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- IP-080/081 implementation checkpoint65a5513 pushed on
+  feat/m1-futures-h1-entries. PR50 OPEN/non-draft/MERGEABLE verified:
+  https://github.com/cadm-balzer/Investalo_Trading-Platform/pull/50.
+  User reviews/merges. Routine TLS checks cockpit/auth both200;
+  public containers unchanged. New readonly fixture protocol mounts have
+  shell syntax checked; no extra economic code or broad regression.
 - User confirmed PR49 merged; head0cd45d5 is ancestor of main0c0c7ce
   (verified). All ten corrected native jobs and full restores now complete:
   666180 commands/40 hashes; receiptsha
