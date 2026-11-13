@@ -1,5 +1,14 @@
 # Bestandsaufnahme
 
+IP-089: futures_paper_settings.py/API/BFF/FuturesPaperSettingsPanel speichern
+eigene USDT-Paper-Planung3–7 mit Revision und atomarem Audit. Additive013
+nur in investalo_credentials_checks, sha78f1c339f6ff8b5bf6827d7eae3d987b6ed6a8bd32b69dcfcc45a88a94753645.
+futures_capacity.py berechnet aus vertrauenswürdigen Cash-/Reserve-/Range-/
+Gewinnetappen-/Kandidatenbelegen einen technischen Kapazitätsvorschlag.
+Aktuelle Futureskontodaten fehlen: API recommendation=null/runtime_ready=false.
+Default-off; eigener dauerhafter Paperdienst IP-090 ist als Nächstes priorisiert.
+Kein Spotkontostand-/historischer End-MTM-Ersatz. [Vertrag](futures-paper-settings.md).
+
 IP-087: eigene ModerateEconomicScenario-Flagachse auf unverändertem Grid-/Cashkern.
 Für unterbrochene Exporte existiert readonly futures_journal_metrics.py plus
 complete-futures-moderate.py, keine Wiederholung nativer Jobs nötig.

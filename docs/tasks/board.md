@@ -1,6 +1,6 @@
 # Git-basiertes Ticketboard
 
-Stand 2026-11-11. Dieses Board ist das initiale Task-/Ticketsystem ohne
+Stand 2026-11-13. Dieses Board ist das initiale Task-/Ticketsystem ohne
 zusätzliche Tools oder externe Veröffentlichung.
 
 Status: `READY` ausführbar, `IN_PROGRESS` aktiv, `WAITING_DECISION` benötigt
@@ -98,6 +98,8 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
 | IP-087 | P1 / P3 | DONE | Feste3×/4× mit unverändertem2×/5×/10×-Vergleich ergänzen | 209512 volle Journalcommands/acht Artefakte/13 Abschluss- und11 ursprüngliche Implementationshashes.3×+85,23%/DD23,54%/zwei Liquidationen;4×+94,64%/DD29,65%/drei Liquidationen.2× bleibt beste Referenz. Unterbrochener4×-Restore nur lesend abgeschlossen, kein wiederholter Marktjob; fehlende Admissioncounter nicht erfunden. [Ergebnisse](../futures-moderate-results-20261113.md) |
 | IP-088 | P1 / P2–P3 | IN_PROGRESS | Manuelle Liquidationsfreigabe und Dashboard-Blocker gemäß Q46 | Reiner Recoverykandidat/Receipt, frische RSI-Bestätigungen/neuer Hebel, Verlust und andere Slots erhalten. Startseiten-/Portfolio-Komponenten und Default-off-BFF; fünf gepinnte Fälle/13 Subtests, fünf Cockpitfälle, Typecheck/Build grün. Dauerhafte eigene Futurespersistenz, Reconciliation/API/CAS und Browserabnahme noch offen. [Vertrag](../futures-manual-recovery.md) |
+| IP-089 | P1 / P2 | DONE | Q47: eigene Futures-Paper-Basketobergrenze speichern und Kapitalempfehlung vorbereiten |3–7, Owner/Trader, eigener Revision-/Auditcommit, konkurrierende Tabs/Unknown-Response-Abgleich.28 neue/56 gezielte gepinnte Fälle/18 Subtests, neun Cockpitfälle, Typecheck/Build grün. Default-off API/BFF/Portfolio;013 nur Fixture nach Rollbackvorprüfung. Reiner cash-/reserve-/feste Budgetetappen-/kandidatengebundener Kapazitätsvorschlag; echte Futuresdatenanbindung bleibt IP-090. [Vertrag](../futures-paper-settings.md) |
+| IP-090 | P1 / P2 | READY | Dauerhaften eigenen Futures-Paperbetrieb mit2× und Cockpitstatus verbinden | Q47 prioritär vor weiteren Hebelstudien: eigene Kontogenesis, dynamische Kandidaten/3–5 finanzierte Slots, feste volle Nachkaufbudgets, aktueller H1-RSI/H1-Schutz/Mark/Funding, Journal/CAS und Wiederanlauf. IP-089 für neue Baskets/Kapitalempfehlung, Q36 getrennte Gewinnetappen und IP-088-Recovery. Danach Bitget-Demo-/Orderkalibrierung; keine implizite Live-/Public-/AI-Freigabe |
 
 ## Abschlussbelege
 

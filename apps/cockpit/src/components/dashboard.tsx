@@ -8,6 +8,8 @@ import { parseOverview } from "@/lib/contracts";
 import { parseDatasets, type Dataset } from "@/lib/backtest-contracts";
 import { ResultMetrics } from "./backtest-result";
 import { PaperStatusPanel } from "./paper-status";
+import { FuturesPaperSettingsPanel } from "./futures-paper-settings";
+import { parseBasketSettings, type BasketSettings } from "@/lib/futures-paper-settings-contracts";
 import { parsePaperStatus, type PaperStatus } from "@/lib/paper-status-contracts";
 import { parseRecoveryStatus, type RecoveryStatus } from "@/lib/futures-recovery-contracts";
 import { FuturesRecoveryPanel } from "./futures-recovery";
@@ -71,6 +73,8 @@ export async function DashboardPage({ section }: { section: Section }) {
   let datasets: Dataset[] | null = null;
   let paper: PaperStatus | null = null;
   let recovery: RecoveryStatus | null = null;
+  let basketSettings: BasketSettings | null = null;
+  const basketPreview = process.env.COCKPIT_FUTURES_PAPER_SETTINGS_PREVIEW === "1" && section === "portfolio";
   const recoveryPreview = process.env.COCKPIT_FUTURES_RECOVERY_PREVIEW === "1" && ["overview", "portfolio"].includes(section);
   const paperPreview = process.env.COCKPIT_PAPER_STATUS_PREVIEW === "1" && ["overview", "portfolio", "journal"].includes(section);
   try {
@@ -92,6 +96,12 @@ export async function DashboardPage({ section }: { section: Section }) {
       if (error instanceof BackendError && [401, 403].includes(error.status)) return <Login expired />;
     }
   }
+  if (basketPreview && data) {
+    try { basketSettings = parseBasketSettings(await apiRequest<unknown>(session, "/v1/futures-paper-settings"), session.tenantId); }
+    catch (error) {
+      if (error instanceof BackendError && [401, 403].includes(error.status)) return <Login expired />;
+    }
+  }
   if (section === "backtest" && data) {
     try { datasets = parseDatasets(await apiRequest<unknown>(session, "/v1/datasets"), session.tenantId); }
     catch (error) {
@@ -102,6 +112,7 @@ export async function DashboardPage({ section }: { section: Section }) {
   return <Shell session={session} section={section} connected={!!data}>
     {!data ? <section className="panel connection-error" role="status"><Icon name="shield" size={28} /><h2>Verbindung noch nicht bestätigt</h2><p>Die geschützte API ist aktuell nicht erreichbar. Konten und Ergebnisse werden erst nach einer bestätigten Antwort angezeigt.</p><Link href={navigation.find(n => n.section === section)!.href} className="button secondary">Erneut laden</Link></section> : <>
       {recoveryPreview && <FuturesRecoveryPanel data={recovery} csrf={session.csrf} summary={section === "overview"} />}
+      {basketPreview && <FuturesPaperSettingsPanel data={basketSettings} csrf={session.csrf} />}
       {section === "overview" && <>
         <div className="overview-banner"><div><span className="eyebrow">DEIN ERSTER SCHRITT</span><h2>Nachweise statt Versprechen.</h2><p>BTC und ETH auf H4. Gold auf H1/M15. Erst Daten prüfen, dann mit virtuellem Kapital lernen.</p><Link href="/backtests" className="text-link">Zur Strategieforschung <Icon name="arrow" size={17} /></Link></div><div className="banner-icon" aria-hidden="true"><Icon name="globe" size={82} /></div></div>
         <div className="metric-grid"><article className="metric-card"><span className="metric-label">Zugeordnete Konten</span><strong>{data.accounts.length}</strong><small>Getrennt nach Konto & Währung</small></article><article className="metric-card"><span className="metric-label">Offene Positionen</span><strong>{data.positions.length}</strong><small>Simulierte Paperpositionen</small></article><article className="metric-card"><span className="metric-label">Forschungsaufträge</span><strong>{data.jobs.length}</strong><small>Tatsächlich gespeicherte Aufträge</small></article></div>

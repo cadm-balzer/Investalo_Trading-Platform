@@ -934,3 +934,12 @@ Stand 2026-11-13. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   nicht durch Dictionaries; Werte explizit normalisieren. JSON-Texthelper
   nicht an Binärwriter übergeben. Vollständiger Evidence-Byte-Roundtrip gehört
   zur gezielten Prüfung; fehlerhafte Exportordner erhalten keinen Erfolgsreceipt.
+- **Paperplanung ist noch kein Futures-Kontostand:** gespeicherte3–7-Obergrenze
+  darf weder Spotcash noch historische Backtestendstände in eine aktuelle
+  Futures-Kapitalempfehlung umdeuten.7 ist keine Gewinnfreigabe. Alle offenen
+  Restkauf-/Manual-/Kostenreserven und verfügbare verschiedene Assets prüfen;
+  kleineres Limit wartet auf Abschlüsse. Aktuell recommendation=null bis IP-090.
+- **SELECT FOR UPDATE benötigt Tabellenrechte:** Runtime darf Accounts/
+  Memberships nicht ändern. Erste Paper-Einstellungsrevision deshalb mit
+  kontobezogenem Advisory-TX-Lock serialisieren; keine UPDATE-Grants an
+  fremde Kerntabellen hinzufügen. Einstellung/Audit committen vor Erfolg.

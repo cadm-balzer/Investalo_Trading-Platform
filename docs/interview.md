@@ -429,6 +429,27 @@ bleiben verbindlich. Neue AI-Regimekriterien und produktive Broker-/
 Futures-Runtimefreigabe sind damit nicht beschlossen.
 [Forschungsvergleich und Recovery-Grenzen](futures-moderate-leverage.md).
 
+### Q47: Basketanzahl einstellen und Futures-Handelsimplementierung priorisieren
+
+2026-11-13, **Nutzerauftrag bestätigt:** nach dem2×/3×/4×/5×/10×-Vergleich
+Basketanzahl im Dashboard konfigurierbar machen, Empfehlung aus der aktuellen
+Kontogröße und zur Handelsimplementierung übergehen.2× soll die Basis bilden.
+Mehr parallele Coins sind keine bestätigte Garantie für mehr stabile Gewinne;
+bei gleichem Kapital werden einzelne Baskets kleiner, Korrelation bleibt.
+
+Die bestehende Kapazitätsentscheidung bleibt3–5 initial, Gewinnetappen bis7,
+danach höhere neue Budgets. IP-089 speichert3–7 als Obergrenze; ungespeicherter
+Vorgabewert5. Diese Umsetzungswahl erweitert weder Gewinnfreigaben noch
+Liveautorität. Offene Kaufstaffeln/Reserven bleiben unverändert; niedrigere
+Obergrenzen warten auf Abschlüsse. Empfehlung nur aus tatsächlichem eigenen
+Futures-Cash, vollständigen neuen Ranges und geeigneten aktuellen Kontrakten.
+Fehlende Futures-Anbindung ausdrücklich ausweisen.
+
+Nächste Priorität ist eigener dauerhafter Futures-Paperbetrieb mit2×,
+H1-RSI/Nachkäufen/H1-Supertrend, Persistenz, Wiederanlauf und Q46-Recovery;
+danach echte Bitget-Demoausführung. Echtgeld und AI folgen ihren gesonderten
+Freigaben. [Umsetzung und Reihenfolge](futures-paper-settings.md).
+
 Konkrete Umsetzungsfakten recherchieren wir: unterstützte Versionen exakt pinnen,
 Historienlänge/-qualität prüfen, Brokerkosten/Metadaten und Hostlast messen.
 Vor Pilotrollout müssen Domain/TLS, SMTP/Empfänger, Terminalbindung,

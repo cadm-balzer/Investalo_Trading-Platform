@@ -2090,3 +2090,30 @@ Kein Konto-Halt/keine Auto-Recovery, je ein BTC End-MTM. Keine aktiven Jobs.
 2× bleibt beste Referenz;2× Basis und3×/4× Regimeforschung nur Empfehlung,
 kein geänderter genehmigter Rahmen und keine aktive AI.
 [Ergebnisse](../futures-moderate-results-20261113.md).
+
+## 2026-11-13 — D-096: von Hebelstudien zum Futures-Paperbetrieb
+
+Q47 verlangt einstellbare Basketanzahl/Empfehlung aus aktueller Kontogröße
+und priorisiert Handelsimplementierung.2× ist die Basis; höhere stabile
+Rendite durch mehr Coins bleibt unbewiesen. IP-089: eigene Paperplanung3–7,
+initial5 als ungespeicherte Vorgabe, Owner/Trader, Revision/Audit atomar,
+Default-off API/BFF/Portfolio. Anfänglich3–5 finanzierte Slots, Q36-Etappen
+bis7 unverändert; offene Budgets nicht umverteilen oder zwangsweise schließen.
+Kapazitätskern bindet freie eigene Futurescash-/Restreserve-/Mindest-Range-/
+Gewinnetappen-/Kandidatenbelege. Vollrangebetrag aus bestätigter Budgetetappe
+beibehalten; mehr freies Cash skaliert ihn nicht still. Mindestbeträge aufrunden.
+Aktuelle Futuresruntime und Mindest-Rangeadapter fehlen: recommendation=null.
+013 nur Fixture nach Rollbackvorprüfung, Entwicklung unverändert.
+PR56 in Vorgängerbranch8ffafea gemerged, PR55 inzwischen in Main51c2f68;
+Ancestry per GH/fetch verifiziert. Nächster IP-090 eigener Futures-Paperdienst mit
+H1-RSI/fünf Käufen/manueller Reserve/H1-Schutz/Mark/Funding/Journal/Restart,
+Einstellungsübernahme für neue Baskets, Cockpitstatus und Q46-Recovery.
+Danach Bitget-Demo-/Orderkalibrierung, separate Echtgeld-/AI-Freigabe.
+[Vertrag](../futures-paper-settings.md).
+
+IP-089 abgeschlossen:28 neue/56 gezielte gepinnte Fälle/18 Subtests,
+neun Cockpitfälle, Typecheck und Next.js16.4.5-Build grün. Echte
+restricted-LOGIN-Prüfungen zeigen konkurrierende CAS-Anlage, atomaren
+Auditrollback und Readback nach bereits committeter/verlorener Antwort.
+013sha78f1c339f6ff8b5bf6827d7eae3d987b6ed6a8bd32b69dcfcc45a88a94753645
+bleibt nur Fixture. Entwicklung/Public/Spotdienst unverändert.
