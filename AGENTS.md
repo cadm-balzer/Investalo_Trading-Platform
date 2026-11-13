@@ -7,6 +7,24 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR53 merged: headfa993f5 ancestor of main174ac6f (GH/fetch verified).
+  IP-085 on feat/m1-futures-grid-comparison adds separate current-grid/5:
+  current quantity/minimum/market bounds, adverse tick ceiling for buys/
+  floor for exits, all six own-capital amounts and frozen2× unchanged.
+  Fees/maintenance/funding/exact margin and old price guard retained;
+  no public-tariff substitution or complete Classic order-freeze claim.
+  Frozen protocolsha8f24a3f0d9a7ba0af3daf497bf5ed2925a5478db35da138ed96a2b95afe84a8d
+  before performance; source metadata remains2026 Bitget on2022–2025 native
+  Binance prices, no historical broker acceptance. Old profile digest matches
+  frozen IP-082; all four old output artifacts rehashed unchanged.
+  Twelve new/121 distinct focused pinned cases/88 subtests pass across
+  targeted runs. Corrected new genesis whitelist and funding test fixtures
+  (same-time marks);109 legacy cases passed,24 affected cases rerun.
+  Native job/full restore running:
+  infra/local/futures-capital-research/20261113-h1-current-grid, execsession74706.
+  Do not edit eleven GRID_IMPLEMENTATION_FILES during this fold.
+  No new performance claim until final restore/receipt. No AI/live/holdout/
+  public/DB/dependency change. See docs/futures-current-grid-comparison.md.
 - PR52 merged: head8d71aeb ancestor of main5a89712 (GH/fetch verified).
   IP-084 on feat/m1-futures-broker-calibration captures one unsigned public
   Classic USDT contract GET (2026-11-13); five selected original objects

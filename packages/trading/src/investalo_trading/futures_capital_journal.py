@@ -23,6 +23,7 @@ from .futures_ledger import (
 )
 from .futures_replay_journal import JournalCommitUnknown, _fields, _json, _open, _sha
 from .futures_risk import FuturesPlan
+from .futures_capital_grid import CapitalGridPlan, CapitalGridRule
 from .snapshot import _decode, primitive
 from .capital_digest import digest
 
@@ -127,11 +128,20 @@ def _genesis(header):
     plan_raw = dict(profile_raw["plan"])
     policy = plan_raw.pop("capital_policy", None)
     plan_type = {p.capital_policy: p for p in (
-        CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan)}.get(policy)
+        CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan, CapitalGridPlan)}.get(policy)
     if plan_type is None:
         raise ValueError("own frozen capital policy required")
+    extra = {}
+    if plan_type is CapitalGridPlan:
+        try:
+            extra = {
+                "grid_rules": _decode(tuple[CapitalGridRule, ...], plan_raw.pop("grid_rules")),
+                "grid_source_digest": _decode(str, plan_raw.pop("grid_source_digest")),
+            }
+        except KeyError:
+            raise ValueError("complete current-grid genesis fields required") from None
     plan = _decode(FuturesPlan, plan_raw)
-    plan = plan_type(**{key: getattr(plan, key) for key in plan_raw})
+    plan = plan_type(**{key: getattr(plan, key) for key in plan_raw}, **extra)
     profile = (CapitalH1SignalProfile if h1 else CapitalSignalProfile)(
         plan, _decode(int, profile_raw["protection_hours"]),
         _decode(Decimal, profile_raw["slippage"]), _decode(str, profile_raw["assumptions_digest"]),

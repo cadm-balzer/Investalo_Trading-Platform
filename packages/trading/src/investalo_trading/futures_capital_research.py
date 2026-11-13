@@ -60,6 +60,14 @@ class CapitalPlan(FuturesPlan, CapitalCanonical):
         weights = tuple(D("1.25") ** i for i in range(6))
         return tuple(floor_step(pool * w / sum(weights), self.quantum) for w in weights)
 
+    @precise
+    def entry_quantity(self, symbol, capital, leverage, maximum_price):
+        contract = self.contracts[self.symbols.index(symbol)]
+        return floor_step(capital * leverage / maximum_price, contract.quantity_step)
+
+    def validate_trade_fill(self, payload):
+        """Historical profiles retain their declared full-fill assumptions."""
+
 
 @dataclass(frozen=True)
 class CapitalCashPlan(CapitalPlan):
@@ -287,7 +295,8 @@ class CapitalAssessment:
 
 
 def start_capital_research(plan, marks, at, evidence_digest, *, identity_capacity=50000):
-    if type(plan) not in (CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan):
+    from .futures_capital_grid import CapitalGridPlan
+    if type(plan) not in (CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan, CapitalGridPlan):
         raise ValueError("explicit capital plan required")
     ledger = start_futures_ledger(plan, marks, at, evidence_digest)
     return CapitalResearchState(
@@ -344,7 +353,7 @@ def prepare_capital_entry(state, symbol, maximum_price, at):
         raise ValueError("sixth stage is manual reserve; no automated admission")
     capital = plan.stage_capital(symbol)[stage - 1]
     number(maximum_price, positive=True)
-    quantity = floor_step(capital * decisions[0].leverage / maximum_price, contract.quantity_step)
+    quantity = plan.entry_quantity(symbol, capital, decisions[0].leverage, maximum_price)
     if quantity <= 0:
         raise ValueError("planned order rounds to zero")
     request = FuturesPurchase(
@@ -386,7 +395,7 @@ def prepare_capital_entry(state, symbol, maximum_price, at):
     reserves = plan.remainder
     stopped = {r.symbol: r for r in state.stopped}
     for row, budget in zip(state.ledger.baskets, plan.budgets, strict=True):
-        if (type(plan) in (CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan) and not row.quantity
+        if (isinstance(plan, CapitalCashPlan) and not row.quantity
                 and row.symbol != symbol and row.symbol not in stopped):
             continue  # No capital claim for an empty, unrequested slot.
         committed = row.margin_committed + (capital if row.symbol == symbol else ZERO)
@@ -396,7 +405,7 @@ def prepare_capital_entry(state, symbol, maximum_price, at):
             ZERO, budget.margin_capital - committed)
         reserves += max(ZERO, budget.cost_reserve - fees)
         # Keep principal restoration backing separate from unused cost reserve.
-        if type(plan) in (CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan):
+        if isinstance(plan, CapitalCashPlan):
             reserves += max(ZERO, plan.basket_cost_usage(row)
                             - row.entry_fees - row.exit_fees - row.cost_restored)
         else:
@@ -439,6 +448,7 @@ def simulate_capital_fill(state, assessment, price, event_id, expected_revision,
 
 def _book(state, payload, event_id, at):
     plan = state.ledger.plan
+    plan.validate_trade_fill(payload)
     command = LedgerCommand(
         plan.tenant_id, plan.account_id, plan.plan_digest, state.ledger.revision,
         event_id, at, payload,

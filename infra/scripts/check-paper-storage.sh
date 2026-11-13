@@ -29,6 +29,8 @@ exec bash "$paper_root/infra/scripts/compose.sh" --profile checks run --rm --no-
   -v "$paper_root/docs/research-protocols/futures-capital-h1-entry-market-receipt-20261112.json:/app/docs/research-protocols/futures-capital-h1-entry-market-receipt-20261112.json:ro" \
   -v "$paper_root/docs/research-protocols/futures-capital-h1-reserved-cash-20261113.json:/app/docs/research-protocols/futures-capital-h1-reserved-cash-20261113.json:ro" \
   -v "$paper_root/docs/research-protocols/futures-capital-h1-realized-cost-market-receipt-20261112.json:/app/docs/research-protocols/futures-capital-h1-realized-cost-market-receipt-20261112.json:ro" \
+  -v "$paper_root/docs/research-protocols/futures-capital-current-grid-20261113.json:/app/docs/research-protocols/futures-capital-current-grid-20261113.json:ro" \
+  -v "$paper_root/docs/research-protocols/futures-bitget-classic-contracts-20261113.json:/app/docs/research-protocols/futures-bitget-classic-contracts-20261113.json:ro" \
   -v "$paper_root/tests/paper:/app/tests/paper:ro" \
   api-checks python -m pytest /app/tests/paper /app/tests/trading /app/tests/marketdata \
   /app/tests/workers/test_computation.py -q --tb=short -p no:cacheprovider "$@"
