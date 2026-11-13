@@ -1,5 +1,12 @@
 # Bestandsaufnahme
 
+IP-087: eigene ModerateEconomicScenario-Flagachse auf unverändertem Grid-/Cashkern.
+Für unterbrochene Exporte existiert readonly futures_journal_metrics.py plus
+complete-futures-moderate.py, keine Wiederholung nativer Jobs nötig.
+IP-088: futures_capital_recovery.py liefert reinen Kandidaten/Auditreceipt;
+FuturesRecoveryPanel/BFF Default-off. Kein dauerhafter Futuresruntimeadapter.
+Siehe docs/futures-manual-recovery.md und docs/futures-moderate-results-20261113.md.
+
 IP-086: explizite `grid_leverage_comparison`-Achse im vorhandenen
 Rasterprofil/Marktjob. Gleicher Gridplan-/Journaldecoder mit zusätzlicher
 Protokollbindung im Policydigest, alte2×-Defaultidentität unverändert.

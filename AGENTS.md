@@ -7,6 +7,22 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- IP-087 fully complete; no active job.3×106752/4×102760 commands,
+  209512 total, eight final artifacts/13 unchanged completion hashes;
+  eleven original native files still matchada2029. Original4× exit137
+  preserved without receipt; readonly full restore completed without new
+  market job. Twelve previous reference artifacts and15 sources verified.
+  Final receiptsha
+  0b382391c2fedb92d1c32a3094992a976f049c77b5dd09d769381066d8ad1b7c.
+  3×+8523.18/DD23.54%/two liquidations/stages209/100/51/23/14;
+  4×+9464.20/DD29.65%/three liquidations/stages164/76/38/17/10.
+  3/2 eligible end slots, one BTC end-open each; no account halt or recovery.
+  4× unrecorded admission counters absent, not zero.2× remains best reference.
+  Recommend2× baseline/3×–4× regime research only; no changed approved range
+  or active AI. Five recovery cases/13 subtests and five Cockpit cases pass;
+  typecheck/build pass. IP-088 runtime/persistence/API integration remains open;
+  UI/BFF default off, no public or broker activation.
+  See docs/futures-moderate-results-20261113.md.
 - PR55 still OPEN (GH verified); IP-087 branches from4ad9a4e on
   feat/m1-futures-moderate-leverage. User requests3×/4× on same model axis
   and Q46 manual liquidation recovery with visible dashboard blockers.

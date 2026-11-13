@@ -2080,3 +2080,13 @@ prüfen Checkpointada2029/Quellen/Referenzen und vollständigen4×-Restore.
 Synthetic normal/gap liefert exakt gleiche Finanzmetriken. Nicht gespeicherte
 Admissionversuche werden ausgelassen statt als0 gemeldet; keine neue
 Performancewirtschaft und kein wiederholter Marktjob.
+
+Abschluss IP-087:209512 Commands, acht Artefakte/13 stabile Hashes,
+elf native Dateien identischada2029; Quellen15/Referenzartefakte12 rehashed.
+Receiptsha0b382391c2fedb92d1c32a3094992a976f049c77b5dd09d769381066d8ad1b7c.
+3×+8523,18/85,23%/DD23,54%,208 Abschlüsse/zwei Liquidationen;
+4×+9464,20/94,64%/DD29,65%,163 Abschlüsse/drei Liquidationen.
+Kein Konto-Halt/keine Auto-Recovery, je ein BTC End-MTM. Keine aktiven Jobs.
+2× bleibt beste Referenz;2× Basis und3×/4× Regimeforschung nur Empfehlung,
+kein geänderter genehmigter Rahmen und keine aktive AI.
+[Ergebnisse](../futures-moderate-results-20261113.md).

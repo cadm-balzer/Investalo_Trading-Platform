@@ -75,3 +75,9 @@ Die neue Abschlussausgabe entsteht separat unter
 `infra/local/futures-capital-research/20261113-h1-grid-moderate-completed`;
 dreizehn Implementationshashes und sämtliche Originalbytes werden vor/nach
 dem Restore geprüft. Erst dann entsteht ihr eigener Abschlussreceipt.
+
+Beide Auswertungen vollständig abgeschlossen:209512 Commands, acht Artefakte/
+13 Abschlussimplementationshashes, Receiptsha
+0b382391c2fedb92d1c32a3094992a976f049c77b5dd09d769381066d8ad1b7c.
+3×+85,23%/DD23,54%/zwei Liquidationen;4×+94,64%/DD29,65%/drei Liquidationen.
+[Bestätigte Ergebnisse](futures-moderate-results-20261113.md). Keine aktiven Jobs.
