@@ -2048,3 +2048,19 @@ Feste höhere Hebel sind hier schlechter als2×; selektive AI-/Regimewirkung
 unbewiesen. Separate kausale Regimekriterien und echte Recovery-/Kapitaldeckung
 vor anderen Varianten, keine implizite Terminalregelaufhebung.
 [Vollständige Ergebnisse](../futures-grid-leverage-results-20261113.md).
+
+
+## 2026-11-13 — D-095: 3×/4× ergänzen und manuelle Liquidationsfreigabe
+
+Nutzerauftrag: gleicher Hebelvergleich zusätzlich3×/4×; spätere AI-Range
+aus Forschung ableiten, noch keine kausale AI-Wirkung. Separate Protokollachse
+sha79308ab0b727f848ec1c446b096a1c501392ab8592ae6d67fbbc39a0669b760e
+vor Performance.38 fokussierte gepinnte Fälle/66 Subtests bestehen.
+Nur zwei neue native Jobs/volle Restores; zwölf alte Artefakte wiederverwenden.
+PR55 noch offen, neuer Branch baut auf4ad9a4e auf. Keine Auto-Recovery
+in den Vergleichszahlen. Q46 verlangt manuelle Wiederbelebung, Assetdetails
+und sichtbaren Startseitenblocker. Verlust bleibt erhalten; eigenes volles
+Neubudget und aktuelle Flat-/Order-/Buchungsreconciliation vor Freigabe,
+frisches RSI/neuer fester Baskethebel danach. Runtime derzeit Spot-Paper,
+Futures offline; produktive Recoveryanbindung separat. Keine DB-/Dependency-/
+Live-/Public-/AI-/Holdoutaktivierung. [Vertrag](../futures-moderate-leverage.md).

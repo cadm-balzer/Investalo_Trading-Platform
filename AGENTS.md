@@ -7,6 +7,20 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR55 still OPEN (GH verified); IP-087 branches from4ad9a4e on
+  feat/m1-futures-moderate-leverage. User requests3×/4× on same model axis
+  and Q46 manual liquidation recovery with visible dashboard blockers.
+  Separate moderate scenario/explicit flag/protocol; old constructor and
+  2×/5×/10× identities retained. Protocolsha
+  79308ab0b727f848ec1c446b096a1c501392ab8592ae6d67fbbc39a0669b760e.
+  Three new/38 focused pinned cases/66 subtests pass. Only3×/4× new native
+  jobs; twelve reference artifacts rehash before/after. Keep eleven grid
+  implementation files frozen during fold. No automatic recovery in this
+  leverage comparison. Q46 manual action retains losses/history and needs
+  actual flat/order reconciliation and full new own budget; new RSI/leverage
+  cycle afterwards. Native Futures are offline research, not runtime yet.
+  IP-088 UI/core workflow separate, no live/public/AI activation.
+  See docs/futures-moderate-leverage.md.
 - PR54 merged: head0bcdcd2 ancestor of main9999671 (GH/fetch verified).
   IP-086 on feat/m1-futures-grid-leverage follows user's requested direct
   leverage comparison: same declared grid/cash/margin/price-guard economics,
