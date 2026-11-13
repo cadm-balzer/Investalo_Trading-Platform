@@ -1,5 +1,15 @@
 # Roadmap
 
+IP-087 abgeschlossen: gleiche Modellachse2×/3×/4×/5×/10×;2× bleibt beste
+Referenz.3×+85,23%/DD23,54%/zwei Liquidationen,4×+94,64%/DD29,65%/drei
+Liquidationen. Unterbrochener4×-Export per vollständigem readonly Restore
+abgeschlossen, kein wiederholter Marktjob. [Ergebnisse](futures-moderate-results-20261113.md).
+Q46/IP-088 manuelle Wiederbelebung: Prüf-/Auditkandidat und Default-off-
+Startseiten-/Portfolio-UI vorhanden; dauerhafte eigene Futurespersistenz,
+Reconciliation/API/CAS und tatsächliche Browseranbindung bleiben offen.
+Kausale AI-Regimevalidierung folgt getrennt, ohne geänderte Hebelfreigabe.
+[Recoveryvertrag](futures-manual-recovery.md).
+
 IP-079: alle zehn korrigierten nativen Jobs und Restores abgeschlossen;
 666180 Commands/40 Artefakthashes belegt.2× H1/H4-Schutz liefert
 +2507,71/+2410,79 USDT ohne Budgethaltes.5×/Stress kann echte Kostenreserve
@@ -37,6 +47,19 @@ mit eigenem Referenzanker vor weiterem Hebelvergleich und unabhängigem Holdout.
 IP-084 sichert aktuelle Classic-Bitget-Verträge und51 statische Rasterproben:
 19 reine XRP-Marginreste durch Mengenfloor unter alter Formel gedeckt.
 USDT-Geldrundung und historische Brokerregeln bleiben unbekannt.
+IP-086 priorisiert nach Nutzerauftrag den direkten festen2×/5×/10×-Vergleich
+auf derselben deklarierten Rasterökonomie.2×-Referenz bleibt unverändert;
+nur5×/10× neue native Jobs/Restores, vollständige Classic-Kalibrierung
+weiterhin separat. Sechs neue/35 gepinnte Fälle/58 Subtests grün.
+Beide vollen Restores abgeschlossen:130889 Commands/acht neue Artefakte/
+elf Start-End-Hashes.5×+64,34%/DD29,44%/vier Liquidationen,
+10×−11,52%/DD18,15%/alle fünf Slots bis Oktober2022 terminal.
+2× erzielt im festen Vergleich das höchste Netto. Für selektiven höheren
+Hebel kausale Regimekriterien einfrieren; Slotwiederbelegung nach Liquidation
+braucht eine eigene Recovery-/Reconciliation-/Kapitaldeckungsregel.
+[Ergebnisse](futures-grid-leverage-results-20261113.md).
+[Hebelvergleich](futures-grid-leverage-comparison.md).
+
 IP-085 friert einen eigenen rastergerechten Forschungsvergleich ein;
 Referenz/Staffel/Cash-/Liquidationsgrenzen bleiben erhalten.
 Protokollsha8f24a3f0d9a7ba0af3daf497bf5ed2925a5478db35da138ed96a2b95afe84a8d

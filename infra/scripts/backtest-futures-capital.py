@@ -10,7 +10,9 @@ sys.path[:0] = [str(ROOT / name) for name in ("packages/trading/src", "packages/
 
 from investalo_marketdata.binance_futures_hourly import load_hourly_snapshot
 from investalo_marketdata.futures_capital_backtest import run_scenario, validate_cohort, VERSION
-from investalo_marketdata.futures_research_profile import PROTOCOL_SHA256, load_economic_protocol
+from investalo_marketdata.futures_research_profile import PROTOCOL_SHA256, load_economic_protocol, ModerateEconomicScenario
+from investalo_marketdata.futures_grid_profile import MODERATE_PROTOCOL_FILE, MODERATE_PROTOCOL_SHA256
+from decimal import Decimal
 from investalo_marketdata.snapshot import canonical, decode_json, iso
 
 PREFLIGHT_SHA256 = "2252c6f78054a482a2eb67ecdc344d517aeb46083ce518141ccf0c00b549064c"
@@ -23,6 +25,9 @@ RESERVED_PROTOCOL_SHA256 = "b1892df1eac4a66f157b0576b1efef7017f0e62bccc10c2bedb1
 REALIZED_RECEIPT_SHA256 = "893bfedeb260b9f4b44589c2719a9135e4876ceda72c87f6285a5294b0c952db"
 GRID_PROTOCOL_SHA256 = "8f24a3f0d9a7ba0af3daf497bf5ed2925a5478db35da138ed96a2b95afe84a8d"
 RESERVED_RECEIPT_SHA256 = "4e7d902c7127b317932c75e3b3878ffcaa3971c7863f077f477d2ca490713cec"
+LEVERAGE_PROTOCOL_SHA256 = "c2d458f9a62331e94c96865fa7bc4a78039a3996e7de89180abc716edc2a2ac3"
+GRID_RECEIPT_SHA256 = "727911a2f49e9814c9aa488ad365a4e451dc7ae86bd933d0d522acb9f95debfd"
+LEVERAGE_RECEIPT_SHA256 = "a1c7c03a0e6487f22024edf586d5a0378e88fe16beed764e4af4de1e00786dde"
 
 
 def cash_protocol():
@@ -70,6 +75,81 @@ def grid_protocol():
         if hashlib.sha256((ROOT / name).read_bytes()).hexdigest() != expected:
             raise ValueError("frozen grid protocol/source/baseline changed")
     return GRID_PROTOCOL_SHA256
+
+
+def leverage_protocol():
+    grid_protocol()
+    for name, expected in (
+        ("futures-capital-grid-leverage-20261113.json", LEVERAGE_PROTOCOL_SHA256),
+        ("futures-capital-current-grid-market-receipt-20261113.json", GRID_RECEIPT_SHA256),
+    ):
+        if hashlib.sha256((ROOT / "docs/research-protocols" / name).read_bytes()).hexdigest() != expected:
+            raise ValueError("frozen leverage comparison or verified 2x grid reference changed")
+    return LEVERAGE_PROTOCOL_SHA256
+
+
+def grid_reference():
+    """Reuse the fully restored 2x result, rechecking all four local output bytes."""
+    raw = (ROOT / "docs/research-protocols/futures-capital-current-grid-market-receipt-20261113.json").read_bytes()
+    if hashlib.sha256(raw).hexdigest() != GRID_RECEIPT_SHA256:
+        raise ValueError("foreign grid reference receipt")
+    receipt = decode_json(raw)
+    if (not receipt["full_journal_restore_verified"]
+            or not receipt["implementation_start_end_verified"]
+            or receipt["protocol_sha256"] != GRID_PROTOCOL_SHA256
+            or len(receipt["reports"]) != 1 or len(receipt["artifacts"]) != 4
+            or receipt["reports"][0]["scenario_id"] != "base-h1-2x"):
+        raise ValueError("complete original 2x grid reference required")
+    folder = ROOT / "infra/local/futures-capital-research/20261113-h1-current-grid"
+    expected = {f"base-h1-2x/{name}" for name in
+                ("journal.jsonl", "equity.jsonl", "closed-baskets.json", "report.json")}
+    if {a["file"] for a in receipt["artifacts"]} != expected:
+        raise ValueError("fixed reference artifacts required")
+    for artifact in receipt["artifacts"]:
+        path = folder / artifact["file"]
+        h = hashlib.sha256()
+        with path.open("rb") as handle:
+            for block in iter(lambda: handle.read(1024 * 1024), b""):
+                h.update(block)
+        if path.stat().st_size != artifact["bytes"] or h.hexdigest() != artifact["sha256"]:
+            raise ValueError("original 2x artifact changed")
+    return receipt["reports"][0]
+
+
+def moderate_protocol():
+    leverage_protocol()
+    if hashlib.sha256((ROOT / MODERATE_PROTOCOL_FILE).read_bytes()).hexdigest() != MODERATE_PROTOCOL_SHA256:
+        raise ValueError("frozen moderate leverage protocol changed")
+    return MODERATE_PROTOCOL_SHA256
+
+
+def leverage_references():
+    """Verify all twelve previous output bytes without repeating native jobs."""
+    baseline = grid_reference()
+    raw = (ROOT / "docs/research-protocols/futures-capital-grid-leverage-market-receipt-20261113.json").read_bytes()
+    if hashlib.sha256(raw).hexdigest() != LEVERAGE_RECEIPT_SHA256:
+        raise ValueError("foreign higher leverage reference receipt")
+    receipt = decode_json(raw)
+    ids = ("base-h1-5x", "base-h1-10x")
+    expected = {f"{s}/{n}" for s in ids for n in
+                ("journal.jsonl", "equity.jsonl", "closed-baskets.json", "report.json")}
+    if (not receipt["full_journal_restore_verified"] or not receipt["implementation_start_end_verified"]
+            or receipt["protocol_sha256"] != LEVERAGE_PROTOCOL_SHA256
+            or receipt["reference_report"] != baseline
+            or tuple(r["scenario_id"] for r in receipt["reports"]) != ids
+            or len(receipt["artifacts"]) != 8
+            or {a["file"] for a in receipt["artifacts"]} != expected):
+        raise ValueError("complete higher leverage references required")
+    folder = ROOT / "infra/local/futures-capital-research/20261113-h1-grid-leverage"
+    for artifact in receipt["artifacts"]:
+        path = folder / artifact["file"]
+        h = hashlib.sha256()
+        with path.open("rb") as handle:
+            for block in iter(lambda: handle.read(1024 * 1024), b""):
+                h.update(block)
+        if path.stat().st_size != artifact["bytes"] or h.hexdigest() != artifact["sha256"]:
+            raise ValueError("original higher leverage artifact changed")
+    return [baseline, *receipt["reports"]]
 
 
 IMPLEMENTATION_FILES = (
@@ -132,15 +212,26 @@ def main():
     scenarios = load_economic_protocol(
         (ROOT / "docs/research-protocols/futures-capital-economics-20261112.json").read_bytes())
     corrected = len(sys.argv) == 3 and sys.argv[1] == "--cash-budgets"
-    grids = len(sys.argv) == 3 and sys.argv[1] == "--h1-current-grids"
-    reserved = len(sys.argv) == 3 and sys.argv[1] in ("--h1-reserved-cash", "--h1-current-grids")
-    realized = len(sys.argv) == 3 and sys.argv[1] in ("--h1-realized-costs", "--h1-reserved-cash", "--h1-current-grids")
-    h1 = len(sys.argv) == 3 and sys.argv[1] in ("--h1-entries", "--h1-realized-costs", "--h1-reserved-cash", "--h1-current-grids")
+    moderate = len(sys.argv) == 3 and sys.argv[1] == "--h1-grid-moderate-leverage"
+    leverage_grids = moderate or len(sys.argv) == 3 and sys.argv[1] == "--h1-grid-leverage"
+    grids = leverage_grids or len(sys.argv) == 3 and sys.argv[1] == "--h1-current-grids"
+    reserved = grids or len(sys.argv) == 3 and sys.argv[1] == "--h1-reserved-cash"
+    realized = reserved or len(sys.argv) == 3 and sys.argv[1] == "--h1-realized-costs"
+    h1 = realized or len(sys.argv) == 3 and sys.argv[1] == "--h1-entries"
     if not corrected and not h1 and (len(sys.argv) != 2 or sys.argv[1].startswith("--")):
-        raise SystemExit("usage: backtest-futures-capital.py [--cash-budgets|--h1-entries|--h1-realized-costs|--h1-reserved-cash|--h1-current-grids] NEW_OUTPUT_DIRECTORY")
-    budget_protocol = (grid_protocol() if grids else reserved_protocol() if reserved else realized_protocol() if realized else h1_protocol() if h1
+        raise SystemExit("usage: backtest-futures-capital.py [--cash-budgets|--h1-entries|--h1-realized-costs|--h1-reserved-cash|--h1-current-grids|--h1-grid-leverage|--h1-grid-moderate-leverage] NEW_OUTPUT_DIRECTORY")
+    budget_protocol = (moderate_protocol() if moderate else leverage_protocol() if leverage_grids else grid_protocol() if grids else reserved_protocol() if reserved else realized_protocol() if realized else h1_protocol() if h1
                        else cash_protocol() if corrected else None)
-    if h1:
+    reference = leverage_references() if moderate else grid_reference() if leverage_grids else None
+    if moderate:
+        base = next(s for s in scenarios if s.scenario_id == "base-h1-2x")
+        scenarios = tuple(ModerateEconomicScenario(f"base-h1-{v}x", 1, Decimal(v),
+                          "base", base.path, base.costs) for v in (3, 4))
+    elif leverage_grids:
+        scenarios = tuple(s for s in scenarios if s.scenario_id in ("base-h1-5x", "base-h1-10x"))
+        if tuple(s.scenario_id for s in scenarios) != ("base-h1-5x", "base-h1-10x"):
+            raise ValueError("complete ordered native leverage cases required")
+    elif h1:
         scenarios = tuple(s for s in scenarios if s.scenario_id == "base-h1-2x")
     protocol_digest = budget_protocol or PROTOCOL_SHA256
     output = Path(sys.argv[-1]).resolve()
@@ -155,7 +246,8 @@ def main():
         report = run_scenario(streams, scenario, output / scenario.scenario_id,
                               protocol_digest, digests, progress=progress,
                               cash_budget_protocol=budget_protocol, entry_hours=1 if h1 else 4,
-                              realized_exit_costs=realized, reserved_cash=reserved, current_grids=grids)
+                              realized_exit_costs=realized, reserved_cash=reserved, current_grids=grids,
+                              grid_leverage_comparison=leverage_grids, moderate_grid_leverage=moderate)
         reports.append(report)
         print(f"{scenario.scenario_id}: restored complete journal; net {report['net_pnl']}", flush=True)
     artifacts = []
@@ -169,15 +261,18 @@ def main():
             artifacts.append({"file": f"{scenario.scenario_id}/{name}",
                               "bytes": path.stat().st_size, "sha256": h.hexdigest()})
     after_hashes = implementation_hashes(implementation_files)
-    if grids and (after_hashes != before_hashes or grid_protocol() != budget_protocol):
+    frozen_protocol = moderate_protocol() if moderate else leverage_protocol() if leverage_grids else grid_protocol() if grids else None
+    if grids and (after_hashes != before_hashes or frozen_protocol != budget_protocol):
         raise ValueError("grid implementation/reference changed during fold; no success receipt")
+    if leverage_grids and (leverage_references() if moderate else grid_reference()) != reference:
+        raise ValueError("2x reference changed during leverage fold; no success receipt")
     receipt = {
         "schema_version": VERSION, "completed_at": iso(datetime.now(timezone.utc)),
         "protocol_sha256": protocol_digest, "economic_protocol_sha256": PROTOCOL_SHA256,
         "preflight_sha256": PREFLIGHT_SHA256,
         "budget_variant": "own-cash-active-ranges" if corrected or h1 else "historical-gross-all-slots",
         "entry_timeframe": "H1" if h1 else "H4",
-        "baseline_receipt_sha256": RESERVED_RECEIPT_SHA256 if grids else REALIZED_RECEIPT_SHA256 if reserved else H1_RECEIPT_SHA256 if realized else BASELINE_RECEIPT_SHA256 if h1 else None,
+        "baseline_receipt_sha256": GRID_RECEIPT_SHA256 if leverage_grids else RESERVED_RECEIPT_SHA256 if grids else REALIZED_RECEIPT_SHA256 if reserved else H1_RECEIPT_SHA256 if realized else BASELINE_RECEIPT_SHA256 if h1 else None,
         "realized_exit_costs": realized,
         "research_start": "2022-08-01T00:00:00Z", "research_end_exclusive": "2025-08-01T00:00:00Z",
         "implementation_sha256": hashlib.sha256(
@@ -196,6 +291,17 @@ def main():
             current_grids=True, grid_source_sha256="2fd4704081bdf1df22d45b56780cfd7c1ffc6c18cb8dac97b9a6c83e331091f6",
             implementation_start_end_verified=True, broker_admission_verified=False,
             comparison="current-bitget-grids-on-native-binance-h1-2x")
+    if leverage_grids:
+        receipt.update(
+            comparison="current-bitget-grids-native-binance-h1-fixed-leverage-2-5-10",
+            grid_leverage_comparison=True, reference_report=reference,
+            reference_artifacts_verified=True, reference_native_job_repeated=False)
+    if moderate:
+        receipt.pop("reference_report")
+        receipt.update(
+            comparison="current-bitget-grids-native-binance-h1-fixed-leverage-2-3-4-5-10",
+            moderate_grid_leverage=True, reference_reports=reference,
+            higher_leverage_receipt_sha256=LEVERAGE_RECEIPT_SHA256)
     with (output / "receipt.json").open("x") as handle:
         handle.write(canonical(receipt) + "\n")
     print(f"all {len(scenarios)} declared comparisons complete: {output / 'receipt.json'}", flush=True)

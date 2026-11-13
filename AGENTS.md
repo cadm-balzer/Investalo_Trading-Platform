@@ -7,6 +7,79 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- IP-087 fully complete; no active job.3×106752/4×102760 commands,
+  209512 total, eight final artifacts/13 unchanged completion hashes;
+  eleven original native files still matchada2029. Original4× exit137
+  preserved without receipt; readonly full restore completed without new
+  market job. Twelve previous reference artifacts and15 sources verified.
+  Final receiptsha
+  0b382391c2fedb92d1c32a3094992a976f049c77b5dd09d769381066d8ad1b7c.
+  3×+8523.18/DD23.54%/two liquidations/stages209/100/51/23/14;
+  4×+9464.20/DD29.65%/three liquidations/stages164/76/38/17/10.
+  3/2 eligible end slots, one BTC end-open each; no account halt or recovery.
+  4× unrecorded admission counters absent, not zero.2× remains best reference.
+  Recommend2× baseline/3×–4× regime research only; no changed approved range
+  or active AI. Five recovery cases/13 subtests and five Cockpit cases pass;
+  typecheck/build pass. IP-088 runtime/persistence/API integration remains open;
+  UI/BFF default off, no public or broker activation.
+  See docs/futures-moderate-results-20261113.md.
+- PR55 still OPEN (GH verified); IP-087 branches from4ad9a4e on
+  feat/m1-futures-moderate-leverage. User requests3×/4× on same model axis
+  and Q46 manual liquidation recovery with visible dashboard blockers.
+  Separate moderate scenario/explicit flag/protocol; old constructor and
+  2×/5×/10× identities retained. Protocolsha
+  79308ab0b727f848ec1c446b096a1c501392ab8592ae6d67fbbc39a0669b760e.
+  Three new/38 focused pinned cases/66 subtests pass. Only3×/4× new native
+  jobs; twelve reference artifacts rehash before/after. Keep eleven grid
+  implementation files frozen during fold. No automatic recovery in this
+  leverage comparison. Q46 manual action retains losses/history and needs
+  actual flat/order reconciliation and full new own budget; new RSI/leverage
+  cycle afterwards. Native Futures are offline research, not runtime yet.
+  IP-088 UI/core workflow separate, no live/public/AI activation.
+  See docs/futures-moderate-leverage.md.
+- IP-087 original3×106752-command restore complete (+8523.18/DD23.54%,
+  two liquidations). Original4× native journal/26305 curve points complete,
+  but process exited137 during restore; cause unconfirmed. Preserve original
+  directory without receipt. Read-only futures_journal_metrics observer and
+  complete-futures-moderate.py retain eleven original hashes atada2029,
+  verify all sources/references/original bytes, then complete only4× restore
+  in new20261113-h1-grid-moderate-completed output. No repeated market job.
+  Normal/gap metric parity and five manual recovery cases pass (13 subtests).
+  4× unrecorded admission/filter counters omitted, never reported as zero.
+  IP-088 candidate + default-off dashboard/BFF implemented and tested;
+  durable own Futures runtime/API/CAS reconciliation remains open.
+  No production enablement or historical journal codec changes.
+  See docs/futures-manual-recovery.md.
+- PR54 merged: head0bcdcd2 ancestor of main9999671 (GH/fetch verified).
+  IP-086 on feat/m1-futures-grid-leverage follows user's requested direct
+  leverage comparison: same declared grid/cash/margin/price-guard economics,
+  fixed whole-basket2×/5×/10×, no simultaneous Classic recalibration.
+  Separate explicit grid_leverage_comparison flag and plan/profile protocol
+  binding; original2× default digest/restrictions retained. Reuse verified
+  IP-0852× receipt/four artifacts; only5×/10× new native jobs, one at a time.
+  Frozen protocolsha
+  c2d458f9a62331e94c96865fa7bc4a78039a3996e7de89180abc716edc2a2ac3.
+  Six new/35 focused pinned cases/58 subtests pass; two strengthened
+  synthetic restore cases additionally check foreign genesis rejection.
+  Full native fold/restore complete:
+  infra/local/futures-capital-research/20261113-h1-grid-leverage,
+  implementation checkpoint8e440e2. Native5×96344/10×34545 commands,
+  total130889; eight new artifacts/eleven unchanged start-end hashes.
+  Receiptsha a1c7c03a0e6487f22024edf586d5a0378e88fe16beed764e4af4de1e00786dde.
+  All252 new entries/126 normal exits/nine liquidations verified on grids;
+  actual entry/decision leverage always equals frozen whole-basket scenario.
+  2× reference+9596.82/DD18.01%/zero liquidations retained;
+  5×+6434.15/DD29.44%/four liquidations, stages117/60/28/11/7;
+  10×−1151.95/DD18.15%/five liquidations, stages19/7/3/0/0.
+  No account halt, but stopped slots remain terminal:5× only BTC after
+  2024-08-05;10× last real entry2022-10-11/last liquidation2022-10-13.
+  10× is not three years active trading. Own unused stage capital remains.
+  Further selective leverage needs frozen causal regime criteria;
+  liquidation reentry requires separate reconciliation/recovery and real
+  capital admission, no implicit reset. No active job.
+  Full Classic mapping/historical broker acceptance remain
+  separate; no AI/live/holdout/public/DB/dependency change.
+  See docs/futures-grid-leverage-results-20261113.md.
 - PR53 merged: headfa993f5 ancestor of main174ac6f (GH/fetch verified).
   IP-085 on feat/m1-futures-grid-comparison adds separate current-grid/5:
   current quantity/minimum/market bounds, adverse tick ceiling for buys/

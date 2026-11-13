@@ -1,0 +1,73 @@
+{
+  "schema_version": "futures-capital-grid-leverage-protocol/1",
+  "comparison": "current-bitget-grids-native-binance-h1-fixed-leverage-2-5-10",
+  "baseline_receipt_sha256": "727911a2f49e9814c9aa488ad365a4e451dc7ae86bd933d0d522acb9f95debfd",
+  "baseline_protocol_sha256": "8f24a3f0d9a7ba0af3daf497bf5ed2925a5478db35da138ed96a2b95afe84a8d",
+  "economic_protocol_sha256": "eb9a278513facb4f7560413c6ae269dc2fd44adf917eec00ebec9925ddcc8c06",
+  "metadata_sha256": "2fd4704081bdf1df22d45b56780cfd7c1ffc6c18cb8dac97b9a6c83e331091f6",
+  "metadata_receipt_sha256": "61c50ac6bc85b86ee176f1c7d926153d899f16c4b4cbeec35437a1a1a37d6e5c",
+  "symbols": [
+    "BNBUSDT",
+    "BTCUSDT",
+    "ETHUSDT",
+    "SOLUSDT",
+    "XRPUSDT"
+  ],
+  "start": "2022-08-01T00:00:00Z",
+  "end_exclusive": "2025-08-01T00:00:00Z",
+  "initial_equity": "10000",
+  "slots": 5,
+  "entry_hours": 1,
+  "protection_hours": 1,
+  "stage_weights": [
+    "1",
+    "1.25",
+    "1.5625",
+    "1.953125",
+    "2.44140625",
+    "3.0517578125"
+  ],
+  "sixth_stage": "reserved-manual-not-simulated",
+  "cash_policy": "own-wallet-costs-isolated-funding-with-own-profitable-full-close-overrun",
+  "changes": {
+    "quantity": "floor own stage capital times leverage divided by tick price to current quantity step; cap at current market maximum",
+    "entry_price": "ceil trade times 1.0005 to current price tick; includes up to one additional adverse tick",
+    "exit_price": "floor original declared exit price to current tick; includes up to one additional adverse tick",
+    "entry_minima": "current public minimum quantity and minimum USDT notional",
+    "oversized_exit": "stop research job; no unmodelled split orders"
+  },
+  "unchanged": {
+    "entry_and_exit_fee_rate": "0.001",
+    "maintenance_rate": "0.005",
+    "liquidation_fee_rate": "0.005",
+    "tier_nominal_cap": "1000000",
+    "net_funding": "native original events and settlement references",
+    "money_quantum": "0.00000001 declared model-only; not broker precision",
+    "initial_margin": "exact max of total basis and mark notional divided by frozen leverage",
+    "price_guard": "retain declared fill-bound-below-mark rejection for isolated grid comparison",
+    "order_freeze": "not applied; mapping and complete Classic admission remain separate validation",
+    "rsi_and_rearm": "closed H1 Wilder RSI14 below30 twice; five actual stages with5pct-from-last-fill and rearm",
+    "protection": "net floor and closed H1 ATR10 Wilder Supertrend times3",
+    "emergency": "55pct below first fill",
+    "account_limits": "6pct/8pct warnings and50pct correlated stress diagnostics",
+    "journal": "full causal input restore and terminal liquidation; end-open baskets at mark"
+  },
+  "historical_broker_rules_verified": false,
+  "broker_admission_verified": false,
+  "public_fee_tariff_applied": false,
+  "holdout_requested": false,
+  "execution_enabled": false,
+  "fixed_cycle_leverages": [
+    "2",
+    "5",
+    "10"
+  ],
+  "native_scenarios": [
+    "base-h1-5x",
+    "base-h1-10x"
+  ],
+  "reference_scenario": "base-h1-2x",
+  "reference_reuse": "unchanged verified IP-085 receipt and four artifact hashes; no repeated 2x native job",
+  "fixed_leverage_scope": "entire basket including every subsequent regular buy; no AI or per-stage changes",
+  "comparison_boundary": "declared same grid/cash/margin/price-guard model only; full Classic broker mapping remains separate"
+}

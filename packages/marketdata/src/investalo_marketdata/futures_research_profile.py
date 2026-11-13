@@ -3,6 +3,7 @@ from dataclasses import dataclass, fields
 from datetime import datetime, timedelta
 from decimal import Decimal
 import hashlib
+from pathlib import Path
 import re
 
 from investalo_trading.futures_capital_research import (
@@ -77,15 +78,22 @@ class EconomicScenario:
 
     def profile(self, tenant_id="offline-research", account_id="futures-capital-five", *,
                 cash_budgets=False, entry_hours=4, realized_exit_costs=False, reserved_cash=False,
-                current_grids=False):
+                current_grids=False, grid_leverage_comparison=False, moderate_grid_leverage=False):
         if (type(cash_budgets) is not bool or type(realized_exit_costs) is not bool
                 or type(entry_hours) is not int or entry_hours not in (1, 4)
                 or realized_exit_costs and not cash_budgets
                 or type(reserved_cash) is not bool
                 or reserved_cash and not (cash_budgets and realized_exit_costs)
                 or type(current_grids) is not bool
+                or type(grid_leverage_comparison) is not bool
+                or type(moderate_grid_leverage) is not bool
+                or moderate_grid_leverage != (type(self) is ModerateEconomicScenario)
+                or moderate_grid_leverage and not grid_leverage_comparison
+                or grid_leverage_comparison and not current_grids
                 or current_grids and not (reserved_cash and entry_hours == 1
-                    and self.scenario_id == "base-h1-2x")):
+                    and self.cost_kind == "base" and self.protection_hours == 1
+                    and self.path == "open-low-high-close"
+                    and (grid_leverage_comparison or self.leverage == 2))):
             raise ValueError("explicit research cash policy required")
         contracts = tuple(FuturesContract(
             f"BINANCE:{s}", D(".00000001"), D(".00000001"), D(5),
@@ -104,8 +112,33 @@ class EconomicScenario:
             plan, self.protection_hours, self.costs.slippage, self.assumptions_digest)
         if current_grids:
             from .futures_grid_profile import build_grid_profile
-            profile = build_grid_profile(profile)
+            profile = build_grid_profile(profile, leverage_comparison=grid_leverage_comparison,
+                                         moderate=moderate_grid_leverage)
         return profile
+
+
+@dataclass(frozen=True)
+class ModerateEconomicScenario(EconomicScenario):
+    """Separate predeclared 3x/4x axis; legacy scenarios retain their whitelist."""
+
+    def __post_init__(self):
+        if (type(self.leverage) is not Decimal or self.leverage not in (D(3), D(4))
+                or type(self.protection_hours) is not int or self.protection_hours != 1
+                or self.scenario_id != f"base-h1-{self.leverage}x"
+                or self.cost_kind != "base" or self.path != "open-low-high-close"
+                or type(self.costs) is not ScenarioCosts):
+            raise ValueError("explicit moderate fixed H1 grid scenario required")
+        baseline = load_economic_protocol(
+            (Path(__file__).resolve().parents[4] /
+             "docs/research-protocols/futures-capital-economics-20261112.json").read_bytes())[0]
+        if self.costs != baseline.costs:
+            raise ValueError("moderate scenario must preserve declared baseline costs")
+
+    @property
+    def assumptions_digest(self):
+        from .futures_grid_profile import MODERATE_PROTOCOL_SHA256
+        return digest(("futures-capital-moderate-economic-scenario/1",
+                       PROTOCOL_SHA256, MODERATE_PROTOCOL_SHA256, self))
 
 
 def load_economic_protocol(raw):
@@ -143,7 +176,7 @@ class FundingReference:
 @precise
 def funding_reference(symbol, row, mark_hour, source_digest, scenario):
     if (symbol not in SYMBOLS or type(row) is not FundingObservation
-            or type(mark_hour) is not ResearchCandle or type(scenario) is not EconomicScenario
+            or type(mark_hour) is not ResearchCandle or type(scenario) not in (EconomicScenario, ModerateEconomicScenario)
             or mark_hour.symbol != f"BINANCE:{symbol}:USDT-M:mark"
             or not mark_hour.open_time <= row.timestamp < mark_hour.close_time
             or mark_hour.close_time - mark_hour.open_time != timedelta(hours=1)):
@@ -192,15 +225,21 @@ def boundary_valuation(frame, references, profile):
 @precise
 def declared_exit(state, symbol, scenario, *, unsafe_state=None):
     """Typed simulated outcome, never a broker receipt or guaranteed stop fill."""
-    if type(state) is not CapitalSignalState or type(scenario) is not EconomicScenario:
+    if type(state) is not CapitalSignalState or type(scenario) not in (EconomicScenario, ModerateEconomicScenario):
         raise ValueError("typed capital signal state and declared scenario required")
+    from .futures_grid_profile import leverage_grid_digest
+    leverage_grids = (type(state.profile.plan) is CapitalGridPlan
+                     and state.profile.plan.policy_digest == leverage_grid_digest(
+                         scenario.assumptions_digest, moderate=type(scenario) is ModerateEconomicScenario))
     if state.profile != scenario.profile(
             state.profile.plan.tenant_id, state.profile.plan.account_id,
             cash_budgets=isinstance(state.profile.plan, CapitalCashPlan),
             entry_hours=state.profile.entry_hours,
             realized_exit_costs=isinstance(state.profile.plan, CapitalRealizedCashPlan),
             reserved_cash=isinstance(state.profile.plan, CapitalReservedCashPlan),
-            current_grids=type(state.profile.plan) is CapitalGridPlan):
+            current_grids=type(state.profile.plan) is CapitalGridPlan,
+            grid_leverage_comparison=leverage_grids,
+            moderate_grid_leverage=type(scenario) is ModerateEconomicScenario):
         raise ValueError("foreign economic scenario")
     index = state.profile.plan.symbols.index(symbol)
     basket, signal = state.economic.ledger.baskets[index], state.signals[index]

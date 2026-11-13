@@ -411,6 +411,24 @@ Q44 gilt weiter bei vollständig profitablen normalen Abschlüssen.
 Historische Policys und ihre Ergebnisse bleiben eingefroren.
 [Vertrag und Grenzen](futures-reserved-budget.md).
 
+### Q46: Liquidierte Futures-Assets ausschließlich manuell wieder freigeben
+
+2026-11-13, **beauftragt**. Nutzer fordert zusätzlich feste3×-/4×-Vergleiche
+und sieht Wiederbelebung nach Liquidation als manuellen Schritt:
+Dashboard-Startseite zeigt den Blocker; Assetdetails erklären Sperre und
+Folgen; „Wiederbeleben“ aktiviert den Handel für dieses Asset wieder.
+Keine automatische Wiederbelebung in den unveränderten Hebelvergleichen.
+
+Umsetzung: Freigabe für einen neuen Basket, ohne Verlustlöschung, sofortigen
+Kauf oder Änderung des alten Baskethebels. Reguläres RSI-Signal und neue
+Hebelentscheidung gelten anschließend wieder. Aktuelle eigene Position/
+Aufträge müssen abgeglichen und die Liquidation vollständig gebucht sein;
+das tatsächliche verfügbare Kapital muss den neuen vollständigen Basket
+decken. UI zeigt verbleibende Blocker konkret. Andere Asset-/Kontosperren
+bleiben verbindlich. Neue AI-Regimekriterien und produktive Broker-/
+Futures-Runtimefreigabe sind damit nicht beschlossen.
+[Forschungsvergleich und Recovery-Grenzen](futures-moderate-leverage.md).
+
 Konkrete Umsetzungsfakten recherchieren wir: unterstützte Versionen exakt pinnen,
 Historienlänge/-qualität prüfen, Brokerkosten/Metadaten und Hostlast messen.
 Vor Pilotrollout müssen Domain/TLS, SMTP/Empfänger, Terminalbindung,
