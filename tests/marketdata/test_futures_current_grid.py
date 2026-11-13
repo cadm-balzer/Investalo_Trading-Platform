@@ -213,3 +213,29 @@ class CurrentGridResearchTests(unittest.TestCase):
                 self.assertEqual(qty, floor_step(qty, plan.contracts[index].quantity_step))
                 self.assertEqual(price, floor_step(price, plan.grid_rules[index].price_tick))
             self.assertGreater(entries, 0)
+
+    def test_gap_liquidations_remain_terminal_after_grid_rounding_and_restore(self):
+        streams = fixture(crash=True)
+        bindings = tuple(sorted(s.data_digest for s in streams.values()))
+        with TemporaryDirectory() as directory:
+            output = Path(directory) / "grid-crash"
+            report = run_scenario(streams, cases()[0], output, "a" * 64, bindings,
+                                  cash_budget_protocol="a" * 64, entry_hours=1,
+                                  realized_exit_costs=True, reserved_cash=True, current_grids=True)
+            self.assertEqual(report["liquidations"], 5)
+            self.assertEqual(report["end_open_baskets"], [])
+            self.assertTrue(report["full_journal_restore_verified"])
+            closed = json.loads((output / "closed-baskets.json").read_bytes())
+            self.assertTrue(all(row["liquidated"] and D(row["net_pnl"]) < 0 for row in closed))
+            plan = profile().plan
+            for line in (output / "journal.jsonl").read_text().splitlines()[1:]:
+                command = json.loads(line)["command"]
+                if command["kind"] != "economic":
+                    continue
+                payload = command["arguments"]["payload"]
+                if payload["kind"] != "LiquidationSettlement":
+                    continue
+                fill = payload["value"]
+                index = plan.symbols.index(fill["symbol"])
+                self.assertEqual(D(fill["price"]), floor_step(
+                    D(fill["price"]), plan.grid_rules[index].price_tick))

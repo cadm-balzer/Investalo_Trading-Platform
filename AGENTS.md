@@ -17,14 +17,23 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   before performance; source metadata remains2026 Bitget on2022–2025 native
   Binance prices, no historical broker acceptance. Old profile digest matches
   frozen IP-082; all four old output artifacts rehashed unchanged.
-  Twelve new/121 distinct focused pinned cases/88 subtests pass across
+  Thirteen new/122 distinct focused pinned cases/88 subtests pass across
   targeted runs. Corrected new genesis whitelist and funding test fixtures
   (same-time marks);109 legacy cases passed,24 affected cases rerun.
-  Native job/full restore running:
-  infra/local/futures-capital-research/20261113-h1-current-grid, execsession74706.
-  Do not edit eleven GRID_IMPLEMENTATION_FILES during this fold.
-  No new performance claim until final restore/receipt. No AI/live/holdout/
-  public/DB/dependency change. See docs/futures-current-grid-comparison.md.
+  Native job/full restore complete:
+  infra/local/futures-capital-research/20261113-h1-current-grid,
+  108427 commands/122675 retained IDs/four artifacts/eleven unchanged
+  start-end implementation hashes. Exported receiptsha
+  727911a2f49e9814c9aa488ad365a4e451dc7ae86bd933d0d522acb9f95debfd.
+  Net+9596.82/DD18.01%,273 closures/233 positive/40 negative;
+  no liquidation/account halt/margin rejection. Stages275/128/72/37/24;
+  all536 actual entries/273 exits verified on frozen grids.
+  Compared with IP-082: net+16.90, DD+0.40 percentage points, margin
+  denials29→0;28 old price guards remain uncalibrated. Two end-open baskets
+  valued at mark, last actual entry2025-07-29. No active job.
+  Next: separate full Classic order-freeze/margin/price-guard calibration
+  before further leverage comparison. No AI/live/holdout/public/DB/dependency
+  change. See docs/futures-current-grid-results-20261113.md.
 - PR52 merged: head8d71aeb ancestor of main5a89712 (GH/fetch verified).
   IP-084 on feat/m1-futures-broker-calibration captures one unsigned public
   Classic USDT contract GET (2026-11-13); five selected original objects

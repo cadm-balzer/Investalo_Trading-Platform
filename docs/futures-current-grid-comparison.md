@@ -77,9 +77,12 @@ Alle tatsächlichen Inputs einschließlich Funding, Tagesbasis, Quotes,
 Restoration, fünf Stufen, Exits und terminaler Liquidation werden vollständig
 von Genesis gefaltet. Offene Endbaskets bleiben zum Markkurs bewertet;
 kein erfundener profitabler Endexit. Vier Ausgabeartefakte werden hashgebunden
-gesichert. Lauf- und Prüfergebnis folgen nach abgeschlossenem Restore.
+gesichert. Der native Job und vollständige Restore sind abgeschlossen:
+108427 Commands, vier erneut geprüfte Artefakte und elf unveränderte
+Start-/Endimplementationshashes.
+[Ergebnisse und Vergleich](futures-current-grid-results-20261113.md).
 
-Gezielte Prüfung: zwölf neue Fälle/18 Subtests, insgesamt121 unterschiedliche
+Gezielte Prüfung: dreizehn neue Fälle/18 Subtests, insgesamt122 unterschiedliche
 Fälle/88 Subtests im gepinnten Python3.14.10-Container grün, verteilt auf
 den ursprünglichen Lauf und gezielte Korrekturprüfungen.
 109 bestehende Kapital-/Cash-/Signal-/Journal-/Markt-/Wirtschaftsfälle
@@ -89,5 +92,7 @@ zeitgleichen Markbeleg; dieser wurde ergänzt, die Schutzregel unverändert.
 Vollständiger synthetischer Markt-/Journalrestore, fünf volle Eigenkapitalstufen,
 konstanter Hebel, manual-only sechste Stufe, Nano-Funding und tatsächliche
 Unterdeckung, Tick-/Mengenchecks und übergroße Exits sind geprüft.
+Der zusätzliche synthetische Gaptest bestätigt fünf terminale Liquidationen
+mit gerasterten Preisen, negativen Nettobelegen und vollständigem Restore.
 Das alte IP-082-Profil besitzt weiterhin exakt denselben gespeicherten Digest;
 alle vier Originalausgaben wurden unverändert rehashed.
