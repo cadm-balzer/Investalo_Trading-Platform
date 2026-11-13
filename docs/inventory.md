@@ -1,5 +1,12 @@
 # Bestandsaufnahme
 
+IP-090 erster Schritt: futures_paper_plan.py trennt Kandidaten von finanzierten
+Plätzen; futures_paper.py verbindet den H1-/Cashkern mit2×-Paperfills.
+futures_paper_journal.py speichert eigene Genesis/Batches/Settings per fsync
+und vollem Restore; futures_paper_worker.py nutzt einen eingespeisten Feed.
+Provider-/DB-/Cockpitanbindung, Gewinnetappen und Recovery bleiben offen.
+[Vertrag und Prüfbeleg](futures-paper-runtime.md).
+
 IP-089: futures_paper_settings.py/API/BFF/FuturesPaperSettingsPanel speichern
 eigene USDT-Paper-Planung3–7 mit Revision und atomarem Audit. Additive013
 nur in investalo_credentials_checks, sha78f1c339f6ff8b5bf6827d7eae3d987b6ed6a8bd32b69dcfcc45a88a94753645.

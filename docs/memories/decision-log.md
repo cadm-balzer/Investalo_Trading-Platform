@@ -2117,3 +2117,23 @@ restricted-LOGIN-Prüfungen zeigen konkurrierende CAS-Anlage, atomaren
 Auditrollback und Readback nach bereits committeter/verlorener Antwort.
 013sha78f1c339f6ff8b5bf6827d7eae3d987b6ed6a8bd32b69dcfcc45a88a94753645
 bleibt nur Fixture. Entwicklung/Public/Spotdienst unverändert.
+
+## 2026-11-13 — D-097: eigener Futures-Paperkern statt weiterer Hebelstudien
+
+PR57 in Mainf8a2217, Headc196093 per GH/fetch als Vorfahr verifiziert.
+IP-090 trennt Kandidatenpool von anfänglich3–5 finanzierten Plätzen.
+Alle Kandidaten können ein Signal liefern; tatsächlicher Erstkauf reserviert
+dieselbe volle eigene Range. Neue Obergrenze3–7 verkleinert keine offene
+Staffel und ersetzt keine Q36-Gewinnfreigabe.
+H1-RSI/Rearm/fünf Käufe/H1-Schutz, 2× pro Basket, eigene Funding-IDs,
+terminaler Liquidationsverlust und Kostenrestoration verwenden den geprüften
+Kern. Eigene Genesis/Batches/Settings im fsync-Journal mit vollem Restore,
+CAS/Clock/Writerlock und Unknown-Ack-Readback, eingespeister Worker.
+Mitternacht darf die Ledgerphasen nicht umkehren; vor einer bereits
+beobachteten früheren Liquidation darf ein neuer erholter Quote keinen
+scheinbaren Rückgewinn erzeugen.
+139 gezielte gepinnte Fälle/76 Subtests; alle20 eigenen Paperfälle nach
+letzten Korrekturen erneut gepinnt. Keine Performancejobs oder Quellenimporte.
+Aktueller Provider/Fundingvollständigkeit/Launcher/Archivierung,013-Adapter,
+Gewinnetappen, Recovery und Cockpit bleiben offen. Keine DB-/Dependency-/
+öffentliche/Livetrading-/AI-Aktivierung. [Vertrag](../futures-paper-runtime.md).
