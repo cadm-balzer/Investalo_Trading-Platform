@@ -1,5 +1,13 @@
 # Bestandsaufnahme
 
+IP-083: eigener nur lesender `futures_admission_audit.py` und fester
+`audit-futures-admissions.py`-CLI. Der bestehende Journaldecoder/Reducer,
+Signalassessment und Kapitalplan werden unverändert wiederverwendet.
+Vollständige Kette/Endreceipt und Originalhashes verifiziert; abgelehnte
+Assessments verändern keinen Zustand. Evidence enthält exakte Dezimalstrings,
+Kettenanker und Cash-/Margin-/Preiswerte. Kein neuer Marktjob oder Runtimecaller.
+[Ergebnisse](futures-admission-results-20261113.md).
+
 IP-082: separates `CapitalReservedCashPlan`; tatsächliche Walletkosten und
 eigenes isoliertes Funding sind getrennt. Kapitalkern, Ledgerbuchungen,
 Signalrearm, normaler Q44-Abschluss und Full-Genesis-Journal wiederverwendet.

@@ -1885,3 +1885,43 @@ letzter Abschluss2025-07-28; zwei Endpositionen zum Markkurs, keine erzwungenen
 Profitabschlüsse. Keine Budget-/Cashablehnung;29 deklarierte Initialmargin-
 und32 Fillbound-Ablehnungen bleiben für separate IP-083-Diagnose.
 Keine stillen Änderungen der Margin-/Preisgrenzen oder neuen Geldquellen.
+
+## 2026-11-13 — D-091: Verbleibende Ablehnungen vollständig erklärt
+
+**Status: IP-083 abgeschlossen, wirtschaftliche Regeln unverändert.**
+PR51 head7c239a2 ist Vorfahr von main165c5f4; GH/Fetch verifiziert.
+Eigener nur lesender Journalabgleich auf feat/m1-futures-admission-audit.
+Alle109440 Commands, exakter Endreceipt,530 echte Käufe/581 Kandidaten,
+vier ursprüngliche Artefakte und zehn Start-/Endimplementationshashes
+bestätigt. Erfolgsreceiptsha
+4e4b5bf91f13cd8771c0f18b051d28b79305a34e4e8695ea90f3d0faa8d5c86b;
+Evidence198c9a3ac87b92f141b6583113731842980ade9f989a62601c86940ebb9ee305.
+
+51 abgelehnte Versuche:22 nur Preis,19 nur Margin,zehn beide.
+34 Coin-/Zyklus-/Stufenkombinationen;33 wurden später tatsächlich ausgeführt,
+entsprechend50 Versuchen.530 Entrycommands gelesen,271 tatsächliche
+Zyklusidentitäten gegen269 Abschlüsse/zwei Endbaskets bestätigt.
+Einzige nicht später ausgeführte Stufe: XRP49/Stufe5 am2025-04-09,
+nur Preisbound. Keine hypothetische Mehrgewinnrechnung.
+
+Alle19 reinen Marginablehnungen sind XRP-Rundungsreste:
+3,76911191307543E−10 bis7,376838495785480E−9 USDT, unter Quantum1E−8;
+eigene Restorationkapazität7,7667–14,0104 USDT, also nicht erschöpft.
+Abgerundete Restoration plus Mengenraster und exakt-dezimale Marginregel
+verursachen die kleine Modellbremse. Ein weiterer XRP-Fall kombiniert
+Rundungsrest und Preisbound. Die übrigen neun Marginablehnungen sind
+erste Käufe mit Markpremium, höchstens0,89987382 USDT. Alle später gefüllt.
+32 Preisbounds: Mark liegt0,04394–51,16403bp über Trade×1,0005.
+Diese Regel ist nicht als historische Brokerablehnung belegt.
+Nächster Schritt: Geldquantisierung/Broker-/Kosten-/Mengenregelkalibrierung
+mit eingefrorenem Referenzanker; keine neue Kapitalquelle/Grenzaufhebung.
+
+Neun unterschiedliche gepinnte Tests/zehn Subtests bestehen. Der erste
+Abgleich wurde durch Daemonneustart unterbrochen. Der nächste bestätigte
+Kette/Zähler, aber der neue Export scheiterte an flachem dict-primitive und
+Text-/Bytegrenze. Explizite Dezimalstrings/UTF8-Bytes, zusätzlicher vollständiger
+Exporttest und drei gezielt nachgeprüfte Fälle beheben dies. Erfolgreicher
+finaler Lauf20261113-native-export-corrected; fehlgeschlagene Ordner ohne
+Erfolgsreceipt erhalten. Keine breite Regression oder Marktperformance
+wiederholt, kein Agent, neue Abhängigkeit/DB/Public-/AI-/Live-/Holdoutänderung.
+IP-082 bleibt netto+9579,93/DD17,62% ohne Kontohalt/Liquidation.

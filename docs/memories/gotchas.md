@@ -895,3 +895,17 @@ Stand 2026-11-08. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   Stufen als Rettungsmargin verwenden. Nur neuer Trigger nutzt die gleiche
   Kapazität wie der neue Restorationbetrag; historische Trigger eingefroren.
   Wegfall des globalen Quotenhalts hebt Initialmargin/Liquidation nicht auf.
+- **Rundung ist keine erschöpfte Barreserve:** IP-083 zeigt19 reine XRP-
+  Marginablehnungen unter1E−8 bei7,77–14,01 USDT verfügbarer eigener
+  Restoration. Abgerundete Restoration plus exakt verglichene Initialmargin
+  und Mengenraster erzeugen die Modellbremse. Ein weiterer solcher Fall hat
+  zusätzlich Preisbound; größere neun Marginfehlbeträge gehören zu ersten
+  Markpremiumkäufen. Vor einer Korrektur echte Geld-/Brokerpräzision belegen;
+  keine pauschale Fundingdepletion behaupten oder heimliche Epsilonmargin.
+- **Ablehnungsgründe überlappen:**29 Margin- plus32 Preisgrenzentreffer sind
+  51 Versuche/34 Coin-Zyklus-Stufen.50 Versuchen/33 Stufen folgt ein echter
+  späterer Fill. Geldfehlbeträge aus Wiederholungsversuchen nicht addieren.
+- **Evidence wirklich exportieren prüfen:** `snapshot.primitive` rekursiert
+  nicht durch Dictionaries; Werte explizit normalisieren. JSON-Texthelper
+  nicht an Binärwriter übergeben. Vollständiger Evidence-Byte-Roundtrip gehört
+  zur gezielten Prüfung; fehlerhafte Exportordner erhalten keinen Erfolgsreceipt.
