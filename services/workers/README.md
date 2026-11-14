@@ -1,5 +1,11 @@
 # Offline-Researchworker
 
+Der separate begrenzte Futures-Paperquellenlauncher verbindet private native
+Archive, Quellenfortschritt im eigenen Journal und Dashboardpublikation.
+Er verlangt einen expliziten Opt-in und ein vorhandenes vertrauenswürdiges
+eigenes Konto-/Genesisjournal; kein laufender Dienst wird aktiviert.
+[Aufruf, Grenzen und Neustartvertrag](../../docs/futures-paper-source-worker.md).
+
 IP-054 ergänzt `paper_preview_once.py`: feste normale Entwicklungsidentität, genau ein opt-in Kurslauf, keine automatischen Wiederholungen. Eigener Stand im freigegebenen Cockpit sichtbar. Fixture-Beobachtung IP-053 bleibt unverändert/getrennt. [Vertrag](../../docs/paper-preview-integration.md).
 
 IP-051 ergänzt die lesende [Status-/Journalanzeige](../../docs/paper-status-readmodel.md)

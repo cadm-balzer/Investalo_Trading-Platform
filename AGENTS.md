@@ -7,6 +7,23 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR64 merged: 5469400 ancestor of main4a50081, GH/fetch verified.
+  IP-090 on feat/m1-futures-paper-source-worker: private create-only/fsync/
+  readback25-GET market/10-GET minute cohorts, offline native response reparse,
+  full hashes/clocks; additive source_warmup/source_batch/source_minute_settlement
+  bind archive references/predecessor/pending funding atomically to own journal.
+  Full restore rebuilds cursor; fresh quotes after pending funding, no duplicate
+  native debits or automatic legacy migration. Unknown archive/journal/status
+  write stops; published minimum receipt anchors restart and repair.
+  Bounded default-off local launcher restores existing trusted own UUID/genesis,
+  cycles1–100, no new wallet/bootstrap or service activation. Closed minute/1h
+  funding lag/30s RSI window/open H1 gap/liquidation stops preserved.
+  Twelve new/140 focused pinned cases/109 subtests pass including actual archive/
+  journal/status IO and two launcher invocations. Historical golden identities
+  retained. No migration/dependency/performance/public/live/AI/Compose changes.
+  Own account/capital/genesis/013 settings adapter, running local UI acceptance,
+  Q36 profit epochs and IP-088 recovery remain open. No active job.
+  See docs/futures-paper-source-worker.md.
 - PR63 merged: 7aeec8d ancestor of mainda3c467, GH/fetch verified.
   IP-090 on feat/m1-futures-paper-status-publication: compact immutable own
   asset read model + owned atomic/fsync/readback status file after acknowledged

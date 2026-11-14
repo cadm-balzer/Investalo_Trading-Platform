@@ -78,6 +78,8 @@ Subtests erneut gepinnt grün.
 Keine neuen Abhängigkeiten, Migrationen, historischen Performancejobs oder
 Public-/Live-/AI-Aktivierung.
 
-Weiter: dauerhafter Quellen-/Settlementcursor, Archiv-/Launcheranbindung,
-013 Settings-/Kapitaladapter, Q36-Gewinnetappen und IP-088-Recovery;
-danach laufende lokale Cockpitabnahme. IP-090 bleibt in Arbeit.
+Folgecheckpoint: [archivierter Quellenworker mit Journalcursor und begrenztem
+Launcher](futures-paper-source-worker.md) ist implementiert und geprüft.
+Eigene Konto-/Kapital-/Genesisbereitstellung und013-Settingsadapter,
+Q36-Gewinnetappen, IP-088-Recovery und laufende lokale Cockpitabnahme
+bleiben IP-090/IP-088. IP-090 bleibt in Arbeit.
