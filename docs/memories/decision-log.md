@@ -2162,3 +2162,21 @@ Vollständiger Fundingbetrieb/Feedcursor/Launcher/Archive,013-Adapter,
 Gewinnetappen, Recovery und Cockpit bleiben IP-090. Historische Quellen
 und Performanceprotokolle unverändert; keine DB-/Dependency-/Public-/Live-/
 AI-Aktivierung. [Vertrag](../futures-paper-feed.md).
+
+## 2026-11-14 — D-099: eigene RSI-/Positions-/Nachkaufanzeige
+
+PR59 (`b6890eb`) in Main `29f6661`, GH/fetch-Ancestry verifiziert.
+Q48 beauftragt eine Assetübersicht mit aktuellem RSI, offenen Positionen
+und frühesten nächsten Kaufbedingungen. Eigene reine Paperprojektion,
+authentifizierte scoped Lese-API mit injiziertem bestätigten Reader und
+strict TS-/Dashboardanzeige umgesetzt; Übersicht/Portfolio aktualisieren15s.
+Nur bestätigte geschlossene H1-RSI14-Werte/echte Fills; tickgefloorte95%
+des letzten Kaufs statt Durchschnittspreis. Nächster H1-Check ist keine
+Kaufprognose, Quotefrische ersetzt nicht das30s-Einstiegsfenster.
+Stufe6 bleibt manuell; Kapital-/Protektion-/Liquidationssperren sichtbar.
+Neun neue Domain-/vier tatsächliche PG+HTTP-/sechs Cockpitfälle;76 verschiedene
+gezielte gepinnte Paper/API-Fälle, final13 neue Fälle erneut.32 Cockpitfälle
+und Typecheck/gepinnter Cockpit-Build grün. Standardlauncher besitzt noch keinen State-Reader;
+beide Opt-ins bleiben aus. Vollständige Funding-/Publikations-/Dienstanbindung
+ist weiterhin IP-090. Keine Strategie-/DB-/Dependency-/Performance-/Public-/
+Live-/AI-Aktivierung. [Vertrag](../futures-paper-assets.md).

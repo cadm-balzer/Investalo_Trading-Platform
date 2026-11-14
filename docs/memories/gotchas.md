@@ -2,6 +2,13 @@
 
 Stand 2026-11-14. Befunde sind dokumentiert, nicht automatisch im Altsystem behoben.
 
+- **Aktueller RSI ist keine Kaufzusage:** Ein frischer Quote verlängert nicht
+  das30s-Einstiegsfenster des geschlossenen H1-Signals. Eigene Assetanzeige
+  trennt Datenfrische, nächsten H1-Check und konkrete RSI-/Preisbedingungen.
+  Nachkaufgrenze vom letzten tatsächlichen Fill, am Tick abgerundet; niemals
+  vom Durchschnittseinstieg. Fehlender Runtime-Reader bedeutet unbekannte
+  Positionen, nicht bestätigte Nullpositionen.
+
 - **Classic-Fundinghistorie hat keinen Settlement-Markpreis:** Rate/native Zeit
   und aktueller Forecast reichen nicht für eine exakte Fundingbewertung.
   Mit offenem Kapital den vorigen bestätigten Forecast behalten; beim

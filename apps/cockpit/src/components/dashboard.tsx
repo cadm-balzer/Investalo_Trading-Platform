@@ -13,6 +13,8 @@ import { parseBasketSettings, type BasketSettings } from "@/lib/futures-paper-se
 import { parsePaperStatus, type PaperStatus } from "@/lib/paper-status-contracts";
 import { parseRecoveryStatus, type RecoveryStatus } from "@/lib/futures-recovery-contracts";
 import { FuturesRecoveryPanel } from "./futures-recovery";
+import { FuturesAssetsPanel } from "./futures-paper-assets";
+import { parseFuturesAssets, type FuturesAssets } from "@/lib/futures-paper-assets-contracts";
 
 type Section = "overview" | "portfolio" | "journal" | "backtest" | "shield";
 const navigation: { label: string; href: string; section: Section }[] = [
@@ -74,6 +76,8 @@ export async function DashboardPage({ section }: { section: Section }) {
   let paper: PaperStatus | null = null;
   let recovery: RecoveryStatus | null = null;
   let basketSettings: BasketSettings | null = null;
+  let futuresAssets: FuturesAssets | null = null;
+  const assetsPreview = process.env.COCKPIT_FUTURES_PAPER_ASSETS_PREVIEW === "1" && ["overview", "portfolio"].includes(section);
   const basketPreview = process.env.COCKPIT_FUTURES_PAPER_SETTINGS_PREVIEW === "1" && section === "portfolio";
   const recoveryPreview = process.env.COCKPIT_FUTURES_RECOVERY_PREVIEW === "1" && ["overview", "portfolio"].includes(section);
   const paperPreview = process.env.COCKPIT_PAPER_STATUS_PREVIEW === "1" && ["overview", "portfolio", "journal"].includes(section);
@@ -102,6 +106,12 @@ export async function DashboardPage({ section }: { section: Section }) {
       if (error instanceof BackendError && [401, 403].includes(error.status)) return <Login expired />;
     }
   }
+  if (assetsPreview && data) {
+    try { futuresAssets = parseFuturesAssets(await apiRequest<unknown>(session, "/v1/futures-paper-assets"), session.tenantId); }
+    catch (error) {
+      if (error instanceof BackendError && [401, 403].includes(error.status)) return <Login expired />;
+    }
+  }
   if (section === "backtest" && data) {
     try { datasets = parseDatasets(await apiRequest<unknown>(session, "/v1/datasets"), session.tenantId); }
     catch (error) {
@@ -113,13 +123,14 @@ export async function DashboardPage({ section }: { section: Section }) {
     {!data ? <section className="panel connection-error" role="status"><Icon name="shield" size={28} /><h2>Verbindung noch nicht bestätigt</h2><p>Die geschützte API ist aktuell nicht erreichbar. Konten und Ergebnisse werden erst nach einer bestätigten Antwort angezeigt.</p><Link href={navigation.find(n => n.section === section)!.href} className="button secondary">Erneut laden</Link></section> : <>
       {recoveryPreview && <FuturesRecoveryPanel data={recovery} csrf={session.csrf} summary={section === "overview"} />}
       {basketPreview && <FuturesPaperSettingsPanel data={basketSettings} csrf={session.csrf} />}
+      {assetsPreview && <FuturesAssetsPanel data={futuresAssets} />}
       {section === "overview" && <>
         <div className="overview-banner"><div><span className="eyebrow">DEIN ERSTER SCHRITT</span><h2>Nachweise statt Versprechen.</h2><p>BTC und ETH auf H4. Gold auf H1/M15. Erst Daten prüfen, dann mit virtuellem Kapital lernen.</p><Link href="/backtests" className="text-link">Zur Strategieforschung <Icon name="arrow" size={17} /></Link></div><div className="banner-icon" aria-hidden="true"><Icon name="globe" size={82} /></div></div>
-        <div className="metric-grid"><article className="metric-card"><span className="metric-label">Zugeordnete Konten</span><strong>{data.accounts.length}</strong><small>Getrennt nach Konto & Währung</small></article><article className="metric-card"><span className="metric-label">Offene Positionen</span><strong>{data.positions.length}</strong><small>Simulierte Paperpositionen</small></article><article className="metric-card"><span className="metric-label">Forschungsaufträge</span><strong>{data.jobs.length}</strong><small>Tatsächlich gespeicherte Aufträge</small></article></div>
+        <div className="metric-grid"><article className="metric-card"><span className="metric-label">Zugeordnete Konten</span><strong>{data.accounts.length}</strong><small>Getrennt nach Konto & Währung</small></article><article className="metric-card"><span className="metric-label">{assetsPreview ? "Weitere Paperpositionen" : "Offene Positionen"}</span><strong>{data.positions.length}</strong><small>Simulierte Paperpositionen</small></article><article className="metric-card"><span className="metric-label">Forschungsaufträge</span><strong>{data.jobs.length}</strong><small>Tatsächlich gespeicherte Aufträge</small></article></div>
         <section className="panel"><div className="section-heading"><h2>Dein Portfolio</h2><Link href="/portfolio">Alle Konten <Icon name="arrow" size={16} /></Link></div><Accounts data={data} /></section>
         <div className="two-column"><section className="panel"><div className="section-heading"><h2>Letzte Entscheidungen</h2><Link href="/journal">Journal <Icon name="arrow" size={16} /></Link></div><Journal data={{ ...data, journal: data.journal.slice(0, 4) }} /></section><section className="panel"><div className="section-heading"><h2>Forschungsstand</h2><Link href="/backtests">Backtests <Icon name="arrow" size={16} /></Link></div><Jobs jobs={data.jobs.slice(0, 4)} /></section></div>
       </>}
-      {section === "portfolio" && <><section className="panel"><div className="section-heading"><h2>Konten & virtuelles Kapital</h2><span className="badge paper">PAPER</span></div><Accounts data={data} /></section><section className="panel"><div className="section-heading"><h2>Offene Positionen</h2><span className="count">{data.positions.length}</span></div><Positions data={data} /></section><section className="panel"><div className="section-heading"><h2>Portfolioentwicklung</h2></div><Empty title="Noch keine bestätigte Equityzeitreihe" icon="backtest">Die grafische Entwicklung wird aus tatsächlichen protokollierten Kontoständen aufgebaut. Es werden keine Kurven erfunden.</Empty></section></>}
+      {section === "portfolio" && <><section className="panel"><div className="section-heading"><h2>Konten & virtuelles Kapital</h2><span className="badge paper">PAPER</span></div><Accounts data={data} /></section><section className="panel"><div className="section-heading"><h2>{assetsPreview ? "Weitere Paperpositionen" : "Offene Positionen"}</h2><span className="count">{data.positions.length}</span></div><Positions data={data} /></section><section className="panel"><div className="section-heading"><h2>Portfolioentwicklung</h2></div><Empty title="Noch keine bestätigte Equityzeitreihe" icon="backtest">Die grafische Entwicklung wird aus tatsächlichen protokollierten Kontoständen aufgebaut. Es werden keine Kurven erfunden.</Empty></section></>}
       {section === "journal" && <section className="panel"><div className="section-heading"><h2>Dein Tradingjournal</h2><span className="count">{data.journal.length} Ereignisse</span></div><Journal data={data} /></section>}
       {section === "backtest" && <><section className="panel"><div className="section-heading"><h2>Crypto Basket prüfen</h2><span className="badge neutral">BTC / ETH · SPOT · H4</span></div><p className="panel-intro">Fünf reguläre Stufen; die manuelle Reserve bleibt im Referenzbacktest als Cash. Nachträglich ausgewählte Käufe werden nicht als automatische Leistung gerechnet.</p><BacktestForm csrf={session.csrf} datasets={datasets} /></section><section className="panel"><div className="section-heading"><h2>Angeforderte Läufe</h2><Link href="/backtests">Stand aktualisieren <Icon name="arrow" size={16} /></Link></div><Jobs jobs={data.jobs} /></section><div className="research-note"><Icon name="shield" /><p><strong>Freigabe braucht unabhängige Nachweise.</strong> Positiver Nettoertrag, Profitfaktor ≥ 1,2 und mindestens 30 geschlossene Baskets je Cryptoasset im unabhängigen Holdout. Gold wird gesondert nach Kosten- und Kausalitätsprüfung freigegeben.</p></div></>}
       {section === "shield" && <><section className="panel"><div className="section-heading"><h2>Deine Cockpitsitzung</h2><span className="badge">MFA BESTÄTIGT</span></div><dl className="security-list"><div><dt>Nutzerkreis</dt><dd>Administrativ eingerichteter Privatpilot</dd></div><div><dt>Sitzung gültig bis</dt><dd>{date(new Date(session.expiresAt * 1000).toISOString())}</dd></div><div><dt>Echtgeldhandel</dt><dd>Gesperrt</dd></div><div><dt>Abmeldung</dt><dd>Beendet diese Cockpitsitzung. Die separate Authelia-Sitzung bleibt bestehen.</dd></div></dl></section><section className="panel"><div className="section-heading"><h2>Bestätigte Risikoprofile</h2></div><div className="risk-grid"><article><span className="eyebrow">CRYPTO PAPER</span><strong>6 % täglich / 8 % initial</strong><p>BTC/ETH Spot ohne Hebel. 500 USDT Kaufprincipal plus 5 USDT Kostenreserve je Basket.</p></article><article><span className="eyebrow">MT5 DEMO · FREIGABE AUSSTEHEND</span><strong>1 % täglich / 5 % initial</strong><p>0,25 % modelliertes Risiko je Idee. Maximal eine offene Idee auf getrenntem Brokerdemo.</p></article></div></section></>}

@@ -450,6 +450,21 @@ H1-RSI/Nachkäufen/H1-Supertrend, Persistenz, Wiederanlauf und Q46-Recovery;
 danach echte Bitget-Demoausführung. Echtgeld und AI folgen ihren gesonderten
 Freigaben. [Umsetzung und Reihenfolge](futures-paper-settings.md).
 
+### Q48: RSI, offene Positionen und früheste Nachkaufbedingung anzeigen
+
+2026-11-14, **Nutzerauftrag bestätigt:** Für ausgewählte Handelsassets im
+Dashboard aktuellen RSI, offene Positionen und eine Darstellung der
+frühesten Kaufzeit beziehungsweise Kursgrenze des nächsten Basketkaufs zeigen.
+
+Umsetzung: RSI14/Wilder aus geschlossenen H1-Kerzen samt Stand, tatsächliche
+offene Menge/Durchschnitt/2×/Kaufstufe und95%-Preisrastergrenze vom letzten
+echten Fill. Nächsten H1-Signalcheck und noch fehlende RSI-/Preis-/Zeitfenster-
+bedingungen anzeigen; keine Vorhersage eines zukünftigen Kaufzeitpunkts.
+Stufe6 bleibt manuell, vorhandene Finanzierung/Protektion/Liquidation gilt.
+Unbekannter oder veralteter Runtimezustand wird ausdrücklich ausgewiesen.
+Dies ändert keine Strategie oder Live-/öffentliche Freigabe.
+[Anzeigevertrag](futures-paper-assets.md).
+
 Konkrete Umsetzungsfakten recherchieren wir: unterstützte Versionen exakt pinnen,
 Historienlänge/-qualität prüfen, Brokerkosten/Metadaten und Hostlast messen.
 Vor Pilotrollout müssen Domain/TLS, SMTP/Empfänger, Terminalbindung,

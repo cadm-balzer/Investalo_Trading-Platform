@@ -23,6 +23,7 @@ from .database import SCHEMA_VERSION, assert_runtime, connect, transaction
 from .settings import Settings
 from .paper_status import read_status
 from .futures_paper_settings import BasketSettingsRequest, read_settings, write_settings
+from .futures_paper_assets import read_assets
 from .research_result import publish_result
 from .research_spec import public_source, specification
 
@@ -72,9 +73,10 @@ def _journal(row: dict) -> dict:
     return result
 
 
-def create_app(settings: Settings | None = None) -> FastAPI:
+def create_app(settings: Settings | None = None, *, futures_paper_state_reader=None) -> FastAPI:
     application = FastAPI(title="Investalo API", docs_url=None, redoc_url=None, openapi_url=None)
     application.state.settings = settings if settings is not None else Settings.from_environment()
+    application.state.futures_paper_state_reader = futures_paper_state_reader
     application.include_router(create_passkey_router(application.state.settings))
     application.include_router(create_passkey_action_router(application.state.settings))
     application.include_router(create_passkey_credential_authorization_router(application.state.settings))
@@ -180,6 +182,13 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             raise HTTPException(404, "Not found")
         with transaction(application.state.settings, identity) as (db, user):
             return read_settings(db, identity, user)
+
+    @application.get("/v1/futures-paper-assets")
+    def futures_paper_assets(identity: Identity):
+        if not application.state.settings.futures_paper_assets_preview:
+            raise HTTPException(404, "Not found")
+        with transaction(application.state.settings, identity) as (db, _user):
+            return read_assets(db, identity, application.state.futures_paper_state_reader)
 
     @application.post("/v1/futures-paper-settings/{account_id}")
     def update_futures_paper_settings(account_id: UUID, body: BasketSettingsRequest, identity: Identity):
