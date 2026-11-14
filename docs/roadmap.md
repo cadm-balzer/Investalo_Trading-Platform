@@ -30,8 +30,13 @@ begrenztem explizitem Launcher implementiert;140 gepinnte Fälle/109 Subtests
 grün. Neustart setzt bestätigtes Funding mit frischen Quotes fort, private
 native Belege werden vollständig offline revalidiert. Laufende Dienste bleiben
 unverändert. [Quellenworker](futures-paper-source-worker.md).
-Nächster Schritt: eigene Konto-/Kapital-/Genesisbereitstellung und
-013-Settingsadapter, danach laufende lokale Cockpitabnahme. Q36-Gewinnetappen und
+Eigene explizite Konto-/Kapital-/Genesisbereitstellung mit readonly RLS und
+013-Settingsadapter implementiert;22 neue Fälle einschließlich tatsächlicher
+SQL-Anbindung und gebundenem Launcher-Neustart grün. Offene Budgets bleiben
+fest, echte letzte Revision wird ohne erfundene Zwischenwerte übernommen.
+[Kontobindung](futures-paper-account-binding.md).
+Nächster Schritt: konkretes privates Laufprofil und laufende lokale Cockpitabnahme,
+danach kalibrierter Kapazitätsreader. Q36-Gewinnetappen und
 Q46-Recovery/IP-088 folgen ebenfalls. [Paperkern](futures-paper-runtime.md),
 [aktueller Feed](futures-paper-feed.md).
 Danach Bitget-Demoausführung und separate Echtgeldabnahme. Keine neuen

@@ -7,6 +7,25 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR65 merged: a22199a ancestor of mainf7fb8c6, GH/fetch verified.
+  IP-090 on feat/m1-futures-paper-account-binding: explicit private own UUID/
+  actor/config/capital allocation, create-only trusted SHA spec, native16–39h
+  midnight genesis/warmup and no reinitialization/second published allocation.
+  Existing restricted runtime LOGIN, readonly own RLS account/013 settings
+  reader, current owner/trader/epoch/reauth/ready checks; no grants or API nonce.
+  Bound worker rechecks before commits, additive account_settings accepts only
+  the actual latest newer DB revision, no invented intermediates. Open budgets/
+  stages/manual/2× unchanged; ceiling7 alone still funds no extra slots.
+  Bounded default-off account launcher initializes once/restores minimum receipt;
+  no platform account/schema creation or service activation. 22 new cases:
+  nine domain/filesystem/launcher and13 actual restricted PG cases.161 broad
+  pinned cases/114 subtests pass; final22 new cases/five subtests rerun.
+  162 distinct focused cases overall. Historical golden identities retained.
+  No migration/dependency/performance/public/live/AI/Compose changes.
+  Next own private local runtime/Cockpit acceptance, calibrated capacity reader,
+  Q36 profit epochs and IP-088 recovery. API planning runtime_ready=false/
+  recommendation=null until capacity publication. No active job.
+  See docs/futures-paper-account-binding.md.
 - PR64 merged: 5469400 ancestor of main4a50081, GH/fetch verified.
   IP-090 on feat/m1-futures-paper-source-worker: private create-only/fsync/
   readback25-GET market/10-GET minute cohorts, offline native response reparse,

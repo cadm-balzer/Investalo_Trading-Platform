@@ -19,6 +19,7 @@ from .futures_paper_plan import CapitalPaperPoolPlan
 from .futures_paper_settlement import PaperSettlement, settle_paper_funding
 from .futures_paper_minute import PaperMinuteSettlement, settle_paper_minute
 from .futures_paper_source import PaperSourceCursor, PaperSourceRef, advance_source
+from .futures_paper_account import PaperSettingsEvidence, apply_account_settings
 from .futures_replay_journal import _fields, _json, _open, _sha
 from .futures_risk import FuturesPlan
 from .snapshot import _decode, primitive
@@ -26,6 +27,7 @@ from .snapshot import _decode, primitive
 VERSION = "isolated-usdt-futures-paper-journal/1"
 MAX_COMMANDS = 50_000
 ARGUMENTS = {"warmup": {"hours": tuple[CapitalHour, ...]},
+             "account_settings": {"evidence": PaperSettingsEvidence},
              "batch": {"batch": PaperBatch},
              "settlement": {"settlement": PaperSettlement},
              "minute_settlement": {"settlement": PaperMinuteSettlement},
@@ -91,6 +93,8 @@ def _apply(state, command):
     args = {key: _decode(cls, raw[key]) for key, cls in ARGUMENTS[kind].items()}
     if kind == "source_warmup":
         return warm_paper(state, args["hours"], command["revision"], _decode(datetime, command["at"]))
+    if kind == "account_settings":
+        return apply_account_settings(state, args["evidence"], command["revision"], _decode(datetime, command["at"]))
     if kind == "source_batch":
         return run_paper_batch(state, args["batch"], command["revision"], _decode(datetime, command["at"]))
     if kind == "source_minute_settlement":
