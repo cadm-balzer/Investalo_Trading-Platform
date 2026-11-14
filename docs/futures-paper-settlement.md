@@ -60,7 +60,8 @@ null Käufen und null Abschlüssen; Archiv-/Singletonguards laufen vor Commit.
 
 **Die bestehende Classic-Fundingquelle liefert weiterhin keinen Settlementmark.**
 Der unabhängige zeitlich passende Bewertungsbeleg wird hier ausschließlich
-eingespeist und synthetisch geprüft. Es gibt noch keinen realen Collector dafür;
+eingespeist und synthetisch geprüft. Ein separater [Minuten-Collector](futures-settlement-source.md)
+ist nun real geprüft, belegt aber keinen exakten Broker-Settlementmark;
 weder spätere Tickerquotes noch Forecastraten oder H1-Approximationen werden
 automatisch eingesetzt. Ohne diesen Beleg bleibt der normale Feed gesperrt.
 Dieser Zwischenstand behauptet daher keinen laufenden vollständigen

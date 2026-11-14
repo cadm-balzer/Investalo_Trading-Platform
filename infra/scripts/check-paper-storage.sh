@@ -9,6 +9,8 @@ exec bash "$paper_root/infra/scripts/compose.sh" --profile checks run --rm --no-
   -v "$paper_root/services/api/src:/app/services/api/src:ro" \
   -v "$paper_root/packages/trading/src:/app/packages/trading/src:ro" \
   -v "$paper_root/packages/marketdata/src:/app/packages/marketdata/src:ro" \
+  -v "$paper_root/infra/scripts/capture-futures-paper-feed.py:/app/infra/scripts/capture-futures-paper-feed.py:ro" \
+  -v "$paper_root/infra/scripts/capture-futures-settlement-source.py:/app/infra/scripts/capture-futures-settlement-source.py:ro" \
   -v "$paper_root/tests/trading:/app/tests/trading:ro" \
   -v "$paper_root/tests/marketdata:/app/tests/marketdata:ro" \
   -v "$paper_root/infra/scripts/import-futures-history.py:/app/infra/scripts/import-futures-history.py:ro" \

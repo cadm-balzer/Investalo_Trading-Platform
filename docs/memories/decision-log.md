@@ -2201,3 +2201,20 @@ laufender Fundingdienst behauptet. Cursor/Archiv/Launcher/Statepublikation/
 013/Gewinnetappen/Recovery bleiben IP-090/IP-088. Keine historischen
 Performance-, DB-, Dependency-, Public-, Live- oder AI-Änderungen.
 [Vertrag](../futures-paper-settlement.md).
+
+## 2026-11-14 — D-101: reale Funding-/Mark-Minutenquelle, Modellentscheidung offen
+
+PR61 (`56c1d41`) in Main `50a1fa6`, GH/fetch-Ancestry verifiziert.
+Zehn unsignierte Classic-GETs für fünf native Fundingraten und exakt passende
+geschlossene Mark-Minutenkerzen. Eigener Minuten-Typ, keine historische
+H1/H4-Achsenänderung. Owned0600/create-only/fsync/Readback/Roundtrip vor Receipt.
+Reale16:00Z-Probe um18:38Z erfolgreich im neuen `20261114-settlement-1600-2`;
+Receiptsha84dd622a8905a00351f4ac191654f0f6efdc9a916b8f51bdefe1bf7ee681a9b0.
+Erster Fehlordner ohne Receipt erhalten (ResearchCandle ist nur H1/H4).
+Zehn neue/103 gezielte gepinnte Fälle/82 Subtests grün.
+Minute-Open ist kein bewiesener Broker-Fundingkurs. Q49 als ausdrückliche
+Paper-Modellentscheidung angefragt, unbestätigt; Quelle und Probe aktivieren
+keine Referenz oder Abrechnung. Aktuelle Probe überschreitet die bestehende
+1h-Publicationlaggrenze und wird nicht als Papercommit verwendet.
+Opt-ins/laufende Dienste/Live/AI/Performance/DB/Dependencies unverändert.
+[Quellenbeleg und vorgeschlagene Referenz](../futures-settlement-source.md).

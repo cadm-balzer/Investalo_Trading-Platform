@@ -970,3 +970,8 @@ Stand 2026-11-14. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   Liquidationsbedarf bleibt vor erholten neueren Quotes abzugleichen.
   Classic-History liefert keinen Settlementmark; realer Bewertungscollector
   ist noch offen, synthetischer Injected-Test kein laufender Fundingdienst.
+- **Mark-Minuten-Open belegt keinen Broker-Settlementkurs:** eigener Minuten-
+  Typ statt Änderung des eingefrorenen H1/H4-ResearchCandle. Native Kerze exakt
+  zum Fundingzeitpunkt auswählen, vollständig archivieren und Unsicherheit
+  deklarieren. Reale Minutenquelle ist kein stiller Ersatz für den exakten
+  Papervertrag; Q49 bleibt bis zur Nutzerbestätigung offen/deaktiviert.
