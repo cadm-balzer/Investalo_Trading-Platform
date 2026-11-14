@@ -25,9 +25,14 @@ privater API-Dateireader implementiert;128 gepinnte Fälle/105 Subtests grün.
 Frische/RSI-Fenster bei jedem Lesen neu, alte Positionen bleiben sichtbar,
 Unknown-write-Reparatur bindet Vollrestore-Mindestreceipt.
 [Statusübergabe](futures-paper-publication.md).
-Nächster Schritt: dauerhafter Feedcursor,
-lokaler Launcher/Archivierung, Settings-/Kapitaladapter, Q36-Gewinnetappen und
-Q46-Recovery/IP-088 samt laufender Cockpitanbindung. [Paperkern](futures-paper-runtime.md),
+Archivierter Quellenworker mit journalgebundenem Feed-/Fundingcursor und
+begrenztem explizitem Launcher implementiert;140 gepinnte Fälle/109 Subtests
+grün. Neustart setzt bestätigtes Funding mit frischen Quotes fort, private
+native Belege werden vollständig offline revalidiert. Laufende Dienste bleiben
+unverändert. [Quellenworker](futures-paper-source-worker.md).
+Nächster Schritt: eigene Konto-/Kapital-/Genesisbereitstellung und
+013-Settingsadapter, danach laufende lokale Cockpitabnahme. Q36-Gewinnetappen und
+Q46-Recovery/IP-088 folgen ebenfalls. [Paperkern](futures-paper-runtime.md),
 [aktueller Feed](futures-paper-feed.md).
 Danach Bitget-Demoausführung und separate Echtgeldabnahme. Keine neuen
 Hebelstudien davor. [Vertrag](futures-paper-settings.md).

@@ -988,3 +988,12 @@ Stand 2026-11-14. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   Unknown-write stoppt weitere Workerfetches. Publizierten Receipt als
   minimum_receipt beim vollen Journalrestore belegen, bevor ein zurückliegender
   Lesestand repariert wird; keine Recovery aus bloßem UI-/Statussnapshot.
+- **Quellenfortschritt gehört zum bestätigten Journal:** native Funding kann
+  bereits committed sein, obwohl Quotes/Status noch fehlen. Beide archivierten
+  Quellenreferenzen und vollständigen Modellbefehl im selben Journalhead halten;
+  Neustart mit publiziertem Mindestreceipt vollständig replayen, Originalantworten
+  offline revalidieren und frische Quotes holen. Keine doppelte Buchung und kein
+  Update einer losgelösten Cursordatei vor fsync. Unbekannte Archivacknowledgements
+  sperren weitere Abrufe derselben Instanz; Teilkohorten ohne Receipt erhalten.
+  Bounded Launcher benötigt eine vertrauenswürdige eigene Kapital-/Genesisbindung;
+  weder vorhandene Backtestergebnisse noch UUID-Argumente erzeugen Paperkapital.

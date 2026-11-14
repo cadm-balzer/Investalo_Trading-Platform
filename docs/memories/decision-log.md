@@ -2264,3 +2264,32 @@ Kein laufender Feedlauncher, keine Compose-/Public-/Live-/AI-/DB-/Dependency-/
 Performanceänderung. Cursor/Archiv/Launcher/013/Kapital/Gewinnetappen/Recovery
 und laufende lokale Cockpitabnahme bleiben IP-090/IP-088.
 [Vertrag](../futures-paper-publication.md).
+
+## 2026-11-14 — D-104: native Quellenarchive und journalgebundener Paperworker
+
+PR64 (`5469400`) in Main `4a50081`, GH/fetch-Ancestry verifiziert.
+Autorisierter IP-090-Zwischenstand verbindet die bisherigen unsigned Classic-
+Collectors und Q49-Minutenabrechnung mit privaten vollständigen Quellenkohorten,
+atomarem Quellenfortschritt im eigenen Paperjournal und Statuspublikation.
+Native25-/10-GET-Antworten create-only/owned0600/fsync/readback; typed Observation
+und Receipt binden URLs/Hashes/Uhren. Vor Erfolg und bei jedem Laden Original-
+antworten vollständig offline mit denselben Collectors revalidieren.
+2000-Kohortenlimit ohne Evidenceeviction; unbekannter Schreibausgang sperrt
+weitere Abrufe derselben Archivinstanz, Teilkohorten bleiben erhalten.
+Drei additive Quellenbefehle speichern Archive und Vorgänger im Journalhead;
+vollständiges Replay rekonstruiert Cursor und ausstehendes Funding.
+Abbruch nach Fundingcommit verlangt frische Quotes, keine doppelte native
+Buchung. Unknown-journal/status und publizierter Mindestreceipt binden
+Neustart/reparierten Lesestand; kein automatischer Legacyumbau.
+Begrenzter expliziter Launcher braucht vorhandene vertrauenswürdige eigene
+UUID-/Genesis-/Konfigurationsbindung und erzeugt weder Wallet noch Startkapital.
+Unveränderte1h-Publicationlaggrenze,60s-Minutenwissen,30s-RSI-Fenster,
+Liquidationslatch und offene H1-Lückenstopps. Keine Echtgeld-/Brokerorders.
+Zwölf neue/140 gezielte gepinnte Fälle/109 Subtests grün einschließlich
+echtem Archiv-/Journal-/Status-IO und zwei begrenzten Launcherinvokationen.
+Alte gewöhnliche/exakte Journalgoldenidentitäten erhalten.
+Eigene Konto-/Kapital-/Genesisbereitstellung und013-Settingsadapter folgen,
+danach laufende lokale Cockpitabnahme; Q36-Gewinnetappen/IP-088-Recovery offen.
+Keine laufenden Dienste/Compose/Public/Live/AI, Migrationen, Dependencies
+oder historischen Performancejobs geändert oder aktiviert.
+[Vertrag](../futures-paper-source-worker.md).

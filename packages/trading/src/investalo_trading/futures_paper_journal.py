@@ -18,6 +18,7 @@ from .futures_paper import FuturesPaperConfig, PaperBatch, paper_settings, run_p
 from .futures_paper_plan import CapitalPaperPoolPlan
 from .futures_paper_settlement import PaperSettlement, settle_paper_funding
 from .futures_paper_minute import PaperMinuteSettlement, settle_paper_minute
+from .futures_paper_source import PaperSourceCursor, PaperSourceRef, advance_source
 from .futures_replay_journal import _fields, _json, _open, _sha
 from .futures_risk import FuturesPlan
 from .snapshot import _decode, primitive
@@ -28,6 +29,11 @@ ARGUMENTS = {"warmup": {"hours": tuple[CapitalHour, ...]},
              "batch": {"batch": PaperBatch},
              "settlement": {"settlement": PaperSettlement},
              "minute_settlement": {"settlement": PaperMinuteSettlement},
+             "source_warmup": {"hours": tuple[CapitalHour, ...], "source": PaperSourceRef},
+             "source_batch": {"batch": PaperBatch, "source": PaperSourceRef, "prior": PaperSourceRef | None},
+             "source_minute_settlement": {"settlement": PaperMinuteSettlement,
+                                         "market": PaperSourceRef, "minute": PaperSourceRef,
+                                         "prior": PaperSourceRef},
              "settings": {"limit": int, "settings_revision": int}}
 
 
@@ -83,6 +89,12 @@ def _apply(state, command):
     revision(command["revision"])
     raw = _fields(command["arguments"], ARGUMENTS[kind])
     args = {key: _decode(cls, raw[key]) for key, cls in ARGUMENTS[kind].items()}
+    if kind == "source_warmup":
+        return warm_paper(state, args["hours"], command["revision"], _decode(datetime, command["at"]))
+    if kind == "source_batch":
+        return run_paper_batch(state, args["batch"], command["revision"], _decode(datetime, command["at"]))
+    if kind == "source_minute_settlement":
+        return settle_paper_minute(state, args["settlement"], command["revision"], _decode(datetime, command["at"]))
     function = {"warmup": warm_paper, "batch": run_paper_batch, "settings": paper_settings,
                 "settlement": settle_paper_funding, "minute_settlement": settle_paper_minute}[kind]
     return function(state, *args.values(), command["revision"], _decode(datetime, command["at"]))
@@ -94,6 +106,7 @@ class FuturesPaperJournal(CapitalReplayJournal):
         super().__init__(*args)
         self._lock = RLock()
         self._minimum_receipt = None
+        self._source_cursor = PaperSourceCursor()
 
     @property
     def state(self):
@@ -115,6 +128,10 @@ class FuturesPaperJournal(CapitalReplayJournal):
         with self._lock:
             return receipt == super().receipt or (
                 self._minimum_receipt is not None and receipt == self._minimum_receipt)
+
+    def source_checkpoint(self):
+        with self._lock:
+            return super().state, super().receipt, self._source_cursor
 
     def close(self):
         with self._lock:
@@ -153,6 +170,7 @@ class FuturesPaperJournal(CapitalReplayJournal):
             if state.config.config_digest != config_digest:
                 raise ValueError("foreign own Paper context")
             head, sequence = digest((VERSION, header)), 0
+            cursor = PaperSourceCursor()
             if minimum_receipt is not None:
                 _fields(minimum_receipt, ("schema_version", "context_digest", "sequence", "head",
                                          "state_digest", "execution_enabled"))
@@ -177,16 +195,19 @@ class FuturesPaperJournal(CapitalReplayJournal):
                         or record["prior_head"] != head or record["prior_state_digest"] != state.state_digest
                         or sequence >= header["command_capacity"]):
                     raise ValueError("Paper sequence or prior context mismatch")
+                next_cursor = advance_source(cursor, record["command"], state)
                 candidate = _apply(state, record["command"])
                 expected = digest((VERSION, head, record["command"], candidate.state_digest, sequence + 1))
                 if record["state_digest"] != candidate.state_digest or record["head"] != expected:
                     raise ValueError("Paper deterministic replay or chain mismatch")
                 state, head, sequence = candidate, expected, sequence + 1
+                cursor = next_cursor
                 anchor()
             if minimum_receipt is not None and sequence < minimum_receipt["sequence"]:
                 raise ValueError("Paper journal truncated before acknowledged receipt")
             journal = cls(handle, header, state, head, sequence)
             journal._minimum_receipt = dict(minimum_receipt) if minimum_receipt is not None else None
+            journal._source_cursor = cursor
             return journal
         except BaseException:
             handle.close()
@@ -201,10 +222,12 @@ class FuturesPaperJournal(CapitalReplayJournal):
         if self._sequence >= self._header["command_capacity"]:
             raise ValueError("Paper journal capacity exhausted; never evict evidence")
         command = _command(kind, expected_revision, at, arguments)
+        cursor = advance_source(self._source_cursor, command, self._state)
         candidate = _apply(self._state, command)
         head = digest((VERSION, self._head, command, candidate.state_digest, self._sequence + 1))
         self._write({"sequence": self._sequence + 1, "prior_head": self._head,
                      "prior_state_digest": self._state.state_digest, "command": command,
                      "state_digest": candidate.state_digest, "head": head})
         self._state, self._head, self._sequence = candidate, head, self._sequence + 1
+        self._source_cursor = cursor
         return candidate

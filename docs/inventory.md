@@ -1,18 +1,29 @@
 # Bestandsaufnahme
 
+IP-090: futures_paper_archive.py sichert native25-/10-GET-Kohorten vor
+Verwendung und revalidiert Originalantworten beim Laden offline.
+futures_paper_source.py/futures_paper_journal.py binden Cursor und ausstehendes
+Funding an den eigenen Journalcommit; futures_source_worker.py setzt mit
+frischen Quotes fort. futures_paper_main.py ist ein default-off begrenzter
+Launcher für vorhandene eigene UUID-/Genesisjournale. Zwölf neue/140 gezielte
+gepinnt grüne Fälle/109 Subtests; noch keine eigene Konto-/Kapitalbereitstellung,
+013-Anbindung oder laufende Dienst-/Cockpitaktivierung.
+[Vertrag](futures-paper-source-worker.md).
+
 IP-090: futures_paper_status.py veröffentlicht nach bestätigtem Workerjournal
 einen kompakten eigenen FuturesAssetState mit Receipt in privaten atomaren
 owned0600-Dateien. Optionaler normaler API-Reader über privaten Statusroot;
 Frische/RSI-Fenster/Kontosperren bei jedem Lesen neu berechnet. Full-restore-
 Minimumreceipt bindet Neustart/Reparatur; Unknown-write stoppt Weiterarbeit.
-Kein laufender Feedlauncher; [Vertrag](futures-paper-publication.md).
+Begrenzter Launcher separat implementiert, kein laufender Feeddienst;
+[Vertrag](futures-paper-publication.md).
 
 IP-090/Q49: futures_paper_minute.py ergänzt die bestätigte native Minuten-Open-
 Paperreferenz mit vollem OHLC-/Quellen-/Wissenszeitvertrag und eigenem
 minute_settlement-Journalbefehl. Quellenübergabe vergleicht native Fundingraten/
 IDs beider Belege; bestehender Worker kann explizit abrechnen. Vollrestore,
 Cash/Mitternacht/Liquidationslatch und alte exakte Goldenidentität geprüft.
-Launcher weiterhin offen; Statusreader separat implementiert.
+Begrenzter Launcher und Statusreader separat implementiert, Betrieb noch offen.
 [Vertrag](futures-paper-minute-funding.md).
 
 IP-090: futures_settlement_source.py und capture-futures-settlement-source.py
@@ -45,7 +56,8 @@ Quoteuhren, Fundinghistorie/Forecast und gehashter Quellenbindung.
 capture-futures-paper-feed.py sichert25 owned0600/create-only Antworten und
 typisierten Observation-Roundtrip vor Receipt; echte58h-Probe grün.
 Paperübergabe benötigt den bestätigten Vorgängerbeleg und sperrt offene
-Positionen vor unbewertetem Funding. Kein autonomer Feed-/Fundingdienst.
+Positionen vor unbewertetem Funding. Archivierter begrenzter Quellenworker
+separat implementiert; kein laufender Feed-/Fundingdienst.
 [Vertrag](futures-paper-feed.md).
 
 IP-090 erster Schritt: futures_paper_plan.py trennt Kandidaten von finanzierten
