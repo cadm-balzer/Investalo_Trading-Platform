@@ -4,7 +4,8 @@ Q47 priorisiert jetzt die Handelsimplementierung mit2×. IP-089 verbindet eine
 gespeicherte eigene Basket-Obergrenze3–7 mit Default-off-Portfolio/API/BFF;
 initial3–5, spätere zusätzliche Slots weiterhin nur über Q36-Gewinnetappen.
 Kapazitätsvorschlag erhält alle offenen regulären/manuellen/Kostenreserven;
-echte Futureskontodaten und Mindest-Rangeadapter fehlen noch ausdrücklich.
+der eigene Paperadapter bindet jetzt bestätigtes Cash, archivierte Quotes
+und aktuelle Classic-Mindestorders. Keine Übernahme echter Brokerbalances.
 **IP-090 läuft:** Kandidatenpool, H1-RSI/Nachkäufe/H1-Schutz/Mark/Funding,
 Budgetbindung, fsync-Journal/CAS/Restore und eingespeister2×-Paperworker geprüft.
 Aktueller Classic-Collector mit25 gehashten GETs/fünf Kandidaten und
@@ -39,8 +40,12 @@ Konkretes privates10k/3-Ranges/5-Kandidaten/2×-Laufprofil und native lokale
 HTTPS/Cockpitabnahme verbinden den begrenzten eigenen CLI mit echter
 Statusanzeige, gespeicherter Obergrenze und Journalneustart.
 [Lokale Abnahme](futures-local-cockpit-acceptance.md).
-Nächster Schritt: kalibrierter Kapazitätsreader. Q36-Gewinnetappen und
-Q46-Recovery/IP-088 folgen ebenfalls. [Paperkern](futures-paper-runtime.md),
+Eigene Kapitalempfehlung wird atomar mit dem Journalstand veröffentlicht,
+pro APIabruf auf Frische/Settings/Konto geprüft und im Portfolio erklärt.
+Drei finanzierte Ranges bleiben auch bei Obergrenze sieben maximal drei.
+[Kapitalempfehlung](futures-paper-capacity.md).
+Nächster Schritt: Q36-Gewinnetappen; Q46-Recovery/IP-088 folgt ebenfalls.
+[Paperkern](futures-paper-runtime.md),
 [aktueller Feed](futures-paper-feed.md).
 Danach Bitget-Demoausführung und separate Echtgeldabnahme. Keine neuen
 Hebelstudien davor. [Vertrag](futures-paper-settings.md).

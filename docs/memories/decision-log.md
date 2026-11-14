@@ -2349,3 +2349,41 @@ Keine physische Browser-/MFA-Abnahme und keine Performance-/Brokerzulassungsbeha
 Prüfdienste anschließend gestoppt; öffentliche Vorschau unverändert.
 Kalibrierte Kontogrößenempfehlung, Q36-Gewinnetappen und IP-088-Recovery folgen.
 [Abnahme](../futures-local-cockpit-acceptance.md).
+
+## D107 — Eigene Paperkapitalempfehlung mit aktuellen Mindestorders (2026-11-14)
+
+PR67 (`0488d14`) ist in `main9dc351e` enthalten; GH/Fetch/Ancestry bestätigt.
+Der bisher fehlende Adapter nutzt eigenes bestätigtes Papercash und alle
+offenen regulären/manuellen/Kosten-/Restorationreserven. Feste Rangebudgets,
+bestätigte finanzierte Plätze und geeignete Kandidaten begrenzen die Empfehlung;
+Obergrenze sieben erzeugt bei drei finanzierten Ranges kein weiteres Kapital.
+
+Bestätigte native Quotekohorte wird aus dem Archiv vollständig revalidiert;
+ein zusätzlicher unsigned Classic-Contracts-GET bindet aktuelle Mindestorders,
+Status/2× und unveränderte eingefrorene Grids. Aktuelle sechs Stufen mit
+adverser Preis-/Mengenrundung und deklariertem Geldquantum prüfen.
+Beratung allein, keine neue finanzielle Handelssperre oder Brokerannahmezusage.
+Zusätzlichen Rohantwort-SHA/abgeleitete Daten publizieren, keinen neuen
+Originalquellenarchivbeleg behaupten. Ausfall hält die Empfehlung zurück.
+
+Gemeinsame eigene atomare Statuspublikation/2 mit Assets/Journalreceipt;
+/1 bleibt lesbar und ohne Reader der Standard. Gleiche Revision erneuert
+keine Uhr und führt keinen neuen GET aus. Normaler scoped APIreader prüft
+Frische, H1, aktuelle Kontopause und tatsächliche Settingsrevision pro Abruf.
+Neue gespeicherte Revision bleibt pending bis zur Workerbestätigung.
+Cockpit zeigt Empfehlung, finanzierte/offene Plätze, Rangebudget und
+freie/reservierte Mittel sowie echte Datenzeiten.
+
+Zehn neue Pythonfälle, davon zwei tatsächliche PG-/HTTP-Fälle;
+89 fokussierte gepinnte Fälle/18 Subtests grün. Zwei neue Cockpitfälle,
+alle574 Frontendtests, Typecheck und gepinnter Build grün.
+Native lokale60-Punkt-Abnahme vollständig grün, drei Quellenkohorten/
+Journal2→4/Empfehlung3 bei drei finanzierten Ranges und fünf geeigneten Assets.
+Receiptsha5e3cb1378e4d729d40d040056936483563e7d0a5487ffbc90d634b670a7f347f,
+anschließend nochmals lesend verifiziert. Null Entries/Closures im kurzen Lauf,
+keine Performance-/physische Browserabnahme. Drei isolierte Prüfdienste gestoppt.
+Nur privates synthetisches lokales Overlay aktiviert den optionalen Reader.
+Keine laufenden öffentlichen Dienste, Finanzjournalcodecs, Migrationen,
+Abhängigkeiten, historischen Performanceartefakte oder Live-/AI-Aktivierung.
+Q36-Gewinnetappen und Q46/IP-088 manuelle Recovery folgen.
+[Vertrag](../futures-paper-capacity.md).

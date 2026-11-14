@@ -13,10 +13,12 @@ from .capital_digest import digest
 from .futures_ledger import timestamp
 from .futures_paper_journal import FuturesPaperJournal, VERSION as JOURNAL_VERSION
 from .futures_paper_view import FuturesAssetState, asset_state
+from .futures_paper_capacity import PaperCapacityState, capacity_state
 from .futures_replay_journal import _fields, _json, _sha
 from .snapshot import _decode, primitive
 
 VERSION = "isolated-usdt-futures-paper-status/1"
+CAPACITY_VERSION = "isolated-usdt-futures-paper-status/2"
 MAX_BYTES = 64 * 1024
 
 
@@ -71,6 +73,7 @@ class PublishedAssets:
     state: FuturesAssetState
     journal_receipt: dict
     published_at: datetime
+    capacity: PaperCapacityState | None = None
 
     def __post_init__(self):
         if type(self.state) is not FuturesAssetState:
@@ -79,11 +82,19 @@ class PublishedAssets:
         if (self.journal_receipt["sequence"] != self.state.revision
                 or timestamp(self.published_at) < self.state.known_at):
             raise ValueError("acknowledged revision and publication knowledge required")
+        if self.capacity is not None and (
+                type(self.capacity) is not PaperCapacityState
+                or (self.capacity.tenant_id, self.capacity.account_id, self.capacity.revision) != (
+                    self.state.tenant_id, self.state.account_id, self.state.revision)
+                or self.capacity.known_at > self.published_at):
+            raise ValueError("capacity must share own acknowledged asset publication")
 
     def record(self):
         body = {"schema_version": VERSION, "state": primitive(self.state),
                 "journal_receipt": self.journal_receipt,
                 "published_at": self.published_at.isoformat(), "execution_enabled": False}
+        if self.capacity is not None:
+            body.update(schema_version=CAPACITY_VERSION, capacity=primitive(self.capacity))
         return {**body, "content_digest": digest(body)}
 
 
@@ -98,16 +109,21 @@ def _read(fd, name, tenant_id, account_id):
         raw = source.read(MAX_BYTES + 1)
     if len(raw) > MAX_BYTES:
         raise ValueError("status publication exceeds bound")
-    record = _fields(_json(raw), ("schema_version", "state", "journal_receipt",
-                                 "published_at", "execution_enabled", "content_digest"))
+    parsed = _json(raw)
+    if not isinstance(parsed, dict):
+        raise ValueError("status object required")
+    newer = parsed.get("schema_version") == CAPACITY_VERSION
+    record = _fields(parsed, ("schema_version", "state", "journal_receipt",
+        "published_at", "execution_enabled", "content_digest", *(("capacity",) if newer else ())))
     body = {k: v for k, v in record.items() if k != "content_digest"}
-    if (record["schema_version"] != VERSION or record["execution_enabled"] is not False
+    if (record["schema_version"] not in (VERSION, CAPACITY_VERSION) or record["execution_enabled"] is not False
             or _sha(record["content_digest"]) != digest(body)):
         raise ValueError("status schema or content mismatch")
     view = _decode(FuturesAssetState, record["state"])
     if (view.tenant_id, view.account_id) != (tenant_id, account_id):
         raise ValueError("foreign Paper status publication")
-    return PublishedAssets(view, record["journal_receipt"], _decode(datetime, record["published_at"]))
+    return PublishedAssets(view, record["journal_receipt"], _decode(datetime, record["published_at"]),
+                           _decode(PaperCapacityState, record["capacity"]) if newer else None)
 
 
 @dataclass(frozen=True)
@@ -128,13 +144,22 @@ class FuturesAssetReader:
             raise ValueError("future Paper status publication")
         return value.state if value is not None else None
 
+    def capacity(self, tenant_id, account_id):
+        value = self.publication(tenant_id, account_id)
+        if value is not None and value.published_at > timestamp(self.clock()):
+            raise ValueError("future Paper capacity publication")
+        return value.capacity if value is not None else None
+
 
 class FuturesAssetPublisher:
     """Own lifetime writer lock. Publish only acknowledged journal checkpoints."""
-    def __init__(self, root, journal, *, clock=lambda: datetime.now(timezone.utc)):
+    def __init__(self, root, journal, *, clock=lambda: datetime.now(timezone.utc), capacity_reader=None):
         if type(journal) is not FuturesPaperJournal or not callable(clock):
             raise ValueError("own Paper journal and clock required")
         self._journal, self._clock = journal, clock
+        if capacity_reader is not None and not callable(capacity_reader):
+            raise ValueError("explicit advisory capacity reader required")
+        self._capacity_reader = capacity_reader
         self._directory = _directory(root)
         self._lock = None
         self._uncertain = False
@@ -187,8 +212,7 @@ class FuturesAssetPublisher:
         revision(expected_revision)
         if state.revision != expected_revision:
             raise ValueError("status checkpoint changed before publication")
-        value = PublishedAssets(asset_state(state), receipt, timestamp(self._clock()))
-        if (value.state.tenant_id, value.state.account_id) != (self._tenant, self._account):
+        if (state.config.profile.plan.tenant_id, state.config.profile.plan.account_id) != (self._tenant, self._account):
             raise ValueError("foreign status writer context")
         old = _read(self._directory, self._name, self._tenant, self._account)
         if old != self._previous:
@@ -196,12 +220,24 @@ class FuturesAssetPublisher:
         if old is not None:
             if (old.journal_receipt["context_digest"] != receipt["context_digest"]
                     or old.state.revision > state.revision
-                    or old.published_at > value.published_at):
+                    or old.published_at > timestamp(self._clock())):
                 raise ValueError("status context or publication clock regressed")
             if old.state.revision == state.revision:
-                if old.state != value.state or old.journal_receipt != receipt:
+                if old.state != asset_state(state) or old.journal_receipt != receipt:
                     raise ValueError("same revision status evidence changed")
                 return old  # Republish cannot refresh clocks.
+        capacity = None
+        if self._capacity_reader is not None:
+            try:
+                capacity = capacity_state(state, self._capacity_reader(state))
+            except Exception:
+                # An advisory source outage withholds the recommendation; it
+                # cannot add a new financial halt or suppress the asset table.
+                capacity = capacity_state(state, None)
+        self.check()
+        if self._journal.checkpoint() != (state, receipt):
+            raise ValueError("checkpoint changed during advisory calibration")
+        value = PublishedAssets(asset_state(state), receipt, timestamp(self._clock()), capacity)
         raw = (json.dumps(value.record(), sort_keys=True, separators=(",", ":"), allow_nan=False)
                + "\n").encode()
         if len(raw) > MAX_BYTES:

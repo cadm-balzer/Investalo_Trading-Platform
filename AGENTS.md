@@ -7,6 +7,29 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR67 merged: 0488d14 ancestor of main9dc351e, GH/fetch verified.
+  IP-090 on feat/m1-futures-paper-capacity: own acknowledged Paper cash/
+  all remaining regular/manual/cost/restoration reserves/frozen funded ranges
+  and archived quotes plus one unsigned current Classic contracts GET.
+  Current minimum orders/status/2× and unchanged execution grids constrain
+  advisory recommendation; no new entry gate or profit/capital allocation.
+  Same atomic status/2 frame as assets/receipt, /1 stays readable and default.
+  Normal scoped API recomputes quote/instrument/H1/settings/account freshness;
+  strict Cockpit displays actual funded/open/range/free/reserved cash.
+  Eight new domain/source/file + two actual PG/HTTP cases;89 focused pinned
+  cases/18 subtests pass.574 Cockpit cases/typecheck/pinned build pass.
+  Actual native60-check local HTTPS/BFF/API/PG/SSR acceptance complete:
+  receiptsha5e3cb1378e4d729d40d040056936483563e7d0a5487ffbc90d634b670a7f347f.
+  Three source cohorts, journal2→4, recommendation3/funded3/eligible5,
+  zero entries/closures in short acceptance. No performance claim.
+  Three isolated test services stopped; normal/public services unchanged.
+  Worker opt-in default off, enabled only in private synthetic local overlay.
+  Three funded ranges still recommend at most three even with UI ceiling7.
+  Current-price minimum is advisory, not future/broker acceptance; additional
+  contract response SHA/derived data published, no new raw archive cohort.
+  No financial journal/DB/migration/dependency/performance/public/live/AI change.
+  Q36 profit epochs and IP-088 manual recovery remain next.
+  See docs/futures-paper-capacity.md.
 - PR66 merged: 218f36f ancestor of main7ce1be4, GH/fetch verified.
   IP-090 on feat/m1-futures-local-acceptance: explicit local10k USDT/
   three funded ranges/five native Classic candidates/fixed2× profile.

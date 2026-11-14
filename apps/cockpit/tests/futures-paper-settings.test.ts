@@ -14,7 +14,7 @@ function data() {
   return { schema_version: "futures-paper-settings/1", tenant_id: tenant, mode: "paper", live_enabled: false,
     accounts: [{ account_id: account, account_name: "Eigenes Paperkonto", revision: 0, basket_limit: 5,
       saved: false, can_edit: true, leverage: "2", runtime_ready: false,
-      recommendation: null, recommendation_reason: "futures_runtime_missing" }] };
+      recommendation: null, recommendation_reason: "futures_runtime_missing", capacity: null }] };
 }
 const require = createRequire(import.meta.url);
 function load(path: string, inject: Record<string, unknown>) {
@@ -113,4 +113,53 @@ test("BFF default off, Origin/CSRF/auth/body checked before forwarding only own 
     if (previous === undefined) delete process.env.COCKPIT_FUTURES_PAPER_SETTINGS_PREVIEW;
     else process.env.COCKPIT_FUTURES_PAPER_SETTINGS_PREVIEW = previous;
   }
+});
+
+function capacityData() {
+  const value: any = data();
+  Object.assign(value.accounts[0], { runtime_ready: true, recommendation: 3,
+    recommendation_reason: "current_full_ranges", capacity: {
+      observed_at: "2026-11-14T21:00:05+00:00", instrument_at: "2026-11-14T21:00:06+00:00",
+      unposted_cash: "10000", reserved_cash: "0.00000001", free_cash: "9999.99999999",
+      range_budget: "3333.33333333", minimum_range: "40", active_baskets: 0,
+      funded_capacity: 3, eligible_assets: 5, additional_baskets: 3,
+    } });
+  return value;
+}
+test("capacity contract rejects invented slots, readiness, clocks and malformed cash", () => {
+  assert.equal(contracts.parseBasketSettings(capacityData(), tenant).accounts[0].recommendation, 3);
+  for (const change of [{ recommendation: 7 }, { runtime_ready: false }, { capacity: null },
+      { recommendation_reason: "unknown" }]) {
+    const d = capacityData(); Object.assign(d.accounts[0], change);
+    assert.throws(() => contracts.parseBasketSettings(d, tenant));
+  }
+  for (const change of [{ free_cash: "-1" }, { minimum_range: "NaN" },
+      { funded_capacity: 8 }, { observed_at: "yesterday" }]) {
+    const d = capacityData(); Object.assign(d.accounts[0].capacity, change);
+    assert.throws(() => contracts.parseBasketSettings(d, tenant));
+  }
+  const d = capacityData();
+  Object.assign(d.accounts[0], { runtime_ready: false, recommendation: null,
+    recommendation_reason: "stale_instrument_data" });
+  assert.equal(contracts.parseBasketSettings(d, tenant).accounts[0].capacity?.funded_capacity, 3);
+});
+test("capacity panel shows funded full ranges and reservations, or the current blocker", () => {
+  const panel = load("../src/components/futures-paper-settings.tsx", {
+    "next/navigation": { useRouter: () => ({ refresh() {} }) },
+    "@/lib/futures-paper-settings-contracts": contracts,
+  });
+  function render(d: unknown) {
+    return renderToStaticMarkup(React.createElement(panel.FuturesPaperSettingsPanel, {
+      data: contracts.parseBasketSettings(d, tenant), csrf: "test",
+    }));
+  }
+  const html = render(capacityData());
+  assert.match(html, /Kapitalempfehlung: 3 gleichzeitige Baskets/);
+  assert.match(html, /3333.33/);
+  assert.match(html, /Freie Mittel nach Reserven/);
+  const d = capacityData();
+  Object.assign(d.accounts[0], { recommendation: null, runtime_ready: false,
+    recommendation_reason: "paper_settings_pending" });
+  assert.match(render(d), /noch nicht übernommen/);
+  assert.doesNotMatch(render(d), /Kapitalempfehlung: 3/);
 });

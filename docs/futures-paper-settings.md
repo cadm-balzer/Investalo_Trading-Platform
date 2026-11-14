@@ -3,9 +3,10 @@
 IP-090 hat inzwischen den [eigenen Paperkern](futures-paper-runtime.md),
 archivierten Quellenworker und private Statuspublikation implementiert.
 Die [eigene Allokation und013-Workeranbindung](futures-paper-account-binding.md)
-sind nun geprüft. Laufende Dienste und der kalibrierte Kapazitätsadapter bleiben
-offen; die Planungs-API meldet weiterhin `runtime_ready=false`,
-`recommendation=null`.
+sind nun geprüft. Der [eigene Kapazitätsadapter](futures-paper-capacity.md)
+verbindet bestätigtes Papercash und aktuelle Mindestorders mit dem Portfolio.
+Bei expliziter Aktivierung und frischen Belegen kann die Planungs-API nun
+eine Empfehlung anzeigen; ein dauerhafter Dienst bleibt separat.
 
 Q47 priorisiert nach dem Hebelvergleich die Handelsimplementierung und eine
 einstellbare Basketanzahl. 2× ist die Basis für den ersten Futures-Paperbetrieb.
@@ -78,12 +79,14 @@ Eine niedrigere Einstellung wartet auf normale Abschlüsse; offene
 Budgets, Nachkäufe, Puffer und Verluste bleiben erhalten.
 
 Der eigene Paperzustand ist nun über eine explizite private Allokation und
-readonly Kontoprüfung angebunden. Ein laufender Dienst und kalibrierter
-Minimum-Range-/Kapazitätsreader fehlen weiterhin. Deshalb veröffentlicht die API ausdrücklich
-`recommendation=null`, `runtime_ready=false`; die UI erklärt die fehlende
-Anbindung. Spot-Papercash oder historische Backtestendstände sind kein Ersatz.
-Die Kapitalprüfung ist mit synthetischen eigenen Futureszuständen getestet;
-eine tatsächlich kontogestützte Empfehlung bleibt IP-090.
+readonly Kontoprüfung angebunden. Der kalibrierte Minimum-Range-/Kapazitätsreader
+veröffentlicht die Empfehlung gemeinsam mit dem bestätigten Journalstand.
+Settingsrevision, native Instrumentdaten und echte Quote-/H1-Frische werden
+bei jedem APIabruf geprüft. Fehlende Belege liefern weiterhin
+`recommendation=null`, `runtime_ready=false` mit konkretem Grund.
+Spot-Papercash oder historische Backtestendstände sind kein Ersatz.
+Die tatsächliche lokale HTTPS/BFF/API/PG/Next-SSR-Kette ist mit eigenem
+synthetischem Paperkonto und nativen aktuellen Marktdaten geprüft.
 
 ## Nächste konkrete Schritte
 
@@ -96,6 +99,8 @@ eine tatsächlich kontogestützte Empfehlung bleibt IP-090.
    Restart-/Unknown-Commit-Abgleich und aktuelle Cockpitprojektion verbinden.
    Tatsächliche Coinanzahl und eigene volle Ranges vor Einstiegen prüfen.
    Kapitalempfehlung mit aktuellem Regel-/Kontobeleg veröffentlichen.
+   Diese Anbindung ist lokal geprüft; Q36-Gewinnetappen folgen für zusätzliche
+   finanzierte Plätze bis7 und anschließend größere zukünftige Ranges.
 2. **IP-088 in diesen Dienst integrieren:** gebuchte Liquidationsverluste,
    sichtbare eigene Assetsperren und manuelle Wiederbelebung nach Flat-/
    Order-/Kapitalabgleich; Kandidat/Receipt gemeinsam dauerhaft speichern.
