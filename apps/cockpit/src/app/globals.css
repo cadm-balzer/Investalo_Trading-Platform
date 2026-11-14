@@ -15,3 +15,14 @@
 @media(max-width:480px){.provenance-list>div{grid-template-columns:1fr;gap:5px}.job-summary{padding-left:5px}.result-metrics{gap:20px 12px}.equity-chart{min-width:300px}.equity-figure{overflow-x:auto}.chart-axis{font-size:9px}.dataset-selection{padding:14px}}
 .form-field input{width:100%;padding:13px 12px;border:1px solid var(--border);border-radius:8px;background:#f8fafc;color:var(--ink);font-size:12px}
 .form-field input:focus-visible{outline:3px solid #27c7b7;outline-offset:3px}
+/* Selected Futures assets: native RSI and own basket fill evidence. */
+.futures-asset-account { margin-top: 1.5rem; }
+.futures-asset-times { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; color: var(--muted, #8291a8); font-size: .8rem; margin: .75rem 0; }
+.futures-asset-table { min-width: 780px; }
+.futures-asset-table td { vertical-align: top; }
+.futures-asset-table td small { display: block; margin-top: .35rem; }
+.futures-asset-table td:nth-child(2) { min-width: 125px; }
+.rsi-track { position: relative; height: 5px; background: #27334b; border-radius: 4px; margin-top: .5rem; overflow: hidden; }
+.rsi-track span { display: block; height: 100%; background: #5eb9aa; }
+.rsi-track i { position: absolute; left: 30%; top: 0; bottom: 0; width: 2px; background: #f4c773; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }

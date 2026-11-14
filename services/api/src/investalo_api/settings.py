@@ -25,6 +25,7 @@ class Settings:
     passkey_origin: str | None = None
     paper_status_preview: bool = False
     futures_paper_settings_preview: bool = False
+    futures_paper_assets_preview: bool = False
 
     @classmethod
     def from_environment(cls) -> "Settings":
@@ -50,6 +51,7 @@ class Settings:
             passkey_origin=os.getenv("API_PASSKEY_ORIGIN"),
             paper_status_preview=os.getenv("API_PAPER_STATUS_PREVIEW") == "1",
             futures_paper_settings_preview=os.getenv("API_FUTURES_PAPER_SETTINGS_PREVIEW") == "1",
+            futures_paper_assets_preview=os.getenv("API_FUTURES_PAPER_ASSETS_PREVIEW") == "1",
         )
 
     def connection_parameters(self) -> dict[str, str | int]:

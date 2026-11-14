@@ -7,6 +7,20 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR59 merged: b6890eb ancestor of main29f6661, GH/fetch verified.
+  Q48/IP-090 own selected-asset dashboard on feat/m1-futures-asset-dashboard:
+  acknowledged own Paper state -> pure scoped projection -> authenticated
+  read-only API -> strict TS contract -> overview/portfolio table.
+  H1/Wilder RSI14 with close time, real open quantity/average/2x/stage,
+  tick-floored95% last actual fill ceiling, next H1 check and truthful
+  rearm/confirmation/price/window/blockers; no forecast purchase.
+  9 new domain/4 actual PG+HTTP/6 Cockpit cases;76 distinct focused pinned
+  Paper/API cases, final13 new cases rerun;32 Cockpit cases/typecheck and
+  pinned Cockpit build pass. Running services unchanged.
+  15s visible-tab refresh. API/BFF opt-ins default off; normal launcher has
+  no state reader yet. Funding valuation/durable worker publication remain
+  necessary before running dashboard acceptance. No migration/dependency/
+  performance/public/live/AI changes. See docs/futures-paper-assets.md.
 - PR58 merged: cd79977 ancestor of main2cdb9b7, GH/fetch verified.
   IP-090 next local checkpoint on feat/m1-futures-public-feed:
   unsigned Classic25-GET source, five BITGET-prefixed candidates,

@@ -1,5 +1,13 @@
 # Bestandsaufnahme
 
+Q48/IP-090: futures_paper_view.py liefert die eigene Asset-/RSI-/Positions-/
+Nachkaufprojektion; futures_paper_assets.py und GET/v1/futures-paper-assets
+binden authenticated own IDs an einen privaten bestätigten State-Reader.
+FuturesAssetsPanel/TS-Vertrag/15s-Refresh auf Übersicht und Portfolio,
+Default-off. RSI-Kerzenschluss, echte Fills,95%-Tickgrenze, H1-Check und
+Warte-/Sperrgründe; noch kein normaler Worker-State-Reader.
+[Vertrag](futures-paper-assets.md).
+
 IP-090 aktueller Classic-Collector: futures_paper_feed.py sammelt25 öffentliche
 GETs für fünf Futureskandidaten mit getrennten H1-Trade/Markachsen, nativen
 Quoteuhren, Fundinghistorie/Forecast und gehashter Quellenbindung.

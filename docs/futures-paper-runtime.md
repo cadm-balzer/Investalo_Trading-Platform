@@ -2,8 +2,10 @@
 
 PR57 ist in Main `f8a2217` gemerged; Head `c196093` ist per GH/fetch als
 Vorfahr bestätigt. Dieser Schritt implementiert den eigenen Paperablauf
-mit eingespeisten Daten. Netzwerkfeed, Launcher, Status-/Settingsadapter,
-Cockpit und manuelle Wiederbelebung bleiben IP-090/IP-088.
+mit eingespeisten Daten. Aktueller Collector und eigene
+[Assetanzeige](futures-paper-assets.md) sind inzwischen implementiert.
+Vollständiger Fundingbetrieb, Launcher, dauerhafte Status-/Settingsanbindung
+und manuelle Wiederbelebung bleiben IP-090/IP-088.
 
 ## Kandidaten, Budgets und Handel
 
@@ -117,7 +119,8 @@ DBmigration, Abhängigkeit oder öffentliche Aktivierung.
 Aktuelle Classicquelle und Quellen-/Journalrestore sind im nächsten
 lokalen Zwischenstand geprüft; [Quellenbeleg](futures-paper-feed.md).
 Weiter: vollständige Settlementbewertung und aktuelle Instrumentkalibrierung,
-dauerhafter Feedcursor/lokaler Launcher/Archivierung, eigene Status-/
-Settingsadapter, Q36-Gewinnetappen, IP-088-Recovery und Cockpit.
+dauerhafter Feedcursor/lokaler Launcher/Archivierung, Veröffentlichung an den
+eigenen Asset-Reader, Settingsadapter, Q36-Gewinnetappen, IP-088-Recovery und
+laufende Cockpitabnahme.
 Danach Bitget-Demo mit Orderjournal/Reconciliation. Echtgeld und aktive
 AI behalten ihre separaten Freigaben.

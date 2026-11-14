@@ -10,9 +10,11 @@ Budgetbindung, fsync-Journal/CAS/Restore und eingespeister2×-Paperworker geprü
 Aktueller Classic-Collector mit25 gehashten GETs/fünf Kandidaten und
 Quellen-/Journalrestore geprüft; reale58h-Quellenprobe erfolgreich.
 Offene Baskets stoppen vor unbewerteten Fundingterminen.
+Q48-Assetanzeige zeigt eigene RSI-/Positions-/Nachkaufstände und nächste
+H1-Checks, Default-off; [Vertrag](futures-paper-assets.md).
 Nächster Schritt: vollständige Settlementbewertung, dauerhafter Feedcursor,
 lokaler Launcher/Archivierung, Status-/Settingsadapter, Q36-Gewinnetappen und
-Q46-Recovery/IP-088 samt Cockpit. [Paperkern](futures-paper-runtime.md),
+Q46-Recovery/IP-088 samt laufender Cockpitanbindung. [Paperkern](futures-paper-runtime.md),
 [aktueller Feed](futures-paper-feed.md).
 Danach Bitget-Demoausführung und separate Echtgeldabnahme. Keine neuen
 Hebelstudien davor. [Vertrag](futures-paper-settings.md).
