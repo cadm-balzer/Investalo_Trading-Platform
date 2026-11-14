@@ -2180,3 +2180,24 @@ und Typecheck/gepinnter Cockpit-Build grün. Standardlauncher besitzt noch keine
 beide Opt-ins bleiben aus. Vollständige Funding-/Publikations-/Dienstanbindung
 ist weiterhin IP-090. Keine Strategie-/DB-/Dependency-/Performance-/Public-/
 Live-/AI-Aktivierung. [Vertrag](../futures-paper-assets.md).
+
+## 2026-11-14 — D-100: native Paperfunding-Abrechnung vor Quellenfortgang
+
+PR60 (`0bda3e4`) in Main `7cc6848`, GH/fetch-Ancestry verifiziert.
+Eigener Funding-only-Journalbefehl mit injizierter exakter Settlementbewertung,
+nativen Raten und getrenntem finanziellen Ereignis-/Wissenszeitpunkt.
+Bis eine Stunde Publikationsverzug, ohne bereits fortgeschrittenen Zustand
+zurückzudatieren; höchstens eine neue H1-Stunde. Exakte Mitternachtsbewertung
+vor Tagesbasis/Funding, echte Handelsquoteuhr erhalten, keine Modellfills.
+Liquidationsbedarf bleibt vor neueren erholten Quotes abzugleichen.
+Gesamter bestätigter Settlementbefehl bindet die Quellenfortsetzung;
+fehlende/revidierte/frühere/nächste native Abrechnung sperrt weiterhin.
+Goldenreceipt sichert alte Paperidentität; Vollrestore/Unknown-fsync-Readback
+und Worker mit Archivguard geprüft.18 neue/93 gezielte gepinnte Fälle/57 Subtests
+grün nach Korrektur einer Forecast-Fixturefeldbezeichnung.
+Classic-History hat weiterhin keinen Settlementmark; die echte unabhängige
+Bewertungsquelle/-erfassung ist ausdrücklich noch offen. Kein vollständiger
+laufender Fundingdienst behauptet. Cursor/Archiv/Launcher/Statepublikation/
+013/Gewinnetappen/Recovery bleiben IP-090/IP-088. Keine historischen
+Performance-, DB-, Dependency-, Public-, Live- oder AI-Änderungen.
+[Vertrag](../futures-paper-settlement.md).

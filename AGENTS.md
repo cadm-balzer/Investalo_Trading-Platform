@@ -7,6 +7,20 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR60 merged: 0bda3e4 ancestor of main7cc6848, GH/fetch verified.
+  IP-090 funding-only checkpoint on feat/m1-futures-paper-funding:
+  own settlement command with independent exact-time marks/native rates,
+  bounded delayed knowledge, same-mark midnight basis before funding,
+  preserved real quote clock/no fills. Durable full-command receipt permits
+  scoped source continuation; missing/revised/earlier/next funding still stops.
+  Liquidation cannot be erased by newer recovered quotes; reconciliation
+  remains separate. Old genesis/state/command identity golden receipt retained.
+  18 new/93 focused pinned cases/57 subtests pass after forecast fixture fix.
+  Actual Classic source has NO settlement mark; independent valuation is
+  injected only, no real valuation collector or complete funding service yet.
+  Source cursor/archive/launcher/state publication/013 settings/profit epochs/
+  manual recovery remain open. No DB/dependency/performance/public/live/AI
+  change. See docs/futures-paper-settlement.md.
 - PR59 merged: b6890eb ancestor of main29f6661, GH/fetch verified.
   Q48/IP-090 own selected-asset dashboard on feat/m1-futures-asset-dashboard:
   acknowledged own Paper state -> pure scoped projection -> authenticated

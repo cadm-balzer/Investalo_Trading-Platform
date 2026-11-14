@@ -69,7 +69,12 @@ Checkpoint. Die Sperre gilt auch bei verzögerter Veröffentlichung der History.
 Es gibt keine stille Auslassung, Verschiebung auf einen neueren Quote oder
 Substitution durch eine Forecast-Rate. Der aktuelle Paperkern verlangt für
 Funding die passende Settlementzeit und Bewertung; der dafür notwendige
-eigene Bewertungs-/Reconciliationbefehl bleibt als nächster Schritt offen.
+eigene [Funding-only-Befehl](futures-paper-settlement.md) ist inzwischen
+implementiert. `paper_settlement` benötigt zusätzlich eingespeiste exakte
+Settlementmarks. `paper_batch(..., settlement=...)` setzt erst nach dem
+bestätigten Journalbeleg und erneut geprüftem unverändertem Historysatz fort.
+Die tatsächliche Bewertungsquelle/-erfassung und Liquidationsreconciliation
+bleiben offen.
 Vergangene Fundingtermine vor dem ersten Einstieg eines flachen Kontos sind
 keine Kosten dieses Kontos.
 

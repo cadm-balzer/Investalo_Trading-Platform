@@ -12,7 +12,9 @@ Quellen-/Journalrestore geprüft; reale58h-Quellenprobe erfolgreich.
 Offene Baskets stoppen vor unbewerteten Fundingterminen.
 Q48-Assetanzeige zeigt eigene RSI-/Positions-/Nachkaufstände und nächste
 H1-Checks, Default-off; [Vertrag](futures-paper-assets.md).
-Nächster Schritt: vollständige Settlementbewertung, dauerhafter Feedcursor,
+Funding-only-Journal/Quellenfortsetzung mit eingespeister exakter Bewertung
+und erhaltenen Quoteuhren geprüft; [Vertrag](futures-paper-settlement.md).
+Nächster Schritt: tatsächliche Settlementmarkquelle/-erfassung, dauerhafter Feedcursor,
 lokaler Launcher/Archivierung, Status-/Settingsadapter, Q36-Gewinnetappen und
 Q46-Recovery/IP-088 samt laufender Cockpitanbindung. [Paperkern](futures-paper-runtime.md),
 [aktueller Feed](futures-paper-feed.md).

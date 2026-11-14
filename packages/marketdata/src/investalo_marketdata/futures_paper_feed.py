@@ -7,8 +7,9 @@ import time
 from urllib.parse import parse_qs, urlencode, urlsplit
 from urllib.request import Request, build_opener
 
+from investalo_trading.capital_digest import digest
 from investalo_trading.futures_capital_signals import CapitalHour
-from investalo_trading.futures_paper import FuturesPaperState, PaperBatch, PaperQuote
+from investalo_trading.futures_paper import FuturesPaperState, PaperBatch, PaperFunding, PaperQuote
 from investalo_trading.snapshot import primitive
 from investalo_trading.timeframe_research import ResearchCandle
 
@@ -141,11 +142,11 @@ class FuturesMarketObservation:
                 "venue": "bitget", "account_family": "classic", "product": "USDT-FUTURES",
                 "settlement_mark_available": False, "execution_enabled": False}
 
-    def paper_batch(self, state, *, previous=None):
+    def paper_batch(self, state, *, previous=None, settlement=None):
         """Receipt-time valuation; each native quote clock stays in source evidence.
 
-        Crossing funding with open exposure awaits an explicit native valuation
-        command. Neither a forecast rate nor a later mark substitutes for it.
+        Crossing funding needs the acknowledged explicit settlement command.
+        Neither a forecast rate nor a later mark substitutes for it.
         Preserve this source record before acknowledging its digest in a journal.
         """
         if type(state) is not FuturesPaperState or not state.warmed:
@@ -164,11 +165,26 @@ class FuturesMarketObservation:
         if any(f.next_update <= self.collected_at for f in self.forecasts):
             raise ValueError("funding forecast rolled during collection; refresh source")
         if active:
+            from investalo_trading.futures_paper_settlement import PaperSettlement
+            accounted = (type(settlement) is PaperSettlement
+                         and settlement.receipt_id in state.inputs
+                         and settlement.settled_at == state.signal.as_of)
             if (type(previous) is not FuturesMarketObservation
-                    or previous.collected_at != state.signal.as_of
+                    or (previous.collected_at != state.signal.as_of and not (
+                        accounted and previous.collected_at == state.signal.trade_at))
                     or "bitget-" + previous.data_digest not in state.inputs):
                 raise ValueError("acknowledged prior source receipt required for open Paper exposure")
-            if (any(f.symbol in active and f.next_update <= self.collected_at for f in previous.forecasts)
+            paid = ({(f.symbol, f.settled_at) for f in settlement.funding} if accounted else set())
+            if accounted:
+                native = tuple(PaperFunding(f.symbol, f.native_id, f.settled_at, f.rate)
+                               for f in self.funding if f.settled_at == settlement.settled_at)
+                if native != settlement.funding:
+                    raise ValueError("committed native funding revised or missing from source")
+                if any(f.symbol in active and previous.collected_at < f.settled_at <= state.signal.as_of
+                       and (f.symbol, f.settled_at) not in paid for f in self.funding):
+                    raise ValueError("unaccounted earlier native funding requires reconciliation")
+            if (any(f.symbol in active and f.next_update <= self.collected_at
+                    and (f.symbol, f.next_update) not in paid for f in previous.forecasts)
                     or any(f.symbol in active and state.signal.as_of < f.settled_at <= self.collected_at
                            for f in self.funding)):
                 raise ValueError("funding settlement valuation required; do not omit or shift native funding")
@@ -178,6 +194,43 @@ class FuturesMarketObservation:
         hours = tuple(h for h in self.hours if h.close_time > state.signal.last_hour.close_time)
         return PaperBatch("bitget-" + self.data_digest, self.collected_at,
                           tuple(q.quote for q in self.quotes), hours, ())
+
+    def paper_settlement(self, state, *, previous, settled_at, marks, valuation_digest):
+        """Join published native rates to separately archived exact-time marks.
+
+        This source has no settlement mark. The caller must supply that evidence;
+        current ticker marks and H1 approximations are never selected automatically.
+        """
+        from investalo_trading.futures_paper_settlement import PaperSettlement
+        settled_at = utc_time(settled_at)
+        symbols = tuple("BITGET:" + s for s in SYMBOLS)
+        if (type(state) is not FuturesPaperState or not state.warmed
+                or state.config.profile.plan.symbols != symbols
+                or type(previous) is not FuturesMarketObservation
+                or previous.collected_at != state.signal.as_of
+                or "bitget-" + previous.data_digest not in state.inputs
+                or self.funding_start > previous.collected_at
+                or not state.signal.as_of < settled_at <= self.collected_at
+                or self.collected_at - settled_at > timedelta(hours=1)
+                or self.collected_at < state.observed_at):
+            raise ValueError("bounded current source and acknowledged own settlement predecessor required")
+        active = {b.symbol for b in state.signal.economic.ledger.baskets if b.quantity}
+        if any(f.symbol in active and state.signal.as_of < f.settled_at < settled_at
+               for f in self.funding) or any(
+                f.symbol in active and f.next_update < settled_at for f in previous.forecasts):
+            raise ValueError("earlier native or expected funding cannot be omitted")
+        rows = tuple(PaperFunding(f.symbol, f.native_id, f.settled_at, f.rate)
+                     for f in self.funding if f.settled_at == settled_at)
+        paid = {f.symbol for f in rows}
+        if any(f.symbol in active and f.next_update == settled_at and f.symbol not in paid
+               for f in previous.forecasts):
+            raise ValueError("expected native funding not yet published")
+        overlap = tuple(h for h in self.hours if h.close_time == state.signal.last_hour.close_time)
+        if overlap and overlap[0] != state.signal.last_hour:
+            raise ValueError("committed native H1 candle revised")
+        hours = tuple(h for h in self.hours if state.signal.last_hour.close_time < h.close_time <= settled_at)
+        key = digest((self.data_digest, previous.data_digest, settled_at, marks, valuation_digest))
+        return PaperSettlement("bitget-settlement-" + key, settled_at, marks, valuation_digest, rows, hours)
 
 
 @dataclass(frozen=True)

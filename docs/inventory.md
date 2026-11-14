@@ -1,5 +1,12 @@
 # Bestandsaufnahme
 
+IP-090: futures_paper_settlement.py ergänzt einen Funding-only-Journalbefehl
+mit unabhängiger exakter Settlementbewertung, nativen Raten und getrennten
+Ereignis-/Wissenszeiten. Worker settle_once und bestätigter Quellenfortgang
+inklusive vollständigem Restore; Handelsquoteuhr bleibt unverändert.
+Echte Settlementmarkquelle/-erfassung fehlt weiterhin, Collectorbarriere bleibt.
+[Vertrag](futures-paper-settlement.md).
+
 Q48/IP-090: futures_paper_view.py liefert die eigene Asset-/RSI-/Positions-/
 Nachkaufprojektion; futures_paper_assets.py und GET/v1/futures-paper-assets
 binden authenticated own IDs an einen privaten bestätigten State-Reader.
