@@ -62,8 +62,10 @@ class ContractRules:
                 for name, value in vars(self).items()}
 
 
-def parse_contracts(payload):
-    """Select all five research symbols; no defaults for missing broker fields."""
+def parse_contracts(payload, *, symbols=SYMBOLS):
+    """Default frozen five; explicit native Paper cohort uses the same strict parser."""
+    from .futures_paper_universe import paper_symbols
+    symbols = paper_symbols(symbols)
     response = decode_json(payload, max_bytes=MAX_BYTES)
     if (not isinstance(response, dict) or response.get("code") != "00000"
             or not isinstance(response.get("data"), list)
@@ -76,15 +78,15 @@ def parse_contracts(payload):
         symbol = row.get("symbol")
         if not isinstance(symbol, str):
             raise ValueError("contract symbol required")
-        if symbol not in SYMBOLS:
+        if symbol not in symbols:
             continue
         if symbol in selected:
             raise ValueError("duplicate selected contract")
         selected[symbol] = row
-    if set(selected) != set(SYMBOLS):
-        raise ValueError("complete five-symbol cohort required")
+    if set(selected) != set(symbols):
+        raise ValueError("complete selected-symbol cohort required")
     rules = []
-    for symbol in SYMBOLS:
+    for symbol in symbols:
         row = selected[symbol]
         if (row.get("baseCoin") != symbol[:-4] or row.get("quoteCoin") != "USDT"
                 or row.get("symbolType") != "perpetual"

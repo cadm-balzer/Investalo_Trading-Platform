@@ -121,6 +121,8 @@ offene alte Budgets bleiben unverändert. Sechs gezielte Cockpitvertrags-/
 SSR-Fälle und Typecheck grün; kein erneuter Frontendbuild.
 Kein neuer nativer Backtest-/Performancejob.
 
-Als Nächstes: echte Classic-Kandidaten auf mindestens sieben erweitern,
-danach Q46/IP-088 manuelle Liquidationsfreigabe integrieren und die getrennte
+Die gesonderte [native Sieben-Coin-Erweiterung](futures-seven-candidates.md)
+ist inzwischen implementiert und abgeprüft; das hier beschriebene ursprüngliche
+Fünf-Coin-Profil wird nicht automatisch konvertiert. Als Nächstes:
+Q46/IP-088 manuelle Liquidationsfreigabe integrieren und die getrennte
 Bitget-Demoausführung kalibrieren.

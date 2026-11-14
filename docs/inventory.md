@@ -1,5 +1,13 @@
 # Bestandsaufnahme
 
+IP-090: futures_paper_universe.py/local_seven_profit_config ergänzen ausdrücklich
+AVAX/LINK zu sieben echten Classic-Kandidaten. Quellen35 GETs/Settlement14,
+eigene /2-Records, privater Archivvollrestore, journalgebundene Launcher und
+eigene Kapazitäts-/Assets-API; anfänglich weiterhin drei finanzierte Ranges.
+Sieben neue Fälle und native Abnahme mit null Entries/Closures grün.
+Fünf-Coin-Defaults/alte Journale unverändert.
+[Vertrag und Receipt](futures-seven-candidates.md).
+
 IP-090/Q36: futures_paper_profit_plan.py/futures_paper_profit.py führen eine
 eigene profit/2-Policy mit tatsächlichem Abschluss-/Nettopräfix, once-only
 Budgetepochen,3→7-Plätzen und anschließend zukünftiger Volumenerhöhung ein.

@@ -1,5 +1,9 @@
 # Native Funding- und Mark-Minutenbelege
 
+Der ursprüngliche Fünf-Coin-/10-GET-Vertrag bleibt erhalten. Die ausdrückliche
+[Sieben-Coin-Kohorte](futures-seven-candidates.md) benötigt14 GETs und eigene
+/2-Evidence, unter denselben nativen Funding-/Q49-Minutenbedingungen.
+
 IP-090,2026-11-14. PR61 (`56c1d41`) ist in Main `50a1fa6` gemerged;
 GitHub und Git-Ancestry bestätigt. Die neue öffentliche Quelle erfasst echte
 Fundingraten und die Mark-Minutenkerze am selben nativen Settlementzeitpunkt.

@@ -16,6 +16,7 @@ from .futures_paper_feed import (
     fetch_paper_source_json, request_url, stamp,
 )
 from .futures_snapshot import funding_rate
+from .futures_paper_universe import SEVEN_SYMBOLS, paper_symbols, native_symbols
 from .snapshot import canonical, decode_json, price, utc_time
 
 VERSION = "bitget-classic-futures-settlement-evidence/1"
@@ -32,7 +33,7 @@ def minute_time(value):
 
 def mark_url(symbol, settled_at):
     settled_at = minute_time(settled_at)
-    if symbol not in SYMBOLS:
+    if symbol not in SEVEN_SYMBOLS:
         raise ValueError("fixed calibrated Classic candidate required")
     return ORIGIN + PATHS["mark"] + "?" + urlencode({
         "productType": "USDT-FUTURES", "symbol": symbol, "granularity": "1m", "limit": "3",
@@ -44,7 +45,7 @@ def mark_url(symbol, settled_at):
 def fetch_settlement_json(url):
     if type(url) is not str or len(url) > 512:
         raise ValueError("bounded canonical public URL required")
-    if url in tuple(request_url(symbol, "funding") for symbol in SYMBOLS):
+    if url in tuple(request_url(symbol, "funding") for symbol in SEVEN_SYMBOLS):
         return fetch_paper_source_json(url)
     try:
         parsed = urlsplit(url)
@@ -72,7 +73,7 @@ class MarkMinute:
     close: Decimal
 
     def __post_init__(self):
-        if (self.symbol not in tuple(f"BITGET:{s}:USDT-M:mark" for s in SYMBOLS)
+        if (self.symbol not in tuple(f"BITGET:{s}:USDT-M:mark" for s in SEVEN_SYMBOLS)
                 or minute_time(self.close_time) != minute_time(self.open_time) + MINUTE):
             raise ValueError("own native one-minute mark candle required")
         for value in (self.open, self.high, self.low, self.close):
@@ -91,25 +92,31 @@ class SettlementEvidence:
     minutes: tuple[MarkMinute, ...]
     reads: tuple[PublicRead, ...]
 
+    @property
+    def symbols(self):
+        return native_symbols(tuple(f.symbol for f in self.funding))
+
     def __post_init__(self):
         at = minute_time(self.settled_at)
         if utc_time(self.collected_at) < at + MINUTE:
             raise ValueError("closed settlement minute required")
-        symbols = tuple("BITGET:" + symbol for symbol in SYMBOLS)
-        if (type(self.funding) is not tuple or len(self.funding) != 5
+        if type(self.funding) is not tuple or any(type(f) is not NativeFunding for f in self.funding):
+            raise ValueError("typed own native funding cohort required")
+        symbols = tuple("BITGET:" + symbol for symbol in self.symbols)
+        if (type(self.funding) is not tuple or len(self.funding) != len(symbols)
                 or any(type(row) is not NativeFunding for row in self.funding)
                 or tuple(row.symbol for row in self.funding) != symbols
                 or any(row.settled_at != at for row in self.funding)
-                or type(self.minutes) is not tuple or len(self.minutes) != 5
+                or type(self.minutes) is not tuple or len(self.minutes) != len(symbols)
                 or any(type(row) is not MarkMinute for row in self.minutes)
                 or tuple(row.symbol for row in self.minutes) != tuple(s + ":USDT-M:mark" for s in symbols)
                 or any(row.open_time != at or row.close_time != at + MINUTE for row in self.minutes)
-                or type(self.reads) is not tuple or len(self.reads) != 10
+                or type(self.reads) is not tuple or len(self.reads) != 2 * len(symbols)
                 or any(type(row) is not PublicRead for row in self.reads)):
             raise ValueError("complete canonical native funding/minute/response cohort required")
         for row in self.funding:
             PaperFunding(row.symbol, row.native_id, row.settled_at, row.rate)
-        expected_urls = tuple(url for s in SYMBOLS for url in (request_url(s, "funding"), mark_url(s, at)))
+        expected_urls = tuple(url for s in self.symbols for url in (request_url(s, "funding"), mark_url(s, at)))
         for row, url in zip(self.reads, expected_urls, strict=True):
             if (row.url != url or not utc_time(row.requested_at) <= utc_time(row.received_at) <= self.collected_at
                     or not timedelta(0) <= row.received_at - utc_time(row.server_at) <= timedelta(seconds=30)
@@ -122,7 +129,8 @@ class SettlementEvidence:
         return hashlib.sha256(canonical(self.record()).encode()).hexdigest()
 
     def record(self):
-        return {"schema_version": VERSION, "observation": primitive(self),
+        return {"schema_version": VERSION if self.symbols == SYMBOLS else
+                "bitget-classic-futures-settlement-evidence/2", "observation": primitive(self),
                 "reference_policy": REFERENCE_POLICY, "reference_enabled": False,
                 "exact_settlement_mark_available": False, "execution_enabled": False}
 
@@ -132,9 +140,9 @@ class SettlementEvidence:
         from investalo_trading.futures_ledger import LedgerMark
         from .futures_paper_feed import FuturesMarketObservation
         from investalo_trading.futures_paper_minute import PaperMarkMinute, PaperMinuteSettlement
-        if type(observation) is not FuturesMarketObservation:
+        if type(observation) is not FuturesMarketObservation or observation.symbols != self.symbols:
             raise ValueError("own current Classic observation required")
-        symbols = tuple("BITGET:" + s for s in SYMBOLS)
+        symbols = tuple("BITGET:" + s for s in self.symbols)
         marks = tuple(LedgerMark(s, m.open) for s, m in zip(symbols, self.minutes, strict=True))
         candidate = observation.paper_settlement(
             state, previous=previous, settled_at=self.settled_at,
@@ -156,8 +164,10 @@ class BitgetSettlementSource:
     clock: object = lambda: datetime.now(timezone.utc)
     sleep: object = time.sleep
     pace_seconds: float = .1
+    symbols: tuple[str, ...] = SYMBOLS
 
     def __post_init__(self):
+        paper_symbols(self.symbols)
         if (not all(callable(c) for c in (self.fetch_json, self.clock, self.sleep))
                 or type(self.pace_seconds) not in (int, float) or not .05 <= self.pace_seconds <= 1):
             raise ValueError("bounded paced transport and clock required")
@@ -188,7 +198,7 @@ class BitgetSettlementSource:
             reads.append(PublicRead(url, before, after, server, hashlib.sha256(raw).hexdigest()))
             return payload["data"], server
 
-        for symbol in SYMBOLS:
+        for symbol in self.symbols:
             rows, server = read(request_url(symbol, "funding"))
             if not 1 <= len(rows) <= 100:
                 raise ValueError("bounded nonempty native funding history required")
