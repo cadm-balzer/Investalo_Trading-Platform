@@ -4,7 +4,9 @@ PR57 ist in Main `f8a2217` gemerged; Head `c196093` ist per GH/fetch als
 Vorfahr bestätigt. Dieser Schritt implementiert den eigenen Paperablauf
 mit eingespeisten Daten. Aktueller Collector und eigene
 [Assetanzeige](futures-paper-assets.md) sind inzwischen implementiert.
-Vollständiger Fundingbetrieb, Launcher, dauerhafte Status-/Settingsanbindung
+Der [Funding-only-Journalbefehl](futures-paper-settlement.md) mit injizierter
+Settlementbewertung ist implementiert. Tatsächliche Bewertungsquelle,
+vollständiger Fundingbetrieb, Launcher, dauerhafte Status-/Settingsanbindung
 und manuelle Wiederbelebung bleiben IP-090/IP-088.
 
 ## Kandidaten, Budgets und Handel
@@ -80,7 +82,7 @@ Researchjournals werden nicht konvertiert oder überschrieben; ihr Decoder
 akzeptiert die neue Policy nicht. Gemeinsame Reducer registrieren nur
 die zusätzliche explizite Plantype und Erstkauf-Kapazitätsprüfung.
 
-Warmup, vollständiger Handelsbatch oder Einstellungsrevision werden
+Warmup, vollständiger Handelsbatch, Funding-only-Settlement oder Einstellungsrevision werden
 jeweils als ein gehashter Befehl berechnet, geschrieben und per fsync
 bestätigt, bevor der Zustand veröffentlicht wird. Settingsbefehle haben
 eigene fortlaufende Revisionen; Migration013 ist noch nicht angebunden.

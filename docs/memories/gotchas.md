@@ -962,3 +962,11 @@ Stand 2026-11-14. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   Memberships nicht ändern. Erste Paper-Einstellungsrevision deshalb mit
   kontobezogenem Advisory-TX-Lock serialisieren; keine UPDATE-Grants an
   fremde Kerntabellen hinzufügen. Einstellung/Audit committen vor Erfolg.
+- **Fundingwissen ist kein Handelsquote:** verspätete native Raten nur mit
+  eigenem exakten Settlementmark und unverändertem früherem Zustand buchen.
+  Neuer geschlossener RSI aktualisiert keine echte Bid/Ask-Uhr. Forecasts und
+  spätere Tickerpreise sind kein Ersatz. Quellenfortsetzung bindet den fsync-
+  bestätigten gesamten Settlementbefehl und revalidiert native History.
+  Liquidationsbedarf bleibt vor erholten neueren Quotes abzugleichen.
+  Classic-History liefert keinen Settlementmark; realer Bewertungscollector
+  ist noch offen, synthetischer Injected-Test kein laufender Fundingdienst.

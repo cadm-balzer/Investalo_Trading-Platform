@@ -16,6 +16,7 @@ from .futures_capital_signals import CapitalH1SignalProfile, CapitalHour, start_
 from .futures_ledger import LedgerMark, timestamp
 from .futures_paper import FuturesPaperConfig, PaperBatch, paper_settings, run_paper_batch, start_paper, warm_paper
 from .futures_paper_plan import CapitalPaperPoolPlan
+from .futures_paper_settlement import PaperSettlement, settle_paper_funding
 from .futures_replay_journal import _fields, _json, _open, _sha
 from .futures_risk import FuturesPlan
 from .snapshot import _decode, primitive
@@ -24,6 +25,7 @@ VERSION = "isolated-usdt-futures-paper-journal/1"
 MAX_COMMANDS = 50_000
 ARGUMENTS = {"warmup": {"hours": tuple[CapitalHour, ...]},
              "batch": {"batch": PaperBatch},
+             "settlement": {"settlement": PaperSettlement},
              "settings": {"limit": int, "settings_revision": int}}
 
 
@@ -79,7 +81,8 @@ def _apply(state, command):
     revision(command["revision"])
     raw = _fields(command["arguments"], ARGUMENTS[kind])
     args = {key: _decode(cls, raw[key]) for key, cls in ARGUMENTS[kind].items()}
-    function = {"warmup": warm_paper, "batch": run_paper_batch, "settings": paper_settings}[kind]
+    function = {"warmup": warm_paper, "batch": run_paper_batch, "settings": paper_settings,
+                "settlement": settle_paper_funding}[kind]
     return function(state, *args.values(), command["revision"], _decode(datetime, command["at"]))
 
 

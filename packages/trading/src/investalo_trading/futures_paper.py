@@ -205,6 +205,9 @@ def run_paper_batch(state, batch, expected_revision, at):
     signal, plan = state.signal, state.config.profile.plan
     if tuple(q.symbol for q in batch.quotes) != plan.symbols:
         raise ValueError("complete canonical own candidate quotes required")
+    if (signal.economic.liquidation_required
+            or any("liquidation_settlement_required" in s.exit_reasons for s in signal.signals)):
+        raise ValueError("acknowledged liquidation requires reconciliation before newer quotes")
     # With open exposure, missing observations cannot become a fictitious execution path.
     if any(b.quantity for b in signal.economic.ledger.baskets) and len(batch.hours) > 1:
         raise ValueError("open Paper feed gap requires reconciliation")

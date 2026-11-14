@@ -6,11 +6,16 @@ from typing import Protocol
 from investalo_trading.futures_capital_signals import CapitalHour
 from investalo_trading.futures_paper import FuturesPaperState, PaperBatch
 from investalo_trading.futures_paper_journal import FuturesPaperJournal
+from investalo_trading.futures_paper_settlement import PaperSettlement
 
 
 class FuturesPaperFeed(Protocol):
     def warmup(self, state: FuturesPaperState) -> tuple[CapitalHour, ...]: ...
     def batch(self, state: FuturesPaperState) -> PaperBatch: ...
+
+
+class FuturesPaperSettlementFeed(FuturesPaperFeed, Protocol):
+    def settlement(self, state: FuturesPaperState) -> PaperSettlement: ...
 
 
 @dataclass(frozen=True)
@@ -46,3 +51,13 @@ class FuturesPaperWorker:
             after.signal.economic.ledger.closed_baskets - before.signal.economic.ledger.closed_baskets,
             after.state_digest,
         )
+
+    def settle_once(self, *, guard=lambda: None):
+        """Explicit funding-only step; source must supply archived exact valuation."""
+        guard()
+        before = self.journal.state
+        settlement = self.feed.settlement(before)
+        guard()
+        after = self.journal.append(
+            "settlement", settlement=settlement, expected_revision=before.revision, at=self.clock())
+        return FuturesPaperCycle(after.revision, 0, 0, after.state_digest)

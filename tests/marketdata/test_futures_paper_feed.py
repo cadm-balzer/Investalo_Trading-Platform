@@ -22,6 +22,7 @@ from investalo_trading.futures_capital_signals import CapitalH1SignalProfile, st
 from investalo_trading.futures_ledger import LedgerMark
 from investalo_trading.futures_paper import FuturesPaperConfig, run_paper_batch, start_paper, warm_paper
 from investalo_trading.futures_paper_journal import FuturesPaperJournal
+from investalo_trading.futures_paper_settlement import settle_paper_funding
 from investalo_trading.futures_paper_plan import paper_pool_plan
 from investalo_trading.snapshot import _decode
 from investalo_marketdata.futures_paper_feed import FuturesMarketObservation
@@ -92,7 +93,129 @@ def opened(observation=None):
     return run_paper_batch(state, batch, state.revision, batch.quoted_at)
 
 
+def crossing():
+    from test_futures_capital_signals import hour
+    old = Provider(next_update=END + H1).collect()
+    state = opened(old)
+    new = Provider(now=END + H1 + timedelta(seconds=5), next_update=END + 2 * H1).collect()
+    rates = tuple(replace(f, settled_at=END + H1, native_id=f"new-{f.symbol}",
+                          rate=D(".0001") if i % 2 else D("-.0002"))
+                  for i, f in enumerate(old.funding[-5:]))
+    new = replace(new, end=END + H1, funding=(*new.funding, *rates),
+                  hours=(*new.hours, hour(state.signal, "100", all_assets=True, close=END + H1)))
+    marks = tuple(LedgerMark(symbol, D(103)) for symbol in state.config.profile.plan.symbols)
+    return state, old, new, marks
+
+
 class FuturesPaperFeedTests(unittest.TestCase):
+    def test_native_funding_joins_exact_valuation_then_resumes_after_durable_receipt(self):
+        state, old, new, marks = crossing()
+        value = new.paper_settlement(state, previous=old, settled_at=END + H1,
+                                     marks=marks, valuation_digest="d" * 64)
+        self.assertEqual(len(value.funding), 5)
+        self.assertEqual(value.marks[0].price, D(103))
+        self.assertNotEqual(value.marks[0].price, new.quotes[0].quote.mark)
+        after = settle_paper_funding(state, value, state.revision, new.collected_at)
+        from investalo_trading.futures_paper_view import asset_snapshot
+        snapshot = asset_snapshot(after, tenant_id="tenant", account_id="account", now=new.collected_at)
+        self.assertFalse(snapshot["data_fresh"])
+        self.assertEqual(snapshot["observed_at"], old.collected_at.isoformat())
+        with self.assertRaises(ValueError):
+            new.paper_batch(after, previous=old)
+        batch = new.paper_batch(after, previous=old, settlement=value)
+        resumed = run_paper_batch(after, batch, after.revision, new.collected_at)
+        self.assertEqual(resumed.signal.trade_at, new.collected_at)
+        self.assertEqual(resumed.signal.economic.stages, state.signal.economic.stages)
+        self.assertEqual(len(resumed.funding_ids), 5)
+        with self.assertRaises(ValueError):
+            new.paper_batch(state, previous=old, settlement=value)
+
+    def test_missing_or_revised_published_funding_cannot_resume(self):
+        state, old, new, marks = crossing()
+        value = new.paper_settlement(state, previous=old, settled_at=END + H1,
+                                     marks=marks, valuation_digest="d" * 64)
+        after = settle_paper_funding(state, value, state.revision, new.collected_at)
+        missing = replace(new, funding=new.funding[:-1])
+        revised = replace(new, funding=(*new.funding[:-1], replace(new.funding[-1], rate=D(".003"))))
+        for bad in (missing, revised):
+            with self.subTest(digest=bad.data_digest), self.assertRaisesRegex(ValueError, "revised or missing"):
+                bad.paper_batch(after, previous=old, settlement=value)
+        with self.assertRaisesRegex(ValueError, "not yet published"):
+            replace(new, funding=new.funding[:-5]).paper_settlement(
+                state, previous=old, settled_at=END + H1, marks=marks, valuation_digest="d" * 64)
+
+    def test_forecast_rate_is_not_billed_and_earlier_or_future_settlements_reject(self):
+        state, old, new, marks = crossing()
+        rates = tuple(replace(f, current_rate=D(".5")) for f in old.forecasts)
+        forecast_changed = replace(old, forecasts=rates)
+        # Changed predecessor bytes cannot masquerade as acknowledged source.
+        with self.assertRaisesRegex(ValueError, "predecessor"):
+            new.paper_settlement(state, previous=forecast_changed, settled_at=END + H1,
+                                 marks=marks, valuation_digest="d" * 64)
+        earlier = replace(new.funding[-5], settled_at=END + timedelta(minutes=30))
+        with self.assertRaisesRegex(ValueError, "earlier"):
+            replace(new, funding=(*new.funding, earlier)).paper_settlement(
+                state, previous=old, settled_at=END + H1, marks=marks, valuation_digest="d" * 64)
+        with self.assertRaises(ValueError):
+            new.paper_settlement(state, previous=old, settled_at=END + 2 * H1,
+                                 marks=marks, valuation_digest="d" * 64)
+        value = new.paper_settlement(state, previous=old, settled_at=END + H1,
+                                     marks=marks, valuation_digest="d" * 64)
+        self.assertEqual(value.funding[0].rate, D("-.0002"))
+        self.assertNotEqual(value.funding[0].rate, old.forecasts[0].current_rate)
+
+    def test_changed_valuation_or_late_earlier_native_record_cannot_bypass_acknowledgement(self):
+        state, old, new, marks = crossing()
+        value = new.paper_settlement(state, previous=old, settled_at=END + H1,
+                                     marks=marks, valuation_digest="d" * 64)
+        after = settle_paper_funding(state, value, state.revision, new.collected_at)
+        for bad in (replace(value, valuation_digest="e" * 64),
+                    replace(value, marks=tuple(replace(mark, price=D(100)) for mark in marks))):
+            with self.subTest(value=bad.receipt_id), self.assertRaises(ValueError):
+                new.paper_batch(after, previous=old, settlement=bad)
+        earlier = replace(new.funding[-5], native_id="late-native",
+                          settled_at=END + timedelta(minutes=30))
+        with self.assertRaisesRegex(ValueError, "earlier native"):
+            replace(new, funding=(*new.funding, earlier)).paper_batch(
+                after, previous=old, settlement=value)
+
+    def test_next_funding_boundary_is_not_authorized_by_previous_receipt(self):
+        state, old, new, marks = crossing()
+        value = new.paper_settlement(state, previous=old, settled_at=END + H1,
+                                     marks=marks, valuation_digest="d" * 64)
+        after = settle_paper_funding(state, value, state.revision, new.collected_at)
+        later = END + 2 * H1 + timedelta(seconds=5)
+        next_source = replace(new, collected_at=later,
+                              quotes=tuple(replace(q, native_at=later) for q in new.quotes),
+                              forecasts=tuple(replace(f, next_update=END + 3 * H1) for f in new.forecasts),
+                              funding=(*new.funding, replace(new.funding[-5], native_id="next-native",
+                                                            settled_at=END + 2 * H1)))
+        with self.assertRaisesRegex(ValueError, "settlement valuation"):
+            next_source.paper_batch(after, previous=old, settlement=value)
+
+    def test_settlement_source_and_journal_full_restore_allow_verified_continuation(self):
+        state, old, new, marks = crossing()
+        genesis = initial()
+        with TemporaryDirectory() as folder:
+            path = Path(folder) / "paper.jsonl"
+            with FuturesPaperJournal.create(path, genesis.config, genesis.signal.trade_prices,
+                                            genesis.signal.trade_prices, AT, "source-fixture-genesis") as saved:
+                saved.append("warmup", hours=old.hours, expected_revision=0, at=END)
+                batch = old.paper_batch(saved.state)
+                saved.append("batch", batch=batch, expected_revision=1, at=batch.quoted_at)
+                value = new.paper_settlement(saved.state, previous=old, settled_at=END + H1,
+                                             marks=marks, valuation_digest="d" * 64)
+                saved.append("settlement", settlement=value, expected_revision=2, at=new.collected_at)
+                receipt, expected = saved.receipt, saved.state
+            source = _decode(FuturesMarketObservation, decode_json(canonical(new.record()))["observation"])
+            with FuturesPaperJournal.restore(path, config_digest=genesis.config.config_digest,
+                                              minimum_receipt=receipt) as saved:
+                self.assertEqual(saved.state, expected)
+                batch = source.paper_batch(saved.state, previous=old, settlement=value)
+                after = saved.append("batch", batch=batch, expected_revision=3, at=batch.quoted_at)
+                self.assertEqual(len(after.signal.economic.stages), 3)
+                self.assertEqual(len(after.funding_ids), 5)
+
     def test_native_trade_mark_clocks_and_funding_are_distinct(self):
         provider = Provider()
         observation = provider.collect()
