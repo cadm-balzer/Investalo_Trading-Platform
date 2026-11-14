@@ -54,9 +54,17 @@ def settle_paper_funding(state, settlement, expected_revision, at):
     The caller must archive the native rates and independent exact-time marks.
     No current quote, forecast or candle approximation is substituted here.
     """
+    if type(settlement) is not PaperSettlement:
+        raise ValueError("exact Paper settlement contract required")
+    return _settle_paper_funding(state, settlement, expected_revision, at)
+
+
+@precise
+def _settle_paper_funding(state, settlement, expected_revision, at, *, version=VERSION):
+    """Shared arithmetic; public exact/model contracts validate before entering."""
     _check(state, expected_revision, at)
     at = timestamp(at)
-    if (not state.warmed or type(settlement) is not PaperSettlement
+    if (not state.warmed
             or not state.signal.as_of < settlement.settled_at <= at
             or not timedelta(0) <= at - settlement.settled_at <= timedelta(hours=1)):
         raise ValueError("causal warmed Paper settlement with bounded publication lag required")
@@ -89,21 +97,21 @@ def settle_paper_funding(state, settlement, expected_revision, at):
             _event(settlement.input_id, "settlement-mark"), signal.economic.revision,
             settlement.settled_at)
         signal = finish_signal(
-            signal, settlement.settled_at, (VERSION, "valuation", settlement),
+            signal, settlement.settled_at, (version, "valuation", settlement),
             economic=economic,
             signals=_protected(signal.profile, economic, signal.signals,
                                signal.trade_prices, evaluate_price=False))
     funding = CapitalFundingBatch(tuple(
         FundingSettlement(row.symbol, settlement.marks[plan.symbols.index(row.symbol)].price, row.rate)
-        for row in settlement.funding), digest((VERSION, settlement)))
+        for row in settlement.funding), digest((version, settlement)))
     signal = record_signal_funding_batch(
         signal, funding, _event(settlement.input_id, "native-settlement"),
         signal.revision, settlement.settled_at)
     # A closed candle is indicator evidence, not a newly captured trading quote.
     signal = finish_signal(
-        signal, settlement.settled_at, (VERSION, "preserve-quote-clock"),
+        signal, settlement.settled_at, (version, "preserve-quote-clock"),
         trade_prices=state.signal.trade_prices, trade_at=state.signal.trade_at)
     return _finish(
-        state, (VERSION, settlement), signal=signal,
+        state, (version, settlement), signal=signal,
         inputs=state.inputs.append(settlement.input_id).append(settlement.receipt_id), funding_ids=funding_ids,
         attempts=(), observed_at=at)

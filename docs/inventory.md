@@ -1,17 +1,25 @@
 # Bestandsaufnahme
 
+IP-090/Q49: futures_paper_minute.py ergänzt die bestätigte native Minuten-Open-
+Paperreferenz mit vollem OHLC-/Quellen-/Wissenszeitvertrag und eigenem
+minute_settlement-Journalbefehl. Quellenübergabe vergleicht native Fundingraten/
+IDs beider Belege; bestehender Worker kann explizit abrechnen. Vollrestore,
+Cash/Mitternacht/Liquidationslatch und alte exakte Goldenidentität geprüft.
+Kein laufender Launcher/State-Reader; [Vertrag](futures-paper-minute-funding.md).
+
 IP-090: futures_settlement_source.py und capture-futures-settlement-source.py
 erfassen zehn native GETs/fünf Fundingraten/fünf Mark-Minutenkerzen mit
 geschütztem Archiv/Roundtrip. Reale16:00Z-Probe erfolgreich. Minuten-Open
-ist eine vorgeschlagene Paperreferenz; kein exakter Broker-Settlementmark,
-Q49 unbestätigt, Referenz und automatische Paperübergabe bleiben aus.
+ist die bestätigte Q49-Paperreferenz; kein exakter Broker-Settlementmark.
+Archivbytes/-flags bleiben unverändert; Aufnahme startet keinen Worker.
 [Vertrag](futures-settlement-source.md).
 
 IP-090: futures_paper_settlement.py ergänzt einen Funding-only-Journalbefehl
 mit unabhängiger exakter Settlementbewertung, nativen Raten und getrennten
 Ereignis-/Wissenszeiten. Worker settle_once und bestätigter Quellenfortgang
 inklusive vollständigem Restore; Handelsquoteuhr bleibt unverändert.
-Echte Settlementmarkquelle/-erfassung fehlt weiterhin, Collectorbarriere bleibt.
+Ein exakter Broker-Settlementmark fehlt weiterhin; Q49 ergänzt dafür einen
+eigenen deklarierten Modellvertrag, ohne den exakten Vertrag umzudeuten.
 [Vertrag](futures-paper-settlement.md).
 
 Q48/IP-090: futures_paper_view.py liefert die eigene Asset-/RSI-/Positions-/

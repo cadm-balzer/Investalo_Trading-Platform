@@ -7,6 +7,22 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR62 merged: 0f70ff6 ancestor of main4b837f1, GH/fetch verified.
+  Q49 CONFIRMED by user; IP-090 on feat/m1-futures-paper-minute-funding:
+  own native-minute-mark-open/1 PaperMinuteSettlement, full OHLC/source hash/
+  knowledge time/native rate evidence, additive minute_settlement journal.
+  Source joins both native cohorts against acknowledged predecessor; worker
+  dispatch after both archive guards. Funding-only/no quote-clock refresh,
+  same-open midnight basis, isolated signed cash, liquidation latch retained.
+  Closed minute requires60s knowledge; original30s RSI window NOT extended.
+  Full model receipt required for continuation; exact old contract unchanged,
+  golden exact funding head/state remain byte-identical. Passive source record/
+  flags/hashes unchanged, original real >2h sample NOT used as Paper commit.
+  12 new/115 focused pinned cases/96 subtests pass including full restore,
+  unknown-write readback, native mismatch and stale RSI window.
+  No migration/dependency/performance/public/live/AI/service activation.
+  Durable cursor/archive/launcher/state publication/settings/profit/recovery
+  remain IP-090/IP-088. See docs/futures-paper-minute-funding.md.
 - PR61 merged: 56c1d41 ancestor of main50a1fa6, GH/fetch verified.
   IP-090 on feat/m1-futures-settlement-source: ten unsigned Classic GETs
   capture five native funding rates and exact-target mark-minute candles.
@@ -16,8 +32,9 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   First failed directory preserved without receipt; own minute type keeps
   frozen H1/H4 research unchanged. NO exact broker settlement mark claimed.
   Ten new/103 focused pinned cases/82 subtests pass, including real archive IO.
-  Q49 minute-open Paper model reference requested, UNCONFIRMED; no conversion
-  into exact PaperSettlement or reference activation. Actual source sample
+  Q49 was requested at this historical checkpoint; now confirmed and implemented
+  in the own model contract above, no conversion into exact PaperSettlement.
+  Actual source sample
   exceeds1h funding command lag, no market job/Paper mutation implied.
   Cursor/launcher/publication/settings/profit/recovery remain IP-090/IP-088.
   See docs/futures-settlement-source.md.

@@ -14,10 +14,13 @@ Q48-Assetanzeige zeigt eigene RSI-/Positions-/Nachkaufstände und nächste
 H1-Checks, Default-off; [Vertrag](futures-paper-assets.md).
 Funding-only-Journal/Quellenfortsetzung mit eingespeister exakter Bewertung
 und erhaltenen Quoteuhren geprüft; [Vertrag](futures-paper-settlement.md).
-Native Funding-/Mark-Minutenquelle real geprüft; Q49 zur ausdrücklich
-deklarierten Paperreferenz noch offen, keine automatische Abrechnungsfreigabe.
+Native Funding-/Mark-Minutenquelle real geprüft; Q49 bestätigt und als eigener
+Minuten-Open-Modell-/Journalvertrag mit Quellenfortsetzung implementiert.
+Abgeschlossene Minute/Wissenszeit und unverändertes30s-RSI-Fenster geprüft;
+kein exakter Broker-Fundingkurs behauptet.
+[Paperanbindung](futures-paper-minute-funding.md),
 [Quellenbeleg](futures-settlement-source.md).
-Nächster Schritt: bestätigter Bewertungsvertrag/-anbindung, dauerhafter Feedcursor,
+Nächster Schritt: dauerhafter Feedcursor,
 lokaler Launcher/Archivierung, Status-/Settingsadapter, Q36-Gewinnetappen und
 Q46-Recovery/IP-088 samt laufender Cockpitanbindung. [Paperkern](futures-paper-runtime.md),
 [aktueller Feed](futures-paper-feed.md).
