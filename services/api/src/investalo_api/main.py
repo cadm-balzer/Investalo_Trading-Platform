@@ -78,7 +78,9 @@ def create_app(settings: Settings | None = None, *, futures_paper_state_reader=N
     application = FastAPI(title="Investalo API", docs_url=None, redoc_url=None, openapi_url=None)
     application.state.settings = settings if settings is not None else Settings.from_environment()
     application.state.futures_paper_state_reader = futures_paper_state_reader
-    if (futures_paper_state_reader is None and application.state.settings.futures_paper_assets_preview
+    if (futures_paper_state_reader is None and (
+            application.state.settings.futures_paper_assets_preview
+            or application.state.settings.futures_paper_settings_preview)
             and application.state.settings.futures_paper_status_root is not None):
         application.state.futures_paper_state_reader = FuturesAssetReader(
             application.state.settings.futures_paper_status_root)
@@ -186,7 +188,7 @@ def create_app(settings: Settings | None = None, *, futures_paper_state_reader=N
         if not application.state.settings.futures_paper_settings_preview:
             raise HTTPException(404, "Not found")
         with transaction(application.state.settings, identity) as (db, user):
-            return read_settings(db, identity, user)
+            return read_settings(db, identity, user, application.state.futures_paper_state_reader)
 
     @application.get("/v1/futures-paper-assets")
     def futures_paper_assets(identity: Identity):
@@ -200,7 +202,8 @@ def create_app(settings: Settings | None = None, *, futures_paper_state_reader=N
         if not application.state.settings.futures_paper_settings_preview:
             raise HTTPException(404, "Not found")
         with transaction(application.state.settings, identity) as (db, user):
-            result = write_settings(db, identity, user, account_id, body)
+            result = write_settings(db, identity, user, account_id, body,
+                                    application.state.futures_paper_state_reader)
         # transaction exit must acknowledge commit before success is published.
         return {
             "schema_version": "futures-paper-settings/1", "tenant_id": str(identity.tenant_id),

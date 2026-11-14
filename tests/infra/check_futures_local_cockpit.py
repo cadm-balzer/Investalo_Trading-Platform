@@ -75,9 +75,8 @@ def fixture():
             "auth_time": int(time())}
 
 
-def assets(session):
+def api_get(session, path):
     now = int(time())
-    path = "/v1/futures-paper-assets"
     value = session["value"]
     claims = {
         "iss": "investalo-bff", "aud": "investalo-api", "sub": value["subject"],
@@ -109,7 +108,11 @@ def assets(session):
           "private asset response not cached")
     check(body["tenant_id"] == session["value"]["tenantId"] and len(body["accounts"]) == 1,
           "own tenant and account only")
-    return body["accounts"][0]["snapshot"]
+    return body
+
+
+def assets(session):
+    return api_get(session, "/v1/futures-paper-assets")["accounts"][0]["snapshot"]
 
 
 def run():
@@ -189,12 +192,21 @@ def run():
         check("Der aktuelle Futures-Paperstand ist derzeit nicht verfügbar." not in html
               and "Der Futures-Paperzustand ist noch nicht angeschlossen." not in html,
               "strict TS contract accepts actual native snapshot")
+        if path == "/portfolio":
+            check("Kapitalempfehlung:" in html and "gleichzeitige Baskets" in html
+                  and "Freie Mittel nach Reserven" in html, "actual SSR capacity recommendation")
+    planned = api_get(session, "/v1/futures-paper-settings")["accounts"][0]
+    check(planned["runtime_ready"] and planned["recommendation"] == 3
+          and planned["capacity"]["funded_capacity"] == 3,
+          "native current minimums and own cash recommend three funded ranges")
     status, settings, _ = browser.request("/api/futures/settings", session,
         {"account_id": binding.account_id, "expected_revision": 0, "basket_limit": 3})
     check(status == 200, "actual BFF settings CAS saved")
     check(settings["accounts"][0]["recommendation"] is None
           and settings["accounts"][0]["runtime_ready"] is False,
-          "uncalibrated capacity stays explicitly unavailable")
+          "saved setting waits for acknowledged worker before recommendation")
+    check(settings["accounts"][0]["recommendation_reason"] == "paper_settings_pending",
+          "actual settings revision mismatch blocks stale advice")
     STAGE = "bound restart and setting application"
     with patch.dict(os.environ, runtime):
         worker_main(arguments)
@@ -214,6 +226,10 @@ def run():
     restored_snapshot = assets(session)
     check(restored_snapshot["revision"] == final_state.revision, "API sees latest acknowledged restart")
     save(run_root, "assets-restored.json", restored_snapshot)
+    planned = api_get(session, "/v1/futures-paper-settings")["accounts"][0]
+    check(planned["runtime_ready"] and planned["recommendation"] == 3
+          and planned["revision"] == 1, "restored own capacity follows actual saved setting")
+    save(run_root, "capacity-restored.json", planned)
     with browser.admin() as db:
         rows = db.execute("SELECT revision,basket_limit,actor_id FROM platform.futures_paper_settings_audit "
                           "WHERE tenant_id=%s AND account_id=%s", (actor["tenant"], actor["account"])).fetchall()
@@ -229,6 +245,10 @@ def run():
     check(status == 200 and "Datenstand veraltet oder noch im Aufbau." in html,
           "actual SSR shows stale blocker")
     save(run_root, "assets-stale.json", stale)
+    planned = api_get(session, "/v1/futures-paper-settings")["accounts"][0]
+    check(planned["recommendation"] is None and not planned["runtime_ready"]
+          and planned["recommendation_reason"] == "stale_instrument_data",
+          "actual API refuses stale minimum/cash recommendation")
     STAGE = "revoked account blocks restart"
     before_hash = hashlib.sha256(journal_path.read_bytes()).hexdigest()
     cohorts = tuple(sorted(archive.iterdir()))
@@ -258,6 +278,7 @@ def run():
         "native_sources": True, "synthetic_identity": True, "synthetic_encrypted_session": True,
         "actual_https_bff_api_pg_ssr": True, "physical_browser_verified": False,
         "pause_before_http_verified": True,
+        "current_capacity_verified": True,
         "initial_slots": 3, "initial_equity": "10000", "leverage": "2",
         "entries": len(final_state.signal.economic.stages),
         "closures": final_state.signal.economic.ledger.closed_baskets,

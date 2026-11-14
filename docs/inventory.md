@@ -1,5 +1,14 @@
 # Bestandsaufnahme
 
+IP-090: futures_paper_capacity.py/futures_capacity_source.py verbinden eigenes
+bestätigtes Cash, offene reguläre/manuelle/Kosten-/Restorationreserven, feste
+finanzierte Ranges und archivierte aktuelle Quotes mit einem zusätzlichen
+unsigned Classic-Contracts-GET. Gemeinsame Statuspublikation/2 mit /1-Kompatibilität,
+scoped Planungs-API und Portfolio zeigen Empfehlung oder konkrete Blocker.
+Nur Beratung, keine neuen finanziellen Gates oder Kapitalfreigaben.
+89 gezielte gepinnte Fälle/18 Subtests,574 Cockpitfälle/Typecheck grün.
+[Vertrag](futures-paper-capacity.md).
+
 IP-090: futures_local_profile.py erklärt ein eigenes10k/3-Ranges/5-Kandidaten/
 2×-Laufprofil mit originalem aktuellen Classic-Raster-SHA. Das neue explizite
 lokale Composeoverlay/geschützte Fixturemount und der native HTTP-Cockpittest
@@ -14,7 +23,7 @@ futures_account_reader.py liest aktuelles eigenes ready/USDT/Paperkonto und
 übernimmt echte neueste Revisionen und prüft vor Commits erneut;
 futures_account_main.py bietet einmalige Initialisierung/gebundenen Restore.
 22 neue Fälle/nach Gesamtrun und gezieltem Schlusslauf162 verschiedene grün;
-114 Subtests. Noch kein laufender Dienst oder kalibrierter Kapazitätsreader.
+114 Subtests. Noch kein dauerhafter Dienst; Paperkapazitätsreader separat ergänzt.
 [Vertrag](futures-paper-account-binding.md).
 
 IP-090: futures_paper_archive.py sichert native25-/10-GET-Kohorten vor
@@ -89,8 +98,9 @@ eigene USDT-Paper-Planung3–7 mit Revision und atomarem Audit. Additive013
 nur in investalo_credentials_checks, sha78f1c339f6ff8b5bf6827d7eae3d987b6ed6a8bd32b69dcfcc45a88a94753645.
 futures_capacity.py berechnet aus vertrauenswürdigen Cash-/Reserve-/Range-/
 Gewinnetappen-/Kandidatenbelegen einen technischen Kapazitätsvorschlag.
-Aktuelle Futureskontodaten fehlen: API recommendation=null/runtime_ready=false.
-Default-off; eigener dauerhafter Paperdienst IP-090 ist als Nächstes priorisiert.
+Own-Paper-Cash-/Mindestorderadapter ist inzwischen separat angebunden;
+ohne frische Belege weiterhin recommendation=null/runtime_ready=false.
+Default-off; Q36-Gewinnetappen und eigener dauerhafter Dienst bleiben IP-090.
 Kein Spotkontostand-/historischer End-MTM-Ersatz. [Vertrag](futures-paper-settings.md).
 
 IP-087: eigene ModerateEconomicScenario-Flagachse auf unverändertem Grid-/Cashkern.

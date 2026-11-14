@@ -1,9 +1,11 @@
-"""Persist a Paper planning preference; current Futures balances remain absent."""
+"""Own Paper preference and readonly acknowledged capacity recommendation."""
+from datetime import datetime, timezone
 from typing import Annotated
 from uuid import UUID
 
 from fastapi import HTTPException
 from pydantic import BaseModel, ConfigDict, Field
+from investalo_trading.futures_paper_capacity import capacity_snapshot
 
 
 class BasketSettingsRequest(BaseModel):
@@ -12,8 +14,8 @@ class BasketSettingsRequest(BaseModel):
     basket_limit: Annotated[int, Field(ge=3, le=7)]
 
 
-def public_settings(account, row, *, can_edit):
-    return {
+def public_settings(account, row, *, can_edit, tenant_id=None, reader=None, now=None):
+    result = {
         "account_id": str(account["id"]), "account_name": account["name"],
         "revision": row["revision"] if row else 0,
         "basket_limit": row["basket_limit"] if row else 5,
@@ -21,12 +23,26 @@ def public_settings(account, row, *, can_edit):
         "leverage": "2", "runtime_ready": False,
         # Never substitute Spot cash, historical end-MTM or user input.
         "recommendation": None, "recommendation_reason": "futures_runtime_missing",
+        "capacity": None,
     }
+    capacity_reader = getattr(reader, "capacity", None)
+    if callable(capacity_reader):
+        try:
+            state = capacity_reader(str(tenant_id), result["account_id"])
+            if state is not None:
+                result.update(capacity_snapshot(state, tenant_id=str(tenant_id),
+                    account_id=result["account_id"], settings_revision=result["revision"],
+                    configured_limit=result["basket_limit"], now=now or datetime.now(timezone.utc),
+                    account_ready=account["status"] == "ready"))
+        except Exception:
+            # A broken recommendation does not obscure a successfully saved preference.
+            result["recommendation_reason"] = "capacity_unavailable"
+    return result
 
 
-def read_settings(db, identity, user):
+def read_settings(db, identity, user, reader=None):
     rows = db.execute(
-        "SELECT a.id,a.name,s.revision,s.basket_limit FROM platform.accounts a "
+        "SELECT a.id,a.name,a.status,s.revision,s.basket_limit FROM platform.accounts a "
         "LEFT JOIN platform.futures_paper_settings s ON s.tenant_id=a.tenant_id AND s.account_id=a.id "
         "WHERE a.tenant_id=%s AND a.broker='bitget' AND a.mode='paper' AND a.currency='USDT' "
         "ORDER BY a.created_at,a.id LIMIT 20", (identity.tenant_id,),
@@ -35,11 +51,12 @@ def read_settings(db, identity, user):
         "schema_version": "futures-paper-settings/1", "tenant_id": str(identity.tenant_id),
         "mode": "paper", "live_enabled": False,
         "accounts": [public_settings(r, r if r["revision"] is not None else None,
-                                    can_edit=user["role"] in ("owner", "trader")) for r in rows],
+                                    can_edit=user["role"] in ("owner", "trader"),
+                                    tenant_id=identity.tenant_id, reader=reader) for r in rows],
     }
 
 
-def write_settings(db, identity, user, account_id: UUID, body: BasketSettingsRequest):
+def write_settings(db, identity, user, account_id: UUID, body: BasketSettingsRequest, reader=None):
     if user["role"] not in ("owner", "trader"):
         raise HTTPException(403, "Access denied")
     # Serialize even first creation without granting UPDATE on platform.accounts.
@@ -53,7 +70,7 @@ def write_settings(db, identity, user, account_id: UUID, body: BasketSettingsReq
     if not membership:
         raise HTTPException(403, "Access denied")
     account = db.execute(
-        "SELECT id,name FROM platform.accounts WHERE tenant_id=%s AND id=%s "
+        "SELECT id,name,status FROM platform.accounts WHERE tenant_id=%s AND id=%s "
         "AND broker='bitget' AND mode='paper' AND currency='USDT'",
         (identity.tenant_id, account_id),
     ).fetchone()
@@ -77,4 +94,5 @@ def write_settings(db, identity, user, account_id: UUID, body: BasketSettingsReq
         "(tenant_id,account_id,revision,actor_id,basket_limit) VALUES (%s,%s,%s,%s,%s)",
         (identity.tenant_id, account_id, revision, user["id"], body.basket_limit),
     )
-    return public_settings(account, {"revision": revision, "basket_limit": body.basket_limit}, can_edit=True)
+    return public_settings(account, {"revision": revision, "basket_limit": body.basket_limit},
+                           can_edit=True, tenant_id=identity.tenant_id, reader=reader)

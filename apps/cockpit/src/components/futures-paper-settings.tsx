@@ -1,7 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { parseBasketSettings, type BasketSetting, type BasketSettings } from "@/lib/futures-paper-settings-contracts";
+import { capacityReasons, parseBasketSettings, type BasketSetting, type BasketSettings } from "@/lib/futures-paper-settings-contracts";
+
+function date(value: string) {
+  return new Intl.DateTimeFormat("de-DE", { dateStyle: "short", timeStyle: "medium",
+    timeZone: "Europe/Berlin" }).format(new Date(value));
+}
 
 function AccountSettings({ initial, tenantId, csrf }: { initial: BasketSetting; tenantId: string; csrf: string }) {
   const router = useRouter();
@@ -10,6 +15,10 @@ function AccountSettings({ initial, tenantId, csrf }: { initial: BasketSetting; 
   const [pending, setPending] = useState(false);
   const [uncertain, setUncertain] = useState(false);
   const [message, setMessage] = useState("");
+  useEffect(() => {
+    if (!pending && !uncertain)
+      setCurrent(previous => initial.revision >= previous.revision ? initial : previous);
+  }, [initial, pending, uncertain]);
   async function save() {
     setPending(true); setMessage("");
     try {
@@ -22,7 +31,7 @@ function AccountSettings({ initial, tenantId, csrf }: { initial: BasketSetting; 
       if (result.accounts.length !== 1 || accepted.account_id !== current.account_id ||
         accepted.revision !== current.revision+1 || accepted.basket_limit !== limit) throw new Error("NOT_CONFIRMED");
       setCurrent(accepted);
-      setMessage("Basket-Obergrenze gespeichert. Die Futures-Paper-Ausführung folgt im nächsten Schritt.");
+      setMessage("Basket-Obergrenze gespeichert. Der Worker übernimmt sie beim nächsten bestätigten Durchlauf.");
       router.refresh();
     } catch {
       setUncertain(true);
@@ -37,7 +46,17 @@ function AccountSettings({ initial, tenantId, csrf }: { initial: BasketSetting; 
       {[3, 4, 5, 6, 7].map(n => <option key={n} value={n}>{n} Baskets</option>)}
     </select>
     <p>Anfangs drei bis fünf. Sechs und sieben werden erst durch die bestätigten Gewinnetappen finanziert.</p>
-    <p>Kapitalempfehlung ausstehend: Der eigene Futures-Kontostand und aktuelle Mindestorderdaten sind noch nicht angebunden.</p>
+    {current.recommendation !== null ?
+      <p><strong>Kapitalempfehlung: {current.recommendation} gleichzeitige Baskets.</strong>{" "}
+        {capacityReasons[current.recommendation_reason]}.</p> :
+      <p>Kapitalempfehlung ausstehend: {capacityReasons[current.recommendation_reason]}.</p>}
+    {current.capacity && <p>{current.capacity.funded_capacity} finanzierte Plätze ·{" "}
+      {current.capacity.active_baskets} offene Baskets ·{" "}
+      {Number(current.capacity.range_budget).toFixed(2)} USDT je vollständiger Range.<br />
+      Freie Mittel nach Reserven: {Number(current.capacity.free_cash).toFixed(2)} USDT ·{" "}
+      reserviert: {Number(current.capacity.reserved_cash).toFixed(2)} USDT.<br />
+      Paperstand: {date(current.capacity.observed_at)} ·{" "}
+      Instrumentprüfung: {date(current.capacity.instrument_at)}</p>}
     <p>Offene Baskets behalten ihre vollständige Kaufstaffel und manuelle Reserve. Eine niedrigere Obergrenze wartet auf Abschlüsse.</p>
     <button type="button" className="button secondary"
       disabled={!current.can_edit || pending || uncertain || (current.saved && limit === current.basket_limit)} onClick={save}>

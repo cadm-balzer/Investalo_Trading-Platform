@@ -121,3 +121,12 @@ dauerhafte Workeraktivierung, kein Broker-Demodienst, keine öffentliche Freigab
 Die interne Planungs-API bleibt bis zur kalibrierten Kapazitätsanbindung
 `runtime_ready=false`/`recommendation=null`, auch wenn die Assetanzeige arbeitet.
 Danach folgen Kapazitätsreader, Q36-Gewinnetappen, IP-088-Recovery und Bitget-Demo.
+
+## Fortsetzung nach PR67
+
+Der oben dokumentierte 43-Punkt-Beleg bleibt historisch unverändert.
+Die [Paperkapitalempfehlung](futures-paper-capacity.md) ergänzt inzwischen den
+kalibrierten Reader und hat eine eigene native 60-Punkt-Abnahme bestanden.
+Im dort ausdrücklich aktivierten lokalen Overlay ist die Planungs-API bei
+frischen bestätigten Daten nun bereit; drei finanzierte Ranges empfehlen drei.
+Q36-Gewinnetappen und IP-088-Recovery bleiben die nächsten Schritte.

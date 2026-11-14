@@ -14,6 +14,7 @@ from .futures_account_worker import FuturesAccountWorker
 from .futures_paper_bootstrap import initialize_paper, load_spec
 from .futures_paper_main import _running
 from .futures_source_worker import FuturesSourceWorker
+from .futures_capacity_source import FuturesPaperCapacitySource
 
 
 def main(argv=None):
@@ -48,7 +49,10 @@ def main(argv=None):
                                          minimum_receipt=minimum) as journal:
             guard()
             reader()
-            with FuturesAssetPublisher(args.status_root, journal, clock=clock) as publisher:
+            capacity_reader = (FuturesPaperCapacitySource(journal, archive, clock)
+                if os.getenv("FUTURES_PAPER_CAPACITY_ENABLED") == "1" else None)
+            with FuturesAssetPublisher(args.status_root, journal, clock=clock,
+                                       capacity_reader=capacity_reader) as publisher:
                 publisher.publish(expected_revision=journal.state.revision)
                 worker = FuturesAccountWorker(FuturesSourceWorker(journal, archive, publisher, clock), reader)
                 for i in range(args.cycles):

@@ -1014,3 +1014,11 @@ Stand 2026-11-14. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   Synthetische Sitzungen gehören ausschließlich in den geschützten bestehenden
   Fixturemount. Ein erfolgreicher nativer Workercommit allein belegt noch
   keine Cockpitabnahme; erst nach SSR/Settings/Restore/Stale/Pause Receipt erzeugen.
+- **Empfehlung ist keine Kapitalallokation:** aktuelle native Mindestorders
+  und freies eigenes Cash reichen allein nicht. Feste finanzierte Ranges,
+  alle offenen regulären/manuellen/Kostenreserven und Liquidationsreste
+  berücksichtigen. Settingsrevision und echte Quote-/Instrument-/H1-Uhren
+  beim APIlesen prüfen; kein Republish zur Frischeerneuerung. Geänderte Grids
+  schließen Kandidaten aus der Empfehlung aus, ändern keine offene Strategie.
+  Ausfall des zusätzlichen unsigned Instrumentabrufs hält nur die Empfehlung
+  zurück und erzeugt keine neue finanzielle Sperre.
