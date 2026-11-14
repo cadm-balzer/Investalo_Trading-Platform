@@ -50,8 +50,10 @@ und exakt passende Settlementzeit/Mark. IDs bleiben unabhängig von
 Paket-IDs dauerhaft erhalten; wiederholtes Funding wird abgewiesen.
 Erlaubte eigene Kostenrestoration verändert keine regulären Kaufbeträge.
 
-Quellenbindung und vollständige Fundingchronologie muss der spätere
-vertrauenswürdige Feedadapter zusätzlich nachweisen. Der Kern fragt
+Der [aktuelle Classic-Collector](futures-paper-feed.md) bewahrt native
+Quotenzeiten, geschlossene H1-Achsen, Fundinghistorie und Forecast.
+Seine Übergabe stoppt offene Positionen vor unbewerteten Fundingterminen;
+vollständiger dauerhafter Fundingbetrieb bleibt noch offen. Der Kern fragt
 keinen Provider ab und erkennt keine absichtlich ausgelassenen Settlements.
 Fehlende letzte H1-Kerzen, offene Mehrstundenlücken oder eine bereits am
 früheren Stundenende beobachtete Liquidation verlangen Abgleich vor neueren
@@ -112,8 +114,10 @@ kompletter Restore/Weiterlauf, Truncation und verlorener fsync-Ack.
 Synthetische Daten und Modellannahmen; keine neue Marktauswertung,
 DBmigration, Abhängigkeit oder öffentliche Aktivierung.
 
-Weiter: aktueller Feed mit belegter Mark-/Fundingchronologie und
-Instrumentkalibrierung, lokaler Launcher/Archivierung, eigene Status-/
+Aktuelle Classicquelle und Quellen-/Journalrestore sind im nächsten
+lokalen Zwischenstand geprüft; [Quellenbeleg](futures-paper-feed.md).
+Weiter: vollständige Settlementbewertung und aktuelle Instrumentkalibrierung,
+dauerhafter Feedcursor/lokaler Launcher/Archivierung, eigene Status-/
 Settingsadapter, Q36-Gewinnetappen, IP-088-Recovery und Cockpit.
 Danach Bitget-Demo mit Orderjournal/Reconciliation. Echtgeld und aktive
 AI behalten ihre separaten Freigaben.

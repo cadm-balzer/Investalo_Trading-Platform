@@ -1,6 +1,18 @@
 # Technische Fallstricke
 
-Stand 2026-11-13. Befunde sind dokumentiert, nicht automatisch im Altsystem behoben.
+Stand 2026-11-14. Befunde sind dokumentiert, nicht automatisch im Altsystem behoben.
+
+- **Classic-Fundinghistorie hat keinen Settlement-Markpreis:** Rate/native Zeit
+  und aktueller Forecast reichen nicht für eine exakte Fundingbewertung.
+  Mit offenem Kapital den vorigen bestätigten Forecast behalten; beim
+  überschrittenen Termin auch ohne publizierten Historyeintrag stoppen.
+  Keine Rate weglassen oder späteren Mark mit früherem Timestamp versehen.
+  Neuer Quellenadapter sperrt diese Grenze bis zur eigenen Reconciliation.
+- **Falsche Großschreibung kann stille Tradepreise erzeugen:** Die aktuelle
+  native Probe mit `candles?kLineType=MARK` lieferte Trade-OHLC; dokumentiert
+  sind `market/mark/index`. Der neue Collector verwendet den separaten
+  `history-mark-candles`-Endpunkt. Quote-`ts` kann wenige Millisekunden nach
+  `requestTime` liegen; eigene native Uhren und Empfangszeit behalten.
 
 - **Terminale Slots begrenzen die Aussage eines Hebelvergleichs:** IP-08610×
   verliert alle fünf Slots bis2022-10-13; danach flache Equity trotz komplett
