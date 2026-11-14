@@ -1006,3 +1006,11 @@ Stand 2026-11-14. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   Plätze wachsen nicht mit dem UIlimit. Native Warmupgenesis bleibt Mitternacht:
   für einen beliebigen H1-Handelsbeginn16–39h wählen. Vorhandener eigener
   Status verbietet auch unter anderem Journalpfad eine neue Kapitalallokation.
+- **APIalias in mehreren Compose-Netzen ist mehrdeutig:** der lokale
+  native Cockpittest ist zusätzlich im Datenbanknetz, in dem die normale API
+  ebenfalls `api` heißt. Direkte signierte Fixtureabrufe verbinden explizit
+  zum Testservice und behalten Zertifikatsprüfung/SNI `api`; niemals deshalb
+  TLS abschalten. Das Cockpit nutzt seinen separaten internen Prüfnetzalias.
+  Synthetische Sitzungen gehören ausschließlich in den geschützten bestehenden
+  Fixturemount. Ein erfolgreicher nativer Workercommit allein belegt noch
+  keine Cockpitabnahme; erst nach SSR/Settings/Restore/Stale/Pause Receipt erzeugen.

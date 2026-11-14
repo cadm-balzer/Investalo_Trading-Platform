@@ -7,6 +7,23 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR66 merged: 218f36f ancestor of main7ce1be4, GH/fetch verified.
+  IP-090 on feat/m1-futures-local-acceptance: explicit local10k USDT/
+  three funded ranges/five native Classic candidates/fixed2× profile.
+  Current contract grids/status/leverage bind source SHA; fees/maintenance/
+  money/insurance/fills remain declared Paper assumptions, no broker claim.
+  Dedicated synthetic fixture013 account/session; private no-port Compose
+  acceptance connects actual native data/bound CLI/journal/status/HTTPS/
+  Next SSR/BFF/API/PG, saved ceiling5→3, full restart, stale display and pause.
+  Three new/44 focused pinned cases/15 subtests and pinned Cockpit build pass;
+  actual native43-check receiptsha
+  1c5c65b52bce453ab2d767baa23a62d995f420e02889c1a71996695030f2525a.
+  Journal2→4, zero entries/closures in short acceptance; no performance claim.
+  First HTTP-address failure preserved without acceptance receipt.
+  No normal/public service, migration, dependency, historical performance,
+  broker or AI activation. Capacity API still runtime_ready=false/
+  recommendation=null; calibrated capacity/Q36 epochs/IP-088 remain next.
+  See docs/futures-local-cockpit-acceptance.md for evidence and local commands.
 - PR65 merged: a22199a ancestor of mainf7fb8c6, GH/fetch verified.
   IP-090 on feat/m1-futures-paper-account-binding: explicit private own UUID/
   actor/config/capital allocation, create-only trusted SHA spec, native16–39h

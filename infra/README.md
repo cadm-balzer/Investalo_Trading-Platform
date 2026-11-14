@@ -1,5 +1,11 @@
 # Lokale Compose-Entwicklung
 
+IP-090: die eigene lokale native Futures-/Cockpitabnahme nutzt ein separates
+synthetisches Fixturekonto und private HTTPS-Prüfdienste ohne Hostports.
+Aufruf und erklärtes10k/3-Ranges/2×-Modell:
+[Lokale Futuresabnahme](../docs/futures-local-cockpit-acceptance.md).
+Normale Services und öffentliche Vorschau werden damit nicht umgeschaltet.
+
 IP-069: create-only `import-futures-funding.py` erfasst native öffentliche
 Fundingbeobachtungen getrennt vom unvollständigen Forschungsfenster.
 Der Fixturehelper mountet nur CLI/Protokoll zusätzlich readonly; keine neue

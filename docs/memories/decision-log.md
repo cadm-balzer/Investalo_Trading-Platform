@@ -2326,3 +2326,26 @@ Nächster Schritt: eigenes privates Laufprofil und lokale Cockpitabnahme;
 kalibrierter Kapazitätsreader/Q36/IP-088 folgen. Planungs-API bleibt bis
 Kapazitätsanbindung ausdrücklich runtime_ready=false/recommendation=null.
 [Vertrag](../futures-paper-account-binding.md).
+
+## D106 — Native lokale Futures-/Cockpitabnahme (2026-11-14)
+
+PR66 (`218f36f`) ist in `main7ce1be4` enthalten; GH/Fetch/Ancestry bestätigt.
+Eigenes explizites10k-USDT-/drei-Ranges-/fünf-Kandidaten-/2×-Laufprofil bindet
+aktuelle originale Classic-Vertragsgrids; Gebühren, Maintenance, Geldquantum,
+Slippage, Insurance und Fills bleiben erklärte Paperannahmen.
+Keine Migration oder öffentliche/Live-/AI-Aktivierung.
+
+Isolierte Fixture013/Owner-/Paperkonten und verschlüsselte synthetische
+Sitzungen verbinden echte native GETs und den gebundenen CLI mit dauerhafter
+Journal-/Statuspublikation, HTTPS, BFF, API, PG und tatsächlichem Next-SSR.
+Wirklicher Settings-CAS5→3 mit atomarem Audit, vollständiger Neustart ohne
+zweites Kapital, stale Anzeige nach31s und Kontopause vor neuen GETs/Commits
+bestätigt.44 gezielte gepinnte Fälle/15 Subtests und Cockpitbuild grün.
+Native43-Punkt-Abnahme, Journal2→4, keine Entries/Closures im kurzen Lauf.
+Receiptsha1c5c65b52bce453ab2d767baa23a62d995f420e02889c1a71996695030f2525a.
+Erster Lauf nach Workercommit am mehrdeutigen APIalias gescheitert und ohne
+Erfolgsreceipt erhalten; neue unabhängige synthetische Allokation für Schlusslauf.
+Keine physische Browser-/MFA-Abnahme und keine Performance-/Brokerzulassungsbehauptung.
+Prüfdienste anschließend gestoppt; öffentliche Vorschau unverändert.
+Kalibrierte Kontogrößenempfehlung, Q36-Gewinnetappen und IP-088-Recovery folgen.
+[Abnahme](../futures-local-cockpit-acceptance.md).
