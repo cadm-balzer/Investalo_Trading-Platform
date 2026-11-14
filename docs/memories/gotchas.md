@@ -982,3 +982,9 @@ Stand 2026-11-14. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   erlauben danach nur die weiterhin tatsächlich gültigen Handelsbedingungen.
   Volle OHLC-/Erfassungszeit-/Policy-/Quellenbindung statt bloß nativer IDs
   prüfen; exakte und Modellreceipts sind nicht austauschbar.
+- **Statusdatei ist kein neuer Quote:** private Publikation bleibt ein eigener
+  Commit hinter dem Journal. Frische und30s-RSI-Fenster bei jedem Lesen aus
+  echten gespeicherten Quote-/H1-Uhren berechnen; Republish erneuert sie nie.
+  Unknown-write stoppt weitere Workerfetches. Publizierten Receipt als
+  minimum_receipt beim vollen Journalrestore belegen, bevor ein zurückliegender
+  Lesestand repariert wird; keine Recovery aus bloßem UI-/Statussnapshot.

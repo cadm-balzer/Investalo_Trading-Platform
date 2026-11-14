@@ -20,8 +20,13 @@ Abgeschlossene Minute/Wissenszeit und unverändertes30s-RSI-Fenster geprüft;
 kein exakter Broker-Fundingkurs behauptet.
 [Paperanbindung](futures-paper-minute-funding.md),
 [Quellenbeleg](futures-settlement-source.md).
+Kompakte dauerhafte Workerpublikation nach Journalcommit und normaler optionaler
+privater API-Dateireader implementiert;128 gepinnte Fälle/105 Subtests grün.
+Frische/RSI-Fenster bei jedem Lesen neu, alte Positionen bleiben sichtbar,
+Unknown-write-Reparatur bindet Vollrestore-Mindestreceipt.
+[Statusübergabe](futures-paper-publication.md).
 Nächster Schritt: dauerhafter Feedcursor,
-lokaler Launcher/Archivierung, Status-/Settingsadapter, Q36-Gewinnetappen und
+lokaler Launcher/Archivierung, Settings-/Kapitaladapter, Q36-Gewinnetappen und
 Q46-Recovery/IP-088 samt laufender Cockpitanbindung. [Paperkern](futures-paper-runtime.md),
 [aktueller Feed](futures-paper-feed.md).
 Danach Bitget-Demoausführung und separate Echtgeldabnahme. Keine neuen

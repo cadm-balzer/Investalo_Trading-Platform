@@ -3,13 +3,15 @@
 Q48/IP-090, lokaler Zwischenstand2026-11-14. PR59 (`b6890eb`) ist in
 Main `29f6661` gemerged; GH und Git-Ancestry geprüft.
 Die eigene Assetprojektion, authentifizierte Lese-API und Dashboardansicht
-sind implementiert. Dauerhafte Workerpublikation und öffentliche Aktivierung
-bleiben vom vollständigen Futures-Paperbetrieb abhängig.
+sind implementiert. Die [dauerhafte private Workerpublikation](futures-paper-publication.md)
+ist inzwischen ergänzt; laufende Quellen-/Dienstanbindung und öffentliche
+Aktivierung bleiben vom vollständigen Futures-Paperbetrieb abhängig.
 
 ## Anzeigevertrag
 
 `futures_paper_view.asset_snapshot` liest ausschließlich einen eigenen
-`FuturesPaperState` für den exakt erwarteten Mandanten und Account.
+`FuturesPaperState` oder seinen eigenen kompakten `FuturesAssetState`
+für den exakt erwarteten Mandanten und Account.
 Der vertrauenswürdige Reader muss den letzten bestätigten Journalzustand
 liefern. Der Leseweg verändert keine Position, Staffel, Signale oder Orders.
 Ein fremder/futurischer Zustand wird abgewiesen; ein nicht angeschlossener
@@ -75,7 +77,10 @@ API-Opt-in `API_FUTURES_PAPER_ASSETS_PREVIEW=1`,
 Cockpit-Opt-in `COCKPIT_FUTURES_PAPER_ASSETS_PREVIEW=1`.
 Beide bleiben standardmäßig aus; Compose/Public wurde nicht geändert.
 `create_app(..., futures_paper_state_reader=...)` ist der private Anbindungspunkt.
-Der normale Launcher stellt derzeit noch keinen solchen Reader bereit.
+Alternativ erzeugt die normale API bei gesetztem privaten
+`API_FUTURES_PAPER_STATUS_ROOT` und aktiviertem API-Opt-in einen readonly
+Dateireader. Der injizierte Reader behält Vorrang. Die geprüfte Publikation
+ist noch nicht an einen laufenden automatischen Quellenworker angeschlossen.
 `runtime_ready=false`/`recommendation=null` bleiben unverändert.
 
 ## Prüfung und nächster Anschluss
@@ -90,7 +95,7 @@ Gepinnter Next.js16.4.5-Cockpit-Build erfolgreich; laufende Dienste unverändert
 Keine neuen Performancejobs, Migrationen, Abhängigkeiten oder öffentliche/
 Live-/AI-Aktivierung. Die bestehenden Daten-/Strategie-/Risikoprofile bleiben.
 
-Weiter: native Funding-Settlementbewertung, dauerhafter Quellen-/Journalcursor,
-Launcher/Archivierung und Veröffentlichung des bestätigten Zustands an den
-Reader; danach Anzeigeabnahme im laufenden Entwicklungscockpit.
+Q49-Minutenfunding und dauerhafte private Statuspublikation sind implementiert.
+Weiter: dauerhafter Quellen-/Journalcursor, Launcher/Archivierung;
+danach Anzeigeabnahme im laufenden Entwicklungscockpit.
 013-Einstellungsübernahme, Q36-Gewinnetappen und IP-088-Recovery bleiben IP-090.

@@ -7,6 +7,24 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR63 merged: 7aeec8d ancestor of mainda3c467, GH/fetch verified.
+  IP-090 on feat/m1-futures-paper-status-publication: compact immutable own
+  asset read model + owned atomic/fsync/readback status file after acknowledged
+  warmup/batch/exact/minute funding journal commits. Lifetime publisher lock,
+  complete receipt/content binding, no full history/keys/trading authority.
+  API optional private status root + existing assets opt-in; trusted ID scope,
+  readonly same-UID files, no journal lock/replay per HTTP request.
+  Recompute quote/H1 freshness, RSI window/account blockers at read time;
+  stale positions retained, missing publication null. Publication time never
+  refreshes quotes. Unknown write stops publisher/next worker fetch; restart
+  requires full journal restore using published minimum_receipt before repair.
+  Truncation/fork/foreign/corrupt/future evidence stops. Old golden identities
+  retained. Ten new domain/filesystem + three actual PG/HTTP cases;
+  128 focused pinned cases/105 subtests pass; final26 affected/14 subtests
+  rerun after permission/zero-tick-ceiling review. No migration/dependency/
+  performance/public/live/AI/Compose/service activation. Durable source cursor/
+  launcher/archive/settings/profit/recovery and running local UI acceptance
+  remain IP-090/IP-088. See docs/futures-paper-publication.md.
 - PR62 merged: 0f70ff6 ancestor of main4b837f1, GH/fetch verified.
   Q49 CONFIRMED by user; IP-090 on feat/m1-futures-paper-minute-funding:
   own native-minute-mark-open/1 PaperMinuteSettlement, full OHLC/source hash/

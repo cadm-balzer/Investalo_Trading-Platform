@@ -24,6 +24,7 @@ from .settings import Settings
 from .paper_status import read_status
 from .futures_paper_settings import BasketSettingsRequest, read_settings, write_settings
 from .futures_paper_assets import read_assets
+from investalo_trading.futures_paper_status import FuturesAssetReader
 from .research_result import publish_result
 from .research_spec import public_source, specification
 
@@ -77,6 +78,10 @@ def create_app(settings: Settings | None = None, *, futures_paper_state_reader=N
     application = FastAPI(title="Investalo API", docs_url=None, redoc_url=None, openapi_url=None)
     application.state.settings = settings if settings is not None else Settings.from_environment()
     application.state.futures_paper_state_reader = futures_paper_state_reader
+    if (futures_paper_state_reader is None and application.state.settings.futures_paper_assets_preview
+            and application.state.settings.futures_paper_status_root is not None):
+        application.state.futures_paper_state_reader = FuturesAssetReader(
+            application.state.settings.futures_paper_status_root)
     application.include_router(create_passkey_router(application.state.settings))
     application.include_router(create_passkey_action_router(application.state.settings))
     application.include_router(create_passkey_credential_authorization_router(application.state.settings))
