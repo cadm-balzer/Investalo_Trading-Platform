@@ -2387,3 +2387,42 @@ Keine laufenden öffentlichen Dienste, Finanzjournalcodecs, Migrationen,
 Abhängigkeiten, historischen Performanceartefakte oder Live-/AI-Aktivierung.
 Q36-Gewinnetappen und Q46/IP-088 manuelle Recovery folgen.
 [Vertrag](../futures-paper-capacity.md).
+
+## D108 — Q36 als eigene journalgebundene Futures-Paperpolicy (2026-11-14)
+
+PR68 (`70c93cb`) ist in `main763717b` enthalten; GH/Fetch/Ancestry bestätigt.
+Neue ausdrückliche profit/2-Policy behält die anfänglichen3–5 vollen Ranges,
+sechs Eigenkapitalstufen/manuelle Reserve, feste2× und Q41-Futuresrisikoökonomie.
+Drei zusätzliche vollständige Abschlüsse und kumulierter tatsächlich
+realisierter Nettogewinn nach allen Verlusten/Kosten/Funding finanzieren je
+genau eine ursprüngliche volle Range. Bereits zugeordneten Gewinn abziehen;
+keine Teilverkäufe, Buchgewinne oder doppelte Cashgutschrift.
+
+Zuerst zusätzliche Plätze bis7 bei ausreichendem Pool und UIobergrenze,
+danach gleichmäßig höhere Zielbudgets neuer Ranges. Offene und gestoppte
+Budgets/Staffeln erhalten ihre tatsächlichen Epochen; verschobene Erhöhungen
+und Geldreste reserviert halten. Gemeinsame aktuelle H1-/Quote-/Markbewertung,
+tatsächliche Equity und vollständige liquide Deckung aller verbleibenden
+offenen und freien finanzierten Ranges nötig. Keine neue harte6%/8%-/
+−50%-Spotprüfung, kein Risiko-/Liquidationsreset.
+
+Additiver eigener profit_epoch-Befehl berechnet unter Journal-CAS vollständig
+neu, ohne Client-Cash-/Profitbehauptungen. Immutable Finanzpräfix-/Epochenbelege
+und Vollrestore erhalten einmalige Zuordnung. Boundworker prüft eigene aktuelle
+Kontoberechtigung/Settings vor Commit; nur bestätigte frische Quotendurchläufe,
+kein Funding-only/pending-Sourcestand. Minimumreceipt/Unknown-write-Stop/
+Readback bleiben erhalten. Genesis/Allokationsdatei verbieten Gewinnimport;
+alte feste Profile werden nicht automatisch konvertiert oder neu initialisiert.
+
+Zwölf neue Fälle einschließlich tatsächlichem archiviertem Quellen-/Journal-/
+Publikationsneustart und echtem restricted PG-/HTTP-Kapazitätsreader:
+224 breiter gepinnter Lauf/118 Subtests sowie final37 Fälle/11 Subtests grün.
+Sechs gezielte Cockpit-/SSR-Fälle und Typecheck grün; nur Budgetlabel als
+Betrag für neue Ranges präzisiert, kein erneuter Frontendbuild.
+Echte API empfiehlt4 bei gespeicherter Grenze7 nach bestätigter synthetischer
+Gewinnetappe. Vollständige3→7-/Volumenfolge synthetisch mit echten Reducern
+geprüft, keine Marktperformancebehauptung.
+Native Classic-Quellen bleiben fünf Kandidaten; echte Erweiterung für6/7
+folgt, kein vorgezogenes Volumen bei zu kleinem Pool.
+Keine Migration/Dependencies/laufende Dienste/Marktjobs/Public/Live/AI.
+[Vertrag](../futures-paper-profit-epochs.md).

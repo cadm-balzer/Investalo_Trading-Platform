@@ -3,11 +3,13 @@ from dataclasses import replace
 from datetime import datetime, timezone
 from decimal import Decimal
 import unittest
+from pathlib import Path
+from tempfile import TemporaryDirectory
 
 from investalo_marketdata.futures_broker_calibration import parse_contracts
-from investalo_workers.futures_local_profile import local_config
+from investalo_workers.futures_local_profile import local_config, local_profit_config
 from investalo_trading.futures_paper_account import PaperAccountBinding
-from investalo_workers.futures_paper_bootstrap import PaperBootstrapSpec
+from investalo_workers.futures_paper_bootstrap import PaperBootstrapSpec, save_spec, load_spec
 from test_futures_broker_calibration import payload
 
 D = Decimal
@@ -16,6 +18,23 @@ TENANT, ACCOUNT, USER = (f"00000000-0000-4000-8000-{n:012d}" for n in (1, 2, 3))
 
 
 class LocalFuturesProfileTests(unittest.TestCase):
+    def test_explicit_profit_allocation_roundtrips_without_changing_fixed_default(self):
+        rules = parse_contracts(payload())
+        fixed = local_config(TENANT, ACCOUNT, rules, "a" * 64, AT)
+        profit = local_profit_config(TENANT, ACCOUNT, rules, "a" * 64, AT)
+        self.assertNotEqual(profit.config_digest, fixed.config_digest)
+        self.assertEqual(profit.profile.plan.budgets, fixed.profile.plan.budgets)
+        self.assertFalse(profit.profile.plan.epochs)
+        self.assertEqual(profit.profile.plan.funded_slots, 3)
+        binding = PaperAccountBinding(TENANT, ACCOUNT, USER, "https://paper.invalid",
+                                      "synthetic-profile", 0, AT)
+        spec = PaperBootstrapSpec(binding, profit)
+        with TemporaryDirectory() as folder:
+            path = Path(folder) / "allocation.json"
+            self.assertEqual(save_spec(path, spec), spec.spec_digest)
+            self.assertEqual(load_spec(path, spec.spec_digest), spec)
+        self.assertEqual(local_config(TENANT, ACCOUNT, rules, "a" * 64, AT), fixed)
+
     def test_native_grids_and_fixed_declared_economics_do_not_transfer_public_tariffs(self):
         rules = tuple(replace(r, taker_fee_rate=D(".01")) for r in parse_contracts(payload()))
         config = local_config(TENANT, ACCOUNT, rules, "a" * 64, AT)

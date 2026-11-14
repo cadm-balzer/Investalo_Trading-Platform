@@ -3,6 +3,9 @@
 Q37: späteres Futuresziel benötigt eigene Margin-/Funding-/Liquidationsökonomie.
 Die hier implementierte Spotgewinnversion bleibt Referenz; Futuresgewinne
 und -budgets nicht ohne neues Modell einsetzen. [Futuresvertrag](futures-research.md).
+Die inzwischen getrennte [Futures-Paper-Gewinnpolicy](futures-paper-profit-epochs.md)
+verwendet eigene aktuelle Ledger-/Funding-/Cash-/Journalbelege und Q41-Risikoregeln.
+Die nachstehenden Spotannahmen und Ergebnisse bleiben historische Referenz.
 
 2026-11-10, Q36/IP-061. Nutzer bestätigt Option1: **zuerst zusätzliche Slots
 bis maximal sieben gleichzeitige Baskets, danach größere zukünftige Budgets**.

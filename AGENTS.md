@@ -7,6 +7,27 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR68 merged: 70c93cb ancestor of main763717b, GH/fetch verified.
+  IP-090 on feat/m1-futures-profit-epochs: explicit own profit/2 Paper plan,
+  actual closed-count/net/cash/equity prefix; three new full closures and
+  one original full-range surplus per once-only grant. Losses/costs count.
+  Additional funded slots to7, then larger future budgets; old open/stopped
+  ladders and manual/cost reserves frozen, deferred raises stay reserved.
+  Additive own profit_epoch journal command recomputes under CAS, full
+  restore/minimumreceipt/unknown-write preserved; no cash credit/risk reset.
+  Bound source/account worker checks permission/settings before grant,
+  no funding-only/pending-source grants. Existing scoped capacity API shows
+  actual funded4 after a real synthetic Paper closing/archived worker/PG path.
+  Twelve new cases;224 broad pinned cases/118 subtests and final37 targeted
+  cases/11 subtests pass. Six Cockpit contract/SSR cases/typecheck pass;
+  only budget label clarified as future-range amount. No new frontend build.
+  Explicit local_profit_config/private SHA allocation; fixed default unchanged,
+  no imported epochs/new-genesis reset/automatic old journal conversion.
+  Seven-candidate3→7/volume flow tested synthetically; native collector still
+  five candidates, so this real profile cannot fund6/7 or raise volume early.
+  Expand actual candidate pool next, then IP-088 manual recovery/Bitget demo.
+  No migration/dependency/market performance/running service/public/live/AI change.
+  See docs/futures-paper-profit-epochs.md.
 - PR67 merged: 0488d14 ancestor of main9dc351e, GH/fetch verified.
   IP-090 on feat/m1-futures-paper-capacity: own acknowledged Paper cash/
   all remaining regular/manual/cost/restoration reserves/frozen funded ranges

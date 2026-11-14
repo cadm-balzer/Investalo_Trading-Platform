@@ -41,6 +41,14 @@ class CapitalPaperPoolPlan(CapitalGridPlan):
             raise ValueError("market maximum below minimum quantity")
 
     @property
+    def funded_slots(self):
+        return self.initial_slots
+
+    @property
+    def target_range(self):
+        return self.budgets[0].capital
+
+    @property
     def simultaneous_limit(self):
         # Profit-funded new epochs are a separate step; a ceiling alone funds nothing.
         return min(self.initial_slots, self.configured_limit, len(self.symbols))

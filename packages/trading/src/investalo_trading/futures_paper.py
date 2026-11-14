@@ -14,6 +14,7 @@ from .futures_capital_signals import (
 )
 from .futures_ledger import ExitFill, FundingSettlement, LedgerMark, LiquidationSettlement, MarginPosting, number, timestamp
 from .futures_paper_plan import CapitalPaperPoolPlan
+from .futures_paper_profit_plan import CapitalPaperProfitPlan
 from .identity_history import IdentityHistory
 from .models import floor_step, precise
 
@@ -30,7 +31,8 @@ class FuturesPaperConfig(CapitalCanonical):
     assume_insurance_credit: bool
 
     def __post_init__(self):
-        if type(self.profile) is not CapitalH1SignalProfile or type(self.profile.plan) is not CapitalPaperPoolPlan:
+        if (type(self.profile) is not CapitalH1SignalProfile
+                or type(self.profile.plan) not in (CapitalPaperPoolPlan, CapitalPaperProfitPlan)):
             raise ValueError("own H1 Paper candidate profile required")
         timestamp(self.trading_from)
         number(self.liquidation_fee_rate, nonnegative=True)
@@ -140,6 +142,8 @@ def start_paper(config, signal):
     if (signal.revision or signal.economic.revision or config.profile != signal.profile
             or config.trading_from < signal.as_of):
         raise ValueError("flat own Paper genesis required")
+    if type(config.profile.plan) is CapitalPaperProfitPlan and config.profile.plan.epochs:
+        raise ValueError("profit genesis cannot import previously allocated gains")
     return FuturesPaperState(config, signal, 0, 0, signal.as_of, False, IdentityHistory("event"),
                              IdentityHistory("event"), (), digest((VERSION, config.config_digest)))
 
@@ -307,5 +311,7 @@ def run_paper_batch(state, batch, expected_revision, at):
             if assessment.capital.allowed:
                 signal = simulate_signal_entry(candidate, assessment, price, _event(batch.input_id, "buy", symbol),
                                                 candidate.revision, batch.quoted_at)
-    return _finish(state, ("batch", batch), signal=signal, inputs=state.inputs.append(batch.input_id),
+    from .futures_paper_profit import refresh_profit_budgets
+    config, signal = refresh_profit_budgets(state.config, signal)
+    return _finish(state, ("batch", batch), config=config, signal=signal, inputs=state.inputs.append(batch.input_id),
                    funding_ids=funding_ids, attempts=tuple(attempts), observed_at=at)

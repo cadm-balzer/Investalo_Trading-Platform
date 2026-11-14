@@ -33,6 +33,8 @@ class PaperBootstrapSpec:
         plan = self.config.profile.plan
         if (plan.tenant_id, plan.account_id) != (self.binding.tenant_id, self.binding.account_id):
             raise ValueError("allocation belongs to another account")
+        if getattr(plan, "epochs", ()):
+            raise ValueError("new allocation cannot import acknowledged profit epochs")
         if plan.initial_equity != floor_step(plan.initial_equity, plan.quantum):
             raise ValueError("allocated own Paper capital must use money precision")
 

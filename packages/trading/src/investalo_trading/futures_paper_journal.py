@@ -16,6 +16,7 @@ from .futures_capital_signals import CapitalH1SignalProfile, CapitalHour, start_
 from .futures_ledger import LedgerMark, timestamp
 from .futures_paper import FuturesPaperConfig, PaperBatch, paper_settings, run_paper_batch, start_paper, warm_paper
 from .futures_paper_plan import CapitalPaperPoolPlan
+from .futures_paper_profit_plan import CapitalPaperProfitPlan, PaperProfitEpoch
 from .futures_paper_settlement import PaperSettlement, settle_paper_funding
 from .futures_paper_minute import PaperMinuteSettlement, settle_paper_minute
 from .futures_paper_source import PaperSourceCursor, PaperSourceRef, advance_source
@@ -27,6 +28,7 @@ from .snapshot import _decode, primitive
 VERSION = "isolated-usdt-futures-paper-journal/1"
 MAX_COMMANDS = 50_000
 ARGUMENTS = {"warmup": {"hours": tuple[CapitalHour, ...]},
+             "profit_epoch": {},
              "account_settings": {"evidence": PaperSettingsEvidence},
              "batch": {"batch": PaperBatch},
              "settlement": {"settlement": PaperSettlement},
@@ -45,13 +47,19 @@ def _config(raw):
     if p["signal_policy"] != CapitalH1SignalProfile.signal_policy:
         raise ValueError("own closed H1 Paper policy required")
     plan_raw = dict(p["plan"])
-    if plan_raw.pop("capital_policy", None) != CapitalPaperPoolPlan.capital_policy:
+    policy = plan_raw.pop("capital_policy", None)
+    if policy not in (CapitalPaperPoolPlan.capital_policy, CapitalPaperProfitPlan.capital_policy):
         raise ValueError("own Paper pool policy required")
     extra = {name: _decode(kind, plan_raw.pop(name)) for name, kind in (
         ("grid_rules", tuple[CapitalGridRule, ...]), ("grid_source_digest", str),
         ("initial_slots", int), ("configured_limit", int))}
+    if policy == CapitalPaperProfitPlan.capital_policy:
+        extra.update({name: _decode(kind, plan_raw.pop(name)) for name, kind in (
+            ("cost_ratio", Decimal), ("epochs", tuple[PaperProfitEpoch, ...]),
+            ("budget_indices", tuple[int, ...]))})
     base = _decode(FuturesPlan, plan_raw)
-    plan = CapitalPaperPoolPlan(**{f.name: getattr(base, f.name) for f in fields(FuturesPlan)}, **extra)
+    cls = CapitalPaperProfitPlan if policy == CapitalPaperProfitPlan.capital_policy else CapitalPaperPoolPlan
+    plan = cls(**{f.name: getattr(base, f.name) for f in fields(FuturesPlan)}, **extra)
     profile = CapitalH1SignalProfile(plan, _decode(int, p["protection_hours"]),
                                     _decode(Decimal, p["slippage"]), _decode(str, p["assumptions_digest"]))
     return FuturesPaperConfig(profile, _decode(datetime, raw["trading_from"]),
@@ -91,6 +99,9 @@ def _apply(state, command):
     revision(command["revision"])
     raw = _fields(command["arguments"], ARGUMENTS[kind])
     args = {key: _decode(cls, raw[key]) for key, cls in ARGUMENTS[kind].items()}
+    if kind == "profit_epoch":
+        from .futures_paper_profit import apply_profit_epoch
+        return apply_profit_epoch(state, command["revision"], _decode(datetime, command["at"]))
     if kind == "source_warmup":
         return warm_paper(state, args["hours"], command["revision"], _decode(datetime, command["at"]))
     if kind == "account_settings":

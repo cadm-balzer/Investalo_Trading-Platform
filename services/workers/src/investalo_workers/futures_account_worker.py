@@ -3,6 +3,8 @@ from dataclasses import dataclass, replace
 
 from investalo_trading.futures_ledger import timestamp
 from investalo_trading.futures_paper_account import PaperSettingsEvidence
+from investalo_trading.futures_paper_profit import assess_profit_epoch
+from investalo_trading.futures_paper_profit_plan import CapitalPaperProfitPlan
 
 
 @dataclass(frozen=True)
@@ -49,4 +51,19 @@ class FuturesAccountWorker:
             self.source.publisher.publish(expected_revision=after.revision)
         elif not before.warmed and evidence.basket_limit != before.config.profile.plan.configured_limit:
             raise ValueError("cold allocated profile differs from committed planning")
-        return replace(self.source, commit_guard=lambda: self._before_commit(evidence)).run_once(guard=guard)
+        source = replace(self.source, commit_guard=lambda: self._before_commit(evidence))
+        result = source.run_once(guard=guard)
+        state, _, cursor = self.source.journal.source_checkpoint()
+        # Fresh source-managed quotes only; funding-only/pending observations never grant.
+        if (type(state.config.profile.plan) is CapitalPaperProfitPlan
+                and result.outcome in ("quotes", "funding_and_quotes") and cursor.pending is None
+                and not assess_profit_epoch(state, now=timestamp(self.source.clock())).reasons):
+            source._guard(guard)
+            source.commit_guard()
+            # Eligibility is recomputed in the journal reducer under its CAS lock.
+            after = self.source.journal.append("profit_epoch", expected_revision=state.revision,
+                                               at=timestamp(self.source.clock()))
+            source._guard(guard)
+            source.publisher.publish(expected_revision=after.revision)
+            result = replace(result, revision=after.revision)
+        return result

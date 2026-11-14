@@ -297,7 +297,8 @@ class CapitalAssessment:
 def start_capital_research(plan, marks, at, evidence_digest, *, identity_capacity=50000):
     from .futures_capital_grid import CapitalGridPlan
     from .futures_paper_plan import CapitalPaperPoolPlan
-    if type(plan) not in (CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan, CapitalGridPlan, CapitalPaperPoolPlan):
+    from .futures_paper_profit_plan import CapitalPaperProfitPlan
+    if type(plan) not in (CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan, CapitalGridPlan, CapitalPaperPoolPlan, CapitalPaperProfitPlan):
         raise ValueError("explicit capital plan required")
     ledger = start_futures_ledger(plan, marks, at, evidence_digest)
     return CapitalResearchState(
@@ -363,8 +364,12 @@ def prepare_capital_entry(state, symbol, maximum_price, at):
     )
     reasons = []
     from .futures_paper_plan import CapitalPaperPoolPlan
-    if (type(plan) is CapitalPaperPoolPlan and not b.quantity
-            and sum(bool(row.quantity) for row in state.ledger.baskets) >= plan.simultaneous_limit):
+    from .futures_paper_profit_plan import CapitalPaperProfitPlan
+    occupied = sum(bool(row.quantity) for row in state.ledger.baskets)
+    if type(plan) is CapitalPaperProfitPlan:
+        occupied += len(state.stopped)
+    if (type(plan) in (CapitalPaperPoolPlan, CapitalPaperProfitPlan) and not b.quantity
+            and occupied >= plan.simultaneous_limit):
         reasons.append("paper_simultaneous_limit")
     if state.liquidation_required:
         reasons.append("liquidation_requires_settlement")

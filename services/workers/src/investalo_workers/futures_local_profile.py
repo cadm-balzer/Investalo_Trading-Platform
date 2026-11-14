@@ -1,5 +1,6 @@
 """Declared local Paper economics with current native Classic contract grids."""
 from datetime import datetime
+from dataclasses import replace
 from decimal import Decimal
 import hashlib
 
@@ -10,6 +11,7 @@ from investalo_trading.futures_capital_signals import CapitalH1SignalProfile
 from investalo_trading.futures_economics import MarginSchedule, MarginTier
 from investalo_trading.futures_paper import FuturesPaperConfig
 from investalo_trading.futures_paper_plan import paper_pool_plan
+from investalo_trading.futures_paper_profit_plan import paper_profit_plan
 from investalo_trading.futures_risk import FuturesContract
 from investalo_trading.futures_replay_journal import _sha
 
@@ -52,3 +54,17 @@ def local_config(tenant_id: str, account_id: str, rules: tuple[ContractRules, ..
     )
     return FuturesPaperConfig(CapitalH1SignalProfile(plan, 1, D(".0005"), policy),
                              trading_from, D(".001"), True)
+
+
+def local_profit_config(tenant_id, account_id, rules, source_digest, trading_from):
+    """Separate explicitly allocated Q36 profile; never upgrade an existing journal."""
+    base = local_config(tenant_id, account_id, rules, source_digest, trading_from)
+    assumptions = {**ASSUMPTIONS, "schema_version": "futures-local-paper-economics/2",
+                   "profit_policy": "three-closures; original-full-range; slots-to-seven-then-volume"}
+    policy = hashlib.sha256(canonical(assumptions).encode()).hexdigest()
+    old = base.profile.plan
+    plan = paper_profit_plan(tenant_id, account_id, policy,
+        tuple(replace(c, assumptions_digest=policy) for c in old.contracts),
+        old.grid_rules, source_digest, initial_slots=old.initial_slots,
+        configured_limit=old.configured_limit)
+    return replace(base, profile=replace(base.profile, plan=plan, assumptions_digest=policy))

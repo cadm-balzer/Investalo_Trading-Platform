@@ -151,8 +151,8 @@ def capacity_state(state: FuturesPaperState, instruments: PaperInstrumentEvidenc
                 minima.append(minimum)
         evidence = CapacityEvidence(
             signal.trade_at, max(ZERO, ledger.unposted_cash), reserved, active,
-            plan.initial_slots, max(minima, default=plan.budgets[0].capital),
-            plan.budgets[0].capital, len(minima), plan.quantum,
+            plan.funded_slots, max(minima, default=plan.target_range),
+            plan.target_range, len(minima), plan.quantum,
         )
     return PaperCapacityState(
         plan.tenant_id, plan.account_id, state.revision,
