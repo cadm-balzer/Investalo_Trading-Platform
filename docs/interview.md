@@ -467,16 +467,21 @@ Dies ändert keine Strategie oder Live-/öffentliche Freigabe.
 
 ### Q49: native Mark-Minutenreferenz für Paperfunding
 
-2026-11-14, **offen, Bestätigung angefragt**. Classic-Fundinghistory enthält
+2026-11-14, **bestätigt** mit „Ist gemerged. Ja können wir so wie von dir
+vorgeschlagen machen.“ Classic-Fundinghistory enthält
 keinen belegten Settlementmark. Öffentliche native Mark-Minutenkerzen sind
 real geprüft; die16:00Z-Probe zeigt0,07–0,16 % High/Low-Spanne relativ zum Open.
-Empfehlung: exakt den nativen Open der Settlementminute als ausdrücklich
+Freigegeben: exakt den nativen Open der Settlementminute als ausdrücklich
 deklarierte Paper-Modellreferenz verwenden, mit Originalkerze/Quellenhash und
 Unsicherheit. Keine späteren günstigen Kurse, Forecast-/Tickersubstitution
 oder Behauptung einer exakten Brokergebühr. Keine Änderung der Kaufstaffel
-und des festen2×-Hebels. Alternativ bleibt die exakte Fundingbewertung nötig
-und ihre Übergabe ohne passenden Beleg gesperrt. Bis zur Antwort bleibt die
-Referenz deaktiviert. [Quellenbeleg](futures-settlement-source.md).
+und des festen2×-Hebels. Eigener Modell-/Journalvertrag; der bisherige exakte
+Vertrag behält seine Identität. Geschlossene Minute vor Wissenszeitpunkt,
+höchstens1h Abrechnungsverzug und frische echte Quotes vor Handelsfortgang.
+Das30s-RSI-Fenster wird nicht verlängert; keine rückwirkenden Einstiege.
+Keine Freigabe laufender/public/live/AI-Dienste.
+[Quellenbeleg](futures-settlement-source.md),
+[Paperanbindung](futures-paper-minute-funding.md).
 
 Konkrete Umsetzungsfakten recherchieren wir: unterstützte Versionen exakt pinnen,
 Historienlänge/-qualität prüfen, Brokerkosten/Metadaten und Hostlast messen.

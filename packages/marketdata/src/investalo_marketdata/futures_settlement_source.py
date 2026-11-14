@@ -126,6 +126,29 @@ class SettlementEvidence:
                 "reference_policy": REFERENCE_POLICY, "reference_enabled": False,
                 "exact_settlement_mark_available": False, "execution_enabled": False}
 
+    def paper_minute_settlement(self, state, *, observation, previous):
+        """Q49 opt-in by explicit command construction; archive both sources first."""
+        from investalo_trading.capital_digest import digest
+        from investalo_trading.futures_ledger import LedgerMark
+        from .futures_paper_feed import FuturesMarketObservation
+        from investalo_trading.futures_paper_minute import PaperMarkMinute, PaperMinuteSettlement
+        if type(observation) is not FuturesMarketObservation:
+            raise ValueError("own current Classic observation required")
+        symbols = tuple("BITGET:" + s for s in SYMBOLS)
+        marks = tuple(LedgerMark(s, m.open) for s, m in zip(symbols, self.minutes, strict=True))
+        candidate = observation.paper_settlement(
+            state, previous=previous, settled_at=self.settled_at,
+            marks=marks, valuation_digest=self.data_digest)
+        native = tuple(PaperFunding(f.symbol, f.native_id, f.settled_at, f.rate) for f in self.funding)
+        if native != candidate.funding:
+            raise ValueError("minute evidence and current native funding disagree")
+        minutes = tuple(PaperMarkMinute(s, m.open_time, m.close_time, m.open, m.high, m.low, m.close)
+                        for s, m in zip(symbols, self.minutes, strict=True))
+        key = digest((REFERENCE_POLICY, candidate.input_id, self.data_digest))
+        return PaperMinuteSettlement(
+            "bitget-minute-" + key, self.settled_at, minutes, self.data_digest, self.collected_at,
+            native, candidate.hours)
+
 
 @dataclass(frozen=True)
 class BitgetSettlementSource:

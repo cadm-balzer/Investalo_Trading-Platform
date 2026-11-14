@@ -3,8 +3,10 @@
 IP-090,2026-11-14. PR61 (`56c1d41`) ist in Main `50a1fa6` gemerged;
 GitHub und Git-Ancestry bestätigt. Die neue öffentliche Quelle erfasst echte
 Fundingraten und die Mark-Minutenkerze am selben nativen Settlementzeitpunkt.
-Die Verwendung des Minuten-Eröffnungskurses im Paperprofil ist Q49,
-bis zur Bestätigung ausdrücklich **nicht aktiviert**.
+Q49 ist inzwischen bestätigt: der Minuten-Eröffnungskurs darf als ausdrücklich
+deklarierte Paper-Modellreferenz verwendet werden. Die separate
+[Paperanbindung](futures-paper-minute-funding.md) verwendet einen eigenen
+Journalbefehl; dieser Collector bleibt ein passiver Quellenbeleg.
 
 ## Quellenvertrag
 
@@ -23,7 +25,9 @@ Quelle: [Classic Contract Market API](https://www.bitget.com/docs/catalog/classi
 Der dort dokumentierte Candle-Eröffnungskurs ist kein belegter tatsächlicher
 Funding-Abrechnungskurs. Das Flag `exact_settlement_mark_available=false`
 bleibt deshalb wahrheitsgemäß. Die Referenzpolicy `native-minute-mark-open/1`
-beschreibt nur den vorgeschlagenen Kurs, `reference_enabled=false`.
+beschreibt den freigegebenen Modellkurs. Das unveränderte Archivflag
+`reference_enabled=false` bedeutet weiterhin: die Erfassung aktiviert selbst
+keinen Paperworker. Historische Quellenbytes/-hashes bleiben erhalten.
 Es gibt keine automatische Übergabe dieses Belegs an den exakten
 `PaperSettlement`-Befehl.
 
@@ -36,7 +40,7 @@ ebenfalls fsync-bestätigt. Quellen-/Validierungsfehler bleiben mit Teilbelegen
 ohne Erfolgsreceipt erhalten. Verlorene finale Schreibbestätigung verlangt
 Readback des vorhandenen Verzeichnisses. Keine Überschreibung oder Retry.
 
-## Reale Probe und offene Modellentscheidung
+## Reale Probe und bestätigte Modellentscheidung
 
 Native Fundingzeit2026-11-14T16:00Z; erfolgreiche Erfassung
 2026-11-14T18:38:33.982475Z:
@@ -71,10 +75,11 @@ Clock/Deadline und tatsächlichen Archiv-Readback/Fehlerpfad.
 Gezielte gepinnte Paper-/Funding-/API-/Quellenregression:103 Fälle/82 Subtests
 grün unter Python3.14.10; zehn neue Collector-/Archivfälle enthalten.
 
-Q49 offen: Minuten-Open als deklarierte **Paper-Modellreferenz** verwenden
-oder exakte Fundingbewertung weiter verlangen. Erst eine bestätigte Entscheidung
-erlaubt einen eigenen expliziten Modellvertrag und dessen Journalanbindung;
-der exakte bisherige Vertrag wird nicht still umgedeutet.
-Weiter: bestätigte Bewertungsanbindung, Cursor/Archiv/Launcher/Statepublikation,
+Q49 bestätigt: Minuten-Open als deklarierte **Paper-Modellreferenz** verwenden.
+`paper_minute_settlement` bindet die beiden nativen Quellen an denselben
+Fundingtermin und den zuvor bestätigten Paperzustand. Der eigene
+`minute_settlement`-Journalbefehl hält die ganze OHLC-Kerze, Quellenhash,
+Erfassungszeit und Policy fest. Kein exakter Brokerkurs wird behauptet.
+Weiter: Cursor/Archiv/Launcher/Statepublikation,
 013 Settings/Kapital, Gewinnetappen und Recovery. Laufende Dienste, Dashboard-
 Opt-ins, Live/AI und historische Performance bleiben unverändert.

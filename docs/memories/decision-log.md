@@ -2218,3 +2218,26 @@ keine Referenz oder Abrechnung. Aktuelle Probe überschreitet die bestehende
 1h-Publicationlaggrenze und wird nicht als Papercommit verwendet.
 Opt-ins/laufende Dienste/Live/AI/Performance/DB/Dependencies unverändert.
 [Quellenbeleg und vorgeschlagene Referenz](../futures-settlement-source.md).
+
+## 2026-11-14 — D-102: Q49 bestätigt, eigene Minuten-Open-Paperabrechnung
+
+PR62 (`0f70ff6`) in Main `4b837f1`, GH/fetch-Ancestry verifiziert.
+Nutzer bestätigt „Ist gemerged. Ja können wir so wie von dir vorgeschlagen
+machen.“ Q49 nutzt ausschließlich den nativen Mark-Open der geschlossenen
+Settlementminute als ausdrücklich deklarierte Paper-Modellreferenz.
+Eigener Modelltyp/Version/Receipt und additiver Journalbefehl; volle OHLC-,
+Quellenhash-, Erfassungszeit-, Policy- und native Rate/ID-Bindung.
+Quellenübergabe vergleicht beide nativen Kohorten mit bestätigt eigenem
+Vorgänger. Signierter isolierter Cash, gleiche Open-Mitternachtsbasis vor
+Funding, echte Quoteuhr und Liquidationslatch erhalten. Keine Orders/Fills
+durch Abrechnung, keine Verlängerung des30s-RSI-Fensters für60s-Minutenwissen.
+Zwölf neue/115 gezielte gepinnte Fälle/96 Subtests grün: alter exakter
+Goldenreceipt byte-identisch, Modellvollrestore/Fortsetzung, native Konflikte,
+Unknown-fsync-Readback und Worker-Archivguards.
+Quellenschema/-flags und tatsächliche archivierte Belege unverändert; kein
+exakter Broker-Fundingkurs behauptet. Reale >2h-Probe bleibt nur Beleg und
+überschreitet die unveränderte1h-Commitgrenze.
+Cursor/Archiv/Launcher/Statepublikation/013/Gewinnetappen/IP-088-Recovery
+bleiben offen. Keine laufenden/public/live/AI-Dienste, Migrationen,
+Dependencies oder Performancejobs aktiviert.
+[Vertrag](../futures-paper-minute-funding.md).

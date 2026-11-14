@@ -166,7 +166,8 @@ class FuturesMarketObservation:
             raise ValueError("funding forecast rolled during collection; refresh source")
         if active:
             from investalo_trading.futures_paper_settlement import PaperSettlement
-            accounted = (type(settlement) is PaperSettlement
+            from investalo_trading.futures_paper_minute import PaperMinuteSettlement
+            accounted = (type(settlement) in (PaperSettlement, PaperMinuteSettlement)
                          and settlement.receipt_id in state.inputs
                          and settlement.settled_at == state.signal.as_of)
             if (type(previous) is not FuturesMarketObservation

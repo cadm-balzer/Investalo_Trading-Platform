@@ -7,6 +7,7 @@ from investalo_trading.futures_capital_signals import CapitalHour
 from investalo_trading.futures_paper import FuturesPaperState, PaperBatch
 from investalo_trading.futures_paper_journal import FuturesPaperJournal
 from investalo_trading.futures_paper_settlement import PaperSettlement
+from investalo_trading.futures_paper_minute import PaperMinuteSettlement
 
 
 class FuturesPaperFeed(Protocol):
@@ -15,7 +16,7 @@ class FuturesPaperFeed(Protocol):
 
 
 class FuturesPaperSettlementFeed(FuturesPaperFeed, Protocol):
-    def settlement(self, state: FuturesPaperState) -> PaperSettlement: ...
+    def settlement(self, state: FuturesPaperState) -> PaperSettlement | PaperMinuteSettlement: ...
 
 
 @dataclass(frozen=True)
@@ -53,11 +54,12 @@ class FuturesPaperWorker:
         )
 
     def settle_once(self, *, guard=lambda: None):
-        """Explicit funding-only step; source must supply archived exact valuation."""
+        """Explicit funding-only step with archived exact or declared model evidence."""
         guard()
         before = self.journal.state
         settlement = self.feed.settlement(before)
         guard()
+        kind = "minute_settlement" if type(settlement) is PaperMinuteSettlement else "settlement"
         after = self.journal.append(
-            "settlement", settlement=settlement, expected_revision=before.revision, at=self.clock())
+            kind, settlement=settlement, expected_revision=before.revision, at=self.clock())
         return FuturesPaperCycle(after.revision, 0, 0, after.state_digest)

@@ -963,15 +963,22 @@ Stand 2026-11-14. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   kontobezogenem Advisory-TX-Lock serialisieren; keine UPDATE-Grants an
   fremde Kerntabellen hinzufügen. Einstellung/Audit committen vor Erfolg.
 - **Fundingwissen ist kein Handelsquote:** verspätete native Raten nur mit
-  eigenem exakten Settlementmark und unverändertem früherem Zustand buchen.
+  eigener exakter Bewertung oder dem bestätigten eigenen Q49-Minutenvertrag
+  und unverändertem früherem Zustand buchen.
   Neuer geschlossener RSI aktualisiert keine echte Bid/Ask-Uhr. Forecasts und
   spätere Tickerpreise sind kein Ersatz. Quellenfortsetzung bindet den fsync-
   bestätigten gesamten Settlementbefehl und revalidiert native History.
   Liquidationsbedarf bleibt vor erholten neueren Quotes abzugleichen.
-  Classic-History liefert keinen Settlementmark; realer Bewertungscollector
-  ist noch offen, synthetischer Injected-Test kein laufender Fundingdienst.
+  Classic-History liefert keinen Settlementmark; der native Minutencollector
+  liefert eine deklarierte Modellreferenz, noch keinen laufenden Fundingdienst.
 - **Mark-Minuten-Open belegt keinen Broker-Settlementkurs:** eigener Minuten-
   Typ statt Änderung des eingefrorenen H1/H4-ResearchCandle. Native Kerze exakt
   zum Fundingzeitpunkt auswählen, vollständig archivieren und Unsicherheit
   deklarieren. Reale Minutenquelle ist kein stiller Ersatz für den exakten
-  Papervertrag; Q49 bleibt bis zur Nutzerbestätigung offen/deaktiviert.
+  Papervertrag; Q49 ist bestätigt und nutzt einen eigenen Modelljournalbefehl.
+- **Minute schließt später als das Einstiegsfenster:** native Fundingminute erst
+  nach60s bekannt.30s-H1-RSI-Fenster nicht verlängern, keinen rückwirkenden Fill
+  nach Kenntnis simulieren. Abrechnung hält alte echte Quoteuhr; frische Quotes
+  erlauben danach nur die weiterhin tatsächlich gültigen Handelsbedingungen.
+  Volle OHLC-/Erfassungszeit-/Policy-/Quellenbindung statt bloß nativer IDs
+  prüfen; exakte und Modellreceipts sind nicht austauschbar.
