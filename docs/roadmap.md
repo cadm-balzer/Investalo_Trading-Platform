@@ -7,9 +7,13 @@ Kapazitätsvorschlag erhält alle offenen regulären/manuellen/Kostenreserven;
 echte Futureskontodaten und Mindest-Rangeadapter fehlen noch ausdrücklich.
 **IP-090 läuft:** Kandidatenpool, H1-RSI/Nachkäufe/H1-Schutz/Mark/Funding,
 Budgetbindung, fsync-Journal/CAS/Restore und eingespeister2×-Paperworker geprüft.
-Nächster Schritt: aktueller Feed mit belegter Fundingvollständigkeit,
+Aktueller Classic-Collector mit25 gehashten GETs/fünf Kandidaten und
+Quellen-/Journalrestore geprüft; reale58h-Quellenprobe erfolgreich.
+Offene Baskets stoppen vor unbewerteten Fundingterminen.
+Nächster Schritt: vollständige Settlementbewertung, dauerhafter Feedcursor,
 lokaler Launcher/Archivierung, Status-/Settingsadapter, Q36-Gewinnetappen und
-Q46-Recovery/IP-088 samt Cockpit. [Paperkern](futures-paper-runtime.md).
+Q46-Recovery/IP-088 samt Cockpit. [Paperkern](futures-paper-runtime.md),
+[aktueller Feed](futures-paper-feed.md).
 Danach Bitget-Demoausführung und separate Echtgeldabnahme. Keine neuen
 Hebelstudien davor. [Vertrag](futures-paper-settings.md).
 

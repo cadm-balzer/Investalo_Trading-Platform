@@ -1,5 +1,14 @@
 # Bestandsaufnahme
 
+IP-090 aktueller Classic-Collector: futures_paper_feed.py sammelt25 öffentliche
+GETs für fünf Futureskandidaten mit getrennten H1-Trade/Markachsen, nativen
+Quoteuhren, Fundinghistorie/Forecast und gehashter Quellenbindung.
+capture-futures-paper-feed.py sichert25 owned0600/create-only Antworten und
+typisierten Observation-Roundtrip vor Receipt; echte58h-Probe grün.
+Paperübergabe benötigt den bestätigten Vorgängerbeleg und sperrt offene
+Positionen vor unbewertetem Funding. Kein autonomer Feed-/Fundingdienst.
+[Vertrag](futures-paper-feed.md).
+
 IP-090 erster Schritt: futures_paper_plan.py trennt Kandidaten von finanzierten
 Plätzen; futures_paper.py verbindet den H1-/Cashkern mit2×-Paperfills.
 futures_paper_journal.py speichert eigene Genesis/Batches/Settings per fsync

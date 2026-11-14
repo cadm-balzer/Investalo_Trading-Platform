@@ -2137,3 +2137,28 @@ letzten Korrekturen erneut gepinnt. Keine Performancejobs oder Quellenimporte.
 Aktueller Provider/Fundingvollständigkeit/Launcher/Archivierung,013-Adapter,
 Gewinnetappen, Recovery und Cockpit bleiben offen. Keine DB-/Dependency-/
 öffentliche/Livetrading-/AI-Aktivierung. [Vertrag](../futures-paper-runtime.md).
+
+## 2026-11-14 — D-098: aktuelle native Classicquelle mit belegter Fundinggrenze
+
+PR58 (`cd79977`) in Main `2cdb9b7`, GH/fetch-Ancestry verifiziert.
+Autorisierter nächster IP-090-Zwischenstand auf feat/m1-futures-public-feed:
+öffentliche Classic-V2-GETs für BNB/BTC/ETH/SOL/XRP, exakte geschlossene
+H1-Trade/Markachsen und eigene native Quote-/Server-/Empfangsuhren.
+Historyraten und kommende Fundingtermine bleiben getrennt.
+Create-only fsync-Belege sichern sämtliche25 kanonischen Providerantworten
+und den typisiert zurückgelesenen Quellenkorb vor Erfolgsreceipt.
+Echte58h-Probe liefert580 Kerzen/fünf Quotes/40 Fundingereignisse/fünf
+Forecasts. Receiptsha
+dabfaf047fc545357e095670190c1b1df28dcb300375417639c351ee9cfebfeb.
+
+Die Paperübergabe bindet offene Exposure an den letzten bestätigten
+Quellen-Digest/Checkpoint. Classic liefert im Fundinghistoryvertrag keinen
+Settlementmark: ein überschrittener voriger Forecast oder neuer nativer
+Historyeintrag sperrt die Übergabe bis zur passenden Settlementbewertung.
+Auch verzögerte Veröffentlichung darf keine Gebührenauslassung erzeugen.
+Keine künstlichen Zeitverschiebungen oder Forecast-Abrechnung.
+15 neue synthetische Fälle einschließlich Quellen-/Paperjournalrestore.
+Vollständiger Fundingbetrieb/Feedcursor/Launcher/Archive,013-Adapter,
+Gewinnetappen, Recovery und Cockpit bleiben IP-090. Historische Quellen
+und Performanceprotokolle unverändert; keine DB-/Dependency-/Public-/Live-/
+AI-Aktivierung. [Vertrag](../futures-paper-feed.md).

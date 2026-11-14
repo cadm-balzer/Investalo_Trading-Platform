@@ -7,6 +7,23 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR58 merged: cd79977 ancestor of main2cdb9b7, GH/fetch verified.
+  IP-090 next local checkpoint on feat/m1-futures-public-feed:
+  unsigned Classic25-GET source, five BITGET-prefixed candidates,
+  separate exact closed H1 trade/mark axes, individual native quote clocks,
+  full bounded history page plus separate funding forecast.
+  Guarded own Paper handoff binds the last acknowledged source receipt;
+  open exposure stops before unvalued funding, including publication lag.
+  Classic history has no settlement mark; no omitted/shifted/fake funding.
+  15 new cases;111 focused pinned cases/100 subtests pass, including source/
+  journal full restore. Actual current source capture complete:
+  infra/local/futures-paper-source/20261114-current-1,25 create-only0600
+  canonical responses/58h per axis/580 candles/5 quotes/40 funding/5 forecasts.
+  Receiptsha dabfaf047fc545357e095670190c1b1df28dcb300375417639c351ee9cfebfeb.
+  No market performance/DB/dependencies/public/live/AI activation.
+  Complete funding valuation, durable source cursor/archive/launcher,
+  instrument/status/013 settings adapter, profit epochs/recovery/Cockpit
+  remain IP-090. See docs/futures-paper-feed.md.
 - PR57 merged: c196093 ancestor of mainf8a2217, GH/fetch verified.
   IP-090 first local checkpoint on feat/m1-futures-paper-runtime:
   own candidate pool3–7/initial funded3–5, immutable six-stage ranges,

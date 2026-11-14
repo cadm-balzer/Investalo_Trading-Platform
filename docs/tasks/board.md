@@ -1,6 +1,6 @@
 # Git-basiertes Ticketboard
 
-Stand 2026-11-13. Dieses Board ist das initiale Task-/Ticketsystem ohne
+Stand 2026-11-14. Dieses Board ist das initiale Task-/Ticketsystem ohne
 zusätzliche Tools oder externe Veröffentlichung.
 
 Status: `READY` ausführbar, `IN_PROGRESS` aktiv, `WAITING_DECISION` benötigt
@@ -99,7 +99,7 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-087 | P1 / P3 | DONE | Feste3×/4× mit unverändertem2×/5×/10×-Vergleich ergänzen | 209512 volle Journalcommands/acht Artefakte/13 Abschluss- und11 ursprüngliche Implementationshashes.3×+85,23%/DD23,54%/zwei Liquidationen;4×+94,64%/DD29,65%/drei Liquidationen.2× bleibt beste Referenz. Unterbrochener4×-Restore nur lesend abgeschlossen, kein wiederholter Marktjob; fehlende Admissioncounter nicht erfunden. [Ergebnisse](../futures-moderate-results-20261113.md) |
 | IP-088 | P1 / P2–P3 | IN_PROGRESS | Manuelle Liquidationsfreigabe und Dashboard-Blocker gemäß Q46 | Reiner Recoverykandidat/Receipt, frische RSI-Bestätigungen/neuer Hebel, Verlust und andere Slots erhalten. Startseiten-/Portfolio-Komponenten und Default-off-BFF; fünf gepinnte Fälle/13 Subtests, fünf Cockpitfälle, Typecheck/Build grün. Dauerhafte eigene Futurespersistenz, Reconciliation/API/CAS und Browserabnahme noch offen. [Vertrag](../futures-manual-recovery.md) |
 | IP-089 | P1 / P2 | DONE | Q47: eigene Futures-Paper-Basketobergrenze speichern und Kapitalempfehlung vorbereiten |3–7, Owner/Trader, eigener Revision-/Auditcommit, konkurrierende Tabs/Unknown-Response-Abgleich.28 neue/56 gezielte gepinnte Fälle/18 Subtests, neun Cockpitfälle, Typecheck/Build grün. Default-off API/BFF/Portfolio;013 nur Fixture nach Rollbackvorprüfung. Reiner cash-/reserve-/feste Budgetetappen-/kandidatengebundener Kapazitätsvorschlag; echte Futuresdatenanbindung bleibt IP-090. [Vertrag](../futures-paper-settings.md) |
-| IP-090 | P1 / P2 | IN_PROGRESS | Dauerhaften eigenen Futures-Paperbetrieb mit2× und Cockpitstatus verbinden | Kandidatenpool/anfangs3–5 volle Ranges, H1-RSI/fünf Käufe/manuelle Reserve/H1-Schutz/Funding/Liquidationsverlust, fsync-Journal/CAS/Restore und eingespeister Worker implementiert.139 gepinnte Fälle/76 Subtests, final20 eigene Paperfälle erneut geprüft. Tatsächlicher Feed/Fundingvollständigkeit/Launcher/Archivierung,013 Status-/Settingsadapter, Q36-Gewinnetappen, IP-088-Recovery und Cockpit folgen; danach Bitget-Demo. Keine Live-/Public-/AI-Freigabe. [Vertrag](../futures-paper-runtime.md) |
+| IP-090 | P1 / P2 | IN_PROGRESS | Dauerhaften eigenen Futures-Paperbetrieb mit2× und Cockpitstatus verbinden | Kandidatenpool/anfangs3–5 volle Ranges, H1-RSI/fünf Käufe/manuelle Reserve/H1-Schutz/Funding/Liquidationsverlust, fsync-Journal/CAS/Restore und eingespeister Worker implementiert.139 ursprüngliche gepinnte Fälle/76 Subtests. Aktueller Classic-Collector/Quellenübergabe:15 neue/111 gezielte gepinnte Fälle/100 Subtests; echte25-GET/58h-Probe mit580 Kerzen/fünf Quotes/40 Fundingereignissen und Quellenreceipt grün. Offene Baskets stoppen vor unbewertetem Funding. Vollständige Settlementbewertung/Feedcursor/Launcher/Archivierung,013 Status-/Settingsadapter, Q36-Gewinnetappen, IP-088-Recovery und Cockpit folgen; danach Bitget-Demo. Keine Live-/Public-/AI-Freigabe. [Kern](../futures-paper-runtime.md), [Feed](../futures-paper-feed.md) |
 
 ## Abschlussbelege
 
