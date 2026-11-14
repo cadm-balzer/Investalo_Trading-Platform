@@ -11,6 +11,7 @@ from .futures_capital_research import (
     prepare_capital_entry, record_capital_event, simulate_capital_fill,
 )
 from .futures_capital_grid import CapitalGridPlan
+from .futures_paper_plan import CapitalPaperPoolPlan
 from .futures_ledger import (
     DailyBasis, ExitFill, FundingSettlement, LedgerMark, LiquidationSettlement,
     MarginPosting, MarkBatch, number, timestamp,
@@ -35,7 +36,7 @@ class CapitalSignalProfile(CapitalCanonical):
     assumptions_digest: str
 
     def __post_init__(self):
-        if type(self.plan) not in (CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan, CapitalGridPlan):
+        if type(self.plan) not in (CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan, CapitalGridPlan, CapitalPaperPoolPlan):
             raise ValueError("separate capital plan required")
         if type(self.protection_hours) is not int or self.protection_hours not in (1, 4):
             raise ValueError("closed H1 or H4 protection required")
@@ -61,7 +62,7 @@ class CapitalH1SignalProfile(CapitalSignalProfile):
 
     def __post_init__(self):
         super().__post_init__()
-        if type(self.plan) not in (CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan, CapitalGridPlan) or self.protection_hours != 1:
+        if type(self.plan) not in (CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan, CapitalGridPlan, CapitalPaperPoolPlan) or self.protection_hours != 1:
             raise ValueError("H1 entry comparison requires corrected cash and H1 protection")
 
     @property

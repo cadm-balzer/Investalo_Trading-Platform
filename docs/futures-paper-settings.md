@@ -1,5 +1,10 @@
 # Futures-Paperplanung und Übergang zum Handel
 
+IP-090 hat inzwischen den [eigenen Paperkern](futures-paper-runtime.md) mit
+eingespeistem Feed und dauerhaftem Journal implementiert. Aktuelle Provider-/
+Settings-/Statusadapter fehlen weiterhin; die API meldet deshalb unverändert
+`runtime_ready=false` und `recommendation=null`.
+
 Q47 priorisiert nach dem Hebelvergleich die Handelsimplementierung und eine
 einstellbare Basketanzahl. 2× ist die Basis für den ersten Futures-Paperbetrieb.
 Die bisherige gleiche Modellachse liefert damit das beste Nettoergebnis und

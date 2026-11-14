@@ -7,6 +7,19 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR57 merged: c196093 ancestor of mainf8a2217, GH/fetch verified.
+  IP-090 first local checkpoint on feat/m1-futures-paper-runtime:
+  own candidate pool3–7/initial funded3–5, immutable six-stage ranges,
+  H1-RSI/H1 protection/fixed2×, native funding IDs and declared Paper fills.
+  Own fsync journal/full replay/CAS/exclusive writer/unknown-write stop;
+  injected feed worker only.139 focused pinned cases/76 subtests passed;
+  final20 Paper cases rerun pinned after midnight/clock/thread fixes.
+  No imports/market performance/DB/dependencies/public/live/AI changes.
+  Actual feed/funding coverage, launcher/archive,013 settings/status adapter,
+  Q36 profit epochs, manual recovery and Cockpit remain IP-090/IP-088.
+  Raising the3–7 ceiling alone does not expand initial funded capacity.
+  Historical artifacts/protocols preserved; old journal decoder unchanged.
+  See docs/futures-paper-runtime.md.
 - Q47 prioritizes Futures trading implementation after the leverage comparison:
  2× first Paper baseline; dashboard basket limit and actual-capital recommendation.
  IP-089 persists own USDT-Paper planning3–7, owner/trader CAS + atomic audit,
@@ -24,7 +37,7 @@ Working Project Folder: /opt/Investalo_Trading-Platform
  coins do not guarantee greater stable returns; initial3–5, phased profits
  to7 retained. No live/public/AI activation. PR56 merged into PR55 branch
  8ffafea; PR55 now merged into main51c2f68 (GH/fetch ancestry verified). Current branch
- feat/m1-futures-paper-settings. See docs/futures-paper-settings.md.
+ feat/m1-futures-paper-runtime. See docs/futures-paper-settings.md.
 - IP-087 fully complete; no active job.3×106752/4×102760 commands,
   209512 total, eight final artifacts/13 unchanged completion hashes;
   eleven original native files still matchada2029. Original4× exit137

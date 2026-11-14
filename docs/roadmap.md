@@ -5,9 +5,11 @@ gespeicherte eigene Basket-Obergrenze3–7 mit Default-off-Portfolio/API/BFF;
 initial3–5, spätere zusätzliche Slots weiterhin nur über Q36-Gewinnetappen.
 Kapazitätsvorschlag erhält alle offenen regulären/manuellen/Kostenreserven;
 echte Futureskontodaten und Mindest-Rangeadapter fehlen noch ausdrücklich.
-**Nächster Umsetzungsschritt IP-090:** dauerhafter eigener Futures-Paperdienst
-mit H1-RSI/Nachkäufen/H1-Schutz/Mark/Funding, Budgetbindung, Journal/CAS und
-Wiederanlauf; dabei Q46-Recovery/IP-088 und aktuelle Cockpitanzeige verbinden.
+**IP-090 läuft:** Kandidatenpool, H1-RSI/Nachkäufe/H1-Schutz/Mark/Funding,
+Budgetbindung, fsync-Journal/CAS/Restore und eingespeister2×-Paperworker geprüft.
+Nächster Schritt: aktueller Feed mit belegter Fundingvollständigkeit,
+lokaler Launcher/Archivierung, Status-/Settingsadapter, Q36-Gewinnetappen und
+Q46-Recovery/IP-088 samt Cockpit. [Paperkern](futures-paper-runtime.md).
 Danach Bitget-Demoausführung und separate Echtgeldabnahme. Keine neuen
 Hebelstudien davor. [Vertrag](futures-paper-settings.md).
 
