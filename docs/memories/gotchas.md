@@ -997,3 +997,12 @@ Stand 2026-11-14. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   sperren weitere Abrufe derselben Instanz; Teilkohorten ohne Receipt erhalten.
   Bounded Launcher benötigt eine vertrauenswürdige eigene Kapital-/Genesisbindung;
   weder vorhandene Backtestergebnisse noch UUID-Argumente erzeugen Paperkapital.
+- **Neueste DBrevision ist kein erfundener Zwischenwert:** gebundener Worker
+  liest aktuelle eigene013-Einstellung per readonly RLS und übernimmt genau
+  diese Revision in einem eigenen account_settings-Journalbefehl. Keine
+  Rücksetzung auf0 und keine fiktive Kette mit unveränderten2/3-Werten.
+  Vor Quote-/Fundingcommit Konto/Epoche/Rolle/Settings erneut lesen; DB und
+  Dateijournal sind keine gemeinsame Transaktion. Open-Budgets und finanzierte
+  Plätze wachsen nicht mit dem UIlimit. Native Warmupgenesis bleibt Mitternacht:
+  für einen beliebigen H1-Handelsbeginn16–39h wählen. Vorhandener eigener
+  Status verbietet auch unter anderem Journalpfad eine neue Kapitalallokation.

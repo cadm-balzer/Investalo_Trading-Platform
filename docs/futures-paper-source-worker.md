@@ -100,7 +100,8 @@ mit vollständigem Restore und publiziertem Mindestreceipt.
 Python3.14.10 grün, einschließlich alter gewöhnlicher und exakter
 Journalgoldenidentitäten. Kein neuer historischer Performancejob.
 
-Als Nächstes: tatsächliche eigene Konto-/Kapital-/Genesisbereitstellung und
-013-Settingsbindung, dann eine laufende lokale Cockpitabnahme. Q36-Gewinnetappen,
+Folgecheckpoint: [eigene private Konto-/Kapital-/Genesisbereitstellung und
+013-Settingsbindung](futures-paper-account-binding.md) sind implementiert.
+Als Nächstes folgt eine laufende lokale Cockpitabnahme. Q36-Gewinnetappen,
 IP-088-Reconciliation/Recovery und Bitget-Demoausführung bleiben weitere Schritte.
 Keine Migrationen, neuen Abhängigkeiten oder Public-/Live-/AI-Aktivierung.

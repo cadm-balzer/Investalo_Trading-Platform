@@ -1,13 +1,23 @@
 # Bestandsaufnahme
 
+IP-090: futures_paper_account.py/futures_paper_bootstrap.py binden eine eigene
+explizite private Allokation/Actor-/Genesisdatei an vorhandene Konto-UUIDs.
+futures_account_reader.py liest aktuelles eigenes ready/USDT/Paperkonto und
+013-Einstellungen per restricted LOGIN/readonly RLS. futures_account_worker.py
+übernimmt echte neueste Revisionen und prüft vor Commits erneut;
+futures_account_main.py bietet einmalige Initialisierung/gebundenen Restore.
+22 neue Fälle/nach Gesamtrun und gezieltem Schlusslauf162 verschiedene grün;
+114 Subtests. Noch kein laufender Dienst oder kalibrierter Kapazitätsreader.
+[Vertrag](futures-paper-account-binding.md).
+
 IP-090: futures_paper_archive.py sichert native25-/10-GET-Kohorten vor
 Verwendung und revalidiert Originalantworten beim Laden offline.
 futures_paper_source.py/futures_paper_journal.py binden Cursor und ausstehendes
 Funding an den eigenen Journalcommit; futures_source_worker.py setzt mit
 frischen Quotes fort. futures_paper_main.py ist ein default-off begrenzter
 Launcher für vorhandene eigene UUID-/Genesisjournale. Zwölf neue/140 gezielte
-gepinnt grüne Fälle/109 Subtests; noch keine eigene Konto-/Kapitalbereitstellung,
-013-Anbindung oder laufende Dienst-/Cockpitaktivierung.
+gepinnt grüne Fälle/109 Subtests; eigene Konto-/Kapital-/013-Anbindung separat
+implementiert, noch keine laufende Dienst-/Cockpitaktivierung.
 [Vertrag](futures-paper-source-worker.md).
 
 IP-090: futures_paper_status.py veröffentlicht nach bestätigtem Workerjournal

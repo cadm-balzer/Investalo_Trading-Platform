@@ -1,9 +1,11 @@
 # Futures-Paperplanung und Übergang zum Handel
 
-IP-090 hat inzwischen den [eigenen Paperkern](futures-paper-runtime.md) mit
-eingespeistem Feed und dauerhaftem Journal implementiert. Aktuelle Provider-/
-Settings-/Statusadapter fehlen weiterhin; die API meldet deshalb unverändert
-`runtime_ready=false` und `recommendation=null`.
+IP-090 hat inzwischen den [eigenen Paperkern](futures-paper-runtime.md),
+archivierten Quellenworker und private Statuspublikation implementiert.
+Die [eigene Allokation und013-Workeranbindung](futures-paper-account-binding.md)
+sind nun geprüft. Laufende Dienste und der kalibrierte Kapazitätsadapter bleiben
+offen; die Planungs-API meldet weiterhin `runtime_ready=false`,
+`recommendation=null`.
 
 Q47 priorisiert nach dem Hebelvergleich die Handelsimplementierung und eine
 einstellbare Basketanzahl. 2× ist die Basis für den ersten Futures-Paperbetrieb.
@@ -75,8 +77,9 @@ Erst zusätzliche Slots bis7, danach größere zukünftige Ranges.
 Eine niedrigere Einstellung wartet auf normale Abschlüsse; offene
 Budgets, Nachkäufe, Puffer und Verluste bleiben erhalten.
 
-Es gibt noch keinen aktuellen eigenen Futuresruntime-Kontostand und keinen
-kalibrierten Minimum-Rangeadapter. Deshalb veröffentlicht die API ausdrücklich
+Der eigene Paperzustand ist nun über eine explizite private Allokation und
+readonly Kontoprüfung angebunden. Ein laufender Dienst und kalibrierter
+Minimum-Range-/Kapazitätsreader fehlen weiterhin. Deshalb veröffentlicht die API ausdrücklich
 `recommendation=null`, `runtime_ready=false`; die UI erklärt die fehlende
 Anbindung. Spot-Papercash oder historische Backtestendstände sind kein Ersatz.
 Die Kapitalprüfung ist mit synthetischen eigenen Futureszuständen getestet;

@@ -2293,3 +2293,36 @@ danach laufende lokale Cockpitabnahme; Q36-Gewinnetappen/IP-088-Recovery offen.
 Keine laufenden Dienste/Compose/Public/Live/AI, Migrationen, Dependencies
 oder historischen Performancejobs geändert oder aktiviert.
 [Vertrag](../futures-paper-source-worker.md).
+
+## 2026-11-14 — D-105: explizites eigenes Paperkapital und013-Workerkontobindung
+
+PR65 (`a22199a`) in Main `f7fb8c6`, GH/fetch-Ancestry verifiziert.
+Eigene private create-only/owned0600 SHA-Allokationsdatei erklärt vollständige
+Paperconfig/Kapital sowie Tenant/Account/User/Issuer/Subject/Epoche und
+administrative Autorisierungszeit. Keine API-/OIDC-Sitzung erzeugt; private
+Workerdelegation muss separat vertrauenswürdig vorgegeben sein.
+Vorhandenes eigenes ready/Bitget/paper/USDT-Konto und aktuelle Owner-/Trader-
+Mitgliedschaft werden mit bestehendem restricted Runtime-LOGIN ausschließlich
+in READ ONLY-RLS-Transaktionen gelesen. Epochwechsel, Inaktivität, Reauth,
+Foreignscope oder Kontopause stoppen. Keine neuen Rollen/Grants/Nonces.
+Native16–39h-Warmupauswahl hält die alte Mitternachtsgenesis und erzeugt keine
+historischen Fills. Erst vollständige Quellen-/Planvalidierung, dann neues
+eigenes Journal/Warmup/Publikation. Vorhandener Journal- oder Statusstand
+verhindert Reinitialisierung und zweite Allokation; kein Spotcash oder
+Backtestendstand als Kapitalquelle.
+Additiver account_settings-Befehl übernimmt nur die wirklich gelesene
+neuere013-Revision; nach Stop übersprungene Einstellungen nicht erfinden.
+Rückläufe/Wertwechsel zur gleichen Revision stoppen. Recheck unmittelbar vor
+Journalcommits; separat gespeicherte DB- und Dateicommits sind nicht atomar.
+Offene Ranges/Staffeln/Reserve/2× erhalten; bloße Obergrenze7 finanziert nichts.
+Gebundener expliziter begrenzter Launcher verbindet einmalige Allokation
+mit Minimumreceipt-Vollrestore, Quellen-/Fundingcursor und Statuspublikation.
+22 neue Fälle, davon13 echte Runtime-LOGIN/PG-Fälle.161 gezielte gepinnte
+Fälle/114 Subtests grün; final22 neue Fälle/fünf Subtests erneut geprüft,
+162 verschiedene Fälle insgesamt. Alte Goldenidentitäten erhalten.
+013 bleibt nur im Fixture, Entwicklungsmigrationsmenge/laufende Dienste/
+Compose/Public/Live/AI/Dependencies/Performancejobs unverändert.
+Nächster Schritt: eigenes privates Laufprofil und lokale Cockpitabnahme;
+kalibrierter Kapazitätsreader/Q36/IP-088 folgen. Planungs-API bleibt bis
+Kapazitätsanbindung ausdrücklich runtime_ready=false/recommendation=null.
+[Vertrag](../futures-paper-account-binding.md).

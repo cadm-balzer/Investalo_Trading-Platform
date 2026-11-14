@@ -25,6 +25,7 @@ class FuturesSourceWorker:
     archive: object
     publisher: object
     clock: object = lambda: datetime.now(timezone.utc)
+    commit_guard: object = lambda: None
 
     def _guard(self, guard):
         guard()
@@ -33,6 +34,7 @@ class FuturesSourceWorker:
 
     def _commit(self, kind, before, guard, **arguments):
         self._guard(guard)
+        self.commit_guard()
         after = self.journal.append(kind, expected_revision=before.revision,
                                     at=timestamp(self.clock()), **arguments)
         self._guard(guard)
