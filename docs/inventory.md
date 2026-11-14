@@ -1,5 +1,15 @@
 # Bestandsaufnahme
 
+IP-090/Q36: futures_paper_profit_plan.py/futures_paper_profit.py führen eine
+eigene profit/2-Policy mit tatsächlichem Abschluss-/Nettopräfix, once-only
+Budgetepochen,3→7-Plätzen und anschließend zukünftiger Volumenerhöhung ein.
+Offene alte Ranges bleiben eingefroren; Gewinne werden nicht nochmals gebucht.
+Eigener Journal-CAS/Full-restore, gebundener Quellen-/Kontoworker und normaler
+Kapazitätsreader sind verbunden. Zwölf neue Fälle;224 breiter gepinnter Lauf/
+118 Subtests und final37 gezielte Fälle/11 Subtests grün.
+Native Kandidaten bleiben fünf; Erweiterung für6/7 als Nächstes.
+[Vertrag](futures-paper-profit-epochs.md).
+
 IP-090: futures_paper_capacity.py/futures_capacity_source.py verbinden eigenes
 bestätigtes Cash, offene reguläre/manuelle/Kosten-/Restorationreserven, feste
 finanzierte Ranges und archivierte aktuelle Quotes mit einem zusätzlichen

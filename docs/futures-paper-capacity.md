@@ -108,5 +108,6 @@ keine Performance- oder physische Browser-/MFA-Abnahme behauptet.
 Nur die drei isolierten Prüfdienste wurden gestartet und anschließend gestoppt;
 die öffentliche Vorschau blieb unverändert.
 
-Q36-Gewinnetappen und Q46/IP-088 manuelle Recovery folgen, anschließend
-separat kalibrierte Bitget-Demoausführung.
+Q36 ist inzwischen in [eigener Gewinnpolicy](futures-paper-profit-epochs.md)
+an den bestätigten Journalstand angebunden. Native Poolerweiterung für6/7 und
+Q46/IP-088 manuelle Recovery folgen, anschließend Bitget-Demoausführung.

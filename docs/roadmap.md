@@ -44,7 +44,14 @@ Eigene Kapitalempfehlung wird atomar mit dem Journalstand veröffentlicht,
 pro APIabruf auf Frische/Settings/Konto geprüft und im Portfolio erklärt.
 Drei finanzierte Ranges bleiben auch bei Obergrenze sieben maximal drei.
 [Kapitalempfehlung](futures-paper-capacity.md).
-Nächster Schritt: Q36-Gewinnetappen; Q46-Recovery/IP-088 folgt ebenfalls.
+Q36-Gewinnetappen sind jetzt in eigener expliziter profit/2-Paperpolicy
+mit Journal/gebundenem Worker/PG-/Kapazitätsreader implementiert. Drei neue
+volle Abschlüsse und echte Nettodeckung finanzieren je eine ursprüngliche
+Range; offene Budgets bleiben fest.3→7 und danach zukünftige Volumenerhöhung
+synthetisch geprüft; der native Pool bleibt bislang fünf.
+[Gewinnetappen](futures-paper-profit-epochs.md).
+Nächster Schritt: echter Kandidatenpool für mindestens sieben Coins;
+Q46-Recovery/IP-088 folgt ebenfalls.
 [Paperkern](futures-paper-runtime.md),
 [aktueller Feed](futures-paper-feed.md).
 Danach Bitget-Demoausführung und separate Echtgeldabnahme. Keine neuen

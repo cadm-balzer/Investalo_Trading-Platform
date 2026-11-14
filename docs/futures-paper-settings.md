@@ -78,6 +78,11 @@ Erst zusätzliche Slots bis7, danach größere zukünftige Ranges.
 Eine niedrigere Einstellung wartet auf normale Abschlüsse; offene
 Budgets, Nachkäufe, Puffer und Verluste bleiben erhalten.
 
+Die [eigene Futures-Gewinnpolicy](futures-paper-profit-epochs.md) bindet diese
+Entscheidung inzwischen an tatsächliche Paperabschlüsse, Cash/Equity und den
+vollständig wiederholbaren Journalstand. Sie benötigt eine explizite eigene
+Allokation; bestehende feste Profile werden nicht automatisch umgedeutet.
+
 Der eigene Paperzustand ist nun über eine explizite private Allokation und
 readonly Kontoprüfung angebunden. Der kalibrierte Minimum-Range-/Kapazitätsreader
 veröffentlicht die Empfehlung gemeinsam mit dem bestätigten Journalstand.
@@ -99,8 +104,8 @@ synthetischem Paperkonto und nativen aktuellen Marktdaten geprüft.
    Restart-/Unknown-Commit-Abgleich und aktuelle Cockpitprojektion verbinden.
    Tatsächliche Coinanzahl und eigene volle Ranges vor Einstiegen prüfen.
    Kapitalempfehlung mit aktuellem Regel-/Kontobeleg veröffentlichen.
-   Diese Anbindung ist lokal geprüft; Q36-Gewinnetappen folgen für zusätzliche
-   finanzierte Plätze bis7 und anschließend größere zukünftige Ranges.
+   Diese Anbindung und Q36-Gewinnetappen sind lokal geprüft. Der echte
+   Kandidatenpool muss für die Plätze6/7 noch erweitert werden.
 2. **IP-088 in diesen Dienst integrieren:** gebuchte Liquidationsverluste,
    sichtbare eigene Assetsperren und manuelle Wiederbelebung nach Flat-/
    Order-/Kapitalabgleich; Kandidat/Receipt gemeinsam dauerhaft speichern.

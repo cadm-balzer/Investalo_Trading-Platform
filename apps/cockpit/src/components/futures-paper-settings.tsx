@@ -52,7 +52,7 @@ function AccountSettings({ initial, tenantId, csrf }: { initial: BasketSetting; 
       <p>Kapitalempfehlung ausstehend: {capacityReasons[current.recommendation_reason]}.</p>}
     {current.capacity && <p>{current.capacity.funded_capacity} finanzierte Plätze ·{" "}
       {current.capacity.active_baskets} offene Baskets ·{" "}
-      {Number(current.capacity.range_budget).toFixed(2)} USDT je vollständiger Range.<br />
+      {Number(current.capacity.range_budget).toFixed(2)} USDT je neuer vollständiger Range.<br />
       Freie Mittel nach Reserven: {Number(current.capacity.free_cash).toFixed(2)} USDT ·{" "}
       reserviert: {Number(current.capacity.reserved_cash).toFixed(2)} USDT.<br />
       Paperstand: {date(current.capacity.observed_at)} ·{" "}

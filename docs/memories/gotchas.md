@@ -1022,3 +1022,10 @@ Stand 2026-11-14. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   schließen Kandidaten aus der Empfehlung aus, ändern keine offene Strategie.
   Ausfall des zusätzlichen unsigned Instrumentabrufs hält nur die Empfehlung
   zurück und erzeugt keine neue finanzielle Sperre.
+- **Gewinnetappe ist kein neuer Kontostand:** eigenes tatsächliches Ledgernetto
+  inklusive aller Verluste/Kosten/Funding und drei neue volle Abschlüsse prüfen.
+  Teilverkauf/Buchgewinn zählt nicht. Zugeordneten Gewinn nur planen, niemals
+  Cash oder Risikobasen erhöhen. Alte offene Budgetepochen und aufgeschobene
+  Erhöhungen reservieren; freie Kandidaten erst nach Abschluss aktualisieren.
+  Neue Allokation darf keine alten Gewinnetappen importieren. Ein realer
+  Fünf-Coin-Pool finanziert keine Plätze6/7 und erhöht Volumen nicht vorzeitig.
