@@ -1,0 +1,70 @@
+# Combine with compose.passkey-browser-checks.yaml ONLY.
+# Synthetic fixture identity, no host ports, no existing public services changed.
+services:
+  browser-proof-api:
+    environment:
+      API_FUTURES_PAPER_ASSETS_PREVIEW: "1"
+      API_FUTURES_PAPER_SETTINGS_PREVIEW: "1"
+      API_FUTURES_PAPER_STATUS_ROOT: /app/futures-status
+    volumes:
+      - ../services/api/src:/app/services/api/src:ro
+      - ../packages/trading/src:/app/packages/trading/src:ro
+      - ../packages/marketdata/src:/app/packages/marketdata/src:ro
+      - type: bind
+        source: /tmp/investalo-futures-local-acceptance/status
+        target: /app/futures-status
+        read_only: true
+        bind: {create_host_path: false}
+  browser-proof-cockpit:
+    environment:
+      COCKPIT_FUTURES_PAPER_ASSETS_PREVIEW: "1"
+      COCKPIT_FUTURES_PAPER_SETTINGS_PREVIEW: "1"
+
+  futures-local-checks:
+    profiles: [futures-local-checks]
+    image: investalo-passkey-browser-checks:0.1.0-local
+    restart: "no"
+    init: true
+    user: "10003:10003"
+    group_add: ["10010"]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    read_only: true
+    tmpfs: ["/tmp:rw,noexec,nosuid,size=16m"]
+    mem_limit: 192m
+    cpus: 0.5
+    pids_limit: 64
+    logging: {driver: none}
+    environment:
+      PYTHONPATH: /app/services/api/src:/app/services/workers/src:/app/packages/trading/src:/app/packages/marketdata/src:/app/tests/infra
+      PYTHONDONTWRITEBYTECODE: "1"
+      FUTURES_LOCAL_ACCEPTANCE_ENABLED: "1"
+      FUTURES_PAPER_ACCOUNT_WORKER_ENABLED: "1"
+      PGHOST: postgres
+      PGPORT: "5432"
+      PGDATABASE: investalo_credentials_checks
+      PGUSER: investalo_migration
+      PGPASSWORD_FILE: /run/secrets/platform_migration_password
+      PGSSLMODE: verify-full
+      PGSSLROOTCERT: /run/secrets/local_ca_cert
+      PASSKEY_CHECK_STATE_DIR: /app/check-state
+      PASSKEY_CHECK_SESSION_SECRET_FILE: /run/secrets/browser_check_session_secret
+    secrets: [platform_migration_password, platform_runtime_password, browser_check_session_secret, browser_check_internal_secret, local_ca_cert]
+    volumes:
+      - ../services/api/src:/app/services/api/src:ro
+      - ../services/workers/src:/app/services/workers/src:ro
+      - ../packages/trading/src:/app/packages/trading/src:ro
+      - ../packages/marketdata/src:/app/packages/marketdata/src:ro
+      - ../tests/infra:/app/tests/infra:ro
+      - type: bind
+        source: /tmp/investalo-futures-local-acceptance
+        target: /app/acceptance
+        bind: {create_host_path: false}
+      - type: bind
+        source: /tmp/investalo-passkey-browser-state
+        target: /app/check-state
+        bind: {create_host_path: false}
+    networks: [database, passkey_browser, futures_acceptance_egress]
+    command: [python, /app/tests/infra/check_futures_local_cockpit.py]
+networks:
+  futures_acceptance_egress: {}

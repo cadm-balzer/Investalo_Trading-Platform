@@ -1,5 +1,12 @@
 # Bestandsaufnahme
 
+IP-090: futures_local_profile.py erklärt ein eigenes10k/3-Ranges/5-Kandidaten/
+2×-Laufprofil mit originalem aktuellen Classic-Raster-SHA. Das neue explizite
+lokale Composeoverlay/geschützte Fixturemount und der native HTTP-Cockpittest
+verbinden echte Quellen mit gebundenem CLI, Journal, Status, HTTPS/BFF/API/PG
+und tatsächlichem Next-SSR. Keine öffentliche Aktivierung oder neue Migration.
+[Lokale Abnahme](futures-local-cockpit-acceptance.md).
+
 IP-090: futures_paper_account.py/futures_paper_bootstrap.py binden eine eigene
 explizite private Allokation/Actor-/Genesisdatei an vorhandene Konto-UUIDs.
 futures_account_reader.py liest aktuelles eigenes ready/USDT/Paperkonto und
