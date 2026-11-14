@@ -1,5 +1,9 @@
 # Aktuelle Classic-Futuresquelle für Paper
 
+Der unten dokumentierte Fünf-Coin-Collector bleibt der Default. Die gesonderte
+[native Sieben-Coin-Erweiterung](futures-seven-candidates.md) ergänzt ausdrücklich
+LINK/AVAX,35 GETs und /2-Records für neue private Genesisprofile.
+
 IP-090, lokaler Zwischenstand vom 2026-11-14. PR58 (`cd79977`) ist in
 Main `2cdb9b7` gemerged; GH und Git-Ancestry wurden geprüft.
 Der eigene Collector und die begrenzte Übergabe an den Paperkern sind

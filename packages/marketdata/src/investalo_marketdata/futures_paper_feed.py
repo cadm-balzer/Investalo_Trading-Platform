@@ -15,6 +15,7 @@ from investalo_trading.timeframe_research import ResearchCandle
 
 from .bitget import EPOCH, _NoRedirect, milliseconds
 from .futures_broker_calibration import SYMBOLS
+from .futures_paper_universe import SEVEN_SYMBOLS, paper_symbols, native_symbols
 from .futures_snapshot import funding_rate
 from .snapshot import canonical, decode_json, price, utc_time
 
@@ -51,7 +52,7 @@ def stamp(value, *, integer=False):
 
 
 def request_url(symbol, kind, *, start=None, end=None):
-    if symbol not in SYMBOLS or kind not in PATHS:
+    if symbol not in SEVEN_SYMBOLS or kind not in PATHS:
         raise ValueError("fixed calibrated Classic candidate and public kind required")
     query = {"productType": "USDT-FUTURES", "symbol": symbol}
     if kind in ("trade", "mark"):
@@ -134,11 +135,16 @@ class FuturesMarketObservation:
     reads: tuple[PublicRead, ...]
 
     @property
+    def symbols(self):
+        return native_symbols(tuple(q.quote.symbol for q in self.quotes))
+
+    @property
     def data_digest(self):
         return hashlib.sha256(canonical(self.record()).encode()).hexdigest()
 
     def record(self):
-        return {"schema_version": VERSION, "observation": primitive(self),
+        return {"schema_version": VERSION if self.symbols == SYMBOLS else
+                "bitget-classic-futures-paper-source/2", "observation": primitive(self),
                 "venue": "bitget", "account_family": "classic", "product": "USDT-FUTURES",
                 "settlement_mark_available": False, "execution_enabled": False}
 
@@ -151,7 +157,7 @@ class FuturesMarketObservation:
         """
         if type(state) is not FuturesPaperState or not state.warmed:
             raise ValueError("own warmed Paper state required")
-        symbols = tuple("BITGET:" + s for s in SYMBOLS)
+        symbols = tuple("BITGET:" + s for s in self.symbols)
         if state.signal.profile.plan.symbols != symbols:
             raise ValueError("own Classic Paper universe required; no Binance/Spot mixing")
         if self.funding_start > state.signal.as_of or self.collected_at < state.observed_at:
@@ -170,7 +176,7 @@ class FuturesMarketObservation:
             accounted = (type(settlement) in (PaperSettlement, PaperMinuteSettlement)
                          and settlement.receipt_id in state.inputs
                          and settlement.settled_at == state.signal.as_of)
-            if (type(previous) is not FuturesMarketObservation
+            if (type(previous) is not FuturesMarketObservation or previous.symbols != self.symbols
                     or (previous.collected_at != state.signal.as_of and not (
                         accounted and previous.collected_at == state.signal.trade_at))
                     or "bitget-" + previous.data_digest not in state.inputs):
@@ -204,10 +210,10 @@ class FuturesMarketObservation:
         """
         from investalo_trading.futures_paper_settlement import PaperSettlement
         settled_at = utc_time(settled_at)
-        symbols = tuple("BITGET:" + s for s in SYMBOLS)
+        symbols = tuple("BITGET:" + s for s in self.symbols)
         if (type(state) is not FuturesPaperState or not state.warmed
                 or state.config.profile.plan.symbols != symbols
-                or type(previous) is not FuturesMarketObservation
+                or type(previous) is not FuturesMarketObservation or previous.symbols != self.symbols
                 or previous.collected_at != state.signal.as_of
                 or "bitget-" + previous.data_digest not in state.inputs
                 or self.funding_start > previous.collected_at
@@ -240,8 +246,10 @@ class BitgetFuturesMarketSource:
     clock: object = lambda: datetime.now(timezone.utc)
     sleep: object = time.sleep
     pace_seconds: float = .1
+    symbols: tuple[str, ...] = SYMBOLS
 
     def __post_init__(self):
+        paper_symbols(self.symbols)
         if (not all(callable(c) for c in (self.fetch_json, self.clock, self.sleep))
                 or type(self.pace_seconds) not in (int, float)
                 or not .05 <= self.pace_seconds <= 1):
@@ -249,7 +257,7 @@ class BitgetFuturesMarketSource:
 
     def collect(self, *, start, end, funding_start):
         start, end, funding_start = map(utc_time, (start, end, funding_start))
-        request_url(SYMBOLS[0], "trade", start=start, end=end)
+        request_url(self.symbols[0], "trade", start=start, end=end)
         began = utc_time(self.clock())
         if end > hour_boundary(began) or not began - timedelta(hours=72) <= funding_start <= began:
             raise ValueError("closed current source and bounded funding lookback required")
@@ -277,7 +285,7 @@ class BitgetFuturesMarketSource:
             return payload["data"], after, server
 
         candles, funding, forecasts = {}, [], []
-        for symbol in SYMBOLS:
+        for symbol in self.symbols:
             for kind in ("trade", "mark"):
                 rows, after, _ = read(symbol, kind, start=start, end=end)
                 if not len(rows) <= 100:
@@ -331,7 +339,7 @@ class BitgetFuturesMarketSource:
                                              funding_rate(row.get("fundingRate"))))
         # Quotes are last, keeping native bid/ask/mark clocks fresh as a cohort.
         quotes = []
-        for symbol in SYMBOLS:
+        for symbol in self.symbols:
             rows, after, server = read(symbol, "quote")
             if len(rows) != 1 or type(rows[0]) is not dict or rows[0].get("symbol") != symbol:
                 raise ValueError("one own Classic quote required")
@@ -350,9 +358,9 @@ class BitgetFuturesMarketSource:
         if any(f.next_update <= collected for f in forecasts):
             raise ValueError("funding forecast rolled during collection; refresh source")
         hours = tuple(CapitalHour(
-            tuple(candles[s, "trade"][i] for s in SYMBOLS),
-            tuple(candles[s, "mark"][i] for s in SYMBOLS))
-            for i in range(len(candles[SYMBOLS[0], "trade"])))
+            tuple(candles[s, "trade"][i] for s in self.symbols),
+            tuple(candles[s, "mark"][i] for s in self.symbols))
+            for i in range(len(candles[self.symbols[0], "trade"])))
         return FuturesMarketObservation(start, end, funding_start, collected, hours, tuple(quotes),
                                         tuple(sorted(funding, key=lambda f: (f.settled_at, f.symbol))),
                                         tuple(forecasts), tuple(reads))

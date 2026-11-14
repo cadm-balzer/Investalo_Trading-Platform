@@ -16,6 +16,7 @@ from .futures_paper_feed import (
     BitgetFuturesMarketSource, FuturesMarketObservation, MAX_BYTES, fetch_paper_source_json,
 )
 from .futures_settlement_source import BitgetSettlementSource, SettlementEvidence, fetch_settlement_json
+from .futures_paper_universe import SYMBOLS, paper_symbols
 from .snapshot import canonical, decode_json
 
 VERSION = "bitget-classic-futures-paper-archive/1"
@@ -64,7 +65,11 @@ class FuturesPaperArchive:
     market_fetch: object = fetch_paper_source_json
     minute_fetch: object = fetch_settlement_json
     sleep: object = time.sleep
+    symbols: tuple[str, ...] = SYMBOLS
     _uncertain: bool = field(default=False, init=False, repr=False, compare=False)
+
+    def __post_init__(self):
+        paper_symbols(self.symbols)
 
     def market(self, *, start, end, funding_start, guard=lambda: None):
         return self._capture("market", {"start": start, "end": end, "funding_start": funding_start}, guard)
@@ -99,11 +104,13 @@ class FuturesPaperArchive:
                 return payload
 
             if kind == "market":
-                observation = BitgetFuturesMarketSource(fetch, self.clock, self.sleep).collect(**parameters)
+                observation = BitgetFuturesMarketSource(
+                    fetch, self.clock, self.sleep, symbols=self.symbols).collect(**parameters)
             else:
-                observation = BitgetSettlementSource(fetch, self.clock, self.sleep).collect(**parameters)
+                observation = BitgetSettlementSource(
+                    fetch, self.clock, self.sleep, symbols=self.symbols).collect(**parameters)
             guard()
-            count = 25 if kind == "market" else 10
+            count = (5 if kind == "market" else 2) * len(self.symbols)
             if len(reads) != count or any(
                     row["url"] != read.url or row["sha256"] != read.response_digest
                     for row, read in zip(reads, observation.reads, strict=True)):
@@ -174,7 +181,7 @@ class FuturesPaperArchive:
 
     def _verify(self, fd, receipt, observation):
         rows = receipt["responses"]
-        count = 25 if receipt["kind"] == "market" else 10
+        count = (5 if receipt["kind"] == "market" else 2) * len(observation.symbols)
         if type(rows) is not list or len(rows) != count or len(observation.reads) != count:
             raise ValueError("complete archived source cohort required")
         payloads = {}
@@ -194,9 +201,10 @@ class FuturesPaperArchive:
         fetch = lambda url: payloads[url]
         clock = lambda: next(clocks)
         if receipt["kind"] == "market":
-            actual = BitgetFuturesMarketSource(fetch, clock, lambda _: None).collect(
+            actual = BitgetFuturesMarketSource(fetch, clock, lambda _: None, symbols=observation.symbols).collect(
                 start=observation.start, end=observation.end, funding_start=observation.funding_start)
         else:
-            actual = BitgetSettlementSource(fetch, clock, lambda _: None).collect(observation.settled_at)
+            actual = BitgetSettlementSource(
+                fetch, clock, lambda _: None, symbols=observation.symbols).collect(observation.settled_at)
         if actual != observation:
             raise ValueError("native archive replay differs from typed observation")

@@ -2426,3 +2426,34 @@ Native Classic-Quellen bleiben fünf Kandidaten; echte Erweiterung für6/7
 folgt, kein vorgezogenes Volumen bei zu kleinem Pool.
 Keine Migration/Dependencies/laufende Dienste/Marktjobs/Public/Live/AI.
 [Vertrag](../futures-paper-profit-epochs.md).
+
+## D109 — Ausdrückliches natives Sieben-Coin-Paperprofil (2026-11-14)
+
+PR69 (`06564fa`) ist in `main9210f70` enthalten; GH/Fetch/Ancestry bestätigt.
+Die bestätigten LINK/AVAX ergänzen AVAX/BNB/BTC/ETH/LINK/SOL/XRP in
+Ledgerreihenfolge. Neue private Genesis/Ökonomie/3, weiterhin10k/drei
+finanzierte vollständige Ranges/Limit7/feste2×/H1; Q36 finanziert weitere
+Plätze und erst ab7 größere zukünftige Budgets. Alte fünf Defaults/Journale
+und Forschungsidentitäten nicht konvertieren oder erneut allokieren.
+
+35 unsigned aktuelle Markt-GETs/14 native Funding-Minuten-GETs mit eigenen
+/2-Records, strikt gebundener vollständiger Kohorte und Offlineoriginalreplay.
+Launcher leiten die Kohorte aus eigener vertrauenswürdiger Genesis ab;
+Contractsberatung und normale scoped API zeigen tatsächlich sieben Assets,
+eligible7 und Empfehlung3 bei drei finanzierten Ranges.
+Sieben native Funding-IDs/full restore ohne Doppelabrechnung synthetisch
+geprüft; neue volle Profilfolge3→7, danach sieben echte synthetische Abschlüsse
+und Volumenerhöhung geprüft. Keine Schwellen-/Hebel-/Kaufstaffeländerung.
+
+Sieben neue Fälle,178 gepinnte Regression/130 Subtests,43 gezielt/42 und final
+alle7 neuen/7 Subtests grün. Native lokale Abnahme unter eigenem privaten
+synthetischen Konto: zwei35-/ein14-GET-Archive und zwei Contracts-GETs,
+Warmup22h, Fundingminute16:00Z, Journal2/full restore/status7/eligible7/funded3.
+Receiptshaafdbd364c1707176efd27b2a4dc3a9b59152c6915a379a0da42eea62d91e3c68.
+Keine Entries/Closures im kurzen Lauf, kein neuer Backtest oder Performancebeleg.
+Kein Frontendbuild, DB-/Migrations-/Abhängigkeits-/Dienst-/Public-/Live-/AIwechsel.
+Erster Elternpfad vor Erstellung wegen0700 abgelehnt, eigener privater Root
+danach verwendet. Fehlende vollständige Fundingkohorte stoppt weiterhin statt
+Rateslots/Zeiten zu erfinden. Nächste aktive Aufgabe IP-088 eigene manuelle
+Recovery/API/Cockpit, danach getrennte Bitget-Demoausführung.
+[Vertrag](../futures-seven-candidates.md).

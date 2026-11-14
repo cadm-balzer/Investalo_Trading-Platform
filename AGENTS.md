@@ -7,6 +7,25 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR69 merged: 06564fa ancestor of main9210f70, GH/fetch verified.
+  IP-090 on feat/m1-futures-seven-candidates: explicit sorted native cohort
+  AVAX/BNB/BTC/ETH/LINK/SOL/XRP; local_seven_profit_config own economics/3,
+  three initially funded full ranges/ceiling7/fixed2×, Q36 gains fund expansion.
+  35 market GETs/14 funding-minute GETs; strict complete axes/IDs/grids,
+  own source/evidence /2, archive replay retains five-candidate /1 defaults.
+  Both launchers derive cohort from trusted own genesis; no old journal reset.
+  Seven new cases,178 pinned regression/130 subtests plus43 focused/42
+  and final7 new/7 subtests green. Actual restricted PG/HTTP shows seven
+  own assets/eligible7/recommendation3/funded3; seven native-profile
+  synthetic closures and3→7 then-volume tested. No frontend change/build.
+  Native local acceptance complete: two35-GET+one14-GET archive, two
+  contract GETs;22h warmup/16:00Z fundingminute/full source+journal restore/
+  status revision2/assets7/eligible7/funded3/zero entries or closures.
+  Receiptsha afdbd364c1707176efd27b2a4dc3a9b59152c6915a379a0da42eea62d91e3c68.
+  Own synthetic private root; no DB/migration/dependency/running-service/
+  native-performance/public/live/AI change. Existing five profiles frozen.
+  Next IP-088 own manual liquidation recovery/API/Cockpit, then Bitget demo.
+  See docs/futures-seven-candidates.md.
 - PR68 merged: 70c93cb ancestor of main763717b, GH/fetch verified.
   IP-090 on feat/m1-futures-profit-epochs: explicit own profit/2 Paper plan,
   actual closed-count/net/cash/equity prefix; three new full closures and

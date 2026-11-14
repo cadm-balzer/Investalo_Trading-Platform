@@ -7,6 +7,7 @@ from threading import Event
 from datetime import datetime, timezone
 
 from investalo_marketdata.futures_paper_archive import FuturesPaperArchive
+from investalo_marketdata.futures_paper_universe import native_symbols
 from investalo_trading.futures_paper_journal import FuturesPaperJournal
 from investalo_trading.futures_paper_status import FuturesAssetPublisher, FuturesAssetReader
 from .futures_account_reader import FuturesPaperAccountReader
@@ -39,7 +40,8 @@ def main(argv=None):
         from investalo_api.settings import Settings
         spec = load_spec(args.spec, args.spec_digest)
         reader = FuturesPaperAccountReader(spec.binding, Settings.from_environment().connection_parameters(), clock)
-        archive = FuturesPaperArchive(args.archive_root, clock=clock)
+        archive = FuturesPaperArchive(args.archive_root, clock=clock,
+                                      symbols=native_symbols(spec.config.profile.plan.symbols))
         if args.initialize:
             initialize_paper(args.journal, spec, archive, args.status_root, reader, clock, guard=guard)
         published = FuturesAssetReader(args.status_root).publication(

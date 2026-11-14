@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 import hashlib
 
 from investalo_marketdata.futures_broker_calibration import fetch_contracts, parse_contracts
+from investalo_marketdata.futures_paper_universe import native_symbols
 from investalo_trading.futures_paper_capacity import PaperInstrumentEvidence, PaperInstrumentMinimum
 
 
@@ -27,7 +28,7 @@ class FuturesPaperCapacitySource:
             return None  # Funding-only state cannot masquerade as new current quotes.
         began = self.clock()
         raw = self.fetch()  # Fixed URL, bounded bytes/timeout, no redirects, credentials or retry.
-        rules = parse_contracts(raw)
+        rules = parse_contracts(raw, symbols=native_symbols(state.config.profile.plan.symbols))
         now = self.clock()
         if not 0 <= (now - began).total_seconds() <= 20:
             raise ValueError("current contract calibration clock rejected")

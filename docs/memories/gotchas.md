@@ -2,6 +2,12 @@
 
 Stand 2026-11-14. Befunde sind dokumentiert, nicht automatisch im Altsystem behoben.
 
+- **Sieben Quellenkandidaten sind keine sieben finanzierten Ranges:** Neue
+  explizite AVAX/BNB/BTC/ETH/LINK/SOL/XRP-Genesis startet mit drei vollen Ranges.
+  Poolreihenfolge wie Ledger alphabetisch, eigener Quellendigest /2; alte
+  Fünf-Coin-Journale nicht umdeuten. Funding benötigt vollständig native
+  Raten/Minuten; bei wechselnden Terminen stoppen statt Rateslots erfinden.
+
 - **Aktueller RSI ist keine Kaufzusage:** Ein frischer Quote verlängert nicht
   das30s-Einstiegsfenster des geschlossenen H1-Signals. Eigene Assetanzeige
   trennt Datenfrische, nächsten H1-Check und konkrete RSI-/Preisbedingungen.

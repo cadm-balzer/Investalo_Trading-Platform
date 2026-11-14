@@ -16,6 +16,7 @@ from investalo_marketdata.futures_paper_feed import (
     hour_boundary,
 )
 from investalo_marketdata.snapshot import canonical, decode_json
+from investalo_marketdata.futures_paper_universe import SEVEN_SYMBOLS, paper_symbols
 from investalo_trading.snapshot import _decode
 
 
@@ -33,7 +34,8 @@ def write_new(path, value):
     return hashlib.sha256(raw).hexdigest()
 
 
-def capture(output):
+def capture(output, *, symbols=SYMBOLS):
+    symbols = paper_symbols(symbols)
     # Receipt is last, after verification. Unknown writes require readback.
     output.mkdir(mode=0o700, parents=False, exist_ok=False)
     parent_fd = os.open(output.parent, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
@@ -53,8 +55,9 @@ def capture(output):
         paths.append((url, path, digest))
         return payload
 
-    observation = BitgetFuturesMarketSource(fetch).collect(start=start, end=end, funding_start=start)
-    if len(paths) != 25 or len(observation.reads) != 25:
+    observation = BitgetFuturesMarketSource(fetch, symbols=symbols).collect(
+        start=start, end=end, funding_start=start)
+    if len(paths) != 5 * len(symbols) or len(observation.reads) != 5 * len(symbols):
         raise ValueError("complete native cohort required")
     for (url, path, digest), read in zip(paths, observation.reads, strict=True):
         if (url != read.url or digest != read.response_digest
@@ -66,9 +69,10 @@ def capture(output):
     if restored != observation or restored.data_digest != data_digest:
         raise ValueError("native observation roundtrip mismatch")
     receipt = {
-        "schema_version": "bitget-classic-futures-paper-source-capture/1",
+        "schema_version": "bitget-classic-futures-paper-source-capture/1" if symbols == SYMBOLS else
+                          "bitget-classic-futures-paper-source-capture/2",
         "data_digest": data_digest, "start": start.isoformat(), "end": end.isoformat(),
-        "collected_at": observation.collected_at.isoformat(), "symbols": list(SYMBOLS),
+        "collected_at": observation.collected_at.isoformat(), "symbols": list(symbols),
         "closed_hours_per_axis": len(observation.hours), "native_quotes": len(observation.quotes),
         "native_funding": len(observation.funding), "native_forecasts": len(observation.forecasts),
         "response_hashes": [{"file": p.name, "sha256": d} for _, p, d in paths],
@@ -89,10 +93,12 @@ def capture(output):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("output", type=Path, help="new directory below an existing owned source parent")
+    parser.add_argument("--seven-candidates", action="store_true", help="explicit LINK/AVAX extension")
     args = parser.parse_args()
     parent = args.output.absolute().parent
     st = parent.stat(follow_symlinks=False)
     if (not stat.S_ISDIR(st.st_mode) or st.st_uid != os.getuid()
             or stat.S_IMODE(st.st_mode) & 0o022):
         raise ValueError("owned non-writable source parent required")
-    print(canonical(capture(parent / args.output.name)))
+    print(canonical(capture(parent / args.output.name,
+                            symbols=SEVEN_SYMBOLS if args.seven_candidates else SYMBOLS)))

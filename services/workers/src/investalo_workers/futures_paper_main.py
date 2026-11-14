@@ -7,6 +7,7 @@ from threading import Event
 from uuid import UUID
 
 from investalo_marketdata.futures_paper_archive import FuturesPaperArchive
+from investalo_marketdata.futures_paper_universe import native_symbols
 from investalo_trading.futures_paper_journal import FuturesPaperJournal
 from investalo_trading.futures_paper_status import FuturesAssetPublisher, FuturesAssetReader
 from investalo_trading.futures_replay_journal import _sha
@@ -44,7 +45,8 @@ def main(argv=None):
                 raise ValueError("foreign configured own Paper account")
             with FuturesAssetPublisher(args.status_root, journal) as publisher:
                 publisher.publish(expected_revision=journal.state.revision)
-                worker = FuturesSourceWorker(journal, FuturesPaperArchive(args.archive_root), publisher)
+                worker = FuturesSourceWorker(journal, FuturesPaperArchive(
+                    args.archive_root, symbols=native_symbols(plan.symbols)), publisher)
                 for i in range(args.cycles):
                     if stopped.is_set():
                         break

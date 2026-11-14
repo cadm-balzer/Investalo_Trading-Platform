@@ -1,5 +1,13 @@
 # Roadmap
 
+IP-090 ergänzt ausdrücklich sieben native Classic-Kandidaten einschließlich
+LINK/AVAX:35-GET-Quellen/14-GET-Fundingarchiv, eigene Profil-/Journalbindung,
+Assets- und Kapitalreader. Native lokale Abnahme/full restore erfolgreich;
+anfänglich drei finanzierte Ranges, weitere Plätze nur durch Q36-Gewinnetappen.
+Bestehende fünf Profile bleiben erhalten. Nächstes eigenes Runtimeziel:
+Q46/IP-088 manuelle Liquidationsfreigabe, anschließend Bitget-Demoausführung.
+[Abnahme und Grenzen](futures-seven-candidates.md).
+
 Q47 priorisiert jetzt die Handelsimplementierung mit2×. IP-089 verbindet eine
 gespeicherte eigene Basket-Obergrenze3–7 mit Default-off-Portfolio/API/BFF;
 initial3–5, spätere zusätzliche Slots weiterhin nur über Q36-Gewinnetappen.
@@ -48,10 +56,11 @@ Q36-Gewinnetappen sind jetzt in eigener expliziter profit/2-Paperpolicy
 mit Journal/gebundenem Worker/PG-/Kapazitätsreader implementiert. Drei neue
 volle Abschlüsse und echte Nettodeckung finanzieren je eine ursprüngliche
 Range; offene Budgets bleiben fest.3→7 und danach zukünftige Volumenerhöhung
-synthetisch geprüft; der native Pool bleibt bislang fünf.
+synthetisch geprüft; das neue native Profil ergänzt LINK/AVAX zu sieben,
+während alte fünf Profile ihre Identität behalten.
 [Gewinnetappen](futures-paper-profit-epochs.md).
-Nächster Schritt: echter Kandidatenpool für mindestens sieben Coins;
-Q46-Recovery/IP-088 folgt ebenfalls.
+Native Sieben-Coin-Abnahme und normale PG-/API-Anbindung abgeschlossen;
+nächster Schritt Q46-Recovery/IP-088.
 [Paperkern](futures-paper-runtime.md),
 [aktueller Feed](futures-paper-feed.md).
 Danach Bitget-Demoausführung und separate Echtgeldabnahme. Keine neuen
