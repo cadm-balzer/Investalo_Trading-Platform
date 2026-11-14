@@ -33,20 +33,34 @@ class FuturesPaperWorker:
     journal: FuturesPaperJournal
     feed: FuturesPaperFeed
     clock: object = lambda: datetime.now(timezone.utc)
+    publisher: object = None
+
+    def _guard(self, guard):
+        guard()
+        if self.publisher is not None:
+            self.publisher.check()
+
+    def _publish(self, after, guard):
+        if self.publisher is not None:
+            self._guard(guard)
+            self.publisher.publish(expected_revision=after.revision)
+        return after
 
     def warmup(self, *, guard=lambda: None):
-        guard()
+        self._guard(guard)
         state = self.journal.state
         hours = self.feed.warmup(state)
-        guard()
-        return self.journal.append("warmup", hours=hours, expected_revision=state.revision, at=self.clock())
+        self._guard(guard)
+        after = self.journal.append("warmup", hours=hours, expected_revision=state.revision, at=self.clock())
+        return self._publish(after, guard)
 
     def run_once(self, *, guard=lambda: None):
-        guard()
+        self._guard(guard)
         before = self.journal.state
         batch = self.feed.batch(before)
-        guard()
+        self._guard(guard)
         after = self.journal.append("batch", batch=batch, expected_revision=before.revision, at=self.clock())
+        self._publish(after, guard)
         return FuturesPaperCycle(
             after.revision, len(after.signal.economic.stages) - len(before.signal.economic.stages),
             after.signal.economic.ledger.closed_baskets - before.signal.economic.ledger.closed_baskets,
@@ -55,11 +69,12 @@ class FuturesPaperWorker:
 
     def settle_once(self, *, guard=lambda: None):
         """Explicit funding-only step with archived exact or declared model evidence."""
-        guard()
+        self._guard(guard)
         before = self.journal.state
         settlement = self.feed.settlement(before)
-        guard()
+        self._guard(guard)
         kind = "minute_settlement" if type(settlement) is PaperMinuteSettlement else "settlement"
         after = self.journal.append(
             kind, settlement=settlement, expected_revision=before.revision, at=self.clock())
+        self._publish(after, guard)
         return FuturesPaperCycle(after.revision, 0, 0, after.state_digest)

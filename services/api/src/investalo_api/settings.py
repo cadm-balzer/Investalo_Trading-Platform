@@ -26,6 +26,7 @@ class Settings:
     paper_status_preview: bool = False
     futures_paper_settings_preview: bool = False
     futures_paper_assets_preview: bool = False
+    futures_paper_status_root: str | None = field(default=None, repr=False)
 
     @classmethod
     def from_environment(cls) -> "Settings":
@@ -52,6 +53,7 @@ class Settings:
             paper_status_preview=os.getenv("API_PAPER_STATUS_PREVIEW") == "1",
             futures_paper_settings_preview=os.getenv("API_FUTURES_PAPER_SETTINGS_PREVIEW") == "1",
             futures_paper_assets_preview=os.getenv("API_FUTURES_PAPER_ASSETS_PREVIEW") == "1",
+            futures_paper_status_root=os.getenv("API_FUTURES_PAPER_STATUS_ROOT"),
         )
 
     def connection_parameters(self) -> dict[str, str | int]:

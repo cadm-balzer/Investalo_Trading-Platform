@@ -78,3 +78,56 @@ def test_futures_assets_disabled_before_any_storage_or_reader(context):
     client = TestClient(main.create_app(settings, futures_paper_state_reader=lambda *_: 1 / 0))
     with patch.object(main, "transaction", side_effect=AssertionError("unexpected DB call")):
         assert request(client, settings, subject, context["tenant"]).status_code == 404
+
+
+def test_futures_assets_configured_file_reader_uses_acknowledged_private_publication(context, tmp_path):
+    from investalo_trading.futures_paper_status import FuturesAssetPublisher
+    from test_futures_paper_status import ready
+    from test_futures_paper_view import initial, NOW
+    settings, _, subject = status_actor(context)
+    settings = replace(settings, futures_paper_assets_preview=True, futures_paper_status_root=str(tmp_path))
+    genesis = initial(str(context["tenant"]), str(context["account"]))
+    with ready(tmp_path / "paper.jsonl", genesis) as saved:
+        with FuturesAssetPublisher(tmp_path, saved, clock=lambda: NOW) as publisher:
+            publisher.publish(expected_revision=2)
+    client = TestClient(main.create_app(settings))
+    response = request(client, settings, subject, context["tenant"])
+    assert response.status_code == 200
+    assert response.headers["cache-control"] == "no-store"
+    value = response.json()
+    account = next(a for a in value["accounts"] if a["account_id"] == str(context["account"]))
+    assert account["snapshot"]["revision"] == 2
+    assert account["snapshot"]["observed_at"] == NOW.isoformat()
+    assert not account["snapshot"]["data_fresh"]  # Fixture quote never refreshed by file loading.
+    assert sum(a["position"] is not None for a in account["snapshot"]["assets"]) == 3
+    assert all(a["snapshot"] is None for a in value["accounts"] if a != account)
+    assert not any(word in response.text for word in ("journal_receipt", "state_digest", str(tmp_path)))
+    assert request(client, settings, subject, context["foreign"]).status_code == 403
+
+
+def test_futures_assets_file_reader_missing_preserves_unknown_and_corrupt_is_generic_503(context, tmp_path):
+    from investalo_trading.futures_paper_status import FuturesAssetPublisher
+    from test_futures_paper_status import ready
+    from test_futures_paper_view import initial, NOW
+    settings, _, subject = status_actor(context)
+    settings = replace(settings, futures_paper_assets_preview=True, futures_paper_status_root=str(tmp_path))
+    client = TestClient(main.create_app(settings))
+    assert all(a["snapshot"] is None for a in request(client, settings, subject, context["tenant"]).json()["accounts"])
+    genesis = initial(str(context["tenant"]), str(context["account"]))
+    with ready(tmp_path / "paper.jsonl", genesis) as saved:
+        with FuturesAssetPublisher(tmp_path, saved, clock=lambda: NOW) as publisher:
+            publisher.publish(expected_revision=2)
+    next(tmp_path.glob("*.json")).write_bytes(b"bad private evidence")
+    response = request(client, settings, subject, context["tenant"])
+    assert response.status_code == 503
+    assert response.json() == {"detail": "Futures status unavailable"}
+    assert str(tmp_path) not in response.text
+
+
+def test_futures_assets_status_root_remains_unused_without_preview_opt_in(context, tmp_path):
+    settings, _, subject = status_actor(context)
+    settings = replace(settings, futures_paper_status_root=str(tmp_path / "missing"))
+    client = TestClient(main.create_app(settings))
+    assert client.app.state.futures_paper_state_reader is None
+    with patch.object(main, "transaction", side_effect=AssertionError("unexpected storage")):
+        assert request(client, settings, subject, context["tenant"]).status_code == 404

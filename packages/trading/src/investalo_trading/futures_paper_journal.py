@@ -93,6 +93,7 @@ class FuturesPaperJournal(CapitalReplayJournal):
     def __init__(self, *args):
         super().__init__(*args)
         self._lock = RLock()
+        self._minimum_receipt = None
 
     @property
     def state(self):
@@ -103,6 +104,17 @@ class FuturesPaperJournal(CapitalReplayJournal):
     def receipt(self):
         with self._lock:
             return super().receipt
+
+    def checkpoint(self):
+        """One acknowledged state/receipt pair, including unknown-write checks."""
+        with self._lock:
+            return super().state, super().receipt
+
+    def acknowledges(self, receipt):
+        """Current receipt or the exact ancestor proved by full restore."""
+        with self._lock:
+            return receipt == super().receipt or (
+                self._minimum_receipt is not None and receipt == self._minimum_receipt)
 
     def close(self):
         with self._lock:
@@ -173,7 +185,9 @@ class FuturesPaperJournal(CapitalReplayJournal):
                 anchor()
             if minimum_receipt is not None and sequence < minimum_receipt["sequence"]:
                 raise ValueError("Paper journal truncated before acknowledged receipt")
-            return cls(handle, header, state, head, sequence)
+            journal = cls(handle, header, state, head, sequence)
+            journal._minimum_receipt = dict(minimum_receipt) if minimum_receipt is not None else None
+            return journal
         except BaseException:
             handle.close()
             raise

@@ -1,11 +1,19 @@
 # Bestandsaufnahme
 
+IP-090: futures_paper_status.py veröffentlicht nach bestätigtem Workerjournal
+einen kompakten eigenen FuturesAssetState mit Receipt in privaten atomaren
+owned0600-Dateien. Optionaler normaler API-Reader über privaten Statusroot;
+Frische/RSI-Fenster/Kontosperren bei jedem Lesen neu berechnet. Full-restore-
+Minimumreceipt bindet Neustart/Reparatur; Unknown-write stoppt Weiterarbeit.
+Kein laufender Feedlauncher; [Vertrag](futures-paper-publication.md).
+
 IP-090/Q49: futures_paper_minute.py ergänzt die bestätigte native Minuten-Open-
 Paperreferenz mit vollem OHLC-/Quellen-/Wissenszeitvertrag und eigenem
 minute_settlement-Journalbefehl. Quellenübergabe vergleicht native Fundingraten/
 IDs beider Belege; bestehender Worker kann explizit abrechnen. Vollrestore,
 Cash/Mitternacht/Liquidationslatch und alte exakte Goldenidentität geprüft.
-Kein laufender Launcher/State-Reader; [Vertrag](futures-paper-minute-funding.md).
+Launcher weiterhin offen; Statusreader separat implementiert.
+[Vertrag](futures-paper-minute-funding.md).
 
 IP-090: futures_settlement_source.py und capture-futures-settlement-source.py
 erfassen zehn native GETs/fünf Fundingraten/fünf Mark-Minutenkerzen mit
@@ -27,7 +35,8 @@ Nachkaufprojektion; futures_paper_assets.py und GET/v1/futures-paper-assets
 binden authenticated own IDs an einen privaten bestätigten State-Reader.
 FuturesAssetsPanel/TS-Vertrag/15s-Refresh auf Übersicht und Portfolio,
 Default-off. RSI-Kerzenschluss, echte Fills,95%-Tickgrenze, H1-Check und
-Warte-/Sperrgründe; noch kein normaler Worker-State-Reader.
+Warte-/Sperrgründe; optionaler privater Dateireader jetzt implementiert,
+laufende Quellen-/Dienstanbindung bleibt offen.
 [Vertrag](futures-paper-assets.md).
 
 IP-090 aktueller Classic-Collector: futures_paper_feed.py sammelt25 öffentliche

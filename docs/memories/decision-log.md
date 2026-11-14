@@ -2241,3 +2241,26 @@ Cursor/Archiv/Launcher/Statepublikation/013/Gewinnetappen/IP-088-Recovery
 bleiben offen. Keine laufenden/public/live/AI-Dienste, Migrationen,
 Dependencies oder Performancejobs aktiviert.
 [Vertrag](../futures-paper-minute-funding.md).
+
+## 2026-11-14 — D-103: dauerhafte private Futures-Assetpublikation
+
+PR63 (`7aeec8d`) in Main `da3c467`, GH/fetch-Ancestry verifiziert.
+Eigener kompakter unveränderlicher RSI-/Positions-/Nachkauflesestand statt
+Historykopie oder Journalrestore pro HTTP. Worker publiziert optional nach
+bestätigtem warmup/batch/exact/minute funding und erneuter Guardprüfung.
+Owned0700-Root/0600-Datei/einzelner Link/Lifetimewriterlock, create-only Temp,
+File-fsync/atomic Replace/Directory-fsync/Readback, vollständiger Receipt/hash.
+Normaler APIreader nur mit privatem Root und bestehendem Assetopt-in;
+authentifizierte aktuelle Konto-IDs, readonly Same-UID-Mount, generische503.
+Quote-/H1-Frische und RSI-Fenster/Kontosperren pro Abruf neu; Publikationszeit
+macht keine Preise frisch, veraltete Positionen bleiben, unbekannter Stand null.
+Unknown-write beendet Publisher/weitere Workerabrufe. Bei Neustart publizierten
+Minimumreceipt im vollständigen Journalrestore belegen; Fork/Trunkierung/
+fremde Genesis stoppen. Alte Journal-/HTTP-Anzeigeidentitäten erhalten.
+Zehn neue Domain/Dateisystem- und drei tatsächliche PG/HTTP-Fälle;
+128 gezielte gepinnte Fälle/105 Subtests grün; nach Dateirechte-/Null-Tick-
+Grenzprüfung26 betroffene Fälle/14 Subtests erneut gepinnt grün.
+Kein laufender Feedlauncher, keine Compose-/Public-/Live-/AI-/DB-/Dependency-/
+Performanceänderung. Cursor/Archiv/Launcher/013/Kapital/Gewinnetappen/Recovery
+und laufende lokale Cockpitabnahme bleiben IP-090/IP-088.
+[Vertrag](../futures-paper-publication.md).
