@@ -7,6 +7,20 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR61 merged: 56c1d41 ancestor of main50a1fa6, GH/fetch verified.
+  IP-090 on feat/m1-futures-settlement-source: ten unsigned Classic GETs
+  capture five native funding rates and exact-target mark-minute candles.
+  Owned create-only/fsync/readback evidence, explicit reference uncertainty.
+  Real20261114T16Z capture at18:38Z: ten responses/five rates/five minutes;
+  receiptsha84dd622a8905a00351f4ac191654f0f6efdc9a916b8f51bdefe1bf7ee681a9b0.
+  First failed directory preserved without receipt; own minute type keeps
+  frozen H1/H4 research unchanged. NO exact broker settlement mark claimed.
+  Ten new/103 focused pinned cases/82 subtests pass, including real archive IO.
+  Q49 minute-open Paper model reference requested, UNCONFIRMED; no conversion
+  into exact PaperSettlement or reference activation. Actual source sample
+  exceeds1h funding command lag, no market job/Paper mutation implied.
+  Cursor/launcher/publication/settings/profit/recovery remain IP-090/IP-088.
+  See docs/futures-settlement-source.md.
 - PR60 merged: 0bda3e4 ancestor of main7cc6848, GH/fetch verified.
   IP-090 funding-only checkpoint on feat/m1-futures-paper-funding:
   own settlement command with independent exact-time marks/native rates,

@@ -1,5 +1,12 @@
 # Bestandsaufnahme
 
+IP-090: futures_settlement_source.py und capture-futures-settlement-source.py
+erfassen zehn native GETs/fünf Fundingraten/fünf Mark-Minutenkerzen mit
+geschütztem Archiv/Roundtrip. Reale16:00Z-Probe erfolgreich. Minuten-Open
+ist eine vorgeschlagene Paperreferenz; kein exakter Broker-Settlementmark,
+Q49 unbestätigt, Referenz und automatische Paperübergabe bleiben aus.
+[Vertrag](futures-settlement-source.md).
+
 IP-090: futures_paper_settlement.py ergänzt einen Funding-only-Journalbefehl
 mit unabhängiger exakter Settlementbewertung, nativen Raten und getrennten
 Ereignis-/Wissenszeiten. Worker settle_once und bestätigter Quellenfortgang

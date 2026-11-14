@@ -465,6 +465,19 @@ Unbekannter oder veralteter Runtimezustand wird ausdrücklich ausgewiesen.
 Dies ändert keine Strategie oder Live-/öffentliche Freigabe.
 [Anzeigevertrag](futures-paper-assets.md).
 
+### Q49: native Mark-Minutenreferenz für Paperfunding
+
+2026-11-14, **offen, Bestätigung angefragt**. Classic-Fundinghistory enthält
+keinen belegten Settlementmark. Öffentliche native Mark-Minutenkerzen sind
+real geprüft; die16:00Z-Probe zeigt0,07–0,16 % High/Low-Spanne relativ zum Open.
+Empfehlung: exakt den nativen Open der Settlementminute als ausdrücklich
+deklarierte Paper-Modellreferenz verwenden, mit Originalkerze/Quellenhash und
+Unsicherheit. Keine späteren günstigen Kurse, Forecast-/Tickersubstitution
+oder Behauptung einer exakten Brokergebühr. Keine Änderung der Kaufstaffel
+und des festen2×-Hebels. Alternativ bleibt die exakte Fundingbewertung nötig
+und ihre Übergabe ohne passenden Beleg gesperrt. Bis zur Antwort bleibt die
+Referenz deaktiviert. [Quellenbeleg](futures-settlement-source.md).
+
 Konkrete Umsetzungsfakten recherchieren wir: unterstützte Versionen exakt pinnen,
 Historienlänge/-qualität prüfen, Brokerkosten/Metadaten und Hostlast messen.
 Vor Pilotrollout müssen Domain/TLS, SMTP/Empfänger, Terminalbindung,
