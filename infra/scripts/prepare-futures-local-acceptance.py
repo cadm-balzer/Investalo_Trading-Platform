@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Create only the dedicated synthetic local Futures acceptance mount."""
 import os
+import argparse
 from pathlib import Path
 import stat
 
@@ -9,6 +10,14 @@ MARKER = b"synthetic-local-futures-acceptance/1\n"
 
 
 def main():
+    global ROOT, MARKER
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--recovery", action="store_true")
+    args = parser.parse_args()
+    if args.recovery:
+        ROOT = Path("/tmp/investalo-futures-recovery-acceptance")
+        MARKER = b"synthetic-local-futures-recovery-acceptance/1\n"
+    children = ("status", "registry") if args.recovery else ("status",)
     if os.geteuid() != 0:
         raise ValueError("root preparation required")
     parent = os.open("/tmp", os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
@@ -31,13 +40,14 @@ def main():
                     stream.write(MARKER)
                     os.fchown(stream.fileno(), 10003, 10010)
                     os.fsync(stream.fileno())
-                os.mkdir("status", 0o700, dir_fd=fd)
-                child = os.open("status", os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=fd)
-                try:
-                    os.fchown(child, 10003, 10010)
-                    os.fsync(child)
-                finally:
-                    os.close(child)
+                for name in children:
+                    os.mkdir(name, 0o700, dir_fd=fd)
+                    child = os.open(name, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=fd)
+                    try:
+                        os.fchown(child, 10003, 10010)
+                        os.fsync(child)
+                    finally:
+                        os.close(child)
                 os.fchown(fd, 10003, 10010)
                 os.fsync(fd)
                 os.fsync(parent)
@@ -53,13 +63,14 @@ def main():
                     raise ValueError("acceptance marker drift")
             finally:
                 os.close(marker)
-            child = os.open("status", os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=fd)
-            try:
-                info = os.fstat(child)
-                if (info.st_uid, info.st_gid, stat.S_IMODE(info.st_mode)) != (10003, 10010, 0o700):
-                    raise ValueError("status directory drift")
-            finally:
-                os.close(child)
+            for name in children:
+                child = os.open(name, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=fd)
+                try:
+                    info = os.fstat(child)
+                    if (info.st_uid, info.st_gid, stat.S_IMODE(info.st_mode)) != (10003, 10010, 0o700):
+                        raise ValueError("acceptance child directory drift")
+                finally:
+                    os.close(child)
         finally:
             os.close(fd)
     finally:

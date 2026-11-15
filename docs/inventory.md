@@ -6,7 +6,9 @@ und additive manuelle Journal-CAS-Aktion/Vollrestore. Alte Verluste/Peerreserven
 Quellenbasis bleiben erhalten. Optionale gemeinsame Status/3-Publikation,
 normale scoped GET-/POST-API und create-only Allocation-/Journalregistry verbinden
 bestehende Cockpit-/BFF-Komponenten. Aktiver Feedwriter bleibt exklusiv.
-Default-off; native Browserabnahme/Writerkoordination/Demoabgleich folgen.
+Default-off;42 tatsächliche HTTPS/PG/SSR-Prüfungen mit synthetischer Quelle,
+bounded Launcher-/APIübergabe und vollem Restore bestanden. Physische
+Browserabnahme/große Journale/Dauerbetrieb und Demoabgleich folgen.
 [Vertrag](futures-manual-recovery.md).
 
 IP-090: futures_paper_universe.py/local_seven_profit_config ergänzen ausdrücklich

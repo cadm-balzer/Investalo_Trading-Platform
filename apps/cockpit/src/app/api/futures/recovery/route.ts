@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
     if (request.headers.get("content-type")?.split(";")[0] !== "application/json") throw new Error("BODY_REJECTED");
     const data = parseRecoveryRequest(JSON.parse(await limitedBody(request, 4096)));
     const result = await apiRequest(session, "/v1/futures-recovery", {
-      method: "POST", body: JSON.stringify(data), idempotencyKey: data.event_id,
+      method: "POST", body: JSON.stringify(data), idempotencyKey: data.event_id, timeoutMs: 8000,
     });
     return NextResponse.json(parseRecoveryStatus(result, session.tenantId), { headers });
   } catch (error) {

@@ -10,12 +10,12 @@ export class BackendError extends Error {
   constructor(public status: number) { super("BACKEND_UNAVAILABLE"); }
 }
 
-export async function apiRequest<T>(principal: Principal, path: string, options: { method?: string; body?: string; idempotencyKey?: string } = {}, suppliedConfig?: Config): Promise<T> {
+export async function apiRequest<T>(principal: Principal, path: string, options: { method?: string; body?: string; idempotencyKey?: string; timeoutMs?: 5000 | 8000 } = {}, suppliedConfig?: Config): Promise<T> {
   const config = suppliedConfig ?? await getConfig();
   const method = options.method ?? "GET", body = options.body ?? "";
   const jwt = await internalToken(config.internalSecret, principal, method, path, body);
   const response = await fetch(`${config.apiBase}${path}`, {
-    method, cache: "no-store", redirect: "error", signal: AbortSignal.timeout(5000),
+    method, cache: "no-store", redirect: "error", signal: AbortSignal.timeout(options.timeoutMs ?? 5000),
     headers: {
       Authorization: `Bearer ${jwt}`, "Content-Type": "application/json",
       ...(options.idempotencyKey ? { "Idempotency-Key": options.idempotencyKey } : {}),

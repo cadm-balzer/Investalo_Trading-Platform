@@ -118,6 +118,7 @@ test("recovery route is default off and enforces Origin/CSRF before forwarding o
     assert.equal(calls.length, 1);
     assert.equal(calls[0][0], currentSession);
     assert.equal(calls[0][1], "/v1/futures-recovery");
+    assert.equal(calls[0][2].timeoutMs, 8000);
     assert.deepEqual(JSON.parse(calls[0][2].body), body);
     assert.equal(calls[0][2].idempotencyKey, body.event_id);
   } finally {

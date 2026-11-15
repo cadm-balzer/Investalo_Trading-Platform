@@ -3,9 +3,13 @@
 Q46/IP-088: eigene gebuchte Paperliquidationen sind jetzt mit dauerhafter
 manueller Journal-CAS-Freigabe, Status/3 und normalem scoped API verbunden.
 Volles neues Budget, alte Verluste und übrige Nachkaufreserven bleiben erhalten.
-Der begrenzte Executor übernimmt nur einen freien exklusiven Writer.
-Als Nächstes lokale native HTTPS/Cockpitabnahme und laufende Writerkoordination,
-danach Bitget-Demoausführung. [Recoveryvertrag](futures-manual-recovery.md).
+Der begrenzte Launcher gibt beide Writer vor dem Warteintervall frei und
+restauriert anschließend die tatsächlich bestätigte manuelle APIaktion.
+42 tatsächliche lokale HTTPS/PG/SSR-Prüfungen mit synthetischer Liquidation
+bestanden; Verluste/Reserven erhalten. Große Journale/Produktionsdauerbetrieb
+benötigen eigene Betriebsabnahme. Als Nächstes separater Bitget-Demo-
+Positions-/Orderabgleich und Ausführungsjournal.
+[Abnahme](futures-recovery-cockpit-acceptance.md).
 
 IP-090 ergänzt ausdrücklich sieben native Classic-Kandidaten einschließlich
 LINK/AVAX:35-GET-Quellen/14-GET-Fundingarchiv, eigene Profil-/Journalbindung,
