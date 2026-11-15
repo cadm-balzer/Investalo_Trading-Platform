@@ -1085,3 +1085,12 @@ Stand 2026-11-15. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   Eigene ursprüngliche Mengen-/Cashbasis nicht aus der Prüfung selbst ableiten.
   Account-Equity enthält uPnL bereits. Empty-Pending beweist keinen Nullfill
   einer Unknown-Order. Snapshotmatch erteilt keine Ledger-/Versandfreigabe.
+
+- Demo-Registry muss vor tatsächlichem Executorzugriff einen ursprünglichen
+  gemeinsamen Root für alle Owner/Keys festlegen. UIDschlüssel ohne Tenant/
+  Credentialref; immutable Originalbinding und Journalpfad/Inode erhalten.
+  Erfolgreich reservierter Claim plus fehlende Genesis ist kein Anlass für
+  Reset/Adoption/zweiten Pfad. Busy schreibt nichts; Originaldateiaustausch
+  stoppt bis Close/Vollrestore. Eine andere Registry bzw. trusted-owner-
+  Rollback wird dadurch nicht global verhindert. Lokaler Claim beweist keine
+  native Demo-Key-/UID-/IP-/Rechteprovenienz und erlaubt keinen Brokerdispatch.

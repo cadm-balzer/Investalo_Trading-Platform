@@ -115,6 +115,10 @@ UID/Parent/IP/Rechte, Trigger-/ältere Orderabdeckung und Transportabnahme
 stehen weiter aus. Classic `fill-history` ist laut Anbieter nicht im Demo
 unterstützt; keine Ersatzkosten oder angeblichen Nettoerträge.
 
+Der [registrierte Zugang](bitget-demo-account-registry.md) ergänzt inzwischen
+lokale ursprüngliche UID-/Kontopfadbindung. Der Bericht bleibt advisory;
+keine native Demo-Identität wird dadurch bewiesen.
+
 ## Prüfung
 
 22 neue synthetische Accountfälle plus70 bestehende Demo-/Outbox-/Readfälle:

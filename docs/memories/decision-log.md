@@ -2624,3 +2624,33 @@ Eigenreview; keine Brokerrequests/Keys/Services/DB/Migration/Dependency/
 Frontendbuild/Backtest/Public/Live/AI. Native ältere Orderabdeckung und
 Kontoregistry/Key-/Kosten-/Fundingprovenienz/Transport bleiben nächstes Ziel.
 [Vertrag](../bitget-demo-account-check.md).
+
+
+## D115 — Ursprüngliche private Demo-Kontopfadregistry (2026-11-15)
+
+PR75 (`1825a39`) ist in `maina897926` enthalten; GH/Fetch/Ancestry bestätigt.
+Die ursprüngliche Registry wird vor Outboxgenesis create-only/fsync/readback
+an Broker-UID/Umgebung/Familie und vollständige eigene Binding/Box/Pfad/Inode
+gebunden. Tenant/Nutzer/Credentialref sind kein separater UID-Schlüssel;
+alternative Keys/Owner dürfen keine zweite eigene Allocation erzeugen.
+Keine automatische Keyrotation, Adoption alter nackter Outboxen oder
+Neuanlage nach fehlgeschlagener bestätigter Initialisierung.
+
+Kataloglock serialisiert Prüfung/Claim/gebundenen Zugriff, UID-Lease schützt
+die gesamte Sitzung, ursprünglicher Outboxwriter bleibt erhalten.
+Originalroot/Locks/Katalog/Claim/Inode werden vor Zugriff erneut geprüft;
+Identitätsdrift stoppt dauerhaft bis Close/Vollrestore. Missing Original-
+Lockdateien werden nicht automatisch ersetzt; fork-geerbte Sitzung lehnt ab.
+Normale Eingabe-/Owner-/CAS-Konflikte bleiben ohne Reset wiederverwendbar.
+Mindestreceipt, alte Journalidentitäten und Unknown-before-send unverändert.
+
+Der gemeinsame ursprüngliche Root und Filesystembesitzer bleiben trusted.
+Andere Registry oder gemeinsames absichtliches Rollback werden nicht global
+bewiesen; keine native UID/Parent/Key/IP/Rechte-Provenienz aus lokaler Deklaration.
+Ein tatsächlicher Executor muss den registrierten Zugang verbindlich verwenden.
+29 neue echte Filesystem-/Prozessfälle plus92 frühere (121) grün auf Host
+Python3.14.4, inklusive konkurrierender Claims/two accounts/Exit23/unknown
+full restore und readonly Accountcheck. Eigenreview; keine Brokerrequests/
+Credentials/Services/DB/Migration/Dependency/Backtest/Public/Live/AI.
+Native Demo-Provenienz/read transport und ältere Order-/Kosten-/Fundingabnahme
+folgen. [Vertrag](../bitget-demo-account-registry.md).

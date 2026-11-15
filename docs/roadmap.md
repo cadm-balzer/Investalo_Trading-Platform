@@ -1,5 +1,12 @@
 # Roadmap
 
+2026-11-15: IP-015/IP-016 binden kooperierende Demo-Outboxwriter unter einem
+ursprünglichen privaten Registryroot an Original-UID/Konto/Keyreferenz/Pfad.
+29 neue tatsächliche Filesystem-/Prozessfälle/121 Gesamtfälle grün; Crashrestore
+bleibt unknown ohne Resend. Kein automatisches Rebinding/Reset. Als Nächstes
+native Demo-Provenienz und gebundener Readtransport, danach ältere Orderscope-/
+Kosten-/Fundingabnahme. [Vertrag](bitget-demo-account-registry.md).
+
 2026-11-15: IP-015/IP-016 erhalten einen an die tatsächliche Outboxrevision
 gebundenen14-Achsen-Demoaccountcheck mit Cash-/Position-/Config- und
 Normal-/Triggerorder-Diagnostik. 22 neue/92 gesamte Offlinefälle grün.
