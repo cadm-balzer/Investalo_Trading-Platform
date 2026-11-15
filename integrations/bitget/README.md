@@ -9,6 +9,10 @@ These modules do not extend the read client's allowlist below.
 The [14-axis account check](../../docs/bitget-demo-account-check.md) joins
 declared own cash/positions to one actual outbox snapshot and bounded native
 read-response fixtures. Its result is advisory; no native execution approval.
+The [original account registry](../../docs/bitget-demo-account-registry.md)
+binds cooperating writers to one original UID/path within a trusted shared
+root, independently of alternate tenant/key references. No native identity
+proof, automatic credential rotation or HTTP dispatch is added.
 
 Standard-library Python core, imported with `PYTHONPATH=integrations/bitget/src`.
 No API/UI/DB integration, credential vault, real account test, broker order,

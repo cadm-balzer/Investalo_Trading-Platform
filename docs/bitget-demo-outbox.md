@@ -27,7 +27,10 @@ die aktuelle erwartete Gesamtrevision. Stale-/Fremdscope-Eingaben schreiben nich
 derselben Broker-UID. Vor tatsächlicher Ausführung muss die vertrauenswürdige
 Kontoregistry genau einen ursprünglichen Outboxpfad pro Brokerkonto/Umgebung
 und alle Writer daran binden. Eine zweite Allocation wird nicht automatisch
-gefunden oder global verhindert.
+gefunden oder global verhindert. Der neue
+[registrierte Zugang](bitget-demo-account-registry.md) bindet kooperierende
+Writer innerhalb des ursprünglichen gemeinsamen privaten Roots an genau
+diesen Originalpfad. Direkte Outbox bleibt Offline; native Provenienz folgt.
 
 `create` erzeugt `commands.jsonl` ausschließlich neu und setzt eine private
 Genese mit unveränderlicher Binding/Outbox-ID/Kapazität. Vorhandene oder nach

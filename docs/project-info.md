@@ -80,6 +80,9 @@ folgen ohne Liveaktivierung.
 Der [Demo-Accountcheck](bitget-demo-account-check.md) erkennt Abweichungen
 zwischen eigenem Outboxstand und Wallet-/Positions-/Order-/Trigger-Snapshots;
 der Reader erteilt noch keine Brokerfreigabe.
+Die [Demo-Kontopfadregistry](bitget-demo-account-registry.md) bindet
+kooperierende Writer unter einem gemeinsamen privaten Root dauerhaft
+an das Originaljournal. Native Demo-Key-/UID-Provenienz bleibt offen.
 Classic-Bitget-Readkern, AEAD-Envelopes und ein gebundener persistenter
 Credentialstore sind mit synthetischen Daten geprüft. Die private Einrichtung
 verbindet sie mit einmaligen Actionfreigaben und einem Entwicklungs-Dateiprovider.

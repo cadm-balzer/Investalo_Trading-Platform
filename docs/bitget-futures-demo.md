@@ -9,6 +9,9 @@ Er enthält keinen HTTP-Dispatcher, keine Schlüssel,
 keine Ledgerbuchung und keine Aktivierung im Cockpit oder Worker.
 Der folgende [eigene Outboxcheckpoint](bitget-demo-outbox.md) ergänzt
 dauerhafte private Orderpersistenz und vollständigen Crashrestore.
+Der [registrierte Zugang](bitget-demo-account-registry.md) bindet die Outbox
+unter einem gemeinsamen privaten Root an Original-UID/Konto/Keyreferenz/Pfad.
+Native Demo-Provenienz bleibt offen.
 Der bestehende Classic-Realkonto-Readadapter behält seine drei GET-Pfade.
 
 ## Eigenes Konto und begrenztes Profil

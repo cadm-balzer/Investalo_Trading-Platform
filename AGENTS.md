@@ -7,6 +7,21 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR75 merged: 1825a39 ancestor of maina897926, GH/fetch verified.
+  IP-015/IP-016 on feat/m1-bitget-demo-account-registry: original private
+  shared-root broker-UID registry independent of tenant/key; immutable full
+  binding/outbox/path/device/inode and unique declared account/box/path.
+  Short catalog lock/lifetime UID lease/original outbox writer; create-only
+  claim/fsync/readback before genesis, no failed-init reset/adoption/rotation.
+  Bound access rechecks catalog/locks/roots; drift latches stop, fork use denies.
+  29 new actual filesystem/process cases plus92 prior (121) green on
+  Host Python3.14.4, including child exit23/unknown full restore/two accounts.
+  Original shared root/owner/backup remain trusted; another root or joint
+  malicious rollback is not globally detected. No native UID/key proof.
+  Existing journal identities unchanged. Native Demo provenance/read transport,
+  older order scope/cost/funding acceptance follow. No brokerrequest/credentials/
+  ledger/services/DB/migration/dependency/backtest/public/live/AI activation.
+  See docs/bitget-demo-account-registry.md.
 - PR74 merged: 45bf348 ancestor of main8e6a98a, GH/fetch verified.
   IP-015/IP-016 on feat/m1-bitget-demo-account-reconciliation: separate
   offline14-axis USDT wallet/all positions/seven configs/live+partial/

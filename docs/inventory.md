@@ -1,5 +1,12 @@
 # Bestandsaufnahme
 
+IP-015/IP-016: futures_demo_registry.py ergänzt ursprüngliche private UID-/
+Kontopfadregistry und RegisteredDemoOutbox. Create-only Claim vor Genesis,
+Katalog-/UID-/Outboxlocks und erneute Root-/Claim-/Inodeprüfung; keine zweite
+Kontobindung/Keyrotation/Originalinitialisierungsreset. 29 neue tatsächliche
+Filesystem-/Prozessfälle/121 Gesamtfälle grün. Kein nativer UID-/Keynachweis
+oder Dispatcher. [Vertrag](bitget-demo-account-registry.md).
+
 IP-015/IP-016: futures_demo_account.py ergänzt feste14 Readachsen,
 bounded Pendingpagination, sieben native Configchecks und einen readonly
 Wallet-/Positions-/Order-/Triggerabgleich unter der eigenen Outboxrevision.
