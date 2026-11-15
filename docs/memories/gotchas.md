@@ -1129,3 +1129,12 @@ Stand 2026-11-15. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   Der aktuelle Demo-Final-Lock erwartet ursprüngliche Metadaten auch nach dem
   Callerblock; eine014-Mutation braucht einen eigenen Post-Write-Completioncheck,
   sonst verwirft der Check die beabsichtigte Metadatenänderung.
+
+- Demo-Writeabschluss verwendet den eigenen016-Executionlock und Post-Write-
+  Check, nicht015s alte-Metadaten-Nachprüfung. Completion nur in derselben
+  finalen Locktransaktion; failed-Tombstone beim erneuten Executionlock prüfen.
+  Bei unbekanntem finalem Commit keinen Write erneut senden oder erfolgreichen
+  Audit überschreiben. Aktueller Stand kann beim Replay bereits den neuen
+  Datensatz zeigen und deshalb `concurrent_change` statt `access_denied` melden.
+  Bei neuen Completion-FKs Truncatenegativtests auf sämtliche Childtabellen
+  erweitern, damit sie den eigenen Trigger tatsächlich erreichen.

@@ -1,12 +1,20 @@
 # Bestandsaufnahme
 
+IP-009/IP-015: DemoPasskeyOnboarding/Fixture016 verbinden committed Consume,
+injektierten vertrauenswürdigen Provisioning-/KEKadapter und tatsächlichen
+014-AEADwrite/keylosen Widerruf mit atomarem eigenem Post-Write-Abschluss.
+Normal003/008/009 und014/015 byteidentisch; kein nativer Provenienzbeweis,
+HTTP-Keyeingang oder aktiver Dienst.27 neue/157 unterschiedliche gepinnte
+Fälle grün, final62 eigene Executor-/Demo-Purposefälle erneut.
+[Vertrag](bitget-demo-passkey-executor.md).
+
 IP-009/IP-015: additive015/eigene Demo-Passkey-Assertion-/Authorizationmodule
 verbinden bestehende Registry/Counter-CAS mit eigenem Consentledger.
 Feste Demo-Domains/exakte Bodybindung, committed Consume/separater finaler
 Lock mit aktueller Berechtigung; originale Normalledger/014 unverändert.
 35 neue/199 unterschiedliche gepinnte Fälle grün; final66 eigene
 Demo-Passkey-/Storefälle erneut grün. Fixture/synthetische Verifikationsurteile,
-kein Executor/HTTP-Keyeingang.
+Executor inzwischen separat ergänzt; kein HTTP-Keyeingang.
 [Vertrag und Abnahme](bitget-demo-passkey-purpose.md).
 
 IP-009/IP-015: demo_store.py/additive014 ergänzen eigenes bitget_demo-Konto,

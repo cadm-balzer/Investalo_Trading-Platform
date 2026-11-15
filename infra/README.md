@@ -582,3 +582,12 @@ Checksums sowie zurückgerollte DDL-/Scope-/Claim-/ACLpfade.
 `tests/credentials_storage/test_demo_passkey_postgres.py`; vorhandene
 Normalfreigabe-/Storetests prüfen die getrennten bisherigen Verträge mit.
 [Vertrag und Grenzen](../docs/bitget-demo-passkey-purpose.md).
+
+Der eigene private Demo-Executor ergänzt additive016.
+`python3 infra/scripts/prepare-demo-executor-checks.py` prüft alle001–015
+Checksums und vor Erstanwendung zurückgerollte DDL-/Claims-/ACL-/Ownergrenzen.
+`--apply-reviewed` wendet nur Fixture016 an; bereits angewendete016 bleibt
+byteidentisch. `tests/credentials_storage/test_demo_executor_postgres.py`
+prüft tatsächliche AEADwrites/Widerrufe/Abschlüsse mit synthetischem
+Provisioningadapter. Kein Serverlauncher oder operativer Keyeingang.
+[Vertrag](../docs/bitget-demo-passkey-executor.md).

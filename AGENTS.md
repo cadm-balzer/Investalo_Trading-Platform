@@ -7,6 +7,26 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR80 merged: a3dfce7 ancestor of main5b7ce1e, GH/fetch verified.
+  IP-009/IP-015 on feat/m1-bitget-demo-passkey-executor: private own
+  DemoPasskeyOnboarding/016 Completionaudit, committed015 consume before
+  trusted injected provisioning/KEK; exact own target/IP/spec checks.
+  Own executionlock+014 encrypted register/keyless paused revoke+016
+  post-write completion in one final transaction; current actor/factor/time/
+  allowed metadata delta and same lock xid required. Failed tombstone blocks
+  own executor; unknown consume/final commit never retries the command.
+  Original003/008/009/014/015 unchanged; old015 metadata guard test scopes
+  exact original functions. Trusted provisioning is NOT native Demo key proof.
+  Fixture016 only after rolled-back DDL/claims/ACL/owner/searchpath preflight;
+  001–015/development DB unchanged, pinned check/migrate builds.
+  27 new actual PG/crypto/executor cases+130 existing=157 distinct pinned
+  green; final27 own+35 Demo-purpose rerun. Actual post-write expiry/revoke
+  rollback/concurrent consume/unknown committed consume and final ack covered.
+  sha8ad398d502a6e3aa4960904259370ebbcecfe0677044984e2e9b7c14814b0e21.
+  See docs/bitget-demo-passkey-executor.md.
+  No real keys/brokerrequests/running services/frontend/orders/backtest/
+  public/live/AI activation. Next own protected BFF/Dashboard intake and
+  serverprovider, then native Demo-key/UID/parent/IP/rights/read acceptance.
 - PR79 merged: 959123b ancestor of main6410e89, GH/fetch verified.
   IP-009/IP-015 on feat/m1-bitget-demo-passkey-purpose: own additive015
   Demo-purpose ledger/metadata/proof entry functions, fixed audience/kind/URIs;

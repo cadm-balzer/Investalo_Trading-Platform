@@ -1,5 +1,12 @@
 # Roadmap
 
+2026-11-15: eigener privater Demo-Executor und Completionvertrag in Fixture016
+ergänzt. Committed Consentconsume vor trusted Provisioning/KEK, atomarer
+Executionlock/014-Write/016-Post-Write-Abschluss. Geschützter BFF-/Dashboard-
+Eingang und Serverprovider folgen, danach native Demo-Key-/Readabnahme.
+27 neue/157 unterschiedliche gepinnte Fälle grün; final62 erneut grün.
+[Vertrag](bitget-demo-passkey-executor.md).
+
 2026-11-15: eigene dauerhafte Demo-Passkey-Zweckfreigabe in Fixture015,
 separater signierter Assertionverifier und privater Consume-/Lockclient.
 Expliziter Consent, einmaliger Commit und aktuelle Kontext-/Factor-/Zeitchecks;

@@ -428,8 +428,15 @@ def test_demo_purpose_rls_private_helpers_and_frozen_records(demo_context):
         assert len(rows)==2 and all(r["relrowsecurity"] and r["relforcerowsecurity"] for r in rows)
         functions = db.execute("SELECT p.proname,p.proconfig,p.prosecdef,r.rolname AS owner FROM pg_proc p "
             "JOIN pg_namespace n ON n.oid=p.pronamespace JOIN pg_roles r ON r.oid=p.proowner "
-            "WHERE n.nspname='platform' AND (proname LIKE 'demo_passkey_%' "
-            "OR proname LIKE 'demo_credential_%passkey%')").fetchall()
+            "WHERE n.nspname='platform' AND proname=ANY(%s)", ([
+                "demo_credential_passkey_metadata", "demo_passkey_action_locked",
+                "demo_passkey_action_prepare", "demo_passkey_action_claim",
+                "demo_passkey_action_finish", "demo_passkey_action_read_grant",
+                "demo_passkey_action_confirm", "demo_passkey_credential_prepare",
+                "demo_passkey_credential_receipt", "demo_passkey_credential_authorize",
+                "demo_passkey_credential_claims_valid", "demo_credential_passkey_authorization_locked",
+                "demo_credential_consume_passkey_authorization", "demo_credential_lock_passkey_authorization",
+            ],)).fetchall()
         assert len(functions) == 14
         assert all(row["proconfig"] == ["search_path=pg_catalog"] and row["owner"] == "investalo_migration"
                    for row in functions)
@@ -443,5 +450,7 @@ def test_demo_purpose_rls_private_helpers_and_frozen_records(demo_context):
         with connect_as("admin") as db:
             denied(lambda: db.execute(statement, (p["authorization_id"],)))
     with connect_as("admin") as db:
+        child = db.execute("SELECT to_regclass('platform.demo_passkey_credential_completion_audit') AS relation").fetchone()
         denied(lambda: db.execute("TRUNCATE platform.demo_passkey_credential_authorizations,"
-                                  "platform.demo_passkey_credential_authorization_audit"))
+                                  "platform.demo_passkey_credential_authorization_audit"+
+                                  (",platform.demo_passkey_credential_completion_audit" if child["relation"] else "")))

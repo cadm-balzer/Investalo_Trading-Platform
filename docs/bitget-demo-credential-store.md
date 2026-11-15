@@ -86,8 +86,8 @@ Auditrollback, Ablauf nach tatsächlichem Write und verlorener Ack nach
 tatsächlichem Commit. Alle Broker-/Provenienz-/Sitzungsinputs sind synthetisch.
 
 Die [eigene dauerhafte Demo-Passkey-Zweckfreigabe](bitget-demo-passkey-purpose.md)
-ist inzwischen separat vorhanden. Als Nächstes eigener Demo-Executor mit
-finalem Completionvertrag und geschützte Dashboard-Eingabe mit getrennten
+und der [eigene private Executor](bitget-demo-passkey-executor.md) sind
+inzwischen separat vorhanden. Als Nächstes geschützte Dashboard-Eingabe mit getrennten
 Demo-/späteren Liveverbindungen. Alte003/008/009-Normalprofilgrants werden
 nicht für Demo umetikettiert.
 Native Key-/Endpoint-/Quotaabnahme, ältere Orderscope-/Kosten-/Fundingquelle
