@@ -1,6 +1,6 @@
 # Git-basiertes Ticketboard
 
-Stand 2026-11-14. Dieses Board ist das initiale Task-/Ticketsystem ohne
+Stand 2026-11-15. Dieses Board ist das initiale Task-/Ticketsystem ohne
 zusätzliche Tools oder externe Veröffentlichung.
 
 Status: `READY` ausführbar, `IN_PROGRESS` aktiv, `WAITING_DECISION` benötigt
@@ -24,8 +24,8 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 | IP-012 | P0 / P2 | IN_PROGRESS | Tradingkern und unabhängige Risk Engine | Crypto-Core: 31 Tests; Offlineworker nutzt denselben Kern; MT5, Broker-/Paper-Riskintegration folgen |
 | IP-013 | P1 / P3 | IN_PROGRESS | Kosten-/Fillmodell, reproduzierbare Backtests und kontrolliertes Feintuning | Gefrorene Dreijahresresultate IP-046; Nutzerpriorität2026-11-09: geringe Kontorendite anhand Kapitalnutzung, RSI-Einstiegen, Ausstiegen, Kosten und Benchmark erklären. Danach begrenzte Kandidatenprüfung mit chronologischer Validierung; Regeländerungen separat abstimmen, Auswahl vor unabhängiger Holdoutabnahme einfrieren. [Forschungsplan](../long-history-backtests.md#geplantes-feintuning) |
 | IP-014 | P1 / P3 | IN_PROGRESS | Cockpit, Portfolio und Journal | MFA/Portfolio/Journal plus Datasetwahl, tatsächliche Nettoergebnisse und Equitykurven; visuelle Browserabnahme und Paperbedienung folgen |
-| IP-015 | P0 / P4 | BLOCKED | Bitget-Anbindung für Paper/Demo | IP-009/012; Capabilityvertrag, Modustrennung und Kontobindung |
-| IP-016 | P0 / P4 | BLOCKED | Outbox, Executionjournal und Reconciliation | IP-015; Crash/Timeout/Doppelzustellung/Teilfill ohne Blind-Resend |
+| IP-015 | P0 / P4 | IN_PROGRESS | Bitget-Anbindung für Paper/Demo | Separater Offline-Classic-Demovertrag, eigene Kontodeklaration/Keyreferenz und feste unsignierte IOC-Requests; 24 neue/48 gesamte Offlinefälle grün. Demo-Key-/UID-/IP-/Rechteprovider und nativer Accountnachweis fehlen; kein Dispatcher. [Vertrag](../bitget-futures-demo.md) |
+| IP-016 | P0 / P4 | IN_PROGRESS | Outbox, Executionjournal und Reconciliation | Reiner Unknown-before-send/Ack-/Detail-/Teilfill-/Storno-/Mengenabgleich ohne Blind-Resend geprüft. Dauerhafte Outbox/Konto-CAS/Crashrestore, Normal-/Triggerorders und kalibrierte Kostenquelle bleiben offen; keine neue Finanzbuchung. [Vertrag](../bitget-futures-demo.md) |
 | IP-017 | P0 / P4 | BLOCKED | Kill-Switch, Schutz und Fachalarmierung | IP-016; neue Exposition, Cancel und Flatten getrennt nachweisen |
 | IP-018 | P0 / P4 | BLOCKED | Backup/Restore und Betriebsabnahme | IP-007/016; extern/offline verschlüsselt, Schlüssel getrennt, RPO 24h/RTO 4h, Restore isoliert mit Brokerabgleich |
 | IP-019 | P0 / P5 | BLOCKED | Livepilot vorbereiten und Freigabe einholen | IP-013/017/018; vorher vereinbarte Nettonachweise, Konto/Budget/Production konkret |
