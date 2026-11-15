@@ -7,6 +7,25 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR83 merged: c8bb4a2 ancestor of maincad4e2d, GH/fetch verified.
+  IP-009/IP-015 on feat/m1-bitget-demo-metadata-provider: own default-off
+  GET /v1/bitget-demo/credential-actions/{account_id} plus own017 readonly
+  metadata definer over current restricted runtime actor/owner-trader/epoch/
+  original OIDC/reauth checks. Explicit safe projection, no private UID/IP/
+  provenance/envelope read; foreign peer denied, paused/revoked retained.
+  Own server adapter binds actual getBoundSession/apiRequest to original
+  immutable principal; own metadata/factor parsers/five fixed Demo POSTs.
+  Signingidentity/private executor still explicitly injected by trusted setup.
+  19 new+186 old Node=205 pinned;18 new unit+17 actual HTTP/API/PG+108 old
+  API=143 distinct across runs, final36 affected green;348 distinct/54 new.
+  Fixture017 only after fully rolled-back DDL/actor/ACL/owner/searchpath
+  preflight;001–016/development set unchanged. Prior timing fixture now
+  observes successful verification after committed claim; guards unchanged.
+  Typecheck/API/check/migration/Cockpit pinned builds; no dependencies/
+  running services/real keys/broker/orders/backtest/public/live/AI change.
+  Next protected Dashboard and explicit private identity/executor wiring
+  with combined isolated acceptance, then native Demo key/read proof.
+  See docs/bitget-demo-metadata-provider.md.
 - PR82 merged: d4081b7 ancestor of maind1aeaa8, GH/fetch verified.
   IP-009/IP-015 on feat/m1-bitget-demo-bff-flow: own strict Demo metadata/
   proof/receipt/signer and injected BFF P256/UV/consent/current-readback flow.

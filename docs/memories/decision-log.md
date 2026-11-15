@@ -2854,3 +2854,34 @@ Eigener scoped Metadaten-/Provideradapter, geschützter Dashboard-Keyeingang
 und kombinierte lokale Abnahme folgen. Keine Migration/Dependencies/
 Services/echten Keys/Brokerrequests/Orders/Backtests/Public/Live/AI geändert.
 [Vertrag und Abnahme](../bitget-demo-bff-flow.md).
+
+## D-123 — Eigene sichere Demo-Metadaten und gebundener Serveradapter
+
+2026-11-15: PR83/c8bb4a2 in maincad4e2d per GH/Fetch/Ancestry bestätigt.
+Nutzer beauftragt Fortsetzung. Eigener Default-off-GET und additive017
+prüfen tatsächlichen restriktiven Runtime-Actor, Owner/Trader, ursprüngliche
+OIDC-Zeit/Epoch/reauth und eigenes USDT-Demokonto unter Sperren.
+Nur explizite sichere Metadaten; fremde Connection nicht als freie Registrierung
+darstellen, pausierte/widerrufene Verbindungen behalten. Kein privater Read,
+Purpose-/Consent-/Storewrite oder neue Freigabe. Original005/015 unverändert.
+Aktuelle APIassertion auch nach bestätigtem Commit prüfen; fehlende017 ohne
+Fallback503. Signierte Requestnonce bleibt die gemeinsame APIautorität.
+
+Eigener Cockpit-Serveradapter bindet getBoundSession/apiRequest an immutable
+ursprüngliche Sitzung, eigenen Metadaten-/Factorparser und fünf feste DemoPOSTs.
+Signingkey/privater Executor weiterhin explizit vertrauenswürdig injiziert.
+54 neue/348 unterschiedliche gepinnte Fälle grün:205 Node und143 API über
+Ausgangs-/gezielten Abschlusslauf, final36 betroffene Fälle. Testfixtures
+für Routerinspektion/tenantbezogenen Purposecount korrigiert; bestehender
+Replaytest misst erfolgreichen Finish erst nach Claimack, Uhrguard unverändert.
+Typecheck/API/check/migration/Cockpitbuilds grün.
+
+017 vollständig zurückgerollt auf DDL/Actor/ACL/Owner/Searchpath geprüft,
+ausschließlich Fixture angewendet; sha
+a2a0deaeace12172ef922624dbb5edc6c24e773a891e79e7e18644360b2eb5c5.
+001–016/development unverändert. Getrennte tatsächliche HTTP/PG- und
+Node-Portprüfungen; kein kombinierter HTTPS/BFF/API/PG/Executor-Nachweis
+oder native Demo-Keybehauptung. Dashboard/private Identitätsverdrahtung und
+kombinierte lokale Abnahme folgen. Keine Dependencies/normalen Services/
+echten Keys/Brokerrequests/Orders/Backtests/Public/Live/AI geändert.
+[Vertrag und Abnahme](../bitget-demo-metadata-provider.md).

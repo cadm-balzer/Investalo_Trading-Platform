@@ -10,6 +10,9 @@ Die festen privaten Pythonlistener unterstützen eine eigene, standardmäßig
 abgeschaltete `DemoCredentialHTTPApplication`.
 Noch kein Dashboard-Keyeingang, operativer Provider oder Dienststart.
 
+Nachfolger: [eigener Metadatenzugriff und Cockpit-Serveradapter](bitget-demo-metadata-provider.md).
+Signing-/Executoridentität und kombinierte lokale Abnahme bleiben separat.
+
 ## Ablauf und Bindungen
 
 1. Aktuelle ursprüngliche Sitzung, eigener scoped Demo-Metadatenreader und

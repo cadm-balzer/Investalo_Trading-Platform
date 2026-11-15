@@ -30,6 +30,7 @@ class Settings:
     futures_recovery_preview: bool = False
     futures_recovery_root: str | None = field(default=None, repr=False)
     demo_passkey_authorizations: bool = False
+    demo_credential_metadata: bool = False
 
     @classmethod
     def from_environment(cls) -> "Settings":
@@ -53,6 +54,7 @@ class Settings:
             database_parameters=parameters,
             passkey_credential_authorizations=os.getenv("API_PASSKEY_CREDENTIAL_AUTHORIZATIONS") == "1",
             demo_passkey_authorizations=os.getenv("API_DEMO_PASSKEY_AUTHORIZATIONS") == "1",
+            demo_credential_metadata=os.getenv("API_DEMO_CREDENTIAL_METADATA") == "1",
             passkey_origin=os.getenv("API_PASSKEY_ORIGIN"),
             paper_status_preview=os.getenv("API_PAPER_STATUS_PREVIEW") == "1",
             futures_paper_settings_preview=os.getenv("API_FUTURES_PAPER_SETTINGS_PREVIEW") == "1",

@@ -1,5 +1,14 @@
 # Bestandsaufnahme
 
+IP-009/IP-015: eigene Default-off-Demo-Metadaten-API/Fixture017 und gebundener
+Cockpit-Serveradapter mit tatsächlicher Sitzungs-/APIanbindung ergänzt.
+Nur sichere Konto-/Connectionmetadaten, aktueller Owner/Trader/Actor/Scope;
+keine privaten UID/IP/Provenienz/Envelopereads oder Freigabe.
+348 unterschiedliche gepinnte Fälle,54 neu; final36 betroffene APIfälle grün.
+001–016/Entwicklungs-DB unverändert. Private Signing-/Executoridentität,
+geschützter Dashboard-Keyeingang/kombinierte lokale/native Abnahme folgen.
+[Vertrag](bitget-demo-metadata-provider.md).
+
 IP-009/IP-015: eigener privater Demo-BFF-/Signer-/mTLS-Executorvertrag verbindet
 015-APIreceipt mit tatsächlicher P256/UVprüfung, Demo-Consent und aktuellen
 Readbacks. Keine Normalfreigabekonversion; exakter serverseitiger App-Typ
