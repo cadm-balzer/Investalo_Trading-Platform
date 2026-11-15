@@ -1057,3 +1057,13 @@ Stand 2026-11-15. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   BFF-Fristen überschreiten: Recovery8s/Client10s, sonst5s. Größere Journale
   brauchen eigene Betriebsabnahme. HTTPS/SSR mit injizierter synthetischer Quelle
   belegt weder Browserklick/MFA noch native Marktperformance.
+- Classic-Demo benötigt eigenen Demo Key und `paptrading: 1`; der gleiche
+  APIhost/Header ist kein Key-/UID-/Betriebsfreigabenachweis. Niemals vorhandene
+  Realkonto-Readkeys als Demo-Tradekeys übernehmen. Eine Orderbestätigung,
+  fehlende Order-ID oder Not-found nach Timeout ist kein Fill beziehungsweise
+  Nichtexistenzbeweis. Command/Unknown-Zustand vor Versand dauerhaft speichern;
+  `clientOid` allein legitimiert keine Place-Wiederholung. IOC-Teilfill nach
+  Storno bleibt offene Menge. Positionsgleichheit beweist keine Orderfreiheit/
+  Nettoabrechnung; Normal-/Triggerorders und eigenes Cash separat abgleichen.
+  Classic fill-history ist laut Anbieter nicht im Demo unterstützt: keine
+  Paperkosten oder erfundenen Fill-/Funding-IDs als native Abrechnung ausgeben.

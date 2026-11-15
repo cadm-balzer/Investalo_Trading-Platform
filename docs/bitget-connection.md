@@ -100,6 +100,13 @@ Brokerverbindung folgen nach eigener Abnahme.
 | Später freigegebener Spot-Livebetrieb | Nur konkret benötigte Handelsrechte, freigegebene Assets/Budgets und unabhängige Risk Gates |
 | Futures | Eigene Strategie-/Margin-/Hebel-/Kontolimits und Implementierungsabnahme erforderlich |
 
+IP-015/IP-016 ergänzen einen separaten
+[Classic-Futures-Demo-Auftragsvertrag](bitget-futures-demo.md).
+Demo benötigt einen eigenen Demo API Key und `paptrading: 1`.
+Die Kontodeklaration ist noch kein nativer Key-/UIDnachweis. Der Offlinekern
+hat unsignierte Pläne und Teilfill-/Mengenabgleich, keinen Brokerdispatcher,
+keine dauerhafte Outbox oder Umwidmung des lesenden Realkontokeys.
+
 Auszahlungen, interne Transfers, Kreditaufnahme, Subaccountverwaltung und
 automatischer Kontomodwechsel gehören nicht zum vorgesehenen Keyumfang.
 Die Plattform beantragt keine solchen Rechte, verschiebt kein Kapital zwischen

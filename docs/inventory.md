@@ -1,5 +1,13 @@
 # Bestandsaufnahme
 
+IP-015/IP-016: futures_demo.py/futures_demo_reconcile.py ergänzen einen
+separaten Offline-Classic-Demovertrag mit eigenen unsignierten IOC-Plänen,
+stabiler Commandkennung, Unknown-/Ack-/Teilfill-/Stornozuständen und
+Positionsmengenvergleich. 24 neue/48 gesamte synthetische Fälle grün.
+Keine Schlüssel/HTTP-Dispatch/Outbox/Finanzbuchung oder Dienstaktivierung.
+Demo-Keynachweis, dauerhafter Executionpfad und volle Account-/Order-/
+Kostenreconciliation folgen. [Vertrag](bitget-futures-demo.md).
+
 IP-088: futures_paper_recovery.py/futures_recovery_executor.py ergänzen eigene
 gebuchte Paperliquidationen, vollständiges cashgedecktes Neubudget, Ziel-RSIreset
 und additive manuelle Journal-CAS-Aktion/Vollrestore. Alte Verluste/Peerreserven/

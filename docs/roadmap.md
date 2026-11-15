@@ -1,5 +1,12 @@
 # Roadmap
 
+2026-11-15: IP-015/IP-016 beginnen mit separatem Offline-Classic-Demovertrag:
+eigene Kontodeklaration, feste unsignierte Requests und kumulierter
+Order-/Positionsmengenabgleich;24 neue/48 gesamte Offlinefälle grün.
+Als Nächstes dauerhafte Outbox/CAS/Crashrestore und vollständige Account-/
+Normal-/Triggerorder-/Kostenreconciliation, anschließend geschützte
+Demo-Keybindung/native Abnahme. [Vertrag](bitget-futures-demo.md).
+
 Q46/IP-088: eigene gebuchte Paperliquidationen sind jetzt mit dauerhafter
 manueller Journal-CAS-Freigabe, Status/3 und normalem scoped API verbunden.
 Volles neues Budget, alte Verluste und übrige Nachkaufreserven bleiben erhalten.

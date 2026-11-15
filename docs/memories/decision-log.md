@@ -2529,3 +2529,32 @@ Netzwerk/Source-Testmount geprüft. Drei Fixturedienste gestoppt; bestehende
 normale Dienste nicht ersetzt. Keine Migration/Dependency/Marktjob/Public/
 Live/AI-Aktivierung. Separater Bitget-Demoabgleich/Orderjournal folgt IP-015/016.
 [Abnahme und Grenzen](../futures-recovery-cockpit-acceptance.md).
+
+## D112 — Separater Classic-Demo-Auftragsvertrag (2026-11-15)
+
+PR72 (`b956064`) ist in `main4d3b326` enthalten; GH/Fetch/Ancestry bestätigt.
+Die weitere Handelsimplementierung beginnt mit eigenem Offline-Demokern,
+ohne den bisherigen read-only Realkontoadapter oder Paperjournale zu erweitern.
+Kontodeklaration/Keyreferenz ersetzt keinen Demo-Key-/UID-/IP-/Rechtebeweis.
+Eigener Demo Key und festes `paptrading: 1` laut offizieller Classic-Dokumentation.
+
+USDT/isolierte Longs/fixed2×, sieben Kandidaten; One-way/Limit-IOC sind
+vorgeschlagene Adaptervarianten für die spätere native Abnahme, keine
+Accountmodeänderung. Exakte basecoin Größen/Grids; volles Basketbudget wird
+nicht durch diesen Auftragskern umgeplant. Stabile Commandkennung plus
+Payloaddigest verlangt später persistente CAS-Konfliktprüfung.
+
+Reine Unknown-before-send/Ack/Detail/Teilfill-/Stornokandidaten und
+kumulierte Positionsmengenprüfung verhindern Ack-as-fill und Blind-Resend.
+Teilfill nach IOC-Storno bleibt Exposure. Kein aktueller In-memory-Zustand
+ersetzt dauerhafte Outbox/Kontowriter/Crashrestore oder vollständige
+Normal-/Triggerorder-/Cashreconciliation. Keine neue Recoveryzulassung.
+Classic fill-history ist laut Anbieter im Demo nicht unterstützt;
+gemeldete signierte Fee bleibt Quellenwert, fehlende Kosten unbekannt,
+kein fiktives Fill-/Funding-/Nettoledger.
+
+24 neue synthetische Offlinefälle plus24 unveränderte Readfälle (48) grün
+auf Host Python3.14.4. Eigenreview. Kein HTTPbrokerrequest, Credentialeingang,
+laufender Dienst, DB/Migration/Dependency, Frontendbuild, Backtest, Public/
+Live/AI. Dauerhafte Outbox/Executionjournal und vollständiger nativer Abgleich
+sind der nächste IP-015/016-Schritt. [Vertrag](../bitget-futures-demo.md).
