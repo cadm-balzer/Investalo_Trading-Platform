@@ -97,8 +97,10 @@ DB-Actor-/Epoch-/Reauth-/Readyreader mit CAS und atomarem Audit.
 Additive014 ist nur in der isolierten Fixture angewendet.
 Die [eigene Demo-Passkey-Zweckfreigabe](bitget-demo-passkey-purpose.md) ergänzt
 inzwischen Fixture015, getrennte signierte Assertionprüfung und einmaligen
-Consume-/Lockclient. Eigener Executor/Completionvertrag und geschützte
-Dashboard-Keyeingabe folgen ohne öffentliche Aktivierung.
+Consume-/Lockclient. Der [eigene private Demo-Executor](bitget-demo-passkey-executor.md)
+verbindet dies mit014-Storewrite und eigenem atomarem016-Abschluss.
+Geschützte Dashboard-Keyeingabe/Serverprovider und native Abnahme folgen
+ohne öffentliche Aktivierung.
 Classic-Bitget-Readkern, AEAD-Envelopes und ein gebundener persistenter
 Credentialstore sind mit synthetischen Daten geprüft. Die private Einrichtung
 verbindet sie mit einmaligen Actionfreigaben und einem Entwicklungs-Dateiprovider.

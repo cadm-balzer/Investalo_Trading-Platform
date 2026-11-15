@@ -2771,3 +2771,34 @@ und privilegierter DB-Betrieb bleiben Grenzen, keine nativen Demo-Keynachweise.
 Eigenreview ohne Delegation. Keine echten Keys/Requests/Services/UI/Orders/
 Backtests/Public/Live/AI. Eigener Demo-Executor und geschützter Eingang folgen.
 [Vertrag und Abnahme](../bitget-demo-passkey-purpose.md).
+
+## D-120 — Eigener privater Demo-Executor und atomarer Abschluss
+
+2026-11-15: PR80/a3dfce7 in main5b7ce1e per GH/Fetch/Ancestry bestätigt.
+Nutzer beauftragt Fortsetzung. DemoPasskeyOnboarding verbindet eigene015-
+Freigabe mit014-Store und additivem016-Post-Write-Completionvertrag.
+Original003/008/009/014/015 bleiben unverändert.
+
+Consume committen, erst danach vertrauenswürdigen Provisioningadapter/KEK
+aufrufen. Callback bekommt ausschließlich geprüften eigenen Actor/Account/
+Connection und signierten Ablauf; vollständige DemoSecretSpec/Server-IP
+werden exakt geprüft. Native Demo-Key-/UID-/Parent-/IP-/Rechteprüfung bleibt
+separate vertrauenswürdige Adaptergrenze, hier nur synthetisch.
+Eigener Executionlock/014-AEADregister oder keyloser Widerruf/016-Completion
+committen gemeinsam. Completion prüft nur erlaubte Metadatendeltas,
+aktuellen Actor/Factor/Zeit und dieselbe finale Locktransaktion.
+Failed-Tombstone blockiert diesen Executor; unbekannter Consume-/Finalcommit
+liefert keinen Erfolg oder automatischen Commandretry. Fehleraudit best effort,
+keine Überschreibung eines tatsächlich erfolgreichen unbekannten Abschlusses.
+Privilegierter Betrieb und direkte014/015-Primitive bleiben vertrauenswürdig.
+
+016 nach zurückgerolltem DDL-/Claims-/ACL-/Owner-/Searchpathpreflight nur Fixture;
+sha8ad398d502a6e3aa4960904259370ebbcecfe0677044984e2e9b7c14814b0e21.
+001–015/development DB unverändert, gepinnte Check-/Migrationimages gebaut.
+27 neue tatsächliche PG-/Crypto-/Executorfälle+130 bisherige=157 unterschiedliche
+gepinnt grün; final27 eigene+35 Demo-Purpose erneut. Unbekannte tatsächliche
+Consume-/Finalcommits, Ablauf nach Write und keyloser Widerrufsrollback geprüft.
+Eigenreview ohne Delegation; keine echten Keys/Brokerrequests/Services/UI/
+Orders/Backtests/Public/Live/AI. Geschützter BFF-/Dashboard-Eingang,
+Serverprovider und native Demo-Key-/Readabnahme folgen.
+[Vertrag und Abnahme](../bitget-demo-passkey-executor.md).

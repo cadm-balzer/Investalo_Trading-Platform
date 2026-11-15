@@ -6,8 +6,10 @@ enthalten; GitHub/Fetch/Ancestry bestätigt.
 Additive015 verbindet die bestehende Passkeyregistry mit einem eigenen
 dauerhaften Demo-Consent. Die privaten Pythonmodule prüfen signierte Freigaben,
 konsumieren sie einmalig und sperren sie in einer separaten Transaktion.
-Geschützte Dashboard-Eingabe, Signierprovider und tatsächlicher Demo-Executor
-folgen. Alle Keys, Konten und WebAuthn-Verifikationsurteile der Abnahme sind
+Der [eigene private Demo-Executor](bitget-demo-passkey-executor.md) ergänzt
+inzwischen den tatsächlichen Storewrite-/Completionvertrag. Geschützte
+Dashboard-Eingabe und Signierprovider folgen. Alle Keys, Konten und
+WebAuthn-Verifikationsurteile der Abnahme sind
 synthetisch; es gibt keine physische Geräte- oder native Brokerabnahme.
 
 ## Zweck, Ziel und aktuelle Berechtigung
@@ -68,7 +70,8 @@ dabei nicht verändert.
 Der aktuelle finale Check verlangt die ursprünglichen unveränderten
 Metadaten. Ein künftiger014-Writer benötigt einen eigenen geprüften
 Post-Write-/Completionvertrag; er darf nicht einfach zwischen die beiden
-Checks eingeschoben werden. Der bisherige009-Normalprofilabschluss wird
+Checks eingeschoben werden. Dieser eigene Vertrag ist inzwischen separat
+in016 ergänzt. Der bisherige009-Normalprofilabschluss wird
 nicht verwendet.
 
 FORCE RLS, unveränderliche Übergänge und append-only Audit gelten für beide
@@ -101,7 +104,7 @@ Schema-Test wurde von einem breiten Namenspräfix auf die sieben konkreten
 Searchpath und Definer-/Helpergrenzen geprüft. Kein SQL- oder Storevertrag
 wurde für diese Testanpassung verändert.
 
-Als Nächstes eigener Demo-Executor mit finalem Storewrite-/Completionvertrag
-und geschützter BFF-/Dashboard-Eingang, anschließend native Demo-Key-/
+Als Nächstes geschützter BFF-/Dashboard-Eingang und Serverprovider,
+anschließend native Demo-Key-/
 UID-/Parent-/IP-/Rechteabnahme. Keine echten Keys/Brokerrequests, aktiven
 Services, öffentlichen Routen, Orders, Backtest-, Live- oder AI-Änderungen.
