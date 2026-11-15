@@ -1102,3 +1102,10 @@ Stand 2026-11-15. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   jedem GET exakt prüfen. Identity mit UID/Parent/Einzel-IP/Readrechten zuerst;
   kein writable-key-/Livefallback. Langsamer Cohort darf die5s-Frischegrenze
   nicht verlängern. Mock-HTTPS und Hashes ersetzen keine native Abnahme.
+
+- Demo-Credentials benötigen eigene authentifizierte Purpose-/Scopebindung.
+  Alten real_read_only Store nicht umetikettieren; Demo/Normal-AAD-Domains
+  trennen und tatsächlichen vollständigen Ciphertext/Storage/Spec/Berechtigung
+  nach Decrypt erneut lesen. Kein plaintext cache nach Pause/Widerruf/Fork.
+  Crypto-Purposebindung ist kein nativer Nachweis der Bitget-Demo-Keyerstellung
+  und keine aktuelle DB-/Epoch-/Passkey-Berechtigung ohne tatsächlichen Reader.

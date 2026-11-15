@@ -1,5 +1,12 @@
 # Bestandsaufnahme
 
+IP-009/IP-015/IP-016: eigener DemoSecretSpec/AES-GCM-Purposekern und
+SealedDemoReadProvider in demo_secret_provider.py. Demo/Normal-Ciphertexte
+nicht austauschbar; aktueller trusted Snapshot/Storage/Purpose/Ciphertext
+vor/nach Decrypt geprüft. 18 neue Fälle;180 gepinnte Fälle/204 Subtests grün.
+Eigene tatsächliche DB-/Passkey-Purposeeinrichtung und geschützte Dashboard-
+Demo-Eingabe/native Abnahme folgen. [Vertrag](bitget-demo-secret-provider.md).
+
 IP-015/IP-016: futures_demo_read.py verbindet registered scope/CAS mit eigenem
 signierten identity+14-Achsen-GET-Transport und provider-/key-/UID-/Parent-/IP-
 Gates. Explicit HTTPS ohne Proxy/Redirect; alte drei Readpfade unverändert.

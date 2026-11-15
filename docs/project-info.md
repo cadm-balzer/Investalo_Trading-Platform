@@ -87,6 +87,10 @@ Der [getrennte Demo-Lesezugang](bitget-demo-read-transport.md) bindet
 signierte feste Requests an diese Registry und eine aktuelle geschützte
 Providerdeklaration. Tatsächlicher Provider/Keyeinrichtung und native
 Endpointabnahme fehlen; keine automatische Brokeraktivierung.
+Der [eigene verschlüsselte Demo-Providerkern](bitget-demo-secret-provider.md)
+trennt Demo-/Normal-Purpose kryptografisch. Dauerhafte Demo-Purpose-/Passkey-
+Einrichtung und geschützte Dashboard-Eingabe werden als Nächstes angebunden.
+Demo-Key wird ausdrücklich im Bitget-Demo-Modus erstellt, Live später separat.
 Classic-Bitget-Readkern, AEAD-Envelopes und ein gebundener persistenter
 Credentialstore sind mit synthetischen Daten geprüft. Die private Einrichtung
 verbindet sie mit einmaligen Actionfreigaben und einem Entwicklungs-Dateiprovider.
