@@ -231,3 +231,8 @@ verbindet inzwischen getrennte AES-GCM-Purpose-/Scopebindung mit aktuellen
 trusted Snapshot-/Storage-/Berechtigungsreads. Bestehende normale Keyeinträge
 werden nicht in Demo umgewandelt. Dauerhafte Demo-/Passkeyeinrichtung und
 Dashboard-Eingabe/native Keyabnahme folgen; keine echte Keyaufnahme bisher.
+
+Der [dauerhafte Demo-Store](bitget-demo-credential-store.md) ergänzt den
+tatsächlichen Actor-/Epoch-/Reauth-/Readyreader und eigenen Kontomodus/
+Ciphertextdatensatz mit CAS/Audit. Additive014 nur in der isolierten Fixture;
+eigener Demo-Passkey-Purpose und geschützte Dashboardeingabe folgen weiterhin.

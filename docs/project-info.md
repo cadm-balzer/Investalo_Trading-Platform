@@ -91,6 +91,11 @@ Der [eigene verschlüsselte Demo-Providerkern](bitget-demo-secret-provider.md)
 trennt Demo-/Normal-Purpose kryptografisch. Dauerhafte Demo-Purpose-/Passkey-
 Einrichtung und geschützte Dashboard-Eingabe werden als Nächstes angebunden.
 Demo-Key wird ausdrücklich im Bitget-Demo-Modus erstellt, Live später separat.
+Der [dauerhafte Demo-Store](bitget-demo-credential-store.md) ergänzt inzwischen
+einen eigenen Kontomodus/Ciphertextdatensatz und aktuellen tatsächlichen
+DB-Actor-/Epoch-/Reauth-/Readyreader mit CAS und atomarem Audit.
+Additive014 ist nur in der isolierten Fixture angewendet; eigener Demo-Passkey-
+Purpose und geschützte Dashboard-Keyeingabe folgen ohne öffentliche Aktivierung.
 Classic-Bitget-Readkern, AEAD-Envelopes und ein gebundener persistenter
 Credentialstore sind mit synthetischen Daten geprüft. Die private Einrichtung
 verbindet sie mit einmaligen Actionfreigaben und einem Entwicklungs-Dateiprovider.

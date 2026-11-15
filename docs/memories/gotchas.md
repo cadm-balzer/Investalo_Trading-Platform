@@ -1109,3 +1109,14 @@ Stand 2026-11-15. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   nach Decrypt erneut lesen. Kein plaintext cache nach Pause/Widerruf/Fork.
   Crypto-Purposebindung ist kein nativer Nachweis der Bitget-Demo-Keyerstellung
   und keine aktuelle DB-/Epoch-/Passkey-Berechtigung ohne tatsächlichen Reader.
+
+- Eigener Demo-DB-Reader muss aktuelles SESSION_USER/Tenant/User, Epoch,
+  Reauth und ready-Account prüfen; DB-GUCs und alte erfolgreiche Reads reichen
+  nicht. Kurze Servicefreigaben sind vertrauenswürdige verifizierte Claims,
+  keine SQL-Signatur-/Passkeyverifikation. Bei Ablauf nach Write müssen Secret
+  und Audit gemeinsam zurückrollen; bei unbekanntem Commit niemals blind retry.
+  Keyloser Widerruf adressiert die exakte eigene Connection-UUID mit CAS;
+  Keyersatz/Rebinding brauchen einen eigenen geprüften Vertrag.
+  TRUNCATE mit referenzierter Audittabelle kann bereits vor dem eigenen Trigger
+  am Fremdschlüssel scheitern; beide Tabellen im zurückrollenden Negativtest
+  adressieren, um den expliziten Truncateguard tatsächlich zu erreichen.

@@ -88,3 +88,8 @@ geschützte Dashboard-Eingabe und native Endpoint-/Keyabnahme. Bestehende
 normale DB-Einträge werden nicht umetikettiert. Keine echte Keyaufnahme,
 Brokerrequests, DB-Migration, neue Dependencies, laufenden Services,
 Frontendbuilds, Backtests oder Public/Live/AI-Aktivierung.
+
+Folgecheckpoint: Der [eigene dauerhafte Demo-Store](bitget-demo-credential-store.md)
+implementiert den tatsächlichen DB-Reader mit Actor-/Epoch-/Reauth-/Readygates
+sowie separate Speicherung/CAS/Audit. Additive014 bleibt Fixture-only;
+Demo-Passkeyfreigabe/Dashboardeingabe und native Provenienz folgen weiterhin.

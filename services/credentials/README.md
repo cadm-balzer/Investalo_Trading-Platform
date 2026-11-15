@@ -335,3 +335,20 @@ and protected Dashboard intake are not implemented or activated here.
 18 new crypto/synthetic-reader cases plus19 legacy store/143 Bitget cases
 pass pinned (180 cases/204 subtests); final18 pass with default fixture imports.
 No real secret intake, native request, DB migration or running service change.
+
+## Dedicated persistent Demo store
+
+`demo_store.py` adds the private own Demo register/read/KEK-rewrap/keyless
+UUID-revoke primitives and actual reader adapter for the sealed provider.
+Additive014's separate `bitget_demo` USDT account/table/FORCE RLS/fixed definer
+functions check actual SESSION_USER-bound ownership, membership, current epoch,
+reauth, ready state and a short trusted service authority. Writes use CAS and an
+atomic immutable audit; full returned metadata/ciphertext and final authority
+are checked before commit. Unknown commit never retries automatically.
+Keyrevision1 and full original profile metadata stay fixed; no replacement or
+normal-profile adoption. JWT/passkey verification, operational KEK/factory,
+Demo HTTP/dashboard intake and native provenance remain separate requirements.
+014 preflight fully rolled back, then applied ONLY to the credential fixture.
+31 new actual PG/provider cases plus targeted regressions:229 cases/204 subtests
+pinned green; check/migrate images built. No service or broker activation.
+[Contract and limits](../../docs/bitget-demo-credential-store.md).

@@ -2712,3 +2712,32 @@ Eigenreview; keine echten Secrets/Brokerrequests/DB/Migration/Dependencies/
 laufenden Services/Frontendbuild/Backtest/Public/Live/AI. Dauerhafter eigener
 Demo-Purpose-/Actor-/Passkeyvertrag und Dashboard-Eingabe folgen.
 [Vertrag](../bitget-demo-secret-provider.md).
+
+## D-118 — Eigener dauerhafter Demo-Store und aktueller DB-Reader
+
+2026-11-15: PR78/054e117 in maind03a379 per GH/Fetch/Ancestry bestätigt.
+Nutzer bestätigt Fortsetzung zur eigenen Demo-Key-/Dashboardeinrichtung.
+Additive014 ergänzt eigenen bitget_demo USDT-Modus und getrennte vollständige
+Demo-Purpose-/Scope-/Ciphertextmetadaten mit FORCE RLS/festen Definerfunktionen,
+ohne bestehende003/008/009-Normalgrants umzudeuten.
+
+Eigener privater Store prüft tatsächlichen Credential-LOGIN/Tenant/User,
+aktuelle Nutzer-/Membership-/Epoch-/Reauth-/Ready-/Zeitberechtigung.
+Register/KEK-Rewrap/terminaler keyloser UUID-Widerruf verwenden CAS,
+unveränderliche Originalmetadaten und atomaren append-only Audit.
+Keyrevision1 bleibt fest; kein Keyersatz/Rebinding. Finaler Kontextcheck
+vor Commit; unbekannter Ack liefert keinen Erfolg und keinen automatischen
+Retry. Provider liest echten eigenen Snapshot über frische DB-Transaktionen
+vor/nach Decrypt und folgt keinem veränderten Stand stillschweigend.
+
+Verifizierte Sitzungsclaims, Connectionfactory und KEKs bleiben trusted
+Servicegrenzen. SQL ist kein JWT-/Passkey-/Demo-Keyprovenienzbeweis.
+014 nach zurückgerolltem Preflight nur Fixture angewendet;
+sha4158e3232a104b3f16f61ea83f0fbe387e8bbc12021efd67cb46bb9529f7b586.
+001–013/development DB unverändert, check/migrate Images gepinnt gebaut.
+31 neue tatsächliche PG-/Crypto-/Providerfälle+18 alte PG/Store+180 Crypto/
+Bitget=229 Fälle/204 Subtests grün; final alle31 nach UUID-Widerrufsschnittstelle
+nochmals grün.
+Eigenreview ohne Delegation; keine echten Keys/Requests/Services/UI/Backtests/
+Public/Live/AI. Eigener Demo-Passkey-Purpose und Dashboardeingabe als Nächstes.
+[Vertrag](../bitget-demo-credential-store.md).
