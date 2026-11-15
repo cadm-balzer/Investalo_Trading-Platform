@@ -24,6 +24,7 @@ from .settings import Settings
 from .paper_status import read_status
 from .futures_paper_settings import BasketSettingsRequest, read_settings, write_settings
 from .futures_paper_assets import read_assets
+from .futures_paper_recovery import RecoveryBody, read_recovery, write_recovery
 from investalo_trading.futures_paper_status import FuturesAssetReader
 from .research_result import publish_result
 from .research_spec import public_source, specification
@@ -74,16 +75,27 @@ def _journal(row: dict) -> dict:
     return result
 
 
-def create_app(settings: Settings | None = None, *, futures_paper_state_reader=None) -> FastAPI:
+def create_app(settings: Settings | None = None, *, futures_paper_state_reader=None,
+               futures_recovery_executor=None) -> FastAPI:
     application = FastAPI(title="Investalo API", docs_url=None, redoc_url=None, openapi_url=None)
     application.state.settings = settings if settings is not None else Settings.from_environment()
     application.state.futures_paper_state_reader = futures_paper_state_reader
     if (futures_paper_state_reader is None and (
             application.state.settings.futures_paper_assets_preview
-            or application.state.settings.futures_paper_settings_preview)
+            or application.state.settings.futures_paper_settings_preview
+            or application.state.settings.futures_recovery_preview)
             and application.state.settings.futures_paper_status_root is not None):
         application.state.futures_paper_state_reader = FuturesAssetReader(
             application.state.settings.futures_paper_status_root)
+    application.state.futures_recovery_executor = futures_recovery_executor
+    if (futures_recovery_executor is None and application.state.settings.futures_recovery_preview
+            and application.state.settings.futures_recovery_root is not None
+            and application.state.settings.futures_paper_status_root is not None):
+        from investalo_workers.futures_recovery_executor import FuturesPaperRecoveryExecutor
+        application.state.futures_recovery_executor = FuturesPaperRecoveryExecutor(
+            application.state.settings.futures_recovery_root,
+            application.state.settings.futures_paper_status_root,
+            application.state.settings.connection_parameters())
     application.include_router(create_passkey_router(application.state.settings))
     application.include_router(create_passkey_action_router(application.state.settings))
     application.include_router(create_passkey_credential_authorization_router(application.state.settings))
@@ -209,6 +221,22 @@ def create_app(settings: Settings | None = None, *, futures_paper_state_reader=N
             "schema_version": "futures-paper-settings/1", "tenant_id": str(identity.tenant_id),
             "mode": "paper", "live_enabled": False, "accounts": [result],
         }
+
+    @application.get("/v1/futures-recovery")
+    def futures_recovery(identity: Identity):
+        if not application.state.settings.futures_recovery_preview:
+            raise HTTPException(404, "Not found")
+        with transaction(application.state.settings, identity) as (db, user):
+            return read_recovery(db, identity, user, application.state.futures_paper_state_reader,
+                                 application.state.futures_recovery_executor)
+
+    @application.post("/v1/futures-recovery")
+    def recover_futures(body: RecoveryBody, identity: Identity):
+        if not application.state.settings.futures_recovery_preview:
+            raise HTTPException(404, "Not found")
+        with transaction(application.state.settings, identity) as (db, user):
+            return write_recovery(db, identity, user, body, application.state.futures_paper_state_reader,
+                                  application.state.futures_recovery_executor)
 
     @application.get("/v1/credential-actions/{account_id}")
     def credential_actions(account_id: UUID, identity: Identity):

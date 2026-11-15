@@ -26,7 +26,7 @@ function object(x: unknown): x is Record<string, unknown> { return !!x && typeof
 function integer(x: unknown): x is number { return typeof x === "number" && Number.isSafeInteger(x) && x >= 0; }
 function time(x: unknown): x is string { return typeof x === "string" && x.length <= 40 && /^\d{4}-\d\d-\d\dT.*(?:Z|\+00:00)$/.test(x) && Number.isFinite(Date.parse(x)); }
 function amount(x: unknown): x is string {
-  return typeof x === "string" && /^(?:0|[1-9]\d{0,20})(?:\.\d{1,24})?$/.test(x) && Number.isFinite(Number(x));
+  return typeof x === "string" && /^(?:0|[1-9]\d{0,20})(?:\.\d{1,36})?$/.test(x) && Number.isFinite(Number(x));
 }
 function reject(): never { throw new Error("FUTURES_RECOVERY_REJECTED"); }
 

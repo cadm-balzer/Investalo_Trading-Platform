@@ -14,11 +14,13 @@ from .futures_ledger import timestamp
 from .futures_paper_journal import FuturesPaperJournal, VERSION as JOURNAL_VERSION
 from .futures_paper_view import FuturesAssetState, asset_state
 from .futures_paper_capacity import PaperCapacityState, capacity_state
+from .futures_paper_recovery import PaperRecoveryState, recovery_state
 from .futures_replay_journal import _fields, _json, _sha
 from .snapshot import _decode, primitive
 
 VERSION = "isolated-usdt-futures-paper-status/1"
 CAPACITY_VERSION = "isolated-usdt-futures-paper-status/2"
+RECOVERY_VERSION = "isolated-usdt-futures-paper-status/3"
 MAX_BYTES = 64 * 1024
 
 
@@ -74,6 +76,7 @@ class PublishedAssets:
     journal_receipt: dict
     published_at: datetime
     capacity: PaperCapacityState | None = None
+    recovery: PaperRecoveryState | None = None
 
     def __post_init__(self):
         if type(self.state) is not FuturesAssetState:
@@ -88,6 +91,13 @@ class PublishedAssets:
                     self.state.tenant_id, self.state.account_id, self.state.revision)
                 or self.capacity.known_at > self.published_at):
             raise ValueError("capacity must share own acknowledged asset publication")
+        if self.recovery is not None and (
+                type(self.recovery) is not PaperRecoveryState
+                or (self.recovery.tenant_id, self.recovery.account_id, self.recovery.revision) != (
+                    self.state.tenant_id, self.state.account_id, self.state.revision)
+                or self.recovery.state_digest != self.journal_receipt["state_digest"]
+                or self.recovery.known_at > self.published_at):
+            raise ValueError("recovery must share actual own acknowledged journal receipt")
 
     def record(self):
         body = {"schema_version": VERSION, "state": primitive(self.state),
@@ -95,6 +105,9 @@ class PublishedAssets:
                 "published_at": self.published_at.isoformat(), "execution_enabled": False}
         if self.capacity is not None:
             body.update(schema_version=CAPACITY_VERSION, capacity=primitive(self.capacity))
+        if self.recovery is not None:
+            body.update(schema_version=RECOVERY_VERSION, capacity=primitive(self.capacity),
+                        recovery=primitive(self.recovery))
         return {**body, "content_digest": digest(body)}
 
 
@@ -112,18 +125,22 @@ def _read(fd, name, tenant_id, account_id):
     parsed = _json(raw)
     if not isinstance(parsed, dict):
         raise ValueError("status object required")
-    newer = parsed.get("schema_version") == CAPACITY_VERSION
+    recovered = parsed.get("schema_version") == RECOVERY_VERSION
+    newer = parsed.get("schema_version") in (CAPACITY_VERSION, RECOVERY_VERSION)
     record = _fields(parsed, ("schema_version", "state", "journal_receipt",
-        "published_at", "execution_enabled", "content_digest", *(("capacity",) if newer else ())))
+        "published_at", "execution_enabled", "content_digest", *(("capacity",) if newer else ()),
+        *(("recovery",) if recovered else ())))
     body = {k: v for k, v in record.items() if k != "content_digest"}
-    if (record["schema_version"] not in (VERSION, CAPACITY_VERSION) or record["execution_enabled"] is not False
+    if (record["schema_version"] not in (VERSION, CAPACITY_VERSION, RECOVERY_VERSION)
+            or record["execution_enabled"] is not False
             or _sha(record["content_digest"]) != digest(body)):
         raise ValueError("status schema or content mismatch")
     view = _decode(FuturesAssetState, record["state"])
     if (view.tenant_id, view.account_id) != (tenant_id, account_id):
         raise ValueError("foreign Paper status publication")
     return PublishedAssets(view, record["journal_receipt"], _decode(datetime, record["published_at"]),
-                           _decode(PaperCapacityState, record["capacity"]) if newer else None)
+                           _decode(PaperCapacityState | None, record["capacity"]) if newer else None,
+                           _decode(PaperRecoveryState, record["recovery"]) if recovered else None)
 
 
 @dataclass(frozen=True)
@@ -150,16 +167,24 @@ class FuturesAssetReader:
             raise ValueError("future Paper capacity publication")
         return value.capacity if value is not None else None
 
+    def recovery(self, tenant_id, account_id):
+        value = self.publication(tenant_id, account_id)
+        if value is not None and value.published_at > timestamp(self.clock()):
+            raise ValueError("future Paper recovery publication")
+        return value.recovery if value is not None else None
+
 
 class FuturesAssetPublisher:
     """Own lifetime writer lock. Publish only acknowledged journal checkpoints."""
-    def __init__(self, root, journal, *, clock=lambda: datetime.now(timezone.utc), capacity_reader=None):
+    def __init__(self, root, journal, *, clock=lambda: datetime.now(timezone.utc), capacity_reader=None,
+                 recovery_enabled=False):
         if type(journal) is not FuturesPaperJournal or not callable(clock):
             raise ValueError("own Paper journal and clock required")
         self._journal, self._clock = journal, clock
         if capacity_reader is not None and not callable(capacity_reader):
             raise ValueError("explicit advisory capacity reader required")
         self._capacity_reader = capacity_reader
+        self._recovery_enabled = recovery_enabled
         self._directory = _directory(root)
         self._lock = None
         self._uncertain = False
@@ -237,7 +262,13 @@ class FuturesAssetPublisher:
         self.check()
         if self._journal.checkpoint() != (state, receipt):
             raise ValueError("checkpoint changed during advisory calibration")
-        value = PublishedAssets(asset_state(state), receipt, timestamp(self._clock()), capacity)
+        recovered = None
+        if self._recovery_enabled:
+            actual, anchor, history = self._journal.recovery_checkpoint()
+            if (actual, anchor) != (state, receipt):
+                raise ValueError("recovery checkpoint changed before publication")
+            recovered = recovery_state(state, history)
+        value = PublishedAssets(asset_state(state), receipt, timestamp(self._clock()), capacity, recovered)
         raw = (json.dumps(value.record(), sort_keys=True, separators=(",", ":"), allow_nan=False)
                + "\n").encode()
         if len(raw) > MAX_BYTES:

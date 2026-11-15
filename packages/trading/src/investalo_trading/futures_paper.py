@@ -196,7 +196,7 @@ def _event(input_id, kind, symbol=""):
 
 
 @precise
-def run_paper_batch(state, batch, expected_revision, at):
+def run_paper_batch(state, batch, expected_revision, at, *, on_liquidation=None):
     """Validate and reduce the entire input before its single durable append."""
     _check(state, expected_revision, at)
     at = timestamp(at)
@@ -270,6 +270,9 @@ def run_paper_batch(state, batch, expected_revision, at):
                 raise ValueError("unbacked liquidation gap; explicit Paper insurance assumption required")
             payload = LiquidationSettlement(basket.symbol, basket.quantity, price, fee,
                                             net + credit, credit, digest((VERSION, batch, basket)))
+            if on_liquidation is not None:
+                from .futures_paper_recovery import liquidation_record
+                on_liquidation(liquidation_record(basket, payload, batch.quoted_at))
         else:
             fee = basket.quantity * price * plan.contracts[i].protective_exit_fee_rate
             payload = ExitFill(basket.symbol, basket.quantity, price, fee)

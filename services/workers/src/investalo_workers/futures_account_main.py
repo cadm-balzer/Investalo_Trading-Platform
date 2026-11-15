@@ -16,6 +16,7 @@ from .futures_paper_bootstrap import initialize_paper, load_spec
 from .futures_paper_main import _running
 from .futures_source_worker import FuturesSourceWorker
 from .futures_capacity_source import FuturesPaperCapacitySource
+from .futures_recovery_executor import register_recovery
 
 
 def main(argv=None):
@@ -24,6 +25,7 @@ def main(argv=None):
         parser.add_argument("--" + name, type=Path, required=True)
     parser.add_argument("--spec-digest", required=True)
     parser.add_argument("--initialize", action="store_true")
+    parser.add_argument("--recovery-root", type=Path)
     parser.add_argument("--cycles", type=int, default=1)
     parser.add_argument("--interval", type=int, default=15)
     args = parser.parse_args(argv)
@@ -39,6 +41,11 @@ def main(argv=None):
     try:
         from investalo_api.settings import Settings
         spec = load_spec(args.spec, args.spec_digest)
+        recovery_enabled = os.getenv("FUTURES_PAPER_RECOVERY_ENABLED") == "1"
+        if args.recovery_root is not None:
+            if not recovery_enabled:
+                raise ValueError("own recovery registration disabled")
+            register_recovery(args.recovery_root, args.spec, args.spec_digest, args.journal)
         reader = FuturesPaperAccountReader(spec.binding, Settings.from_environment().connection_parameters(), clock)
         archive = FuturesPaperArchive(args.archive_root, clock=clock,
                                       symbols=native_symbols(spec.config.profile.plan.symbols))
@@ -54,7 +61,8 @@ def main(argv=None):
             capacity_reader = (FuturesPaperCapacitySource(journal, archive, clock)
                 if os.getenv("FUTURES_PAPER_CAPACITY_ENABLED") == "1" else None)
             with FuturesAssetPublisher(args.status_root, journal, clock=clock,
-                                       capacity_reader=capacity_reader) as publisher:
+                                       capacity_reader=capacity_reader,
+                                       recovery_enabled=recovery_enabled) as publisher:
                 publisher.publish(expected_revision=journal.state.revision)
                 worker = FuturesAccountWorker(FuturesSourceWorker(journal, archive, publisher, clock), reader)
                 for i in range(args.cycles):

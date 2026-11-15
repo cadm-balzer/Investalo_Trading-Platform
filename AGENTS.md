@@ -7,6 +7,26 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR70 merged: 7649e52 ancestor of main49f92d1, GH/fetch verified.
+  IP-088 on feat/m1-futures-paper-recovery: own acknowledged Paper liquidation
+  history reconstructed on full replay; fresh full own cash-backed new range,
+  preserved peer/manual/cost/deferred-profit reserves, booked losses and bases.
+  Additive manual_recovery journal CAS/fsync with exclusive writer, reset only
+  target RSI/next cost-budget epoch; source clock/cursor retained, fixed2×.
+  Optional shared status/3 with /1-/2/default compatibility; create-only private
+  original allocation/journal registry; normal own GET/POST authenticated API
+  rechecks restricted runtime LOGIN/RLS/role/epoch/ready/013 before append.
+  Active feed writer rejects without shutdown/retry; full minimum-receipt
+  restore repairs unknown acknowledgement. Advisory capacity stays unknown
+  until next calibrated feed publication. Same private filesystem owner needed.
+  Seven new domain/nine actual PG/API cases;172 pinned regression/96 subtests,
+  final34 actual Recovery/asset/settings cases rerun;575 Cockpit cases/typecheck
+  and pinned API/Cockpit builds passed. API runtime module import checked;
+  running services unchanged. API/worker/BFF opt-ins default off. No migration,
+  dependencies, native market job, backtest, public/live/AI activation.
+  IP-088 native HTTPS/Cockpit acceptance and continuous writer coordination
+  remain next; then separate calibrated Bitget demo reconciliation/orders.
+  See docs/futures-manual-recovery.md.
 - PR69 merged: 06564fa ancestor of main9210f70, GH/fetch verified.
   IP-090 on feat/m1-futures-seven-candidates: explicit sorted native cohort
   AVAX/BNB/BTC/ETH/LINK/SOL/XRP; local_seven_profit_config own economics/3,
