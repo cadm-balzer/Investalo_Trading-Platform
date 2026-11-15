@@ -2558,3 +2558,36 @@ auf Host Python3.14.4. Eigenreview. Kein HTTPbrokerrequest, Credentialeingang,
 laufender Dienst, DB/Migration/Dependency, Frontendbuild, Backtest, Public/
 Live/AI. Dauerhafte Outbox/Executionjournal und vollständiger nativer Abgleich
 sind der nächste IP-015/016-Schritt. [Vertrag](../bitget-futures-demo.md).
+
+## D113 — Eigene dauerhafte Demo-Outbox und Unknown-Restore (2026-11-15)
+
+PR73 (`11af70a`) ist in `maineac822e` enthalten; GH/Fetch/Ancestry bestätigt.
+IP-016 erhält eine eigene bounded private Outbox, ohne Paper- oder
+historische Journalformate zu verändern. Ursprüngliche Kontodeklaration,
+Outbox-ID, stabile Commandkennung und Intentdigest bleiben beim Vollrestore
+gebunden. Gleiches Prepare ist idempotent; geänderte Payload/CAS wird abgewiesen.
+
+Ein exklusiver Pfadwriter samt Threadlock schützt die gesamte Journal-/Receipt-
+folge. Descriptorpfade/0700/0600/UID/Inode/Hardlinkkontrollen erhalten den
+ursprünglichen privaten Scope. Append/fsync/readback und atomarer
+Mindestreceipt müssen vor Rückgabe einer Attemptbestätigung abgeschlossen sein.
+Unbekannter Diskwrite stoppt den Writer; Replay übernimmt ausschließlich
+vollständig validierbare Suffixe, erneuert deren fsync und Mindestreceipt,
+niemals die Versandfreigabe eines Unknown/Ack/Fillauftrags. Beschädigte Tails
+werden nicht abgeschnitten. Zusätzlicher separat vertrauenswürdiger Receipt
+kann gemeinsames Rollback von Journal/privatem Checkpoint aufdecken.
+
+Der Lock gilt für einen ursprünglichen Pfad. Eine globale Brokerkontoregistry,
+alle Keys/Writer und semantische Signal-/Stage-Deduplizierung sind vor echtem
+Dispatch separat zu binden. Gespeichert werden nur bereits geprüfte eigene
+Orderprojektionen, keine Providertexte oder behaupteten nativen HTTParchive.
+Keine Terminalorder als volle Basket-/Cash-/Recoveryabrechnung behandeln.
+
+22 neue echte lokale Filesystemfälle plus48 frühere Demo-/Readfälle (70)
+grün auf Host-Python3.14.4. Tatsächlicher Kindprozessabbruch nach Attempt,
+neuer Writer/Unknownrestore, konkurrierende CAS/Writer, fsync/Checkpoint-/Ack-
+Readbackfehler, Teilfill/Storno, Fork/Tail/Rechte/Symlink/Hardlink geprüft.
+Eigenreview; keine Brokerrequests/Keys/Finanzbuchungen/laufenden Dienste/
+DB/Migration/Dependencies/Frontendbuild/Backtest/Public/Live/AI.
+Vollständiger Account-/Normal-/Triggerorder-/Cash-/Kostenabgleich und
+geschützte native Bindung/Transport folgen. [Vertrag](../bitget-demo-outbox.md).

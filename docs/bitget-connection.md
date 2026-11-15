@@ -104,8 +104,10 @@ IP-015/IP-016 ergänzen einen separaten
 [Classic-Futures-Demo-Auftragsvertrag](bitget-futures-demo.md).
 Demo benötigt einen eigenen Demo API Key und `paptrading: 1`.
 Die Kontodeklaration ist noch kein nativer Key-/UIDnachweis. Der Offlinekern
-hat unsignierte Pläne und Teilfill-/Mengenabgleich, keinen Brokerdispatcher,
-keine dauerhafte Outbox oder Umwidmung des lesenden Realkontokeys.
+hat unsignierte Pläne und Teilfill-/Mengenabgleich; die separate
+[private Demo-Outbox](bitget-demo-outbox.md) ergänzt dauerhafte Auftrags-
+persistenz/Crashrestore. Kein Brokerdispatcher oder Umwidmung des
+lesenden Realkontokeys. Native Kontoprovenienz/Abrechnung bleiben offen.
 
 Auszahlungen, interne Transfers, Kreditaufnahme, Subaccountverwaltung und
 automatischer Kontomodwechsel gehören nicht zum vorgesehenen Keyumfang.

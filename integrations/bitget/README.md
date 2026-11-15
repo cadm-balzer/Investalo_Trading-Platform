@@ -2,8 +2,10 @@
 
 The separate offline [Futures Demo contract](../../docs/bitget-futures-demo.md)
 adds unsigned fixed request plans, scoped cumulative-order and position checks.
-It has no credentials, HTTP dispatcher, durable outbox, financial ledger or
-service activation. It does not extend the read client's allowlist below.
+It has no credentials, HTTP dispatcher, financial ledger or service activation.
+The separate [private offline outbox](../../docs/bitget-demo-outbox.md) adds
+durable CAS/fsync order persistence and full replay with a minimum receipt.
+These modules do not extend the read client's allowlist below.
 
 Standard-library Python core, imported with `PYTHONPATH=integrations/bitget/src`.
 No API/UI/DB integration, credential vault, real account test, broker order,

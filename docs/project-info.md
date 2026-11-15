@@ -73,8 +73,10 @@ Crypto-Kern sowie immutable Marktdaten und tenantgebundene Offlinebacktests
 mit grafischen Ergebnissen. Aktueller Start: [infra/README.md](../infra/README.md).
 Der eigene Futures-Paperpfad samt lokaler Cockpit-Recovery ist umgesetzt.
 Der separate [Classic-Demo-Auftragsvertrag](bitget-futures-demo.md) startet
-mit unsignierten Plänen und Teilfill-/Positionsmengenabgleich; dauerhafte
-Ausführung, native Kontobindung und Kostenabnahme folgen ohne Liveaktivierung.
+mit unsignierten Plänen und Teilfill-/Positionsmengenabgleich.
+Die [private Demo-Outbox](bitget-demo-outbox.md) erhält Aufträge dauerhaft
+über Prozessabbrüche. Native Ausführung, Kontobindung und Kostenabnahme
+folgen ohne Liveaktivierung.
 Classic-Bitget-Readkern, AEAD-Envelopes und ein gebundener persistenter
 Credentialstore sind mit synthetischen Daten geprüft. Die private Einrichtung
 verbindet sie mit einmaligen Actionfreigaben und einem Entwicklungs-Dateiprovider.

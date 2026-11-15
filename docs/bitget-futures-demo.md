@@ -5,8 +5,10 @@ Stand 2026-11-15, IP-015/IP-016. PR72 (`b956064`) ist in
 
 Der separate Offlinekern erzeugt präzise, **unsignierte** Auftragspläne und
 prüft native kumulierte Orderdaten gegen die geplante Order und Positionsmenge.
-Er enthält keinen HTTP-Dispatcher, keine Schlüssel, keine dauerhafte Outbox,
+Er enthält keinen HTTP-Dispatcher, keine Schlüssel,
 keine Ledgerbuchung und keine Aktivierung im Cockpit oder Worker.
+Der folgende [eigene Outboxcheckpoint](bitget-demo-outbox.md) ergänzt
+dauerhafte private Orderpersistenz und vollständigen Crashrestore.
 Der bestehende Classic-Realkonto-Readadapter behält seine drei GET-Pfade.
 
 ## Eigenes Konto und begrenztes Profil
@@ -113,8 +115,9 @@ und Position ersetzen deshalb kein kalibriertes Fill-/Funding-/Kostenledger.
 Paper-Vollfills, Paperliquidationen und historische Binanceökonomie werden
 nicht als tatsächliche Demoabrechnung übernommen.
 
-Als Nächstes: eigene dauerhafte Outbox/Executionjournal mit Konto-/Command-CAS,
-Unknown-write-/Crashrestore und gebundener Transportgrenze; vollständige
+Die eigene dauerhafte Outbox/Executionjournal mit Command-CAS,
+Unknown-write-/Crashrestore ist separat implementiert.
+Als Nächstes gebundene Transportgrenze und vollständige
 Account-/Normalorder-/Triggerorder-Reconciliation samt Kostenquelle.
 Erst danach eigene sichere Demo-Keyeinrichtung und konkrete native Abnahme.
 Bestehende Paperjournale und deren Budgets/Ergebnisse bleiben unverändert.

@@ -189,6 +189,15 @@ def observe(trace, response, *, context, now_ms):
     if not isinstance(trace, DemoTrace) or trace.can_submit:
         raise DemoRejected("order_not_dispatched")
     current = order_detail(response, trace.intent, context=context, now_ms=now_ms)
+    return apply_observation(trace, current)
+
+
+def apply_observation(trace, current):
+    """Replay already validated private journal evidence; grants no HTTP authority."""
+    if (not isinstance(trace, DemoTrace) or trace.can_submit
+            or not isinstance(current, OrderObservation)
+            or current.intent_digest != trace.intent.intent_digest):
+        raise DemoRejected("order_receipt_mismatch")
     if (current.response_ms < trace.dispatch_ms or current.created_ms < trace.dispatch_ms
             or trace.order_id is not None and trace.order_id != current.order_id):
         raise DemoRejected("order_receipt_mismatch")

@@ -7,6 +7,22 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR73 merged: 11af70a ancestor of maineac822e, GH/fetch verified.
+  IP-016 on feat/m1-bitget-demo-outbox: own bounded offline private
+  append-only order journal, exclusive path writer/thread lock/whole CAS,
+  original binding/command/digest and unknown-before-send durability.
+  Append/fsync/readback plus atomic private minimum receipt; full validated
+  restore retains unknown suffix, never rearms/resends or truncates damage.
+  Optional separately trusted minimum receipt detects additional rollback.
+  22 new actual local filesystem cases plus48 prior Demo/Read cases (70)
+  pass on Host Python3.14.4, including actual child exit23/restore, unknown
+  fsync/ack-readback, partial/canceled, CAS/concurrent writers and fork/tail.
+  Lock protects one original path; global broker-account registry remains
+  required. Derived validated evidence only, no native HTTP archive proof.
+  No dispatcher/credentials/basket ledger/services/DB/migration/dependency/
+  backtest/public/live/AI change. Next full account/normal/trigger-order/
+  cash/cost reconciliation, secure Demo provenance, then bound transport.
+  See docs/bitget-demo-outbox.md.
 - PR72 merged: b956064 ancestor of main4d3b326, GH/fetch verified.
   IP-015/IP-016 on feat/m1-bitget-futures-demo-contract: separate offline
   Classic Demo declaration/unsigned exact Limit-IOC plans, stable command
