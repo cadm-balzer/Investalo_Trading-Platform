@@ -459,6 +459,14 @@ class DemoOutbox:
             self._check(context, self._receipt.revision)
             return tuple(self._traces[key] for key in sorted(self._traces))
 
+    def check_account(self, expectation, packets, *, context, expected_revision, now_ms):
+        """One locked readonly snapshot; result is not persisted or a send permit."""
+        from .futures_demo_account import check_account
+        with self._mutex:
+            self._check(context, expected_revision)
+            return check_account(expectation, self._receipt, self.traces(context=context),
+                                 packets, context=context, now_ms=now_ms)
+
     def close(self):
         with self._mutex:
             self._closed = True

@@ -1,5 +1,12 @@
 # Roadmap
 
+2026-11-15: IP-015/IP-016 erhalten einen an die tatsächliche Outboxrevision
+gebundenen14-Achsen-Demoaccountcheck mit Cash-/Position-/Config- und
+Normal-/Triggerorder-Diagnostik. 22 neue/92 gesamte Offlinefälle grün.
+Native alte Orderabdeckung, Konto-/Key-/Kosten-/Fundingprovenienz und
+echter Transport folgen separat; der Reader erteilt keine Versandfreigabe.
+[Vertrag](bitget-demo-account-check.md).
+
 2026-11-15: IP-016 erhält eigene dauerhafte private Demo-Outbox mit
 Pfadwriter/CAS/fsync/Mindestreceipt und vollem Crashrestore.
 22 neue echte Filesystemfälle,70 insgesamt grün. Keine Brokeraktivierung.

@@ -77,6 +77,9 @@ mit unsignierten Plänen und Teilfill-/Positionsmengenabgleich.
 Die [private Demo-Outbox](bitget-demo-outbox.md) erhält Aufträge dauerhaft
 über Prozessabbrüche. Native Ausführung, Kontobindung und Kostenabnahme
 folgen ohne Liveaktivierung.
+Der [Demo-Accountcheck](bitget-demo-account-check.md) erkennt Abweichungen
+zwischen eigenem Outboxstand und Wallet-/Positions-/Order-/Trigger-Snapshots;
+der Reader erteilt noch keine Brokerfreigabe.
 Classic-Bitget-Readkern, AEAD-Envelopes und ein gebundener persistenter
 Credentialstore sind mit synthetischen Daten geprüft. Die private Einrichtung
 verbindet sie mit einmaligen Actionfreigaben und einem Entwicklungs-Dateiprovider.

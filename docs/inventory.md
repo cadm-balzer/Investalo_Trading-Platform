@@ -1,5 +1,14 @@
 # Bestandsaufnahme
 
+IP-015/IP-016: futures_demo_account.py ergänzt feste14 Readachsen,
+bounded Pendingpagination, sieben native Configchecks und einen readonly
+Wallet-/Positions-/Order-/Triggerabgleich unter der eigenen Outboxrevision.
+Eigene Cash-/ursprüngliche Positionsbasis bleibt explizit; keine implizite
+Paperübernahme. 22 neue/92 gesamte synthetische Fälle grün, tatsächlicher
+privater Outboxrestore inklusive. Native ältere Orderabdeckung/Kontoprovenienz/
+Kosten/Funding/Transport bleiben offen; keine Aktivierung.
+[Vertrag](bitget-demo-account-check.md).
+
 IP-016: futures_demo_outbox.py ergänzt eigenes privates append-only
 Journal mit Kontobindung/Commanddigest, exklusivem Pfadwriter/CAS,
 Unknown-before-send, fsync/readback und atomarem Mindestreceipt.

@@ -2591,3 +2591,36 @@ Eigenreview; keine Brokerrequests/Keys/Finanzbuchungen/laufenden Dienste/
 DB/Migration/Dependencies/Frontendbuild/Backtest/Public/Live/AI.
 Vollständiger Account-/Normal-/Triggerorder-/Cash-/Kostenabgleich und
 geschützte native Bindung/Transport folgen. [Vertrag](../bitget-demo-outbox.md).
+
+## D114 — Gebundener 14-Achsen-Demoaccountcheck (2026-11-15)
+
+PR74 (`45bf348`) ist in `main8e6a98a` enthalten; GH/Fetch/Ancestry bestätigt.
+Der eigene Offline-Accountcheck erfasst Wallet, Gesamtpositionen, sieben
+Konfigurationen, beide regulären Pendingstatus und drei Triggerfamilien.
+Feste produktweite GETs vermeiden Symbol-/Orderfilter; bounded Pagination
+verlangt exakte Cursorfolge bis zur leeren Endseite. Die dokumentierten
+Defaultzeitfenster beweisen dennoch keine globale ältere Orderabdeckung.
+`pending_scope_verified`, `execution_ready` und `cash_ledger_ready` bleiben false.
+
+Der tatsächliche eigene Outboxreceipt und alle Traces werden unter einem
+Lock-/Revisionstand geprüft. Eigene ursprüngliche Positions-/aktuelle
+Cash-/Reserveerwartung muss separat vorliegen; keine Ableitung aus dem
+aktuellen Prüfungssnapshot oder Paper. Nur tatsächliche beobachtete Mengen
+fließen in die Positionsdiagnostik ein. Unklare Orders bleiben unklar,
+auch bei leeren Pendinglisten. Sequential Ladder/Teilfill-Storno behalten
+Exposure; gleiche Coin-Dispatchuhr und abweichende Vorpositionen bleiben
+mehrdeutig. Ältere Snapshots als Journalbelege werden erkannt.
+
+Native Available/Equity/uPnL bleiben getrennt; Equity enthält uPnL bereits.
+Unknown/negative Cashwerte, Cross-/Bonus-/Mehrcoin-Collateral, falsche
+Symbolmodi/Hebel, fremde Orders/Trigger und fehlende Fees werden nicht
+normalisiert. Keine Orderlöschung, Budget-/Stage-/Ledger-/Recoveryaktion.
+Der Prüfbericht hält ursprüngliche Responsehashes ohne raw Archiv/Providertext;
+Paketscope ersetzt keine tatsächliche Transport-/UID-/Keyprovenienz.
+
+22 neue synthetische Fälle plus70 frühere (92) grün auf Host-Python3.14.4.
+Tatsächlicher privater Outboxrestore liefert denselben gebundenen Check.
+Eigenreview; keine Brokerrequests/Keys/Services/DB/Migration/Dependency/
+Frontendbuild/Backtest/Public/Live/AI. Native ältere Orderabdeckung und
+Kontoregistry/Key-/Kosten-/Fundingprovenienz/Transport bleiben nächstes Ziel.
+[Vertrag](../bitget-demo-account-check.md).

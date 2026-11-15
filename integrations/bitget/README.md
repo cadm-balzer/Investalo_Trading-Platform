@@ -6,6 +6,9 @@ It has no credentials, HTTP dispatcher, financial ledger or service activation.
 The separate [private offline outbox](../../docs/bitget-demo-outbox.md) adds
 durable CAS/fsync order persistence and full replay with a minimum receipt.
 These modules do not extend the read client's allowlist below.
+The [14-axis account check](../../docs/bitget-demo-account-check.md) joins
+declared own cash/positions to one actual outbox snapshot and bounded native
+read-response fixtures. Its result is advisory; no native execution approval.
 
 Standard-library Python core, imported with `PYTHONPATH=integrations/bitget/src`.
 No API/UI/DB integration, credential vault, real account test, broker order,
