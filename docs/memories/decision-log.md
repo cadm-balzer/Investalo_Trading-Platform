@@ -2654,3 +2654,29 @@ full restore und readonly Accountcheck. Eigenreview; keine Brokerrequests/
 Credentials/Services/DB/Migration/Dependency/Backtest/Public/Live/AI.
 Native Demo-Provenienz/read transport und ältere Order-/Kosten-/Fundingabnahme
 folgen. [Vertrag](../bitget-demo-account-registry.md).
+
+
+## D116 — Getrennter gebundener Classic-Demo-Readtransport (2026-11-15)
+
+PR76 (`0c0df27`) ist in `main5db8f43` enthalten; GH/Fetch/Ancestry bestätigt.
+Feste signierte identity+14-Achsen-GETs/paptrading1 sind vom alten drei-Pfad-
+Readprofil getrennt. Explicit HTTPS mit CA/Hostname/TLS, ohne Proxy/Redirect,
+1MiB je Reply/1–5s Timeout; keine frei wählbaren URLs/Orders oder Retries.
+RegisteredDemoOutbox prüft Originalbinding/CAS vor dem Laden von Secrets
+und vor/nach jedem Request. Providerdeklaration/Revision/Provenienz/Parent/
+IP/Ablaufzeit und tatsächliche Credentialtriple dürfen nicht wechseln.
+Native Classic-Readidentity muss Original-UID/Parent, exakt eine Egress-IP
+und bekannte Readrechte einschließlich coor+cpor zeigen; kein writable-key-
+Profil oder automatische Keyrotation. Fünf-Sekunden-Cohortgrenze unverändert.
+Journal-/Providerwechsel verwirft die Antwort; keine wirtschaftliche Buchung.
+
+Private Identity/Sourcehash/Providerdeklarationsdigest bleiben im Resultat;
+keine Rawreplypersistenz. Native Abnahmeflag und Accountfreigaben false.
+Providerdeklaration ist keine nachgewiesene Demo-Keyerstellung: tatsächlicher
+geschützter purposegebundener Provider/Keyeingabe und native Endpoint-/UID-
+Quota-/Latenzabnahme folgen. Unsupported bleibt Fehler, kein Livefallback.
+22 neue synthetische Provider-/Antwort-/Mock-HTTPS-Fälle plus121 frühere
+(143) grün auf Host Python3.14.4, actual private RegisteredOutbox/CAS inklusive.
+Eigenreview; keine nativen Brokerrequests/Credentials/Services/DB/Migration/
+Dependency/Backtest/Public/Live/AI. Ältere Orderscope/Kosten/Funding und
+Ordertransport bleiben offen. [Vertrag](../bitget-demo-read-transport.md).

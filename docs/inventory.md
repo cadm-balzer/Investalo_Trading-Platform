@@ -1,5 +1,12 @@
 # Bestandsaufnahme
 
+IP-015/IP-016: futures_demo_read.py verbindet registered scope/CAS mit eigenem
+signierten identity+14-Achsen-GET-Transport und provider-/key-/UID-/Parent-/IP-
+Gates. Explicit HTTPS ohne Proxy/Redirect; alte drei Readpfade unverändert.
+22 neue synthetische Provider-/Mock-HTTPS-Fälle/143 Gesamtfälle grün.
+Geschützter tatsächlicher Demo-Provider und native Abnahme fehlen weiter;
+keine Brokerrequests/Services/Orderautorität. [Vertrag](bitget-demo-read-transport.md).
+
 IP-015/IP-016: futures_demo_registry.py ergänzt ursprüngliche private UID-/
 Kontopfadregistry und RegisteredDemoOutbox. Create-only Claim vor Genesis,
 Katalog-/UID-/Outboxlocks und erneute Root-/Claim-/Inodeprüfung; keine zweite

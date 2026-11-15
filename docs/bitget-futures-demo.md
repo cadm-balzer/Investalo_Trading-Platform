@@ -152,3 +152,9 @@ Die offiziellen Beispiele variieren bei Symbol-/Margincoin-/Reduce-only-Case
 und zeigen One-way-Positionen als `net` beziehungsweise `long`.
 Nur diese ASCII-Casevarianten werden akzeptiert; unbekannte Profile sperren.
 Reale Schema-/Kosten-/Accountkalibrierung bleibt ausdrücklich ausstehend.
+
+
+Der [getrennte Demo-Lesezugang](bitget-demo-read-transport.md) verbindet
+inzwischen feste signierte GETs mit registriertem Scope/CAS und laufender
+Provider-/Key-/UID-/Parent-/IPprüfung. Geschützter tatsächlicher Provider und
+native Endpoint-/Provenienzabnahme bleiben offen; keine Versandfreigabe.

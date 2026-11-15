@@ -90,3 +90,9 @@ Echter Kindprozess endet nach dauerhaftem Unknown-Attempt mit Exit23; ein neuer
 Writer restauriert Revision2/Unknown ohne Resend. Identitäten und Antworten
 sind synthetisch. Keine Brokerrequests/Credentials/Services/DB/Migration/
 Dependency/Backtest/Public/Live/AI-Aktivierung.
+
+
+Der [getrennte Demo-Lesezugang](bitget-demo-read-transport.md) verbindet
+inzwischen feste signierte GETs mit registriertem Scope/CAS und laufender
+Provider-/Key-/UID-/Parent-/IPprüfung. Geschützter tatsächlicher Provider und
+native Endpoint-/Provenienzabnahme bleiben offen; keine Versandfreigabe.
