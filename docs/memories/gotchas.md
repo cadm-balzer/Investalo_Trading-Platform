@@ -1077,3 +1077,11 @@ Stand 2026-11-15. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   andere Outboxes/Keys derselben UID: ursprüngliche Kontopfadregistry und
   Signal-/Stageidentität vor Brokerdispatch separat binden. Wiederholtes
   Prepare darf eine terminale oder unklare eigene Order niemals zurücksetzen.
+- Classic Pending benötigt explizit `live` **und** `partially_filled` plus
+  `normal_plan`/`track_plan`/`profit_loss`. Keine Coin-/Orderfilter für
+  Kontoabdeckung. Kurze nichtleere Seite ist kein Endnachweis; jeden endId
+  korrekt weiterführen, Duplikate/Regressionen ablehnen. Erschöpfte Pagination
+  beweist wegen nativer Defaultzeitfenster keine globale ältere Orderfreiheit.
+  Eigene ursprüngliche Mengen-/Cashbasis nicht aus der Prüfung selbst ableiten.
+  Account-Equity enthält uPnL bereits. Empty-Pending beweist keinen Nullfill
+  einer Unknown-Order. Snapshotmatch erteilt keine Ledger-/Versandfreigabe.

@@ -222,17 +222,21 @@ def apply_observation(trace, current):
 def position_quantity(response, intent, *, context, now_ms):
     """Whole USDT product snapshot; unsupported/foreign exposure stops this profile."""
     raw, _ = frame(response, intent, context, now_ms)
+    return position_quantities(raw).get(intent.grid.symbol, Decimal(0))
+
+
+def position_quantities(raw):
+    """Validate the complete native product projection; no account/HTTP authority."""
     if not isinstance(raw, list) or len(raw) > 1000:
         raise DemoRejected("invalid_positions")
-    seen, target = set(), Decimal(0)
+    result = {}
     for row in raw:
         if not isinstance(row, dict):
             raise DemoRejected("invalid_positions")
         symbol = row.get("symbol")
         symbol = symbol.upper() if isinstance(symbol, str) and symbol.isascii() else None
-        if not isinstance(symbol, str) or symbol not in SYMBOLS or symbol in seen:
+        if not isinstance(symbol, str) or symbol not in SYMBOLS or symbol in result:
             raise DemoRejected("unsupported_or_duplicate_position")
-        seen.add(symbol)
         margin_coin = row.get("marginCoin")
         if (not isinstance(margin_coin, str) or not margin_coin.isascii()
                 or margin_coin.upper() != "USDT"
@@ -247,9 +251,8 @@ def position_quantity(response, intent, *, context, now_ms):
             ctx.prec = 160
             if total != available + locked:
                 raise DemoRejected("position_quantity_mismatch")
-        if symbol == intent.grid.symbol:
-            target = total
-    return target
+        result[symbol] = total
+    return result
 
 
 def check_position(trace, response, *, context, now_ms):

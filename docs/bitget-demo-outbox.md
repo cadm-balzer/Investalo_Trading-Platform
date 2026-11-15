@@ -105,8 +105,11 @@ höchstens16MiB und16KiB pro Record. Vollreplay und komplette Disk-/Digest-
 Prüfung pro Commit sind bewusst lokal und benötigen vor dauerhaftem Betrieb
 eine Last-/Betriebsabnahme. Keine unbegrenzte Pollingpersistenz oder Retention.
 
-Als Nächstes vollständiger gebundener Account-/Normalorder-/Triggerorder-/
-Positions-/Cashabgleich, kalibrierte tatsächliche Demo-Kosten/Fundingquelle
+Der folgende [Accountcheck](bitget-demo-account-check.md) ergänzt den
+readonly14-Achsen-Snapshotabgleich unter derselben Outboxrevision;
+er publiziert weder finanzielle Commands noch eine Versandzulassung.
+Als Nächstes native Account-/ältere Normal-/Triggerorder-Abdeckung,
+kalibrierte tatsächliche Demo-Kosten/Fundingquelle
 und sichere Demo-Key-/UID-/Parent-/IP-/Rechteprovenienz; danach der ausdrücklich
 gebundene Transport und eigene native Abnahme. Terminale Order heißt weder
 vollständig geschlossener Basket noch freies Budget. Paper-Vollfills,

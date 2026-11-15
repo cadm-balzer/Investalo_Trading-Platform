@@ -108,6 +108,10 @@ hat unsignierte Pläne und Teilfill-/Mengenabgleich; die separate
 [private Demo-Outbox](bitget-demo-outbox.md) ergänzt dauerhafte Auftrags-
 persistenz/Crashrestore. Kein Brokerdispatcher oder Umwidmung des
 lesenden Realkontokeys. Native Kontoprovenienz/Abrechnung bleiben offen.
+Ein separater [Demo-Accountcheck](bitget-demo-account-check.md) prüft inzwischen
+14 aktuelle Readbereiche gegen die eigene Outbox und deklarierte Cash-/
+Positionsbasis. Ältere Orderabdeckung und native Ledger-/Keyprovenienz
+werden dadurch nicht vorausgesetzt oder freigegeben.
 
 Auszahlungen, interne Transfers, Kreditaufnahme, Subaccountverwaltung und
 automatischer Kontomodwechsel gehören nicht zum vorgesehenen Keyumfang.

@@ -7,6 +7,22 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR74 merged: 45bf348 ancestor of main8e6a98a, GH/fetch verified.
+  IP-015/IP-016 on feat/m1-bitget-demo-account-reconciliation: separate
+  offline14-axis USDT wallet/all positions/seven configs/live+partial/
+  three trigger-family cohort. Explicit bounded cursor continuation,
+  trusted own original position/cash/reserve declaration plus actual
+  locked outbox revision/state binding; partial-canceled quantities retained.
+  Unknown orders/fees, foreign normal/trigger orders, native cash/position/
+  configuration drift and stale snapshots remain visible; no resets/cancels.
+  22 new synthetic cases plus70 previous (92) green on Host Python3.14.4,
+  including private actual outbox restore and multi-page continuation.
+  Matched snapshot is advisory only: execution/cash ledger/pending-scope
+  verification false. Native older/default-window order coverage, UID/key/
+  account registry/cost/funding provenance and bound transport remain open.
+  No brokerrequest/credentials/financial journal/services/DB/migration/
+  dependency/backtest/public/live/AI activation.
+  See docs/bitget-demo-account-check.md.
 - PR73 merged: 11af70a ancestor of maineac822e, GH/fetch verified.
   IP-016 on feat/m1-bitget-demo-outbox: own bounded offline private
   append-only order journal, exclusive path writer/thread lock/whole CAS,

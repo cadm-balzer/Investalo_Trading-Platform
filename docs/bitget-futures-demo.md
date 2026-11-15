@@ -119,6 +119,9 @@ Die eigene dauerhafte Outbox/Executionjournal mit Command-CAS,
 Unknown-write-/Crashrestore ist separat implementiert.
 Als Nächstes gebundene Transportgrenze und vollständige
 Account-/Normalorder-/Triggerorder-Reconciliation samt Kostenquelle.
+Der [eigene Accountcheck](bitget-demo-account-check.md) verbindet inzwischen
+14 abgefragte Bereiche mit dem tatsächlichen Outboxstand. Native Konto-/
+Zeitfenster-/Kostenprovenienz und echte Transportabnahme bleiben ausstehend.
 Erst danach eigene sichere Demo-Keyeinrichtung und konkrete native Abnahme.
 Bestehende Paperjournale und deren Budgets/Ergebnisse bleiben unverändert.
 
