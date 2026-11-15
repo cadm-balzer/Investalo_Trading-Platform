@@ -1067,3 +1067,13 @@ Stand 2026-11-15. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   Nettoabrechnung; Normal-/Triggerorders und eigenes Cash separat abgleichen.
   Classic fill-history ist laut Anbieter nicht im Demo unterstützt: keine
   Paperkosten oder erfundenen Fill-/Funding-IDs als native Abrechnung ausgeben.
+- Eine persistente Demo-Attemptbestätigung braucht Journal-fsync/Readback
+  **und** privaten atomaren Mindestreceipt vor Rückgabe. Fehler dazwischen
+  stoppen den Writer; validen vollständigen Unknownsuffix beim Restore
+  erhalten und erneut fsyncen, beschädigten Tail nicht abschneiden.
+  Private Checkpoints sind zusätzliche Trunkierungsanker, keine Signaturen
+  gegen den eigenen Filesystembesitzer. Separater Mindestreceipt entdeckt
+  gemeinsames Journal-/Checkpoint-Rollback. Pfadflock schützt nicht automatisch
+  andere Outboxes/Keys derselben UID: ursprüngliche Kontopfadregistry und
+  Signal-/Stageidentität vor Brokerdispatch separat binden. Wiederholtes
+  Prepare darf eine terminale oder unklare eigene Order niemals zurücksetzen.

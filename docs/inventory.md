@@ -1,5 +1,14 @@
 # Bestandsaufnahme
 
+IP-016: futures_demo_outbox.py ergänzt eigenes privates append-only
+Journal mit Kontobindung/Commanddigest, exklusivem Pfadwriter/CAS,
+Unknown-before-send, fsync/readback und atomarem Mindestreceipt.
+Vollrestore erhält bestätigte sowie unklare Suffixe ohne Resend/Reset.
+22 neue tatsächliche Filesystemfälle/70 Gesamtfälle einschließlich
+Kindprozessabbruch grün. Keine Broker-/Finanz-/Dienstaktivierung.
+Kontoregistry, vollständiger nativer Account-/Order-/Cash-/Kostenabgleich
+und gebundener Transport folgen. [Vertrag](bitget-demo-outbox.md).
+
 IP-015/IP-016: futures_demo.py/futures_demo_reconcile.py ergänzen einen
 separaten Offline-Classic-Demovertrag mit eigenen unsignierten IOC-Plänen,
 stabiler Commandkennung, Unknown-/Ack-/Teilfill-/Stornozuständen und

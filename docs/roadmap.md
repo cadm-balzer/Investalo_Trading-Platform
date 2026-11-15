@@ -1,5 +1,12 @@
 # Roadmap
 
+2026-11-15: IP-016 erhält eigene dauerhafte private Demo-Outbox mit
+Pfadwriter/CAS/fsync/Mindestreceipt und vollem Crashrestore.
+22 neue echte Filesystemfälle,70 insgesamt grün. Keine Brokeraktivierung.
+Nächster Schritt: vollständiger Account-/Normal-/Triggerorder-/Cashabgleich,
+Kostenquelle und geschützte native Kontobindung, anschließend Transport.
+[Vertrag](bitget-demo-outbox.md).
+
 2026-11-15: IP-015/IP-016 beginnen mit separatem Offline-Classic-Demovertrag:
 eigene Kontodeklaration, feste unsignierte Requests und kumulierter
 Order-/Positionsmengenabgleich;24 neue/48 gesamte Offlinefälle grün.
