@@ -1,5 +1,13 @@
 # Bestandsaufnahme
 
+IP-009/IP-015: eigener privater Demo-BFF-/Signer-/mTLS-Executorvertrag verbindet
+015-APIreceipt mit tatsächlicher P256/UVprüfung, Demo-Consent und aktuellen
+Readbacks. Keine Normalfreigabekonversion; exakter serverseitiger App-Typ
+begrenzt gemeinsame Pythonlistener auf feste getrennte Pfade.434 verschiedene
+gepinnt grüne Fälle/57 Subtests,194 neu;111 eigene TS/Python-Interopprüfungen.
+Injizierte Adapter, kein operativer Provider/Dashboard- oder kombinierter
+End-to-End-Betrieb. [Vertrag](bitget-demo-bff-flow.md).
+
 IP-009/IP-015: eigene interne Default-off-Demo-API ergänzt fünf Proof-/Consent-
 Routen über unverändertem015. Aktuelle Scope-/Sitzungs-/Factor-/Metadatenchecks,
 committed einmaliger Claim und expliziter Consent; exakte eigene Projektion,

@@ -1,5 +1,13 @@
 # Roadmap
 
+2026-11-15: eigener privater Demo-BFF mit tatsächlicher Passkeyprüfung,
+explizitem Demo-Consent/eigenem Signer und mTLS-Executortransport ergänzt.
+Getrennte Domains/revision1/aktuelle Readbacks/kein Retry bei Ungewissheit.
+434 gepinnte Fälle/57 Subtests,194 neu;111 eigene TS/Python-Interopchecks grün.
+Als Nächstes scoped Demo-Metadaten-/Provideradapter und geschützter Dashboard-
+Keyeingang mit kombinierter lokaler Abnahme; native Demoabnahme danach.
+[Vertrag](bitget-demo-bff-flow.md).
+
 2026-11-15: eigene interne Demo-Proof-/Consent-API mit fünf Default-off-Routen
 über015 ergänzt. Keine Keytriple/Storewrites; aktuelle Bindungen und tatsächliche
 Commit-/Replay-/Parallelfälle geprüft.52 neue/163 unterschiedliche gepinnte

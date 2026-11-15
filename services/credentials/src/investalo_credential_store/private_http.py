@@ -102,6 +102,27 @@ class CredentialHTTPApplication(_PrivateImmutable):
         object.__setattr__(self, "enabled", enabled)
 
 
+class DemoCredentialHTTPApplication(CredentialHTTPApplication):
+    """Own fixed Demo domain; callback must use DemoPasskeyOnboarding."""
+    __slots__ = ()
+
+
+def _application_targets(application):
+    if type(application) is CredentialHTTPApplication:
+        return TARGETS
+    if type(application) is DemoCredentialHTTPApplication:
+        from .demo_passkey_assertion import TARGETS as demo_targets
+        return demo_targets
+    raise OnboardingRejected("invalid_context") from None
+
+
+def _application_result(application, result, action):
+    value = _public_result(result, action)
+    if type(application) is DemoCredentialHTTPApplication and value["credential_revision"] != 1:
+        raise OnboardingRejected("invalid_record") from None
+    return value
+
+
 def _public_result(result, action):
     if type(result) is not OnboardingResult:
         raise OnboardingRejected("invalid_record") from None
@@ -212,7 +233,7 @@ class _Handler(BaseHTTPRequestHandler):
         if self.request_version != "HTTP/1.1":
             self._reply(400, {"error": "invalid_request"})
             return
-        action = next((key for key, path in TARGETS.items() if path == self.path), None)
+        action = next((key for key, path in _application_targets(app).items() if path == self.path), None)
         if action is None:
             self._reply(404, {"error": "invalid_request"})
             return
@@ -252,7 +273,7 @@ class _Handler(BaseHTTPRequestHandler):
             if len(body) != size:
                 raise OnboardingRejected("invalid_request")
             result = app.execute(context, action, authorization[7:], body)
-            self._reply(200, _public_result(result, action))
+            self._reply(200, _application_result(app, result, action))
         except OnboardingRejected as error:
             code = (error.code if type(error.code) is str and error.code in OnboardingRejected.CODES
                     else "unavailable")
@@ -347,8 +368,8 @@ def create_private_https_server(address, *, tls_context: ssl.SSLContext,
     completes; callers must reconcile such uncertainty and never retry blindly.
     """
     try:
-        if (type(application) is not CredentialHTTPApplication
-                or not isinstance(tls_context, ssl.SSLContext)
+        _application_targets(application)
+        if (not isinstance(tls_context, ssl.SSLContext)
                 or tls_context.protocol != ssl.PROTOCOL_TLS_SERVER
                 or tls_context.verify_mode != ssl.CERT_REQUIRED
                 or tls_context.minimum_version < ssl.TLSVersion.TLSv1_2

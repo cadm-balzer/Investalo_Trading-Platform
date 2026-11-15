@@ -1,5 +1,14 @@
 # Technische Fallstricke
 
+- Demo-BFF braucht eigene Metadata-/Proof-/Receiptparser; der Normalparser
+  akzeptiert `bitget_demo` nicht. Gemeinsame Session-/Factorhelper sind passiv.
+  Im TLSlistener wählt ausschließlich der exakte konfigurierte Applicationtyp
+  die feste Pfaddomain. Keine requestgewählte Variante oder Domainkonversion.
+  Keyrevision1 ist auch beim Transportresultat verbindlich; eigene Consentart
+  `demo-credential-write` und eigenes Audience/Kind/HTTP-Ziel beibehalten.
+  mTLS allein beweist weder durable Consent noch Demo-Keyherkunft.
+  [Vertrag](../bitget-demo-bff-flow.md).
+
 - Eigene Demo-Proof-/Consent-API ist ausschließlich über
   `API_DEMO_PASSKEY_AUTHORIZATIONS=1` registriert. Das Normalflag genügt nicht.
   Neue Freigabe nach geänderten Kontometadaten benötigt eine neue Challenge:

@@ -7,6 +7,23 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR82 merged: d4081b7 ancestor of maind1aeaa8, GH/fetch verified.
+  IP-009/IP-015 on feat/m1-bitget-demo-bff-flow: own strict Demo metadata/
+  proof/receipt/signer and injected BFF P256/UV/consent/current-readback flow.
+  Exact own audience/kind/register-revoke paths/revision1/body bytes; opaque
+  caller-bound handles contain no triple/JWT, uncertainty never replays.
+  Own Node mTLS executor client and default-off DemoCredentialHTTPApplication;
+  exact Applicationtype selects immutable Normal or Demo paths in shared
+  bounded stdlib/ASGI transport, own result revision1, no request domain switch.
+  Normal TS/001–016 unchanged. Trusted metadata/session/key/executor adapters
+  injected only; no operative provider or combined API/PG/BFF/Executor proof.
+  186 new Node+175 old=361 pinned;8 new actual TLS+38 old transport+27 actual
+  Demo PG=73/57 subtests;434 distinct/194 new.111 pinned own TS/Python interop.
+  Typecheck/pinned Cockpit+Credentialcheck build; no dependency/migration/
+  running services/public flags/real keys/broker/orders/backtest/live/AI change.
+  Next own scoped metadata/provider and protected Dashboard entry/combined
+  local acceptance, then native Demo key/read proof.
+  See docs/bitget-demo-bff-flow.md.
 - PR81 merged: 9875525 ancestor of main7b804fd, GH/fetch verified.
   IP-009/IP-015 on feat/m1-bitget-demo-passkey-api: own default-off five
   trusted-BFF prepare/claim/finish/grant/authorize routes over existing015.

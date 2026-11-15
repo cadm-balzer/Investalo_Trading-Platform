@@ -600,3 +600,21 @@ Gepinnte `api-checks` gegen `PGDATABASE=investalo_credentials_checks` prüfen
 `tests/api/test_demo_passkey_authorizations.py` und
 `tests/api/test_demo_passkey_authorizations_postgres.py`; synthetische
 Verdikte/Keys, kein Credentialeingang. [Vertrag](../docs/bitget-demo-passkey-api.md).
+
+Der eigene Demo-BFF ergänzt strikte Metadaten-/Proof-/Receiptverträge,
+tatsächliche WebAuthnprüfung, ausdrücklichen Consent und eigenen Signer.
+Sein privater mTLSclient verwendet feste Demo-Register-/Revoke-Pfade.
+`DemoCredentialHTTPApplication` bleibt default off; beide Pythonlistener
+prüfen getrennte Domains und Clientleafpinning. Kein operativer Launcher,
+scoped Metadatenprovider oder öffentlicher Dashboard-Keyeingang wird aktiviert.
+
+Die vier eigenen `apps/cockpit/tests/demo-*.test.ts` prüfen den BFF mit
+synthetischen Serverports und tatsächlichen P256-/Jose-Signaturen.
+`tests/credential_onboarding/test_demo_private_transport.py` prüft tatsächliche
+lokale TLS-Verbindungen über beide Listener im gepinnten
+`credential-storage-checks`-Image. Die vorhandenen Normaltests bleiben dabei.
+`tests/infra/check_demo_passkey_assertion_interop.py --stdin` liest die Ausgabe
+von `apps/cockpit/tests/fixtures/emit-demo-passkey-credential-fixtures.ts`
+für einen getrennten, vollständig offline gepinnten Node-/Python-Abgleich.
+001–016 bleiben unverändert; kein kombinierter laufender BFF/API/PG/Executor-
+Nachweis oder native Demo-Keyabnahme. [Vertrag](../docs/bitget-demo-bff-flow.md).
