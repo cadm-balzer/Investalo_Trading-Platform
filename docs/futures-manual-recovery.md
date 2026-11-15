@@ -91,8 +91,8 @@ und ausschließlich eigene Ziel-/Revision-/Digest-/Consentfelder; keine
 Actor- oder Reconciliationbehauptungen vom Browser.
 
 `COCKPIT_FUTURES_RECOVERY_PREVIEW=1` ist ein separates Opt-in.
-Default/öffentlicher Compose bleiben aus; keine laufenden Container wurden
-recreated. Die vorhandenen Komponenten/BFF lesen jetzt über das normale
+Default/öffentlicher Compose bleiben aus; bestehende öffentliche Dienste bleiben
+unverändert. Die vorhandenen Komponenten/BFF lesen jetzt über das normale
 authentifizierte `GET /v1/futures-recovery`; `POST` führt ausschließlich
 die eigene manuelle Paperaktion aus. Bei fehlender Quelle erscheint weiterhin
 „Status nicht verfügbar“.
@@ -129,6 +129,23 @@ und Publikationsreparatur durch den eigenen Launcher, niemals blind wiederholen
 oder neu allokieren. Die Kapazitätsberatung bleibt nach der manuellen Aktion
 bis zum nächsten kalibrierten Feedcommit unbekannt.
 
+Der Launcher schließt Journal- und Publikationswriter nach jedem vollständigen
+Feedzyklus **vor** dem begrenzten Warteintervall. Im nächsten Zyklus liest er
+den neuesten publizierten Mindestreceipt und stellt das gesamte Journal erneut
+her. Eine zwischenzeitlich bestätigte manuelle APIaktion wird dadurch übernommen.
+Bereits belegte Locks überspringen nur die Acquisition dieses Zyklus, ohne
+Quelle oder Finanzbefehl. Fehler nach der Acquisition stoppen weiterhin;
+insbesondere ist ein `BlockingIOError` aus Quelle/Append kein Busy-Retry.
+Der Lauf bleibt ausdrücklich auf1–100 Zyklen/5–300s begrenzt.
+
+Veraltete Revision/Digests oder bereits alte Quotes werden vor dem aufwendigen
+Restore abgewiesen. Eine aktuelle Publikation erlaubt ausschließlich die
+anschließende volle gesperrte Journal-/Actor-/Budgetprüfung. Die BFF-Frist für
+die manuelle Aktion beträgt8s innerhalb der10s-Clientfrist; andere APIabrufe
+behalten5s. Ein Timeout bleibt unbestätigt und wird nie automatisch wiederholt.
+Vollreplaykosten wachsen mit dem Journal: Diese lokale Abnahme belegt keinen
+unbegrenzten Dauerbetrieb oder große Journale innerhalb der Frische-/HTTPfristen.
+
 ## Abnahme und ausstehende Anbindung
 
 Fünf gepinnte Pythonfälle/13 Subtests prüfen reale synthetische Liquidation,
@@ -151,8 +168,12 @@ mit96 Subtests grün, final34 Recovery-/Asset-/Settingsfälle erneut grün.
 Typecheck und gepinnte API-/Cockpitbuilds bestanden; die Recoverymodule
 laden auch aus dem gebauten normalen APIimage ohne Quellcode-Testmount.
 
-IP-088 bleibt IN_PROGRESS bis zur lokalen nativen HTTPS/Cockpitabnahme und
-koordinierten dauerhaften Writerübergabe/Commandqueue. Der eigene Executor
-ist dauerhaft, arbeitet jedoch zwischen begrenzten exklusiven Feedläufen.
-Echter Bitget-Demo-Positions-/Orderabgleich folgt getrennt.
+Die tatsächliche lokale HTTPS/BFF/API/PG/SSR-Abnahme und Writerübergabe
+zwischen zwei begrenzten laufenden Zyklen sind abgeschlossen:42 Prüfungen,
+synthetischer Liquidationsfall, vollständiger Restore und erhaltene Verluste.
+Final21 Recoveryfälle/7 Subtests sowie575 Cockpitfälle/Typecheck grün.
+[Nachweis und Grenzen](futures-recovery-cockpit-acceptance.md).
+IP-088 bleibt für die Betriebsabnahme wachsender Journale/offene kontinuierliche
+Produktionskoordination IN_PROGRESS; der lokale begrenzte Paperpfad ist belegt.
+Echter Bitget-Demo-Positions-/Orderabgleich folgt separat über IP-015/IP-016.
 Keine pauschale Live-/Public-/AI-Freigabe aus Q46 ableiten.

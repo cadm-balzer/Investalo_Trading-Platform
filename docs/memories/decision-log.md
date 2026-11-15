@@ -2491,3 +2491,41 @@ gepinntes API-/Cockpitbuild grün. Kein neuer Marktjob/Backtest, keine Migration
 Dependencies/laufenden Dienste/Public/Live/AI. Native lokale HTTPS/Cockpitabnahme
 und dauerhafte Writerkoordination bleiben IP-088; danach echte Bitget-Demo-
 Reconciliation/Orders. [Vertrag](../futures-manual-recovery.md).
+
+## D111 — Cockpit-Recovery und Übergabe zwischen laufenden Zyklen (2026-11-15)
+
+PR71 (`1fe9a3f`) ist in `main59f8359` enthalten; GH/Fetch/Ancestry bestätigt.
+Der bounded eigene Launcher schließt Journal-/Publikationswriter vor jedem
+Warteintervall. Der Folgezyklus liest den neuesten tatsächlichen Mindestreceipt
+und restauriert vollständig, einschließlich einer zwischenzeitlich bestätigten
+manuellen APIaktion. Busy-Lockacquisition verarbeitet weder Quelle noch Befehl;
+Fehler nach Acquisition stoppen unverändert, kein Finanzcommand-Auto-Retry.
+
+Veraltete Publikationsrevisionen/Digests/Quoteuhren werden vor Vollreplay
+abgewiesen. Aktuelle Publikation erteilt keine Commitzulassung: Gesperrtes
+Vollreplay und aktuelle Actor-/Settings-/Cashprüfung bleiben nötig.
+Der tatsächliche HTTPS-Test zeigte einen5s-BFF-Timeout beim aufwendigen Restore.
+Nur die manuelle Route erhält8s innerhalb der10s-Clientfrist; andere Abrufe5s.
+Große Journale/unbegrenzter Betrieb brauchen gesonderte Betriebsabnahme.
+
+Nach Serverneustart getrennte private Fixture neu vorbereitet, anschließend
+42 echte HTTPS/BFF/API/PG/SSR-Prüfungen grün. Deklarierte synthetische
+Preis-/Contract-/Identitätsquelle erzeugt die tatsächliche Paperliquidation;
+kein nativer Markt-/Performance-/physischer Browsernachweis. Zustimmung/
+Origin/CSRF/Scope/Stale/Busy/alte Revision und echte APIfreigabe im freien
+Intervall geprüft. Revision12 durch Folgezyklus13 voll restauriert;
+Cash/Nettoverlust/Tagesbasen/Peerbaskets/Kaufhistorie erhalten,
+Ziel-RSI/neues Kostenbudget zurückgesetzt. Startseite/Portfolio entfernen
+den Blocker erst nach Bestätigung.
+
+Receipt-SHA24466bf194edb5b9758101316db63d9df1961d1e0fa2736bbf9c6456b1b2491c.
+Originalallocation/Journal/Statusabruf/Receipt und finale Logs/Hashes sind
+create-only persistent unter `infra/local/futures-recovery-cockpit/20261115-local`.
+Temporäre Vorneustart-Fehlläufe wurden durch den Neustart gelöscht; kein
+Erfolgsreceipt dafür. Vorneustart82 gepinnte Regressionen/25 Subtests,
+final21 Recoveryfälle/7 Subtests erneut grün.575 Cockpitfälle/Typecheck erneut
+grün, gepinntes Cockpitimage gebaut; normale APIimage-Module ohne
+Netzwerk/Source-Testmount geprüft. Drei Fixturedienste gestoppt; bestehende
+normale Dienste nicht ersetzt. Keine Migration/Dependency/Marktjob/Public/
+Live/AI-Aktivierung. Separater Bitget-Demoabgleich/Orderjournal folgt IP-015/016.
+[Abnahme und Grenzen](../futures-recovery-cockpit-acceptance.md).

@@ -1,6 +1,6 @@
 """Exclusive bounded own Paper executor; active feed writer is never interrupted."""
 from dataclasses import dataclass, field, replace
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import os
 
@@ -86,6 +86,13 @@ class FuturesPaperRecoveryExecutor:
         published = FuturesAssetReader(self.status_root, self.clock).publication(b.tenant_id, b.account_id)
         if published is None or published.recovery is None:
             raise ValueError("acknowledged own recovery publication required")
+        # Reject already-obsolete requests before expensive genesis replay.
+        # A current publication only permits proceeding to the full locked
+        # restore and fresh actor/budget checks below; it never grants a commit.
+        if (request.expected_revision != published.recovery.revision
+                or request.state_digest != published.recovery.state_digest
+                or not timedelta(0) <= self.clock() - published.recovery.trade_at <= timedelta(seconds=30)):
+            raise ValueError("obsolete own recovery request or quote")
         # Nonblocking exclusive lock: no parallel feed/API writer, reset or forced shutdown.
         with FuturesPaperJournal.restore(Path(location["journal"]), config_digest=spec.config.config_digest,
                                          minimum_receipt=published.journal_receipt) as journal:

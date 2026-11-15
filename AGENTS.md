@@ -7,6 +7,27 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR71 merged: 1fe9a3f ancestor of main59f8359, GH/fetch verified.
+  Next IP-088 checkpoint on feat/m1-futures-recovery-cockpit:
+  bounded launcher releases both writers before its interval and fully restores
+  the latest published minimum receipt next cycle, including manual API actions.
+  Busy acquisition skips capture/commands; post-acquisition failures still stop.
+  Obsolete recovery requests reject before full replay; current requests retain
+  locked full replay and current actor/cash checks. Recovery BFF8s/client10s,
+  other BFF calls5s. Separate synthetic local HTTPS/PG/SSR acceptance overlay,
+  protected create-only0700/0600 fixtures; no public/live/AI activation.
+  Actual42-check HTTPS/BFF/API/PG/SSR acceptance passed; source/identity/
+  contracts declared synthetic, no physical browser/native performance claim.
+  Manual revision12 restored by next bounded cycle13; retained booked loss/
+  cash/bases/peers/history. Receiptsha
+  24466bf194edb5b9758101316db63d9df1961d1e0fa2736bbf9c6456b1b2491c.
+  Persisted infra/local/futures-recovery-cockpit/20261115-local; three fixture
+  services stopped, normal services not recreated. Pre-restart82 pinned cases/
+  25 subtests; final21/7 after restart plus575 Cockpit/typecheck/build green.
+  Packaged API module checks passed without source mounts/network.
+  Full-replay latency with growing journals remains a production limitation.
+  Separate Bitget demo reconciliation/orders follow IP-015/IP-016.
+  See docs/futures-recovery-cockpit-acceptance.md.
 - PR70 merged: 7649e52 ancestor of main49f92d1, GH/fetch verified.
   IP-088 on feat/m1-futures-paper-recovery: own acknowledged Paper liquidation
   history reconstructed on full replay; fresh full own cash-backed new range,

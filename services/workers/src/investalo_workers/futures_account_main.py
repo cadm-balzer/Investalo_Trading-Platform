@@ -19,6 +19,32 @@ from .futures_capacity_source import FuturesPaperCapacitySource
 from .futures_recovery_executor import register_recovery
 
 
+def _cycle(args, spec, reader, archive, clock, guard, recovery_enabled):
+    """Hold the sole writer through one complete source/commit/publication cycle."""
+    published = FuturesAssetReader(args.status_root).publication(
+        spec.binding.tenant_id, spec.binding.account_id)
+    minimum = published.journal_receipt if published is not None else None
+    try:
+        journal = FuturesPaperJournal.restore(args.journal, config_digest=spec.config.config_digest,
+                                             minimum_receipt=minimum)
+    except BlockingIOError:
+        return None  # Acquisition only; no source capture, command or retry.
+    with journal:
+        guard()
+        reader()
+        capacity_reader = (FuturesPaperCapacitySource(journal, archive, clock)
+            if os.getenv("FUTURES_PAPER_CAPACITY_ENABLED") == "1" else None)
+        try:
+            publisher = FuturesAssetPublisher(args.status_root, journal, clock=clock,
+                capacity_reader=capacity_reader, recovery_enabled=recovery_enabled)
+        except BlockingIOError:
+            return None
+        with publisher:
+            publisher.publish(expected_revision=journal.state.revision)
+            worker = FuturesAccountWorker(FuturesSourceWorker(journal, archive, publisher, clock), reader)
+            return worker.run_once(guard=guard)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ("journal", "spec", "archive-root", "status-root"):
@@ -51,29 +77,20 @@ def main(argv=None):
                                       symbols=native_symbols(spec.config.profile.plan.symbols))
         if args.initialize:
             initialize_paper(args.journal, spec, archive, args.status_root, reader, clock, guard=guard)
-        published = FuturesAssetReader(args.status_root).publication(
-            spec.binding.tenant_id, spec.binding.account_id)
-        minimum = published.journal_receipt if published is not None else None
-        with FuturesPaperJournal.restore(args.journal, config_digest=spec.config.config_digest,
-                                         minimum_receipt=minimum) as journal:
+        for i in range(args.cycles):
             guard()
-            reader()
-            capacity_reader = (FuturesPaperCapacitySource(journal, archive, clock)
-                if os.getenv("FUTURES_PAPER_CAPACITY_ENABLED") == "1" else None)
-            with FuturesAssetPublisher(args.status_root, journal, clock=clock,
-                                       capacity_reader=capacity_reader,
-                                       recovery_enabled=recovery_enabled) as publisher:
-                publisher.publish(expected_revision=journal.state.revision)
-                worker = FuturesAccountWorker(FuturesSourceWorker(journal, archive, publisher, clock), reader)
-                for i in range(args.cycles):
-                    guard()
-                    result = worker.run_once(guard=guard)
-                    print(f"Futures Paper outcome={result.outcome} revision={result.revision} "
-                          f"entries={result.entries} closures={result.closures}", flush=True)
-                    if result.outcome == "liquidation_reconciliation_required":
-                        break
-                    if i + 1 < args.cycles:
-                        stopped.wait(args.interval)
+            result = _cycle(args, spec, reader, archive, clock, guard, recovery_enabled)
+            if result is None:
+                print("Futures Paper outcome=writer_busy; no source or command processed", flush=True)
+            else:
+                print(f"Futures Paper outcome={result.outcome} revision={result.revision} "
+                      f"entries={result.entries} closures={result.closures}", flush=True)
+                if result.outcome == "liquidation_reconciliation_required":
+                    break
+            # Both lifetime locks are closed before waiting. Next cycle restores
+            # the latest published minimum receipt, including manual API actions.
+            if i + 1 < args.cycles:
+                stopped.wait(args.interval)
     except Exception as error:
         raise SystemExit(f"Bound Paper stopped ({type(error).__name__}); readback/reconciliation required") from None
 

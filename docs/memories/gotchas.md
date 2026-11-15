@@ -1046,3 +1046,14 @@ Stand 2026-11-15. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   Erhöhungen reservieren; freie Kandidaten erst nach Abschluss aktualisieren.
   Neue Allokation darf keine alten Gewinnetappen importieren. Ein realer
   Fünf-Coin-Pool finanziert keine Plätze6/7 und erhöht Volumen nicht vorzeitig.
+
+- Recovery während eines bounded Accountlaufs benötigt freie **Journal- und
+  Publikationswriter** im Zwischenzyklus. Vor dem Wait beide schließen und im
+  Folgezyklus den neuesten publizierten Mindestreceipt vollständig restaurieren.
+  Busy-Erkennung nur beim Erwerb; Quelle/Appendfehler danach stoppen, auch
+  bei `BlockingIOError`. Unbestätigte Finanzbefehle niemals blind wiederholen.
+  Alte Revision/Digest/Quote vor teurem Replay ablehnen; aktuelle Projektion
+  ersetzt keine volle gesperrte Actor-/Journal-/Budgetprüfung. Vollreplay kann
+  BFF-Fristen überschreiten: Recovery8s/Client10s, sonst5s. Größere Journale
+  brauchen eigene Betriebsabnahme. HTTPS/SSR mit injizierter synthetischer Quelle
+  belegt weder Browserklick/MFA noch native Marktperformance.

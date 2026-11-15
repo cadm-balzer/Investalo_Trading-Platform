@@ -12,6 +12,7 @@ exec bash "$paper_root/infra/scripts/compose.sh" --profile checks run --rm --no-
   -v "$paper_root/infra/scripts/capture-futures-paper-feed.py:/app/infra/scripts/capture-futures-paper-feed.py:ro" \
   -v "$paper_root/infra/scripts/capture-futures-settlement-source.py:/app/infra/scripts/capture-futures-settlement-source.py:ro" \
   -v "$paper_root/tests/trading:/app/tests/trading:ro" \
+  -v "$paper_root/tests/infra/futures_recovery_fixture.py:/app/tests/infra/futures_recovery_fixture.py:ro" \
   -v "$paper_root/tests/marketdata:/app/tests/marketdata:ro" \
   -v "$paper_root/infra/scripts/import-futures-history.py:/app/infra/scripts/import-futures-history.py:ro" \
   -v "$paper_root/docs/research-protocols/futures-history-20261110.json:/app/docs/research-protocols/futures-history-20261110.json:ro" \

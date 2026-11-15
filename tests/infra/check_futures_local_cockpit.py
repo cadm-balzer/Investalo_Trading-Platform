@@ -75,7 +75,7 @@ def fixture():
             "auth_time": int(time())}
 
 
-def api_get(session, path):
+def api_get(session, path, *, collection="accounts", count=1):
     now = int(time())
     value = session["value"]
     claims = {
@@ -106,7 +106,8 @@ def api_get(session, path):
           "actual authenticated API assets")
     check("no-store" in next((v for k, v in headers.items() if k.lower() == "cache-control"), ""),
           "private asset response not cached")
-    check(body["tenant_id"] == session["value"]["tenantId"] and len(body["accounts"]) == 1,
+    check(body["tenant_id"] == session["value"]["tenantId"]
+          and (count is None or len(body[collection]) == count),
           "own tenant and account only")
     return body
 

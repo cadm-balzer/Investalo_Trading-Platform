@@ -10,6 +10,7 @@ import os
 import time
 from uuid import uuid4
 from unittest.mock import patch
+from types import SimpleNamespace
 
 from fastapi.testclient import TestClient
 import pytest
@@ -231,3 +232,96 @@ def test_bound_launcher_explicit_opt_in_registers_original_own_allocation(actor,
         actor["settings"].connection_parameters(), lambda: provider.now)
     assert executor.available(str(actor["tenant"]), str(actor["account"]), str(actor["user"]))
     assert not executor.available(str(actor["tenant"]), str(actor["account"]), str(uuid4()))
+
+
+def launcher_arguments(r, cycles):
+    root = r["root"]
+    (root / "archive").mkdir(mode=0o700)
+    location = json.loads(next((root / "registry").glob("*.json")).read_text())
+    return ["--spec", str(root / "allocation.json"), "--spec-digest", location["spec_digest"],
+        "--journal", str(root / "paper.jsonl"), "--archive-root", str(root / "archive"),
+        "--status-root", str(root / "status"), "--recovery-root", str(root / "registry"),
+        "--cycles", str(cycles), "--interval", "5"]
+
+
+def test_bound_launcher_allows_actual_api_recovery_between_running_cycles(recovery):
+    from investalo_workers.futures_account_main import main as launch
+    r, a = recovery, recovery["actor"]
+    args = launcher_arguments(r, 2)
+    seen, responses = [], []
+    def worker(source, _reader):
+        # Inject a source outcome; the actual API/manual journal write remains real.
+        def run_once(**_):
+            seen.append(source.journal.state)
+            return SimpleNamespace(outcome="quotes", revision=source.journal.state.revision,
+                                   entries=0, closures=0)
+        return SimpleNamespace(run_once=run_once)
+    class BetweenCycles:
+        def is_set(self):
+            return False
+        def wait(self, interval):
+            assert interval == 5
+            responses.append(call(a, r["client"], r["body"]))
+    with patch.dict(os.environ, {"FUTURES_PAPER_ACCOUNT_WORKER_ENABLED": "1",
+                                "FUTURES_PAPER_RECOVERY_ENABLED": "1"}), \
+            patch("investalo_workers.futures_account_main.signal.signal"), \
+            patch("investalo_workers.futures_account_main.datetime") as clock, \
+            patch("investalo_workers.futures_account_main.Event", BetweenCycles), \
+            patch("investalo_workers.futures_account_main.FuturesAccountWorker", side_effect=worker), \
+            patch("builtins.print"):
+        clock.now.side_effect = lambda _: r["clock"]()
+        launch(args)
+    assert len(responses) == 1 and responses[0].status_code == 200
+    assert len(seen) == 2 and seen[1].revision == seen[0].revision + 1
+    assert not seen[1].signal.economic.stopped
+    assert seen[1].signal.economic.ledger.unposted_cash == seen[0].signal.economic.ledger.unposted_cash
+    with restored(r) as saved:
+        assert saved.state == seen[1]
+
+
+def test_busy_cycle_skips_capture_without_retrying_a_financial_command(recovery):
+    from investalo_workers.futures_account_main import main as launch
+    r = recovery
+    args = launcher_arguments(r, 1)
+    with restored(r) as owner, \
+            patch.dict(os.environ, {"FUTURES_PAPER_ACCOUNT_WORKER_ENABLED": "1",
+                                    "FUTURES_PAPER_RECOVERY_ENABLED": "1"}), \
+            patch("investalo_workers.futures_account_main.signal.signal"), \
+            patch("investalo_workers.futures_account_main.FuturesAccountWorker") as worker, \
+            patch("builtins.print") as output:
+        launch(args)
+        assert not worker.called and owner.receipt == r["receipt"]
+        assert "writer_busy" in output.call_args.args[0]
+
+
+def test_worker_io_error_after_lock_acquisition_stops_without_retry(recovery):
+    from investalo_workers.futures_account_main import main as launch
+    r = recovery
+    args = launcher_arguments(r, 2)
+    with patch.dict(os.environ, {"FUTURES_PAPER_ACCOUNT_WORKER_ENABLED": "1",
+                                "FUTURES_PAPER_RECOVERY_ENABLED": "1"}), \
+            patch("investalo_workers.futures_account_main.signal.signal"), \
+            patch("investalo_workers.futures_account_main.datetime") as clock, \
+            patch("investalo_workers.futures_account_main.Event") as stopped, \
+            patch("investalo_workers.futures_account_main.FuturesAccountWorker") as worker:
+        clock.now.side_effect = lambda _: r["clock"]()
+        stopped.return_value.is_set.return_value = False
+        worker.return_value.run_once.side_effect = BlockingIOError("source or commit I/O unknown")
+        with pytest.raises(SystemExit, match="readback/reconciliation required"):
+            launch(args)
+        assert worker.return_value.run_once.call_count == 1
+        assert not stopped.return_value.wait.called
+    with restored(r) as saved:
+        assert saved.receipt == r["receipt"]
+
+
+def test_obsolete_publication_requests_reject_before_expensive_full_restore(recovery):
+    r, a = recovery, recovery["actor"]
+    with patch("investalo_workers.futures_recovery_executor.FuturesPaperJournal.restore",
+               side_effect=AssertionError("obsolete request must not acquire writer")):
+        assert call(a, r["client"], {**r["body"], "revision": r["body"]["revision"] - 1}).status_code == 409
+        assert call(a, r["client"], {**r["body"], "state_digest": "0" * 64}).status_code == 409
+        r["at"][0] += timedelta(seconds=31)
+        assert call(a, r["client"], r["body"]).status_code == 409
+    with restored(r) as saved:
+        assert saved.receipt == r["receipt"]
