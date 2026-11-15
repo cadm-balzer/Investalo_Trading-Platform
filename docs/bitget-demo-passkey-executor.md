@@ -93,5 +93,8 @@ Als Nächstes geschützter eigener BFF-/Dashboard-Eingang und Serverprovider,
 dann tatsächliche Demo-Key-/UID-/Parent-/IP-/Rechteabnahme und Readacceptance.
 Die [eigene interne Proof-/Consent-API](bitget-demo-passkey-api.md) ist inzwischen
 separat implementiert; Default-off und ohne Keyeingang/Executortransport.
+Der [eigene private BFF-/mTLS-Vertrag](bitget-demo-bff-flow.md) ergänzt inzwischen
+Verifikation/Consent/Signing und getrennte Transportpfade; operative Adapter
+und kombinierte Abnahme bleiben separat.
 Keine realen Keys/Brokerrequests, normalen Serviceänderungen, Orders, öffentlichen
 Routen, Backtest-, Live- oder AI-Aktivierung.

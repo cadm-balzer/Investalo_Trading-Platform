@@ -2823,3 +2823,34 @@ API-/Checkbuilds ohne neue Dependencies; Fixture-DDL/Entwicklungs-DB unveränder
 Eigener BFF-Verifikations-/Consent-/Signingflow/Executortransport folgen,
 danach Dashboard/provider/native Demoabnahme. Keine Public/Live/AI-Aktivierung.
 [Vertrag und Abnahme](../bitget-demo-passkey-api.md).
+
+## D-122 — Eigener Demo-BFF und privater TLS-Executortransport
+
+2026-11-15: PR82/d4081b7 in maind1aeaa8 per GH/Fetch/Ancestry bestätigt.
+Nutzer beauftragt Fortsetzung. Eigene strikte TypeScript-Metadaten-/Proof-/
+Receiptverträge verbinden injizierte vertrauenswürdige Serverports mit echter
+P256-WebAuthnprüfung, ausdrücklichem Demo-Consent und eigenem Jose-Signer.
+Originalsession, aktueller Actor/Factor/Metadatenstand, unveränderte Bodybytes
+und bestätigter Claim bleiben gebunden. Opaque Callerhandles nach Dispatch
+einmalig; unbekannter Erfolg erlaubt keinen automatischen Retry.
+015/016 bleiben die dauerhafte Consume-/Completionautorität.
+
+Eigener Node-mTLSclient und eigene Default-off-DemoApplication auf beiden
+begrenzten Pythonlistenern verwenden ausschließlich feste Demo-Register-/
+Revoke-Pfade und Revision1. Exakter konfigurierter Applicationtyp bestimmt
+die Domain; fremde Pfade, Normalfreigaben und unbekannte Subclasses scheitern.
+TLS/Clientleafpinning und unabhängiger ursprünglicher Kontext bleiben nötig;
+ein Zertifikat ersetzt keine aktuelle Freigabe.
+Normal-TS-Verträge und angewendete001–016 unverändert.
+
+194 neue/434 unterschiedliche gepinnte Fälle und57 Subtests grün:
+186 neue+175 bisherige Nodefälle, acht neue tatsächliche TLSfälle+
+38 bisherige Transport-/27 tatsächliche Demo-PG-Executorfälle.
+Zusätzlich111 gepinnte Offline-TS/Jose/Python-Interopprüfungen grün.
+Typecheck und gepinnte Cockpit-/Credentialcheckbuilds bestanden.
+Adapter bleiben injiziert; kein kombinierter laufender API/PG/BFF/Executor-
+Nachweis, physischer Authenticator oder native Demo-Keyabnahme behauptet.
+Eigener scoped Metadaten-/Provideradapter, geschützter Dashboard-Keyeingang
+und kombinierte lokale Abnahme folgen. Keine Migration/Dependencies/
+Services/echten Keys/Brokerrequests/Orders/Backtests/Public/Live/AI geändert.
+[Vertrag und Abnahme](../bitget-demo-bff-flow.md).

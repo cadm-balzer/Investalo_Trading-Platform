@@ -80,4 +80,6 @@ in `investalo_credentials_checks`, normale Dienste nicht neu gestartet.
 Als Nächstes eigener BFF-Verifikations-/Consent-/Signingflow und privater
 Executortransport, danach geschützte Dashboard-Keyeinrichtung/Serverprovider
 und native Demo-Key-/UID-/Parent-/IP-/Rechte-/Readabnahme.
+Der [eigene private BFF-/mTLS-Vertrag](bitget-demo-bff-flow.md) ist inzwischen
+separat implementiert; operative Adapter/Dashboard-/kombinierte Abnahme folgen.
 Keine realen Keys/Brokerrequests, Orders, Backtests oder Public-/Live-/AI-Aktivierung.

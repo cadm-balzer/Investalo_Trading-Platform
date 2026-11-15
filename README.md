@@ -6,7 +6,10 @@ einmaliger Consume und separater finaler Lock prüfen aktuelle Berechtigung.
 Der eigene private Demo-Executor verbindet dies inzwischen mit verschlüsseltem
 Storewrite und atomarem Post-Write-Abschluss. Die eigene standardmäßig gesperrte
 interne Demo-API ergänzt nun Challenge/Claim/Grant und ausdrücklichen Consent.
-Eigener BFF-/Dashboard-Keyeingang und native Keyabnahme folgen.
+Der eigene private BFF ergänzt echte Passkeyprüfung, Demo-Consent/Signing
+und getrennten mTLS-Executortransport. Geschützter Dashboard-Keyeingang,
+Betriebsprovider und native Keyabnahme folgen.
+[BFF und Abnahme](docs/bitget-demo-bff-flow.md),
 [API und Abnahme](docs/bitget-demo-passkey-api.md), [Freigabe](docs/bitget-demo-passkey-purpose.md),
 [Executor und Abnahme](docs/bitget-demo-passkey-executor.md).
 

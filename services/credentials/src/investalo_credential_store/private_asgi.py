@@ -25,10 +25,10 @@ from uvicorn import Config
 from uvicorn.protocols.http.h11_impl import H11Protocol
 from uvicorn.server import ServerState
 
-from .passkey_request_assertion import MAX_BODY_BYTES, TARGETS
+from .passkey_request_assertion import MAX_BODY_BYTES
 from .private_http import (
     CONTEXT_HEADER, MAX_HEADER_BYTES, MAX_HEADER_LINE, MAX_RESPONSE_BYTES,
-    CredentialHTTPApplication, _ALLOWED_HEADERS, _ERROR_STATUS, _public_result,
+    CredentialHTTPApplication, _ALLOWED_HEADERS, _ERROR_STATUS, _application_result, _application_targets,
     parse_request_context,
 )
 from .request_assertion import OnboardingRejected
@@ -157,7 +157,8 @@ class _Application:
             await self._reply(send, 404, {"error": "invalid_request"})
             return
         target = protocol.raw_target
-        action = next((name for name, path in TARGETS.items() if path.encode("ascii") == target), None)
+        action = next((name for name, path in _application_targets(app).items()
+                       if path.encode("ascii") == target), None)
         if action is None:
             await self._reply(send, 404, {"error": "invalid_request"})
             return
@@ -210,7 +211,7 @@ class _Application:
             awaited = asyncio.wrap_future(future)
             awaited.add_done_callback(_consume_future)
             result = await asyncio.shield(awaited)
-            await self._reply(send, 200, _public_result(result, action))
+            await self._reply(send, 200, _application_result(app, result, action))
         except asyncio.CancelledError:
             raise
         except OnboardingRejected as error:
@@ -452,8 +453,8 @@ def create_private_asgi_server(address, *, tls_context: ssl.SSLContext,
                                timeout_seconds: float = 20, max_workers: int = 4):
     """Create a fixed-actor, explicit opt-in authenticated private listener."""
     try:
-        if (type(application) is not CredentialHTTPApplication
-                or not isinstance(tls_context, ssl.SSLContext)
+        _application_targets(application)
+        if (not isinstance(tls_context, ssl.SSLContext)
                 or tls_context.protocol != ssl.PROTOCOL_TLS_SERVER
                 or tls_context.verify_mode != ssl.CERT_REQUIRED
                 or tls_context.minimum_version < ssl.TLSVersion.TLSv1_2
