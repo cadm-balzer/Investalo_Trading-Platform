@@ -1120,3 +1120,12 @@ Stand 2026-11-15. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   TRUNCATE mit referenzierter Audittabelle kann bereits vor dem eigenen Trigger
   am Fremdschlüssel scheitern; beide Tabellen im zurückrollenden Negativtest
   adressieren, um den expliziten Truncateguard tatsächlich zu erreichen.
+
+- Demo-Passkey-Purpose braucht eigene Proofeingänge/Metadata, Audience, Kind
+  und Ziele; alte007/008-Normalgrants nicht umetikettieren. Factorregistry,
+  Slot/Counter-CAS und passive Clock-/Receiptdecoder dürfen unverändert geteilt
+  bleiben. Eine JTI-Uniqueconstraint im Demoledger ist keine gemeinsame
+  globale Registry beider Ledger. Consume muss vor Handle/Final-Lock committen.
+  Der aktuelle Demo-Final-Lock erwartet ursprüngliche Metadaten auch nach dem
+  Callerblock; eine014-Mutation braucht einen eigenen Post-Write-Completioncheck,
+  sonst verwirft der Check die beabsichtigte Metadatenänderung.

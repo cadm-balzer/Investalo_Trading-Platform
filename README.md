@@ -1,5 +1,11 @@
 # Investalo Trading Platform
 
+Der eigene Demo-Passkey-Consent ist dauerhaft und getrennt vom Normalprofil
+implementiert. Signierte Freigaben binden Konto, Sitzung und genaue Requestbytes;
+einmaliger Consume und separater finaler Lock prüfen aktuelle Berechtigung.
+Demo-Executor und geschützte Dashboard-Keyeingabe folgen.
+[Vertrag und Abnahme](docs/bitget-demo-passkey-purpose.md).
+
 IP-069 ergänzt einen öffentlichen Fundingimport mit expliziter Lückenprüfung.
 BTC/ETH je270 echte jüngste Abrechnungen; Forschungsfenster2022–2025 weiter
 unvollständig.25 neue Fälle/102 gepinnte Marktdatafälle grün.

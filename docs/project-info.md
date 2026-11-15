@@ -94,8 +94,11 @@ Demo-Key wird ausdrücklich im Bitget-Demo-Modus erstellt, Live später separat.
 Der [dauerhafte Demo-Store](bitget-demo-credential-store.md) ergänzt inzwischen
 einen eigenen Kontomodus/Ciphertextdatensatz und aktuellen tatsächlichen
 DB-Actor-/Epoch-/Reauth-/Readyreader mit CAS und atomarem Audit.
-Additive014 ist nur in der isolierten Fixture angewendet; eigener Demo-Passkey-
-Purpose und geschützte Dashboard-Keyeingabe folgen ohne öffentliche Aktivierung.
+Additive014 ist nur in der isolierten Fixture angewendet.
+Die [eigene Demo-Passkey-Zweckfreigabe](bitget-demo-passkey-purpose.md) ergänzt
+inzwischen Fixture015, getrennte signierte Assertionprüfung und einmaligen
+Consume-/Lockclient. Eigener Executor/Completionvertrag und geschützte
+Dashboard-Keyeingabe folgen ohne öffentliche Aktivierung.
 Classic-Bitget-Readkern, AEAD-Envelopes und ein gebundener persistenter
 Credentialstore sind mit synthetischen Daten geprüft. Die private Einrichtung
 verbindet sie mit einmaligen Actionfreigaben und einem Entwicklungs-Dateiprovider.
