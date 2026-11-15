@@ -2885,3 +2885,34 @@ oder native Demo-Keybehauptung. Dashboard/private Identitätsverdrahtung und
 kombinierte lokale Abnahme folgen. Keine Dependencies/normalen Services/
 echten Keys/Brokerrequests/Orders/Backtests/Public/Live/AI geändert.
 [Vertrag und Abnahme](../bitget-demo-metadata-provider.md).
+
+
+## D-124 — Eigener geschützter Demo-Browserablauf
+
+2026-11-15: PR84/36adb95 in main1661ca3 per GH/Fetch/Ancestry bestätigt.
+Nutzer beauftragt Fortsetzung. Eigener Continuationadapter, HTTPboundary,
+Browsercontroller/Formular und Next-Routen/Demoseite über bestehenden
+Demo-BFF und scoped Metadatenserverports ergänzt. Nur register/revoke,
+Revision1/Consent demo-credential-write/exakte eigene Pfade. Originalsession,
+CSRF/Origin/OIDC/Tenant/Epoch und aktuelle Readbacks bleiben verbindlich.
+Normalmodule außer Navigation unverändert; own metadata contract browser-safe.
+
+Kapazitätsreservation vor Await, Originalbinding, einmalige Handlewechsel,
+Inflightleases bis tatsächlichem Abschluss und unbekannter Abschluss ohne
+Retry erhalten. Triple/Body/JWT werden nicht in Handles/Browserstorage
+persistiert. Passwortfelder sofort nach Prepare/Abbruch leeren, DOM und
+Controllerreferenzen freigeben; keine garantierte Heapzeroization behauptet.
+Trusted Intakepolicy zwingend; jetzige Fixture ausschließlich synthetisch.
+Runtimeavailability fest false, kein Flagfallback oder reale Keyeingabe.
+
+101 neue/881 gesamte gepinnte Cockpitfälle, Typecheck/Build grün.
+Zwei vollständige In-Process-Request/Responseprüfungen verbinden tatsächliche
+P256-Signaturen, Demo-BFF/Consent und einen synthetischen Executordispatch;
+Replay/Fremdsitzung/Abbruch/Expiry/Kapazität/SSR/Page/Routen geprüft.
+001–017 immutable und Entwicklungsmigrationsset unverändert bestätigt.
+Keine Migration/Dependencies/normalen Services/echten Keys/Brokerrequests/
+Orders/Backtests/Public/Live/AI geändert. Kein physischer Browser oder
+kombinierter laufender HTTPS/BFF/API/PG/Executor-Nachweis behauptet.
+Private Identitäts-/Executor-/Provisioningverdrahtung und isolierte kombinierte
+laufende Abnahme folgen, danach native Demo-Key-/Readabnahme.
+[Vertrag und Abnahme](../bitget-demo-browser-flow.md).

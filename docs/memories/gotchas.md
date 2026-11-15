@@ -1,5 +1,15 @@
 # Technische Fallstricke
 
+- Demo-Browserruntime bleibt fest `false`; APIflags installieren keine
+  Signing-/TLS-/Provisioningidentität. Eigene Pfade, Revision1 und
+  `demo-credential-write` strikt erhalten. Continuationkapazität vor Await
+  reservieren; Inflightplätze nicht bei Expiry freigeben. Fremde Sitzung
+  darf Originalhandle nicht verbrauchen; eigener Dispatch verbraucht vorher.
+  Nach ungewissem Execute keine Wiederholung. Browsercontracts dürfen keine
+  Node-/Sessioncryptomodule importieren. In-Process-P256/SSR ist keine
+  kombinierte laufende oder physische Browserabnahme.
+  [Vertrag](../bitget-demo-browser-flow.md).
+
 - Eigener Demo-Metadaten-GET benötigt `API_DEMO_CREDENTIAL_METADATA=1`;
   Proofflag/Normalmetadata reichen nicht.017 selektiert ausschließlich sichere
   Felder und prüft echte aktuelle Runtime-/Actor-/Owner-/Epoch-/OIDCbindungen.

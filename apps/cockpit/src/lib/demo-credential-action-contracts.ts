@@ -1,6 +1,5 @@
 /** Own015 Demo metadata and targets. Normal metadata is never relabelled. */
 import { canonicalUuid, credentialInteger, parseActionTarget } from "./credential-action-contracts.ts";
-import { exactObject } from "./passkey-enrollment-state.ts";
 export { canonicalUuid, credentialInteger };
 
 export const DEMO_CREDENTIAL_ACTION_TARGETS = Object.freeze({
@@ -21,6 +20,27 @@ export type DemoCredentialActionMetadata = Readonly<{
     status: "active" | "revoked" }> | null;
 }>;
 const rejected = () => new Error("DEMO_CREDENTIAL_ACTION_REJECTED");
+// Browser-safe exact projection; no Node crypto/session registry dependency.
+function exactObject(value: unknown, fields: readonly string[]): Record<string, unknown> {
+  if (!value || typeof value !== "object" || Array.isArray(value) ||
+    ![Object.prototype, null].includes(Object.getPrototypeOf(value))) throw rejected();
+  const keys = Reflect.ownKeys(value);
+  if (keys.length !== fields.length || fields.some(field => !Object.hasOwn(value, field)) ||
+    keys.some(key => typeof key !== "string" || !fields.includes(key) ||
+      !Object.hasOwn(Object.getOwnPropertyDescriptor(value, key)!, "value"))) throw rejected();
+  return value as Record<string, unknown>;
+}
+export function demoCredentialAction(value: unknown): DemoCredentialAction {
+  if (value !== "register" && value !== "revoke") throw rejected();
+  return value;
+}
+export function allowedDemoCredentialActions(metadata: DemoCredentialActionMetadata): readonly DemoCredentialAction[] {
+  const current = parseDemoCredentialActionMetadata(metadata, { tenantId: metadata.tenant_id,
+    accountId: metadata.account.id, authEpoch: metadata.auth_epoch });
+  if (current.connection === null) return Object.freeze(current.account.status === "ready" ? ["register"] : []);
+  return Object.freeze(current.connection.status === "active" &&
+    current.connection.storage_version < Number.MAX_SAFE_INTEGER ? ["revoke"] : []);
+}
 
 export function parseDemoActionTarget(value: unknown): DemoActionTarget {
   const target = parseActionTarget(value);
