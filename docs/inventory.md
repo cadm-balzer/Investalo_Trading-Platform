@@ -1,5 +1,14 @@
 # Bestandsaufnahme
 
+IP-088: futures_paper_recovery.py/futures_recovery_executor.py ergänzen eigene
+gebuchte Paperliquidationen, vollständiges cashgedecktes Neubudget, Ziel-RSIreset
+und additive manuelle Journal-CAS-Aktion/Vollrestore. Alte Verluste/Peerreserven/
+Quellenbasis bleiben erhalten. Optionale gemeinsame Status/3-Publikation,
+normale scoped GET-/POST-API und create-only Allocation-/Journalregistry verbinden
+bestehende Cockpit-/BFF-Komponenten. Aktiver Feedwriter bleibt exklusiv.
+Default-off; native Browserabnahme/Writerkoordination/Demoabgleich folgen.
+[Vertrag](futures-manual-recovery.md).
+
 IP-090: futures_paper_universe.py/local_seven_profit_config ergänzen ausdrücklich
 AVAX/LINK zu sieben echten Classic-Kandidaten. Quellen35 GETs/Settlement14,
 eigene /2-Records, privater Archivvollrestore, journalgebundene Launcher und

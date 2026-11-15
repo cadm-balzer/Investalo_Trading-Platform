@@ -1,6 +1,17 @@
 # Technische Fallstricke
 
-Stand 2026-11-14. Befunde sind dokumentiert, nicht automatisch im Altsystem behoben.
+Stand 2026-11-15. Befunde sind dokumentiert, nicht automatisch im Altsystem behoben.
+
+- **Recovery ist kein Refund und kein neuer Quote:** vollständiges neues
+  eigenes Budget einschließlich anderer finanzierter Ranges/alter Nachkäufe/
+  manuellem Puffer prüfen. Nur das Kostenbudget des nächsten Zielbaskets
+  neu beginnen; alte Gebühren und Verluste bleiben gebucht. Quote-/Quellenbasis
+  und Archivcursor beim manuellen Commit behalten, sonst scheitert der
+  nächste native Quellenübergang. Vollrestore rekonstruiert alte Liquidationen.
+  Aktiver Feedwriter wird nicht für eine APIaktion gestoppt:503/Readback,
+  keine automatische Wiederholung. Zwei echte DBreads unterscheiden sich
+  regelmäßig nur in observed_at; aktuelle Settings/Berechtigung vergleichen,
+  ohne ihre echte fortschreitende Erfassungsuhr als Änderung auszulegen.
 
 - **Sieben Quellenkandidaten sind keine sieben finanzierten Ranges:** Neue
   explizite AVAX/BNB/BTC/ETH/LINK/SOL/XRP-Genesis startet mit drei vollen Ranges.

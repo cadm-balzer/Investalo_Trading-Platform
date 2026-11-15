@@ -2457,3 +2457,37 @@ danach verwendet. Fehlende vollständige Fundingkohorte stoppt weiterhin statt
 Rateslots/Zeiten zu erfinden. Nächste aktive Aufgabe IP-088 eigene manuelle
 Recovery/API/Cockpit, danach getrennte Bitget-Demoausführung.
 [Vertrag](../futures-seven-candidates.md).
+
+## D110 — Eigene dauerhafte Paper-Wiederbelebung (2026-11-15)
+
+PR70 (`7649e52`) ist in `main49f92d1` enthalten; GH/Fetch/Ancestry bestätigt.
+Q46/IP-088 wird an das eigene Paperjournal gebunden: tatsächliche gebuchte
+Liquidation, frische vollständige H1-/Quote-/Markevidenz, Flatposition und
+vollständig cashgedecktes neues Budget. Reale finanzierte Ranges statt aller
+Kandidaten reservieren; alte Nachkäufe/manuelle/Kosten-/Restorationansprüche
+und aufgeschobene Gewinnvolumenerhöhungen erhalten.
+
+Additiver manueller Journalbefehl bindet eigene Actor-/Konto-/Zyklus-/Revision-/
+Statedigest-/Event-/Consentidentität. Nur Zielstop und neue RSIbestätigungen
+werden zurückgesetzt; nächster Zielkostenbudgetepoch beginnt neu, alte
+Kosten/Verluste bleiben im Originaljournal und Ledgernetto. Keine Cashgutschrift,
+keine neuen Risikobasen, keine Quellenzeit-/Cursorverschiebung, weiterhin2×.
+Volles Restore rekonstruiert die Liquidationshistorie; CAS/exklusiver Writer/
+Unknown-write-Stop verhindern doppelte Freigaben.
+
+Optionale Status/3-Publikation und create-only private Originalallocation-/
+Journalregistry verbinden normalen scoped GET-/POST-APIexecutor mit bestehender
+BFF/Startseiten-/Portfolioanzeige. Aktuelle restricted LOGIN/RLS-Rolle/Epoche/
+ready/013 vor Append erneut prüfen. Aktiver Feedwriter wird nicht unterbrochen:
+503/unbestätigt, kein Auto-Retry; vollständiger Mindestreceipt-Readback repariert
+verlorene Journal-/Statusacknowledgements. Kontoeinstellungen im Übergang und
+fehlende eigene Registry bleiben sichtbare Blocker. Kapazitätsberatung nach
+manueller Aktion erst beim nächsten kalibrierten Feedcommit wieder bekannt.
+
+Sieben neue Domain-/neun tatsächliche PG/API-Fälle;172 gepinnte Fälle/96 Subtests
+und575 Cockpitfälle/Typecheck grün. APIimage enthält Executor und lädt Module
+im isolierten Runtimecontainer. Final34 Recovery-/Asset-/Settingsfälle und
+gepinntes API-/Cockpitbuild grün. Kein neuer Marktjob/Backtest, keine Migration/
+Dependencies/laufenden Dienste/Public/Live/AI. Native lokale HTTPS/Cockpitabnahme
+und dauerhafte Writerkoordination bleiben IP-088; danach echte Bitget-Demo-
+Reconciliation/Orders. [Vertrag](../futures-manual-recovery.md).

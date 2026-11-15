@@ -8,11 +8,12 @@ RUN /opt/venv/bin/python -m pip install --require-hashes --only-binary=:all: \
 
 FROM ${PYTHON_IMAGE} AS runtime
 ENV PATH="/opt/venv/bin:${PATH}" \
-    PYTHONPATH="/app/services/api/src:/app/packages/trading/src:/app/packages/marketdata/src" \
+    PYTHONPATH="/app/services/api/src:/app/services/workers/src:/app/packages/trading/src:/app/packages/marketdata/src" \
     PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 COPY --from=dependencies /opt/venv /opt/venv
 WORKDIR /app
 COPY services/api/src /app/services/api/src
+COPY services/workers/src /app/services/workers/src
 COPY packages/trading/src /app/packages/trading/src
 COPY packages/marketdata/src /app/packages/marketdata/src
 USER 10003:10003

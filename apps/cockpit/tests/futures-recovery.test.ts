@@ -49,6 +49,14 @@ test("contradictory permission, duplicate assets and unknown reasons are rejecte
     assert.throws(() => contracts.parseRecoveryStatus({ ...d, assets: [{ ...a, ...change }] }, tenant));
   assert.throws(() => contracts.parseRecoveryStatus({ ...d, assets: [a, a] }, tenant));
 });
+test("actual Paper decimal precision survives the recovery display contract", () => {
+  const d = data();
+  const loss = "293.133658920000000000000000000000001";
+  const parsed = contracts.parseRecoveryStatus({ ...d, assets: [{ ...d.assets[0], leverage: "2", net_loss: loss }] }, tenant);
+  assert.equal(parsed.assets[0].net_loss, loss);
+  assert.match(render(parsed), /293,13/);
+  assert.throws(() => contracts.parseRecoveryStatus({ ...d, assets: [{ ...d.assets[0], net_loss: "1e-8" }] }, tenant));
+});
 test("homepage shows asset blocker and portfolio link; details explain real shortfall and manual button", () => {
   const home = render(data(), true), detail = render(data());
   assert.match(home, /Handelsblocker: Liquidation/);
