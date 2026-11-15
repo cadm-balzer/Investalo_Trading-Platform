@@ -99,6 +99,8 @@ Die [eigene Demo-Passkey-Zweckfreigabe](bitget-demo-passkey-purpose.md) ergänzt
 inzwischen Fixture015, getrennte signierte Assertionprüfung und einmaligen
 Consume-/Lockclient. Der [eigene private Demo-Executor](bitget-demo-passkey-executor.md)
 verbindet dies mit014-Storewrite und eigenem atomarem016-Abschluss.
+Die [eigene interne Demo-API](bitget-demo-passkey-api.md) ergänzt fünf
+standardmäßig gesperrte Proof-/Consent-Routen über015 mit getrennten Domains.
 Geschützte Dashboard-Keyeingabe/Serverprovider und native Abnahme folgen
 ohne öffentliche Aktivierung.
 Classic-Bitget-Readkern, AEAD-Envelopes und ein gebundener persistenter

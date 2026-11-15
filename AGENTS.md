@@ -7,6 +7,23 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR81 merged: 9875525 ancestor of main7b804fd, GH/fetch verified.
+  IP-009/IP-015 on feat/m1-bitget-demo-passkey-api: own default-off five
+  trusted-BFF prepare/claim/finish/grant/authorize routes over existing015.
+  Exact Demo metadata/register-revoke revision1/own receipt kind; request-
+  bound original session and nonce/current DB actor/factor/CAS rechecked.
+  Claim ACK before BFF verdict; explicit consent/receipt atomically committed,
+  publication rechecks expiry after ACK. Unknown actual claim/consent commit
+  returns static503/no retry; concurrent claims yield one winner.
+  Normal route/ledger/projection domains and001–016 unchanged. API flag
+  API_DEMO_PASSKEY_AUTHORIZATIONS only, absent from normal Compose/services.
+  52 new (27 contract/25 actual PG/API)+111 existing=163 distinct pinned
+  green; final52 own rerun. Pinned API/check builds; fixture checksums/
+  development DB retained. No new dependencies/migration/real keys/broker
+  requests/running services/UI/orders/backtests/public/live/AI activation.
+  Next own BFF verification/consent/signing+private executor transport, then
+  protected Dashboard/provider/native Demo acceptance. See
+  docs/bitget-demo-passkey-api.md.
 - PR80 merged: a3dfce7 ancestor of main5b7ce1e, GH/fetch verified.
   IP-009/IP-015 on feat/m1-bitget-demo-passkey-executor: private own
   DemoPasskeyOnboarding/016 Completionaudit, committed015 consume before

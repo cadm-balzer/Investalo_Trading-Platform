@@ -1,5 +1,13 @@
 # Roadmap
 
+2026-11-15: eigene interne Demo-Proof-/Consent-API mit fünf Default-off-Routen
+über015 ergänzt. Keine Keytriple/Storewrites; aktuelle Bindungen und tatsächliche
+Commit-/Replay-/Parallelfälle geprüft.52 neue/163 unterschiedliche gepinnte
+Fälle grün, final52 erneut; keine Migration oder Serviceänderung.
+Als Nächstes eigener BFF-Verifikations-/Consent-/Signingflow und privater
+Executortransport, dann Dashboard/Serverprovider/native Demoabnahme.
+[Vertrag](bitget-demo-passkey-api.md).
+
 2026-11-15: eigener privater Demo-Executor und Completionvertrag in Fixture016
 ergänzt. Committed Consentconsume vor trusted Provisioning/KEK, atomarer
 Executionlock/014-Write/016-Post-Write-Abschluss. Geschützter BFF-/Dashboard-

@@ -4,8 +4,10 @@ Der eigene Demo-Passkey-Consent ist dauerhaft und getrennt vom Normalprofil
 implementiert. Signierte Freigaben binden Konto, Sitzung und genaue Requestbytes;
 einmaliger Consume und separater finaler Lock prüfen aktuelle Berechtigung.
 Der eigene private Demo-Executor verbindet dies inzwischen mit verschlüsseltem
-Storewrite und atomarem Post-Write-Abschluss. Geschützte Dashboard-Keyeingabe
-und native Keyabnahme folgen. [Freigabe](docs/bitget-demo-passkey-purpose.md),
+Storewrite und atomarem Post-Write-Abschluss. Die eigene standardmäßig gesperrte
+interne Demo-API ergänzt nun Challenge/Claim/Grant und ausdrücklichen Consent.
+Eigener BFF-/Dashboard-Keyeingang und native Keyabnahme folgen.
+[API und Abnahme](docs/bitget-demo-passkey-api.md), [Freigabe](docs/bitget-demo-passkey-purpose.md),
 [Executor und Abnahme](docs/bitget-demo-passkey-executor.md).
 
 IP-069 ergänzt einen öffentlichen Fundingimport mit expliziter Lückenprüfung.

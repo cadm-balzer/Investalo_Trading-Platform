@@ -2802,3 +2802,24 @@ Eigenreview ohne Delegation; keine echten Keys/Brokerrequests/Services/UI/
 Orders/Backtests/Public/Live/AI. Geschützter BFF-/Dashboard-Eingang,
 Serverprovider und native Demo-Key-/Readabnahme folgen.
 [Vertrag und Abnahme](../bitget-demo-passkey-executor.md).
+
+## D-121 — Eigene interne Demo-Proof-/Consent-API
+
+2026-11-15: PR81/9875525 in main7b804fd per GH/Fetch/Ancestry bestätigt.
+Nutzer beauftragt Fortsetzung. Fünf eigene Default-off-POST-Routen verbinden
+vertrauenswürdigen BFF mit den unveränderten015-Demoentryfunktionen.
+Exakte eigene Metadaten/Receipt/register-revoke Revision1; Originalsession,
+Requestnonce, aktuelle DB-Actor-/Factor-/Scope-/Zeitbindungen bleiben verbindlich.
+Claim muss vor BFF-Verifikationsurteil committen; Consent und Receipt atomar,
+Projektion vor Commit sowie Expiry nach ACK prüfen. Tatsächlich unbekannter
+Claim-/Consentcommit liefert503 ohne Commandretry; neue Challenge bei Neustart.
+Keine Keytriple/Executorsignatur/Storewrites oder universelle WebAuthnprüfung
+durch API/SQL. Normaldomains/001–016 und Services unverändert.
+52 neue (27 Vertrag/25 actual PG/API)+111 bisherige=163 verschiedene gepinnte
+Fälle grün, final52 eigene erneut. Zwei parallele Claims mit genau einem Gewinner,
+aktueller Rechteentzug, crossdomain, fehlerhafte Projektion/echter Rollback und
+verlorene Commitacks geprüft; synthetische Verdicts/Keys, kein physischer Browser.
+API-/Checkbuilds ohne neue Dependencies; Fixture-DDL/Entwicklungs-DB unverändert.
+Eigener BFF-Verifikations-/Consent-/Signingflow/Executortransport folgen,
+danach Dashboard/provider/native Demoabnahme. Keine Public/Live/AI-Aktivierung.
+[Vertrag und Abnahme](../bitget-demo-passkey-api.md).
