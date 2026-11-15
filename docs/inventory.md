@@ -1,11 +1,21 @@
 # Bestandsaufnahme
 
+IP-009/IP-015: additive015/eigene Demo-Passkey-Assertion-/Authorizationmodule
+verbinden bestehende Registry/Counter-CAS mit eigenem Consentledger.
+Feste Demo-Domains/exakte Bodybindung, committed Consume/separater finaler
+Lock mit aktueller Berechtigung; originale Normalledger/014 unverändert.
+35 neue/199 unterschiedliche gepinnte Fälle grün; final66 eigene
+Demo-Passkey-/Storefälle erneut grün. Fixture/synthetische Verifikationsurteile,
+kein Executor/HTTP-Keyeingang.
+[Vertrag und Abnahme](bitget-demo-passkey-purpose.md).
+
 IP-009/IP-015: demo_store.py/additive014 ergänzen eigenes bitget_demo-Konto,
 immutable Ciphertextmetadaten/atomaren Audit und aktuellen tatsächlichen
 LOGIN-/Tenant-/Owner-/Epoch-/Reauth-/Ready-/Expiryreader. Registrieren,
 KEK-Rewrap und terminaler UUID-Widerruf mit CAS;31 neue/229 gepinnte Fälle/
 204 Subtests grün. Nur Fixture-DDL/Synthetik, keine operative Keyannahme.
-Demo-Passkey-/Dashboardeinrichtung folgt. [Vertrag](bitget-demo-credential-store.md).
+Demo-Passkey-Purpose inzwischen separat vorhanden; Dashboard-/Executoranschluss
+folgt. [Vertrag](bitget-demo-credential-store.md).
 
 IP-009/IP-015/IP-016: eigener DemoSecretSpec/AES-GCM-Purposekern und
 SealedDemoReadProvider in demo_secret_provider.py. Demo/Normal-Ciphertexte

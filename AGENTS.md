@@ -7,6 +7,25 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR79 merged: 959123b ancestor of main6410e89, GH/fetch verified.
+  IP-009/IP-015 on feat/m1-bitget-demo-passkey-purpose: own additive015
+  Demo-purpose ledger/metadata/proof entry functions, fixed audience/kind/URIs;
+  original006 factor/CAS and passive007/008 receipt/clock helpers retained.
+  Explicit consent, signed exact-body assertion, committed once-only consume,
+  separate final lock/current actor/epoch/factor/metadata/time rechecks.
+  Own Demo JTI uniqueness; no global cross-ledger JTI registry claim.
+  Normal007/008/009 and014 store unchanged; no credential write/executor.
+  Current final lock requires original metadata; future014 writer needs its
+  own post-write completion contract. Fixture015 only after rolled-back
+  preflight; 001–014/development DB unchanged, pinned check/migrate builds.
+  35 new actual PG/private signed-client cases;199 distinct pinned cases
+  green across focused runs, final35 own+31 Store rerun. One old metadata
+  test now scopes exact014 function names, new015 helpers checked separately.
+  sha044e4be6b7c67c39bd6b9c175e5cc102e51efdd8cee3ef0a64bcf99710271cf8.
+  See docs/bitget-demo-passkey-purpose.md.
+  No real keys/brokerrequests/running service/frontend/backtest/public/live/AI.
+  Next own Demo executor/completion and protected BFF/Dashboard entry,
+  then native key/UID/parent/IP/rights acceptance.
 - PR78 merged: 054e117 ancestor of maind03a379, GH/fetch verified.
   IP-009/IP-015 on feat/m1-bitget-demo-credential-store: additive014 own
   bitget_demo USDT account mode/immutable Demo-purpose ciphertext table;

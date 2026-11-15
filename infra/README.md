@@ -573,3 +573,12 @@ die neue SQL-Datei und den Reader ohne Dependencyänderung. Der eigene Test
 restriktive PostgreSQL-LOGINs und ausschließlich synthetische Keys.
 Es provisioniert keine operative Demo-Verbindung und keinen HTTP-Keyeingang.
 [Vertrag](../docs/bitget-demo-credential-store.md).
+
+Die eigene Demo-Passkey-Zweckfreigabe folgt in additiver015.
+`python3 infra/scripts/prepare-demo-passkey-checks.py` prüft alle001–014
+Checksums sowie zurückgerollte DDL-/Scope-/Claim-/ACLpfade.
+`--apply-reviewed` wendet ausschließlich Fixture015 an; bereits angewendete
+015 muss byteidentisch bleiben. Der eigene tatsächliche PostgreSQL-Test ist
+`tests/credentials_storage/test_demo_passkey_postgres.py`; vorhandene
+Normalfreigabe-/Storetests prüfen die getrennten bisherigen Verträge mit.
+[Vertrag und Grenzen](../docs/bitget-demo-passkey-purpose.md).

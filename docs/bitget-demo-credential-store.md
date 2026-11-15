@@ -85,9 +85,11 @@ aktuelle Berechtigungsänderung zwischen Reads, terminaler Widerruf,
 Auditrollback, Ablauf nach tatsächlichem Write und verlorener Ack nach
 tatsächlichem Commit. Alle Broker-/Provenienz-/Sitzungsinputs sind synthetisch.
 
-Als Nächstes eigene dauerhafte Demo-Passkey-Zweckfreigabe und geschützte
-Dashboard-Eingabe mit getrennten Demo-/späteren Liveverbindungen.
-Alte003/008/009-Normalprofilgrants werden nicht für Demo umetikettiert.
+Die [eigene dauerhafte Demo-Passkey-Zweckfreigabe](bitget-demo-passkey-purpose.md)
+ist inzwischen separat vorhanden. Als Nächstes eigener Demo-Executor mit
+finalem Completionvertrag und geschützte Dashboard-Eingabe mit getrennten
+Demo-/späteren Liveverbindungen. Alte003/008/009-Normalprofilgrants werden
+nicht für Demo umetikettiert.
 Native Key-/Endpoint-/Quotaabnahme, ältere Orderscope-/Kosten-/Fundingquelle
 und operativer KEK-/LOGINbetrieb bleiben erforderlich. Keine echten Keys,
 Brokerrequests, API/BFF-Routen, laufenden Dienste, Frontendbuilds, Backtests

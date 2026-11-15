@@ -2741,3 +2741,33 @@ nochmals grün.
 Eigenreview ohne Delegation; keine echten Keys/Requests/Services/UI/Backtests/
 Public/Live/AI. Eigener Demo-Passkey-Purpose und Dashboardeingabe als Nächstes.
 [Vertrag](../bitget-demo-credential-store.md).
+
+## D-119 — Eigene dauerhafte Demo-Passkey-Zweckfreigabe
+
+2026-11-15: PR79/959123b in main6410e89 per GH/Fetch/Ancestry bestätigt.
+Nutzer beauftragt Fortsetzung zur eigenen Demo-Key-/Dashboardeinrichtung.
+Additive015 ergänzt eigene Demo-Metadaten/Proofeingänge und Consentledger;
+Normal007/008/009 und014 bleiben byteidentisch. Gemeinsame006-Factorregistry/
+Counter-CAS und passive007/008 Clock-/Receiptfunktionen bleiben erhalten.
+
+Demo-Audience/Kind/POST-Ziele und privater Assertiontyp sind eigenständig.
+Ausgabe verlangt ausdrücklichen ziel-/body-/sessiongebundenen Consent.
+Originale OIDC-Zeit wird nicht durch frische Passkey-Zeit ersetzt.
+Privater Verifier prüft genaue Bodybytes vor DB-Zugriff. Consume committen,
+erst danach Handle; separater finaler Lock prüft aktuelle Berechtigung,
+Factorversion, Metadaten und Ablauf erneut. Unbekannter Ack liefert keinen
+Erfolg oder automatischen Retry. Demo-JTI nur im eigenen Ledger eindeutig.
+
+Der jetzige finale Check verlangt ursprüngliche Metadaten. Der geplante
+014-Writer benötigt eigenen Post-Write-Completionvertrag und darf nicht
+zwischen die unveränderten Locks eingeschoben werden; Normal009 nicht verwenden.
+Fixture015 nach vollständig zurückgerolltem DDL-/Scope-/Claim-/ACLpreflight;
+sha044e4be6b7c67c39bd6b9c175e5cc102e51efdd8cee3ef0a64bcf99710271cf8.
+001–014/development DB unverändert.35 neue/199 unterschiedliche gepinnte
+Fälle grün, final35 eigene+31 Store erneut. Alter014-Schematest auf konkrete
+ursprüngliche Funktionen begrenzt; neue015-Funktionen separat geprüft.
+Trusted Signing-/WebAuthn-/Sitzungsprovider
+und privilegierter DB-Betrieb bleiben Grenzen, keine nativen Demo-Keynachweise.
+Eigenreview ohne Delegation. Keine echten Keys/Requests/Services/UI/Orders/
+Backtests/Public/Live/AI. Eigener Demo-Executor und geschützter Eingang folgen.
+[Vertrag und Abnahme](../bitget-demo-passkey-purpose.md).

@@ -306,7 +306,10 @@ def test_demo_rls_function_owner_search_path_and_role_metadata(demo_database):
         assert len(rows) == 2 and all(r["relrowsecurity"] and r["relforcerowsecurity"] for r in rows)
         functions = db.execute("SELECT proname,prosecdef,proconfig,pg_get_userbyid(proowner) AS owner "
                                "FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace "
-                               "WHERE n.nspname='platform' AND proname LIKE 'demo_credential_%'").fetchall()
+                               "WHERE n.nspname='platform' AND proname IN ("
+                               "'demo_credential_context','demo_credential_audit_write','demo_credential_owned',"
+                               "'demo_credential_create','demo_credential_read','demo_credential_rewrap',"
+                               "'demo_credential_revoke')").fetchall()
         assert len(functions) == 7
         assert all(r["proconfig"] == ["search_path=pg_catalog"] and r["owner"] == "investalo_migration"
                    for r in functions)

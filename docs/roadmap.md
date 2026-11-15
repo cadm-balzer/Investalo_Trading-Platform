@@ -1,5 +1,14 @@
 # Roadmap
 
+2026-11-15: eigene dauerhafte Demo-Passkey-Zweckfreigabe in Fixture015,
+separater signierter Assertionverifier und privater Consume-/Lockclient.
+Expliziter Consent, einmaliger Commit und aktuelle Kontext-/Factor-/Zeitchecks;
+Normalverträge und Demo-Store unverändert. Eigener Demo-Executor mit finalem
+Completionvertrag und geschützter Dashboard-Eingang folgen, dann native
+Key-/Readabnahme.35 neue/199 unterschiedliche gepinnte Fälle grün;
+final66 eigene Demo-Passkey-/Storefälle erneut grün.
+[Vertrag](bitget-demo-passkey-purpose.md).
+
 2026-11-15: eigene dauerhafte Demo-Verbindung mit neuem Kontomodus,
 Ciphertexttable/FORCE RLS, aktuellem DB-Actor-/Epoch-/Zeitreader und atomarem
 Register/Rewrap/Widerruf/Audit vorhanden. Additive014 nur Fixture nach
