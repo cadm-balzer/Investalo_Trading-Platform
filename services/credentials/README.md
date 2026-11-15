@@ -320,3 +320,18 @@ were used; no actual broker or real-key acceptance.
 The 461 API/worker checks also passed against fixture009, giving 817 current
 checks in total. API code was unchanged. Historical 333 Cockpit/109 interop
 results remain IP-038 and were not rerun; the TS signer is unchanged.
+
+
+## Separate Demo secret provider primitives
+
+[Demo provider contract](../../docs/bitget-demo-secret-provider.md):
+`demo_secret_provider.py` defines an own immutable Demo-purpose spec and
+separate AES-GCM payload/DEK-wrap AAD domains. Existing normal real_read_only
+bindings/store/crypto bytes remain unchanged; ciphertexts cannot cross profiles.
+The fresh sealed reader pins scope/storage/full ciphertext before and after
+private decryption, without plaintext cache. Reader/KEK callbacks are trusted
+service boundaries; actual Demo database/actor/epoch/purpose/passkey provisioning
+and protected Dashboard intake are not implemented or activated here.
+18 new crypto/synthetic-reader cases plus19 legacy store/143 Bitget cases
+pass pinned (180 cases/204 subtests); final18 pass with default fixture imports.
+No real secret intake, native request, DB migration or running service change.

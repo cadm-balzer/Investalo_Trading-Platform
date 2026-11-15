@@ -7,6 +7,24 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR77 merged: 114e888 ancestor of main92140a2, GH/fetch verified.
+  IP-009/IP-015/IP-016 on feat/m1-bitget-demo-secret-provider: own immutable
+  Demo secret spec/full purpose/profile/owner/account/key/UID/parent/IP/provenance/
+  revision AES-GCM AAD and separate payload/wrap domains. Existing normal
+  real_read_only AAD constructor/bytes/store unchanged; cross-profile decrypt
+  denies. Own seal/open/KEK rewrap and bounded fresh sealed provider reread
+  original spec/storage/ciphertext/current trusted reader before/after decrypt;
+  no cached plaintext, stale/paused/revoked/foreign/forked input rejects.
+  18 new real crypto/synthetic-reader cases+19 old store+143 Bitget=180 cases/
+  204 subtests pinned green (Python3.14.10/cryptography50.0.2/pytest9.2.0);
+  final18 rerun with default image imports. Actual private registered outbox/
+  15 synthetic signed replies/revision0 retained. Test image only extended.
+  Reader/KEK callbacks remain trusted: actual Demo DB/actor/epoch/purpose/
+  passkey provisioning and protected Dashboard entry/native acceptance next.
+  User confirms separate Demo-mode key/connection, later separate Live key.
+  No actual credential intake/brokerrequests/DB/migration/dependency/running
+  services/frontendbuild/backtest/public/live/AI activation.
+  See docs/bitget-demo-secret-provider.md.
 - PR76 merged: 0c0df27 ancestor of main5db8f43, GH/fetch verified.
   IP-015/IP-016 on feat/m1-bitget-demo-read-transport: separate fixed signed
   Classic Demo identity+14-axis GETs, paptrading1, explicit CA/hostname/TLS/

@@ -1,5 +1,12 @@
 # Roadmap
 
+2026-11-15: eigenes verschlüsseltes Demo-Readprofil mit vollständiger
+Scope-/Purpose-AAD und fresh SealedProvider vorhanden;18 neue Crypto-/Reader-
+Fälle,180 gepinnte Fälle/204 Subtests grün. Nutzer bestätigt getrennte
+Demo-Key-/Kontoeinrichtung, später Live separat. Als Nächstes eigener dauerhafter
+Demo-Purpose-/Actor-/Passkeyvertrag und geschützte Dashboard-Eingabe, dann
+native Key-/Endpointabnahme. [Vertrag](bitget-demo-secret-provider.md).
+
 2026-11-15: IP-015/IP-016 erhalten getrennten signierten Demo-Readtransport:
 Originalregistry-/CASprüfung vor Secrets/GET, gleiche Provider-/Keyrevision
 vor/nach Antwort, native UID/Parent/Einzel-IP/Readrechte vor den14 Achsen.

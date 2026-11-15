@@ -2680,3 +2680,35 @@ Quota-/Latenzabnahme folgen. Unsupported bleibt Fehler, kein Livefallback.
 Eigenreview; keine nativen Brokerrequests/Credentials/Services/DB/Migration/
 Dependency/Backtest/Public/Live/AI. Ältere Orderscope/Kosten/Funding und
 Ordertransport bleiben offen. [Vertrag](../bitget-demo-read-transport.md).
+
+
+## D117 — Getrennter verschlüsselter Demo-Providerkern (2026-11-15)
+
+PR77 (`114e888`) ist in `main92140a2` enthalten; GH/Fetch/Ancestry bestätigt.
+Nutzer bestätigt geplante eigene Keyerstellung im Bitget-Demo-Modus,
+später getrennte Live-Key-/Kontoverbindung. Dashboard-Demo-Keyeingabe ist
+noch nicht angebunden; für erste Readabnahme bekannte Readrechte/Server-IP.
+Späteres writable Futures-Tradingprofil erhält eigene Abnahme.
+
+Eigenes DemoSecretSpec/AEAD bindet Purpose/Modus, komplette ursprüngliche
+DemoBinding, Parent/IP/Provenienz/Keyrevision in getrennten Payload-/Wrap-
+Domains. Bestehendes normal real_read_only AAD/Store bleibt bytegleich;
+Demo und normal Ciphertext nicht austauschbar. Eigene Seal/Open/KEK-Rewrap-
+Primitive mit bestehender gepinnter AES-GCM-Dependency; kein neues Format
+für geheime Klartextdateien, kein generischer Serializer.
+
+SealedDemoReadProvider prüft Owner/Scope/Storage/festen kurzen Ablauf vor
+Secretread und aktuelle trusted Spec/Berechtigung/Storage/exakten Ciphertext
+vor/nach Decrypt. Fehlender/pausierter/widerrufener/geänderter/fremder Stand
+liefert keinen alten Key. Provider ist kein neuer DB-/Epoch-/RLS-/Passkey-
+Beweis: tatsächlicher Demo-Purpose-Reader/geschützte Einrichtung und native
+Key-/Endpointabnahme folgen. Provenienz bleibt erwarteter Einrichtungsbeleg.
+
+18 neue Realcrypto-/synthetische Readerfälle plus19 alte Store/143 Bitget:
+180 Fälle/204 Subtests grün im gepinnten Testimage Python3.14.10,
+cryptography50.0.2/pytest9.2.0; final18 mit default Fixtureimportpfad grün.
+Eigener actual private RegisteredOutbox/15 synthetic GETs behält Revision0.
+Eigenreview; keine echten Secrets/Brokerrequests/DB/Migration/Dependencies/
+laufenden Services/Frontendbuild/Backtest/Public/Live/AI. Dauerhafter eigener
+Demo-Purpose-/Actor-/Passkeyvertrag und Dashboard-Eingabe folgen.
+[Vertrag](../bitget-demo-secret-provider.md).

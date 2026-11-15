@@ -224,3 +224,10 @@ Key- und native UID/Parent/Einzel-IP/Readrechte müssen unverändert passen.
 Ein normaler Classic-Credentialstoreeintrag ist keine Demo-Provenienz;
 Demo-Purpose-Provider/geschützte Einrichtung und tatsächliche native Abnahme
 folgen ohne automatische Brokeraktivierung.
+
+
+Der [eigene verschlüsselte Demo-Providerkern](bitget-demo-secret-provider.md)
+verbindet inzwischen getrennte AES-GCM-Purpose-/Scopebindung mit aktuellen
+trusted Snapshot-/Storage-/Berechtigungsreads. Bestehende normale Keyeinträge
+werden nicht in Demo umgewandelt. Dauerhafte Demo-/Passkeyeinrichtung und
+Dashboard-Eingabe/native Keyabnahme folgen; keine echte Keyaufnahme bisher.

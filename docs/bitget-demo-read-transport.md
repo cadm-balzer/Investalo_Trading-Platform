@@ -97,3 +97,10 @@ dieses konkreten eigenen Kontos. Unsupported/Mismatch bleibt Fehler; kein
 Realkontofallback. Echte Provider-/Provenienzbindung, native Endpoint-/Latenz-
 Abnahme, ältere Orderscope- und tatsächliche Kosten-/Fundingquelle folgen.
 Keine Services/DB/Migration/Dependencies/Backtests/Public/Live/AI-Aktivierung.
+
+
+Der [eigene verschlüsselte Demo-Providerkern](bitget-demo-secret-provider.md)
+verbindet inzwischen getrennte AES-GCM-Purpose-/Scopebindung mit aktuellen
+trusted Snapshot-/Storage-/Berechtigungsreads. Bestehende normale Keyeinträge
+werden nicht in Demo umgewandelt. Dauerhafte Demo-/Passkeyeinrichtung und
+Dashboard-Eingabe/native Keyabnahme folgen; keine echte Keyaufnahme bisher.

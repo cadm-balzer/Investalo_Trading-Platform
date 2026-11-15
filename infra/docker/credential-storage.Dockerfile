@@ -9,7 +9,7 @@ RUN /opt/venv/bin/python -m pip install --require-hashes --only-binary=:all: \
 
 FROM ${PYTHON_IMAGE} AS checks
 ENV PATH="/opt/venv/bin:${PATH}" \
-    PYTHONPATH="/app/services/credentials/src:/app/packages/credentials/src:/app/integrations/bitget/src:/app/tests/credential_onboarding" \
+    PYTHONPATH="/app/services/credentials/src:/app/packages/credentials/src:/app/integrations/bitget/src:/app/tests/credential_onboarding:/app/tests/bitget" \
     PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 COPY --from=dependencies /opt/venv /opt/venv
 WORKDIR /app
@@ -19,5 +19,6 @@ COPY integrations/bitget/src /app/integrations/bitget/src
 COPY tests/credential_store /app/tests/credential_store
 COPY tests/credentials_storage /app/tests/credentials_storage
 COPY tests/credential_onboarding /app/tests/credential_onboarding
+COPY tests/bitget /app/tests/bitget
 USER 10003:10003
 CMD ["python", "-m", "pytest", "/app/tests/credential_store", "/app/tests/credentials_storage", "/app/tests/credential_onboarding", "-q", "-p", "no:cacheprovider", "--tb=short"]
