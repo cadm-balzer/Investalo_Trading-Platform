@@ -1,5 +1,12 @@
 # Bestandsaufnahme
 
+IP-009/IP-015: eigene interne Default-off-Demo-API ergänzt fünf Proof-/Consent-
+Routen über unverändertem015. Aktuelle Scope-/Sitzungs-/Factor-/Metadatenchecks,
+committed einmaliger Claim und expliziter Consent; exakte eigene Projektion,
+Expiryprüfung nach Commitack.52 neue/163 unterschiedliche gepinnte Fälle grün,
+final52 erneut; keine Migration oder Dienstaktivierung. Eigener BFF folgt.
+[Vertrag](bitget-demo-passkey-api.md).
+
 IP-009/IP-015: DemoPasskeyOnboarding/Fixture016 verbinden committed Consume,
 injektierten vertrauenswürdigen Provisioning-/KEKadapter und tatsächlichen
 014-AEADwrite/keylosen Widerruf mit atomarem eigenem Post-Write-Abschluss.

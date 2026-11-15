@@ -591,3 +591,12 @@ byteidentisch. `tests/credentials_storage/test_demo_executor_postgres.py`
 prüft tatsächliche AEADwrites/Widerrufe/Abschlüsse mit synthetischem
 Provisioningadapter. Kein Serverlauncher oder operativer Keyeingang.
 [Vertrag](../docs/bitget-demo-passkey-executor.md).
+
+
+Die eigene interne Demo-Passkey-API nutzt bestehende Fixture015/016 ohne neue
+Migration. `API_DEMO_PASSKEY_AUTHORIZATIONS=1` registriert fünf eigene
+Proof-/Consent-Routen; dieses Flag ist in normalen Services nicht gesetzt.
+Gepinnte `api-checks` gegen `PGDATABASE=investalo_credentials_checks` prüfen
+`tests/api/test_demo_passkey_authorizations.py` und
+`tests/api/test_demo_passkey_authorizations_postgres.py`; synthetische
+Verdikte/Keys, kein Credentialeingang. [Vertrag](../docs/bitget-demo-passkey-api.md).

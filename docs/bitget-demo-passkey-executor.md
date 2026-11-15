@@ -91,5 +91,7 @@ Funktionen und bezieht die neue FK-Childtabelle im Truncatenegativcheck ein.
 
 Als Nächstes geschützter eigener BFF-/Dashboard-Eingang und Serverprovider,
 dann tatsächliche Demo-Key-/UID-/Parent-/IP-/Rechteabnahme und Readacceptance.
+Die [eigene interne Proof-/Consent-API](bitget-demo-passkey-api.md) ist inzwischen
+separat implementiert; Default-off und ohne Keyeingang/Executortransport.
 Keine realen Keys/Brokerrequests, normalen Serviceänderungen, Orders, öffentlichen
 Routen, Backtest-, Live- oder AI-Aktivierung.

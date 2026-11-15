@@ -1,5 +1,13 @@
 # Technische Fallstricke
 
+- Eigene Demo-Proof-/Consent-API ist ausschließlich über
+  `API_DEMO_PASSKEY_AUTHORIZATIONS=1` registriert. Das Normalflag genügt nicht.
+  Neue Freigabe nach geänderten Kontometadaten benötigt eine neue Challenge:
+  bestehende006/007-Registry und RP/Challenge-Uniqueness bleiben geteilt.
+  Ein503 nach echtem Claim-/Consentcommit ist keine Retryfreigabe. BFF darf
+  unbekannte Bestätigungen nicht als Grant/Consent oder erneuten Claim behandeln.
+  [Vertrag](../bitget-demo-passkey-api.md).
+
 Stand 2026-11-15. Befunde sind dokumentiert, nicht automatisch im Altsystem behoben.
 
 - **Recovery ist kein Refund und kein neuer Quote:** vollständiges neues
