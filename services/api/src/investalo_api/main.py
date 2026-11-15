@@ -20,6 +20,7 @@ from .passkeys import create_passkey_router
 from .passkey_action_proofs import create_passkey_action_router
 from .passkey_credential_authorizations import create_passkey_credential_authorization_router
 from .demo_passkey_authorizations import create_demo_passkey_authorization_router
+from .demo_credential_action import create_demo_credential_action_router
 from .database import SCHEMA_VERSION, assert_runtime, connect, transaction
 from .settings import Settings
 from .paper_status import read_status
@@ -101,6 +102,7 @@ def create_app(settings: Settings | None = None, *, futures_paper_state_reader=N
     application.include_router(create_passkey_action_router(application.state.settings))
     application.include_router(create_passkey_credential_authorization_router(application.state.settings))
     application.include_router(create_demo_passkey_authorization_router(application.state.settings))
+    application.include_router(create_demo_credential_action_router(application.state.settings))
 
     @application.exception_handler(RequestValidationError)
     async def invalid_request(_request: Request, _error: RequestValidationError):

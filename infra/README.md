@@ -618,3 +618,16 @@ von `apps/cockpit/tests/fixtures/emit-demo-passkey-credential-fixtures.ts`
 für einen getrennten, vollständig offline gepinnten Node-/Python-Abgleich.
 001–016 bleiben unverändert; kein kombinierter laufender BFF/API/PG/Executor-
 Nachweis oder native Demo-Keyabnahme. [Vertrag](../docs/bitget-demo-bff-flow.md).
+
+Additive017 ergänzt ausschließlich eigene sichere Demo-Verbindungsmetadaten.
+`python3 infra/scripts/prepare-demo-metadata-checks.py` verifiziert001–016,
+prüft DDL-/Actor-/ACL-/Owner-/Searchpathgrenzen vollständig zurückgerollt und
+mit `--apply-reviewed` nur die Fixture-DB. Angewendete017 bleibt byteidentisch;
+die Entwicklungs-DB wird nicht migriert. Eigener GET benötigt
+`API_DEMO_CREDENTIAL_METADATA=1`, in normalen Services weiterhin nicht gesetzt.
+Gepinnte `api-checks` mit `PGDATABASE=investalo_credentials_checks` prüfen
+`tests/api/test_demo_credential_action.py` und
+`tests/api/test_demo_credential_action_postgres.py`.
+Der eigene Cockpit-Serveradapter nutzt tatsächliche Sitzung/APIassertions;
+private Signing-/Executoridentität bleibt injiziert, Browserwege nicht aktiviert.
+[Vertrag](../docs/bitget-demo-metadata-provider.md).

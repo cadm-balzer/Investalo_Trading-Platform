@@ -104,7 +104,9 @@ standardmäßig gesperrte Proof-/Consent-Routen über015 mit getrennten Domains.
 Der [eigene private Demo-BFF](bitget-demo-bff-flow.md) ergänzt tatsächliche
 WebAuthnprüfung, Demo-Consent/Signing und getrennten mTLS-Executortransport
 mit injizierten vertrauenswürdigen Adaptern.
-Geschützte Dashboard-Keyeingabe/Serverprovider und native Abnahme folgen
+Der [eigene Metadatenzugriff und Cockpit-Serveradapter](bitget-demo-metadata-provider.md)
+verbinden aktuelle Serversitzung/APIassertions mit dem getrennten Demo-Kontostand.
+Geschützte Dashboard-Keyeingabe/private Identitätsverdrahtung und native Abnahme folgen
 ohne öffentliche Aktivierung.
 Classic-Bitget-Readkern, AEAD-Envelopes und ein gebundener persistenter
 Credentialstore sind mit synthetischen Daten geprüft. Die private Einrichtung

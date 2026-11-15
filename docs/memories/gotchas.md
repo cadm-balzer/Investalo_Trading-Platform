@@ -1,5 +1,15 @@
 # Technische Fallstricke
 
+- Eigener Demo-Metadaten-GET benötigt `API_DEMO_CREDENTIAL_METADATA=1`;
+  Proofflag/Normalmetadata reichen nicht.017 selektiert ausschließlich sichere
+  Felder und prüft echte aktuelle Runtime-/Actor-/Owner-/Epoch-/OIDCbindungen.
+  Signing-/Executoridentität bleibt explizites vertrauenswürdiges Serversetup,
+  kein Browser-/Flag-Fallback. FastAPI inkludiert Router nicht als flache
+  App-Routenliste: Endpointunit über den Router, Aktivierung über echtes HTTP
+  prüfen. Simuliertes `checked_at` für erfolgreichen Finish nach committed
+  Claim erfassen; früherer Fixturezeitpunkt scheitert an einer Sekundengrenze.
+  [Vertrag](../bitget-demo-metadata-provider.md).
+
 - Demo-BFF braucht eigene Metadata-/Proof-/Receiptparser; der Normalparser
   akzeptiert `bitget_demo` nicht. Gemeinsame Session-/Factorhelper sind passiv.
   Im TLSlistener wählt ausschließlich der exakte konfigurierte Applicationtyp

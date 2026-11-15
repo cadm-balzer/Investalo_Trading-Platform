@@ -1,5 +1,13 @@
 # Roadmap
 
+2026-11-15: eigener scoped Demo-Metadatenzugriff/Fixture017 und Cockpit-
+Serveradapter für tatsächliche aktuelle Sitzung/APIassertions ergänzt.
+348 unterschiedliche gepinnte Fälle,54 neu; final36 betroffene APIfälle grün.
+Nur Fixture migriert, kein privater Credentialread oder operative Aktivierung.
+Als Nächstes geschützter Dashboard-Keyeingang/private Identitätsverdrahtung
+mit kombinierter isolierter Abnahme, danach native Demo-Key-/Readabnahme.
+[Vertrag](bitget-demo-metadata-provider.md).
+
 2026-11-15: eigener privater Demo-BFF mit tatsächlicher Passkeyprüfung,
 explizitem Demo-Consent/eigenem Signer und mTLS-Executortransport ergänzt.
 Getrennte Domains/revision1/aktuelle Readbacks/kein Retry bei Ungewissheit.

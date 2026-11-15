@@ -132,6 +132,7 @@ def test_claim_commit_required_and_replay_cannot_verify_again(demo_database):
     assert post(client, settings, f, "finish", verdict).status_code == 403
     assert post(client, settings, f, "claim", claim_payload(value, attempt)).status_code == 200
     assert post(client, settings, f, "claim", claim_payload(value, attempt)).status_code == 403
+    verdict = finish_payload(value, attempt)  # Verification time must follow the committed claim.
     assert post(client, settings, f, "finish", verdict).status_code == 200
     assert post(client, settings, f, "finish", verdict).status_code == 403
 
