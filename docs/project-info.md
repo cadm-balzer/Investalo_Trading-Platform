@@ -83,6 +83,10 @@ der Reader erteilt noch keine Brokerfreigabe.
 Die [Demo-Kontopfadregistry](bitget-demo-account-registry.md) bindet
 kooperierende Writer unter einem gemeinsamen privaten Root dauerhaft
 an das Originaljournal. Native Demo-Key-/UID-Provenienz bleibt offen.
+Der [getrennte Demo-Lesezugang](bitget-demo-read-transport.md) bindet
+signierte feste Requests an diese Registry und eine aktuelle geschützte
+Providerdeklaration. Tatsächlicher Provider/Keyeinrichtung und native
+Endpointabnahme fehlen; keine automatische Brokeraktivierung.
 Classic-Bitget-Readkern, AEAD-Envelopes und ein gebundener persistenter
 Credentialstore sind mit synthetischen Daten geprüft. Die private Einrichtung
 verbindet sie mit einmaligen Actionfreigaben und einem Entwicklungs-Dateiprovider.

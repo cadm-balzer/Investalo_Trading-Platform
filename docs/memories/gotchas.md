@@ -1094,3 +1094,11 @@ Stand 2026-11-15. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   stoppt bis Close/Vollrestore. Eine andere Registry bzw. trusted-owner-
   Rollback wird dadurch nicht global verhindert. Lokaler Claim beweist keine
   native Demo-Key-/UID-/IP-/Rechteprovenienz und erlaubt keinen Brokerdispatch.
+
+- Demo-Readrequests vom alten dreipfadigen Realkonto-Readvertrag trennen:
+  gleicher Brokerhost macht Profile nicht austauschbar. paptrading1 allein
+  beweist keine Demo-Keyprovenienz. Provider muss geschützten Purposebeleg
+  halten; Revision/Key/Parent/IP/Expiry und Original-Outboxreceipt vor/nach
+  jedem GET exakt prüfen. Identity mit UID/Parent/Einzel-IP/Readrechten zuerst;
+  kein writable-key-/Livefallback. Langsamer Cohort darf die5s-Frischegrenze
+  nicht verlängern. Mock-HTTPS und Hashes ersetzen keine native Abnahme.

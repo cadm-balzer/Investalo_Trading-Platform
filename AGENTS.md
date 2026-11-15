@@ -7,6 +7,22 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR76 merged: 0c0df27 ancestor of main5db8f43, GH/fetch verified.
+  IP-015/IP-016 on feat/m1-bitget-demo-read-transport: separate fixed signed
+  Classic Demo identity+14-axis GETs, paptrading1, explicit CA/hostname/TLS/
+  no-proxy/no-redirect/size/timeout transport. Original registered scope/CAS
+  before secrets/HTTP and every response; provider revision/key/provenance/
+  parent/IP/expiry remain exact. Native read-only UID/parent/single-IP/coor+
+  cpor gate precedes account queries; 5s cohort/clock limit, no retries.
+  22 new synthetic provider/reply/mocked HTTPS cases plus121 prior (143)
+  green on Host Python3.14.4. Actual private outbox used; no native requests.
+  Provider declaration is NOT native Demo-key proof; purpose-specific secure
+  provider/entry, native endpoint/latency/UID-quota acceptance remain next.
+  Identity source SHA/decl digest retained privately; no raw reply persistence.
+  Old three-path reader unchanged, no writable-key profile/order dispatcher/
+  ledger/services/DB/migration/dependency/backtest/public/live/AI activation.
+  Native older orderscope/cost/funding acceptance remains required.
+  See docs/bitget-demo-read-transport.md.
 - PR75 merged: 1825a39 ancestor of maina897926, GH/fetch verified.
   IP-015/IP-016 on feat/m1-bitget-demo-account-registry: original private
   shared-root broker-UID registry independent of tenant/key; immutable full

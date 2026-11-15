@@ -358,6 +358,14 @@ class RegisteredDemoOutbox:
     def check_account(self, *args, **kwargs):
         return self._invoke("check_account", *args, **kwargs)
 
+    def check_binding(self, binding, *, context, expected_revision):
+        """Validate the original scope before a future private read is dispatched."""
+        with self._validated():
+            self._box._check(context, expected_revision)
+            if not isinstance(binding, DemoBinding) or binding != self._box._binding:
+                raise DemoRejected("registered_read_binding_mismatch")
+            return self._box.receipt
+
     def close(self):
         if os.getpid() != self._pid:
             raise DemoRejected("registered_outbox_stopped")

@@ -214,3 +214,13 @@ Link ableiten.
 Bitget empfiehlt inzwischen UTA und nennt Classic einen Wartungsmodus.
 Der bestätigte Classic-Start erhält daher gezielte Endpoint-/Changelogprüfungen;
 eine Migration mit geänderten Marginpools benötigt eine eigene Entscheidung.
+
+
+## Separater Demo-Readtransport
+
+Der [gebundene Demo-Lesezugang](bitget-demo-read-transport.md) nutzt nur feste
+signierte identity+14-Achsen-GETs mit paptrading1. Registry-/Revision-, Provider-/
+Key- und native UID/Parent/Einzel-IP/Readrechte müssen unverändert passen.
+Ein normaler Classic-Credentialstoreeintrag ist keine Demo-Provenienz;
+Demo-Purpose-Provider/geschützte Einrichtung und tatsächliche native Abnahme
+folgen ohne automatische Brokeraktivierung.

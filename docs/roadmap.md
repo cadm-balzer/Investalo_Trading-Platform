@@ -1,5 +1,13 @@
 # Roadmap
 
+2026-11-15: IP-015/IP-016 erhalten getrennten signierten Demo-Readtransport:
+Originalregistry-/CASprüfung vor Secrets/GET, gleiche Provider-/Keyrevision
+vor/nach Antwort, native UID/Parent/Einzel-IP/Readrechte vor den14 Achsen.
+22 neue synthetische Provider-/Mock-HTTPS-Fälle/143 Gesamtfälle grün.
+Nächster Schritt: tatsächlicher purposegebundener Demo-Provider/geschützte
+Keyeingabe und native Endpoint-/Latenzabnahme; ältere Orderscope-/Kosten-/
+Fundingquelle bleiben offen. [Vertrag](bitget-demo-read-transport.md).
+
 2026-11-15: IP-015/IP-016 binden kooperierende Demo-Outboxwriter unter einem
 ursprünglichen privaten Registryroot an Original-UID/Konto/Keyreferenz/Pfad.
 29 neue tatsächliche Filesystem-/Prozessfälle/121 Gesamtfälle grün; Crashrestore

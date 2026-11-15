@@ -104,3 +104,10 @@ PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=integrations/bitget/src python3 -m unittest
 
 Tests use invented credentials, captured request objects and mocked HTTPS
 openers. They never contact Bitget or claim that a real key/account is connected.
+
+
+The [separate Demo read transport](../../docs/bitget-demo-read-transport.md)
+adds fixed signed identity/account GETs with mandatory paptrading, registered
+scope/CAS and provider/UID/parent/IP/read-right gates. Original three-path
+readers stay unchanged. Tests use synthetic credentials and mocked HTTPS;
+actual purpose-bound provisioning and native acceptance remain required.

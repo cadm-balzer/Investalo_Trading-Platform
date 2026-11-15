@@ -133,3 +133,9 @@ Offizielle Bitget-Dokumentation, geprüft am2026-11-15:
 - [Classic Account: Wallet, Konfiguration und Equity](https://www.bitget.com/docs/catalog/classic-contract-account/classic-contract-account)
 - [Classic Trade: Pendingstatus und Pagination](https://www.bitget.com/docs/catalog/classic-contract-trade/classic-contract-trade)
 - [Classic Trigger: drei Pendingfamilien](https://www.bitget.com/docs/catalog/classic-contract-plan/classic-contract-plan)
+
+
+Der [getrennte Demo-Lesezugang](bitget-demo-read-transport.md) verbindet
+inzwischen feste signierte GETs mit registriertem Scope/CAS und laufender
+Provider-/Key-/UID-/Parent-/IPprüfung. Geschützter tatsächlicher Provider und
+native Endpoint-/Provenienzabnahme bleiben offen; keine Versandfreigabe.
