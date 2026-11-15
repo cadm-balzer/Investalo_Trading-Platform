@@ -1,5 +1,12 @@
 # Roadmap
 
+2026-11-15: eigene dauerhafte Demo-Verbindung mit neuem Kontomodus,
+Ciphertexttable/FORCE RLS, aktuellem DB-Actor-/Epoch-/Zeitreader und atomarem
+Register/Rewrap/Widerruf/Audit vorhanden. Additive014 nur Fixture nach
+zurückgerolltem Preflight;229 gepinnte Fälle/204 Subtests grün. Als Nächstes
+eigener Demo-Passkey-Purpose und geschützte Dashboard-Eingabe, dann native
+Key-/Readabnahme. [Vertrag](bitget-demo-credential-store.md).
+
 2026-11-15: eigenes verschlüsseltes Demo-Readprofil mit vollständiger
 Scope-/Purpose-AAD und fresh SealedProvider vorhanden;18 neue Crypto-/Reader-
 Fälle,180 gepinnte Fälle/204 Subtests grün. Nutzer bestätigt getrennte

@@ -1,5 +1,12 @@
 # Bestandsaufnahme
 
+IP-009/IP-015: demo_store.py/additive014 ergänzen eigenes bitget_demo-Konto,
+immutable Ciphertextmetadaten/atomaren Audit und aktuellen tatsächlichen
+LOGIN-/Tenant-/Owner-/Epoch-/Reauth-/Ready-/Expiryreader. Registrieren,
+KEK-Rewrap und terminaler UUID-Widerruf mit CAS;31 neue/229 gepinnte Fälle/
+204 Subtests grün. Nur Fixture-DDL/Synthetik, keine operative Keyannahme.
+Demo-Passkey-/Dashboardeinrichtung folgt. [Vertrag](bitget-demo-credential-store.md).
+
 IP-009/IP-015/IP-016: eigener DemoSecretSpec/AES-GCM-Purposekern und
 SealedDemoReadProvider in demo_secret_provider.py. Demo/Normal-Ciphertexte
 nicht austauschbar; aktueller trusted Snapshot/Storage/Purpose/Ciphertext

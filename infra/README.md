@@ -557,3 +557,19 @@ Pilot-RP `cockpit.investalo.de` erfordert später eigene Registrierung und
 Mit laufendem Researchprofil stoppt
 `sudo bash infra/scripts/compose.sh --profile research stop` alle sechs Dienste
 und behält Daten. Der Standardbefehl ohne Profil umfasst nur die Basisdienste.
+
+## Isolierte Demo-Credentialprüfung
+
+Additive014 betrifft den separaten Demo-Store, nicht die öffentliche Vorschau.
+`python3 infra/scripts/prepare-demo-credential-checks.py` verifiziert die
+Fixture-Checksums001–013 und führt DDL-/Scope-/Epoch-/Expiry-/Auditprüfungen
+vollständig zurückgerollt aus. `--apply-reviewed` wendet die geprüfte014 nur
+in `investalo_credentials_checks` an; die Entwicklungs-DB wird nicht migriert.
+Bereits angewendete014 muss byteidentisch bleiben.
+
+Die bestehenden gepinnten `credential-storage-checks`-/`migrate`-Images bauen
+die neue SQL-Datei und den Reader ohne Dependencyänderung. Der eigene Test
+`tests/credentials_storage/test_demo_store_postgres.py` verwendet tatsächliche
+restriktive PostgreSQL-LOGINs und ausschließlich synthetische Keys.
+Es provisioniert keine operative Demo-Verbindung und keinen HTTP-Keyeingang.
+[Vertrag](../docs/bitget-demo-credential-store.md).

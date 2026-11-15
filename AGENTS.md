@@ -7,6 +7,23 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR78 merged: 054e117 ancestor of maind03a379, GH/fetch verified.
+  IP-009/IP-015 on feat/m1-bitget-demo-credential-store: additive014 own
+  bitget_demo USDT account mode/immutable Demo-purpose ciphertext table;
+  FORCE RLS/fixed definer functions/existing bound credential LOGIN only.
+  Actual current actor/membership/epoch/reauth/ready/short expiry checks;
+  own register/KEK rewrap/keyless UUID revoke/CAS and atomic append-only audit.
+  Keyrevision1 fixed; no key replacement/rebinding or normal-profile conversion.
+  Sealed provider reads actual own DB context/spec/storage before/after decrypt.
+  31 new actual PG/crypto/provider+18 old Store/PG+180 Crypto/Bitget=229 cases/
+  204 subtests pinned green; final31 rerun after explicit UUID revoke interface.
+  Full rolled-back014 preflight then fixture-only application;
+  sha4158e3232a104b3f16f61ea83f0fbe387e8bbc12021efd67cb46bb9529f7b586.
+  001–013 checksums/development DB unchanged; pinned check/migrate builds green.
+  SESSION claims/connectionfactory/KEKs remain trusted service boundaries;
+  actual Demo passkey purpose/HTTP/Dashboard intake and native key proof next.
+  No real keys/brokerrequests/running service/frontend/backtest/public/live/AI
+  activation. See docs/bitget-demo-credential-store.md.
 - PR77 merged: 114e888 ancestor of main92140a2, GH/fetch verified.
   IP-009/IP-015/IP-016 on feat/m1-bitget-demo-secret-provider: own immutable
   Demo secret spec/full purpose/profile/owner/account/key/UID/parent/IP/provenance/
