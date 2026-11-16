@@ -81,3 +81,8 @@ synthetisch. Die kombinierte laufende HTTPS/BFF/API/PostgreSQL/Python-
 Executorabnahme folgt separat, danach native Demo-Key-/UID-/Readabnahme.
 Keine Migration, Dependencies, normalen Dienste, echte Keys, Brokerrequests,
 Orders, Backtests, öffentliche Aktivierung, Livehandel oder KI geändert.
+
+Folgecheckpoint: Die [gemeinsame isolierte Abnahme](bitget-demo-local-acceptance.md)
+verbindet die Originaldateifactory nun mit tatsächlicher HTTPS-API, PostgreSQL
+und eingeschränktem Python-Executor. Die ursprüngliche Sitzung und
+Brokerprovenienz bleiben synthetisch; keine operative Installation.

@@ -2949,3 +2949,23 @@ Keine Migration/Dependencies/normalen Dienste/echten Keys/Brokerrequests/
 Orders/Backtests/Public/Live/AI geändert. Operative Installation und isolierte
 kombinierte laufende API/PG/Python-Executorabnahme folgen, danach native
 Demo-Key-/UID-/Readabnahme. [Vertrag](../bitget-demo-private-identity.md).
+
+## D-126 — Gemeinsame isolierte Demo-HTTPS/API/PG/Executorabnahme
+
+**Status: lokal umgesetzt/geprüft, 2026-11-16.** Nach bestätigtem PR86-Merge
+verbindet der eigene Testpfad tatsächlichen HTTPS-BFF/P256/API/015/016/017
+mit einem separat eingeschränkten Python-mTLS-Executor und AEAD-/014-Store.
+Registrierung dispatcht bei zwei gleichzeitigen Handles genau einmal,
+Executor-Prozessneustart und Widerruf sind geprüft. Eine absichtlich fehlende
+Antwort nach erfolgreichem Commit bleibt dauerhaft `completed`/aktiv;
+kein erneuter Dispatch oder falscher Failedabschluss.
+Unabhängige DB-/JTI-/Original-OIDC-/Body-/xid-/Entschlüsselungsprüfung,
+438 gemeinsame Prüfungen und54 gepinnte Python-Fälle/35 Unterfälle grün.
+Gepackter Node-Treiber typgeprüft, Fixture001–017/Entwicklungsset unverändert.
+Nur eigene One-off-Testservices ohne Hostports, frische private synthetische
+Identitäten, CAS-Wiederherstellung der Test-LOGIN-Bindung und erhaltene
+append-only Evidence. Sitzung/Key-/UID-/Parent-/IP-Provenienz synthetisch;
+kein physischer Browser/Next-/OIDC-/nativer Demo-Nachweis.
+Operative Browsersperre bleibt; native Demo-Key-/Readprovenienz und
+Installation folgen vor Ordertransport.
+[Prüfbeleg](../bitget-demo-local-acceptance.md).

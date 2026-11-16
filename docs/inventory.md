@@ -1,5 +1,13 @@
 # Bestandsaufnahme
 
+IP-009/IP-015: gemeinsamer isolierter Demo-Abnahmepfad über eigene HTTPS-BFF-
+HTTPadapter, tatsächliche API/PG015/016/017 und separaten eingeschränkten
+Python-mTLS-Executor ergänzt. Frische private Testidentitäten, tatsächliche
+P256-/AEAD-/Consume-/Lock-/Completionprüfung und Prozessneustart.
+Testservices ohne Hostports; normale Dienste und feste Browsersperre bleiben.
+Sitzung/Key-/UID-/Parent-/IP-Provenienz synthetisch, native Abnahme folgt.
+[Vertrag und Prüfbeleg](bitget-demo-local-acceptance.md).
+
 IP-009/IP-015: eigene private Demo-Dateiidentität und explizite Serverfactory
 ergänzt. Originalpfad/inode/UID/0700/0400/Fingerprints, CA/Client-EKU/
 Keyzugehörigkeit/Gültigkeit bei jedem Zugriff geprüft.33 neue/914 gepinnte

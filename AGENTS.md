@@ -7,8 +7,32 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
-- PR85 code integrated: 93134bf ancestor of maina1d7175, fetched ancestry/
-  identical tree verified; GH PR record still stale OPEN/CONFLICTING.
+- PR86 merged:9c70784 ancestor of main0c30213, GH/fetch verified.
+  IP-009/IP-015 on feat/m1-bitget-demo-local-acceptance: combined isolated
+  actual HTTPS/BFF/P256/API/PG015016017/AEAD/restricted Python-mTLS executor.
+  Fresh synthetic fixture actor/accounts/CA/signing/KEK, fixed private
+  UID10003/no PG env/no arbitrary keys; bounded host-owned one-off services,
+  no host ports/external networks, actual readonly/cap/secret/limit checks.
+  Register parallel handle once; actual executor restart; revoke1/1→1/2
+  retains ciphertext; successful commit followed by missing acknowledgement
+  remains completed/active, never retry/rearm/failed rewrite. Independent
+  original OIDC/body/JTI/final-lock-completion xid/decryption evidence.
+  Actual438 checks (Node241/audit59/host138) passed; receiptsha
+  ad5582cdc89fe2c96b10df0a4a044fe75473ca3bc2f816910f7b2f7d1297f040,
+  run6a47b6aa-e550-4df2-87c1-6d5f21a98b08.54 pinned Python/35 subtests
+  green, including3 own guard cases; pinned Node driver typecheck green.
+  Failed private roots retained without success receipt; fixture LOGIN
+  binding CAS restored, append-only evidence retained, only own services
+  stopped. Fixture001–017/development migration set unchanged before/after.
+  Original session and broker key/UID/parent/IP/provenance are synthetic;
+  own actual HTTP adapter server, no physical browser/Next/OIDC/native claim.
+  No dependencies/migration/normal-service/orders/backtest/public/live/AI
+  activation; normal browser availability fixed false. Next trusted native
+  Demo key/UID/read provenance and operative wiring, then bound ordertransport.
+  See docs/bitget-demo-local-acceptance.md.
+- PR86 private identity checkpoint, merged9c70784 into main0c30213.
+  Prior PR85 browser code93134bf integrated into maina1d7175; historical
+  GH PR record was stale OPEN/CONFLICTING, no forced merge attempted.
   IP-009/IP-015 on feat/m1-bitget-demo-private-identity: own explicit Linux
   original-path/UID/0700/0400/nlink/bounded FD/hash identity reader, exact
   root/file inode continuity and BigInt/nanosecond mutation checks.

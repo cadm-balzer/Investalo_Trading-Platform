@@ -1,5 +1,12 @@
 # Roadmap
 
+2026-11-16: gemeinsame isolierte Demo-Abnahme mit tatsächlichem HTTPS-BFF,
+API, PostgreSQL und eingeschränktem Python-mTLS-Executor ergänzt.
+Registrierung, Executor-Neustart, Widerruf und verlorene Erfolgsantwort nach
+Commit samt unabhängiger AEAD-/Completionprüfung. Sitzung und Brokerprovenienz
+synthetisch; native Demo-Key-/Readabnahme und operative Installation bleiben
+vor dem gebundenen Ordertransport. [Abnahme](bitget-demo-local-acceptance.md).
+
 2026-11-16: eigener expliziter privater Demo-Dateiprovider/Serverfactory
 ergänzt, gebunden an Originaldateien/Fingerprints, aktuelle API-User-ID und
 ursprüngliche Sitzung.33 neue/914 gepinnte Cockpitfälle, Typecheck/Build grün;

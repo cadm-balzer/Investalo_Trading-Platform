@@ -1,5 +1,17 @@
 # Technische Fallstricke
 
+- Gemeinsame Demo-Abnahme: Testkonten ausdrücklich `ready` anlegen.
+  Kurzlebige Test-CA/-Leaves brauchen KeyUsage und SKI/AKI für die strenge
+  Python-TLSprüfung. HTTPclient sendet auch für GET eindeutig Content-Length0;
+  Credentialcommands werden niemals bei einem Timeout wiederholt.
+  `open_demo_secret` liefert bereits `Credentials`, keinen zweiten zu
+  decodierenden `SecretPayload`. Normal-/Demo-Zwecktabellen haben keinen
+  eigenen tenant_id: für Kontrollen über007-Proof joinen.
+  Eigene Fixtureläufe serialisieren; Test-LOGIN-Bindung per CAS wiederherstellen.
+  Absichtlich fehlende Antwort erst nach bestätigtem Executorabschluss
+  auslösen; abgeschlossene016-Zeile nicht in `failed` umschreiben.
+  [Gemeinsame Abnahme](../bitget-demo-local-acceptance.md).
+
 - Private Demo-Identität benötigt explizite vertrauenswürdige Spec und
   Originaldateien0400/Root0700; keine Umgebungsvariable installiert sie.
   `/proc/self/fd` ist nur Linux-FD-Anker, jede echte Pfadkomponente nofollow/
