@@ -13,6 +13,10 @@ import type { PasskeyContext } from "../src/lib/passkey-enrollment-state.ts";
 import type { DemoPasskeyCredentialPorts, DemoSafeOnboardingResult } from "../src/lib/demo-passkey-credential-flow.ts";
 import { DEMO_PASSKEY_CREDENTIAL_KIND } from "../src/lib/demo-passkey-credential-token.ts";
 import { handleDemoPasskeyCredentialHttp, type DemoCredentialHttpRequests } from "../src/lib/demo-passkey-credential-http.ts";
+import { jwtVerify } from "jose";
+import { createDemoCredentialPrivateIdentity } from "../src/lib/demo-credential-private-identity.ts";
+import { createDemoCredentialPrivateProvider } from "../src/lib/demo-credential-private-provider.ts";
+import { demoTlsFixture, identityFixture } from "./helpers/demo-private-identity-fixture.ts";
 
 const id = (n: number) => `00000000-0000-0000-0000-${n.toString().padStart(12, "0")}`;
 const TENANT = id(1), USER = id(2), ACCOUNT = id(3), CONNECTION = id(4), FACTOR = id(5);
@@ -155,6 +159,95 @@ function fixture(action: DemoCredentialAction = "register",
 }
 
 for (const action of ["register", "revoke"] as const) {
+  test(`own HTTP/P256/${action} composes private files and actual mTLS with synthetic API/executor`, async t => {
+    const x = fixture(action);
+    let signing: Uint8Array;
+    const tls = await demoTlsFixture(t, (request, response) => {
+      const chunks: Buffer[] = [];
+      request.on("data", value => chunks.push(value));
+      request.on("end", () => {
+        void (async () => {
+          assert.equal((request.socket as import("node:tls").TLSSocket).authorized, true);
+          const body = Buffer.concat(chunks).toString("utf8");
+          const signed = (request.headers.authorization ?? "").replace(/^Bearer /, "");
+          const { payload } = await jwtVerify(signed, signing, {
+            issuer: "investalo-bff", audience: "investalo-credentials-demo-passkey",
+          });
+          const context = JSON.parse(Buffer.from(
+            request.headers["x-investalo-credential-context"] as string, "base64url").toString());
+          assert.equal(payload.authorization_kind, DEMO_PASSKEY_CREDENTIAL_KIND);
+          assert.equal(payload.body_sha256, hash(body).toString("hex"));
+          assert.equal(payload.htm, "POST");
+          assert.equal(payload.htu, `/v1/credentials/bitget-demo/${action}`);
+          assert.equal(context.user_id, USER);
+          assert.equal(context.oidc_auth_time, x.state.bound.session.oidcAuthTime);
+          assert.equal(context.session_binding, actionProofBinding(x.state.bound));
+          assert.equal(request.url, `/v1/credentials/bitget-demo/${action}`);
+          assert.deepEqual(payload.target, x.state.grant!.target);
+          assert.equal(body, buildBrowserCredentialBody(x.state.grant!.target,
+            action === "revoke" ? undefined : TRIPLE));
+          // Synthetic receipt model only: no PG consume or native broker claim.
+          x.state.executed++;
+          const result = { connection_id: CONNECTION, credential_revision: 1,
+            storage_version: action === "register" ? 1 : 4, status: action === "register" ? "active" : "revoked" };
+          x.state.metadata = { ...x.state.metadata, connection: result as DemoCredentialActionMetadata["connection"] };
+          const output = JSON.stringify(result);
+          response.writeHead(200, { "Content-Type": "application/json", "Content-Length": Buffer.byteLength(output) });
+          response.end(output);
+        })().catch(() => { response.writeHead(500); response.end(); });
+      });
+    });
+    const files = await identityFixture(t, tls.origin);
+    signing = files.signing;
+    const identity = await createDemoCredentialPrivateIdentity(files.spec, x.now);
+    const ports = await createDemoCredentialPrivateProvider({
+      authorized: x.state.bound, identity, current: x.ports.current, now: x.now,
+      randomToken: token, randomUuid: () => CONNECTION,
+      api: async (session, path, options) => {
+        if (path === "/v1/passkeys/context") return x.ports.context(session);
+        if (path === `/v1/bitget-demo/credential-actions/${ACCOUNT}`) return x.ports.metadata(session, ACCOUNT);
+        return x.ports.request(session, path, JSON.parse(options.body!));
+      },
+    });
+    const flow = createDemoPasskeyCredentialBrowserFlow({ portsFor: () => ports, now: x.now,
+      randomToken: token, acceptCredentials: () => true });
+    async function post(phase: "start" | "finish" | "execute", input: unknown) {
+      const request = new Request(`${ORIGIN}/api/credentials/bitget-demo/passkey/${phase}`, {
+        method: "POST", headers: { "Content-Type": "application/json", Origin: ORIGIN,
+          "Sec-Fetch-Site": "same-origin", "X-CSRF-Token": x.state.bound.session.csrf },
+        body: JSON.stringify(input),
+      });
+      return handleDemoPasskeyCredentialHttp(request, phase, {
+        enabled: () => true, origin: async () => ORIGIN, session: async () => x.state.bound, now: x.now,
+        execute: async (input, authorized) => {
+          if (phase === "start") {
+            const body = input as DemoCredentialHttpRequests["start"];
+            return flow.start(authorized, body.platform_account_id, body.action, body.credentials);
+          }
+          if (phase === "finish") {
+            const body = input as DemoCredentialHttpRequests["finish"];
+            return flow.finish(authorized, body.flow_token, body.credential);
+          }
+          const body = input as DemoCredentialHttpRequests["execute"];
+          return flow.execute(authorized, body.flow_token, body.body, body.consent);
+        },
+      });
+    }
+    const started = await post("start", { platform_account_id: ACCOUNT, action,
+      ...(action === "register" ? { credentials: TRIPLE } : {}) });
+    assert.equal(started.status, 200);
+    const prepared = await started.json();
+    const finished = await post("finish", { flow_token: prepared.flow_token,
+      credential: x.assertion(prepared.options.challenge) });
+    assert.equal(finished.status, 200);
+    const grant = await finished.json(), input = { flow_token: grant.flow_token,
+      body: buildBrowserCredentialBody(prepared.preview.target, action === "revoke" ? undefined : TRIPLE),
+      consent: CONSENT };
+    assert.equal((await post("execute", input)).status, 200);
+    assert.equal((await post("execute", input)).status, 400);
+    assert.equal(x.state.executed, 1);
+  });
+
   test(`own browser HTTP ${action} reaches actual P256 verification, own consent and one executor dispatch`, async () => {
     const x = fixture(action);
     async function post<P extends keyof DemoCredentialHttpRequests>(phase: P, input: DemoCredentialHttpRequests[P]) {

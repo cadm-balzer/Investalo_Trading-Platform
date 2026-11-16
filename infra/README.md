@@ -641,3 +641,12 @@ gepinnt grüne Cockpitfälle; Typecheck und Compose-Cockpitbuild grün.
 Keine neuen Services/Migrationen/Dependencies. Vor operativer Eingabe folgen
 private Signing-/Executor-/Provisioningidentität und kombinierte isolierte
 laufende Abnahme. [Vertrag](../docs/bitget-demo-browser-flow.md).
+
+Die eigene private Demo-Identitätsfactory erwartet explizite Originalroot-/
+UID-/Scope-/Fingerprintspec und vier geschützte Dateien. Keine Envaktivierung,
+Provisionierung oder Rotation.33 neue/914 gesamte Cockpitfälle grün,
+Typecheck/Build grün; tatsächliche Dateien und Loopback-mTLS mit P256/Jose,
+API/DB-Receipt/Executorabschlüsse synthetisch. Normale Dienste unverändert.
+Vor globaler Installation folgen kombinierte isolierte laufende API/PG/
+Python-Executorabnahme und später echte Demo-Key-/Readabnahme.
+[Vertrag und Dateinamen](../docs/bitget-demo-private-identity.md).

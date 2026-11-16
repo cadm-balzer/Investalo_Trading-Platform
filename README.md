@@ -11,7 +11,10 @@ und getrennten mTLS-Executortransport. Eigener sicherer Demo-Metadatenzugriff
 und gebundener Cockpit-Serveradapter sind ergänzt. Der eigene geschützte
 Dashboardablauf mit Passkey und ausdrücklicher Bestätigung ist implementiert,
 sein operativer Provider bleibt gesperrt. Private Identitätsverdrahtung,
-kombinierte lokale und native Keyabnahme folgen.
+kombinierte lokale und native Keyabnahme folgen. Ein eigener expliziter
+Dateiprovider bindet inzwischen Originaldateien/Fingerprints und tatsächliches
+mTLS an die ursprüngliche Sitzung und den aktuellen API-Benutzer.
+[Private Identität und Abnahme](docs/bitget-demo-private-identity.md),
 [Browserablauf und Abnahme](docs/bitget-demo-browser-flow.md),
 [Metadaten und Serveradapter](docs/bitget-demo-metadata-provider.md),
 [BFF und Abnahme](docs/bitget-demo-bff-flow.md),
