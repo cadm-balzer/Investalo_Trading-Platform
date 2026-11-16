@@ -1,5 +1,12 @@
 # Roadmap
 
+2026-11-16: eigene private Demo-Herkunftsfreigabe und nativer
+Registrierungsprüfer ergänzt. Genau ein signierter Identitäts-GET, exakte
+Konto/IP/Rechte und erneute Datei-/MAC-/Fristprüfung.115 gepinnte Fälle/
+84 Unterfälle grün mit synthetischen Brokerantworten. Operative Einrichtung,
+echte Demo-Key-/Read-/Latenz-/Quotaabnahme folgen vor dem Ordertransport.
+[Vertrag](bitget-demo-native-provisioning.md).
+
 2026-11-16: gemeinsame isolierte Demo-Abnahme mit tatsächlichem HTTPS-BFF,
 API, PostgreSQL und eingeschränktem Python-mTLS-Executor ergänzt.
 Registrierung, Executor-Neustart, Widerruf und verlorene Erfolgsantwort nach

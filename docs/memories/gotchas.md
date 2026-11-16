@@ -1,5 +1,14 @@
 # Technische Fallstricke
 
+- Demo-Provisioning: `paptrading:1` plus passende UID beweisen nicht die
+  Erstellung im Demo-Modus. Private Betreiberattestation separat halten,
+  vollständiges Triple und Metadaten nur mit eigenem MAC-Schlüssel binden.
+  Native Frische nach dem letzten File-/Keyguard erneut prüfen; dessen IO
+  darf eine anfangs noch frische Antwort nicht nachträglich legitimieren.
+  KEKRing erwartet den bestehenden Tuplevertrag, keine Dict-Testfixture.
+  Gemeinsame UID-Quota und tatsächliche Endpointunterstützung bleiben
+  native Betriebsabnahme, nicht aus synthetischen Replies ableiten.
+
 - Gemeinsame Demo-Abnahme: Testkonten ausdrücklich `ready` anlegen.
   Kurzlebige Test-CA/-Leaves brauchen KeyUsage und SKI/AKI für die strenge
   Python-TLSprüfung. HTTPclient sendet auch für GET eindeutig Content-Length0;

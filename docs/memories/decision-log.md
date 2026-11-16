@@ -2969,3 +2969,21 @@ kein physischer Browser/Next-/OIDC-/nativer Demo-Nachweis.
 Operative Browsersperre bleibt; native Demo-Key-/Readprovenienz und
 Installation folgen vor Ordertransport.
 [Prüfbeleg](../bitget-demo-local-acceptance.md).
+
+## D-127 — Private Demo-Herkunftsfreigabe vor nativer Identitätsprüfung
+
+**Status: lokal umgesetzt/geprüft, 2026-11-16.** Nach bestätigtem PR87-Merge
+erhält der vorhandene Demo-Executor einen ausdrücklich installierbaren
+Provisioningcallback. Vertrauenswürdige Einrichtung bestätigt getrennte
+Demo-Keyerstellung; eigener MAC bindet Originalactor/Konto/UID/Parent/IP/
+Leserechte/Frist und das vollständige Triple. Private Originaldatei wird
+vor und nach einem festen signierten Demo-Identitäts-GET erneut geprüft.
+Ein Ergebnis braucht exakte native Konto/IP/Rechte und echte Frische auch
+nach dem letzten Guard. Keine Herkunftszertifizierung durch Header/UID,
+keine Normalumdeutung, kein Retry oder Orderdispatch.
+115 gepinnte Fälle/84 Unterfälle grün mit tatsächlichen privaten Dateien
+und AES-GCM, synthetischen Keys/Brokerantworten. Kein aktiver Launcher,
+DB-/Frontend-/Dependency-/Dienstwechsel. Native Einrichtung/Endpoint-/
+Latenz-/UID-Quota-/Readabnahme und vollständige Reconciliation bleiben
+Voraussetzungen vor dem Ordertransport.
+[Vertrag](../bitget-demo-native-provisioning.md).

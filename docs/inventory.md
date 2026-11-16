@@ -1,5 +1,12 @@
 # Bestandsaufnahme
 
+IP-009/IP-015: eigener nativer Registrierungsprüfer mit privater,
+MAC-gebundener Demo-Herkunftsfreigabe und festem signiertem Identitäts-GET.
+Originaldatei-/Actor-/Triple-/UID-/Parent-/IP-/Leserechte-/Fristprüfung;
+115 gepinnte Fälle/84 Unterfälle grün. Betreiberattestation und synthetische
+Brokerantworten, noch keine operative/native Abnahme.
+[Vertrag](bitget-demo-native-provisioning.md).
+
 IP-009/IP-015: gemeinsamer isolierter Demo-Abnahmepfad über eigene HTTPS-BFF-
 HTTPadapter, tatsächliche API/PG015/016/017 und separaten eingeschränkten
 Python-mTLS-Executor ergänzt. Frische private Testidentitäten, tatsächliche

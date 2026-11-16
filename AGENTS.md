@@ -7,7 +7,22 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
-- PR86 merged:9c70784 ancestor of main0c30213, GH/fetch verified.
+- PR87 merged:6c0aebd ancestor of main68038db, GH/fetch verified.
+  IP-009/IP-015 on feat/m1-bitget-demo-native-provisioning: callable native
+  registration provisioner, private exact-triple/operator-origin HMAC approval,
+  original 0700/0400/UID/path/inode/hash reader, fixed signed Demo identity GET.
+  Actual UID/parent/single-IP/exact read-rights plus approval/key/clock guards
+  before/after network; five-second cohort, short assertion, no retry/fallback.
+  Local mutex/PID/one-second interval includes failed sends; shared UID quota
+  remains operational. Own revision1 DemoSecretSpec feeds unchanged executor/
+  AEAD contracts; origin remains operator attestation, no certified Demo
+  creation/native archive/acceptance claim.115 pinned cases/84 subtests green,
+  actual files/AES-GCM with synthetic keys/replies. No launcher installation,
+  real keys/HTTP/DB/migrations/dependencies/normal services/frontend/backtest/
+  public/live/AI change. Next provision trusted actual Demo identities and
+  native endpoint/latency/quota/read acceptance, then bound ordertransport.
+  See docs/bitget-demo-native-provisioning.md.
+- PR87 combined acceptance checkpoint, merged6c0aebd into main68038db.
   IP-009/IP-015 on feat/m1-bitget-demo-local-acceptance: combined isolated
   actual HTTPS/BFF/P256/API/PG015016017/AEAD/restricted Python-mTLS executor.
   Fresh synthetic fixture actor/accounts/CA/signing/KEK, fixed private

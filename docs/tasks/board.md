@@ -14,6 +14,11 @@ Widerruf und fehlender Erfolgsantwort nach dem Commit. Unabhängige tatsächlich
 AEAD-/015-/016-/017-Prüfung; Sitzung und Brokerprovenienz synthetisch.
 Operative Installation/native Demo-Key-/Readabnahme bleiben offen.
 [Vertrag und Prüfbeleg](../bitget-demo-local-acceptance.md).
+Folgecheckpoint: private MAC-gebundene Herkunftsfreigabe und nativer
+Registrierungsprüfer mit einem festen signierten Demo-Identitäts-GET.
+115 gepinnte Fälle/84 Unterfälle grün, tatsächliche Dateien/AEAD,
+synthetische Keys und Brokerantworten. Operative/native Abnahme bleibt offen.
+[Registrierungsprüfer](../bitget-demo-native-provisioning.md).
 
 | ID | Prio / Phase | Status | Aufgabe | Abhängigkeit / Abnahme |
 |---|---|---|---|---|
