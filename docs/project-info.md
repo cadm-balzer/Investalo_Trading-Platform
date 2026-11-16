@@ -122,6 +122,12 @@ nach erfolgreichem Commit werden zusammen geprüft. Sitzung und
 Brokerprovenienz bleiben synthetisch; native Demo-Key-/Readabnahme folgt.
 438 tatsächliche gemeinsame Prüfungen und54 gepinnte Python-Fälle/35
 Unterfälle bestanden; normaler Browserprovider weiterhin gesperrt.
+Der [eigene native Registrierungsprüfer](bitget-demo-native-provisioning.md)
+ergänzt inzwischen private MAC-gebundene Herkunftsfreigabe, ursprüngliche
+Dateibindung und einen festen signierten Demo-Identitäts-GET mit exakter
+Konto/IP/Rechteprüfung.115 gepinnte Fälle/84 Unterfälle grün; Schlüssel und
+Brokerantworten synthetisch. Herkunft ist eine Betreiberattestation,
+operative Einrichtung und echte Brokerabnahme bleiben erforderlich.
 Classic-Bitget-Readkern, AEAD-Envelopes und ein gebundener persistenter
 Credentialstore sind mit synthetischen Daten geprüft. Die private Einrichtung
 verbindet sie mit einmaligen Actionfreigaben und einem Entwicklungs-Dateiprovider.
