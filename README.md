@@ -18,6 +18,7 @@ Die gemeinsame isolierte HTTPS/BFF/API/PG/Executorabnahme ist mit438 Prüfungen
 bestanden; ursprüngliche Sitzung und Brokerprovenienz bleiben synthetisch.
 [Gemeinsame isolierte HTTPS/API/PG-Abnahme](docs/bitget-demo-local-acceptance.md),
 [Demo-Herkunftsfreigabe und Registrierungsprüfung](docs/bitget-demo-native-provisioning.md),
+[Privater Demo-Key-Prüfaufruf am Terminal](docs/bitget-demo-private-probe.md),
 [Private Identität und Abnahme](docs/bitget-demo-private-identity.md),
 [Browserablauf und Abnahme](docs/bitget-demo-browser-flow.md),
 [Metadaten und Serveradapter](docs/bitget-demo-metadata-provider.md),

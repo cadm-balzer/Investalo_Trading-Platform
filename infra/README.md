@@ -1,5 +1,12 @@
 # Lokale Compose-Entwicklung
 
+Der separate [private Demo-Key-Prüfaufruf](../docs/bitget-demo-private-probe.md)
+nutzt `compose.demo-native-probe.yaml` mit eigener UID10003, privatem
+Metadaten-/Ergebnismount und verdeckter interaktiver Schlüsseleingabe.
+Kein Default-Opt-in, keine Plattform-/DB-Mounts oder Ports, kein Dockerlogging.
+Einmaliger externer Identitäts-GET erst nach manueller Demo-Bestätigung;
+keine normale Dienstaktivierung oder Plattformregistrierung.
+
 IP-090: die eigene lokale native Futures-/Cockpitabnahme nutzt ein separates
 synthetisches Fixturekonto und private HTTPS-Prüfdienste ohne Hostports.
 Aufruf und erklärtes10k/3-Ranges/2×-Modell:

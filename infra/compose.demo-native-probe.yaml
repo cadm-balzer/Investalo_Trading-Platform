@@ -1,0 +1,36 @@
+# Separate, manually invoked operator probe. No platform/DB/credential mounts.
+name: investalo-demo-native-probe
+services:
+  demo-native-probe:
+    profiles: [demo-native-probe]
+    image: investalo-demo-native-probe:0.1.0-local
+    build:
+      context: ..
+      dockerfile: infra/docker/credential-development.Dockerfile
+      target: development
+      args:
+        PYTHON_IMAGE: ${PYTHON_IMAGE:?Pinned image required}
+    command: [python, -m, investalo_credential_store.demo_private_probe]
+    user: "10003:10003"
+    restart: "no"
+    stdin_open: true
+    tty: true
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 32
+    mem_limit: 128m
+    cpus: 0.5
+    tmpfs: ["/tmp:rw,noexec,nosuid,nodev,size=8m"]
+    logging:
+      driver: none
+    volumes:
+      - type: bind
+        source: /tmp/investalo-demo-native-probe
+        target: /run/demo-native-probe
+        bind:
+          create_host_path: false
+    networks: [probe]
+networks:
+  probe:
+    driver: bridge

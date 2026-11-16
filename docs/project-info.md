@@ -128,6 +128,11 @@ Dateibindung und einen festen signierten Demo-Identitäts-GET mit exakter
 Konto/IP/Rechteprüfung.115 gepinnte Fälle/84 Unterfälle grün; Schlüssel und
 Brokerantworten synthetisch. Herkunft ist eine Betreiberattestation,
 operative Einrichtung und echte Brokerabnahme bleiben erforderlich.
+Der [private Demo-Key-Prüfaufruf](bitget-demo-private-probe.md) ermöglicht
+nun eine explizite einmalige Operatorprüfung am Terminal mit verdeckter
+Schlüsseleingabe und privatem Ergebnisbeleg.135 gepinnte Fälle/84 Unterfälle,
+einschließlich echtem Linux-PTY, grün; Brokerantworten synthetisch.
+Private reale Metadaten-/Keyvorbereitung und native Abnahme folgen.
 Classic-Bitget-Readkern, AEAD-Envelopes und ein gebundener persistenter
 Credentialstore sind mit synthetischen Daten geprüft. Die private Einrichtung
 verbindet sie mit einmaligen Actionfreigaben und einem Entwicklungs-Dateiprovider.

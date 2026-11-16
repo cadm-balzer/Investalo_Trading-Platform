@@ -1,5 +1,12 @@
 # Bestandsaufnahme
 
+IP-009/IP-015: eigener einmaliger privater TTY-Prüfaufruf mit getpass,
+unveränderlicher privater Setupdatei/Directorylock und keyfreier Quittung.
+Separate gepinnte Composeidentität, keine Plattform-/DB-Mounts oder Ports.
+20 neue/135 gepinnte Fälle/84 Unterfälle grün inklusive echter Linux-PTY-
+Prüfung mit synthetischem Transport. Native Keyabnahme noch offen.
+[Bedienung und Grenzen](bitget-demo-private-probe.md).
+
 IP-009/IP-015: eigener nativer Registrierungsprüfer mit privater,
 MAC-gebundener Demo-Herkunftsfreigabe und festem signiertem Identitäts-GET.
 Originaldatei-/Actor-/Triple-/UID-/Parent-/IP-/Leserechte-/Fristprüfung;

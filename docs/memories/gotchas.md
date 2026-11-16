@@ -1,5 +1,12 @@
 # Technische Fallstricke
 
+- Operator-Probe: `getpass`-Warnung als Fehler behandeln, sonst kann eine
+  sichtbare Fallbackeingabe entstehen. Alle drei Streams als TTY verlangen;
+  tatsächliche Echoabschaltung mit frischem Pythonprozess am Linux-PTY prüfen.
+  Dockerlogging aus, Keys nie als Argument/Env/Datei. Ein unbekannter fsync-
+  Ausgang kann einen Ergebnisbeleg hinterlassen: keine automatische
+  Autorität daraus ableiten und keinen Netzwerkaufruf wiederholen.
+
 - Demo-Provisioning: `paptrading:1` plus passende UID beweisen nicht die
   Erstellung im Demo-Modus. Private Betreiberattestation separat halten,
   vollständiges Triple und Metadaten nur mit eigenem MAC-Schlüssel binden.

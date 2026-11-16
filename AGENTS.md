@@ -7,7 +7,25 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
-- PR87 merged:6c0aebd ancestor of main68038db, GH/fetch verified.
+- PR88 merged:666fed5 ancestor of mainc9bd492, GH/fetch verified.
+  IP-009/IP-015 on feat/m1-bitget-demo-private-probe: explicit operator TTY
+  identity probe, actual getpass/no visible fallback/no key args/env/files.
+  Own strict private setup/original file and exclusive directory lock,
+  ephemeral origin MAC plus existing native provisioner, one fixed signed GET.
+  Create-only private per-attempt receipt/fsync/readback with derived hashes/
+  timings and false creation/full-account/registration/order authority flags.
+  Unknown output may remain but never retries or grants continuation.
+  Separate pinned UID10003/readonly/cap-drop/no logging/no ports/no DB mounts
+  one-off Compose; explicit opt-in and TTY required, normal services unchanged.
+  20 new/135 pinned cases/84 subtests green including actual Linux PTY child/
+  getpass/hidden triple/private receipt and real IO/lock failures. Replies are
+  synthetic; Compose valid and packaged default rejects offline before intake.
+  No actual keys/native HTTP/platform binding/DB/migrations/dependencies/
+  frontend/backtest/public/live/AI change. Next privately prepare actual
+  Demo key/UID/parent/egress/read rights and run native identity then full
+  account/order/cost/latency/shared UID quota acceptance; operative wiring follows.
+  See docs/bitget-demo-private-probe.md.
+- PR88 native provisioning checkpoint, merged666fed5 into mainc9bd492.
   IP-009/IP-015 on feat/m1-bitget-demo-native-provisioning: callable native
   registration provisioner, private exact-triple/operator-origin HMAC approval,
   original 0700/0400/UID/path/inode/hash reader, fixed signed Demo identity GET.
