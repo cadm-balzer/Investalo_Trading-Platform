@@ -10,10 +10,13 @@ Der eigene private BFF ergänzt echte Passkeyprüfung, Demo-Consent/Signing
 und getrennten mTLS-Executortransport. Eigener sicherer Demo-Metadatenzugriff
 und gebundener Cockpit-Serveradapter sind ergänzt. Der eigene geschützte
 Dashboardablauf mit Passkey und ausdrücklicher Bestätigung ist implementiert,
-sein operativer Provider bleibt gesperrt. Private Identitätsverdrahtung,
-kombinierte lokale und native Keyabnahme folgen. Ein eigener expliziter
+sein operativer Provider bleibt gesperrt. Native Keyabnahme und operative
+Installation folgen. Ein eigener expliziter
 Dateiprovider bindet inzwischen Originaldateien/Fingerprints und tatsächliches
 mTLS an die ursprüngliche Sitzung und den aktuellen API-Benutzer.
+Die gemeinsame isolierte HTTPS/BFF/API/PG/Executorabnahme ist mit438 Prüfungen
+bestanden; ursprüngliche Sitzung und Brokerprovenienz bleiben synthetisch.
+[Gemeinsame isolierte HTTPS/API/PG-Abnahme](docs/bitget-demo-local-acceptance.md),
 [Private Identität und Abnahme](docs/bitget-demo-private-identity.md),
 [Browserablauf und Abnahme](docs/bitget-demo-browser-flow.md),
 [Metadaten und Serveradapter](docs/bitget-demo-metadata-provider.md),

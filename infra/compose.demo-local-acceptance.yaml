@@ -1,0 +1,126 @@
+# Own isolated synthetic Demo acceptance. No host ports or normal overrides.
+x-demo-hardened: &demo-hardened
+  profiles: [demo-local-acceptance]
+  restart: "no"
+  user: "10003:10003"
+  read_only: true
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+  tmpfs: ["/tmp:rw,noexec,nosuid,nodev,size=32m"]
+  pids_limit: 64
+  mem_limit: 192m
+  cpus: 0.5
+  logging:
+    driver: none
+
+x-demo-api-env: &demo-api-env
+  PGHOST: postgres
+  PGPORT: "5432"
+  PGDATABASE: investalo_credentials_checks
+  PGUSER: investalo_runtime
+  PGPASSWORD_FILE: /run/secrets/platform_runtime_password
+  PGSSLMODE: verify-full
+  PGSSLROOTCERT: /run/secrets/local_ca_cert
+  API_INTERNAL_AUTH_SECRET_FILE: /run/secrets/demo_acceptance_api_secret
+  API_OIDC_ISSUER: https://auth.cockpit.local.test:8443
+  API_PASSKEY_RP_ID: cockpit.local.test
+  API_PASSKEY_ORIGIN: https://cockpit.local.test:8443
+
+x-demo-api: &demo-api
+  <<: *demo-hardened
+  image: investalo-api:0.1.0-local
+  secrets: [platform_runtime_password, demo_acceptance_api_secret, local_ca_cert, api_tls_key, api_tls_cert]
+  networks: [database, demo_acceptance]
+  healthcheck:
+    test: [CMD, python, -c, "import ssl,socket; s=ssl.create_default_context(cafile='/run/secrets/local_ca_cert').wrap_socket(socket.create_connection(('127.0.0.1',8000),timeout=3),server_hostname='api'); s.sendall(b'GET /health/ready HTTP/1.1\\r\\nHost: api\\r\\nConnection: close\\r\\n\\r\\n'); assert b' 200 ' in s.recv(1024).split(b'\\r\\n',1)[0]"]
+    interval: 5s
+    timeout: 4s
+    retries: 12
+
+services:
+  demo-acceptance-api:
+    <<: *demo-api
+    environment:
+      <<: *demo-api-env
+      API_DEMO_PASSKEY_AUTHORIZATIONS: "1"
+      API_DEMO_CREDENTIAL_METADATA: "1"
+
+  demo-acceptance-disabled-api:
+    <<: *demo-api
+    environment: *demo-api-env
+
+  demo-acceptance-node:
+    <<: *demo-hardened
+    image: investalo-demo-acceptance-node:0.1.0-local
+    build:
+      context: ..
+      dockerfile: infra/docker/demo-acceptance-node.Dockerfile
+      args:
+        NODE_IMAGE: ${NODE_IMAGE:?Pinned image required}
+    environment:
+      NODE_EXTRA_CA_CERTS: /run/secrets/local_ca_cert
+    secrets: [local_ca_cert]
+    volumes:
+      - /tmp/investalo-demo-local-acceptance/${DEMO_ACCEPTANCE_RUN:-unprepared}/identity:/run/demo-identity:ro
+      - /tmp/investalo-demo-local-acceptance/${DEMO_ACCEPTANCE_RUN:-unprepared}/browser:/run/demo-browser-tls:ro
+    networks: [demo_acceptance]
+    stdin_open: true
+
+  demo-acceptance-audit:
+    <<: *demo-hardened
+    group_add: ["10010"]
+    image: investalo-demo-acceptance-audit:0.1.0-local
+    build:
+      context: ..
+      dockerfile: infra/docker/credential-storage.Dockerfile
+      target: checks
+      args:
+        PYTHON_IMAGE: ${PYTHON_IMAGE:?Pinned image required}
+    environment:
+      <<: *demo-api-env
+      API_TEST_ADMIN_USER: investalo_migration
+      API_TEST_ADMIN_PASSWORD_FILE: /run/secrets/platform_migration_password
+      DEMO_ACCEPTANCE_API_SECRET_FILE: /run/secrets/demo_acceptance_api_secret
+    command: [python, /app/tests/infra/check_demo_local_acceptance.py, --child]
+    volumes:
+      - ../tests/infra/check_demo_local_acceptance.py:/app/tests/infra/check_demo_local_acceptance.py:ro
+      - /tmp/investalo-demo-local-acceptance:/fixture-demo-acceptance:rw
+    secrets: [platform_migration_password, platform_runtime_password, demo_acceptance_api_secret, local_ca_cert]
+    networks: [database, demo_acceptance]
+    stdin_open: true
+
+  demo-acceptance-node-checks:
+    <<: *demo-hardened
+    image: investalo-demo-acceptance-node:0.1.0-local
+    mem_limit: 512m
+    networks: [demo_acceptance]
+    command: [node, /app/node_modules/typescript/bin/tsc, --noEmit, --strict,
+      --target, esnext, --module, esnext, --moduleResolution, bundler,
+      --allowImportingTsExtensions, --skipLibCheck, --jsx, react-jsx,
+      /app/tests/infra/demo_credential_acceptance_driver.ts]
+
+  demo-acceptance-executor:
+    <<: *demo-hardened
+    image: investalo-demo-acceptance-executor:0.1.0-local
+    build:
+      context: ..
+      dockerfile: infra/docker/credential-development.Dockerfile
+      target: development
+      args:
+        PYTHON_IMAGE: ${PYTHON_IMAGE:?Pinned image required}
+    command: [python, -m, investalo_credential_store.demo_acceptance_runtime, --synthetic-demo]
+    secrets: [credentials_test_password_a, local_ca_cert]
+    volumes:
+      - /tmp/investalo-demo-local-acceptance/${DEMO_ACCEPTANCE_RUN:-unprepared}/executor:/run/demo-executor:ro
+    networks:
+      database: {}
+      demo_acceptance:
+        aliases: [demo-executor.cockpit.local.test]
+
+networks:
+  demo_acceptance:
+    internal: true
+
+secrets:
+  demo_acceptance_api_secret:
+    file: /tmp/investalo-passkey-browser-state/internal-secret

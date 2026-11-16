@@ -650,3 +650,15 @@ API/DB-Receipt/Executorabschlüsse synthetisch. Normale Dienste unverändert.
 Vor globaler Installation folgen kombinierte isolierte laufende API/PG/
 Python-Executorabnahme und später echte Demo-Key-/Readabnahme.
 [Vertrag und Dateinamen](../docs/bitget-demo-private-identity.md).
+
+Die gemeinsame isolierte Demo-Abnahme verbindet nun einen eigenen HTTPS-BFF
+mit tatsächlicher API, Fixture015/016/017 und eingeschränktem Python-mTLS-
+Executor. Sie prüft Registrierung, Prozessneustart, Widerruf und absichtlich
+verlorene Erfolgsantwort nach dem Commit samt unabhängiger AEAD-/DBprüfung.
+`infra/compose.demo-local-acceptance.yaml` ergänzt ausschließlich getrennte
+Testservices ohne Hostports; der Host startet und beendet nur eigene eindeutige
+One-off-Container. Eigener synthetischer Launcher benötigt exakt
+`--synthetic-demo` und akzeptiert nur Testtriples.
+Sitzung und Brokerprovenienz bleiben synthetisch, die normale Browserruntime
+fest aus. Voraussetzungen, Befehle und Prüfbeleg:
+[gemeinsame Abnahme](../docs/bitget-demo-local-acceptance.md).

@@ -113,8 +113,15 @@ Identitätsverdrahtung, kombinierte laufende und native Abnahme folgen.
 Der [eigene private Demo-Dateiprovider](bitget-demo-private-identity.md) ergänzt
 nun Originaldatei-/Fingerprint-/TLSprüfung und explizite Serverfactory mit
 unabhängig gelesenem API-Benutzer.33 neue/914 gepinnte Cockpitfälle grün.
-Die operative Installation und kombinierte laufende API/PG/Executorabnahme
-folgen; echte Demo-Keys werden weiterhin nicht angenommen.
+Die operative Installation und native Demo-Key-/Readabnahme folgen;
+echte Demo-Keys werden weiterhin nicht angenommen.
+Die [gemeinsame isolierte Demo-Abnahme](bitget-demo-local-acceptance.md) verbindet
+inzwischen den HTTPS-BFF mit echter API, PostgreSQL und getrenntem privaten
+Python-Executor. Registrierung, Neustart, Widerruf und unbestätigte Antwort
+nach erfolgreichem Commit werden zusammen geprüft. Sitzung und
+Brokerprovenienz bleiben synthetisch; native Demo-Key-/Readabnahme folgt.
+438 tatsächliche gemeinsame Prüfungen und54 gepinnte Python-Fälle/35
+Unterfälle bestanden; normaler Browserprovider weiterhin gesperrt.
 Classic-Bitget-Readkern, AEAD-Envelopes und ein gebundener persistenter
 Credentialstore sind mit synthetischen Daten geprüft. Die private Einrichtung
 verbindet sie mit einmaligen Actionfreigaben und einem Entwicklungs-Dateiprovider.
