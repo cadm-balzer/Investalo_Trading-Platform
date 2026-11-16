@@ -1,5 +1,16 @@
 # Technische Fallstricke
 
+- Private Demo-Identität benötigt explizite vertrauenswürdige Spec und
+  Originaldateien0400/Root0700; keine Umgebungsvariable installiert sie.
+  `/proc/self/fd` ist nur Linux-FD-Anker, jede echte Pfadkomponente nofollow/
+  lstat prüfen. Inodes/Zeiten als BigInt/Nanosekunden lesen; byteidentische
+  Ersatzdateien nicht adoptieren. Aktuelle User-ID unabhängig aus APIkontext,
+  niemals JWT ableiten. Ausschlussfingerprints benötigen vollständige
+  vertrauenswürdige Provisioningdeklaration. Tatsächliches Node-mTLS beweist
+  noch keinen laufenden PG/Python-Executor oder native Demo-Keyherkunft.
+  Öffentliche TLS-Testcanaries niemals operativ installieren.
+  [Vertrag](../bitget-demo-private-identity.md).
+
 - Demo-Browserruntime bleibt fest `false`; APIflags installieren keine
   Signing-/TLS-/Provisioningidentität. Eigene Pfade, Revision1 und
   `demo-credential-write` strikt erhalten. Continuationkapazität vor Await

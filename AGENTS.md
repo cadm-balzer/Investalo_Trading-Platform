@@ -7,6 +7,23 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR85 code integrated: 93134bf ancestor of maina1d7175, fetched ancestry/
+  identical tree verified; GH PR record still stale OPEN/CONFLICTING.
+  IP-009/IP-015 on feat/m1-bitget-demo-private-identity: own explicit Linux
+  original-path/UID/0700/0400/nlink/bounded FD/hash identity reader, exact
+  root/file inode continuity and BigInt/nanosecond mutation checks.
+  Own32-byte signing authority plus CA/client-EKU/key-match/validity checked.
+  Trusted excluded-key fingerprint declaration required; no env fallback/
+  provisioning/rotation/global installation. Current API actor independently
+  binds original session/context; own server factory composes existing ports
+  and fixed-account register/revoke mTLS transport, no JWT-derived identity.
+  33 new/914 total pinned Node cases and typecheck/Cockpit build green.
+  Actual filesystem+loopback mTLS+P256/Jose/BFF checked; API/receipt/executor
+  models remain synthetic, public TLS test canaries never operational.
+  Runtime fixed false; no DB/dependencies/services/real keys/broker/orders/
+  backtest/public/live/AI change. Next combined isolated running HTTPS/BFF/
+  API/PG/Python executor acceptance, then native Demo key/read proof.
+  See docs/bitget-demo-private-identity.md.
 - PR84 merged: 36adb95 ancestor of main1661ca3, GH/fetch verified.
   IP-009/IP-015 on feat/m1-bitget-demo-browser-flow: own protected Demo
   browser continuation/HTTP/controller/form, exact register-revoke revision1/

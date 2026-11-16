@@ -110,6 +110,11 @@ Der [eigene geschützte Demo-Browserablauf](bitget-demo-browser-flow.md) ergänz
 Formular, Passkey/Consent und getrennte Next-Routen mit fest gesperrtem Provider.
 101 neue/881 gepinnte Cockpitfälle, Typecheck/Build grün. Private
 Identitätsverdrahtung, kombinierte laufende und native Abnahme folgen.
+Der [eigene private Demo-Dateiprovider](bitget-demo-private-identity.md) ergänzt
+nun Originaldatei-/Fingerprint-/TLSprüfung und explizite Serverfactory mit
+unabhängig gelesenem API-Benutzer.33 neue/914 gepinnte Cockpitfälle grün.
+Die operative Installation und kombinierte laufende API/PG/Executorabnahme
+folgen; echte Demo-Keys werden weiterhin nicht angenommen.
 Classic-Bitget-Readkern, AEAD-Envelopes und ein gebundener persistenter
 Credentialstore sind mit synthetischen Daten geprüft. Die private Einrichtung
 verbindet sie mit einmaligen Actionfreigaben und einem Entwicklungs-Dateiprovider.

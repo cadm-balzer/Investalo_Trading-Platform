@@ -1,5 +1,9 @@
 # Geschützter eigener Demo-Browserablauf
 
+Nachfolger: [eigene private Demo-Dateiidentität/Serverfactory](bitget-demo-private-identity.md)
+mit tatsächlicher lokaler mTLS-Abnahme. Runtime bleibt gesperrt; kombinierte
+laufende API/PostgreSQL/Python-Executorabnahme und native Keyabnahme folgen.
+
 Stand 2026-11-15, IP-009/IP-015. PR84 (`36adb95`) ist in
 `1661ca3` enthalten; GitHub/Fetch/Ancestry bestätigt.
 

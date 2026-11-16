@@ -1,5 +1,13 @@
 # Roadmap
 
+2026-11-16: eigener expliziter privater Demo-Dateiprovider/Serverfactory
+ergänzt, gebunden an Originaldateien/Fingerprints, aktuelle API-User-ID und
+ursprüngliche Sitzung.33 neue/914 gepinnte Cockpitfälle, Typecheck/Build grün;
+tatsächliche Dateien/P256/Jose/Loopback-mTLS, private Antworten synthetisch.
+Keine operative Installation/Aktivierung. Als Nächstes kombinierte isolierte
+laufende HTTPS/BFF/API/PG/Python-Executorabnahme und native Demo-Key-/Readabnahme.
+[Vertrag](bitget-demo-private-identity.md).
+
 2026-11-15: eigener geschützter Demo-Browservertrag, Formular und Next-Routen
 ergänzt; Registrierung/Widerruf mit Passkey und ausdrücklichem Demo-Consent.
 101 neue/881 gepinnte Cockpitfälle, Typecheck/Build grün. Provider fest aus.

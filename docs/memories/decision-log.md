@@ -2916,3 +2916,36 @@ kombinierter laufender HTTPS/BFF/API/PG/Executor-Nachweis behauptet.
 Private Identitäts-/Executor-/Provisioningverdrahtung und isolierte kombinierte
 laufende Abnahme folgen, danach native Demo-Key-/Readabnahme.
 [Vertrag und Abnahme](../bitget-demo-browser-flow.md).
+
+
+## D-125 — Eigene private Demo-Dateiidentität und Serverfactory
+
+2026-11-16: Nutzer beauftragt Fortsetzung nach blockierter GitHub-Mergestatus-
+Anzeige. PR85-Code93134bf ist tatsächlich in maina1d7175 enthalten, per
+Fetch/Ancestry/identischem Dateibaum bestätigt. PRmetadaten meldeten noch
+OPEN/CONFLICTING; kein erneuter Merge oder Forcedwrite wurde ausgeführt.
+
+Explizite eigene Linux-Identitätsfactory mit trusted Originalroot/UID/Scope/
+Fingerprintspec ergänzt. Gehaltene FDs/nofollow/nlink/0700/0400/bounded Reads,
+BigInt-Inodes/Nanosekunden und ursprüngliche Dateibindung bei jedem Zugriff.
+Byteidentische Ersatzdateien/Root/Linkadoption oder Hotrotation werden verworfen.
+Eigener32-Byte-Signingkey, erklärte Ausschlussfingerprints und tatsächliche
+CA-/Client-EKU-/Keyzugehörigkeits-/Gültigkeitsprüfung. Vollständigkeit der
+Ausschlussliste bleibt eine trusted Provisioningpflicht, kein eigener Beweis.
+
+Eigener Provider liest aktuellen authentifizierten API-User unabhängig vom
+JWT und bindet ihn an die Originalsession. Fester Executororigin/Account/
+Revision1/Register-Revoke und unveränderte private Bodybytes; separate
+Serverfactory nutzt getBoundSession/apiRequest. Kein Env-/Globalproviderfallback,
+Browserruntime bleibt fest false.015/016 behalten durable Autorität.
+
+33 neue/914 gesamte gepinnte Cockpitfälle, Typecheck/Build grün.
+Tatsächliche Dateien und Loopback-mTLS, zwei vollständige Request/Response/
+P256/BFF/Consent/private-Datei/mTLS/Joseprüfungen mit synthetischen API-/DB-
+Receipts/Executorabschlüssen. Nicht als kombinierter laufender PG/Python-
+Executornachweis oder physischer/native Demo-Keynachweis berichten.
+TLS-Testcanaries sind ausdrücklich öffentlich synthetisch, nie operativ.
+Keine Migration/Dependencies/normalen Dienste/echten Keys/Brokerrequests/
+Orders/Backtests/Public/Live/AI geändert. Operative Installation und isolierte
+kombinierte laufende API/PG/Python-Executorabnahme folgen, danach native
+Demo-Key-/UID-/Readabnahme. [Vertrag](../bitget-demo-private-identity.md).

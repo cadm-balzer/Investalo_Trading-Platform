@@ -1,5 +1,13 @@
 # Bestandsaufnahme
 
+IP-009/IP-015: eigene private Demo-Dateiidentität und explizite Serverfactory
+ergänzt. Originalpfad/inode/UID/0700/0400/Fingerprints, CA/Client-EKU/
+Keyzugehörigkeit/Gültigkeit bei jedem Zugriff geprüft.33 neue/914 gepinnte
+Cockpitfälle, Typecheck/Build grün. Tatsächliche lokale Dateien/Loopback-mTLS/
+P256/Jose geprüft; API/DB-Receipt/Executorantworten weiter synthetisch.
+Provider nicht global installiert, Browserruntime fest aus. Kombinierte
+laufende API/PG/Python-Executorabnahme folgt. [Vertrag](bitget-demo-private-identity.md).
+
 IP-009/IP-015: eigener geschützter Demo-Browserablauf/HTTPadapter/Controller/
 Formular sowie getrennte Next-Routen und authentifizierte Demoseite ergänzt.
 101 neue/881 gesamte gepinnte Cockpitfälle, Typecheck/Build grün.
