@@ -1,5 +1,9 @@
 # Eigene Demo-Metadaten und Cockpit-Serveradapter
 
+Nachfolgender Stand: [eigener geschützter Demo-Browserablauf](bitget-demo-browser-flow.md)
+mit Formular und getrennten Next-Routen ergänzt. Operativer Provider fest aus;
+private Identitätsverdrahtung und kombinierte laufende Abnahme bleiben offen.
+
 Stand 2026-11-15, IP-009/IP-015. PR83 (`c8bb4a2`) ist in
 `maincad4e2d` enthalten; GitHub/Fetch/Ancestry bestätigt.
 

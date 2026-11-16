@@ -8,8 +8,11 @@ Storewrite und atomarem Post-Write-Abschluss. Die eigene standardmäßig gesperr
 interne Demo-API ergänzt nun Challenge/Claim/Grant und ausdrücklichen Consent.
 Der eigene private BFF ergänzt echte Passkeyprüfung, Demo-Consent/Signing
 und getrennten mTLS-Executortransport. Eigener sicherer Demo-Metadatenzugriff
-und gebundener Cockpit-Serveradapter sind ergänzt. Geschützter Dashboard-
-Keyeingang, private Identitätsverdrahtung und native Keyabnahme folgen.
+und gebundener Cockpit-Serveradapter sind ergänzt. Der eigene geschützte
+Dashboardablauf mit Passkey und ausdrücklicher Bestätigung ist implementiert,
+sein operativer Provider bleibt gesperrt. Private Identitätsverdrahtung,
+kombinierte lokale und native Keyabnahme folgen.
+[Browserablauf und Abnahme](docs/bitget-demo-browser-flow.md),
 [Metadaten und Serveradapter](docs/bitget-demo-metadata-provider.md),
 [BFF und Abnahme](docs/bitget-demo-bff-flow.md),
 [API und Abnahme](docs/bitget-demo-passkey-api.md), [Freigabe](docs/bitget-demo-passkey-purpose.md),

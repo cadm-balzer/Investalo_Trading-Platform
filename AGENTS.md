@@ -7,6 +7,22 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR84 merged: 36adb95 ancestor of main1661ca3, GH/fetch verified.
+  IP-009/IP-015 on feat/m1-bitget-demo-browser-flow: own protected Demo
+  browser continuation/HTTP/controller/form, exact register-revoke revision1/
+  demo-credential-write, own Next POST routes and authenticated Demo page.
+  Capacity reserved before awaits; original-session handles rotate once,
+  private triple/body/JWT absent from handle/storage, unknown never retries.
+  Mandatory trusted intake policy; fixture accepts synthetic data only.
+  Actual P256 Request/Response/BFF/Consent/synthetic executor flow and
+  React SSR/page/routes checked;101 new,881 total pinned Node green.
+  Typecheck/Cockpit pinned build green;001–017/development set unchanged.
+  Runtime availability remains fixed false; no real keys/private identity/
+  normal services/DB/dependencies/broker/orders/backtest/public/live/AI change.
+  Next own private identity/executor wiring and combined isolated running
+  HTTPS/BFF/API/PG acceptance, then native Demo key/read proof. In-process
+  tests are not physical-browser/native or combined running acceptance.
+  See docs/bitget-demo-browser-flow.md.
 - PR83 merged: c8bb4a2 ancestor of maincad4e2d, GH/fetch verified.
   IP-009/IP-015 on feat/m1-bitget-demo-metadata-provider: own default-off
   GET /v1/bitget-demo/credential-actions/{account_id} plus own017 readonly

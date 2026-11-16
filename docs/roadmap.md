@@ -1,5 +1,12 @@
 # Roadmap
 
+2026-11-15: eigener geschützter Demo-Browservertrag, Formular und Next-Routen
+ergänzt; Registrierung/Widerruf mit Passkey und ausdrücklichem Demo-Consent.
+101 neue/881 gepinnte Cockpitfälle, Typecheck/Build grün. Provider fest aus.
+Als Nächstes private Signing-/Executor-/Provisioningidentität und kombinierte
+isolierte laufende HTTPS/BFF/API/PG-Abnahme; danach native Demo-Key-/Readabnahme
+und gebundener Ordertransport. [Vertrag](bitget-demo-browser-flow.md).
+
 2026-11-15: eigener scoped Demo-Metadatenzugriff/Fixture017 und Cockpit-
 Serveradapter für tatsächliche aktuelle Sitzung/APIassertions ergänzt.
 348 unterschiedliche gepinnte Fälle,54 neu; final36 betroffene APIfälle grün.

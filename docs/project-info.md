@@ -106,8 +106,10 @@ WebAuthnprüfung, Demo-Consent/Signing und getrennten mTLS-Executortransport
 mit injizierten vertrauenswürdigen Adaptern.
 Der [eigene Metadatenzugriff und Cockpit-Serveradapter](bitget-demo-metadata-provider.md)
 verbinden aktuelle Serversitzung/APIassertions mit dem getrennten Demo-Kontostand.
-Geschützte Dashboard-Keyeingabe/private Identitätsverdrahtung und native Abnahme folgen
-ohne öffentliche Aktivierung.
+Der [eigene geschützte Demo-Browserablauf](bitget-demo-browser-flow.md) ergänzt
+Formular, Passkey/Consent und getrennte Next-Routen mit fest gesperrtem Provider.
+101 neue/881 gepinnte Cockpitfälle, Typecheck/Build grün. Private
+Identitätsverdrahtung, kombinierte laufende und native Abnahme folgen.
 Classic-Bitget-Readkern, AEAD-Envelopes und ein gebundener persistenter
 Credentialstore sind mit synthetischen Daten geprüft. Die private Einrichtung
 verbindet sie mit einmaligen Actionfreigaben und einem Entwicklungs-Dateiprovider.

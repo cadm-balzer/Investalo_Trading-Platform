@@ -1,5 +1,13 @@
 # Bestandsaufnahme
 
+IP-009/IP-015: eigener geschützter Demo-Browserablauf/HTTPadapter/Controller/
+Formular sowie getrennte Next-Routen und authentifizierte Demoseite ergänzt.
+101 neue/881 gesamte gepinnte Cockpitfälle, Typecheck/Build grün.
+Echte P256-Signaturen in In-Process-Request/Responseprüfung; Executor und
+Konten synthetisch, React-SSR statt physischem Browser. Runtime fest aus;
+private Identitätsverdrahtung/kombinierte laufende/native Abnahme folgen.
+Keine DB-/Service-/Dependencyänderung. [Vertrag](bitget-demo-browser-flow.md).
+
 IP-009/IP-015: eigene Default-off-Demo-Metadaten-API/Fixture017 und gebundener
 Cockpit-Serveradapter mit tatsächlicher Sitzungs-/APIanbindung ergänzt.
 Nur sichere Konto-/Connectionmetadaten, aktueller Owner/Trader/Actor/Scope;

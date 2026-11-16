@@ -631,3 +631,13 @@ Gepinnte `api-checks` mit `PGDATABASE=investalo_credentials_checks` prüfen
 Der eigene Cockpit-Serveradapter nutzt tatsächliche Sitzung/APIassertions;
 private Signing-/Executoridentität bleibt injiziert, Browserwege nicht aktiviert.
 [Vertrag](../docs/bitget-demo-metadata-provider.md).
+
+Der eigene Demo-Browserablauf ergänzt getrennte Next-POST-Routen und
+`/security/credentials/demo`, Controller/Formular/Passkey/Consent.
+`demoCredentialBrowserRuntimeAvailable()` bleibt fest `false`; Flags schalten
+keine Keyeingabe frei. Die jetzige Abnahme nutzt synthetische Adapter und
+Testtriples, tatsächliche P256-Signaturen und React-SSR.101 neue/881 gesamte
+gepinnt grüne Cockpitfälle; Typecheck und Compose-Cockpitbuild grün.
+Keine neuen Services/Migrationen/Dependencies. Vor operativer Eingabe folgen
+private Signing-/Executor-/Provisioningidentität und kombinierte isolierte
+laufende Abnahme. [Vertrag](../docs/bitget-demo-browser-flow.md).
