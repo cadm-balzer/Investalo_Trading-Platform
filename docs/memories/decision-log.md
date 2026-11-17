@@ -2987,3 +2987,20 @@ DB-/Frontend-/Dependency-/Dienstwechsel. Native Einrichtung/Endpoint-/
 Latenz-/UID-Quota-/Readabnahme und vollständige Reconciliation bleiben
 Voraussetzungen vor dem Ordertransport.
 [Vertrag](../bitget-demo-native-provisioning.md).
+
+## D-128 — Einmaliger privater Demo-Keycheck vor operativer Anbindung
+
+**Status: vorbereitet und lokal geprüft, 2026-11-16.** Nach PR88 erhält
+der Operator einen eigenen expliziten TTY-Aufruf mit verdecktem Original-
+getpass, striktem privatem Metadatensetup und einem festen signierten GET.
+Getrenntes gepinntes Composeprofil ohne Plattform-/DB-/Cookie-/KEK-Mounts,
+Ports oder Logging. Directorylock, Originaldateiguards und create-only
+private Digests/Zeiten statt Credentialpersistenz oder öffentlicher Daten.
+Die MAC-Herkunftsfreigabe bleibt flüchtig; Ergebnisbeleg ist keine neue
+Plattformberechtigung, Handelsautorität oder zertifizierte Demo-Herkunft.
+20 neue/135 gepinnte Fälle/84 Unterfälle, einschließlich echtem Linux-PTY-
+Kindprozess und originaler Echoabschaltung, grün. Transport synthetisch;
+noch keine reale Keyaufnahme/native Bitget-Abnahme. Echte private
+Metadaten-/Keyvorbereitung folgt vor vollständiger Account-/Order-/
+Kosten-/Latenz-/UID-Quotaabnahme und operativer Verdrahtung.
+[Bedienung](../bitget-demo-private-probe.md).

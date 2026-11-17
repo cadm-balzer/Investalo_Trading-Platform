@@ -1,5 +1,12 @@
 # Roadmap
 
+2026-11-16: privater einmaliger Demo-Key-Prüfaufruf vorbereitet. Verdeckt am
+Serverterminal, ein fester signierter GET, eigene private Quittung und
+separater gehärteter Composeaufruf ohne Plattform-/DB-Anbindung.135 gepinnte
+Fälle/84 Unterfälle inklusive tatsächlichem Linux-PTY grün; Replies synthetisch.
+Echte Metadaten-/Keyeinrichtung und native Abnahme folgen.
+[Bedienung](bitget-demo-private-probe.md).
+
 2026-11-16: eigene private Demo-Herkunftsfreigabe und nativer
 Registrierungsprüfer ergänzt. Genau ein signierter Identitäts-GET, exakte
 Konto/IP/Rechte und erneute Datei-/MAC-/Fristprüfung.115 gepinnte Fälle/

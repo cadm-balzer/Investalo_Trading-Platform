@@ -19,6 +19,10 @@ Registrierungsprüfer mit einem festen signierten Demo-Identitäts-GET.
 115 gepinnte Fälle/84 Unterfälle grün, tatsächliche Dateien/AEAD,
 synthetische Keys und Brokerantworten. Operative/native Abnahme bleibt offen.
 [Registrierungsprüfer](../bitget-demo-native-provisioning.md).
+Privater einmaliger TTY-Aufruf für den nächsten tatsächlichen Demo-Keycheck
+ergänzt:20 neue/135 gepinnte Fälle/84 Unterfälle, tatsächliches Linux-Terminal,
+synthetische Brokerantworten. Reale Metadaten-/Keyeinrichtung bleibt offen.
+[Privater Prüfaufruf](../bitget-demo-private-probe.md).
 
 | ID | Prio / Phase | Status | Aufgabe | Abhängigkeit / Abnahme |
 |---|---|---|---|---|
