@@ -1,5 +1,10 @@
 # Bestandsaufnahme
 
+2026-11-17: eigenes natives Demo-Handelskey-/AEAD-Profil ergänzt;
+160 gepinnte Fälle/38 Unterfälle bestanden, Replies synthetisch.
+Dauerhafter Purpose und Dashboardanbindung folgen.
+[Vertrag](bitget-demo-trading-profile.md).
+
 2026-11-17: Cockpit-/API-Container vom09.11., kompilierte Demo-Route fehlt,
 tatsächliche Plattformmigrationen001–012. Eigener sichtbarer Demo-
 Einrichtungseinstieg vorbereitet, Runtime weiterhin gesperrt.

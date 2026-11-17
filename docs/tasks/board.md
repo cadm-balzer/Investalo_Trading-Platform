@@ -8,6 +8,11 @@ konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
+IP-009/IP-015: Demo-Read-Write für Futures/Spot bestätigt. Eigenes natives
+Rechte-/Origin-/AEAD-Profil mit50 neuen/160 Fällen/38 Unterfällen geprüft.
+Dauerhafter Purpose und Dashboardpfad folgen.
+[Vertrag](../bitget-demo-trading-profile.md).
+
 Aktueller IP-009/IP-015-Checkpoint: gemeinsame isolierte HTTPS/BFF/API/PG/
 Python-mTLS-Executorabnahme mit Registrierung, tatsächlichem Prozessneustart,
 Widerruf und fehlender Erfolgsantwort nach dem Commit. Unabhängige tatsächliche

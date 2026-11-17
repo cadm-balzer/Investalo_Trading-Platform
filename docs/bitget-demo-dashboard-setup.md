@@ -5,8 +5,10 @@ einen eigenen Bereich unter `/security/credentials/demo`. Der Link auf der
 Sicherheitsstartseite bleibt auch bei nicht erreichbarer Overview-API sichtbar.
 Anmeldung bleibt erforderlich. Die gesperrte Seite erklärt Demo-Keyerstellung,
 Passkeybestätigung und spätere Eingabe von API-Key, Secret und Passphrase.
-Der erste vorhandene Prüfpfad unterstützt reine Leserechte; Handelsrechte
-benötigen einen eigenen Vertrag. Noch keine echte Schlüsseleingabe.
+Der bestehende Browserpfad unterstützt reine Leserechte. Das
+[Demo-Handelskeyprofil](bitget-demo-trading-profile.md) prüft und verschlüsselt
+Handelskeys separat; seine dauerhafte Dashboardanbindung fehlt noch.
+Noch keine echte Schlüsseleingabe.
 
 ## Tatsächlicher Betriebsstand
 
@@ -25,8 +27,9 @@ kein Nachweis einer funktionsfähigen nativen Schlüsselregistrierung.
 
 ## Nächste Freischaltung
 
-1. Tatsächlichen Demo-Erstellungsmodus und Keyrechte klären. Keine Schlüssel
-   im Chat, PR, Kommandoargument oder Log entgegennehmen.
+1. Nutzer bestätigt Demo-Erstellung und Futures-/Spot-Read-Write am17.11.
+   Eigene Handelsprofilanbindung verwenden und native Rechte separat prüfen.
+   Keine Schlüssel im Chat, PR, Kommandoargument oder Log entgegennehmen.
 2. Tatsächliches Demo-Konto/UID/Parent/IP/Rechte an aktuellen Plattformnutzer
    binden. Originalen privaten Herkunfts-/Provisioningvertrag beibehalten;
    Fixtureidentitäten und synthetische Tripleannahme nicht übernehmen.

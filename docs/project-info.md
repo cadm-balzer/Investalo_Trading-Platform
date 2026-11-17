@@ -66,6 +66,10 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-17: Nutzer bestätigt Demo-Read-Write für Futures und Spot.
+[Eigenes Handelskeyprofil](bitget-demo-trading-profile.md) prüft und
+verschlüsselt diesen Umfang separat; dauerhafte Dashboardanbindung folgt.
+
 2026-11-17: Der [Demo-Einrichtungsbereich](bitget-demo-dashboard-setup.md)
 erhält einen sichtbaren Einstieg auf der Sicherheitsseite und erklärt die
 offene Freischaltung. Echte Keyeingabe und öffentlicher Rollout bleiben offen.

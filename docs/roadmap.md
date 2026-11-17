@@ -1,5 +1,9 @@
 # Roadmap
 
+2026-11-17: Demo-Key mit Futures-/Spot-Handelsrechten bestätigt. Eigene native
+Rechte-/Origin-/AEAD-Prüfung lokal grün. Als Nächstes dauerhafter Trading-
+Purpose und Passkey-/Dashboardanbindung. [Vertrag](bitget-demo-trading-profile.md).
+
 2026-11-17: sichtbarer Demo-Einrichtungseinstieg im Sicherheitsbereich.
 Als Nächstes tatsächlichen Keymodus/Rechte klären und operative Anbindung
 vor öffentlichem Rollout abnehmen. [Einrichtung](bitget-demo-dashboard-setup.md).

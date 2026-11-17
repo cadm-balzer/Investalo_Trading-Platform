@@ -1,8 +1,10 @@
 # Offenes Backlog
 
 IP-009/IP-015: [Demo-Einrichtung](bitget-demo-dashboard-setup.md) sichtbar
-vorbereitet. Keymodus/Rechte klären, operative DB-/Provideranbindung abnehmen
-und öffentlichen Rollout gesondert freigeben lassen.
+vorbereitet. Futures-/Spot-Demo-Read-Write bestätigt; eigener nativer
+[Handelskey-/AEAD-Vertrag](bitget-demo-trading-profile.md) geprüft.
+Dauerhaften Purpose mit gemeinsamer UID-/Kontoregistry, Passkey/BFF/Browser
+und operativer DB-/Provideranbindung abnehmen; öffentlich separat ausrollen.
 
 Stand 2026-11-10. Aktive Aufgaben stehen im [Ticketboard](tasks/board.md).
 Keine erledigten Punkte in dieser Liste halten.

@@ -1,5 +1,9 @@
 # Lokale Compose-Entwicklung
 
+Das [Demo-Handelskeyprofil](../docs/bitget-demo-trading-profile.md) ist separat
+lokal geprüft. Read-TTY und Fixture014–017 nehmen diesen Purpose nicht an;
+keine normale Dienst-/Schemaaktivierung.
+
 Die [Demo-Dashboard-Einrichtung](../docs/bitget-demo-dashboard-setup.md)
 beschreibt den tatsächlich gelesenen Betriebsstand und den getrennten
 Frontend-/Keyrollout. Normale Dienste und DB001–012 bleiben unverändert.

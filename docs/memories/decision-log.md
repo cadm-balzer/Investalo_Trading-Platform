@@ -1,5 +1,17 @@
 # Entscheidungsprotokoll
 
+## D-130 — Eigener Demo-Purpose für Futures-/Spot-Handelskeys
+
+**Status: Nutzerprofil bestätigt; Kern lokal umgesetzt/geprüft, 2026-11-17.**
+Nutzer bestätigt Demo-Erstellung und Read-Write für Futures/Spot.
+Eigener Rechteparser erfordert coow/cpow/stow; bekannte Leserechte erlaubt,
+andere Schreibrechte/UTA/Unknown abgewiesen. Separate Originalfreigabe/
+MAC- und AEAD-Domains, eigener Resulttyp und fester signierter Demo-GET.
+50 neue/160 gezielte gepinnte Fälle/38 Unterfälle grün.
+Keine Keyaufnahme/Orders/DB-/Dienstaktivierung. Eigener dauerhafter Purpose
+und Dashboardanbindung folgen; alten Lesepurpose nicht konvertieren.
+[Vertrag und nächste Schritte](../bitget-demo-trading-profile.md).
+
 ## D-129 — Sichtbare Demo-Einrichtung und tatsächlicher Betriebsstand
 
 **Status: im Repository umgesetzt, 2026-11-17.** Nutzer meldet fehlenden

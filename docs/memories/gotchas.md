@@ -1,5 +1,11 @@
 # Technische Fallstricke
 
+- Classic Read-Write für Futures/Spot meldet coow/cpow/stow; native Replies
+  müssen nicht zusätzlich coor/cpor/stor enthalten. Bekannte Lesecodes dürfen
+  vorhanden sein. Niemals die Liste auf Lesecodes umschreiben, um den alten
+  Parser/Store zu passieren; eigenes Profil/Purpose/MAC-/AEAD-Domain verwenden.
+  Ein geteiltes festes GET ist keine Freigabe für POST oder Spotstrategie.
+
 - Operator-Probe: `getpass`-Warnung als Fehler behandeln, sonst kann eine
   sichtbare Fallbackeingabe entstehen. Alle drei Streams als TTY verlangen;
   tatsächliche Echoabschaltung mit frischem Pythonprozess am Linux-PTY prüfen.
