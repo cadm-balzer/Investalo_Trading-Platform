@@ -14,6 +14,7 @@ import { parsePaperStatus, type PaperStatus } from "@/lib/paper-status-contracts
 import { parseRecoveryStatus, type RecoveryStatus } from "@/lib/futures-recovery-contracts";
 import { FuturesRecoveryPanel } from "./futures-recovery";
 import { FuturesAssetsPanel } from "./futures-paper-assets";
+import { BitgetDemoAccessPanel } from "./bitget-demo-access";
 import { parseFuturesAssets, type FuturesAssets } from "@/lib/futures-paper-assets-contracts";
 
 type Section = "overview" | "portfolio" | "journal" | "backtest" | "shield";
@@ -120,6 +121,7 @@ export async function DashboardPage({ section }: { section: Section }) {
     }
   }
   return <Shell session={session} section={section} connected={!!data}>
+    {section === "shield" && <BitgetDemoAccessPanel />}
     {!data ? <section className="panel connection-error" role="status"><Icon name="shield" size={28} /><h2>Verbindung noch nicht bestätigt</h2><p>Die geschützte API ist aktuell nicht erreichbar. Konten und Ergebnisse werden erst nach einer bestätigten Antwort angezeigt.</p><Link href={navigation.find(n => n.section === section)!.href} className="button secondary">Erneut laden</Link></section> : <>
       {recoveryPreview && <FuturesRecoveryPanel data={recovery} csrf={session.csrf} summary={section === "overview"} />}
       {basketPreview && <FuturesPaperSettingsPanel data={basketSettings} csrf={session.csrf} />}

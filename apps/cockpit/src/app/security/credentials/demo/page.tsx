@@ -9,6 +9,7 @@ import type { DemoCredentialActionMetadata } from "@/lib/demo-credential-action-
 import { Shell } from "@/components/dashboard";
 import { Login } from "@/components/login";
 import { DemoPasskeyCredentialForm } from "@/components/demo-passkey-credential-form";
+import { BitgetDemoSetupStatus } from "@/components/bitget-demo-access";
 
 export const dynamic = "force-dynamic";
 export default async function Page() {
@@ -28,9 +29,9 @@ export default async function Page() {
   return <Shell session={session} section="shield" connected={accounts !== null}>
     <Link href="/security/credentials" className="detail-back">← Kontozugänge</Link>
     <section className="panel">
-      <div className="section-heading"><h2>Bitget-Demo-Zugang verbinden</h2><span className="badge neutral">DEMO · LESEZUGRIFF</span></div>
-      <p className="panel-intro">Wähle dein Demo-Konto und die gewünschte Änderung. Nach der Passkey-Prüfung bestätigst du die angezeigte Aktion ausdrücklich.</p>
-      {!enabled ? <p role="status">Die Demo-Kontoanbindung ist in dieser Umgebung noch nicht freigeschaltet.</p>
+      <div className="section-heading"><h2>Bitget-Demo-Zugang einrichten</h2><span className="badge neutral">{enabled ? "DEMO · LESEZUGRIFF" : "EINRICHTUNG AUSSTEHEND"}</span></div>
+      {enabled && <p className="panel-intro">Wähle dein Demo-Konto und die gewünschte Änderung. Nach der Passkey-Prüfung bestätigst du die angezeigte Aktion ausdrücklich.</p>}
+      {!enabled ? <BitgetDemoSetupStatus />
         : !registered ? <p role="status">Für eine Kontoänderung benötigst du einen aktiven Passkey. Prüfe zuerst deinen Status in der Passkey-Verwaltung.</p>
           : accounts === null ? <p role="status">Der aktuelle Demo-Kontostand ist nicht bestätigt. Lade den Status neu.</p>
             : <DemoPasskeyCredentialForm csrf={session.csrf} accounts={accounts} />}

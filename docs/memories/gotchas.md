@@ -1214,3 +1214,9 @@ Stand 2026-11-15. Befunde sind dokumentiert, nicht automatisch im Altsystem beho
   Datensatz zeigen und deshalb `concurrent_change` statt `access_denied` melden.
   Bei neuen Completion-FKs Truncatenegativtests auf sämtliche Childtabellen
   erweitern, damit sie den eigenen Trigger tatsächlich erreichen.
+
+- Ein gemergter Cockpit-PR ersetzt keine laufenden Container. Am17.11.
+  enthielt der tatsächlich laufende Stand vom09.11. keine Demo-Route;
+  die Plattform hatte nur001–012. Route sichtbar machen, native Keyeingabe
+  verdrahten und öffentlich ausrollen sind unterschiedliche Voraussetzungen.
+  Eine Änderung des Verfügbarkeitsflags installiert keinen privaten Provider.

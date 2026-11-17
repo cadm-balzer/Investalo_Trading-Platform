@@ -1,5 +1,9 @@
 # Lokale Compose-Entwicklung
 
+Die [Demo-Dashboard-Einrichtung](../docs/bitget-demo-dashboard-setup.md)
+beschreibt den tatsächlich gelesenen Betriebsstand und den getrennten
+Frontend-/Keyrollout. Normale Dienste und DB001–012 bleiben unverändert.
+
 Der separate [private Demo-Key-Prüfaufruf](../docs/bitget-demo-private-probe.md)
 nutzt `compose.demo-native-probe.yaml` mit eigener UID10003, privatem
 Metadaten-/Ergebnismount und verdeckter interaktiver Schlüsseleingabe.

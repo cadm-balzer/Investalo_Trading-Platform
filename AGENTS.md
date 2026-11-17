@@ -7,7 +7,18 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
-- PR88 merged:666fed5 ancestor of mainc9bd492, GH/fetch verified.
+- PR89 merged:5e2df26 ancestor of mainc11742a, GH/fetch verified.
+  IP-009/IP-015 on feat/m1-demo-access-setup: visible own Demo setup on
+  security/credentials, security link retained on unavailable overview API.
+  Disabled page explains Demo mode/Passkey/triple and read-only scope.
+  Actual public Cockpit/API containers created20261109; compiled Demo route
+  absent and actual DB001–012 only. Merge is not deployment.
+  Runtime remains false; actual user key mode/rights pending clarification.
+  58 focused pinned Node cases/typecheck and Cockpit build green, including
+  actual SSR link on overview failure and unavailable HTTP before body access.
+  No real key intake/HTTP/DB/migration/service/public/live/AI activation.
+  See docs/bitget-demo-dashboard-setup.md for concrete rollout prerequisites.
+- PR89 private-probe checkpoint merged5e2df26 into mainc11742a.
   IP-009/IP-015 on feat/m1-bitget-demo-private-probe: explicit operator TTY
   identity probe, actual getpass/no visible fallback/no key args/env/files.
   Own strict private setup/original file and exclusive directory lock,

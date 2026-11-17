@@ -108,7 +108,7 @@ test("unavailable runtime differs from flat basket; stage6 and stale state stay 
   assert.match(render(d), /Datenstand veraltet/);
 });
 test("dashboard reads asset status only behind opt-in and binds parser to current tenant", async () => {
-  let calls = 0;
+  let calls = 0, overviewUnavailable = false;
   const session = { tenantId: tenant, csrf: "csrf", displayName: "Tester", tenantName: "Eigenes Konto", expiresAt: 2e9 };
   const empty = { mode: "paper", live_enabled: false, tenant_id: tenant, accounts: [], positions: [], journal: [], jobs: [] };
   const dashboard = load("../src/components/dashboard.tsx", {
@@ -116,6 +116,7 @@ test("dashboard reads asset status only behind opt-in and binds parser to curren
     "@/lib/auth": { getSession: async () => session },
     "@/lib/backend": { BackendError: class extends Error {}, apiRequest: async (_s: unknown, path: string) => {
       if (path === "/v1/futures-paper-assets") { calls++; return data(); }
+      if (overviewUnavailable) throw new Error("Overview unavailable");
       return empty;
     } },
     "@/lib/contracts": { parseOverview: (v: unknown) => v },
@@ -124,6 +125,9 @@ test("dashboard reads asset status only behind opt-in and binds parser to curren
     "./login": {}, "./backtest-form": {}, "./backtest-result": {},
     "./paper-status": {}, "./futures-paper-settings": {}, "./futures-recovery": {},
     "./futures-paper-assets": panel,
+    "./bitget-demo-access": load("../src/components/bitget-demo-access.tsx", {
+      "next/link": { default: "a" },
+    }),
     "@/lib/futures-paper-assets-contracts": contracts,
     "@/lib/futures-paper-settings-contracts": {}, "@/lib/paper-status-contracts": {}, "@/lib/futures-recovery-contracts": {},
   });
@@ -137,6 +141,13 @@ test("dashboard reads asset status only behind opt-in and binds parser to curren
     const enabled = renderToStaticMarkup(await dashboard.DashboardPage({ section: "overview" }));
     assert.match(enabled, /Handelsassets/);
     assert.equal(calls, 1);
+    const security = renderToStaticMarkup(await dashboard.DashboardPage({ section: "shield" }));
+    assert.match(security, /href="\/security\/credentials\/demo"/);
+    overviewUnavailable = true;
+    const disconnected = renderToStaticMarkup(await dashboard.DashboardPage({ section: "shield" }));
+    assert.match(disconnected, /Verbindung noch nicht bestätigt/);
+    assert.match(disconnected, /href="\/security\/credentials\/demo"/);
+    assert.doesNotMatch(disconnected, /type="password"/);
   } finally {
     if (previous === undefined) delete process.env.COCKPIT_FUTURES_PAPER_ASSETS_PREVIEW;
     else process.env.COCKPIT_FUTURES_PAPER_ASSETS_PREVIEW = previous;
