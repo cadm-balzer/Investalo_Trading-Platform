@@ -1,5 +1,10 @@
 # Bestandsaufnahme
 
+2026-11-17: Cockpit-/API-Container vom09.11., kompilierte Demo-Route fehlt,
+tatsächliche Plattformmigrationen001–012. Eigener sichtbarer Demo-
+Einrichtungseinstieg vorbereitet, Runtime weiterhin gesperrt.
+[Betriebsstand](bitget-demo-dashboard-setup.md).
+
 IP-009/IP-015: eigener einmaliger privater TTY-Prüfaufruf mit getpass,
 unveränderlicher privater Setupdatei/Directorylock und keyfreier Quittung.
 Separate gepinnte Composeidentität, keine Plattform-/DB-Mounts oder Ports.

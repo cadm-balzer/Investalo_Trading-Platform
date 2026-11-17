@@ -1,5 +1,9 @@
 # Roadmap
 
+2026-11-17: sichtbarer Demo-Einrichtungseinstieg im Sicherheitsbereich.
+Als Nächstes tatsächlichen Keymodus/Rechte klären und operative Anbindung
+vor öffentlichem Rollout abnehmen. [Einrichtung](bitget-demo-dashboard-setup.md).
+
 2026-11-16: privater einmaliger Demo-Key-Prüfaufruf vorbereitet. Verdeckt am
 Serverterminal, ein fester signierter GET, eigene private Quittung und
 separater gehärteter Composeaufruf ohne Plattform-/DB-Anbindung.135 gepinnte

@@ -1,5 +1,17 @@
 # Entscheidungsprotokoll
 
+## D-129 — Sichtbare Demo-Einrichtung und tatsächlicher Betriebsstand
+
+**Status: im Repository umgesetzt, 2026-11-17.** Nutzer meldet fehlenden
+Demo-Keybereich. Eigener Einstieg auf Sicherheit/Kontozugängen, auch ohne
+Overview-Antwort, und konkrete gesperrte Einrichtungshinweise ergänzt.
+Read-only Prüfung zeigt öffentliche Container vom09.11., fehlende kompilierte
+Demo-Route und DB001–012. Merge ist kein Deployment. Reine Leserechte bleiben
+der vorhandene native Prüfvertrag; tatsächlicher Keymodus/Rechte noch offen.
+Echte Schlüsseleingabe/operative Anbindung und Produktionsrollout ausstehend.
+58 gezielte gepinnte Node-Fälle, Typecheck und Cockpit-Build grün.
+[Betriebsstand und nächste Schritte](../bitget-demo-dashboard-setup.md).
+
 Entscheidungen erhalten Status und Begründung. Ein dokumentierter Vorschlag ist
 keine Nutzerfreigabe. Quellen: [Interview](../interview.md), [Auftrag](../project-info.md).
 

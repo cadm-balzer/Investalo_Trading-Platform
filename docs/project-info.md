@@ -66,6 +66,10 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-17: Der [Demo-Einrichtungsbereich](bitget-demo-dashboard-setup.md)
+erhält einen sichtbaren Einstieg auf der Sicherheitsseite und erklärt die
+offene Freischaltung. Echte Keyeingabe und öffentlicher Rollout bleiben offen.
+
 Stand 2026-11-07: Der Auftrag oben bleibt als ursprünglicher Projektprompt erhalten.
 Planung und Interview nach `SKILLS/grill-me/SKILL.md` sind durch Q31 bestätigt.
 Die lokale M1-Umsetzung läuft: Compose, MFA-/API-/Cockpitfundament und

@@ -1,5 +1,10 @@
 # Investalo Trading Platform
 
+Der [eigene Demo-Einrichtungsbereich](docs/bitget-demo-dashboard-setup.md)
+ist von Sicherheit und Kontozugängen erreichbar. Echte Schlüsseleingabe
+bleibt bis zur operativen Anbindung gesperrt; Merges aktualisieren das
+laufende öffentliche Cockpit nicht automatisch.
+
 Der eigene Demo-Passkey-Consent ist dauerhaft und getrennt vom Normalprofil
 implementiert. Signierte Freigaben binden Konto, Sitzung und genaue Requestbytes;
 einmaliger Consume und separater finaler Lock prüfen aktuelle Berechtigung.

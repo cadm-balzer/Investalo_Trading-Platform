@@ -1,6 +1,6 @@
 # Git-basiertes Ticketboard
 
-Stand 2026-11-16. Dieses Board ist das initiale Task-/Ticketsystem ohne
+Stand 2026-11-17. Dieses Board ist das initiale Task-/Ticketsystem ohne
 zusätzliche Tools oder externe Veröffentlichung.
 
 Status: `READY` ausführbar, `IN_PROGRESS` aktiv, `WAITING_DECISION` benötigt
@@ -23,6 +23,11 @@ Privater einmaliger TTY-Aufruf für den nächsten tatsächlichen Demo-Keycheck
 ergänzt:20 neue/135 gepinnte Fälle/84 Unterfälle, tatsächliches Linux-Terminal,
 synthetische Brokerantworten. Reale Metadaten-/Keyeinrichtung bleibt offen.
 [Privater Prüfaufruf](../bitget-demo-private-probe.md).
+
+Sichtbarer Demo-Einrichtungseinstieg im Sicherheitsbereich ergänzt.
+Laufender öffentlicher Stand enthält die Route noch nicht; echte Eingabe
+erfordert zusätzlich operative Anbindung.
+[Betriebsstand und nächste Schritte](../bitget-demo-dashboard-setup.md).
 
 | ID | Prio / Phase | Status | Aufgabe | Abhängigkeit / Abnahme |
 |---|---|---|---|---|

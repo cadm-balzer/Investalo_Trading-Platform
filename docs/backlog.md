@@ -1,5 +1,9 @@
 # Offenes Backlog
 
+IP-009/IP-015: [Demo-Einrichtung](bitget-demo-dashboard-setup.md) sichtbar
+vorbereitet. Keymodus/Rechte klären, operative DB-/Provideranbindung abnehmen
+und öffentlichen Rollout gesondert freigeben lassen.
+
 Stand 2026-11-10. Aktive Aufgaben stehen im [Ticketboard](tasks/board.md).
 Keine erledigten Punkte in dieser Liste halten.
 

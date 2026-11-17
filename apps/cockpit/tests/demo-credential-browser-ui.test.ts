@@ -34,6 +34,9 @@ const form = load("../src/components/demo-passkey-credential-form.tsx", {
   "@/lib/demo-credential-browser-controller": controller, "@/lib/credential-browser-body": body,
   "@/lib/passkey-browser-proof": proof,
 });
+const demoAccess = load("../src/components/bitget-demo-access.tsx", {
+  "next/link": { default: ({ href, children }: any) => React.createElement("a", { href }, children) },
+});
 
 test("actual Demo form SSR escapes account names and exposes no secret value or execute control initially", () => {
   const rendered = renderToStaticMarkup(React.createElement(form.DemoPasskeyCredentialForm, {
@@ -130,9 +133,14 @@ test("actual Demo page keeps disabled/login/active-passkey states distinct befor
     "@/components/dashboard": { Shell: ({ children }: any) => React.createElement("main", {}, children) },
     "@/components/login": { Login: () => React.createElement("p", {}, "Fixture login") },
     "@/components/demo-passkey-credential-form": form,
+    "@/components/bitget-demo-access": demoAccess,
   });
   let rendered = renderToStaticMarkup(await page.default());
   assert.match(rendered, /noch nicht freigeschaltet/);
+  assert.match(rendered, /Bitget-Demo-Modus/);
+  assert.match(rendered, /API-Key, Secret und Passphrase/);
+  assert.match(rendered, /reinen Leserechten/);
+  assert.match(rendered, /href="\/security\/passkeys"/);
   assert.doesNotMatch(rendered, /Testvorschau vorbereiten|type="password"/);
   assert.equal(reads, 0);
   enabled = true;
