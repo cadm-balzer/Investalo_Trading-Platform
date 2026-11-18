@@ -1,5 +1,10 @@
 # Roadmap
 
+2026-11-18: eigener dauerhafter Demo-Handelsstore mit gemeinsamer UID-/
+Kontoregistry/aktuellen DB-Checks in Fixture018 geprüft. Eigener Trading-
+Passkey-/Consent-/Executor-/Dashboardpfad folgt.
+[Vertrag](bitget-demo-trading-store.md).
+
 2026-11-17: Demo-Key mit Futures-/Spot-Handelsrechten bestätigt. Eigene native
 Rechte-/Origin-/AEAD-Prüfung lokal grün. Als Nächstes dauerhafter Trading-
 Purpose und Passkey-/Dashboardanbindung. [Vertrag](bitget-demo-trading-profile.md).

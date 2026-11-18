@@ -1,5 +1,9 @@
 # Lokale Compose-Entwicklung
 
+`prepare-demo-trading-store-checks.py` prüft018 vollständig zurückrollend;
+`--apply-reviewed` wendet es nur auf `investalo_credentials_checks` an.
+[Privater Store und Prüfbeleg](../docs/bitget-demo-trading-store.md).
+
 Das [Demo-Handelskeyprofil](../docs/bitget-demo-trading-profile.md) ist separat
 lokal geprüft. Read-TTY und Fixture014–017 nehmen diesen Purpose nicht an;
 keine normale Dienst-/Schemaaktivierung.

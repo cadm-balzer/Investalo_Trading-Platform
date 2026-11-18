@@ -1,5 +1,18 @@
 # Entscheidungsprotokoll
 
+## D-131 — Gemeinsame Demo-Registry, getrennte Handelsstore-Zugriffe
+
+**Status: lokal umgesetzt/geprüft, 2026-11-18.** Nach PR91 erhält das
+Handelsprofil private dauerhafte CRUD-/Providerfunktionen. Gemeinsame
+Demo-UID-/Kontoslots bleiben auch nach Widerruf gebunden; kein Profilreset.
+018 kapselt Profile/Rechte und schließt alte Lese-/Passkeymetadatenzugriffe
+auf Trading-Datensätze. Eigene metadata-only Projektion ist keine Freigabe.
+27 neue/212 verschiedene gepinnte Fälle grün; echte PG/AEAD/Fork mit
+synthetischen Keys/Identitäten. Voller Rollbackpreflight vor Fixture018,
+001–017 und tatsächliches Entwicklungsset unverändert. Eigener Trading-
+Passkey-/Consent-/Executor-/Dashboardpfad und operative Abnahme folgen.
+[Vertrag](../bitget-demo-trading-store.md).
+
 ## D-130 — Eigener Demo-Purpose für Futures-/Spot-Handelskeys
 
 **Status: Nutzerprofil bestätigt; Kern lokal umgesetzt/geprüft, 2026-11-17.**

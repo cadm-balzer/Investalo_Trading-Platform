@@ -66,6 +66,10 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-18: [Demo-Handelsstore](bitget-demo-trading-store.md) und aktuelle
+Provider-/Metadatengrundlage in isolierter Fixture018 geprüft.
+Eigene Trading-Passkey-/Dashboardanbindung bleibt der nächste Schritt.
+
 2026-11-17: Nutzer bestätigt Demo-Read-Write für Futures und Spot.
 [Eigenes Handelskeyprofil](bitget-demo-trading-profile.md) prüft und
 verschlüsselt diesen Umfang separat; dauerhafte Dashboardanbindung folgt.
