@@ -62,6 +62,10 @@ def _mac(record, credentials, key):
 
 
 class DemoOriginApproval(_PrivateImmutable):
+    _schema = SCHEMA
+    _allowed = READ_AUTHORITIES
+    _required = frozenset(("coor", "cpor"))
+    _credential_mac = staticmethod(_mac)
     __slots__ = ("_wire", "_record", "owner", "account_id", "broker_uid", "parent_uid",
                  "egress_ip", "authorities", "approved_ms", "expires_ms", "sha256")
 
@@ -79,7 +83,7 @@ class DemoOriginApproval(_PrivateImmutable):
             raw = json.loads(wire, object_pairs_hook=unique,
                              parse_constant=lambda _: (_ for _ in ()).throw(ValueError()))
             if (type(raw) is not dict or set(raw) != FIELDS or wire != _canonical(raw)
-                    or raw["schema"] != SCHEMA or raw["origin"] != ORIGIN):
+                    or raw["schema"] != self._schema or raw["origin"] != ORIGIN):
                 raise ValueError()
             ids = {}
             for field in ("tenant_id", "user_id", "account_id", "attestation_id"):
@@ -94,8 +98,8 @@ class DemoOriginApproval(_PrivateImmutable):
             if (type(raw["parent_uid"]) is not str or checked.expected_egress_ip is None
                     or checked.expected_egress_ip != raw["egress_ip"]
                     or type(rights) is not list or any(type(v) is not str for v in rights)
-                    or rights != sorted(set(rights)) or not set(rights) <= READ_AUTHORITIES
-                    or not {"coor", "cpor"} <= set(rights)
+                    or rights != sorted(set(rights)) or not set(rights) <= self._allowed
+                    or not self._required <= set(rights)
                     or type(raw["credential_mac"]) is not str
                     or re.fullmatch("[0-9a-f]{64}", raw["credential_mac"]) is None):
                 raise ValueError()
@@ -119,7 +123,7 @@ class DemoOriginApproval(_PrivateImmutable):
                     or account_id != self.account_id
                     or not self.approved_ms <= clock(now_ms) < self.expires_ms
                     or not hmac.compare_digest(self._record["credential_mac"],
-                                               _mac(self._record, credentials, key))):
+                                               self._credential_mac(self._record, credentials, key))):
                 raise ValueError()
         except Exception:
             raise DemoProvisioningRejected() from None
@@ -168,6 +172,7 @@ class PrivateDemoOriginReader(_PrivateImmutable):
     create a new reader for a separately approved record.
     """
     __slots__ = ("_path", "_uid", "_sha", "_original", "_pid")
+    _approval = DemoOriginApproval
 
     def __init__(self, path, *, owner_uid, expected_sha256):
         try:
@@ -225,7 +230,7 @@ class PrivateDemoOriginReader(_PrivateImmutable):
                     or hasattr(self, "_original") and stamps != self._original
                     or not hmac.compare_digest(hashlib.sha256(wire).hexdigest(), self._sha)):
                 raise ValueError()
-            approval = DemoOriginApproval(wire)
+            approval = self._approval(wire)
             # Rewalk original names as well as checking held FDs: a replaced
             # pathname cannot borrow the still-open approved inode.
             if (_stamp(os.stat(self._path, follow_symlinks=False)) != stamps[1]
@@ -249,6 +254,13 @@ class DemoNativeProvisioner(_PrivateImmutable):
     A valid native reply proves identity/rights/IP only, not Demo key creation.
     """
     __slots__ = ("_read", "_key", "_transport", "_milliseconds", "_lock", "_pid", "_last")
+    _approval = DemoOriginApproval
+    _identity = staticmethod(parse.identity)
+    _evidence_schema = "investalo-demo-provisioning-evidence/1"
+
+    def _result(self, binding, approval, evidence):
+        return DemoSecretSpec(binding=binding, parent_uid=approval.parent_uid,
+            egress_ip=approval.egress_ip, provisioning_digest=digest(evidence), credential_revision=1)
 
     def __init__(self, *, read_approval, load_provenance_key, transport,
                  milliseconds=lambda: time.time_ns() // 1_000_000):
@@ -273,7 +285,7 @@ class DemoNativeProvisioner(_PrivateImmutable):
                     or self._last is not None and start - self._last < 1000):
                 raise ValueError()
             approval = self._read()
-            if type(approval) is not DemoOriginApproval:
+            if type(approval) is not self._approval:
                 raise ValueError()
             latest = start
 
@@ -283,7 +295,7 @@ class DemoNativeProvisioner(_PrivateImmutable):
                 current = self._read()
                 key = _key(self._key())
                 after = clock(self._milliseconds())
-                if (type(current) is not DemoOriginApproval or current._wire != approval._wire
+                if (type(current) is not self._approval or current._wire != approval._wire
                         or not latest <= now <= after <= start + PROBE_MS
                         or after >= expires_ms):
                     raise ValueError()
@@ -299,7 +311,7 @@ class DemoNativeProvisioner(_PrivateImmutable):
             object.__setattr__(self, "_last", before)  # Failed sends also consume the local interval.
             response = self._transport(request)
             after = guard()
-            identity = parse.identity(response)
+            identity = self._identity(response)
             delta = identity.server_time - parse.EPOCH
             native_ms = delta.days*86_400_000 + delta.seconds*1000 + delta.microseconds//1000
             if not 0 <= after - native_ms <= PROBE_MS:
@@ -311,13 +323,12 @@ class DemoNativeProvisioner(_PrivateImmutable):
             checked = guard()
             if not 0 <= checked - native_ms <= PROBE_MS:
                 raise ValueError()
-            evidence = dict(schema="investalo-demo-provisioning-evidence/1",
+            evidence = dict(schema=self._evidence_schema,
                 binding=binding.record(), origin=ORIGIN, origin_approval_sha256=approval.sha256,
                 identity_response_sha256=hashlib.sha256(response.body).hexdigest(),
                 native_time_ms=native_ms, checked_ms=checked,
                 native_demo_creation_verified=False)
-            return DemoSecretSpec(binding=binding, parent_uid=approval.parent_uid,
-                egress_ip=approval.egress_ip, provisioning_digest=digest(evidence), credential_revision=1)
+            return self._result(binding, approval, evidence)
         except Exception:
             raise DemoProvisioningRejected() from None
         finally:

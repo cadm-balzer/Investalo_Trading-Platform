@@ -1,5 +1,9 @@
 # Investalo Trading Platform
 
+Das [Demo-Handelskeyprofil](docs/bitget-demo-trading-profile.md) prüft
+Futures-/Spot-Schreibrechte und verschlüsselt sie getrennt vom Lesepurpose.
+Dauerhafte Passkey-/Dashboardanbindung folgt; noch keine Keyfreischaltung.
+
 Der [eigene Demo-Einrichtungsbereich](docs/bitget-demo-dashboard-setup.md)
 ist von Sicherheit und Kontozugängen erreichbar. Echte Schlüsseleingabe
 bleibt bis zur operativen Anbindung gesperrt; Merges aktualisieren das

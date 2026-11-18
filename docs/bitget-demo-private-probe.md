@@ -1,5 +1,10 @@
 # Privater Demo-Key-Prüfaufruf am Serverterminal
 
+Dieser Aufruf bleibt auf reine Leserechte begrenzt. Für den bestätigten
+Futures-/Spot-Read-Write-Key ist das
+[eigene Handelskeyprofil](bitget-demo-trading-profile.md) vorbereitet;
+seine operative Eingabe folgt separat.
+
 IP-009/IP-015, 2026-11-16. PR88 ist als `c9bd492` in `main` bestätigt.
 Der separate Operatoraufruf prüft einen im Bitget-Demo-Modus erstellten Key
 mit genau einem signierten Identitäts-GET. Kein Plattformkonto wird angelegt,

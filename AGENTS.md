@@ -7,7 +7,20 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
-- PR89 merged:5e2df26 ancestor of mainc11742a, GH/fetch verified.
+- PR90 merged:9604c46 ancestor of main872d198, GH/fetch verified.
+  User confirms own Bitget Demo key with Futures/Spot Read-Write.
+  IP-009/IP-015 on feat/m1-demo-trading-credential-profile: separate native
+  Classic policy requires coow/cpow/stow, permits known reads, rejects other
+  writes/UTA/unknown; separate origin schema/MAC, private original-file reader,
+  guarded fixed Demo GET and own AEAD spec/purpose/domains.
+  Protected shared hooks preserve old read defaults; exact types and AEAD
+  forbid old/new conversion. 50 new/160 focused pinned cases/38 subtests green.
+  Real files/AES-GCM, synthetic keys/replies. No actual keys/native HTTP/SQL/
+  API/BFF/browser/migration/dependencies/service/public/orders/live/AI change.
+  Next own persistent trading purpose/UID registry/Passkey/BFF/browser and
+  operative native acceptance; old read intake/TTY is unsuitable.
+  See docs/bitget-demo-trading-profile.md.
+- PR90 setup checkpoint merged9604c46 into main872d198.
   IP-009/IP-015 on feat/m1-demo-access-setup: visible own Demo setup on
   security/credentials, security link retained on unavailable overview API.
   Disabled page explains Demo mode/Passkey/triple and read-only scope.

@@ -1,5 +1,9 @@
 # Demo-Herkunftsfreigabe und native Registrierungsprüfung
 
+Für den bestätigten Futures-/Spot-Read-Write-Key gilt das
+[eigene Handelskeyprofil](bitget-demo-trading-profile.md).
+Der folgende Lesepurpose wird dafür nicht umgedeutet.
+
 IP-009/IP-015, 2026-11-16. PR87 ist als `68038db` in `main` bestätigt.
 `demo_native_provisioning.py` ergänzt den konkreten `provision`-Adapter für
 `DemoPasskeyOnboarding`: eigene private Herkunftsfreigabe, anschließend genau
