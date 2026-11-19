@@ -7,6 +7,20 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR97 merged7e5bb9a, GH/fetch verified; user explicitly approved Demo rollout.
+  Normal001–019 original checksums verified after fresh private backup.
+  Exact Demo account/credential LOGIN bound, native executor/private mTLS and
+  public API/Cockpit active; retained public+paper-preview overlays.
+  Rollout fixes on fix/m1-demo-runtime-rollout: exact SCRAM/TLS HBA entry for
+  investalo_demo_trading_credential plus public API_PASSKEY_ORIGIN.
+  Healthy API/Cockpit, private no-port/no-log executor; actual mTLS405,
+  public TLS-valid page200/start401, six actual API routes reject unauthenticated
+  requests. Private rollout-active.json retained. No actual broker keys,
+  native Bitget requests or orders. User has no current Passkey and confirms
+  email approval not done; chat exception declined. User requests regular email
+  confirmation and Dashboard Admin SMTP settings: info@investalo.de,
+  mail.all4everyone.de/SSL/user+password, secret to be entered in Dashboard.
+  Never attest email approval that did not occur. See docs/bitget-demo-trading-runtime.md.
 - PR96 merged4f664f6, GH/fetch verified. IP-009/IP-015 operative Demo runtime
   on feat/m1-demo-trading-runtime composes existing browser/Passkey/mTLS/019018.
   Own create-only private setup prepared for confirmed user UID; user reports

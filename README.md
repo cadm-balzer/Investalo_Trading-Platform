@@ -2,8 +2,8 @@
 
 Der [operative Demo-Key-Zugang](docs/bitget-demo-trading-runtime.md) verbindet
 jetzt die vorhandene Eingabe mit nativem Kontocheck und verschlüsseltem Store.
-Private Einrichtung und zurückgerollte Migrationsprobe vorbereitet; öffentlicher
-Rollout nach Merge und Freigabe. Keyeinrichtung startet keine Orders.
+Nach Merge und ausdrücklicher Freigabe öffentlich ausgerollt. Für die Eingabe
+fehlt noch der erste Passkey des Nutzers; Keyeinrichtung startet keine Orders.
 
 Die [gemeinsame Handelskey-Abnahme](docs/bitget-demo-trading-acceptance.md)
 hat449 Prüfungen über echte HTTPS/BFF/API/PG-/Speicherprozesse bestanden,

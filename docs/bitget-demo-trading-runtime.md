@@ -7,6 +7,26 @@ Der Executor liest einmal fest Bitgets Classic-Kontoinfo mit `paptrading: 1`,
 prüft UID/Parent/Rechte und speichert über den vorhandenen019/018-Pfad.
 Die Einrichtung startet keine Orders.
 
+## Aktueller Betrieb
+
+PR97 ist gemerged; der Nutzer hat den öffentlichen Rollout ausdrücklich
+freigegeben. Frisches privates Backup, Migrationen013–019 und exakte
+Kontobindung sind durchgeführt. API/Cockpit sind gesund, der eigene Executor
+antwortet über seine tatsächliche private mTLS-Verbindung. Paper-Anzeige und
+vorhandene öffentliche Netze bleiben erhalten.
+
+Öffentliche Seite: HTTPS200 bei gültigem TLS. Der tatsächliche Next-Eingang
+liefert ohne Anmeldung401 statt der bisherigen Runtime-Sperre503. Alle sechs
+Demo-API-Endpunkte wurden über tatsächliches HTTPS auf Anmeldesperre geprüft;
+die öffentliche Passkey-Origin stimmt. Private Belege liegen unter dem
+ignorierten `infra/local/demo-trading-runtime/rollout-active.json`.
+
+Noch kein tatsächlicher Brokerkey/Bitget-Request oder Auftrag. Dem Nutzer
+fehlt der erste Passkey; die manuelle E-Mail-Bestätigung ist laut Nutzer noch
+nicht erfolgt. Ein Ticket darf diese Bestätigung nicht erfinden. Eine
+ausdrückliche Ausnahme für das erste Pilot-Enrollment wurde vom Nutzer abgelehnt.
+Er verlangt reguläre E-Mail-Bestätigung und einen Adminbereich für SMTP.
+
 Der Nutzer hat seine UID privat angegeben und berichtet, dass sein Demo-Key
 keine IP-Bindung erlaubt. Dafür gibt es die ausdrücklich installierte Variante
 `unavailable_in_demo`: nur fehlende/leere native Whitelist wird akzeptiert.
@@ -44,21 +64,26 @@ verifizierte UID-Quota sind damit nicht freigegeben.
 
 ## Konkreter Rollout nach Merge und Freigabe
 
-Normale Dienste und Datenbank sind bisher unverändert. Sie haben001–012;
-013–019 wurden gegen die vorhandenen Daten erfolgreich getestet und vollständig
-zurückgerollt. Vor dem Rollout frisches privates Backup:
+Vor dem inzwischen genehmigten Rollout hatten normale Dienste001–012.
+013–019 wurden zuvor gegen die vorhandenen Daten erfolgreich getestet und
+vollständig zurückgerollt. Reproduzierbarer Rollout mit frischem privatem Backup:
 
 ```bash
 python3 infra/scripts/setup-demo-trading-runtime.py --backup-database
 bash infra/scripts/compose.sh run --rm --no-deps -T migrate
 python3 infra/scripts/setup-demo-trading-runtime.py --bind-account
 bash infra/scripts/compose.sh --file infra/compose.public-preview.yaml \
+  --env-file infra/local/paper_preview.env --file infra/compose.paper-preview.yaml \
   --file infra/compose.demo-trading-runtime.yaml up -d --no-deps \
   demo-trading-executor api cockpit
 ```
 
 `--bind-account` verlangt sämtliche Originalchecksums, bindet einen eigenen
 minimalen LOGIN und erstellt genau ein Demo-Konto im Status `ready`.
+Die PostgreSQL-HBA-Regel erlaubt ausschließlich diesem LOGIN SCRAM/TLS auf
+`investalo`; nach Änderung `pg_reload_conf()` ausführen und die geladene Regel prüfen.
+`API_PASSKEY_ORIGIN` muss zum öffentlichen Cockpit passen; der explizite
+Demo-Overlay setzt sie für den bestehenden Purpose-Prüfer.
 Vorhandene fremde Bindungen werden abgelehnt. API-Schalter sind ausschließlich
 im expliziten Overlay gesetzt. Der Executor hat keinen Hostport, kein Logging,
 kein PG-Environment, readonly/cap-drop und mTLS mit dem SHA des **DER**-Peers.
@@ -78,3 +103,5 @@ Executor-/PG-/mTLS-Fälle zusätzlich grün. Typecheck und gepinnter Cockpit-/
 Executorbuild bestanden. Private Browserdateien unter tatsächlicher UID10002
 ohne API-/Brokerzugriff geladen. Zusammengesetzte Rolloutcompose gültig.
 Die native Antwort in Tests ist synthetisch; keine echten API-Keys aufgenommen.
+Die Betriebskonfiguration benötigte zusätzlich eine exakte HBA-Zugangsregel und
+`API_PASSKEY_ORIGIN`; beide sind im laufenden Dienst geprüft.

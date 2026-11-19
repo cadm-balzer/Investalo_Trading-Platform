@@ -1,5 +1,9 @@
 # Roadmap
 
+2026-11-19: [Demo-Key-Zugang](bitget-demo-trading-runtime.md) freigegeben und
+ausgerollt. Erstes Nutzer-Passkey-Enrollment abschließen, danach tatsächliche
+Keyregistrierung und native Demo-Reconciliation/-Auftragsanbindung.
+
 2026-11-19: [Operative Demo-Runtime](bitget-demo-trading-runtime.md) und
 konkrete private Einrichtung vorbereitet. Nach Merge/Freigabe ausrollen und
 Demo-Key im Dashboard registrieren; danach tatsächliche Kontoreconciliation

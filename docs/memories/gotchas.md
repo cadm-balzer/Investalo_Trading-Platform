@@ -1,5 +1,13 @@
 # Technische Fallstricke
 
+- Operativer Demo-LOGIN braucht eine eigene exakte SCRAM/TLS-HBA-Regel auf
+  `investalo`; die vorhandene Credentials-Gruppenregel gilt nur für die Fixture.
+  `API_PASSKEY_ORIGIN` explizit setzen, sonst verweigert der Purpose-Prüfer die
+  Freigabe. Beim Publicrollout bestehenden Paper-Overlay/Envfile beibehalten.
+- FastAPI kapselt inkludierte Routen als `_IncludedRouter`; ein flaches
+  `app.routes`-Pathset liefert keinen zuverlässigen Aktivierungsnachweis.
+  Tatsächliche HTTPS-Endpunkte statt dieser internen Aufzählung prüfen.
+
 - Der mTLS-Peerpin ist SHA256 des DER-Zertifikats; der private Node-Dateipin
   dagegen SHA256 der ursprünglichen PEM-Datei. Nicht vertauschen. Demo-IP-
   Bindung ist laut Nutzer nicht einrichtbar: nur ausdrücklich installierte

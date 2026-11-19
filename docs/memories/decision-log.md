@@ -1,5 +1,20 @@
 # Entscheidungsprotokoll
 
+## D-137 — Genehmigter öffentlicher Demo-Rollout
+
+**Status: ausgerollt, 2026-11-19.** PR97 gemerged7e5bb9a, Nutzer bestätigt
+„ja bitte den zugang freischalten“. Frisches privates Backup; normale013–019
+angewendet und alle19 Checksums geprüft. Exaktes Demo-Konto/restringierter
+LOGIN gebunden. Im Betrieb fehlten dessen HBA-Regel und die öffentliche
+Passkey-Origin; eng korrigiert und PostgreSQL-Konfiguration neu geladen.
+API/Cockpit neu erstellt, ursprünglichen Paper-Overlay beibehalten.
+Tatsächliche private mTLS405, öffentliche TLS-Seite200/Next401 und sechs
+geschützte HTTPS-API-Endpunkte geprüft. Kein tatsächlicher Key/Bitgetrequest/
+Order; der Nutzer hat noch keinen Passkey und bestätigt fehlende manuelle
+E-Mail-Freigabe. Erste Pilot-Ausnahme abgelehnt; Nutzer verlangt reguläre
+E-Mail-Bestätigung/Admin-SMTP. Private alte Image-/Rolloutbelege erhalten.
+[Betriebsablauf](../bitget-demo-trading-runtime.md).
+
 ## D-136 — Operative Demo-Einrichtung direkt verdrahten
 
 **Status: vorbereitet, 2026-11-19.** PR96 gemerged4f664f6. Nutzer verlangt

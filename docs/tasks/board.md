@@ -8,11 +8,13 @@ konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
-IP-009/IP-015: operative Verdrahtung/Benutzerkonfiguration `DONE`, öffentlicher
-Rollout `WAITING_DECISION` nach Merge. 81 Node/10 neue Python/37 bestehende
+IP-009/IP-015: operative Verdrahtung/Benutzerkonfiguration und genehmigter
+öffentlicher Rollout `DONE`; erstes Nutzer-Passkey-Enrollment ausstehend.
+81 Node/10 neue Python/37 bestehende
 Fälle grün; sieben reale ausstehende Migrationen vollständig zurückrollend
 geprüft. Native Keyregistrierung im Dashboard und Demo-Reconciliation/-Orders
-folgen. [Konkreter Ablauf](../bitget-demo-trading-runtime.md).
+folgen. Exakte HBA-Regel/öffentliche Passkey-Origin korrigiert, tatsächliche
+HTTPS/API/mTLS-Prüfungen bestanden. [Konkreter Ablauf](../bitget-demo-trading-runtime.md).
 
 IP-009/IP-015: gemeinsamer isolierter Handelskey-Abnahmecheckpoint bestanden:
 449 HTTPS/BFF/API/PG/AEAD-/Executorprüfungen,48 gezielte Fälle/57 Unterfälle,
