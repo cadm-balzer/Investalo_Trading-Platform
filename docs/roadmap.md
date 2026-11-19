@@ -1,5 +1,10 @@
 # Roadmap
 
+2026-11-19: eigener Handels-Passkey-/Consent-/Consume-/Executorpfad in
+Fixture019 geprüft. Aktuelle Berechtigung, Post-Write-Abschluss und
+Commit-Ungewissheit bleiben verbindlich. Eigene API-/BFF-/Browseranbindung
+und operative Einrichtung folgen. [Vertrag](bitget-demo-trading-passkey.md).
+
 2026-11-18: eigener dauerhafter Demo-Handelsstore mit gemeinsamer UID-/
 Kontoregistry/aktuellen DB-Checks in Fixture018 geprüft. Eigener Trading-
 Passkey-/Consent-/Executor-/Dashboardpfad folgt.

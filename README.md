@@ -1,12 +1,16 @@
 # Investalo Trading Platform
 
+Die [eigene Handels-Passkey-Freigabe](docs/bitget-demo-trading-passkey.md)
+verbindet einmaligen Consent/Consume und atomare verschlüsselte Speicherung.
+Fixture019 lokal geprüft; API-/Dashboardanbindung und operative Abnahme folgen.
+
 Der [private Demo-Handelskey-Store](docs/bitget-demo-trading-store.md)
 persistiert das eigene Profil mit gemeinsamer Demo-UID-Registry und frischen
 DB-Checks. Fixture018 geprüft; öffentlicher Keyeingang weiter gesperrt.
 
 Das [Demo-Handelskeyprofil](docs/bitget-demo-trading-profile.md) prüft
 Futures-/Spot-Schreibrechte und verschlüsselt sie getrennt vom Lesepurpose.
-Dauerhafte Passkey-/Dashboardanbindung folgt; noch keine Keyfreischaltung.
+Dauerhafte Handels-Passkey-Anbindung vorhanden; Dashboardfreischaltung folgt.
 
 Der [eigene Demo-Einrichtungsbereich](docs/bitget-demo-dashboard-setup.md)
 ist von Sicherheit und Kontozugängen erreichbar. Echte Schlüsseleingabe

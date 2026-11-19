@@ -1,6 +1,6 @@
 # Git-basiertes Ticketboard
 
-Stand 2026-11-18. Dieses Board ist das initiale Task-/Ticketsystem ohne
+Stand 2026-11-19. Dieses Board ist das initiale Task-/Ticketsystem ohne
 zusätzliche Tools oder externe Veröffentlichung.
 
 Status: `READY` ausführbar, `IN_PROGRESS` aktiv, `WAITING_DECISION` benötigt
@@ -8,9 +8,15 @@ konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
+IP-009/IP-015: eigener Handels-Passkey-/Consent-/Consume-/Executorcheckpoint
+lokal geprüft:67 neue/206 verschiedene gepinnte Fälle grün.
+Fixture019 nach Rollbackpreflight;
+eigene API-/BFF-/Browseranbindung und operative Einrichtung folgen.
+[Abnahme](../bitget-demo-trading-passkey.md).
+
 IP-009/IP-015: eigener Trading-Store/Provider, gemeinsame Demo-UID-/Kontoslots
 und sichere Metadatengrundlage in Fixture018 geprüft:27 neue/212 Fälle grün.
-Eigener Trading-Proof-/Consent-/Consume-/Executor-/Dashboardpfad folgt.
+Handels-Proof-/Consent-/Executorpfad in019 ergänzt; Dashboardanbindung folgt.
 [Abnahme](../bitget-demo-trading-store.md).
 
 IP-009/IP-015: Demo-Read-Write für Futures/Spot bestätigt. Eigenes natives
