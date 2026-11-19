@@ -7,6 +7,21 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR92 merged:f8cd152 ancestor of origin/main, GH/fetch verified.
+  IP-009/IP-015 on feat/m1-demo-trading-passkey: own additive019 Trading
+  consent/consume/completion ledger plus exact own Python assertion/handle/
+  authorization/executor. Shared factor/counter/session helpers retained;
+  old Normal/Read domains reject Trading and reverse. Confirmed consume
+  precedes trusted provisioning/KEK; actual018 AEAD write and019 post-write
+  completion share final lock transaction. Register gains only018 native
+  rights, paused keyless revoke retains rights/ciphertext. Unknown commits
+  never retry or overwrite completed success; failed tombstones stop executor.
+  67 new/206 distinct pinned PG/crypto/executor/regression cases green with synthetic keys/
+  identities/factor verdicts. Full rollback019 preflight then fixture-only
+  apply;001–018/development set unchanged. No dependencies/normal services/
+  real keys/native HTTP/frontend/orders/backtest/public/live/AI change.
+  Own Trading API/BFF/browser and operative native acceptance follow;
+  public runtime remains false. See docs/bitget-demo-trading-passkey.md.
 - PR91 merged:e150da2 ancestor of main7ebb733, GH/fetch verified.
   IP-009/IP-015 on feat/m1-demo-trading-store: additive018 shared immutable
   Demo UID/account registry, own trading rights/profile checks and private

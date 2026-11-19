@@ -1,5 +1,9 @@
 # Lokale Compose-Entwicklung
 
+`prepare-demo-trading-passkey-checks.py` prüft019 vollständig zurückrollend;
+`--apply-reviewed` wendet es ausschließlich auf die isolierte Fixture an.
+[Handels-Passkey und privater Executor](../docs/bitget-demo-trading-passkey.md).
+
 `prepare-demo-trading-store-checks.py` prüft018 vollständig zurückrollend;
 `--apply-reviewed` wendet es nur auf `investalo_credentials_checks` an.
 [Privater Store und Prüfbeleg](../docs/bitget-demo-trading-store.md).

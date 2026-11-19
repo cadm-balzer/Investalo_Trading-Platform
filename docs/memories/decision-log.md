@@ -1,5 +1,21 @@
 # Entscheidungsprotokoll
 
+## D-132 — Eigene Handelsfreigabe und atomarer Speicherabschluss
+
+**Status: lokal umgesetzt/geprüft, 2026-11-19.** PR92/f8cd152 gemerged.
+019 ergänzt einen eigenen Handels-Passkey-/Consent-/Consumeledger und
+Post-Write-Abschlussvertrag;001–018 unverändert. Faktor-/Counter-/Session-
+helpers bleiben gemeinsam, Audience/Kind/Pfade/Assertions/Handles getrennt.
+Der private Executor konsumiert bestätigt vor Provisioning/KEK und
+verbindet018 AEAD-Schreiben und019 Abschluss in einer finalen Transaktion.
+Registrierung ergänzt nur native018-Rechte; Widerruf erhält diese exakt.
+Unbekannte Commits führen zu keinem Retry oder falschem Fehlerabschluss.
+67 neue/206 verschiedene gepinnte Fälle grün; echte Transaktionen/Verschlüsselung,
+synthetische Identitäten/Keys/Faktorurteile. Fixture019 nach vollständigem
+Rollbackpreflight; keine normale Schema-/Dienst-/Key-/Orderaktivierung.
+Eigene API-/BFF-/Browseranbindung und operative Abnahme folgen.
+[Vertrag](../bitget-demo-trading-passkey.md).
+
 ## D-131 — Gemeinsame Demo-Registry, getrennte Handelsstore-Zugriffe
 
 **Status: lokal umgesetzt/geprüft, 2026-11-18.** Nach PR91 erhält das

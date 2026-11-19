@@ -1,5 +1,11 @@
 # Technische Fallstricke
 
+- Handelsregistrierung wechselt auch `key_authorities` von null zu den nativ
+  bestätigten erlaubten Rechten. Der Post-Write-Abschluss muss diese erlaubte
+  Änderung ausdrücklich berücksichtigen; beim Widerruf bleibt die genaue
+  ursprüngliche Liste unverändert. Ungeprüftes Metadatenrelabelling oder
+  Importieren alter Read-Consent-/Assertiontypen ist keine Handelsfreigabe.
+
 - Profilübergreifende Demo-UID-/Kontoslots müssen in einer gemeinsamen
   unveränderlichen Registry bleiben. Alte Owned-/Passkey-/Viewhelper müssen
   fremde Profile abweisen, statt neue Ciphertexts freizugeben oder falsche

@@ -1,5 +1,11 @@
 # Bestandsaufnahme
 
+2026-11-19: eigene Handels-Passkey-Assertion/Authorization/Onboarding und
+Migration019 verbinden Consent/Consume,018 AEAD-Store und atomaren Abschluss.
+67 neue/206 verschiedene gepinnte Fälle grün; synthetische Keys/Faktorurteile.
+Keine normalen Dienst-/Dashboardänderungen.
+[Abnahme](bitget-demo-trading-passkey.md).
+
 2026-11-18: eigener Demo-Handelsstore/Provider und sichere Metadatengrundlage,
 Fixture018 nach Rollbackpreflight.27 neue/212 verschiedene gepinnte Fälle
 grün; tatsächlicher Entwicklungs-/Servicebestand unverändert.

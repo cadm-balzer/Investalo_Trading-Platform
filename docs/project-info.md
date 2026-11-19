@@ -66,6 +66,10 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-19: [Handels-Passkey und privater Executor](bitget-demo-trading-passkey.md)
+verbinden dauerhafte einmalige Freigabe und atomare Speicherung in Fixture019.
+Eigene API-/BFF-/Dashboardanbindung und operative Abnahme folgen.
+
 2026-11-18: [Demo-Handelsstore](bitget-demo-trading-store.md) und aktuelle
 Provider-/Metadatengrundlage in isolierter Fixture018 geprüft.
 Eigene Trading-Passkey-/Dashboardanbindung bleibt der nächste Schritt.
