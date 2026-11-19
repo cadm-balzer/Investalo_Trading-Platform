@@ -8,10 +8,15 @@ konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
+IP-009/IP-015: eigene Default-off-Handelskey-API und sichere Rechte-/
+Metadatenprojektion geprüft:107 neue/427 verschiedene gepinnte Fälle grün.
+Eigene BFF-/Browseranbindung, privater HTTP-Executor und operative Einrichtung
+folgen. [Abnahme](../bitget-demo-trading-api.md).
+
 IP-009/IP-015: eigener Handels-Passkey-/Consent-/Consume-/Executorcheckpoint
 lokal geprüft:67 neue/206 verschiedene gepinnte Fälle grün.
 Fixture019 nach Rollbackpreflight;
-eigene API-/BFF-/Browseranbindung und operative Einrichtung folgen.
+eigene API ergänzt; BFF-/Browseranbindung und operative Einrichtung folgen.
 [Abnahme](../bitget-demo-trading-passkey.md).
 
 IP-009/IP-015: eigener Trading-Store/Provider, gemeinsame Demo-UID-/Kontoslots

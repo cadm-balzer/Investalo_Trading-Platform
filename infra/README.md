@@ -1,5 +1,10 @@
 # Lokale Compose-Entwicklung
 
+Die [Handelskey-API](../docs/bitget-demo-trading-api.md) nutzt bestehende
+Fixture018/019. Eigene Schalter `API_DEMO_TRADING_CREDENTIAL_METADATA` und
+`API_DEMO_TRADING_PASSKEY_AUTHORIZATIONS` sind standardmäßig aus und fehlen
+in normalen Compose-/Servicekonfigurationen. Keine weitere Migration.
+
 `prepare-demo-trading-passkey-checks.py` prüft019 vollständig zurückrollend;
 `--apply-reviewed` wendet es ausschließlich auf die isolierte Fixture an.
 [Handels-Passkey und privater Executor](../docs/bitget-demo-trading-passkey.md).

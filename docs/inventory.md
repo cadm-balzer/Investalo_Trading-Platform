@@ -1,5 +1,11 @@
 # Bestandsaufnahme
 
+2026-11-19: eigene Handelskey-Passkey-/Metadatenrouter, zwei Default-off-
+Einstellungen, streng kanonische native Rechteprojektion.107 neue und320
+bestehende gepinnte Fälle grün (427 insgesamt). API-/Check-/Migrationsimages
+gebaut, Runtimeimport ohne Netzwerk/Secrets/Mounts geprüft. Kein Schema-/
+normaler Dienst-/Frontendwechsel. [Abnahme](bitget-demo-trading-api.md).
+
 2026-11-19: eigene Handels-Passkey-Assertion/Authorization/Onboarding und
 Migration019 verbinden Consent/Consume,018 AEAD-Store und atomaren Abschluss.
 67 neue/206 verschiedene gepinnte Fälle grün; synthetische Keys/Faktorurteile.

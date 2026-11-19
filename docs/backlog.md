@@ -6,8 +6,10 @@ vorbereitet. Futures-/Spot-Demo-Read-Write bestätigt; eigener nativer
 Dauerhafter Trading-Store/gemeinsame Demo-UID-/Kontoregistry und aktuelle
 Metadatengrundlage in [Fixture018](bitget-demo-trading-store.md) geprüft.
 Eigener Trading-Passkey-/Consent-/Consume-/Executorpfad in
-[Fixture019](bitget-demo-trading-passkey.md) geprüft. Eigene API-/BFF-/
-Browseranbindung und operative Einrichtung folgen; öffentlich separat ausrollen.
+[Fixture019](bitget-demo-trading-passkey.md) geprüft. Eigene Default-off
+[Handelskey-API](bitget-demo-trading-api.md) mit sicheren Metadaten/Rechten
+ergänzt. BFF-/Browseranbindung, privater HTTP-Executor und operative Einrichtung
+folgen; öffentlich separat ausrollen.
 
 Stand 2026-11-10. Aktive Aufgaben stehen im [Ticketboard](tasks/board.md).
 Keine erledigten Punkte in dieser Liste halten.

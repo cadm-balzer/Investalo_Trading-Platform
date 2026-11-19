@@ -1,5 +1,11 @@
 # Technische Fallstricke
 
+- Handelsmetadaten haben acht Felder inklusive `key_authorities`. Fehlende
+  Connection verlangt null-Rechte; vorhandene Connection verlangt exakt
+  sortierte/verschiedene018-Rechte. Alte siebenfeldrige Read-Projektion nicht
+  lockern oder wiederverwenden. Rechtecopy getrennt veröffentlichen, damit
+  Responseänderungen keinen Alias in den geprüften Snapshot erzeugen.
+
 - Handelsregistrierung wechselt auch `key_authorities` von null zu den nativ
   bestätigten erlaubten Rechten. Der Post-Write-Abschluss muss diese erlaubte
   Änderung ausdrücklich berücksichtigen; beim Widerruf bleibt die genaue
