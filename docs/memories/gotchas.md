@@ -1,5 +1,14 @@
 # Technische Fallstricke
 
+- Der mTLS-Peerpin ist SHA256 des DER-Zertifikats; der private Node-Dateipin
+  dagegen SHA256 der ursprünglichen PEM-Datei. Nicht vertauschen. Demo-IP-
+  Bindung ist laut Nutzer nicht einrichtbar: nur ausdrücklich installierte
+  operative Variante mit fehlender/leerer Whitelist zulassen, nie im strengen
+  alten Readprofil umgehen oder als verifizierte IP-Bindung verbuchen.
+- Next-Routen müssen denselben prozessweiten Demo-Ablaufstore nutzen.
+  Asynchrone Provider erst beim tatsächlichen Aufruf laden, damit fehlgeschlagene
+  Konfigurationsprüfungen keinen unbeobachteten Promise-Reject hinterlassen.
+
 - Read- und Trading-Abnahme temporär binden denselben Fixture-LOGIN. Trotz
   eigener Runtime-/Netz-/Root-/Schema-Domains denselben Fixturelock benutzen;
   keine weiteren Credentials-Fixturetests parallel starten. Neue Trading-

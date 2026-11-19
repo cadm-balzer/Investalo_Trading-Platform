@@ -66,6 +66,11 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-19: [Operativer Demo-Key-Zugang](bitget-demo-trading-runtime.md)
+verdrahtet, private Benutzerkonfiguration vorbereitet. Demo ohne IP-Bindung
+nach Nutzerangabe ausdrücklich berücksichtigt. Rollout nach Merge/Freigabe;
+native Registrierung im Dashboard folgt, Orders bleiben aus.
+
 2026-11-19: [gemeinsame Handelskey-Abnahme](bitget-demo-trading-acceptance.md)
 mit449 tatsächlichen HTTPS/BFF/API/PG/AEAD-/Executorprüfungen bestanden.
 Operative private/native Einrichtung folgt; öffentliche Eingabe weiterhin aus.

@@ -7,6 +7,20 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR96 merged4f664f6, GH/fetch verified. IP-009/IP-015 operative Demo runtime
+  on feat/m1-demo-trading-runtime composes existing browser/Passkey/mTLS/019018.
+  Own create-only private setup prepared for confirmed user UID; user reports
+  Demo IP binding unavailable. Explicit unavailable_in_demo accepts only empty
+  native whitelist, records no verified IP binding; single_ip/old profiles intact.
+  One fixed native identity GET validates UID/parent/allowed RW rights/clock;
+  no orders. Own signing/KEK/TLS/restricted DB LOGIN, single process/UID.
+  81 pinned Node/10 Python21 subtests plus37 existing PG/transport green;
+  typecheck/pinned images/actual UID10002 private identity checked. Normal013–019
+  preflight fully rolled back,001–012 retained; private config only, no real keys
+  or native HTTP, DB account binding or normal services changed. Concrete
+  backup/migrate/bind/overlay rollout requires user production approval after
+  merge. See docs/bitget-demo-trading-runtime.md; native account/order/cost
+  acceptance and actual Demo dispatcher follow key registration.
 - PR95 merged:05a7f0a ancestor of origin/main, GH/fetch verified.
   IP-009/IP-015 on feat/m1-demo-trading-acceptance: own combined isolated
   actual HTTPS/BFF-P256/API/PG018019/AEAD/restricted Python-mTLS executor.

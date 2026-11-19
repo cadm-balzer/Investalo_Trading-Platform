@@ -1,5 +1,10 @@
 # Roadmap
 
+2026-11-19: [Operative Demo-Runtime](bitget-demo-trading-runtime.md) und
+konkrete private Einrichtung vorbereitet. Nach Merge/Freigabe ausrollen und
+Demo-Key im Dashboard registrieren; danach tatsächliche Kontoreconciliation
+und Demo-Auftragsanbindung. Keine weitere synthetische Zwischenplattform.
+
 2026-11-19: eigene gemeinsame Handelskey-Abnahme über tatsächliche HTTPS/BFF/
 API/PG/AEAD-/Executorprozesse bestanden (449 Prüfungen). Separaten operativen
 Runtime und native Key-/Account-/Kosten-/Quotaabnahme vorbereiten.

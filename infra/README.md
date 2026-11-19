@@ -1,5 +1,10 @@
 # Lokale Compose-Entwicklung
 
+`compose.demo-trading-runtime.yaml` verbindet vorhandene API/Cockpit-Routen
+mit einem eigenen privaten operativen Executor. Create-only Einrichtung über
+`setup-demo-trading-runtime.py`, konkrete Backup-/Migrations-/Bind-/Rolloutbefehle
+in [Demo-Runtime](../docs/bitget-demo-trading-runtime.md). Noch nicht ausgerollt.
+
 `compose.demo-trading-local-acceptance.yaml` ergänzt nur eigene isolierte
 Testservices. Die [Handelskey-Abnahme](../docs/bitget-demo-trading-acceptance.md)
 bestand449 Prüfungen; Read/Trading teilen einen Fixturelock. Launcher

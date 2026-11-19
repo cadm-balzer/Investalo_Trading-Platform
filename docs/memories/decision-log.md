@@ -1,5 +1,24 @@
 # Entscheidungsprotokoll
 
+## D-136 — Operative Demo-Einrichtung direkt verdrahten
+
+**Status: vorbereitet, 2026-11-19.** PR96 gemerged4f664f6. Nutzer verlangt
+einfacheren Fortschritt; bestehende geprüfte Komponenten werden direkt installiert.
+Separate operative Runtime statt Lockerung synthetischer Intakeguards:
+private BFF-Identität, vorhandener Passkey-/Consent-/mTLS-/019018-Store und
+ein nativer fester Demo-Kontoinfo-GET. Der Nutzer liefert UID und berichtet
+fehlende Demo-IP-Option. Explizite installierte Variante unavailable_in_demo
+akzeptiert nur fehlende/leere Whitelist und behauptet keine geprüfte IP-Bindung.
+Strenger Single-IP-Pfad/alte Profile und AEAD-/Purpose-Strukturen unverändert.
+Rechte tatsächlich nativ lesen, erlaubte Reads zulassen, andere Writes/UTA
+ablehnen. Private Konfiguration vorbereitet; normale Migrationen013–019 an
+vorhandenen Daten geprüft und vollständig zurückgerollt. Keine echte Keyaufnahme,
+Brokerrequests, normalen DB-/Dienständerungen oder Orders.81 Node/10 neue
+Python21 Unterfälle/37 bestehende PG-/Transportfälle, Typecheck/Build grün.
+Konkreter Backup/Migrate/Bind/Overlay-Rollout nach Merge und Produktionsfreigabe;
+native Keyregistrierung und Konto-/Order-/Kostenabnahme danach.
+[Ablauf](../bitget-demo-trading-runtime.md).
+
 ## D-135 — Gemeinsame isolierte Handelskey-Abnahme
 
 **Status: bestanden, 2026-11-19.** PR95/05a7f0a gemerged. Eigener zusätzlicher

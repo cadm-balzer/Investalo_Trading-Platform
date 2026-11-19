@@ -11,6 +11,8 @@ import * as controller from "../src/lib/demo-trading-credential-browser-controll
 import * as body from "../src/lib/credential-browser-body.ts";
 import * as proof from "../src/lib/passkey-browser-proof.ts";
 import * as http from "../src/lib/demo-trading-passkey-credential-http.ts";
+import * as runtime from "../src/lib/demo-trading-credential-runtime.ts";
+import * as security from "../src/lib/security.ts";
 
 const require = createRequire(import.meta.url);
 function load(path: string, inject: Record<string, unknown>) {
@@ -72,6 +74,10 @@ function serverFixture() {
     "./config.ts": { getConfig: async () => { throw new Error("Unexpected config access"); } },
     "./contracts.ts": overview, "./demo-trading-credential-action-contracts.ts": contracts,
     "./demo-trading-passkey-credential-http.ts": http,
+    "./demo-trading-credential-runtime.ts": runtime, "./security.ts": security,
+    "./demo-trading-passkey-credential-server.ts": {
+      createDemoTradingPrivateCredentialServerPorts: async () => { throw new Error("Unexpected runtime access"); },
+    },
     "./backend.ts": { apiRequest: async (_session: unknown, path: string) => {
       f.calls.push(path);
       if (path === "/v1/overview") return { tenant_id: id(1), mode: "paper", live_enabled: false,
@@ -85,7 +91,7 @@ function serverFixture() {
 
 test("actual server wrapper stays unavailable and skips config/session/private body access", async () => {
   const { f, server } = serverFixture();
-  assert.equal(server.demoTradingCredentialBrowserRuntimeAvailable(), false);
+  assert.equal(await server.demoTradingCredentialBrowserRuntimeAvailable(), false);
   for (const phase of ["start", "finish", "execute"]) {
     const request = new Request(`https://cockpit.fixture.invalid/api/credentials/bitget-demo-trading/passkey/${phase}`,
       { method: "POST", body: "synthetic-private" });
