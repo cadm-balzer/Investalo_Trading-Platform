@@ -1,0 +1,57 @@
+# Explicit operative installation after migration/account/private-file setup.
+# Merge does not deploy. No automatic order dispatcher or public executor port.
+services:
+  api:
+    environment:
+      API_DEMO_TRADING_PASSKEY_AUTHORIZATIONS: "1"
+      API_DEMO_TRADING_CREDENTIAL_METADATA: "1"
+  cockpit:
+    environment:
+      COCKPIT_DEMO_TRADING_CREDENTIALS: "1"
+    volumes:
+      - type: bind
+        source: ./local/demo-trading-runtime/browser
+        target: /run/demo-trading-identity
+        read_only: true
+        bind:
+          create_host_path: false
+    networks:
+      demo_trading_private: {}
+  demo-trading-executor:
+    image: investalo-demo-trading-executor:0.1.0-local
+    build:
+      context: ..
+      dockerfile: infra/docker/demo-trading-runtime.Dockerfile
+      args:
+        PYTHON_IMAGE: ${PYTHON_IMAGE:?Pinned image required}
+    command: [python, -m, investalo_credential_store.demo_trading_runtime, --bitget-demo-trading]
+    restart: unless-stopped
+    user: "10003:10003"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs: ["/tmp:rw,noexec,nosuid,nodev,size=16m"]
+    logging: {driver: none}
+    mem_limit: 128m
+    cpus: 0.5
+    volumes:
+      - type: bind
+        source: ./local/demo-trading-runtime/executor
+        target: /run/demo-trading-executor
+        read_only: true
+        bind:
+          create_host_path: false
+    secrets: [local_ca_cert]
+    networks:
+      database: {}
+      demo_trading_private:
+        aliases: [demo-trading-executor.cockpit.internal]
+      demo_trading_egress: {}
+    depends_on:
+      postgres:
+        condition: service_healthy
+networks:
+  demo_trading_private:
+    internal: true
+  # Only the credential executor receives egress for its fixed Bitget HTTPS GET.
+  demo_trading_egress: {}

@@ -1,5 +1,10 @@
 # Bestandsaufnahme
 
+2026-11-19: [Operative Demo-Runtime](bitget-demo-trading-runtime.md):
+Browserinstallation, nativer Kontoprüfer, Create-only Setup und Composeoverlay.
+81 Node/10 Python/37 bestehende Fälle grün, Builds/Typecheck und tatsächliche
+private Browseridentität geprüft; normale Migrationsprobe vollständig zurückgerollt.
+
 2026-11-19: separate Handels-Abnahmecompose/Root-/Host-/Node-/synthetische
 Runtime.449 tatsächliche gemeinsame Prüfungen bestanden,48 gezielte
 Runtime-/mTLS-Fälle/57 Unterfälle und gepackte Typprüfung grün.

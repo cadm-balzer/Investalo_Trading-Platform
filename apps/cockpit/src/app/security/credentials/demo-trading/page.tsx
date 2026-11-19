@@ -16,7 +16,7 @@ export default async function Page() {
   const session = await getSession();
   if (!session) return <Login />;
   let accounts: DemoTradingCredentialActionMetadata[] | null = null, registered = false;
-  const enabled = demoTradingCredentialBrowserRuntimeAvailable();
+  const enabled = await demoTradingCredentialBrowserRuntimeAvailable();
   if (enabled) {
     try {
       const context = await getPasskeyContext(session);
@@ -30,7 +30,7 @@ export default async function Page() {
     <Link href="/security/credentials" className="detail-back">← Kontozugänge</Link>
     <section className="panel">
       <div className="section-heading"><h2>Bitget-Demo-Handelszugang einrichten</h2><span className="badge neutral">{enabled ? "DEMO · FUTURES/SPOT" : "EINRICHTUNG AUSSTEHEND"}</span></div>
-      {enabled && <p className="panel-intro">Wähle dein DemoTrading-Konto und die gewünschte Änderung. Nach der Passkey-Prüfung bestätigst du die angezeigte Aktion ausdrücklich.</p>}
+      {enabled && <p className="panel-intro">Hinterlege den im Bitget-Demo-Modus erstellten API-Key, Secret und Passphrase. Nach der Passkey-Prüfung bestätigst du die Einrichtung.</p>}
       {!enabled ? <BitgetDemoTradingSetupStatus />
         : !registered ? <p role="status">Für eine Kontoänderung benötigst du einen aktiven Passkey. Prüfe zuerst deinen Status in der Passkey-Verwaltung.</p>
           : accounts === null ? <p role="status">Der aktuelle DemoTrading-Kontostand ist nicht bestätigt. Lade den Status neu.</p>

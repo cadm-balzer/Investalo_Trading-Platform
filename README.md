@@ -1,5 +1,10 @@
 # Investalo Trading Platform
 
+Der [operative Demo-Key-Zugang](docs/bitget-demo-trading-runtime.md) verbindet
+jetzt die vorhandene Eingabe mit nativem Kontocheck und verschlüsseltem Store.
+Private Einrichtung und zurückgerollte Migrationsprobe vorbereitet; öffentlicher
+Rollout nach Merge und Freigabe. Keyeinrichtung startet keine Orders.
+
 Die [gemeinsame Handelskey-Abnahme](docs/bitget-demo-trading-acceptance.md)
 hat449 Prüfungen über echte HTTPS/BFF/API/PG-/Speicherprozesse bestanden,
 einschließlich Neustart und verlorener Erfolgsantwort. Sitzung/Keys synthetisch.
