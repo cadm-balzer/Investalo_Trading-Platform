@@ -88,10 +88,10 @@ Brokerrequests, Orders, Backtests oder Public-/Live-/AI-Freischaltungen.
 
 ## Operative Arbeit
 
-Eigene private Trading-Identität, API-/Account-/LOGIN-/KEK-/mTLS-/Signing-
-Zuordnung und den nativen Trading-Provisioner samt vertrauenswürdiger
-Intakepolicy installieren. Gemeinsame isolierte laufende Tradingabnahme
-vor tatsächlichem Rollout durchführen; alten Read-Abnahme-/TTY-Pfad nicht
+Die [gemeinsame isolierte Tradingabnahme](bitget-demo-trading-acceptance.md)
+ist inzwischen mit449 Prüfungen bestanden. Eigene private Trading-Identität,
+API-/Account-/LOGIN-/KEK-/mTLS-/Signing-Zuordnung und nativen Trading-Provisioner
+samt vertrauenswürdiger Intakepolicy operativ vorbereiten; alten Read-Abnahme-/TTY-Pfad nicht
 umkonfigurieren. Native Key-/UID-/Parent-/IP-/Rechte-/Account-/Order-/Kosten-/
 Latenz-/Quotaabnahme bleibt erforderlich. Öffentlicher Rollout benötigt
 seine eigene Freigabe; Merges aktualisieren die laufenden Dienste nicht.

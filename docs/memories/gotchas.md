@@ -1,5 +1,11 @@
 # Technische Fallstricke
 
+- Read- und Trading-Abnahme temporär binden denselben Fixture-LOGIN. Trotz
+  eigener Runtime-/Netz-/Root-/Schema-Domains denselben Fixturelock benutzen;
+  keine weiteren Credentials-Fixturetests parallel starten. Neue Trading-
+  Secretspec verlangt tatsächliche kanonische Rechte auch beim unabhängigen
+  Entschlüsseln; alte Read-AAD nicht verwenden oder umetikettieren.
+
 - Handels-BFF-Readback nach Registrierung ergänzt native Rechte; nach Widerruf
   muss die ursprüngliche Liste exakt bleiben. Parse und WeakMaps aus dem alten
   Read-Flow nicht für neue Consenttypen benutzen. Eigene Prefixe auch beim

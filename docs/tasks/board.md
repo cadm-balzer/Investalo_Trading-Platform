@@ -8,10 +8,16 @@ konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
+IP-009/IP-015: gemeinsamer isolierter Handelskey-Abnahmecheckpoint bestanden:
+449 HTTPS/BFF/API/PG/AEAD-/Executorprüfungen,48 gezielte Fälle/57 Unterfälle,
+gepackter Node-Treiber typgeprüft. Sitzung/Keys/Provenienz synthetisch.
+Separaten operativen Runtime/Identitäten/native Abnahme vor öffentlicher
+Freischaltung vorbereiten. [Beleg](../bitget-demo-trading-acceptance.md).
+
 IP-009/IP-015: eigener Handelskey-Dashboard-/BFF-/Private-Identity-/mTLS-
 Checkpoint lokal geprüft:352 neue Node/9 neue Python,1388 verschiedene
 Fälle plus121 Interopassertions grün. Publicruntime fest aus.
-Gemeinsame isolierte laufende Tradingabnahme und operative Einrichtung/
+Gemeinsame isolierte Tradingabnahme bestanden; operative Einrichtung/
 native Abnahme folgen. [Vertrag](../bitget-demo-trading-dashboard.md).
 
 IP-009/IP-015: eigene Default-off-Handelskey-API und sichere Rechte-/

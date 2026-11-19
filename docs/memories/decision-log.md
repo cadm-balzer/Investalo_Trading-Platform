@@ -1,5 +1,25 @@
 # Entscheidungsprotokoll
 
+## D-135 — Gemeinsame isolierte Handelskey-Abnahme
+
+**Status: bestanden, 2026-11-19.** PR95/05a7f0a gemerged. Eigener zusätzlicher
+Compose-/Host-/Node-/Runtimepfad verbindet tatsächliche HTTPS-BFF/P256/API/
+PG018019/AEAD-/Private-Executorprozesse. Drei vollständige Schreibphasen mit
+Parallelität, tatsächlichem Prozessneustart, Widerruf und bewusst verlorener
+Bestätigung nach erfolgreichem Commit. Unabhängige JTI-/Body-/OIDC-/Finalxid-/
+Profil-/Rechte-/UID-/Decryptprüfung; Read kann mit demselben KEK nicht öffnen.
+449 Prüfungen (Node246/Audit71/Host132),48 gezielte Fälle/57 Unterfälle und
+gepackte Typprüfung grün. BelegSHA977070ea72698a33cf1b9f261788922cf6a3948b9b25a98727ac9797cab02fa9,
+run eddf1d23-811d-4793-8c47-e16f0f3eb5da. Original-Test-LOGIN-Bindung per CAS
+wiederhergestellt, Evidenz/Root erhalten, nur eigene Container beendet.
+Read/Trading teilen denselben Fixturelock. Fixture001–019/Entwicklungsset
+unverändert; keine normalen Dienste/Dependencies/Migrationen/native Keys/
+Brokerrequests/Orders/Backtests/Public/Live/AI geändert. Sitzung/Key-/UID-/
+Parent-/IP-/Rechteherkunft synthetisch; keine physische Browser/Next/OIDC-
+oder native Abnahme. Synthetische Guards nicht für echte Intake entfernen.
+Separater operativer Runtime und native Abnahme folgen.
+[Vertrag](../bitget-demo-trading-acceptance.md).
+
 ## D-134 — Eigener geschützter Handelskey-Dashboardablauf
 
 **Status: lokal umgesetzt/geprüft, 2026-11-19.** PR94/f1b376a gemerged.

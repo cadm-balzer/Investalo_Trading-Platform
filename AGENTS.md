@@ -7,6 +7,28 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR95 merged:05a7f0a ancestor of origin/main, GH/fetch verified.
+  IP-009/IP-015 on feat/m1-demo-trading-acceptance: own combined isolated
+  actual HTTPS/BFF-P256/API/PG018019/AEAD/restricted Python-mTLS executor.
+  Fresh synthetic actors/accounts/CA/signing/KEK and own fixed canary intake;
+  exact --synthetic-demo-trading/config type rejects old opt-in/schema/keys.
+  Separate private roots/networks/services; shared Read/Trading fixture lock.
+  Register parallel handle once; actual executor restart; keyless revoke1/1
+  to1/2 retains ciphertext/rights. Missing ACK after successful commit retains
+  completed/active and never retries. Independent original OIDC/body/JTI/
+  final-lock-completion xid/profile/rights/UID/decrypt evidence; Read AES-GCM
+  cannot open Trading with same KEK. Actual449 checks (Node246/audit71/host132)
+  passed; receiptsha977070ea72698a33cf1b9f261788922cf6a3948b9b25a98727ac9797cab02fa9,
+  run eddf1d23-811d-4793-8c47-e16f0f3eb5da.48 pinned guard/transport cases/
+  57 subtests and packed Node typecheck green. Original fixture LOGIN binding
+  CAS restored; append-only evidence/roots retained, only own containers stopped.
+  Fixture001–019/development unchanged; no dependencies/migrations/normal
+  services/actual keys/native HTTP/orders/backtests/public/live/AI activation.
+  Synthetic original session and broker UID/parent/IP/rights/provenance;
+  own actual HTTP adapter server, no physical browser/Next/OIDC/native claim.
+  Public runtime fixed false. Next separate operative Trading runtime/private
+  identities/native provenance/account/cost/latency/quota setup, then rollout.
+  Never remove synthetic guards for real intake. See docs/bitget-demo-trading-acceptance.md.
 - PR94 merged:f1b376a ancestor of origin/main, GH/fetch verified.
   IP-009/IP-015 on feat/m1-demo-trading-dashboard: own Trading metadata/
   proof/token/consent/BFF/browser/controller/form/private identity/provider/

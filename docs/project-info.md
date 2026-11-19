@@ -66,6 +66,10 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-19: [gemeinsame Handelskey-Abnahme](bitget-demo-trading-acceptance.md)
+mit449 tatsächlichen HTTPS/BFF/API/PG/AEAD-/Executorprüfungen bestanden.
+Operative private/native Einrichtung folgt; öffentliche Eingabe weiterhin aus.
+
 2026-11-19: [geschützter Handelskey-Dashboardablauf](bitget-demo-trading-dashboard.md)
 mit eigener Seite/Formular/Passkey/Consent und privatem mTLS-Transport.
 1388 Fälle plus121 Interopassertions grün. Gemeinsame laufende Tradingabnahme

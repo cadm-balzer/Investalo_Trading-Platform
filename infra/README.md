@@ -1,5 +1,10 @@
 # Lokale Compose-Entwicklung
 
+`compose.demo-trading-local-acceptance.yaml` ergänzt nur eigene isolierte
+Testservices. Die [Handelskey-Abnahme](../docs/bitget-demo-trading-acceptance.md)
+bestand449 Prüfungen; Read/Trading teilen einen Fixturelock. Launcher
+`--synthetic-demo-trading` nimmt ausschließlich feste Testtriples an.
+
 Der [Handelskey-Dashboardablauf](../docs/bitget-demo-trading-dashboard.md)
 ist im gepinnten Cockpit kompiliert; sein Runtimeprovider bleibt fest aus.
 Beide privaten Python-Listener akzeptieren den eigenen Handelspurpose nur
