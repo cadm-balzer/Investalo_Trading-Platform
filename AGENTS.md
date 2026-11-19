@@ -7,6 +7,18 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- Admin SMTP/email on feat/m1-admin-email-settings, user-requested regular
+  confirmation (chat exception declined). Own explicit single-admin manifest
+  and SMTP AEAD key, current OIDC/UID/tenant/epoch/owner + fresh MFA/SameOrigin/
+  CSRF; no broad Owner-admin grant. Approved-host implicit TLS465/public DNS
+  pin/AUTH, no retries. Durable pending/8-digit code10min/5 tries/epoch-bound
+  verified receipt; manual original600s Passkey issuer reads real24h proof.
+  25 pinned Node/3 offline mocked issuer cases/typecheck/pinned build green.
+  Actual private UID10002 setup and native provider TLS220 verified, no login/
+  email/password/ticket/DB/service/dependency/broker activation. Real issuer
+  denial probe rejected by auto-review as potentially issuing/sending tickets;
+  not executed, no bypass. Actual issue requires explicit user authorization.
+  Own SMTP overlay prepared; rollout approval pending. See docs/admin-email-settings.md.
 - PR97 merged7e5bb9a, GH/fetch verified; user explicitly approved Demo rollout.
   Normal001–019 original checksums verified after fresh private backup.
   Exact Demo account/credential LOGIN bound, native executor/private mTLS and

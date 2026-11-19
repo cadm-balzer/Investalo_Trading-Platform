@@ -16,6 +16,7 @@ import { FuturesRecoveryPanel } from "./futures-recovery";
 import { FuturesAssetsPanel } from "./futures-paper-assets";
 import { BitgetDemoAccessPanel } from "./bitget-demo-access";
 import { parseFuturesAssets, type FuturesAssets } from "@/lib/futures-paper-assets-contracts";
+import { adminMailAvailable } from "@/lib/admin-mail-server";
 
 type Section = "overview" | "portfolio" | "journal" | "backtest" | "shield";
 const navigation: { label: string; href: string; section: Section }[] = [
@@ -72,6 +73,7 @@ export function Shell({ session, section, children, connected }: { session: Sess
 export async function DashboardPage({ section }: { section: Section }) {
   const session = await getSession();
   if (!session) return <Login />;
+  const administration = section === "shield" && await adminMailAvailable(session);
   let data: Overview | null = null;
   let datasets: Dataset[] | null = null;
   let paper: PaperStatus | null = null;
@@ -122,6 +124,10 @@ export async function DashboardPage({ section }: { section: Section }) {
   }
   return <Shell session={session} section={section} connected={!!data}>
     {section === "shield" && <BitgetDemoAccessPanel />}
+    {administration && <section className="panel"><div className="section-heading"><h2>Administration</h2></div>
+      <p className="panel-intro">Allgemeine Systemeinstellungen und geschützter E-Mail-Versand.</p>
+      <Link className="button secondary" href="/admin/settings">Systemeinstellungen öffnen</Link>
+    </section>}
     {!data ? <section className="panel connection-error" role="status"><Icon name="shield" size={28} /><h2>Verbindung noch nicht bestätigt</h2><p>Die geschützte API ist aktuell nicht erreichbar. Konten und Ergebnisse werden erst nach einer bestätigten Antwort angezeigt.</p><Link href={navigation.find(n => n.section === section)!.href} className="button secondary">Erneut laden</Link></section> : <>
       {recoveryPreview && <FuturesRecoveryPanel data={recovery} csrf={session.csrf} summary={section === "overview"} />}
       {basketPreview && <FuturesPaperSettingsPanel data={basketSettings} csrf={session.csrf} />}

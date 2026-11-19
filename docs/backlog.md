@@ -1,5 +1,11 @@
 # Offenes Backlog
 
+IP-009: [Admin-SMTP/E-Mail-Bestätigung](admin-email-settings.md) ausrollen
+nach Merge/Freigabe. Nutzer trägt SMTP-Login im Dashboard ein, bestätigt den
+Mailcode; tatsächliche Ticketausstellung anschließend explizit freigeben.
+Authelia-Testadresse/Dateinotifier noch separat auf reale Wiederherstellung
+umstellen; keine bestehende E-Mail-Freigabe behaupten.
+
 IP-009/IP-015: [Demo-Einrichtung](bitget-demo-dashboard-setup.md) sichtbar
 vorbereitet. Futures-/Spot-Demo-Read-Write bestätigt; eigener nativer
 [Handelskey-/AEAD-Vertrag](bitget-demo-trading-profile.md) geprüft.

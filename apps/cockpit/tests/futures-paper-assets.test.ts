@@ -112,6 +112,7 @@ test("dashboard reads asset status only behind opt-in and binds parser to curren
   const session = { tenantId: tenant, csrf: "csrf", displayName: "Tester", tenantName: "Eigenes Konto", expiresAt: 2e9 };
   const empty = { mode: "paper", live_enabled: false, tenant_id: tenant, accounts: [], positions: [], journal: [], jobs: [] };
   const dashboard = load("../src/components/dashboard.tsx", {
+    "@/lib/admin-mail-server": { adminMailAvailable: async () => false },
     "next/link": { default: "a" },
     "@/lib/auth": { getSession: async () => session },
     "@/lib/backend": { BackendError: class extends Error {}, apiRequest: async (_s: unknown, path: string) => {

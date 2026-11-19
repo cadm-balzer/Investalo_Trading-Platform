@@ -1,5 +1,9 @@
 # Roadmap
 
+2026-11-20: [Admin-SMTP/E-Mail-Code](admin-email-settings.md) vorbereitet.
+Nach Merge/Freigabe ausrollen, Benutzername/Passwort im Dashboard speichern,
+E-Mail bestätigen und ausdrücklich freigegebenes erstes Passkey-Ticket ausstellen.
+
 2026-11-19: [Demo-Key-Zugang](bitget-demo-trading-runtime.md) freigegeben und
 ausgerollt. Erstes Nutzer-Passkey-Enrollment abschließen, danach tatsächliche
 Keyregistrierung und native Demo-Reconciliation/-Auftragsanbindung.
