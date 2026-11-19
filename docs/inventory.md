@@ -1,5 +1,11 @@
 # Bestandsaufnahme
 
+2026-11-19: separate Handels-Abnahmecompose/Root-/Host-/Node-/synthetische
+Runtime.449 tatsächliche gemeinsame Prüfungen bestanden,48 gezielte
+Runtime-/mTLS-Fälle/57 Unterfälle und gepackte Typprüfung grün.
+Fixture001–019/Entwicklungsset/Dienste unverändert; eigene Container beendet.
+[Beleg](bitget-demo-trading-acceptance.md).
+
 2026-11-19: eigener Handelskey-Dashboard-/BFF-/Private-Identity-/Transportpfad
 mit separatem Consent/Receipt/Audience/Schema/Pfaden, achtfeldrigen sicheren
 Metadaten und mTLS-Applicationtyp.1388 Fälle/79 Pythonunterfälle plus121

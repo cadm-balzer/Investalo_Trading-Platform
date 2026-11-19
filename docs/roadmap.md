@@ -1,5 +1,10 @@
 # Roadmap
 
+2026-11-19: eigene gemeinsame Handelskey-Abnahme über tatsächliche HTTPS/BFF/
+API/PG/AEAD-/Executorprozesse bestanden (449 Prüfungen). Separaten operativen
+Runtime und native Key-/Account-/Kosten-/Quotaabnahme vorbereiten.
+[Beleg](bitget-demo-trading-acceptance.md).
+
 2026-11-19: eigener geschützter Handelskey-Dashboard-/BFF-/mTLS-Ablauf lokal
 geprüft und kompiliert. Als Nächstes gemeinsame isolierte laufende Trading-
 abnahme und operative private Einrichtung/native Abnahme vor Publicrollout.
