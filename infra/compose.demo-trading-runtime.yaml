@@ -5,6 +5,7 @@ services:
     environment:
       API_DEMO_TRADING_PASSKEY_AUTHORIZATIONS: "1"
       API_DEMO_TRADING_CREDENTIAL_METADATA: "1"
+      API_PASSKEY_ORIGIN: https://cockpit.investalo.de
   cockpit:
     environment:
       COCKPIT_DEMO_TRADING_CREDENTIALS: "1"

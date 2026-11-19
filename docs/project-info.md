@@ -66,6 +66,11 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-19: [Demo-Runtime](bitget-demo-trading-runtime.md) nach gemergtem PR97
+und ausdrücklicher Nutzerfreigabe öffentlich ausgerollt.001–019 geprüft,
+Kontobindung und private mTLS/API/Cockpit gesund. Der erste Nutzer-Passkey
+steht noch aus; keine echte Brokerkeyaufnahme oder Orders.
+
 2026-11-19: [Operativer Demo-Key-Zugang](bitget-demo-trading-runtime.md)
 verdrahtet, private Benutzerkonfiguration vorbereitet. Demo ohne IP-Bindung
 nach Nutzerangabe ausdrücklich berücksichtigt. Rollout nach Merge/Freigabe;

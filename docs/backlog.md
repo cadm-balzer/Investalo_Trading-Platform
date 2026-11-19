@@ -11,8 +11,8 @@ Eigener Trading-Passkey-/Consent-/Consume-/Executorpfad in
 ergänzt. Eigener [BFF-/Browser-/privater Transportablauf](bitget-demo-trading-dashboard.md)
 geprüft. [Gemeinsame isolierte Tradingabnahme](bitget-demo-trading-acceptance.md)
 mit449 Prüfungen bestanden. [Operative Runtime/private Benutzerkonfiguration](bitget-demo-trading-runtime.md)
-vorbereitet; konkret freigegebenen Rollout durchführen, dann tatsächliche
-Demo-Keyregistrierung im Dashboard. Native Account-/Order-/Kosten-/Latenz-/
+ausgerollt; erstes Nutzer-Passkey-Enrollment und tatsächliche
+Demo-Keyregistrierung im Dashboard abschließen. Native Account-/Order-/Kosten-/Latenz-/
 Quotaabnahme und Demo-Dispatcher folgen. Synthetische Guards bleiben erhalten.
 
 Stand 2026-11-10. Aktive Aufgaben stehen im [Ticketboard](tasks/board.md).

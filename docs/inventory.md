@@ -1,5 +1,10 @@
 # Bestandsaufnahme
 
+2026-11-19: Demo-Rollout aktiv:001–019, eigenes Demo-Konto/LOGIN, API/Cockpit
+gesund und private mTLS405. Exakte HBA-Regel und öffentliche Passkey-Origin
+ergänzt. Öffentliche TLS-Seite200/Next401, sechs API-Routen geschützt.
+Erstes Nutzer-Enrollment ausstehend. [Betrieb](bitget-demo-trading-runtime.md).
+
 2026-11-19: [Operative Demo-Runtime](bitget-demo-trading-runtime.md):
 Browserinstallation, nativer Kontoprüfer, Create-only Setup und Composeoverlay.
 81 Node/10 Python/37 bestehende Fälle grün, Builds/Typecheck und tatsächliche
