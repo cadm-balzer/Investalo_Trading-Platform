@@ -107,18 +107,26 @@ class DemoCredentialHTTPApplication(CredentialHTTPApplication):
     __slots__ = ()
 
 
+class DemoTradingCredentialHTTPApplication(CredentialHTTPApplication):
+    """Own fixed Trading domain; callback must use DemoTradingPasskeyOnboarding."""
+    __slots__ = ()
+
+
 def _application_targets(application):
     if type(application) is CredentialHTTPApplication:
         return TARGETS
     if type(application) is DemoCredentialHTTPApplication:
         from .demo_passkey_assertion import TARGETS as demo_targets
         return demo_targets
+    if type(application) is DemoTradingCredentialHTTPApplication:
+        from .demo_trading_passkey_assertion import TARGETS as trading_targets
+        return trading_targets
     raise OnboardingRejected("invalid_context") from None
 
 
 def _application_result(application, result, action):
     value = _public_result(result, action)
-    if type(application) is DemoCredentialHTTPApplication and value["credential_revision"] != 1:
+    if type(application) in (DemoCredentialHTTPApplication, DemoTradingCredentialHTTPApplication) and value["credential_revision"] != 1:
         raise OnboardingRejected("invalid_record") from None
     return value
 

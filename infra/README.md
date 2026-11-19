@@ -1,5 +1,10 @@
 # Lokale Compose-Entwicklung
 
+Der [Handelskey-Dashboardablauf](../docs/bitget-demo-trading-dashboard.md)
+ist im gepinnten Cockpit kompiliert; sein Runtimeprovider bleibt fest aus.
+Beide privaten Python-Listener akzeptieren den eigenen Handelspurpose nur
+über den exakt installierten Applicationtyp. Keine normale Dienstaktivierung.
+
 Die [Handelskey-API](../docs/bitget-demo-trading-api.md) nutzt bestehende
 Fixture018/019. Eigene Schalter `API_DEMO_TRADING_CREDENTIAL_METADATA` und
 `API_DEMO_TRADING_PASSKEY_AUTHORIZATIONS` sind standardmäßig aus und fehlen

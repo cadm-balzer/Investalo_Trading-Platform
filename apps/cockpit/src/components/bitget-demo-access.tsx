@@ -17,6 +17,7 @@ export function BitgetDemoAccessPanel() {
   return <section className="panel">
     <div className="section-heading"><h2>Bitget-Demo-Zugang</h2><span className="badge neutral">EINRICHTUNG AUSSTEHEND</span></div>
     <p className="panel-intro">Hier erhält dein Bitget-Demo-Konto einen eigenen Zugang. Die Demo-Einrichtung hat einen separaten Bereich mit ihrem aktuellen Freischaltungsstatus.</p>
+    <Link href="/security/credentials/demo-trading" className="button primary">Demo-Handelskey für Futures/Spot einrichten</Link>
     <Link href="/security/credentials/demo" className="button primary">Demo-Zugang einrichten</Link>
   </section>;
 }

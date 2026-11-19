@@ -7,6 +7,25 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR94 merged:f1b376a ancestor of origin/main, GH/fetch verified.
+  IP-009/IP-015 on feat/m1-demo-trading-dashboard: own Trading metadata/
+  proof/token/consent/BFF/browser/controller/form/private identity/provider/
+  mTLS-client and own page/three Next POSTs over018/019. Original sessions/
+  factor/actor/metadata bound before/after awaits; admission before awaits,
+  once-only handles exclude body/triple/JWT. Own eight-field canonical rights;
+  post-revoke readback preserves exact list. Separate consent/kind/audience/
+  paths/identity schema. Both Python listeners select Trading only from exact
+  trusted own Application type; Normal/Read defaults unchanged.
+  352 new Node/9 new Python;1266 Node+122 Python=1388 distinct cases/79
+  Python subtests plus121 TS/Jose/Python assertions green. Pinned Node24.22.2/
+  Python3.14.10, actual P256/SSR/files/loopback mTLS/PG/AEAD with synthetic
+  keys/identities/API verdicts. Typecheck/pinned Cockpit+check build green.
+  Fixture001–019/development unchanged; no normal services/dependencies/
+  native keys/broker requests/orders/backtests/public/live/AI activation.
+  Runtime fixed false; no combined running Trading BFF/API/PG/Executor or
+  physical browser/native claim. Next own combined isolated Trading acceptance,
+  operative private/native provenance/account/cost/latency/quota setup, then
+  separately approved rollout. See docs/bitget-demo-trading-dashboard.md.
 - PR93 merged:3cb3fdc ancestor of origin/main, GH/fetch verified.
   IP-009/IP-015 on feat/m1-demo-trading-api: own default-off Trading
   metadata GET and five proof/consent POSTs over unchanged018/019.

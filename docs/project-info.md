@@ -66,6 +66,11 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-19: [geschützter Handelskey-Dashboardablauf](bitget-demo-trading-dashboard.md)
+mit eigener Seite/Formular/Passkey/Consent und privatem mTLS-Transport.
+1388 Fälle plus121 Interopassertions grün. Gemeinsame laufende Tradingabnahme
+und operative Einrichtung folgen; öffentlicher Eingang weiter aus.
+
 2026-11-19: [Handelskey-API](bitget-demo-trading-api.md) ergänzt eigene
 Passkey-Endpunkte und sichere Rechte-/Metadatenanzeige.427 Prüfungen grün.
 Eigene BFF-/Browser-/private HTTP-Anbindung und operative Abnahme folgen.

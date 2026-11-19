@@ -1,5 +1,11 @@
 # Technische Fallstricke
 
+- Handels-BFF-Readback nach Registrierung ergänzt native Rechte; nach Widerruf
+  muss die ursprüngliche Liste exakt bleiben. Parse und WeakMaps aus dem alten
+  Read-Flow nicht für neue Consenttypen benutzen. Eigene Prefixe auch beim
+  privaten HTTP-Applicationtyp und Identityschema erzwingen; Requestfelder
+  dürfen keine Normal-/Read-/Trading-Domain auswählen.
+
 - Handelsmetadaten haben acht Felder inklusive `key_authorities`. Fehlende
   Connection verlangt null-Rechte; vorhandene Connection verlangt exakt
   sortierte/verschiedene018-Rechte. Alte siebenfeldrige Read-Projektion nicht
