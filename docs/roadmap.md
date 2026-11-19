@@ -1,5 +1,10 @@
 # Roadmap
 
+2026-11-19: eigener geschützter Handelskey-Dashboard-/BFF-/mTLS-Ablauf lokal
+geprüft und kompiliert. Als Nächstes gemeinsame isolierte laufende Trading-
+abnahme und operative private Einrichtung/native Abnahme vor Publicrollout.
+[Vertrag](bitget-demo-trading-dashboard.md).
+
 2026-11-19: eigene standardmäßig deaktivierte Handelskey-API über018/019,
 sichere Rechte-/Metadatenprojektion und getrennte Passkey-Endpunkte geprüft.
 Eigene BFF-/Browser-/private HTTP-Anbindung und operative Abnahme folgen.

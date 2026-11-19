@@ -88,9 +88,10 @@ Frontend wurden nicht neu erstellt.
 
 ## Nächster Schritt
 
-Eigene Handels-BFF-/Signing-/Browseranbindung und privaten HTTP-Executor
-mit diesem Vertrag verbinden. Danach operative private Identitäten,
-Key-/UID-/Parent-/IP-/Rechteprovenienz und native Account-/Order-/Kosten-/
-Latenz-/Quotaabnahme. Öffentlicher Rollout benötigt seine eigene Freigabe.
+Die [eigene Handels-BFF-/Signing-/Browser-/private HTTP-Anbindung](bitget-demo-trading-dashboard.md)
+ist inzwischen separat geprüft. Gemeinsame isolierte laufende Tradingabnahme
+und operative private Identitäten vorbereiten. Anschließend Key-/UID-/Parent-/
+IP-/Rechteprovenienz und native Account-/Order-/Kosten-/Latenz-/Quotaabnahme
+prüfen. Öffentlicher Rollout benötigt seine eigene Freigabe.
 Keine echten Keys, Brokerrequests, Orders, Backtests, Dependencies oder
 Public-/Live-/AI-Freischaltungen.

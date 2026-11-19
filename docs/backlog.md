@@ -8,8 +8,10 @@ Metadatengrundlage in [Fixture018](bitget-demo-trading-store.md) geprüft.
 Eigener Trading-Passkey-/Consent-/Consume-/Executorpfad in
 [Fixture019](bitget-demo-trading-passkey.md) geprüft. Eigene Default-off
 [Handelskey-API](bitget-demo-trading-api.md) mit sicheren Metadaten/Rechten
-ergänzt. BFF-/Browseranbindung, privater HTTP-Executor und operative Einrichtung
-folgen; öffentlich separat ausrollen.
+ergänzt. Eigener [BFF-/Browser-/privater Transportablauf](bitget-demo-trading-dashboard.md)
+geprüft. Gemeinsame isolierte laufende Tradingabnahme und operative private
+Einrichtung folgen; Read-Abnahme/-TTY nicht konvertieren. Native Provenienz-/
+Account-/Order-/Kosten-/Latenz-/Quotaabnahme vor separatem öffentlichen Rollout.
 
 Stand 2026-11-10. Aktive Aufgaben stehen im [Ticketboard](tasks/board.md).
 Keine erledigten Punkte in dieser Liste halten.

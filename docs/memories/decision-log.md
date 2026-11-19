@@ -1,5 +1,23 @@
 # Entscheidungsprotokoll
 
+## D-134 — Eigener geschützter Handelskey-Dashboardablauf
+
+**Status: lokal umgesetzt/geprüft, 2026-11-19.** PR94/f1b376a gemerged.
+Eigene Seite/Formular/drei Next-POSTs und BFF-P256-/Consent-/Signing-/
+Browserfortsetzung samt eigener Private-Identityfactory und mTLS-Client
+über018/019. Originalsession/Actor/Faktor/Metadaten vor/nach Asynchronarbeit
+gebunden; Kapazität vor awaits, Handles einmalig, keine Key-/Body-/JWT-
+Persistierung im Handle. Eigene achtfeldrige Rechteprojektion; Widerruf
+erhält die genaue Liste. Beide Python-Listener erkennen den Handelspurpose
+nur am exakten vertrauenswürdigen Applicationtyp; alte Domains unverändert.
+352 neue Node/9 neue Python,1388 verschiedene Fälle plus121 Interopassertions
+grün; echte P256/Jose/SSR/Originaldateien/Loopback-mTLS/PG/AEAD mit
+synthetischen Identitäten/Keys/APIurteilen. Typecheck/gepinnter Build grün.
+Keine gemeinsame laufende Trading-API/PG/BFF/Executor- oder native Abnahme.
+Publicruntime fest aus; Schema001–019/Entwicklungsset/Dienste unverändert.
+Gemeinsame isolierte Tradingabnahme und operative/private/native Einrichtung
+vor Publicrollout folgen. [Vertrag](../bitget-demo-trading-dashboard.md).
+
 ## D-133 — Eigene Handelskey-API mit sicheren Rechteprojektionen
 
 **Status: lokal umgesetzt/geprüft, 2026-11-19.** PR93/3cb3fdc gemerged.

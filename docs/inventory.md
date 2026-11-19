@@ -1,5 +1,12 @@
 # Bestandsaufnahme
 
+2026-11-19: eigener Handelskey-Dashboard-/BFF-/Private-Identity-/Transportpfad
+mit separatem Consent/Receipt/Audience/Schema/Pfaden, achtfeldrigen sicheren
+Metadaten und mTLS-Applicationtyp.1388 Fälle/79 Pythonunterfälle plus121
+Interopassertions grün. Gepinnter Build enthält Seite/drei Next-Routen;
+normale Dienste und Schema001–019 unverändert.
+[Abnahme](bitget-demo-trading-dashboard.md).
+
 2026-11-19: eigene Handelskey-Passkey-/Metadatenrouter, zwei Default-off-
 Einstellungen, streng kanonische native Rechteprojektion.107 neue und320
 bestehende gepinnte Fälle grün (427 insgesamt). API-/Check-/Migrationsimages

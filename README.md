@@ -1,8 +1,13 @@
 # Investalo Trading Platform
 
+Der [geschützte Demo-Handelskey-Ablauf](docs/bitget-demo-trading-dashboard.md)
+verbindet Formular, Passkey/Consent, eigene API und privaten mTLS-Zugang.
+1388 Testfälle plus121 Interopprüfungen grün. Echte Eingabe bleibt bis zur
+operativen Einrichtung und gemeinsamen Abnahme abgeschaltet.
+
 Die [eigene Handelskey-API](docs/bitget-demo-trading-api.md) verbindet sichere
 Metadaten/Rechteanzeige mit Passkey-Freigaben.427 Prüfungen grün; neue Routen
-standardmäßig aus. BFF-/Dashboardanbindung und operative Abnahme folgen.
+standardmäßig aus. Geschützter Dashboardablauf ergänzt; operative Abnahme folgt.
 
 Die [eigene Handels-Passkey-Freigabe](docs/bitget-demo-trading-passkey.md)
 verbindet einmaligen Consent/Consume und atomare verschlüsselte Speicherung.
