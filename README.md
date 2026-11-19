@@ -1,8 +1,12 @@
 # Investalo Trading Platform
 
+Die [eigene Handelskey-API](docs/bitget-demo-trading-api.md) verbindet sichere
+Metadaten/Rechteanzeige mit Passkey-Freigaben.427 Prüfungen grün; neue Routen
+standardmäßig aus. BFF-/Dashboardanbindung und operative Abnahme folgen.
+
 Die [eigene Handels-Passkey-Freigabe](docs/bitget-demo-trading-passkey.md)
 verbindet einmaligen Consent/Consume und atomare verschlüsselte Speicherung.
-Fixture019 lokal geprüft; API-/Dashboardanbindung und operative Abnahme folgen.
+Fixture019 lokal geprüft; API ergänzt, Dashboardanbindung/operative Abnahme folgen.
 
 Der [private Demo-Handelskey-Store](docs/bitget-demo-trading-store.md)
 persistiert das eigene Profil mit gemeinsamer Demo-UID-Registry und frischen

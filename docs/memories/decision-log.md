@@ -1,5 +1,21 @@
 # Entscheidungsprotokoll
 
+## D-133 — Eigene Handelskey-API mit sicheren Rechteprojektionen
+
+**Status: lokal umgesetzt/geprüft, 2026-11-19.** PR93/3cb3fdc gemerged.
+Eigene Metadaten- und fünf Passkey-Endpunkte unter `/v1/bitget-demo-trading`,
+separate standardmäßig falsche Schalter; alte Flags/Purposepfade bleiben
+unverändert. Projektion erfordert genau acht Felder und kanonische018-Rechte;
+fremde Profile/Owner, unerlaubte Rechte und private Felder werden verworfen.
+Aktuelle ursprüngliche Session, Runtime-LOGIN/Nonce und019-Factor-/Metadata-
+checks bleiben verbindlich; Consent atomar, Veröffentlichung erst nach ACK
+und erneuter Ablaufprüfung.107 neue/427 verschiedene gepinnte Fälle grün.
+API-/Check-/Migrationsimages gebaut, abgeschaltete Runtime ohne Secrets/
+Netzwerk/Mounts geprüft. Fixture001–019/Entwicklungsset unverändert.
+Keine Keytriple, Executortokens, Credentialwrites oder Brokerrequests in
+dieser API. Eigene BFF-/Browser-/private HTTP-Anbindung und operative
+Abnahme folgen. [Vertrag](../bitget-demo-trading-api.md).
+
 ## D-132 — Eigene Handelsfreigabe und atomarer Speicherabschluss
 
 **Status: lokal umgesetzt/geprüft, 2026-11-19.** PR92/f8cd152 gemerged.

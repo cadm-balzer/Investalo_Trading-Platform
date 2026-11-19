@@ -7,6 +7,21 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR93 merged:3cb3fdc ancestor of origin/main, GH/fetch verified.
+  IP-009/IP-015 on feat/m1-demo-trading-api: own default-off Trading
+  metadata GET and five proof/consent POSTs over unchanged018/019.
+  Exact eight-field projection with canonical native trading rights;
+  unknown writes/private fields/foreign profiles/owners deny. Own flags
+  independent of Normal/Read; original OIDC/epoch/reauth/nonce/runtime
+  LOGIN/factor/metadata/expiry remain bound. Consent commits atomically;
+  publication rechecks assertion/expiry after ACK, unknown commit never retries.
+  107 new/427 distinct pinned contract/actual ASGI-TestClient/PG cases green.
+  API/check/migrate builds; packaged runtime imported without network/secrets/
+  source mounts and own routes default off. Fixture001–019/development set
+  unchanged; no new migration/dependencies/normal services/frontend/real keys/
+  broker requests/orders/backtest/public/live/AI activation.
+  Own Trading BFF/browser/private HTTP-executor and operative native
+  acceptance follow. See docs/bitget-demo-trading-api.md.
 - PR92 merged:f8cd152 ancestor of origin/main, GH/fetch verified.
   IP-009/IP-015 on feat/m1-demo-trading-passkey: own additive019 Trading
   consent/consume/completion ledger plus exact own Python assertion/handle/

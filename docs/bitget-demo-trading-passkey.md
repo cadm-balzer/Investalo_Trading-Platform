@@ -87,8 +87,9 @@ tatsächliches Entwicklungsset.
 
 ## Nächster Schritt
 
-Eigene Trading-Proof-/Consent-API, BFF-Signing und Browseranbindung bis zum
-privaten Executor zusammenführen. Anschließend vertrauenswürdige operative
+Die [eigene Trading-Proof-/Consent-/Metadaten-API](bitget-demo-trading-api.md)
+ist inzwischen separat geprüft. BFF-Signing, Browseranbindung und privaten
+HTTP-Executor verbinden. Anschließend vertrauenswürdige operative
 Identitäten, Schlüsselherkunft, UID/Parent/IP/Rechte und native Account-/
 Order-/Kosten-/Latenz-/Quotaabnahme vorbereiten. Erst dann öffentlicher Rollout
 mit eigener Freigabe. Keine normalen Dienste, echten Keys, Brokerrequests,

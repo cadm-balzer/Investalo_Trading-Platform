@@ -1,5 +1,10 @@
 # Roadmap
 
+2026-11-19: eigene standardmäßig deaktivierte Handelskey-API über018/019,
+sichere Rechte-/Metadatenprojektion und getrennte Passkey-Endpunkte geprüft.
+Eigene BFF-/Browser-/private HTTP-Anbindung und operative Abnahme folgen.
+[Vertrag](bitget-demo-trading-api.md).
+
 2026-11-19: eigener Handels-Passkey-/Consent-/Consume-/Executorpfad in
 Fixture019 geprüft. Aktuelle Berechtigung, Post-Write-Abschluss und
 Commit-Ungewissheit bleiben verbindlich. Eigene API-/BFF-/Browseranbindung
