@@ -1,5 +1,14 @@
 # Technische Fallstricke
 
+- Profilübergreifende Demo-UID-/Kontoslots müssen in einer gemeinsamen
+  unveränderlichen Registry bleiben. Alte Owned-/Passkey-/Viewhelper müssen
+  fremde Profile abweisen, statt neue Ciphertexts freizugeben oder falsche
+  freie Slots auszugeben. Neue Tabellenfelder sind vom generischen
+  Immutable-Rowguard automatisch eingeschlossen.
+- PL/pgSQL-Recordvariable und SQL-Tabellenalias verschieden benennen:
+  `DECLARE p record` plus `FROM pg_proc p` kann vor Zuweisung55000 auslösen.
+  SQLSTATE genügt als Diagnose; private Statement-/Rowdetails nicht ausgeben.
+
 - Classic Read-Write für Futures/Spot meldet coow/cpow/stow; native Replies
   müssen nicht zusätzlich coor/cpor/stor enthalten. Bekannte Lesecodes dürfen
   vorhanden sein. Niemals die Liste auf Lesecodes umschreiben, um den alten

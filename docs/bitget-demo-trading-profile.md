@@ -1,5 +1,8 @@
 # Demo-Profil für Futures-/Spot-Handelskeys
 
+Nachfolger: [eigener dauerhafter Store/Provider/Metadatengrundlage](bitget-demo-trading-store.md),
+Fixture018 geprüft. Eigener Trading-Passkey-/Dashboardpfad bleibt offen.
+
 2026-11-17, IP-009/IP-015. Nutzer bestätigt einen im Bitget-Demo-Modus
 erstellten Key mit Read-Write für Futures und Spot. Das bestimmt den vorgesehenen
 Profilumfang; es ersetzt keine native Keyprüfung.

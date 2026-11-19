@@ -1,5 +1,10 @@
 # Bestandsaufnahme
 
+2026-11-18: eigener Demo-Handelsstore/Provider und sichere Metadatengrundlage,
+Fixture018 nach Rollbackpreflight.27 neue/212 verschiedene gepinnte Fälle
+grün; tatsächlicher Entwicklungs-/Servicebestand unverändert.
+[Store](bitget-demo-trading-store.md).
+
 2026-11-17: eigenes natives Demo-Handelskey-/AEAD-Profil ergänzt;
 160 gepinnte Fälle/38 Unterfälle bestanden, Replies synthetisch.
 Dauerhafter Purpose und Dashboardanbindung folgen.

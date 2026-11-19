@@ -7,7 +7,8 @@ Anmeldung bleibt erforderlich. Die gesperrte Seite erklärt Demo-Keyerstellung,
 Passkeybestätigung und spätere Eingabe von API-Key, Secret und Passphrase.
 Der bestehende Browserpfad unterstützt reine Leserechte. Das
 [Demo-Handelskeyprofil](bitget-demo-trading-profile.md) prüft und verschlüsselt
-Handelskeys separat; seine dauerhafte Dashboardanbindung fehlt noch.
+Handelskeys separat; sein [dauerhafter Store](bitget-demo-trading-store.md)
+ist inzwischen in Fixture018 geprüft. Dashboardanbindung fehlt noch.
 Noch keine echte Schlüsseleingabe.
 
 ## Tatsächlicher Betriebsstand
