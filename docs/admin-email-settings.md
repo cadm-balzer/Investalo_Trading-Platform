@@ -72,8 +72,11 @@ verwenden ausschließlich Mock-DB-/Container-/SMTP-Boundaries.
 Private Adminzuordnung ist bereits create-only vorbereitet; kein SMTP-Passwort
 angenommen. `setup-platform-admin.py --recipient … --smtp-host …` erzeugt
 private UID10002-Dateien unter dem ignorierten `infra/local/platform-admin`.
-Schalter/Overlay sind standardmäßig aus. Nach Merge und Produktionsfreigabe
-die bestehende vollständige Preview/Demo-Konfiguration erhalten:
+Schalter/Overlay sind standardmäßig aus. PR99 ist als `055e624` gemerged;
+der Nutzer hat am2026-11-20 den öffentlichen Rollout sowie das erste Ticket
+mit E-Mail-Versand nach tatsächlicher Codebestätigung ausdrücklich freigegeben.
+Der Adminbereich ist unter https://cockpit.investalo.de/admin/settings aktiv.
+Die bestehende vollständige Preview/Demo-Konfiguration bleibt erhalten:
 
 ```bash
 bash infra/scripts/compose.sh --env-file infra/local/paper_preview.env \
@@ -81,6 +84,17 @@ bash infra/scripts/compose.sh --env-file infra/local/paper_preview.env \
   --file infra/compose.demo-trading-runtime.yaml --file infra/compose.admin-mail.yaml \
   up -d --no-deps cockpit
 ```
+
+Nur das Cockpit wurde neu erstellt, mit dem bereits geprüften Image.
+Tatsächliche HTTPS-Prüfung: Adminseite200, geschützter Admin-POST401 und
+bestehender Demo-Start401 ohne Anmeldung, jeweils gültiges TLS.
+Cockpit/API gesund, privater Demoexecutor läuft ohne Neustart; bisherige
+Paper-/Demo-Schalter und Netzwerke erhalten, Adminmount readonly.
+Private Vorher-/Aktivbelege unter `infra/local/admin-mail-rollout`.
+SMTP-Settings existieren noch nicht: Nutzer muss Benutzername/Passwort/Absender
+speichern, Code senden und bestätigen. Kein Mailversand oder Ticket beim Rollout.
+Nach echter Bestätigung ist die erste Ticketausstellung bereits autorisiert;
+dafür ist keine erneute Chatfreigabe erforderlich.
 
 Nur das Cockpit erhält zusätzlich SMTP-Egress. Der eigene SMTP-Schlüssel/
 Adminmanifest sind readonly gemountet. Keine neuen Dependencies/Migrationen/

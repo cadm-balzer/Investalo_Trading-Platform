@@ -2,7 +2,8 @@
 
 2026-11-20: eigener Admin-SMTP-/Code-/AEAD-Pfad, Seite/POST/Formular und
 separate private Adminzuordnung.25 Node/3 Offline-Issuerfälle/Build grün;
-native465-TLS220 ohne Auth/Versand geprüft. Noch nicht ausgerollt.
+native465-TLS220 ohne Auth/Versand geprüft. PR99 gemerged und genehmigt
+ausgerollt; TLS200/Admin401/Demo401 und gesunde Dienste geprüft.
 [Vertrag](admin-email-settings.md).
 
 2026-11-19: Demo-Rollout aktiv:001–019, eigenes Demo-Konto/LOGIN, API/Cockpit

@@ -1,5 +1,18 @@
 # Entscheidungsprotokoll
 
+## D-139 — Genehmigter Admin-SMTP-Rollout
+
+**Status: ausgerollt, 2026-11-20.** PR99/055e624 per GitHub/fetch bestätigt.
+Nutzer bestätigt „Ja bitte alles live schalten“ auf die konkrete Freigabe
+für Adminrollout und erstes Ticket/Email nach echter Codebestätigung.
+Nur Cockpit mit vorbereitetem geprüftem Image neu erstellt; öffentliche
+Paper-/Demo-Overlays, API und privater Executor erhalten.
+Tatsächliche TLS200/Admin401/Demo401, gesunde Dienste, Adminmount readonly,
+private Vorher-/Aktivbelege geprüft. Keine SMTP-Settings/Mails/Tickets.
+Nutzer erledigt Zugangseingabe und Codeprüfung im Dashboard; anschließend
+ist die erste Ticketausstellung bereits genehmigt. Keine Live-Tradingfreigabe.
+[Betrieb](../admin-email-settings.md).
+
 ## D-138 — Geschützter Admin-SMTP und tatsächliche E-Mail-Bestätigung
 
 **Status: vorbereitet, 2026-11-20.** Nutzer lehnt die Chat-Ausnahme ab und
