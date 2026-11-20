@@ -21,7 +21,7 @@ CONFIG = dict(schema=SCHEMA, tenant_id=str(UUID(int=1)), user_id=str(UUID(int=2)
 
 
 class DemoTradingRuntimeTests(unittest.TestCase):
-    def registration(self, *, data=None, at=NOW, transport=None, guard=None, config=None):
+    def registration(self, *, data=None, at=NOW, transport=None, guard=None, config=None, diagnostic=None, identity_diagnostic=None):
         self.sent = []
         raw = dict(userId="12345", parentId=0, authorities=["coow","cpow","stow"],
                    ips="203.0.113.19")
@@ -31,7 +31,8 @@ class DemoTradingRuntimeTests(unittest.TestCase):
             return ReadResponse(200, json.dumps(dict(code="00000", msg="success",
                 requestTime=at, data=raw)).encode())
         return NativeDemoRegistration(config or CONFIG, guard or (lambda: None),
-            transport=transport or reply, milliseconds=lambda: NOW)
+            transport=transport or reply, milliseconds=lambda: NOW, diagnostic=diagnostic,
+            identity_diagnostic=identity_diagnostic)
 
     def apply(self, registration, **overrides):
         fields = dict(owner=OwnerContext(UUID(int=1), UUID(int=2)), account_id=UUID(int=3),
@@ -95,6 +96,62 @@ class DemoTradingRuntimeTests(unittest.TestCase):
                 self.apply(registration)
             self.assertNotIn("private broker output", str(error.exception))
         self.assertEqual(len(count), 1)
+
+    def test_private_diagnostic_identifies_binding_and_rights_without_native_fields(self):
+        for data,stage,reason in (
+            ({"userId":"22222"}, "binding", "uid_mismatch"),
+            ({"authorities":["coor","cpor","stor"]}, "identity", "permission_rejected"),
+        ):
+            records=[]
+            registration=self.registration(data=data,diagnostic=records.append)
+            with self.assertRaises(OnboardingRejected):
+                self.apply(registration)
+            self.assertEqual(len(self.sent),1)
+            self.assertEqual(len(records),1)
+            self.assertEqual(records[0]["stage"],stage)
+            self.assertEqual(records[0]["reason"],reason)
+            self.assertEqual(set(records[0]),{
+                "schema","checked_ms","stage","outcome","reason","http_status","provider_code",
+                "authorities","missing_required","unexpected_count","uid_matches","parent_matches"})
+            wire=json.dumps(records[0])
+            self.assertNotIn("22222",wire)
+            self.assertNotIn("synthetic-runtime",wire)
+
+    def test_unknown_authority_bytes_never_enter_diagnostics_or_gain_acceptance(self):
+        records=[]
+        with self.assertRaises(OnboardingRejected):
+            self.apply(self.registration(
+                data={"authorities":["coow","cpow","stow","private-secret-value"]},
+                diagnostic=records.append))
+        self.assertEqual(records[0]["unexpected_count"],1)
+        self.assertEqual(records[0]["authorities"],["coow","cpow","stow"])
+        self.assertNotIn("private-secret-value",json.dumps(records))
+        self.assertEqual(len(self.sent),1)
+
+    def test_private_identity_evidence_never_authorizes_a_foreign_uid_or_forbidden_rights(self):
+        identities=[]
+        with self.assertRaises(OnboardingRejected):
+            self.apply(self.registration(data={"userId":"22222"},identity_diagnostic=identities.append))
+        self.assertEqual(len(identities),1)
+        self.assertEqual(identities[0]["broker_uid"],"22222")
+        self.assertFalse(identities[0]["registration_authorized"])
+        self.assertNotIn("synthetic-runtime",json.dumps(identities))
+        identities.clear()
+        with self.assertRaises(OnboardingRejected):
+            self.apply(self.registration(
+                data={"authorities":["coow","cpow","stow","smow"]},
+                identity_diagnostic=identities.append))
+        self.assertEqual(identities,[])
+        with self.assertRaises(OnboardingRejected):
+            self.apply(self.registration(at=NOW-5001,identity_diagnostic=identities.append))
+        self.assertEqual(identities,[])
+
+    def test_diagnostic_failure_cannot_turn_a_rejection_into_acceptance_or_retry(self):
+        def broken(_):
+            raise OSError("private diagnostic failure")
+        with self.assertRaises(OnboardingRejected):
+            self.apply(self.registration(data={"userId":"22222"},diagnostic=broken))
+        self.assertEqual(len(self.sent),1)
 
     def test_configuration_drift_after_send_denies(self):
         calls = []

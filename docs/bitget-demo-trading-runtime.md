@@ -21,11 +21,47 @@ Demo-API-Endpunkte wurden über tatsächliches HTTPS auf Anmeldesperre geprüft;
 die öffentliche Passkey-Origin stimmt. Private Belege liegen unter dem
 ignorierten `infra/local/demo-trading-runtime/rollout-active.json`.
 
-Noch kein tatsächlicher Brokerkey/Bitget-Request oder Auftrag. Dem Nutzer
-fehlt der erste Passkey; die manuelle E-Mail-Bestätigung ist laut Nutzer noch
-nicht erfolgt. Ein Ticket darf diese Bestätigung nicht erfinden. Eine
-ausdrückliche Ausnahme für das erste Pilot-Enrollment wurde vom Nutzer abgelehnt.
-Er verlangt reguläre E-Mail-Bestätigung und einen Adminbereich für SMTP.
+SMTP/E-Mail-Bestätigung und erstes Ticket sind inzwischen durchgeführt,
+der Nutzer bestätigt erfolgreiche Passkeyregistrierung. Vier tatsächliche
+Registrierungsversuche endeten2026-11-21 als `failed`; für genau sein Konto
+existiert keine gespeicherte Verbindung. Keine Orders.
+
+Die bisherige native Prüfung gab nur einen generischen Fehler zurück.
+Public HTTPS/Bitget-Zeit aus dem Executor funktionieren (200,132ms Zeitdelta).
+Eine eigene Diagnose erfasst ausschließlich festen Prüfschritt/lokalen
+Fehlerenum/numerischen HTTP-Status und fünfstelligen Providercode, keine
+Nachricht/UID/Antwort/Headers/Zugangsdaten. Neuer tatsächlicher Versuch:
+HTTP200/Code00000, anschließend `identity/permission_rejected`. Bitget nimmt
+die API-Daten an; die eigene Rechteprüfung lehnt die Rückmeldung ab.
+Ergänzte Diagnose nennt nur endliche bekannte Rechte, fehlende Pflichtrechte,
+Anzahl unbekannter Rechte und UID/Parent-Matchbooleans; unbekannte Werte
+bleiben verborgen. Keine Änderung der Rechtepolicy. Opt-in Callback, readonly Runtime
+mit eigener0600-Datei `/tmp/demo-trading-native-diagnostic.json` im flüchtigen
+privaten Tmpfs. Sie ist keine Autorisierung oder Ausführungsbestätigung;
+verbindlich bleibt der unveränderte Completionledger.
+Callback-/Dateifehler erlauben keine Fortsetzung oder Wiederholung.
+
+Konkrete Rechte: `coow/cpow/stow` sind vorhanden, zusätzlich `smow`
+(Margin-Handel) ist außerhalb des freigegebenen Profils. UID- und
+Parent-Match sind ebenfalls false. Es wird keine Kontozuordnung automatisch
+übernommen. Ein separates privates0600-Tmpfs-File
+`/tmp/demo-trading-native-identity.json` hält ausschließlich streng geparste,
+zeitlich frische native Identität nach bestandener Rechteprüfung für den
+Operatorabgleich. Kein Key/Secret/Passphrase; `registration_authorized=false`.
+37 gezielte gepinnte Offlinefälle und Executorbuild bestanden. Nur der
+private Executor wurde aktualisiert; keine Logs/Hostports, bestehende
+API/Cockpit gesund und Demo-Start ohne Anmeldung401/TLS gültig.
+Ursprüngliches Image privat in `native-diagnostics-before.json` erhalten.
+Ein neuer expliziter Dashboardversuch durch den Nutzer ist für die konkrete
+Diagnose erforderlich: vorherige Bodies/Keys bleiben nicht erhalten,
+verbrauchte Commands/fehlgeschlagene Auditbelege werden niemals zurückgesetzt.
+
+Der Nutzer hat die Arbeit ausdrücklich vertagt und wird einen neuen Key
+anlegen: ausschließlich im Demo-Modus, Futures-Orders/Futures-Positionen
+und Spot-Handel Read/Write, Margin-Handel und weitere Schreibrechte aus.
+API-Key/Secret/Passphrase nur im Dashboard eingeben. Danach native Demo-UID/
+Parent gegen die bisherige private Zuordnung abgleichen und gegebenenfalls
+eine konkret belegte Setupkorrektur durchführen; bisher keine Bindung geändert.
 
 Der Nutzer hat seine UID privat angegeben und berichtet, dass sein Demo-Key
 keine IP-Bindung erlaubt. Dafür gibt es die ausdrücklich installierte Variante

@@ -7,6 +7,24 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- Bitget Demo registration investigation20261121 on
+  fix/m1-demo-native-diagnostics: user's actual four attempts committed failed
+  completion, exact account has zero stored connections. Passkey/consume worked;
+  native reason previously collapsed to unavailable. New actual attempt:
+  Bitget HTTP200/code00000, identity permission_rejected before storage.
+  Executor public HTTPS/time passed (200, clock delta132ms). Opt-in diagnostic
+  records fixed stage/local enum/numeric HTTP/provider code, finite known
+  authority names/missing required/unknown count and UID/parent-match booleans
+  in private0600 tmpfs; no native messages, UID/keys/headers/body.
+  37 pinned offline tests/build green; only own executor
+  updated, no logging/ports/orders/DB changes. API/Cockpit healthy, Demo401.
+  Actual rights coow/cpow/stow plus forbidden smow; no required right missing.
+  Native UID/parent differ from prepared binding. Separate private0600 native
+  identity record only after strict rights and fresh clock; grants nothing,
+  no automatic rebind. User explicitly pauses and will create a new Demo key
+  with Futures orders/positions+Spot RW and Margin/other writes off. Resume
+  with that fresh Dashboard attempt, then verify actual Demo UID/parent.
+  Never replay consumed commands/reset audits/relax policy.
 - Admin SMTP/email on feat/m1-admin-email-settings, user-requested regular
   confirmation (chat exception declined). Own explicit single-admin manifest
   and SMTP AEAD key, current OIDC/UID/tenant/epoch/owner + fresh MFA/SameOrigin/

@@ -11,14 +11,15 @@ import re
 import ssl
 import sys
 import threading
+import tempfile
 import time
 from uuid import UUID
 
 import psycopg
 from investalo_credentials import KEKRing
-from investalo_bitget import OwnerContext, parse
+from investalo_bitget import OwnerContext, parse, BitgetRejected
 from investalo_bitget.models import AccountBinding
-from investalo_bitget.demo_trading_identity import trading_identity
+from investalo_bitget.demo_trading_identity import ALLOWED, REQUIRED, trading_identity
 from investalo_bitget.futures_demo import DemoBinding, digest
 from investalo_bitget.futures_demo_read import (
     DemoReadCredential, SignedDemoReadRequest, HTTPSDemoReadTransport,
@@ -38,6 +39,10 @@ ROOT = "/run/demo-trading-executor"
 SCHEMA = "investalo-demo-trading-runtime/1"
 LOGIN = "investalo_demo_trading_credential"
 KEY_VERSION = "demo-trading-v1"
+DIAGNOSTIC_AUTHORITIES = ALLOWED | frozenset((
+    "smow", "ttow", "wtow", "wwow", "chow", "p2p", "pllw", "pllr", "taxw",
+    "trade", "readonly",
+))
 FIELDS = frozenset(("schema", "tenant_id", "user_id", "account_id", "broker_uid",
     "parent_uid", "egress_ip", "ip_binding", "origin", "oidc_issuer", "created_in_bitget_demo_mode",
     "signing_sha256", "kek_sha256", "client_certificate_sha256"))
@@ -75,18 +80,41 @@ def configuration(value):
 
 class NativeDemoRegistration:
     """Single-process single-UID limiter; no retries or account/order requests."""
-    def __init__(self, config, guard, *, transport=None, milliseconds=None):
+    def __init__(self, config, guard, *, transport=None, milliseconds=None, diagnostic=None, identity_diagnostic=None):
         self.config = configuration(config)
         self.guard = guard
-        self.transport = transport or HTTPSDemoReadTransport(timeout_seconds=3)
+        self.diagnostic = diagnostic
+        self.identity_diagnostic = identity_diagnostic
+        self.native_status = None
+        self.native_code = None
+        self.rights = {}
+        self.transport = transport or HTTPSDemoReadTransport(timeout_seconds=3, diagnostic=self._native_result)
         self.milliseconds = milliseconds or (lambda: time.time_ns() // 1_000_000)
         self.lock = threading.Lock()
         self.last = None
         self.pid = os.getpid()
 
+    def _native_result(self, status, code):
+        self.native_status, self.native_code = status, code
+
+    def _report(self, stage, outcome, error=None):
+        if self.diagnostic is None:
+            return
+        reason = error.code.value if isinstance(error, BitgetRejected) else "rejected"
+        try:
+            self.diagnostic(dict(schema="investalo-demo-native-diagnostic/1",
+                checked_ms=self.milliseconds(), stage=stage, outcome=outcome,
+                reason=None if outcome == "accepted" else reason,
+                http_status=self.native_status, provider_code=self.native_code, **self.rights))
+        except Exception:
+            pass
+
     def __call__(self, credentials, *, owner, account_id, connection_id, expires_ms):
         if os.getpid() != self.pid or not self.lock.acquire(blocking=False):
             raise OnboardingRejected("unavailable")
+        stage = "scope"
+        self.native_status = self.native_code = None
+        self.rights = {}
         try:
             cfg = self.config
             start = self.milliseconds()
@@ -106,15 +134,43 @@ class NativeDemoRegistration:
                 cfg["egress_ip"], declaration, 1, expires_ms)
             request = SignedDemoReadRequest(credential, timestamp_ms=start)
             self.last = start  # Failed sends consume this interval too.
+            stage = "transport"
             response = self.transport(request)
+            stage = "private_guard"
             self.guard()
             checked = self.milliseconds()
+            stage = "identity"
+            try:
+                raw, _ = parse.envelope(response)
+                values = raw.get("authorities") if type(raw) is dict else None
+                if type(values) is list and len(values) <= 64:
+                    known = {v for v in values if type(v) is str and v in DIAGNOSTIC_AUTHORITIES}
+                    self.rights = dict(authorities=sorted(known),
+                        missing_required=sorted(REQUIRED-known),
+                        unexpected_count=sum(type(v) is not str or v not in ALLOWED for v in values),
+                        uid_matches=raw.get("userId") == cfg["broker_uid"],
+                        parent_matches=str(raw.get("parentId")) == cfg["parent_uid"])
+            except Exception:
+                pass  # Optional metadata cannot normalize or authorize native replies.
             identity = trading_identity(response)
             delta = identity.server_time - parse.EPOCH
             native_ms = delta.days * 86_400_000 + delta.seconds * 1000 + delta.microseconds // 1000
+            stage = "clock"
             if not start <= checked < expires_ms or checked - start > 5000 or not 0 <= checked - native_ms <= 5000:
                 raise ValueError()
+            if self.identity_diagnostic is not None:
+                try:
+                    self.identity_diagnostic(dict(schema="investalo-demo-native-identity/1",
+                        tenant_id=str(owner.tenant_id), user_id=str(owner.user_id),
+                        account_id=str(account_id), connection_id=str(connection_id),
+                        broker_uid=identity.user_id, parent_uid=identity.parent_id,
+                        authorities=list(identity.authorities), checked_ms=checked,
+                        response_sha256=hashlib.sha256(response.body).hexdigest(),
+                        registration_authorized=False))
+                except Exception:
+                    pass
             ip_bound = cfg["ip_binding"] == "single_ip"
+            stage = "binding"
             AccountBinding(owner, cfg["broker_uid"], cfg["parent_uid"],
                 expected_egress_ip=cfg["egress_ip"] if ip_bound else None).validate(
                     owner, identity, require_ip=ip_bound)
@@ -127,13 +183,40 @@ class NativeDemoRegistration:
                 native_time_ms=native_ms, checked_ms=checked, purpose=PURPOSE,
                 authorities=list(identity.authorities), native_demo_creation_verified=False,
                 native_ip_binding_verified=ip_bound, order_execution_enabled=False))
-            return DemoTradingSecretSpec(binding=binding, parent_uid=cfg["parent_uid"],
+            stage = "secret_spec"
+            result = DemoTradingSecretSpec(binding=binding, parent_uid=cfg["parent_uid"],
                 egress_ip=cfg["egress_ip"], authorities=identity.authorities,
                 provisioning_digest=evidence, credential_revision=1)
-        except Exception:
+            self._report(stage, "accepted")
+            return result
+        except Exception as error:
+            self._report(stage, "rejected", error)
             raise OnboardingRejected("unavailable") from None
         finally:
             self.lock.release()
+
+
+def _write_private_record(value, filename):
+    """Private tmpfs metadata, disposable and never an execution receipt."""
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(mode="w", dir="/tmp", prefix=".demo-native-", delete=False) as f:
+            temporary = f.name
+            json.dump(value, f, separators=(",", ":"))
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(temporary, filename)
+    finally:
+        if temporary and os.path.exists(temporary):
+            os.unlink(temporary)
+
+def _write_native_diagnostic(value):
+    _write_private_record(value, "/tmp/demo-trading-native-diagnostic.json")
+
+
+def _write_native_identity(value):
+    # Only successful strict native identity parsing reaches this private record.
+    _write_private_record(value, "/tmp/demo-trading-native-identity.json")
 
 
 def create_application():
@@ -188,7 +271,8 @@ def create_application():
     verifier = DemoTradingPasskeyRequestVerifier(
         key=guarded_file("signing-key", config["signing_sha256"], 32),
         oidc_issuer=config["oidc_issuer"], origin=config["origin"], clock=lambda: int(time.time()))
-    provision = NativeDemoRegistration(json.loads(raw), guard)
+    provision = NativeDemoRegistration(json.loads(raw), guard, diagnostic=_write_native_diagnostic,
+                                      identity_diagnostic=_write_native_identity)
 
     def execute(request_context, action, token, body):
         guard()

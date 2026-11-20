@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 import hashlib
+import json
 import os
 import re
 import ssl
@@ -118,11 +119,31 @@ class SignedDemoReadRequest:
 @dataclass(frozen=True)
 class HTTPSDemoReadTransport:
     timeout_seconds: float = 5
+    diagnostic: object = field(default=None, repr=False, compare=False)
 
     def __post_init__(self):
         if (type(self.timeout_seconds) not in (int, float)
-                or not 1 <= self.timeout_seconds <= 5):
+                or not 1 <= self.timeout_seconds <= 5
+                or self.diagnostic is not None and not callable(self.diagnostic)):
             raise DemoRejected("invalid_demo_read_timeout")
+
+    def _observe(self, status, body):
+        """Opt-in numeric metadata only; never broker messages/identity/keys."""
+        if self.diagnostic is None:
+            return
+        code = None
+        try:
+            if type(body) is bytes and len(body) <= MAX_RESPONSE_BYTES:
+                value = json.loads(body)
+                candidate = value.get("code") if type(value) is dict else None
+                if type(candidate) is str and re.fullmatch("[0-9]{5}", candidate):
+                    code = candidate
+        except Exception:
+            pass
+        try:
+            self.diagnostic(status if type(status) is int and 100 <= status <= 599 else None, code)
+        except Exception:
+            pass  # Diagnostics never change authorization or trigger a retry.
 
     def __call__(self, request):
         if type(request) is not SignedDemoReadRequest:
@@ -137,10 +158,16 @@ class HTTPSDemoReadTransport:
                 body = response.read(MAX_RESPONSE_BYTES + 1)
                 if len(body) > MAX_RESPONSE_BYTES:
                     raise DemoRejected("demo_read_response_too_large")
+                self._observe(response.status, body)
                 if response.status != 200:
                     raise DemoRejected("demo_read_http_failure")
                 return ReadResponse(response.status, body)
         except HTTPError as error:
+            if self.diagnostic is not None:
+                try:
+                    self._observe(error.code, error.read(MAX_RESPONSE_BYTES + 1))
+                except Exception:
+                    self._observe(error.code, b"")
             try:
                 error.close()
             except Exception:

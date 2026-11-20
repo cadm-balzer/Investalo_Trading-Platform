@@ -1,5 +1,22 @@
 # Entscheidungsprotokoll
 
+## D-141 — Tatsächlichen Demo-Rechtefehler diagnostizieren
+
+**Status: Diagnose aktiv, Nutzer vertagt Fortsetzung, 2026-11-21.**
+Vier ursprüngliche Versuche als failed abgeschlossen, keine Verbindung
+gespeichert. Passkey/Consume bestanden; öffentliche Brokerzeit/TLS geprüft.
+Native Fehler wurden bisher zu unavailable reduziert. Additive Opt-in-Diagnose
+mit numerischen Statuscodes, festen Prüfschritten und bekannten Rechtecodes;
+unbekannte Werte/Headers/Antworten/Keys bleiben verborgen. Privates0600-Tmpfs.
+Tatsächlich HTTP200/00000, Rechte coow/cpow/stow plus unzulässiges smow,
+UID/Parent-Match false. Keine Lockerung/Replays/Auditänderung.
+Streng geparste/frische native Identität kann separat privat zum Operator-
+Abgleich gelesen werden, ohne Registrierung oder automatischen Rebind.
+37 gepinnte Offlinefälle/Build grün, nur privater Executor aktualisiert;
+API/Cockpit gesund, keine Orders. Nutzer legt später einen neuen Demo-Key mit
+Futures-/Spot-RW ohne Margin/weitere Writes an; danach genaue UID/Parent prüfen.
+[Betrieb](../bitget-demo-trading-runtime.md).
+
 ## D-140 — Erstes Ticket aus tatsächlicher E-Mail-Bestätigung
 
 **Status: ausgestellt/SMTP angenommen, 2026-11-21.** Nutzer bestätigt Einrichtung

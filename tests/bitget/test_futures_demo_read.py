@@ -346,6 +346,23 @@ class DemoReadTests(unittest.TestCase):
             with self.assertRaisesRegex(DemoRejected, "too_large"):
                 HTTPSDemoReadTransport()(request)
 
+    def test_opt_in_diagnostic_keeps_only_http_and_numeric_provider_code(self):
+        import io
+        request=SignedDemoReadRequest(credential(),timestamp_ms=AT)
+        for body,expected in (
+            (b'{"code":"40099","msg":"private-key-passphrase","data":{"userId":"private"}}', "40099"),
+            (b'{"code":"private-secret","msg":"private"}', None),
+            (b'not-json-private', None),
+        ):
+            records=[]
+            opener=unittest.mock.Mock()
+            opener.open.side_effect=HTTPError("private-url",400,"private-message",{},io.BytesIO(body))
+            with patch("investalo_bitget.futures_demo_read.build_opener",return_value=opener):
+                with self.assertRaises(DemoRejected):
+                    HTTPSDemoReadTransport(diagnostic=lambda status,code:records.append((status,code)))(request)
+            self.assertEqual(records,[(400,expected)])
+            self.assertEqual(opener.open.call_count,1)
+
 
 if __name__ == "__main__":
     unittest.main()
