@@ -1,8 +1,8 @@
 # Offenes Backlog
 
 IP-009: [Admin-SMTP/E-Mail-Bestätigung](admin-email-settings.md) ist ausgerollt.
-Nutzer trägt SMTP-Login im Dashboard ein und bestätigt den Mailcode;
-erste tatsächliche Ticketausstellung/E-Mail danach bereits genehmigt.
+SMTP-Login/Codeprüfung abgeschlossen; erstes Ticket tatsächlich ausgestellt
+und SMTP-Handoff bestätigt. Nutzerregistrierung unter `/security/passkeys` folgt.
 Authelia-Testadresse/Dateinotifier noch separat auf reale Wiederherstellung
 umstellen; keine bestehende E-Mail-Freigabe behaupten.
 

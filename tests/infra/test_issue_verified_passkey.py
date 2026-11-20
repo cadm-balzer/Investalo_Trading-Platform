@@ -16,7 +16,7 @@ SPEC.loader.exec_module(ISSUER)
 
 
 class VerifiedMailIssuerTests(unittest.TestCase):
-    def case(self, proof, *, existing="0"):
+    def case(self, proof, *, existing="0", acknowledgement="Ticket SMTP handoff acknowledged."):
         temporary=tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)
         local=Path(temporary.name)
@@ -29,7 +29,7 @@ class VerifiedMailIssuerTests(unittest.TestCase):
         def node(**kw):
             calls.append(("node",kw["network"] if "network" in kw else "none"))
             if kw.get("ticket"):
-                return "synthetic handoff"
+                return acknowledgement
             if proof is None:
                 raise ValueError()
             return json.dumps(proof)
@@ -68,6 +68,17 @@ class VerifiedMailIssuerTests(unittest.TestCase):
         self.assertIn(str(UUID(int=4)),issued[0])
         self.assertEqual(calls[-1],("node","investalo-local_mail_submission_egress"))
         self.assertTrue((local/"platform-admin-tickets"/str(UUID(int=4))/"delivery-acknowledged").exists())
+
+    def test_silent_delivery_does_not_claim_acknowledgement_or_retry(self):
+        result,calls,local=self.case(
+            dict(reference=str(UUID(int=4)),email="owner@fixture.invalid",epoch=4),
+            acknowledgement="")
+        self.assertEqual(result,1)
+        self.assertEqual(sum(c[0]=="issue" for c in calls),1)
+        self.assertEqual(sum(c==("node","investalo-local_mail_submission_egress") for c in calls),1)
+        attempt=local/"platform-admin-tickets"/str(UUID(int=4))
+        self.assertTrue((attempt/"delivery-pending").exists())
+        self.assertFalse((attempt/"delivery-acknowledged").exists())
 
 
 if __name__=="__main__":

@@ -11,8 +11,10 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 IP-009: Admin-SMTP/E-Mail-Bestätigung `DONE` implementiert und nach PR99/
 Nutzerfreigabe öffentlich ausgerollt.25 Node/3 Offline-Issuerfälle grün;
 TLS200/Admin401/Demo401, gesunde Dienste und private Rolloutbelege geprüft.
-Passwort im Dashboard und tatsächlicher Mailcode stehen aus; erstes Passkey-
-Ticket danach bereits autorisiert. [Ablauf](../admin-email-settings.md).
+2026-11-21 SMTP/Code durch Nutzer abgeschlossen; aktuelle Bestätigung geprüft,
+erstes600s-Ticket ausgestellt und SMTP-Handoff bestätigt. Helperstdin korrigiert/
+ACK verpflichtend,4 Offlinefälle plus tatsächlicher Node-Proofread grün.
+Passkeyregistrierung durch Nutzer ausstehend. [Ablauf](../admin-email-settings.md).
 
 IP-009/IP-015: operative Verdrahtung/Benutzerkonfiguration und genehmigter
 öffentlicher Rollout `DONE`; erstes Nutzer-Passkey-Enrollment ausstehend.

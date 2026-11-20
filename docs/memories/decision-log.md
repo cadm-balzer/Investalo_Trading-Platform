@@ -1,5 +1,18 @@
 # Entscheidungsprotokoll
 
+## D-140 — Erstes Ticket aus tatsächlicher E-Mail-Bestätigung
+
+**Status: ausgestellt/SMTP angenommen, 2026-11-21.** Nutzer bestätigt Einrichtung
+und fordert Ticket an. Aktuelle epochgebundene verschlüsselte Bestätigung
+und fehlenden ersten Passkey tatsächlich geprüft. Initialer Versuch erzeugte
+keine Ticketartefakte: Dockerstdin war nicht weitergeleitet.
+`--interactive` korrigiert und realen Offline-Node-Proofread geprüft.
+SMTP-Erfolg erfordert exakten Handoff-ACK; stiller Rücklauf erhält pending,
+vier offline Issuerfälle grün. Original600s-Ticket anschließend tatsächlich
+ausgestellt/SMTP angenommen, private Belege erhalten. Registrierung durch
+Nutzer folgt. Keine Geheimnisse in Output/Git; keine automatische Wiederholung.
+[Betrieb](../admin-email-settings.md).
+
 ## D-139 — Genehmigter Admin-SMTP-Rollout
 
 **Status: ausgerollt, 2026-11-20.** PR99/055e624 per GitHub/fetch bestätigt.
