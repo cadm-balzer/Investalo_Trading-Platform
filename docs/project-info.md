@@ -66,10 +66,12 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
-2026-11-20: [Admin-E-Mail-Einstellungen](admin-email-settings.md) vorbereitet:
+2026-11-20: [Admin-E-Mail-Einstellungen](admin-email-settings.md) öffentlich aktiv:
 reguläre Codebestätigung, geschützter SMTP-Login und eigener verschlüsselter
-Store.25 Node/3 Offline-Issuerfälle/Build grün. Merge/Rollout und echte
-Passworteingabe folgen; keine E-Mail-Bestätigung behauptet oder Ticket ausgestellt.
+Store.25 Node/3 Offline-Issuerfälle/Build grün. PR99 gemerged, Rollout genehmigt;
+TLS200/Admin401/Demo401 und gesunde Dienste geprüft. Nutzer trägt SMTP-Login ein
+und bestätigt den Code; erstes Ticket danach bereits autorisiert. Noch keine
+tatsächliche E-Mail-Bestätigung oder Ticketausstellung.
 
 2026-11-19: [Demo-Runtime](bitget-demo-trading-runtime.md) nach gemergtem PR97
 und ausdrücklicher Nutzerfreigabe öffentlich ausgerollt.001–019 geprüft,

@@ -8,10 +8,11 @@ konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
-IP-009: Admin-SMTP/E-Mail-Bestätigung `DONE` vorbereitet, Rollout nach Merge/
-Freigabe.25 Node/3 Offline-Issuerfälle grün; private Setupdaten vorbereitet,
-nativer TLS220 geprüft. Passwort im Dashboard, tatsächlicher Mailcode und
-freigegebenes erstes Passkey-Ticket folgen. [Ablauf](../admin-email-settings.md).
+IP-009: Admin-SMTP/E-Mail-Bestätigung `DONE` implementiert und nach PR99/
+Nutzerfreigabe öffentlich ausgerollt.25 Node/3 Offline-Issuerfälle grün;
+TLS200/Admin401/Demo401, gesunde Dienste und private Rolloutbelege geprüft.
+Passwort im Dashboard und tatsächlicher Mailcode stehen aus; erstes Passkey-
+Ticket danach bereits autorisiert. [Ablauf](../admin-email-settings.md).
 
 IP-009/IP-015: operative Verdrahtung/Benutzerkonfiguration und genehmigter
 öffentlicher Rollout `DONE`; erstes Nutzer-Passkey-Enrollment ausstehend.

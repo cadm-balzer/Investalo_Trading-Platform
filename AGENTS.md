@@ -18,7 +18,12 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   email/password/ticket/DB/service/dependency/broker activation. Real issuer
   denial probe rejected by auto-review as potentially issuing/sending tickets;
   not executed, no bypass. Actual issue requires explicit user authorization.
-  Own SMTP overlay prepared; rollout approval pending. See docs/admin-email-settings.md.
+  PR99 merged055e624; user explicitly approved public Admin rollout and first
+  ticket/email after actual code confirmation. SMTP overlay active; healthy
+  Cockpit, public TLS200/admin401/Demo401 checked, existing Paper/Demo retained.
+  Private before/active receipts retained. No SMTP login entered or email/code/
+  ticket issued; user completes Dashboard verification before conditional issue.
+  See docs/admin-email-settings.md.
 - PR97 merged7e5bb9a, GH/fetch verified; user explicitly approved Demo rollout.
   Normal001–019 original checksums verified after fresh private backup.
   Exact Demo account/credential LOGIN bound, native executor/private mTLS and

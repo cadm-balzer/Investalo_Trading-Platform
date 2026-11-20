@@ -2,7 +2,8 @@
 
 `compose.admin-mail.yaml` ergänzt den ausdrücklich zugeordneten
 Plattformadministrator mit eigenem SMTP-Schlüssel und Egress. Vorbereitung:
-`setup-platform-admin.py`; Ablauf/Prüfung und freizugebender Rollout in
+`setup-platform-admin.py`; nach PR99/Nutzerfreigabe öffentlich ausgerollt.
+Ablauf und tatsächliche Prüfbelege in
 [Admin-E-Mail-Einstellungen](../docs/admin-email-settings.md).
 
 `compose.demo-trading-runtime.yaml` verbindet vorhandene API/Cockpit-Routen

@@ -1,8 +1,8 @@
 # Offenes Backlog
 
-IP-009: [Admin-SMTP/E-Mail-Bestätigung](admin-email-settings.md) ausrollen
-nach Merge/Freigabe. Nutzer trägt SMTP-Login im Dashboard ein, bestätigt den
-Mailcode; tatsächliche Ticketausstellung anschließend explizit freigeben.
+IP-009: [Admin-SMTP/E-Mail-Bestätigung](admin-email-settings.md) ist ausgerollt.
+Nutzer trägt SMTP-Login im Dashboard ein und bestätigt den Mailcode;
+erste tatsächliche Ticketausstellung/E-Mail danach bereits genehmigt.
 Authelia-Testadresse/Dateinotifier noch separat auf reale Wiederherstellung
 umstellen; keine bestehende E-Mail-Freigabe behaupten.
 
