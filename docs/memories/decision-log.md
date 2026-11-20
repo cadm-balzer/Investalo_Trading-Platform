@@ -1,5 +1,24 @@
 # Entscheidungsprotokoll
 
+## D-138 — Geschützter Admin-SMTP und tatsächliche E-Mail-Bestätigung
+
+**Status: vorbereitet, 2026-11-20.** Nutzer lehnt die Chat-Ausnahme ab und
+verlangt reguläre Mailbestätigung sowie Adminbereich für allgemeine Settings.
+SMTP-Host/SSL und Bestätigungsadresse geliefert; Passwort ausschließlich im
+Dashboard. Ein administrativ zugeordneter UID/Subject/Issuer/Tenant mit aktuell
+bestätigtem Owner/Epoch und frischer MFA, kein pauschaler Owner-Admin.
+Eigene SMTP-AEAD/privater CAS-Store; bestätigter Providerhostname/public-IP/
+TLS465/AUTH, kein unsicherer Fallback. SMTP-Bootstrap erfordert vorhandene MFA,
+damit der noch fehlende erste Passkey kein Zirkelhindernis erzeugt.
+Tatsächlicher8-stelliger Mailcode/10min/5 Versuche, durable pending vor SMTP,
+kein Retry bei Ungewissheit. Original600s-Passkeyissuer nutzt ausschließlich
+frische tatsächliche verschlüsselte Evidence; echte Ausgabe separat autorisieren.
+25 Node/3 rein gemockte Issuerfälle/Typecheck/Build grün; native Provider TLS220
+und private UID10002-Dateien geprüft. Live-Issuer-Denialtest automatisch
+abgelehnt wegen möglicher echter Ticketausgabe/Mails, nicht ausgeführt.
+Keine SMTPpasswörter/Mails/Tickets/normalen DB-/Dienste/Broker geändert.
+[Ablauf](../admin-email-settings.md).
+
 ## D-137 — Genehmigter öffentlicher Demo-Rollout
 
 **Status: ausgerollt, 2026-11-19.** PR97 gemerged7e5bb9a, Nutzer bestätigt

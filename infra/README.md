@@ -1,5 +1,10 @@
 # Lokale Compose-Entwicklung
 
+`compose.admin-mail.yaml` ergänzt den ausdrücklich zugeordneten
+Plattformadministrator mit eigenem SMTP-Schlüssel und Egress. Vorbereitung:
+`setup-platform-admin.py`; Ablauf/Prüfung und freizugebender Rollout in
+[Admin-E-Mail-Einstellungen](../docs/admin-email-settings.md).
+
 `compose.demo-trading-runtime.yaml` verbindet vorhandene API/Cockpit-Routen
 mit einem eigenen privaten operativen Executor. Create-only Einrichtung über
 `setup-demo-trading-runtime.py`, konkrete Backup-/Migrations-/Bind-/Rolloutbefehle

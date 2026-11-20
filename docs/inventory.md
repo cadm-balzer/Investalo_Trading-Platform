@@ -1,5 +1,10 @@
 # Bestandsaufnahme
 
+2026-11-20: eigener Admin-SMTP-/Code-/AEAD-Pfad, Seite/POST/Formular und
+separate private Adminzuordnung.25 Node/3 Offline-Issuerfälle/Build grün;
+native465-TLS220 ohne Auth/Versand geprüft. Noch nicht ausgerollt.
+[Vertrag](admin-email-settings.md).
+
 2026-11-19: Demo-Rollout aktiv:001–019, eigenes Demo-Konto/LOGIN, API/Cockpit
 gesund und private mTLS405. Exakte HBA-Regel und öffentliche Passkey-Origin
 ergänzt. Öffentliche TLS-Seite200/Next401, sechs API-Routen geschützt.

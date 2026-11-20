@@ -66,6 +66,11 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-20: [Admin-E-Mail-Einstellungen](admin-email-settings.md) vorbereitet:
+reguläre Codebestätigung, geschützter SMTP-Login und eigener verschlüsselter
+Store.25 Node/3 Offline-Issuerfälle/Build grün. Merge/Rollout und echte
+Passworteingabe folgen; keine E-Mail-Bestätigung behauptet oder Ticket ausgestellt.
+
 2026-11-19: [Demo-Runtime](bitget-demo-trading-runtime.md) nach gemergtem PR97
 und ausdrücklicher Nutzerfreigabe öffentlich ausgerollt.001–019 geprüft,
 Kontobindung und private mTLS/API/Cockpit gesund. Der erste Nutzer-Passkey

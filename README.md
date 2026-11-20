@@ -1,5 +1,9 @@
 # Investalo Trading Platform
 
+Der [Adminbereich für SMTP und E-Mail-Bestätigung](docs/admin-email-settings.md)
+ist vorbereitet. Das SMTP-Passwort wird später direkt im Cockpit eingegeben;
+der Bestätigungscode schafft die reguläre Voraussetzung für den ersten Passkey.
+
 Der [operative Demo-Key-Zugang](docs/bitget-demo-trading-runtime.md) verbindet
 jetzt die vorhandene Eingabe mit nativem Kontocheck und verschlüsseltem Store.
 Nach Merge und ausdrücklicher Freigabe öffentlich ausgerollt. Für die Eingabe

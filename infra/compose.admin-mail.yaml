@@ -1,0 +1,17 @@
+# Explicit platform administrator installation. Password enters only via HTTPS.
+services:
+  cockpit:
+    environment:
+      COCKPIT_PLATFORM_ADMIN: "1"
+    volumes:
+      - type: bind
+        source: ./local/platform-admin
+        target: /run/platform-admin
+        read_only: true
+        bind:
+          create_host_path: false
+    networks:
+      mail_submission_egress: {}
+networks:
+  # Sender pins a publicly resolved IPv4 and permits only certificate-verified465.
+  mail_submission_egress: {}

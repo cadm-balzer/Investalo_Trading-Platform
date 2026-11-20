@@ -1,5 +1,11 @@
 # Technische Fallstricke
 
+- SMTP-Bootstrap darf Mailbestätigung nicht aus einem Chat-Ja oder erfolgreichen
+  SMTP-Login ableiten. Erst der tatsächliche Code erzeugt Evidence für das
+  Ticket. Der erste freigegebene Provider ist fest gebunden, damit ein anderer
+  Admin-SMTP-Server keinen selbst abgefangenen Code als Mailboxbesitz ausgibt.
+  Rootissuer bleibt explizit freigabepflichtig, ohne automatischen Retry.
+
 - Operativer Demo-LOGIN braucht eine eigene exakte SCRAM/TLS-HBA-Regel auf
   `investalo`; die vorhandene Credentials-Gruppenregel gilt nur für die Fixture.
   `API_PASSKEY_ORIGIN` explizit setzen, sonst verweigert der Purpose-Prüfer die

@@ -1,12 +1,17 @@
 # Git-basiertes Ticketboard
 
-Stand 2026-11-19. Dieses Board ist das initiale Task-/Ticketsystem ohne
+Stand 2026-11-20. Dieses Board ist das initiale Task-/Ticketsystem ohne
 zusätzliche Tools oder externe Veröffentlichung.
 
 Status: `READY` ausführbar, `IN_PROGRESS` aktiv, `WAITING_DECISION` benötigt
 konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
+
+IP-009: Admin-SMTP/E-Mail-Bestätigung `DONE` vorbereitet, Rollout nach Merge/
+Freigabe.25 Node/3 Offline-Issuerfälle grün; private Setupdaten vorbereitet,
+nativer TLS220 geprüft. Passwort im Dashboard, tatsächlicher Mailcode und
+freigegebenes erstes Passkey-Ticket folgen. [Ablauf](../admin-email-settings.md).
 
 IP-009/IP-015: operative Verdrahtung/Benutzerkonfiguration und genehmigter
 öffentlicher Rollout `DONE`; erstes Nutzer-Passkey-Enrollment ausstehend.
