@@ -42,7 +42,7 @@ def protected(path, uid, mode):
 
 
 def node(*, source, network="none", arguments=(), ticket=None):
-    args=["docker","run","--pull","never","--rm","--network",network,"--read-only",
+    args=["docker","run","--interactive","--pull","never","--rm","--network",network,"--read-only",
         "--cap-drop","ALL","--security-opt","no-new-privileges","--user","10002:10002",
         "--mount",f"type=bind,source={LOCAL/'platform-admin'},target=/run/platform-admin,readonly",
         "--mount",f"type=bind,source={LOCAL/'cockpit-public-data'},target=/app/state,readonly",
@@ -102,7 +102,7 @@ console.log(JSON.stringify(proof));
         fd=os.open(marker,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o400)
         with os.fdopen(fd,"w") as stream:
             stream.write(reference);stream.flush();os.fsync(stream.fileno())
-        node(ticket=delivery,network="investalo-local_mail_submission_egress",arguments=(epoch,reference),source="""
+        acknowledgement=node(ticket=delivery,network="investalo-local_mail_submission_egress",arguments=(epoch,reference),source="""
 import {readFile} from 'node:fs/promises';
 import {loadMailAuthority,mailStore} from '/verification-src/lib/admin-mail-authority.ts';
 import {sendPasskeyTicket} from '/verification-src/lib/admin-smtp.ts';
@@ -114,6 +114,8 @@ if(ticket.tenant_id!==m.authority.tenantId||ticket.user_id!==m.authority.userId|
 await mailStore(m,'/app/state').deliverTicket(epoch,now,reference,ticket.token,sendPasskeyTicket);
 console.log('Ticket SMTP handoff acknowledged.');
 """)
+        if acknowledgement!="Ticket SMTP handoff acknowledged.":
+            raise ValueError()
         os.rename(marker,directory/"delivery-acknowledged")
         print("Passkey ticket issued from verified email evidence and sent. Ticket remains private; no automatic retry.")
         return 0

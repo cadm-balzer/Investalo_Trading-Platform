@@ -21,8 +21,13 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   PR99 merged055e624; user explicitly approved public Admin rollout and first
   ticket/email after actual code confirmation. SMTP overlay active; healthy
   Cockpit, public TLS200/admin401/Demo401 checked, existing Paper/Demo retained.
-  Private before/active receipts retained. No SMTP login entered or email/code/
-  ticket issued; user completes Dashboard verification before conditional issue.
+  PR100 merged; private before/active receipts retained. User completed actual
+  SMTP setup/email code; current epoch-bound verified proof read offline.
+  First real600s ticket issued and SMTP handoff acknowledged20261121 under
+  explicit user request. Private ticket/pending-to-ack receipt retained; no
+  token/password/code exposed. Helper Docker stdin corrected with --interactive,
+  exact delivery ACK required;4 offline cases plus actual offline Node passed.
+  First failed attempt created no ticket artifacts; registration by user pending.
   See docs/admin-email-settings.md.
 - PR97 merged7e5bb9a, GH/fetch verified; user explicitly approved Demo rollout.
   Normal001–019 original checksums verified after fresh private backup.

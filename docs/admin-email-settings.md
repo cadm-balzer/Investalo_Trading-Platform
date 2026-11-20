@@ -91,10 +91,25 @@ bestehender Demo-Start401 ohne Anmeldung, jeweils gültiges TLS.
 Cockpit/API gesund, privater Demoexecutor läuft ohne Neustart; bisherige
 Paper-/Demo-Schalter und Netzwerke erhalten, Adminmount readonly.
 Private Vorher-/Aktivbelege unter `infra/local/admin-mail-rollout`.
-SMTP-Settings existieren noch nicht: Nutzer muss Benutzername/Passwort/Absender
-speichern, Code senden und bestätigen. Kein Mailversand oder Ticket beim Rollout.
+Beim Rollout existierten noch keine SMTP-Settings; kein Mailversand oder Ticket.
 Nach echter Bestätigung ist die erste Ticketausstellung bereits autorisiert;
 dafür ist keine erneute Chatfreigabe erforderlich.
+
+## Erste tatsächliche Ticketausstellung
+
+2026-11-21: Nutzer hat SMTP und E-Mail-Codebestätigung abgeschlossen und das
+Ticket ausdrücklich angefordert. Aktuelle Identität/Epoch, noch kein Passkey
+und frische tatsächliche verschlüsselte Bestätigung geprüft.
+Der erste Helperaufruf endete vor jeder Ticketanlage: Docker hatte ohne
+`--interactive` das übergebene Nodeprogramm nicht eingelesen.
+Originalzustand ohne Ticketartefakte ausdrücklich gelesen; Containerstdin
+korrigiert und tatsächlichen Offline-Node-/Proofread geprüft.
+Ein stiller Versand gilt zusätzlich nur mit exakt bestätigtem SMTP-Handoff
+als erfolgreich; vier offline gemockte Issuerfälle grün.
+Danach original600s-Ticket tatsächlich ausgestellt und an die bestätigte
+Adresse übergeben, private `delivery-acknowledged` erhalten. Keine Ausgabe
+von Token/Passwort/Code. Nutzer registriert es unter `/security/passkeys`.
+Keine automatische Wiederholung; SMTP-Annahme beweist keine Inboxzustellung.
 
 Nur das Cockpit erhält zusätzlich SMTP-Egress. Der eigene SMTP-Schlüssel/
 Adminmanifest sind readonly gemountet. Keine neuen Dependencies/Migrationen/
@@ -108,5 +123,6 @@ Typecheck und gepinnter Cockpitbuild bestanden. Tatsächliche vorbereitete
 Private Identity unter UID10002 geladen. Tatsächlicher Provider465-TLS-
 Hostname/Zertifikat und220-Greeting geprüft, ohne Login oder Mail.
 SMTP-TLS-AUTH/DATA in Tests mit tatsächlichem TLS und synthetischen Replies.
-Keine echte E-Mail/Passkey-Ticketaufnahme oder Benutzer-/Brokerkeyänderung.
-Echter SMTP-Login/Versand folgt nach Dashboardeingabe des Passworts.
+Diese vorbereitenden Prüfungen enthielten keine echte E-Mail/Ticketausstellung.
+Der tatsächliche SMTP-/Code-/Ticketworkflow ist oben mit dem Stand2026-11-21
+festgehalten; keine Brokerkeyänderung oder Orders.

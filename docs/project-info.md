@@ -70,8 +70,10 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 reguläre Codebestätigung, geschützter SMTP-Login und eigener verschlüsselter
 Store.25 Node/3 Offline-Issuerfälle/Build grün. PR99 gemerged, Rollout genehmigt;
 TLS200/Admin401/Demo401 und gesunde Dienste geprüft. Nutzer trägt SMTP-Login ein
-und bestätigt den Code; erstes Ticket danach bereits autorisiert. Noch keine
-tatsächliche E-Mail-Bestätigung oder Ticketausstellung.
+und bestätigt den Code; erstes Ticket danach bereits autorisiert.
+2026-11-21: tatsächliche aktuelle Bestätigung geprüft, erstes Ticket angefordert,
+ausgestellt und SMTP-Handoff bestätigt. User registriert seinen Passkey;
+Ticket-Helferstdin korrigiert,4 Offlinefälle und tatsächlicher Node-Proofread grün.
 
 2026-11-19: [Demo-Runtime](bitget-demo-trading-runtime.md) nach gemergtem PR97
 und ausdrücklicher Nutzerfreigabe öffentlich ausgerollt.001–019 geprüft,
