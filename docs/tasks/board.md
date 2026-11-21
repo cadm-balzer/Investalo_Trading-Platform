@@ -8,17 +8,15 @@ konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
-IP-015: tatsächliche Demo-Keyregistrierung `BLOCKED` durch neuen Nutzer-Key:
-Nutzer hat Arbeit ausdrücklich vertagt. Passkeyregistrierung bestätigt;
-vier Versuche definitiv `failed`, keine Verbindung
-gespeichert. Netzwerk/TLS/öffentliche Brokerzeit geprüft. Native Diagnose
-ohne Zugangsdaten im eigenen privaten Executor aktiv,37 gepinnte Offlinefälle/
-Build grün. Tatsächlicher neuer Versuch HTTP200/Code00000 und
-`identity/permission_rejected`: zusätzlich smow, alle Pflichtrechte vorhanden.
-UID/Parent abweichend; privater streng geprüfter Identitätsbeleg vorbereitet,
-kein Rebind. Neuer Demo-Key ohne Margin/weitere Writes und anschließend
-genauer Kontobindungsabgleich erforderlich.
-keine Wiederholung alter Commands. [Betrieb](../bitget-demo-trading-runtime.md).
+IP-015: erste tatsächliche Demo-Keyregistrierung `DONE`: aktiver verschlüsselter
+Datensatz revision1/storage1 mit passendem completed019-Abschlussbeleg.
+Native200/00000 accepted, UID/Parent und coow/cpow/stow passen. Sechs failed-
+Belege behalten. Fehlendes Holdings-Recht ergänzt; private native Demo-UID/
+Parent nach streng geprüftem Bezug zur bestätigten Konto-UID vor erster
+Speicherung korrigiert, Originalbackup erhalten. Nur Executor neu gestartet,
+echtes mTLS405/API/Cockpit gesund; keine Orders/DB-Umschreibung/alten Replays.
+Nutzer bestätigt Erfolg. Nächster Schritt: native ganze Konto-/Kosten-/Quota-
+Abnahme vor Demo-Orders. [Betrieb](../bitget-demo-trading-runtime.md).
 
 IP-009: Admin-SMTP/E-Mail-Bestätigung `DONE` implementiert und nach PR99/
 Nutzerfreigabe öffentlich ausgerollt.25 Node/3 Offline-Issuerfälle grün;
@@ -26,14 +24,15 @@ TLS200/Admin401/Demo401, gesunde Dienste und private Rolloutbelege geprüft.
 2026-11-21 SMTP/Code durch Nutzer abgeschlossen; aktuelle Bestätigung geprüft,
 erstes600s-Ticket ausgestellt und SMTP-Handoff bestätigt. Helperstdin korrigiert/
 ACK verpflichtend,4 Offlinefälle plus tatsächlicher Node-Proofread grün.
-Passkeyregistrierung durch Nutzer ausstehend. [Ablauf](../admin-email-settings.md).
+Passkeyregistrierung durch Nutzer bestätigt. [Ablauf](../admin-email-settings.md).
 
 IP-009/IP-015: operative Verdrahtung/Benutzerkonfiguration und genehmigter
-öffentlicher Rollout `DONE`; erstes Nutzer-Passkey-Enrollment ausstehend.
+öffentlicher Rollout `DONE`; erstes Nutzer-Passkey-Enrollment und erste
+tatsächliche Demo-Keyregistrierung abgeschlossen.
 81 Node/10 neue Python/37 bestehende
 Fälle grün; sieben reale ausstehende Migrationen vollständig zurückrollend
-geprüft. Native Keyregistrierung im Dashboard und Demo-Reconciliation/-Orders
-folgen. Exakte HBA-Regel/öffentliche Passkey-Origin korrigiert, tatsächliche
+geprüft. Native Demo-Reconciliation/-Orders folgen.
+Exakte HBA-Regel/öffentliche Passkey-Origin korrigiert, tatsächliche
 HTTPS/API/mTLS-Prüfungen bestanden. [Konkreter Ablauf](../bitget-demo-trading-runtime.md).
 
 IP-009/IP-015: gemeinsamer isolierter Handelskey-Abnahmecheckpoint bestanden:

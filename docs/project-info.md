@@ -66,6 +66,13 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-21: [erste tatsächliche Demo-Keyregistrierung](bitget-demo-trading-runtime.md)
+erfolgreich: active/revision1/storage1, verschlüsselter Datensatz und passender
+completed019-Beleg. Holdings-Recht ergänzt und native Demo-UID/Parent anhand
+des bestätigten Kontobezugs privat korrigiert, Originalbackup erhalten.
+Native UID/Rechte passen; API/Cockpit gesund, keine Orders. Nutzer bestätigt
+Erfolg; native ganze Konto-/Kosten-/Quotaabnahme folgt.
+
 2026-11-21: Nutzer bestätigt Passkeyregistrierung; tatsächliche Bitget-
 Demo-Keyeinrichtung scheitert nach Freigabe. Vier failed-Completionbelege,
 kein gespeicherter Key. Netzwerk/TLS/Zeit geprüft; [private native Diagnose](bitget-demo-trading-runtime.md)

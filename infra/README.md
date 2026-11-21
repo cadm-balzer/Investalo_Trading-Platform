@@ -11,7 +11,10 @@ mit einem eigenen privaten operativen Executor. Create-only Einrichtung über
 `setup-demo-trading-runtime.py`, konkrete Backup-/Migrations-/Bind-/Rolloutbefehle
 in [Demo-Runtime](../docs/bitget-demo-trading-runtime.md). Öffentlich nach
 Freigabe ausgerollt; Paper-Overlay beibehalten. Exakte Demo-HBA-Regel und
-öffentliche Passkey-Origin erforderlich; erstes Nutzer-Enrollment steht aus.
+öffentliche Passkey-Origin erforderlich. Passkey und erste tatsächliche
+Demo-Keyregistrierung abgeschlossen: active/revision1/storage1. Native Demo-UID/
+Parent vor erster Speicherung anhand bestätigten Kontobezugs privat korrigiert;
+Originalbackup erhalten. Ganze native Konto-/Kosten-/Quotaabnahme folgt.
 
 `compose.demo-trading-local-acceptance.yaml` ergänzt nur eigene isolierte
 Testservices. Die [Handelskey-Abnahme](../docs/bitget-demo-trading-acceptance.md)

@@ -7,24 +7,23 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
-- Bitget Demo registration investigation20261121 on
-  fix/m1-demo-native-diagnostics: user's actual four attempts committed failed
-  completion, exact account has zero stored connections. Passkey/consume worked;
-  native reason previously collapsed to unavailable. New actual attempt:
-  Bitget HTTP200/code00000, identity permission_rejected before storage.
-  Executor public HTTPS/time passed (200, clock delta132ms). Opt-in diagnostic
-  records fixed stage/local enum/numeric HTTP/provider code, finite known
-  authority names/missing required/unknown count and UID/parent-match booleans
-  in private0600 tmpfs; no native messages, UID/keys/headers/body.
-  37 pinned offline tests/build green; only own executor
-  updated, no logging/ports/orders/DB changes. API/Cockpit healthy, Demo401.
-  Actual rights coow/cpow/stow plus forbidden smow; no required right missing.
-  Native UID/parent differ from prepared binding. Separate private0600 native
-  identity record only after strict rights and fresh clock; grants nothing,
-  no automatic rebind. User explicitly pauses and will create a new Demo key
-  with Futures orders/positions+Spot RW and Margin/other writes off. Resume
-  with that fresh Dashboard attempt, then verify actual Demo UID/parent.
-  Never replay consumed commands/reset audits/relax policy.
+- PR102 merged20e3885, actual Demo Trading registration completed20261121.
+  Own account active/revision1/storage1, encrypted envelope present; matching
+  completed019 audit and native200/00000 accepted, UID/parent both match.
+  Six failed attempts retained. Required UI rights: Futures Orders + Holdings
+  and Spot Trade RW (coow/cpow/stow); Margin Trade off. Earlier key lacked cpow.
+  Private original manifest had displayed account UID as native Demo UID and
+  parent0. Fresh strict native receipt proved its parent equals user-confirmed
+  account UID. With empty account/target UID registry and failed original
+  command verified, operator backed up original and changed only broker_uid/
+  parent_uid. Signing/KEK/mTLS/actor/account unchanged, no DB rewrite or replay.
+  Private identity-corrections backup/applied receipt retained. Own executor
+  restarted; actual mTLS405, API/Cockpit healthy/restarts0. User confirms success.
+  Diagnostics37 pinned offline cases remain green; no runtime code/migration
+  change this step. Attachments excluded from Git/Docker build context.
+  Next native whole-account/cost/latency/quota acceptance before Demo orders;
+  registration itself gives no order/account-balance acceptance.
+  See docs/bitget-demo-trading-runtime.md.
 - Admin SMTP/email on feat/m1-admin-email-settings, user-requested regular
   confirmation (chat exception declined). Own explicit single-admin manifest
   and SMTP AEAD key, current OIDC/UID/tenant/epoch/owner + fresh MFA/SameOrigin/
@@ -45,7 +44,8 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   explicit user request. Private ticket/pending-to-ack receipt retained; no
   token/password/code exposed. Helper Docker stdin corrected with --interactive,
   exact delivery ACK required;4 offline cases plus actual offline Node passed.
-  First failed attempt created no ticket artifacts; registration by user pending.
+  First failed attempt created no ticket artifacts; user confirms successful
+  Passkey registration and subsequent Demo credential registration.
   See docs/admin-email-settings.md.
 - PR97 merged7e5bb9a, GH/fetch verified; user explicitly approved Demo rollout.
   Normal001–019 original checksums verified after fresh private backup.

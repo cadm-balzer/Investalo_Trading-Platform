@@ -2,7 +2,7 @@
 
 IP-009: [Admin-SMTP/E-Mail-Bestätigung](admin-email-settings.md) ist ausgerollt.
 SMTP-Login/Codeprüfung abgeschlossen; erstes Ticket tatsächlich ausgestellt
-und SMTP-Handoff bestätigt. Nutzerregistrierung unter `/security/passkeys` folgt.
+und SMTP-Handoff bestätigt. Nutzer bestätigt erfolgreiche Passkeyregistrierung.
 Authelia-Testadresse/Dateinotifier noch separat auf reale Wiederherstellung
 umstellen; keine bestehende E-Mail-Freigabe behaupten.
 
@@ -17,8 +17,8 @@ Eigener Trading-Passkey-/Consent-/Consume-/Executorpfad in
 ergänzt. Eigener [BFF-/Browser-/privater Transportablauf](bitget-demo-trading-dashboard.md)
 geprüft. [Gemeinsame isolierte Tradingabnahme](bitget-demo-trading-acceptance.md)
 mit449 Prüfungen bestanden. [Operative Runtime/private Benutzerkonfiguration](bitget-demo-trading-runtime.md)
-ausgerollt; erstes Nutzer-Passkey-Enrollment und tatsächliche
-Demo-Keyregistrierung im Dashboard abschließen. Native Account-/Order-/Kosten-/Latenz-/
+ausgerollt; Passkey und erste tatsächliche Demo-Keyregistrierung abgeschlossen.
+Native Account-/Order-/Kosten-/Latenz-/
 Quotaabnahme und Demo-Dispatcher folgen. Synthetische Guards bleiben erhalten.
 
 Stand 2026-11-10. Aktive Aufgaben stehen im [Ticketboard](tasks/board.md).
