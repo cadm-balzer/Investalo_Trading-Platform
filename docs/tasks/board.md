@@ -8,6 +8,18 @@ konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
+IP-015: tatsächliche Demo-Keyregistrierung `BLOCKED` durch neuen Nutzer-Key:
+Nutzer hat Arbeit ausdrücklich vertagt. Passkeyregistrierung bestätigt;
+vier Versuche definitiv `failed`, keine Verbindung
+gespeichert. Netzwerk/TLS/öffentliche Brokerzeit geprüft. Native Diagnose
+ohne Zugangsdaten im eigenen privaten Executor aktiv,37 gepinnte Offlinefälle/
+Build grün. Tatsächlicher neuer Versuch HTTP200/Code00000 und
+`identity/permission_rejected`: zusätzlich smow, alle Pflichtrechte vorhanden.
+UID/Parent abweichend; privater streng geprüfter Identitätsbeleg vorbereitet,
+kein Rebind. Neuer Demo-Key ohne Margin/weitere Writes und anschließend
+genauer Kontobindungsabgleich erforderlich.
+keine Wiederholung alter Commands. [Betrieb](../bitget-demo-trading-runtime.md).
+
 IP-009: Admin-SMTP/E-Mail-Bestätigung `DONE` implementiert und nach PR99/
 Nutzerfreigabe öffentlich ausgerollt.25 Node/3 Offline-Issuerfälle grün;
 TLS200/Admin401/Demo401, gesunde Dienste und private Rolloutbelege geprüft.

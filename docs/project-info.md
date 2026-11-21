@@ -66,6 +66,15 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-21: Nutzer bestätigt Passkeyregistrierung; tatsächliche Bitget-
+Demo-Keyeinrichtung scheitert nach Freigabe. Vier failed-Completionbelege,
+kein gespeicherter Key. Netzwerk/TLS/Zeit geprüft; [private native Diagnose](bitget-demo-trading-runtime.md)
+ohne Zugangsdaten ergänzt und eigener Executor aktualisiert.37 Offlinefälle
+grün. Neuer Versuch: Bitget akzeptiert API-Daten (200/00000), eigene
+Rechteprüfung lehnt zusätzliches Margin-smow ab. UID/Parent passen ebenfalls
+nicht zur vorbereiteten Bindung. Nutzer vertagt Arbeit und erstellt neuen
+Demo-Key ohne Margin/weitere Writes; danach nativen Identitätsabgleich erledigen.
+
 2026-11-20: [Admin-E-Mail-Einstellungen](admin-email-settings.md) öffentlich aktiv:
 reguläre Codebestätigung, geschützter SMTP-Login und eigener verschlüsselter
 Store.25 Node/3 Offline-Issuerfälle/Build grün. PR99 gemerged, Rollout genehmigt;
