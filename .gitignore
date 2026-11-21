@@ -10,6 +10,7 @@
 *.pfx
 /.aws/
 /.codex/
+/.codex-attachments/
 /.agents/
 
 # Private account data and generated research artifacts.

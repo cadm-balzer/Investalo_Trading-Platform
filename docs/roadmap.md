@@ -1,5 +1,10 @@
 # Roadmap
 
+2026-11-21: tatsächliche Demo-Keyregistrierung abgeschlossen (active1/1 und
+completed019). Als Nächstes native ganze Konto-/Positions-/Order-/Kosten-/
+Quotaabnahme mit dem registrierten Demo-Profil; anschließend Demo-Auftragsanbindung.
+[Betrieb](bitget-demo-trading-runtime.md).
+
 2026-11-20: [Admin-SMTP/E-Mail-Code](admin-email-settings.md) öffentlich aktiv.
 Benutzername/Passwort im Dashboard speichern, E-Mail bestätigen und das
 bereits ausdrücklich freigegebene erste Passkey-Ticket ausstellen/per Mail senden.

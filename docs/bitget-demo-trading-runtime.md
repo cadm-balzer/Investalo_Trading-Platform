@@ -9,6 +9,34 @@ Die Einrichtung startet keine Orders.
 
 ## Aktueller Betrieb
 
+2026-11-21: Der erste tatsächliche Demo-Handelszugang ist **aktiv, Revision1,
+Stand1**. Rechte `coow/cpow/stow`, native UID und Parent stimmen mit der
+privaten Konfiguration überein. Native Prüfung HTTP200/00000 accepted;
+verschlüsselter Datensatz vorhanden und sein entsprechender019-Abschlussbeleg
+ist completed. Benutzer bestätigt dieselbe erfolgreiche Dashboardmeldung.
+Die sechs vorherigen fehlgeschlagenen Belege bleiben unverändert erhalten.
+Private Statusquittung: `infra/local/demo-trading-runtime/registration-active.json`.
+Keine Entschlüsselung für die Statusprüfung und keine Orders ausgeführt.
+
+Zwei Einrichtungsursachen sind behoben: Das Positionsrecht heißt bei Bitget
+**Futures → Holdings**; benötigt werden **Futures → Orders**, **Futures →
+Holdings**, **Spot → Trade**, jeweils Read/Write, ohne **Margin → Trade**.
+Außerdem liefert Bitget eine eigene native Demo-UID; die vom Nutzer bestätigte
+angezeigte Konto-UID erscheint als deren Parent. In der Vorbereitung war
+stattdessen die angezeigte UID mit parent0 eingetragen.
+
+Ein frischer streng geprüfter nativer Beleg verknüpfte den Demo-Parent exakt
+mit der bestätigten Konto-UID und demselben Actor/Tenant/Konto. Eigene
+Kontoverbindung und Ziel-UID waren noch unbesetzt; ursprünglicher Versuch
+nachweislich failed. Operator sicherte die Originaldatei und änderte nur
+`broker_uid`/`parent_uid` im privaten Manifest. Backup, native Evidenz und
+Applybeleg liegen unter dem ignorierten `identity-corrections`-Verzeichnis.
+Signing/KEK/TLS und DB-/Benutzer-/Kontobindung blieben erhalten. Nur Executor
+gestoppt/neu gestartet; tatsächliches privates mTLS405 und gesunde API/Cockpit
+mit restarts0 geprüft. Kein automatischer Rebind oder alter Command wiederholt;
+der Nutzer erteilte eine neue Passkeyfreigabe für die erfolgreiche Registrierung.
+Dieser Schritt änderte keinen Runtimecode oder Migrationen.
+
 PR97 ist gemerged; der Nutzer hat den öffentlichen Rollout ausdrücklich
 freigegeben. Frisches privates Backup, Migrationen013–019 und exakte
 Kontobindung sind durchgeführt. API/Cockpit sind gesund, der eigene Executor
@@ -21,7 +49,9 @@ Demo-API-Endpunkte wurden über tatsächliches HTTPS auf Anmeldesperre geprüft;
 die öffentliche Passkey-Origin stimmt. Private Belege liegen unter dem
 ignorierten `infra/local/demo-trading-runtime/rollout-active.json`.
 
-SMTP/E-Mail-Bestätigung und erstes Ticket sind inzwischen durchgeführt,
+## Verlauf der Einrichtungsdiagnose
+
+SMTP/E-Mail-Bestätigung und erstes Ticket sind durchgeführt,
 der Nutzer bestätigt erfolgreiche Passkeyregistrierung. Vier tatsächliche
 Registrierungsversuche endeten2026-11-21 als `failed`; für genau sein Konto
 existiert keine gespeicherte Verbindung. Keine Orders.
@@ -56,12 +86,21 @@ Ein neuer expliziter Dashboardversuch durch den Nutzer ist für die konkrete
 Diagnose erforderlich: vorherige Bodies/Keys bleiben nicht erhalten,
 verbrauchte Commands/fehlgeschlagene Auditbelege werden niemals zurückgesetzt.
 
-Der Nutzer hat die Arbeit ausdrücklich vertagt und wird einen neuen Key
-anlegen: ausschließlich im Demo-Modus, Futures-Orders/Futures-Positionen
+Der Nutzer hatte die Arbeit vertagt und anschließend einen neuen Key
+angelegt: ausschließlich im Demo-Modus, Futures-Orders/Futures-Positionen
 und Spot-Handel Read/Write, Margin-Handel und weitere Schreibrechte aus.
 API-Key/Secret/Passphrase nur im Dashboard eingeben. Danach native Demo-UID/
 Parent gegen die bisherige private Zuordnung abgleichen und gegebenenfalls
-eine konkret belegte Setupkorrektur durchführen; bisher keine Bindung geändert.
+die oben belegte Setupkorrektur durchführen.
+
+Nach Fortsetzung ist PR102/20e3885 gemerged. Der neue eingeschränkte Key
+liefert `coow/stow`; fünfter Versuch als failed abgeschlossen, keine
+gespeicherte Verbindung. `cpow` fehlt. Bitget nennt die benötigte Auswahl
+**Futures → Holdings**; die anderen beiden sind **Futures → Orders** und
+**Spot → Trade**, jeweils Read/Write. **Margin → Trade** bleibt aus.
+„Positions“ war eine ungenaue Bezeichnung für Holdings. Nutzer richtete diese
+drei Rechte ein; danach native Demo-UID/Parentzuordnung wie oben korrigiert.
+Hochgeladene Screenshots sind von Git und Docker-Buildkontext ausgeschlossen.
 
 Der Nutzer hat seine UID privat angegeben und berichtet, dass sein Demo-Key
 keine IP-Bindung erlaubt. Dafür gibt es die ausdrücklich installierte Variante
@@ -78,6 +117,12 @@ Nutzerangabe. Dieser Pfad übernimmt keine Lockerung für Live oder alte Readpro
 `setup-demo-trading-runtime.py --broker-uid … --created-in-demo-mode
 --demo-without-ip-binding` erzeugt einmalig unter dem ignorierten
 `infra/local/demo-trading-runtime`:
+
+`--broker-uid` bezeichnet die native Demo-UID aus der tatsächlichen
+API-Identität. `--parent-uid` muss zu deren tatsächlichem Parent passen;
+die angezeigte Konto-UID darf nicht ungeprüft als native Demo-UID übernommen
+werden. Eine Korrektur erfordert native Evidenz, bestätigten Eigentümerbezug,
+unbesetztes Konto/Ziel-UID, Originalbackup und neuen Benutzer-Versuch.
 
 - Browseridentität UID10002 mit eigenen Signing-/mTLS-Dateien und privater
   Konfiguration für genau den vorhandenen öffentlichen Owner.

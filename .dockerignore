@@ -1,6 +1,7 @@
 .git
 .aws
 .codex
+.codex-attachments
 .agents
 secrets
 infra/local

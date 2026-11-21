@@ -1,5 +1,23 @@
 # Entscheidungsprotokoll
 
+## D-142 — Native Demo-Identität korrigiert, erste Registrierung erfolgreich
+
+**Status: abgeschlossen, 2026-11-21.** PR102/20e3885 gemerged. Neuer Key
+zunächst coow/stow; Benutzer-Screenshot zeigt Futures Orders und Spot Trade.
+Fehlendes cpow heißt in Bitget **Futures Holdings**. Nach dessen Aktivierung
+native Rechte korrekt, verbleibender UID-Mismatch belegt.
+Frischer strenger Nativebeleg verknüpft native Demo-UID mit der bestätigten
+angezeigten Konto-UID als Parent. Actor/Tenant/Konto korrekt, Ziel-UID/eigenes
+Konto unbesetzt und ursprünglicher Versuch failed. Originalmanifest gesichert,
+ausschließlich broker_uid/parent_uid korrigiert; übrige private Identität/
+KEK/TLS und DB unverändert. Neuer Benutzer-Passkeyversuch erfolgreich.
+Actual active/revision1/storage1 plus passender completed019-Beleg/Envelope
+vorhanden, Native200/00000 accepted mit UID/Parent true. Sechs failed behalten.
+mTLS405/API/Cockpit gesund, keine Orders/Entschlüsselung/Code-/Migrationsänderung.
+Screenshots aus Git/Docker-Buildkontext ausgeschlossen. Whole-account-/Kosten-/
+Quotaabnahme bleibt vor Demo-Orders erforderlich.
+[Betrieb](../bitget-demo-trading-runtime.md).
+
 ## D-141 — Tatsächlichen Demo-Rechtefehler diagnostizieren
 
 **Status: Diagnose aktiv, Nutzer vertagt Fortsetzung, 2026-11-21.**

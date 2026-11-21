@@ -1,5 +1,11 @@
 # Bestandsaufnahme
 
+2026-11-21: erster tatsächlicher Demo-Handelskey aktiv/revision1/storage1,
+verschlüsselter Datensatz und entsprechender completed019-Abschlussbeleg.
+Native Rechte/UID/Parent stimmen überein; Originalmanifest vor belegter
+Demo-Identitätskorrektur privat gesichert. Sechs failed behalten, keine Orders.
+[Betrieb](bitget-demo-trading-runtime.md).
+
 2026-11-20: eigener Admin-SMTP-/Code-/AEAD-Pfad, Seite/POST/Formular und
 separate private Adminzuordnung.25 Node/3 Offline-Issuerfälle/Build grün;
 native465-TLS220 ohne Auth/Versand geprüft. PR99 gemerged und genehmigt

@@ -6,8 +6,10 @@ der Bestätigungscode schafft die reguläre Voraussetzung für den ersten Passke
 
 Der [operative Demo-Key-Zugang](docs/bitget-demo-trading-runtime.md) verbindet
 jetzt die vorhandene Eingabe mit nativem Kontocheck und verschlüsseltem Store.
-Nach Merge und ausdrücklicher Freigabe öffentlich ausgerollt. Für die Eingabe
-fehlt noch der erste Passkey des Nutzers; Keyeinrichtung startet keine Orders.
+Nach Merge und ausdrücklicher Freigabe öffentlich ausgerollt.
+Passkey und erste tatsächliche Demo-Keyregistrierung sind abgeschlossen:
+aktiver verschlüsselter Zugang revision1/storage1 mit passendem completed-Beleg.
+Native ganze Konto-/Kosten-/Quotaabnahme folgt vor Demo-Orders.
 
 Die [gemeinsame Handelskey-Abnahme](docs/bitget-demo-trading-acceptance.md)
 hat449 Prüfungen über echte HTTPS/BFF/API/PG-/Speicherprozesse bestanden,
