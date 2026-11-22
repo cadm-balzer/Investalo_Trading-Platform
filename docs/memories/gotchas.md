@@ -1,5 +1,13 @@
 # Technische Fallstricke
 
+- Native Demo-Kontrakte können `maxOrderQty=""` liefern. Eine öffentliche
+  Testvorschau darf daraus keine native Höchstmenge erfinden und benötigt
+  einen eigenen unvollständigen Previewrastertyp. Ein Order-ACK ist kein Fill;
+  `cTime` muss außerdem nach dem tatsächlichen Dispatchmarker liegen.
+- Docker-Unittests mit Kindprozess-Imports brauchen die originale relative
+  Struktur `/app/tests/bitget` und `/app/integrations/bitget/src`, nicht
+  verkürzte `/checks`-Mounts. [Beleg](../bitget-demo-order-dispatch.md).
+
 - Classic-Auftragslisten dokumentieren drei Monate als maximales/default
   Fenster. Leere Abschlussseite nach `endId`-Pagination beweist keine
   Abdeckung älterer offener Aufträge. `isolatedLongLever` ist laut Typ String,

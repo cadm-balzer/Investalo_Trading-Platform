@@ -65,6 +65,13 @@ aktiv; manuelle [Startprüfung](bitget-demo-startup-check.md) implementiert.
 3-Monats-Fensters, tatsächliche Kosten/Funding, native5s-Latenz und ursprüngliche
 operative Outboxbasis vor Orderdispatcher/Testfreigabe nachweisen.
 
+BL-032 fortgesetzt: Startprüfungsrollout genehmigt/erledigt, erster nativer
+Nutzerbericht noch unbestätigt; technische Diagnose aktiv. Privater
+[Orderkern und öffentliche BTC-Vorschau](bitget-demo-order-dispatch.md)
+implementiert. Eigener realer dauerhafter Orderconsumer und Konto-/Budgetguard
+sowie tatsächliche ursprüngliche Registryeinrichtung vor Aktivierung fehlen.
+Native Demo-Maximalmengenquelle klären; Public `maxOrderQty` ist leer.
+
 RSI-/Supertrend-/Budget-/Exitentscheidungen Q1–Q31 sind bestätigt.
 Q32 zur H4-Modellpreis-Basis ist ebenfalls bestätigt. Offen bleiben die
 genannten Umsetzungen und Betriebs-/Wirtschaftlichkeitsnachweise.

@@ -66,6 +66,13 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-22: PR106 gemergt, Startprüfung nach Nutzerfreigabe ausgerollt.
+Nur zwei Dienste erneuert; TLS/mTLS/Anmeldeschutz und unveränderter Key geprüft.
+Erster Nutzerabruf unbestätigt, private technische Diagnose installiert.
+[Orderkern und BTC-Vorschau](bitget-demo-order-dispatch.md) verwenden bestehende
+Outbox/Trading-AEAD, bleiben ohne operative Orderfreigabe/HTTP-Route.
+Öffentliche Demo-Maximalmenge unbekannt; keine echten Orders.
+
 2026-11-22: Nutzer bestätigt Demo-Aufladen auf 10.000 virtuelle USDT und
 passenden Cockpitstand. [Demo-Startprüfung](bitget-demo-startup-check.md)
 ergänzt manuelle Sicht auf sieben Coin-Einstellungen und fünf Auftragsarten.

@@ -1,5 +1,12 @@
 # Demo-Startprüfung
 
+PR106/30ccdbe ist gemergt und der ausdrücklich freigegebene Rollout erfolgt:
+Cockpit und Executor erneuert, fünf andere Dienste unverändert; TLS200,
+anonyme Readvarianten401 und echtes privates mTLS405 geprüft.
+Der erste Nutzer-Startabruf bleibt unbestätigt. Rein technische private
+Stage-/Timingdiagnose ist zur Fehlerbehebung aktiv; der erneute originale
+Browserabruf steht noch aus. [Aktueller Stand](bitget-demo-order-dispatch.md).
+
 Der Nutzer bestätigt 10.000 virtuelle USDT auf dem API-Demokonto und die
 passende Anzeige im Cockpit. Die neue Schaltfläche „Startprüfung“ auf
 Dashboard und Portfolio prüft nun die Einstellungen und offenen Aufträge
