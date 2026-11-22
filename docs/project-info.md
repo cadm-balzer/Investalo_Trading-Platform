@@ -66,6 +66,13 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-22: Nutzer bestätigt Demo-Aufladen auf 10.000 virtuelle USDT und
+passenden Cockpitstand. [Demo-Startprüfung](bitget-demo-startup-check.md)
+ergänzt manuelle Sicht auf sieben Coin-Einstellungen und fünf Auftragsarten.
+Originale Sitzung/Trading-AEAD und begrenzte private GETs, keine Orders oder
+automatischen Kontoänderungen. Nächster Schritt nach Merge/Rollout:
+nativer Bericht, Kosten-/Auftragsabdeckung und Dispatcher/Testvorschau.
+
 2026-11-21: [Demo-Konto-Sync](bitget-demo-account-sync.md) implementiert:
 eigener lesender mTLS-Pfad über den vorhandenen verschlüsselten Demo-Key,
 USDT-Kontowert, freie Margin, UPL und Positionen im Dashboard/Portfolio,

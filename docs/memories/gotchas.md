@@ -1,5 +1,13 @@
 # Technische Fallstricke
 
+- Classic-Auftragslisten dokumentieren drei Monate als maximales/default
+  Fenster. Leere Abschlussseite nach `endId`-Pagination beweist keine
+  Abdeckung älterer offener Aufträge. `isolatedLongLever` ist laut Typ String,
+  im aktuellen offiziellen Beispiel Integer; beide exakt unterstützen,
+  Booleans/Floats ablehnen. Mehr GETs erfordern trotzdem aktuelle Credentials,
+  Quotaabstand und die ursprüngliche 5s-Kohorte. Bericht ohne Abweichungen
+  erteilt keine Orderfreigabe. [Beleg](../bitget-demo-startup-check.md).
+
 - SMTP-Bootstrap darf Mailbestätigung nicht aus einem Chat-Ja oder erfolgreichen
   SMTP-Login ableiten. Erst der tatsächliche Code erzeugt Evidence für das
   Ticket. Der erste freigegebene Provider ist fest gebunden, damit ein anderer

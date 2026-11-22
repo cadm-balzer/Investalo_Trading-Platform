@@ -1,5 +1,11 @@
 # Demo-Kontodaten im Cockpit
 
+2026-11-22: Nutzer hat das API-Demokonto auf10.000 virtuelle USDT geladen
+und bestätigt den passenden Kontostand im Cockpit. Die anschließende
+[Startprüfung](bitget-demo-startup-check.md) ergänzt einen manuellen Bericht
+über Coin-Einstellungen und offene Aufträge; separate vollständige
+Order-/Kostenabnahme und tatsächlicher Versand folgen.
+
 Der Konto-Sync zeigt das USDT-Futures-Konto im Dashboard und im Portfolio:
 Kontowert, freie Margin, unrealisiertes Ergebnis, gesperrter Betrag und offene
 Positionen mit Richtung, Menge, Durchschnittseinstieg, Markpreis, Hebel,
@@ -68,7 +74,8 @@ Private Vorher-/Aktivbelege unter
 `infra/local/demo-account-sync/deployment-active.json`.
 Die früheren Image-Tags waren nicht mehr verfügbar; der dokumentierte
 Rückweg schaltet das zusätzliche Overlay im default-off geprüften Build ab.
-Erste native Wallet-/Positionsabnahme nach gültiger Dashboard-Anmeldung offen.
+Nutzer bestätigt inzwischen gültigen Dashboard-Abruf und10k-Walletstand;
+unabhängige vollständige native Order-/Kostenabnahme bleibt offen.
 Bei künftigen Deployments das aktive Sync-Overlay beibehalten.
 
 Explizites, standardmäßig inaktives Overlay:

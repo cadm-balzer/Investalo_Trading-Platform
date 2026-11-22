@@ -1,19 +1,44 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { parseDemoAccount, type DemoAccount } from "../lib/demo-account-contract";
+import { parseDemoStartup, type DemoStartup } from "../lib/demo-startup-contract";
+import { DemoStartupReport } from "./demo-startup";
 
 const money = (v: string | null) => v === null ? "—" :
   `${new Intl.NumberFormat("de-DE", { maximumFractionDigits: 2 }).format(Number(v))} USDT`;
 export function DemoAccountPanel({ tenantId }: { tenantId: string }) {
   const [snapshot, setData] = useState<DemoAccount | null>(null), [error, setError] = useState(""),
     [busy, setBusy] = useState(false), [tick, setTick] = useState(0), [now, setNow] = useState(Date.now());
+  const [startup, setStartup] = useState<DemoStartup | null>(null), [checking, setChecking] = useState(false),
+    [startupError, setStartupError] = useState("");
+  const inspecting = useRef(false), startupRequest = useRef<AbortController | null>(null);
   const data = snapshot?.tenant_id === tenantId ? snapshot : null;
+  const report = startup?.account.tenant_id === tenantId && startup.account.account_id === data?.account_id ? startup : null;
+  useEffect(() => {
+    setStartup(null); setStartupError("");
+    return () => { startupRequest.current?.abort(); };
+  }, [tenantId]);
+  async function inspect() {
+    if (busy || inspecting.current) return;
+    const controller = new AbortController();
+    startupRequest.current = controller; inspecting.current = true; setChecking(true); setStartupError("");
+    try {
+      const response = await fetch("/api/bitget-demo/account?inspection=startup",
+        { cache: "no-store", credentials: "same-origin",
+          signal: AbortSignal.any([controller.signal, AbortSignal.timeout(12000)]) });
+      if (!response.ok) throw new Error();
+      const value = parseDemoStartup(await response.json(), tenantId, data?.account_id);
+      if (!controller.signal.aborted) { setStartup(value); setData(value.account); setNow(Date.now()); }
+    } catch {
+      if (!controller.signal.aborted) setStartupError("Startprüfung derzeit nicht bestätigt. Bitte später erneut prüfen.");
+    } finally { inspecting.current = false; setChecking(false); }
+  }
   useEffect(() => {
     let disposed = false, pending = false;
     const controller = new AbortController();
     async function refresh() {
-      if (pending || document.visibilityState === "hidden") return;
+      if (pending || inspecting.current || document.visibilityState === "hidden") return;
       pending = true; setBusy(true);
       try {
         const response = await fetch("/api/bitget-demo/account", { cache: "no-store", credentials: "same-origin",
@@ -35,7 +60,7 @@ export function DemoAccountPanel({ tenantId }: { tenantId: string }) {
   return <section className="panel">
     <div className="section-heading"><h2>Bitget Futures-Konto</h2><span className="badge neutral">DEMO · USDT</span></div>
     <div className="card-heading"><p className="panel-intro">Kontowert, verfügbare Margin und offene Positionen aus deinem Demo-Konto.</p>
-      <button type="button" className="button secondary" disabled={busy} onClick={() => setTick(v => v + 1)}>
+      <button type="button" className="button secondary" disabled={busy || checking} onClick={() => setTick(v => v + 1)}>
         {busy ? "Wird aktualisiert …" : "Aktualisieren"}</button></div>
     {error && <p role="status">{error} <Link href="/security/credentials/demo-trading">Zugang prüfen</Link></p>}
     {!data && !error && <p role="status">Demo-Kontodaten werden geladen …</p>}
@@ -58,5 +83,11 @@ export function DemoAccountPanel({ tenantId }: { tenantId: string }) {
             <td>{p.leverage === null ? "—" : `${Number(p.leverage)}×`}</td>
             <td>{p.margin_mode === "isolated" ? "Isoliert" : "Cross"}</td><td>{money(p.liquidation_price)}</td></tr>)}</tbody></table></div>}
     </>}
+    <div className="card-heading"><div><h3>Demo-Handelsstart vorbereiten</h3>
+      <p>Prüfe Kontoeinstellungen und offene Aufträge für den ersten Test mit 2× Hebel und isolierter Margin.</p></div>
+      <button type="button" className="button secondary" disabled={busy || checking || !data} onClick={() => void inspect()}>
+        {checking ? "Wird geprüft …" : "Startprüfung"}</button></div>
+    {startupError && <p role="status">{startupError}</p>}
+    {report && <DemoStartupReport data={report} />}
   </section>;
 }

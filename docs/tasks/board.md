@@ -1,12 +1,21 @@
 # Git-basiertes Ticketboard
 
-Stand 2026-11-20. Dieses Board ist das initiale Task-/Ticketsystem ohne
+Stand 2026-11-22. Dieses Board ist das initiale Task-/Ticketsystem ohne
 zusätzliche Tools oder externe Veröffentlichung.
 
 Status: `READY` ausführbar, `IN_PROGRESS` aktiv, `WAITING_DECISION` benötigt
 konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
+
+IP-015/IP-016: manuelle [Demo-Startprüfung](../bitget-demo-startup-check.md)
+`DONE` implementiert/geprüft: sieben Coin-Konfigurationen und fünf
+Auftragsfamilien, begrenzte Pagination, datierter Bericht und Vergleich mit
+Nutzer-Startguthaben10k; keine Handelsfreigabe aus leeren API-Seiten.
+50 Node/53 Python, Typprüfung/Compose/beide gepinnten Builds grün.
+Öffentlicher Rollout/native Prüfung nach
+Merge/Freigabe; ältere Auftragsabdeckung, tatsächliche Kosten und
+Orderdispatcher/Testvorschau `READY` als Folgeblock.
 
 IP-015: Demo-Konto-Sync implementiert: sichere lesende private Anbindung,
 USDT-Futures-Kontowert/freie Margin/UPL/Positionen auf Dashboard und Portfolio,

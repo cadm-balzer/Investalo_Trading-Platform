@@ -23,6 +23,8 @@ from investalo_credential_store.private_http import (
 )
 from investalo_credential_store.request_assertion import OnboardingRejected
 import threading
+from investalo_bitget.futures_demo_account import CONFIGS, AXES
+from investalo_credential_store.demo_startup_check import validate_startup
 
 KEY = b"S" * 32
 
@@ -150,3 +152,153 @@ class DemoAccountTests(unittest.TestCase):
         for cls in (DemoTradingCredentialHTTPApplication, DemoTradingAccountHTTPApplication):
             app = cls(self.reader.context, lambda *args: None, enabled=True)
             self.assertEqual(PATH in _application_targets(app).values(), cls is DemoTradingAccountHTTPApplication)
+
+    def startup(self, handler=None):
+        self.target["inspection"] = "startup"
+        self.body = json.dumps(self.target).encode()
+        self.rows = []
+        self.wallet = [dict(marginCoin="USDT", accountEquity="10000", available="10000", locked="0",
+            unrealizedPL="0", isolatedMargin="0", crossedMargin="0", assetMode="single", coupon="0", grant="0")]
+        original = self.native.transport
+        def transport(request):
+            if request.axis in ("identity", "wallet", "positions"):
+                return original(request)
+            self.sent.append(request)
+            data = dict(marginCoin="USDT", marginMode="isolated", posMode="one_way_mode",
+                        isolatedLongLever=2, assetMode="single") if request.axis in CONFIGS else dict(
+                            entrustedList=[], endId="")
+            if handler is not None:
+                data = handler(request, data)
+            return ReadResponse(200, json.dumps(dict(code="00000", requestTime=int(time.time()*1000), data=data)).encode())
+        self.native.transport = transport
+
+    def test_startup_collects_every_fixed_axis_without_granting_execution(self):
+        self.startup()
+        with patch("investalo_credential_store.demo_account_sync.time.sleep"):
+            report = self.run_read()
+        self.assertEqual([r.axis for r in self.sent], ["identity", "wallet", "positions", *CONFIGS, *AXES[2:]])
+        self.assertEqual(report["blockers"], [])
+        self.assertTrue(all(c["matches"] for c in report["configurations"]))
+        self.assertTrue(all(o["complete"] and o["count"] == 0 for o in report["orders"]))
+        for key in ("pending_scope_verified", "costs_verified", "execution_enabled"):
+            self.assertIs(report[key], False)
+        self.assertNotIn("synthetic", json.dumps(report))
+        self.assertTrue(all(r.method == "GET" and r.headers["paptrading"] == "1" for r in self.sent))
+
+    def test_configuration_drift_and_unknown_are_visible_not_auto_modified(self):
+        def drift(request, data):
+            if request.axis == "BTCUSDT":
+                return dict(data, isolatedLongLever="10", marginMode="crossed", posMode="hedge_mode")
+            if request.axis == "ETHUSDT":
+                return dict(data, isolatedLongLever=None, assetMode="new_unknown_mode")
+            return data
+        self.startup(drift)
+        with patch("investalo_credential_store.demo_account_sync.time.sleep"):
+            report = self.run_read()
+        self.assertEqual(report["blockers"], ["configuration_mismatch"])
+        btc = next(c for c in report["configurations"] if c["symbol"] == "BTCUSDT")
+        self.assertEqual((btc["long_leverage"], btc["matches"]), ("10", False))
+        eth = next(c for c in report["configurations"] if c["symbol"] == "ETHUSDT")
+        self.assertIsNone(eth["long_leverage"])
+        self.assertIsNone(eth["asset_mode"])
+
+    def test_pending_orders_page_to_empty_and_keep_foreign_ids_private(self):
+        def orders(request, data):
+            if request.axis == "partially_filled" and request.cursor is None:
+                return dict(entrustedList=[dict(orderId="999", status="partially_filled")], endId="999")
+            if request.axis == "profit_loss" and request.cursor is None:
+                return dict(entrustedList=[dict(orderId="888")], endId="888")
+            return data
+        self.startup(orders)
+        with patch("investalo_credential_store.demo_account_sync.time.sleep"):
+            report = self.run_read()
+        self.assertEqual(report["blockers"], ["orders_present"])
+        self.assertEqual(report["orders"][1], dict(category="partially_filled", count=1, pages=2, complete=True))
+        self.assertEqual(report["orders"][4]["count"], 1)
+        self.assertNotIn("999", json.dumps(report))
+        self.assertNotIn("888", json.dumps(report))
+        self.assertEqual([r.cursor for r in self.sent if r.axis == "partially_filled"], [None, "999"])
+
+    def test_nonempty_page_without_cursor_remains_incomplete(self):
+        self.startup(lambda r, d: dict(entrustedList=[dict(orderId="111", status="live")], endId="")
+                     if r.axis == "live" else d)
+        with patch("investalo_credential_store.demo_account_sync.time.sleep"):
+            report = self.run_read()
+        self.assertEqual(report["blockers"], ["order_pages_incomplete", "orders_present"])
+        self.assertFalse(report["orders"][0]["complete"])
+        self.assertEqual(report["orders"][0]["count"], 1)
+
+    def test_regressed_cursor_and_duplicate_cross_axis_ids_discard_startup(self):
+        def bad(request, data):
+            if request.axis in ("live", "partially_filled"):
+                return dict(entrustedList=[dict(orderId="99", status=request.axis)], endId="99")
+            return data
+        self.startup(bad)
+        with patch("investalo_credential_store.demo_account_sync.time.sleep"), self.assertRaises(OnboardingRejected):
+            self.run_read()
+        self.assertEqual(len([r for r in self.sent if r.axis == "live"]), 2)
+
+    def test_startup_revocation_and_native_failure_never_publish_partial_success(self):
+        self.startup()
+        original = self.native.transport
+        def revoke(request):
+            result = original(request)
+            if request.axis == "BTCUSDT":
+                self.revoked = True
+            return result
+        self.native.transport = revoke
+        with patch("investalo_credential_store.demo_account_sync.time.sleep"), self.assertRaises(OnboardingRejected):
+            self.run_read()
+        self.assertEqual(self.sent[-1].axis, "BTCUSDT")
+
+    def test_changed_balance_is_compared_with_original_user_declared_start(self):
+        self.startup()
+        self.wallet[0]["available"] = "9999"
+        with patch("investalo_credential_store.demo_account_sync.time.sleep"):
+            report = self.run_read()
+        self.assertIn("initial_balance_changed", report["blockers"])
+        self.assertEqual(report["expected_initial_usdt"], "10000")
+
+    def test_startup_cannot_carry_private_fields_or_execution_grant(self):
+        self.startup()
+        with patch("investalo_credential_store.demo_account_sync.time.sleep"):
+            report = self.run_read()
+        for change in (dict(execution_enabled=True), dict(costs_verified=True),
+                       dict(envelope="private"), dict(pending_scope_verified=True)):
+            with self.subTest(change=change), self.assertRaises(ValueError):
+                validate_startup({**report, **change})
+
+    def test_unknown_inspection_denied_before_secret_and_native_io(self):
+        self.target["inspection"] = "trade"
+        self.body = json.dumps(self.target).encode()
+        with self.assertRaises(OnboardingRejected):
+            self.run_read()
+        self.assertEqual(self.sent, [])
+
+    def test_late_native_startup_response_discards_whole_cohort_without_retry(self):
+        self.startup()
+        original = self.native.transport
+        def stale(request):
+            result = original(request)
+            if request.axis == "BTCUSDT":
+                raw = json.loads(result.body)
+                raw["requestTime"] -= 6000
+                return ReadResponse(200, json.dumps(raw).encode())
+            return result
+        self.native.transport = stale
+        with patch("investalo_credential_store.demo_account_sync.time.sleep"), self.assertRaises(OnboardingRejected):
+            self.run_read()
+        self.assertEqual(self.sent[-1].axis, "BTCUSDT")
+
+    def test_page_cap_is_explicit_incomplete_and_no_eleventh_request(self):
+        def many(request, data):
+            if request.axis == "live":
+                oid = "1000" if request.cursor is None else str(int(request.cursor) - 1)
+                return dict(entrustedList=[dict(orderId=oid, status="live")], endId=oid)
+            return data
+        self.startup(many)
+        with patch("investalo_credential_store.demo_account_sync.time.sleep"):
+            report = self.run_read()
+        self.assertEqual(report["orders"][0], dict(category="live", count=10, pages=10, complete=False))
+        self.assertEqual(len([r for r in self.sent if r.axis == "live"]), 10)
+        self.assertIn("order_pages_incomplete", report["blockers"])

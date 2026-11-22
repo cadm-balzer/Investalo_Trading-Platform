@@ -7,6 +7,20 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- 20261122 Demo startup inspection on feat/m1-demo-startup-check: manual
+  Dashboard/Portfolio check over original session/Trading AEAD/mTLS, numeric
+  cache bypass. Fixed identity/wallet/positions/seven configs/five pending
+  families; monotonic bounded pagination, source5s/cohort5s, GET spacing110ms.
+  Original user-declared10k/flat initial test comparison, per-coin2x/isolated/
+  one-way/single settings and unknowns/counts shown. No native/raw IDs/secrets.
+  Current official native pending window3months: page completion is not older
+  coverage. Report flags pending_scope/costs/execution always false.
+  50 pinned Node/53 Python including actual synthetic Node/ASGI mTLS and AEAD
+  green; typecheck/full Compose/pinned Cockpit+Executor builds green.
+  No orders/native whole-account acceptance or runtime changes.
+  Merge/separate rollout approval then actual session read; dispatcher/exact
+  small approved test and H1/five-buy/3-basket wiring follow.
+  See docs/bitget-demo-startup-check.md.
 - PR104 mergedbfd32ae; user explicitly approved and completed Demo sync rollout
   20261122. Both sync flags active, Cockpit healthy and executor running with
   zero restarts; public TLS200/account anonymous401, actual private mTLS wrong
@@ -28,7 +42,7 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   pinned Cockpit+Demo executor builds green.
   Native probe stopped before HTTP at expired original registration session;
   no invented auth/session and no actual balance acceptance claimed.
-  Production rollout now approved/completed; first valid Dashboard read follows.
+  Production rollout completed; user confirms funded10k Dashboard read.
   See docs/bitget-demo-account-sync.md.
 - PR102 merged20e3885, actual Demo Trading registration completed20261121.
   Own account active/revision1/storage1, encrypted envelope present; matching

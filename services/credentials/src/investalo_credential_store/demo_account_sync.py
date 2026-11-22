@@ -150,7 +150,8 @@ class DemoAccountReader:
             if jti != claims["jti"]:
                 raise ValueError()
             target = _json(body)
-            if (type(target) is not dict or set(target) != TARGET_FIELDS
+            if (type(target) is not dict or set(target) not in (TARGET_FIELDS, TARGET_FIELDS | {"inspection"})
+                    or "inspection" in target and target["inspection"] != "startup"
                     or str(UUID(target["platform_account_id"])) != target["platform_account_id"]
                     or target["platform_account_id"] != str(self.config["account_id"])
                     or str(UUID(target["connection_id"])) != target["connection_id"]
@@ -201,10 +202,17 @@ class DemoAccountReader:
                         or time.time_ns() // 1_000_000 - start > 5000):
                     raise ValueError()
 
-            def get(axis):
+            last_get = None
+            def get(axis, cursor=None):
+                nonlocal last_get
+                # Startup calls share the registration mutex. Pace to fewer
+                # than ten GETs/sec, without expanding the existing 5s cohort.
+                if target.get("inspection") == "startup" and last_get is not None:
+                    time.sleep(max(0, .11 - (time.monotonic() - last_get)))
                 guard()
+                last_get = time.monotonic()
                 response = native.transport(SignedDemoReadRequest(credential,
-                    timestamp_ms=time.time_ns() // 1_000_000, axis=axis))
+                    timestamp_ms=time.time_ns() // 1_000_000, axis=axis, cursor=cursor))
                 guard()
                 _, at = parse.envelope(response)
                 delta = time.time_ns() // 1_000_000 - int(at.timestamp() * 1000)
@@ -228,15 +236,23 @@ class DemoAccountReader:
             a = accounts[0]
             def text(amount):
                 return None if amount is None else format(amount, "f")
-            return validate_view(dict(schema=SCHEMA, tenant_id=str(owner.tenant_id),
+            view = validate_view(dict(schema=SCHEMA, tenant_id=str(owner.tenant_id),
                 account_id=str(binding.account_id), observed_at=min(wallet_at, positions_at).isoformat(),
                 currency="USDT", wallet=dict(equity=text(a.account_equity), available=text(a.available),
                 locked=text(a.locked), unrealized_pnl=text(a.unrealized_pnl),
                 isolated_margin=text(a.isolated_margin), crossed_margin=text(a.crossed_margin)),
                 positions=open_positions))
+            if target.get("inspection") == "startup":
+                from .demo_startup_check import inspect_startup
+                result = inspect_startup(get, binding, owner, view, a)
+                guard()
+                return result
+            return view
         except Exception:
             raise OnboardingRejected("unavailable") from None
         finally:
+            if target.get("inspection") == "startup":
+                self.native.last = time.time_ns() // 1_000_000
             self.native.lock.release()
 
     def context_account(self):

@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import ts from "typescript";
 import * as contract from "../src/lib/demo-account-contract.ts";
+import * as startupContract from "../src/lib/demo-startup-contract.ts";
 import * as authorization from "../src/lib/authorized-session.ts";
 import * as metadataContract from "../src/lib/demo-trading-credential-action-contracts.ts";
 import * as objectContract from "../src/lib/passkey-enrollment-state.ts";
@@ -39,6 +40,17 @@ function view(): contract.DemoAccount {
     positions: [{ symbol: "BTCUSDT", side: "long", quantity: "0.1", entry_price: "60000", mark_price: "59000",
       unrealized_pnl: "-100", leverage: "2", margin_mode: "isolated", liquidation_price: null }] };
 }
+function startupView(): startupContract.DemoStartup {
+  const account = view();
+  account.wallet = { equity: "10000", available: "10000", locked: "0", unrealized_pnl: "0",
+    isolated_margin: "0", crossed_margin: "0" };
+  account.positions = [];
+  return { schema: "investalo-demo-startup/1", account, observed_at: account.observed_at,
+    configurations: startupContract.STARTUP_SYMBOLS.map(symbol => ({
+      symbol, margin_mode: "isolated", position_mode: "one_way_mode", asset_mode: "single", long_leverage: "2", matches: true })),
+    orders: startupContract.ORDER_CATEGORIES.map(category => ({ category, count: 0, pages: 1, complete: true })),
+    blockers: [], expected_initial_usdt: "10000", pending_scope_verified: false, costs_verified: false, execution_enabled: false };
+}
 test("contract preserves exact decimals, unknown fields and nullable liquidation price", () => {
   const original = view();
   assert.deepEqual(contract.parseDemoAccount(original, id(1), id(2)), original);
@@ -70,13 +82,15 @@ function fixture() {
     "./config.ts": { getConfig: async () => ({ origin: "https://cockpit.fixture.invalid" }) },
     "./authorized-session.ts": authorization, "./passkey-enrollment-state.ts": objectContract,
     "./credential-action-contracts.ts": uuidContract, "./demo-account-contract.ts": contract,
+    "./demo-startup-contract.ts": startupContract,
     "./demo-trading-credential-action-contracts.ts": metadataContract,
     "./backend.ts": { apiRequest: async (_session: unknown, path: string) => path === "/v1/me" ?
       { user: { id: id(4), subject: "synthetic", auth_epoch: 3 },
         memberships: [{ tenant_id: id(1), tenant_name: "fixture", role: "owner" }], live_enabled: false } : metadata() },
     "./demo-trading-passkey-credential-browser-server.ts": { runtime: async () => ({
-      accountId: id(2), check: async () => {}, identity: { readAccount: async () => {
-        f.reads++; f.mutate(); if (f.fail) throw new Error("private broker details"); return view();
+      accountId: id(2), check: async () => {}, identity: { readAccount: async (_bound: unknown, _user: unknown, target: any) => {
+        f.reads++; f.mutate(); if (f.fail) throw new Error("private broker details");
+        return target.inspection === "startup" ? startupView() : view();
       } },
     }) },
   });
@@ -120,6 +134,8 @@ test("cross-site requests and broker failures never disclose provider details", 
 test("initial actual panel SSR offers refresh and invents no balances or positions", () => {
   const component = load("../src/components/demo-account.tsx", {
     "../lib/demo-account-contract": contract,
+    "../lib/demo-startup-contract": startupContract,
+    "./demo-startup": { DemoStartupReport: () => null },
     "next/link": { default: ({ href, children }: any) => React.createElement("a", { href }, children) },
   });
   const html = renderToStaticMarkup(React.createElement(component.DemoAccountPanel, { tenantId: id(1) }));
@@ -128,7 +144,7 @@ test("initial actual panel SSR offers refresh and invents no balances or positio
   assert.doesNotMatch(html, /50000|keine offenen|API-Key/);
 });
 test("readonly adapter sends exact separate signed purpose and independent session over real mTLS", async t => {
-  let calls = 0, published = view();
+  let calls = 0, published: contract.DemoAccount | startupContract.DemoStartup = view(), inspecting = false;
   const key = Buffer.alloc(32, 7), now = Math.floor(Date.now()/1000);
   const native = await demoTlsFixture(t, (request, response) => {
     calls++;
@@ -148,7 +164,8 @@ test("readonly adapter sends exact separate signed purpose and independent sessi
     request.on("end", () => {
       assert.equal(claims.body_sha256, createHash("sha256").update(body).digest("hex"));
       assert.deepEqual(Object.keys(JSON.parse(body)).sort(),
-        ["platform_account_id", "connection_id", "credential_revision", "storage_version"].sort());
+        ["platform_account_id", "connection_id", "credential_revision", "storage_version", ...(inspecting ? ["inspection"] : [])].sort());
+      if (inspecting) assert.equal(JSON.parse(body).inspection, "startup");
       const wire = JSON.stringify(published);
       response.writeHead(200, { "Content-Type": "application/json", "Content-Length": Buffer.byteLength(wire) });
       response.end(wire);
@@ -156,7 +173,8 @@ test("readonly adapter sends exact separate signed purpose and independent sessi
   });
   // The fixture substitutes only the destination socket; all actual adapter wire/TLS checks run.
   const executor = load("../src/lib/demo-account-executor.ts", {
-    "./demo-account-contract.ts": contract, "./demo-trading-passkey-action-proof-state.ts": proof,
+    "./demo-account-contract.ts": contract, "./demo-startup-contract.ts": startupContract,
+    "./demo-trading-passkey-action-proof-state.ts": proof,
     "node:https": { default: { request: (_uri: URL, options: any, callback: any) =>
       https.request(new URL(native.origin), options, callback) } },
   });
@@ -172,5 +190,59 @@ test("readonly adapter sends exact separate signed purpose and independent sessi
   assert.deepEqual(await executor.readDemoAccount(input), published);
   published = { ...view(), tenant_id: id(99) };
   await assert.rejects(executor.readDemoAccount(input), /DEMO_ACCOUNT_UNAVAILABLE/);
-  assert.equal(calls, 2);
+  inspecting = true; published = startupView();
+  const inspectionInput = { ...input, target: { ...input.target, inspection: "startup" } };
+  assert.deepEqual(await executor.readDemoAccount(inspectionInput), published);
+  published = view(); // Ordinary balances cannot satisfy a requested startup check.
+  await assert.rejects(executor.readDemoAccount(inspectionInput), /DEMO_ACCOUNT_UNAVAILABLE/);
+  assert.equal(calls, 4);
+});
+test("startup contract rejects authority flags, leaked IDs, missing axes and a fake matching profile", () => {
+  const report = startupView(); report.observed_at = report.account.observed_at;
+  assert.deepEqual(startupContract.parseDemoStartup(report, id(1), id(2)), report);
+  const bad = [{ ...report, execution_enabled: true }, { ...report, pending_scope_verified: true },
+    { ...report, costs_verified: true }, { ...report, private_key: "secret" },
+    { ...report, configurations: report.configurations.slice(1) },
+    { ...report, orders: report.orders.slice(1) },
+    { ...report, configurations: report.configurations.map(c => ({ ...c, long_leverage: "10" })) },
+    { ...report, configurations: report.configurations.map(c => ({ ...c, long_leverage: "2.0000000000000000001" })) },
+    { ...report, account: { ...report.account, wallet: { ...report.account.wallet, available: "10000.0000000000000000001" } } },
+    { ...report, orders: report.orders.map(o => ({ ...o, orderId: "foreign-private" })) }];
+  for (const value of bad) assert.throws(() => startupContract.parseDemoStartup(value, id(1), id(2)));
+  assert.throws(() => startupContract.parseDemoStartup(report, id(99), id(2)));
+});
+test("startup always bypasses balance cache and validates original session after inspection", async () => {
+  const { f, server, request } = fixture();
+  assert.equal((await server.handleDemoAccount(request())).status, 200);
+  const inspect = () => new Request(`${request().url}?inspection=startup`,
+    { headers: { "sec-fetch-site": "same-origin" } });
+  const result = await server.handleDemoAccount(inspect());
+  assert.equal(result.status, 200); assert.equal((await result.json()).schema, "investalo-demo-startup/1");
+  assert.equal(f.reads, 2);
+  assert.equal((await server.handleDemoAccount(request())).status, 200);
+  assert.equal(f.reads, 2); // Startup never overwrites the numeric balance cache.
+  f.mutate = () => { f.current = { ...f.current, handle: "replacement" }; };
+  assert.equal((await server.handleDemoAccount(inspect())).status, 503);
+});
+test("only exact startup query is admitted and cross-site inspection never calls the executor", async () => {
+  const { f, server, request } = fixture();
+  for (const query of ["?inspection=trade", "?inspection=startup&inspection=startup", "?inspection=startup&symbol=BTCUSDT"]) {
+    assert.equal((await server.handleDemoAccount(new Request(request().url + query,
+      { headers: { "sec-fetch-site": "same-origin" } }))).status, 503);
+  }
+  assert.equal((await server.handleDemoAccount(new Request(request().url + "?inspection=startup",
+    { headers: { "sec-fetch-site": "cross-site" } }))).status, 503);
+  assert.equal(f.reads, 0);
+});
+test("actual report renders needed settings and pending counts without a trading button", () => {
+  const component = load("../src/components/demo-startup.tsx", {});
+  const report = startupView();
+  report.blockers = ["configuration_mismatch", "orders_present"];
+  report.configurations[2] = { ...report.configurations[2], long_leverage: "10", matches: false };
+  report.orders[4].count = 2;
+  const html = renderToStaticMarkup(React.createElement(component.DemoStartupReport, { data: report }));
+  assert.match(html, /BTCUSDT/); assert.match(html, /10×/);
+  assert.match(html, /Take-Profit \/ Stop-Loss: 2/);
+  assert.match(html, /ORDERVERSAND NOCH AUS/);
+  assert.doesNotMatch(html, /<button|API-Key|orderId/);
 });

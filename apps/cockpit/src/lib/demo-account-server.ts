@@ -8,6 +8,7 @@ import { assertAuthorizedSession, snapshotAuthorizedSession } from "./authorized
 import { exactObject } from "./passkey-enrollment-state.ts";
 import { canonicalUuid } from "./credential-action-contracts.ts";
 import { parseDemoAccount, type DemoAccount } from "./demo-account-contract.ts";
+import { parseDemoStartup, type DemoStartup } from "./demo-startup-contract.ts";
 
 type Cache = { key: string; data: DemoAccount; at: number };
 const symbol = Symbol.for("investalo.demo-account-cache/1");
@@ -22,7 +23,8 @@ export async function handleDemoAccount(request: Request) {
     if (!current) return Response.json({ error: "Bitte anmelden." }, { status: 401, headers });
     const original = snapshotAuthorizedSession(current.session), config = await getConfig();
     const url = new URL(request.url);
-    if (url.pathname !== "/api/bitget-demo/account" || url.search ||
+    const startup = url.search === "?inspection=startup";
+    if (url.pathname !== "/api/bitget-demo/account" || url.search && !startup ||
       request.headers.get("sec-fetch-site") !== "same-origin" ||
       request.headers.has("origin") && request.headers.get("origin") !== config.origin) throw new Error();
     const installed = await runtime();
@@ -54,17 +56,19 @@ export async function handleDemoAccount(request: Request) {
     const key = JSON.stringify([original.tenantId, before.userId, original.authEpoch,
       installed.accountId, connection.connection_id, connection.credential_revision, connection.storage_version]);
     const shared = globalThis as Shared;
-    let data: DemoAccount;
-    if (shared[symbol]?.key === key && Date.now() - shared[symbol]!.at < 25000) {
+    let data: DemoAccount | DemoStartup;
+    if (!startup && shared[symbol]?.key === key && Date.now() - shared[symbol]!.at < 25000) {
       data = parseDemoAccount(shared[symbol]!.data, original.tenantId, installed.accountId);
     } else {
       data = await installed.identity.readAccount({ ...current, session: original, origin: config.origin },
         before.userId, { platform_account_id: installed.accountId, connection_id: connection.connection_id,
-          credential_revision: 1, storage_version: connection.storage_version });
+          credential_revision: 1, storage_version: connection.storage_version,
+          ...(startup ? { inspection: "startup" as const } : {}) });
     }
     const after = await metadata();
     if (after.userId !== before.userId || JSON.stringify(after.metadata) !== JSON.stringify(before.metadata)) throw new Error();
     await guard();
+    if (startup) return Response.json(parseDemoStartup(data, original.tenantId, installed.accountId), { headers });
     data = parseDemoAccount(data, original.tenantId, installed.accountId);
     shared[symbol] = { key, data, at: Math.min(Date.now(), Date.parse(data.observed_at)) };
     return Response.json(data, { headers });
