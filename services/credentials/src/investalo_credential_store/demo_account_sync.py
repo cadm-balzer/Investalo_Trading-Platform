@@ -171,8 +171,24 @@ class DemoAccountReader:
         target, expires = self._authorize(request_context, token, body)
         if not self.native.lock.acquire(blocking=False):
             raise OnboardingRejected("unavailable")
-        stage, sent = "scope", 0
+        phase, sent = threading.local(), 0
+        phase.stage = "scope"
         started = time.time_ns() // 1_000_000
+        def report(stage, error=None):
+            diagnostic = getattr(self.native, "diagnostic", None)
+            if target.get("inspection") != "startup" or not callable(diagnostic):
+                return
+            try:
+                value = dict(schema="investalo-demo-startup-diagnostic/1", stage=stage, sent=sent,
+                    elapsed_ms=time.time_ns() // 1_000_000 - started,
+                    error_type=None if error is None else type(error).__name__,
+                    http_status=getattr(self.native, "native_status", None),
+                    provider_code=getattr(self.native, "native_code", None))
+                if error is not None and hasattr(error, "_demo_pending_failure"):
+                    value["pending_failure"] = error._demo_pending_failure
+                diagnostic(value)
+            except Exception:
+                pass
         try:
             cfg, native = self.config, self.native
             start = time.time_ns() // 1_000_000
@@ -196,39 +212,44 @@ class DemoAccountReader:
                 cfg["egress_ip"], original.spec.provisioning_digest, 1, expires)
 
             def guard():
-                nonlocal stage
                 native.guard()
                 current = store.read_snapshot(binding, owner)
                 if time.time_ns() // 1_000_000 - start > 5000:
-                    stage += ":cohort_timeout"
+                    phase.stage += ":cohort_timeout"
                     raise ValueError()
                 if (current.spec.record() != original.spec.record()
                         or current.storage_version != original.storage_version
                         or dump_envelope(current.envelope) != dump_envelope(original.envelope)):
                     raise ValueError()
 
-            last_get = None
+            last_get, start_lock = None, threading.Lock()
             def get(axis, cursor=None):
-                nonlocal last_get, stage, sent
-                stage = axis + ":before_request"
-                # Startup calls share the registration mutex. Pace to fewer
-                # than ten GETs/sec, without expanding the existing 5s cohort.
-                if target.get("inspection") == "startup" and last_get is not None:
-                    time.sleep(max(0, .11 - (time.monotonic() - last_get)))
-                guard()
-                last_get = time.monotonic()
-                stage = axis + ":native_request"
-                sent += 1
-                response = native.transport(SignedDemoReadRequest(credential,
-                    timestamp_ms=time.time_ns() // 1_000_000, axis=axis, cursor=cursor))
-                stage = axis + ":after_request"
-                guard()
-                _, at = parse.envelope(response)
-                delta = time.time_ns() // 1_000_000 - int(at.timestamp() * 1000)
-                if not 0 <= delta <= 5000:
-                    raise ValueError()
-                stage = axis + ":parse"
-                return response
+                nonlocal last_get, sent
+                try:
+                    phase.stage = axis + ":before_request"
+                    # Only starts serialize; network and post-response guards
+                    # overlap. Fresh actor/storage checks follow any pacing wait.
+                    with start_lock:
+                        if target.get("inspection") == "startup" and last_get is not None:
+                            time.sleep(max(0, .11 - (time.monotonic() - last_get)))
+                        guard()
+                        last_get = time.monotonic()
+                        phase.stage = axis + ":native_request"
+                        sent += 1
+                        request = SignedDemoReadRequest(credential,
+                            timestamp_ms=time.time_ns() // 1_000_000, axis=axis, cursor=cursor)
+                    response = native.transport(request)
+                    phase.stage = axis + ":after_request"
+                    guard()
+                    _, at = parse.envelope(response)
+                    delta = time.time_ns() // 1_000_000 - int(at.timestamp() * 1000)
+                    if not 0 <= delta <= 5000:
+                        raise ValueError()
+                    phase.stage = axis + ":parse"
+                    return response
+                except Exception as error:
+                    error._demo_startup_stage = phase.stage
+                    raise
 
             identity = trading_identity(get("identity"))
             ip_bound = cfg["ip_binding"] == "single_ip"
@@ -256,21 +277,13 @@ class DemoAccountReader:
                 from .demo_startup_check import inspect_startup
                 result = inspect_startup(get, binding, owner, view, a)
                 guard()
+                report("completed")
                 return result
             return view
         except Exception as error:
-            # Fixed stage/count/timing/numeric status only. No context, body,
+            # Fixed stage/count/timing/status and allowlisted shape only. No context, body,
             # native reply, UID, API triple or provider message is persisted.
-            diagnostic = getattr(self.native, "diagnostic", None)
-            if target.get("inspection") == "startup" and callable(diagnostic):
-                try:
-                    diagnostic(dict(schema="investalo-demo-startup-diagnostic/1", stage=stage, sent=sent,
-                        elapsed_ms=time.time_ns() // 1_000_000 - started,
-                        error_type=type(error).__name__,
-                        http_status=getattr(self.native, "native_status", None),
-                        provider_code=getattr(self.native, "native_code", None)))
-                except Exception:
-                    pass
+            report(getattr(error, "_demo_startup_stage", phase.stage), error)
             raise OnboardingRejected("unavailable") from None
         finally:
             if target.get("inspection") == "startup":

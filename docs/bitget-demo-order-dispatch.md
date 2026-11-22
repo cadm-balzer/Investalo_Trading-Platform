@@ -85,7 +85,15 @@ Private Vorher-/Aktivbelege in `infra/local/demo-startup-check/rollout-*`.
 Der erste Nutzer-Startabruf scheitert noch. Eigene rein technische private
 Stage-/Count-/Timing-/Statusdiagnose im bestehenden Executor-tmpfs ausgerollt;
 keine Sitzung, Keydaten, native Rohantwort oder Konto-UID darin.
-Ursache und endgültiger nativer Erfolg bleiben bis zum neuen echten Abruf offen.
+Der neue echte Abruf belegt native200/00000 und5265ms nach zehn GETs:
+serielle Kohorte zu langsam. [Begrenzte Überlappung](bitget-demo-startup-check.md)
+behebt die Laufzeit bei unveränderten Guards. Weitere native Diagnose belegt
+null/null-Pending-Leerantwort in4371ms; eigener Startupadapter ergänzt diese
+exakte Endseite mit Originalclock. Gemeinsame Queue entfernt weitere Barriere.
+Originaler Startabruf vollständig erfolgreich:15 GETs/4551ms/200/00000,
+private Abschlussdiagnose ohne Fehler; Browserbericht vom Nutzer bestätigt.
+Tatsächliche Cross/Hedge/10×-Einstellungen benötigen separate
+Demo-Konfigurationsvorbereitung für isoliert/one-way/2×.
 Normaler Konto-Sync und originale Schutzgrenzen bleiben erhalten.
 
 Tests: tatsächliche private Registry/Outbox, reale AEAD mit synthetischen

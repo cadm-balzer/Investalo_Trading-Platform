@@ -1,14 +1,55 @@
 """Read-only initial Demo checks. This report cannot authorize an order."""
 from decimal import Decimal
 from datetime import datetime, timezone
+from concurrent.futures import ThreadPoolExecutor
 import json
+import threading
 
 from investalo_bitget import parse
+from investalo_bitget.futures_demo import DemoRejected
 from investalo_bitget.futures_demo_account import CONFIGS, AXES, _pages, DemoPacket, DemoReadPlan
+from investalo_bitget.transport import ReadResponse
 
 SCHEMA = "investalo-demo-startup/1"
 BLOCKERS = frozenset(("initial_balance_changed", "wallet_unknown", "wallet_collateral",
     "positions_present", "orders_present", "order_pages_incomplete", "configuration_mismatch"))
+PAGE_REASONS = frozenset(("foreign_account_packet", "stale_account_packet",
+    "pending_page_sequence_mismatch", "invalid_pending_page", "invalid_order_id",
+    "invalid_pending_order", "duplicate_or_regressed_pending_id",
+    "wrong_pending_status", "invalid_pending_cursor"))
+
+
+def pending_failure(error, response):
+    """Private fixed classifications only; never copy native values or messages."""
+    reason = str(error) if type(error) is DemoRejected else None
+    raw, _ = parse.envelope(response)
+    shape = dict(data="object" if type(raw) is dict else "other",
+                 rows="missing", cursor="missing")
+    if type(raw) is dict:
+        if "entrustedList" in raw:
+            rows = raw["entrustedList"]
+            shape["rows"] = "array" if type(rows) is list else "null" if rows is None else "other"
+            if type(rows) is list:
+                shape["row_count"] = min(len(rows), 101)
+        if "endId" in raw:
+            cursor = raw["endId"]
+            shape["cursor"] = ("null" if cursor is None else
+                "empty_string" if type(cursor) is str and cursor == "" else
+                "zero_string" if type(cursor) is str and cursor == "0" else
+                "zero_integer" if type(cursor) is int and cursor == 0 else
+                "other")
+    return dict(reason=reason if reason in PAGE_REASONS else "unclassified", shape=shape)
+
+
+def startup_pending_response(response):
+    """Native Demo empty-page variant; preserve the original envelope clock."""
+    raw, _ = parse.envelope(response)
+    if (type(raw) is dict and set(raw) == {"entrustedList", "endId"}
+            and raw["entrustedList"] is None and raw["endId"] is None):
+        frame = json.loads(response.body)
+        frame["data"] = dict(entrustedList=[], endId=None)
+        return ReadResponse(response.status, json.dumps(frame, separators=(",", ":")).encode())
+    return response
 
 
 def inspect_startup(get, binding, owner, account, wallet):
@@ -18,19 +59,39 @@ def inspect_startup(get, binding, owner, account, wallet):
         blockers.add("wallet_unknown")
     elif wallet.available != Decimal("10000") or wallet.account_equity != Decimal("10000"):
         blockers.add("initial_balance_changed")
-    if any(v is None for v in (wallet.locked, wallet.isolated_margin,
-                               wallet.crossed_margin, wallet.unrealized_pnl)):
+    collateral = (wallet.coupon, wallet.grant, wallet.locked,
+                  wallet.isolated_margin, wallet.crossed_margin, wallet.unrealized_pnl)
+    if any(v is None for v in collateral) or wallet.asset_mode is None:
         blockers.add("wallet_unknown")
-    if (wallet.asset_mode != "single" or wallet.assets not in (None, ())
-            or any(v != Decimal(0) for v in (wallet.coupon, wallet.grant, wallet.locked,
-                wallet.isolated_margin, wallet.crossed_margin, wallet.unrealized_pnl))):
+    if (wallet.asset_mode == "union" or wallet.assets not in (None, ())
+            or any(v is not None and v != Decimal(0) for v in collateral)):
         blockers.add("wallet_collateral")
     if account["positions"]:
         blockers.add("positions_present")
-    for symbol in CONFIGS:
-        response = get(symbol)
+    cancelled, failure_lock, first_failure = threading.Event(), threading.Lock(), []
+
+    def job(function, axis):
+        if cancelled.is_set():
+            raise ValueError()
+        try:
+            return function(axis)
+        except Exception as error:
+            if not hasattr(error, "_demo_startup_stage"):
+                error._demo_startup_stage = axis + ":parse"
+            with failure_lock:
+                if not first_failure:
+                    first_failure.append(error)
+            cancelled.set()
+            raise
+
+    def request(axis, cursor=None):
+        if cancelled.is_set():
+            raise ValueError()
+        return get(axis, cursor)
+
+    def configuration(symbol):
+        response = request(symbol)
         raw, at = parse.envelope(response)
-        clocks.append(at)
         if type(raw) is not dict:
             raise ValueError()
         # The exact requested symbol is bound by the signed GET; some native
@@ -48,37 +109,65 @@ def inspect_startup(get, binding, owner, account, wallet):
         leverage = parse.amount(native_leverage)
         matches = (raw.get("marginCoin") == "USDT" and margin == "isolated"
                    and mode == "one_way_mode" and assets == "single" and leverage == Decimal(2))
-        if not matches:
-            blockers.add("configuration_mismatch")
-        configs.append(dict(symbol=symbol, margin_mode=margin, position_mode=mode, asset_mode=assets,
-            long_leverage=None if leverage is None else format(leverage, "f"), matches=matches))
-    counts, seen_ids = [], set()
-    for axis in AXES[2:]:
+        return dict(symbol=symbol, margin_mode=margin, position_mode=mode, asset_mode=assets,
+            long_leverage=None if leverage is None else format(leverage, "f"), matches=matches), at
+
+    def orders(axis):
+        times = []
         pages, cursor = [], None
         for _ in range(10):
-            response = get(axis, cursor)
-            packet = DemoPacket(DemoReadPlan(binding, axis, cursor), response)
+            response = request(axis, cursor)
+            packet = DemoPacket(DemoReadPlan(binding, axis, cursor),
+                                startup_pending_response(response))
             pages.append(packet)
             _, at = parse.envelope(response)
-            clocks.append(at)
+            times.append(at)
             # Use the existing bounded, monotonic cursor/ID/status validator.
-            rows, complete = _pages(pages, axis, binding, owner,
-                                    int(datetime.now(timezone.utc).timestamp() * 1000))
+            try:
+                rows, complete = _pages(pages, axis, binding, owner,
+                                        int(datetime.now(timezone.utc).timestamp() * 1000))
+            except Exception as error:
+                error._demo_pending_failure = pending_failure(error, response)
+                raise
             if complete:
                 break
             raw, _ = parse.envelope(response)
             cursor = raw["endId"]
             if not cursor:
                 break
-        ids = {row["orderId"] for row in rows}
+        return dict(category=axis, count=len(rows), pages=len(pages), complete=complete), {
+            row["orderId"] for row in rows}, times
+
+    # Independent configs/families overlap, at most three sockets. Every GET
+    # still passes the caller's paced, fresh before/after credential guards.
+    with ThreadPoolExecutor(max_workers=3, thread_name_prefix="demo-startup") as pool:
+        try:
+            # One queue lets a pending family use a free worker while the
+            # final independent config is in flight; no whole-group barrier.
+            results = list(pool.map(lambda axis: job(
+                configuration if axis in CONFIGS else orders, axis), (*CONFIGS, *AXES[2:])))
+            projected, pending = results[:len(CONFIGS)], results[len(CONFIGS):]
+        except Exception:
+            cancelled.set()
+            if first_failure:
+                raise first_failure[0] from None
+            raise
+    for config, at in projected:
+        configs.append(config)
+        clocks.append(at)
+        if not config["matches"]:
+            blockers.add("configuration_mismatch")
+    counts, seen_ids = [], set()
+    for count, ids, times in pending:
         if seen_ids & ids:
             raise ValueError()
         seen_ids.update(ids)
-        if rows:
+        if count["count"]:
             blockers.add("orders_present")
-        if not complete:
+        if not count["complete"]:
             blockers.add("order_pages_incomplete")
-        counts.append(dict(category=axis, count=len(rows), pages=len(pages), complete=complete))
+        counts.append(count)
+        clocks.extend(times)
     if not 0 <= (datetime.now(timezone.utc) - min(clocks)).total_seconds() <= 5:
         raise ValueError()
     return validate_startup(dict(schema=SCHEMA, account=account, observed_at=min(clocks).isoformat(),

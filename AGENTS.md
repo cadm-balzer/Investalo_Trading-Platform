@@ -7,12 +7,38 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR107 merged1dcf8a3. User retry proved startup serial latency failure:
+  XRPUSDT after tenth GET,5265ms, native200/00000; no rights/key failure.
+  Fix on fix/m1-demo-startup-read overlaps seven configs/five order families
+  with at most3 workers, paced starts110ms, actual fresh actor/storage guards
+  before/after every GET and unchanged source/cohort5s. Identity/wallet/positions
+  still precede parallel reads; paginated families stay sequential internally.
+  Joined/cancelled workers cannot publish partial results; stable report order.
+  Second original retry: normal_plan parse/13 GETs/4371ms/native200/00000;
+  private fixed shape proves entrustedList:null,endId:null. Startup-only
+  adapter accepts exactly these two null fields as empty terminal page,
+  preserves original source clock and prior orders; missing/extra/cursor
+  variants still reject. Old _pages/Read contract unchanged.
+  All15 GETs subsequently reached5246ms: remove the config/pending group
+  barrier with one continuous queue, still max3 workers and stable projection.
+  161 pinned offline tests green, including actual barrier/event coverage,
+  latency/revocation/duplicate/restore.
+  Final Executor build green; necessary fix rolled out with actual mTLS405,
+  healthy Cockpit and unchanged other container IDs, original overlays retained.
+  Rollout within existing explicit startup deployment approval;
+  Original user startup read now completed:15 native GETs/4551ms/200/00000,
+  private diagnostic completed/no error. User confirms visible report:
+  per-coin Cross/Hedge/10x (BTC isolated) differs from target isolated/one-way/2x.
+  Unknown coupon/grant/assetMode now maps to wallet_unknown instead of
+  asserting wallet_collateral; actual nonzero amounts/union remain blocked.
+  Older-order scope/costs/execution flags remain false.
+  No frontend/Key/DB/order change.
 - PR106 merged30ccdbe, user explicitly approved startup rollout. Tested images
   recreated only Cockpit/Trading-executor; five other running services unchanged.
   TLS200/both anonymous read401/actual private mTLS405, active key1/1 intact.
   Private deployment receipts in infra/local/demo-startup-check/rollout-*.
   User startup read failed; private numeric stage/count/timing diagnostics
-  deployed as necessary rollout fix, actual retry/root cause still pending.
+  deployed as necessary rollout fix; retry proves serial cohort timeout, see fix above.
   Own disabled order core and public BTC preview on feat/m1-demo-order-dispatch:
   existing registered outbox + actual sealed Trading provider, exact injected
   durable order consumer/account guard required; no operative grant adapter

@@ -10,7 +10,18 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
 IP-015/IP-016: PR106-Rollout `DONE` nach Nutzerfreigabe, nur zwei Dienste
 erneuert, fünf andere unverändert, TLS/anonym/private mTLS geprüft, Key1/1 aktiv.
-Nutzer-Startprüfung unbestätigt: Diagnose `IN_PROGRESS`.
+Nutzerretry: native200/00000, zehn GETs/5265ms, serielle5s-Kohorte überschritten.
+Fix: höchstens3 parallele Leseworker mit110ms-Zulassung und unveränderten
+Credential-/Zeitguards;161 Offlinefälle/Executorbuild grün. Weitere Original-
+Antwort:13 GETs/4371ms, belegte native null/null-Leerseite; eigener
+Startupadapter erhält Clock/alte Readverträge und alle bisherigen Aufträge.
+Weitere15 GETs/5246ms: gemeinsame Queue entfernt Konfiguration/Pending-Barriere.
+Fixrollout `DONE`
+innerhalb bestehender Freigabe, mTLS405/andere Dienste unverändert.
+Vollständiger nativer Originalabruf `DONE`:15 GETs/4551ms/200/00000,
+private Abschlussdiagnose ohne Fehler. Browserberichtbestätigung `DONE`:
+Cross/Hedge/10× weichen vom vorgesehenen Profil ab.
+Unbekannte Sicherheiten als unbekannt statt als tatsächliche Margin gemeldet.
 [Privater Orderkern/Testvorschau](../bitget-demo-order-dispatch.md) implementiert;
 native Orderautorisierung/Accountguard/Outbox-Einrichtung und echte
 Testfreigabe bleiben `READY` als Folgeblock, keine Orderruntime aktiv.
