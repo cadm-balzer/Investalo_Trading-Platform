@@ -50,6 +50,7 @@ export type DemoTradingRuntime = Readonly<{
   flow: DemoTradingPasskeyCredentialBrowserFlow;
   check(): Promise<void>;
   accountId: string;
+  identity?: DemoTradingCredentialPrivateIdentity;
 }>;
 
 export async function loadDemoTradingCredentialRuntime(input: Readonly<{
@@ -109,5 +110,5 @@ export async function loadDemoTradingCredentialRuntime(input: Readonly<{
       };
     },
   });
-  return Object.freeze({ flow, check, accountId: manifest.accountId });
+  return Object.freeze({ flow, check, accountId: manifest.accountId, identity });
 }

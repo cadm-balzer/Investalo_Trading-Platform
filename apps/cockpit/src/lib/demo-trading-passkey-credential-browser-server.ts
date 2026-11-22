@@ -19,7 +19,7 @@ import { randomToken } from "./security.ts";
 // handles; committed019 remains authoritative. Failed installation never retries.
 const runtimeKey = Symbol.for("investalo.demo-trading.browser-runtime/1");
 type RuntimeGlobal = typeof globalThis & { [runtimeKey]?: Promise<DemoTradingRuntime | null> };
-async function runtime(): Promise<DemoTradingRuntime | null> {
+export async function runtime(): Promise<DemoTradingRuntime | null> {
   if (process.env.COCKPIT_DEMO_TRADING_CREDENTIALS !== "1") return null;
   const shared = globalThis as RuntimeGlobal;
   shared[runtimeKey] ??= (async () => {

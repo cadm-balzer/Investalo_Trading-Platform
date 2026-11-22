@@ -111,6 +111,10 @@ class DemoTradingCredentialHTTPApplication(CredentialHTTPApplication):
     """Own fixed Trading domain; callback must use DemoTradingPasskeyOnboarding."""
     __slots__ = ()
 
+class DemoTradingAccountHTTPApplication(DemoTradingCredentialHTTPApplication):
+    """Explicit operative Trading installation with own readonly account purpose."""
+    __slots__ = ()
+
 
 def _application_targets(application):
     if type(application) is CredentialHTTPApplication:
@@ -118,15 +122,22 @@ def _application_targets(application):
     if type(application) is DemoCredentialHTTPApplication:
         from .demo_passkey_assertion import TARGETS as demo_targets
         return demo_targets
-    if type(application) is DemoTradingCredentialHTTPApplication:
+    if type(application) in (DemoTradingCredentialHTTPApplication, DemoTradingAccountHTTPApplication):
         from .demo_trading_passkey_assertion import TARGETS as trading_targets
+        if type(application) is DemoTradingAccountHTTPApplication:
+            from .demo_account_sync import PATH
+            return {**trading_targets, "account_read": PATH}
         return trading_targets
     raise OnboardingRejected("invalid_context") from None
 
 
 def _application_result(application, result, action):
+    if type(application) is DemoTradingAccountHTTPApplication and action == "account_read":
+        from .demo_account_sync import validate_view
+        return validate_view(result)
     value = _public_result(result, action)
-    if type(application) in (DemoCredentialHTTPApplication, DemoTradingCredentialHTTPApplication) and value["credential_revision"] != 1:
+    if type(application) in (DemoCredentialHTTPApplication, DemoTradingCredentialHTTPApplication,
+                             DemoTradingAccountHTTPApplication) and value["credential_revision"] != 1:
         raise OnboardingRejected("invalid_record") from None
     return value
 

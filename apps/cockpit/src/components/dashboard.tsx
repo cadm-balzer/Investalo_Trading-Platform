@@ -17,6 +17,7 @@ import { FuturesAssetsPanel } from "./futures-paper-assets";
 import { BitgetDemoAccessPanel } from "./bitget-demo-access";
 import { parseFuturesAssets, type FuturesAssets } from "@/lib/futures-paper-assets-contracts";
 import { adminMailAvailable } from "@/lib/admin-mail-server";
+import { DemoAccountPanel } from "./demo-account";
 
 type Section = "overview" | "portfolio" | "journal" | "backtest" | "shield";
 const navigation: { label: string; href: string; section: Section }[] = [
@@ -132,6 +133,8 @@ export async function DashboardPage({ section }: { section: Section }) {
       {recoveryPreview && <FuturesRecoveryPanel data={recovery} csrf={session.csrf} summary={section === "overview"} />}
       {basketPreview && <FuturesPaperSettingsPanel data={basketSettings} csrf={session.csrf} />}
       {assetsPreview && <FuturesAssetsPanel data={futuresAssets} />}
+      {process.env.COCKPIT_DEMO_ACCOUNT_SYNC === "1" && ["overview", "portfolio"].includes(section) &&
+        <DemoAccountPanel tenantId={session.tenantId} />}
       {section === "overview" && <>
         <div className="overview-banner"><div><span className="eyebrow">DEIN ERSTER SCHRITT</span><h2>Nachweise statt Versprechen.</h2><p>BTC und ETH auf H4. Gold auf H1/M15. Erst Daten prüfen, dann mit virtuellem Kapital lernen.</p><Link href="/backtests" className="text-link">Zur Strategieforschung <Icon name="arrow" size={17} /></Link></div><div className="banner-icon" aria-hidden="true"><Icon name="globe" size={82} /></div></div>
         <div className="metric-grid"><article className="metric-card"><span className="metric-label">Zugeordnete Konten</span><strong>{data.accounts.length}</strong><small>Getrennt nach Konto & Währung</small></article><article className="metric-card"><span className="metric-label">{assetsPreview ? "Weitere Paperpositionen" : "Offene Positionen"}</span><strong>{data.positions.length}</strong><small>Simulierte Paperpositionen</small></article><article className="metric-card"><span className="metric-label">Forschungsaufträge</span><strong>{data.jobs.length}</strong><small>Tatsächlich gespeicherte Aufträge</small></article></div>

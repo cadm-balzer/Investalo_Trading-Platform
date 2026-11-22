@@ -16,6 +16,8 @@ import { exactObject, parseEnrollmentJson } from "./passkey-enrollment-state.ts"
 import { validateDemoTradingPasskeyCredentialBody } from "./demo-trading-passkey-credential-token.ts";
 import { createDemoTradingPasskeyCredentialExecutor } from "./demo-trading-passkey-credential-executor.ts";
 import type { DemoTradingCredentialIdentityPorts } from "./demo-trading-passkey-credential-provider.ts";
+import { readDemoAccount } from "./demo-account-executor.ts";
+import type { DemoAccount, DemoAccountTarget } from "./demo-account-contract.ts";
 
 export type DemoTradingCredentialPrivateIdentitySpec = Readonly<{
   schema: "investalo-demo-trading-credential-private-identity/1";
@@ -28,6 +30,7 @@ export type DemoTradingCredentialPrivateIdentitySpec = Readonly<{
 }>;
 export type DemoTradingCredentialPrivateIdentity = Readonly<{
   forSession(bound: ProofSession, currentUserId: string): DemoTradingCredentialIdentityPorts;
+  readAccount?(bound: ProofSession, currentUserId: string, target: DemoAccountTarget): Promise<DemoAccount>;
 }>;
 const rejection = () => new Error("DEMO_TRADING_CREDENTIAL_PRIVATE_IDENTITY_REJECTED");
 const sha = (value: Uint8Array) => createHash("sha256").update(value).digest("hex");
@@ -191,6 +194,22 @@ export async function createDemoTradingCredentialPrivateIdentity(
     const initial = await load();
     initial.forEach(value => value.fill(0));
     return Object.freeze({
+      async readAccount(session: ProofSession, currentUserId: string, target: DemoAccountTarget) {
+        const bound = proofSession(session, clock());
+        if (bound.session.tenantId !== spec.tenantId || canonicalUuid(currentUserId) !== spec.userId ||
+          bound.origin !== spec.origin || bound.session.issuer !== spec.oidcIssuer ||
+          canonicalUuid(target.platform_account_id) !== spec.accountId) throw rejection();
+        let values: Buffer[] = [];
+        try {
+          values = await load(); proofSession(bound, clock());
+          const result = await readDemoAccount({ origin: spec.executorOrigin, oidcIssuer: spec.oidcIssuer,
+            authorized: bound, userId: spec.userId, target, signingKey: values[0],
+            tls: { ca: values[1], certificate: values[2], privateKey: values[3] }, now: clock() });
+          proofSession(bound, clock()); await load().then(material => material.forEach(v => v.fill(0)));
+          return result;
+        } catch { throw rejection(); }
+        finally { values.forEach(value => value.fill(0)); }
+      },
       forSession(session: ProofSession, currentUserId: string): DemoTradingCredentialIdentityPorts {
         try {
           const bound = proofSession(session, clock());
