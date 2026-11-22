@@ -14,7 +14,8 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   Same native registration limiter, no retry/orders/migration/dependencies.
   Dashboard/Portfolio USDT equity/available/UPL/locked and full positions,
   source time,30s visible-tab refresh and manual update; unknown stays unknown.
-  60 pinned Node/42 Python cases, typecheck and full Compose validation green.
+  60 pinned Node/42 Python cases, typecheck/full Compose validation and final
+  pinned Cockpit+Demo executor builds green.
   Native probe stopped before HTTP at expired original registration session;
   no invented auth/session and no actual balance acceptance claimed.
   Production rollout requires approval; first valid Dashboard session follows.

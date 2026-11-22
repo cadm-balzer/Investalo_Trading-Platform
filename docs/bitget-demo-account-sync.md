@@ -73,7 +73,8 @@ des Sync-Overlays und Neuerstellen derselben beiden Dienste.
 Geprüft am 2026-11-22: 60 gezielte gepinnte Node- und 42 Pythonfälle, echte lokale Node- und
 ASGI-mTLS-Verbindungen, reale AEAD-Entschlüsselung synthetischer Keys,
 Rechte-/UID-/Session-/Replay-/Revocation- und Projektionstests sowie
-Typprüfung und vollständige Compose-Konfiguration. Die bestehende
+Typprüfung, vollständige Compose-Konfiguration und finale gepinnte
+Cockpit-/Demo-Executor-Builds. Die bestehende
 Demo-Key-Einrichtung bleibt in den Regressionen enthalten.
 
 Der einmalige native Vorabprobeversuch stoppte vor Bitget am abgelaufenen
