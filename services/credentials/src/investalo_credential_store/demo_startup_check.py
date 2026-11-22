@@ -6,11 +6,50 @@ import json
 import threading
 
 from investalo_bitget import parse
+from investalo_bitget.futures_demo import DemoRejected
 from investalo_bitget.futures_demo_account import CONFIGS, AXES, _pages, DemoPacket, DemoReadPlan
+from investalo_bitget.transport import ReadResponse
 
 SCHEMA = "investalo-demo-startup/1"
 BLOCKERS = frozenset(("initial_balance_changed", "wallet_unknown", "wallet_collateral",
     "positions_present", "orders_present", "order_pages_incomplete", "configuration_mismatch"))
+PAGE_REASONS = frozenset(("foreign_account_packet", "stale_account_packet",
+    "pending_page_sequence_mismatch", "invalid_pending_page", "invalid_order_id",
+    "invalid_pending_order", "duplicate_or_regressed_pending_id",
+    "wrong_pending_status", "invalid_pending_cursor"))
+
+
+def pending_failure(error, response):
+    """Private fixed classifications only; never copy native values or messages."""
+    reason = str(error) if type(error) is DemoRejected else None
+    raw, _ = parse.envelope(response)
+    shape = dict(data="object" if type(raw) is dict else "other",
+                 rows="missing", cursor="missing")
+    if type(raw) is dict:
+        if "entrustedList" in raw:
+            rows = raw["entrustedList"]
+            shape["rows"] = "array" if type(rows) is list else "null" if rows is None else "other"
+            if type(rows) is list:
+                shape["row_count"] = min(len(rows), 101)
+        if "endId" in raw:
+            cursor = raw["endId"]
+            shape["cursor"] = ("null" if cursor is None else
+                "empty_string" if type(cursor) is str and cursor == "" else
+                "zero_string" if type(cursor) is str and cursor == "0" else
+                "zero_integer" if type(cursor) is int and cursor == 0 else
+                "other")
+    return dict(reason=reason if reason in PAGE_REASONS else "unclassified", shape=shape)
+
+
+def startup_pending_response(response):
+    """Native Demo empty-page variant; preserve the original envelope clock."""
+    raw, _ = parse.envelope(response)
+    if (type(raw) is dict and set(raw) == {"entrustedList", "endId"}
+            and raw["entrustedList"] is None and raw["endId"] is None):
+        frame = json.loads(response.body)
+        frame["data"] = dict(entrustedList=[], endId=None)
+        return ReadResponse(response.status, json.dumps(frame, separators=(",", ":")).encode())
+    return response
 
 
 def inspect_startup(get, binding, owner, account, wallet):
@@ -78,13 +117,18 @@ def inspect_startup(get, binding, owner, account, wallet):
         pages, cursor = [], None
         for _ in range(10):
             response = request(axis, cursor)
-            packet = DemoPacket(DemoReadPlan(binding, axis, cursor), response)
+            packet = DemoPacket(DemoReadPlan(binding, axis, cursor),
+                                startup_pending_response(response))
             pages.append(packet)
             _, at = parse.envelope(response)
             times.append(at)
             # Use the existing bounded, monotonic cursor/ID/status validator.
-            rows, complete = _pages(pages, axis, binding, owner,
-                                    int(datetime.now(timezone.utc).timestamp() * 1000))
+            try:
+                rows, complete = _pages(pages, axis, binding, owner,
+                                        int(datetime.now(timezone.utc).timestamp() * 1000))
+            except Exception as error:
+                error._demo_pending_failure = pending_failure(error, response)
+                raise
             if complete:
                 break
             raw, _ = parse.envelope(response)
@@ -98,8 +142,11 @@ def inspect_startup(get, binding, owner, account, wallet):
     # still passes the caller's paced, fresh before/after credential guards.
     with ThreadPoolExecutor(max_workers=3, thread_name_prefix="demo-startup") as pool:
         try:
-            projected = list(pool.map(lambda axis: job(configuration, axis), CONFIGS))
-            pending = list(pool.map(lambda axis: job(orders, axis), AXES[2:]))
+            # One queue lets a pending family use a free worker while the
+            # final independent config is in flight; no whole-group barrier.
+            results = list(pool.map(lambda axis: job(
+                configuration if axis in CONFIGS else orders, axis), (*CONFIGS, *AXES[2:])))
+            projected, pending = results[:len(CONFIGS)], results[len(CONFIGS):]
         except Exception:
             cancelled.set()
             if first_failure:

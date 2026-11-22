@@ -1,11 +1,19 @@
 # Technische Fallstricke
 
+- Native Demo-Pendinglisten liefern bei leerem Bestand tatsächlich
+  `entrustedList:null,endId:null`. Startupadapter akzeptiert ausschließlich
+  diese exakte zweifeldrige Variante als leere Abschlussseite; Originalclock
+  erhalten, fehlende Felder/Zusatzfelder/ein echter Cursor weiterhin ablehnen.
+  Alte strikte Read-/Cursorverträge nicht pauschal lockern.
+
 - Die Startprüfung mit15 seriellen nativen GETs passt praktisch nicht in5s:
   tatsächlich5265ms schon nach10 erfolgreichen Anfragen. Unabhängige
   Konfigurationen/Familien begrenzt überlappen, Starts trotzdem pacing-
   geschützt und Actor/Storage nach jeder Wartezeit frisch prüfen. Cursorseiten
   derselben Familie nicht parallelisieren. Worker vor UID-Lockfreigabe joinen;
   bei Fehlern keine Teilfreigabe. [Fix](../bitget-demo-startup-check.md).
+  Getrennte `pool.map`-Gruppen erzeugen eine weitere Wartebarriere;
+  zwölf unabhängige Jobs durchgehend zulassen, Ergebnisse stabil projizieren.
 
 - Native Demo-Kontrakte können `maxOrderQty=""` liefern. Eine öffentliche
   Testvorschau darf daraus keine native Höchstmenge erfinden und benötigt

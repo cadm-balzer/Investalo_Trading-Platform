@@ -87,7 +87,11 @@ Stage-/Count-/Timing-/Statusdiagnose im bestehenden Executor-tmpfs ausgerollt;
 keine Sitzung, Keydaten, native Rohantwort oder Konto-UID darin.
 Der neue echte Abruf belegt native200/00000 und5265ms nach zehn GETs:
 serielle Kohorte zu langsam. [Begrenzte Überlappung](bitget-demo-startup-check.md)
-behebt die Ursache bei unveränderten Guards; endgültige native Erfolgsabnahme folgt.
+behebt die Laufzeit bei unveränderten Guards. Weitere native Diagnose belegt
+null/null-Pending-Leerantwort in4371ms; eigener Startupadapter ergänzt diese
+exakte Endseite mit Originalclock. Gemeinsame Queue entfernt weitere Barriere.
+Originaler Startabruf vollständig erfolgreich:15 GETs/4551ms/200/00000,
+private Abschlussdiagnose ohne Fehler; Browserberichtbestätigung folgt.
 Normaler Konto-Sync und originale Schutzgrenzen bleiben erhalten.
 
 Tests: tatsächliche private Registry/Outbox, reale AEAD mit synthetischen

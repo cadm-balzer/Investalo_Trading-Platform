@@ -179,11 +179,14 @@ class DemoAccountReader:
             if target.get("inspection") != "startup" or not callable(diagnostic):
                 return
             try:
-                diagnostic(dict(schema="investalo-demo-startup-diagnostic/1", stage=stage, sent=sent,
+                value = dict(schema="investalo-demo-startup-diagnostic/1", stage=stage, sent=sent,
                     elapsed_ms=time.time_ns() // 1_000_000 - started,
                     error_type=None if error is None else type(error).__name__,
                     http_status=getattr(self.native, "native_status", None),
-                    provider_code=getattr(self.native, "native_code", None)))
+                    provider_code=getattr(self.native, "native_code", None))
+                if error is not None and hasattr(error, "_demo_pending_failure"):
+                    value["pending_failure"] = error._demo_pending_failure
+                diagnostic(value)
             except Exception:
                 pass
         try:
@@ -278,7 +281,7 @@ class DemoAccountReader:
                 return result
             return view
         except Exception as error:
-            # Fixed stage/count/timing/numeric status only. No context, body,
+            # Fixed stage/count/timing/status and allowlisted shape only. No context, body,
             # native reply, UID, API triple or provider message is persisted.
             report(getattr(error, "_demo_startup_stage", phase.stage), error)
             raise OnboardingRejected("unavailable") from None

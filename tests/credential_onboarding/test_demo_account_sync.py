@@ -316,10 +316,77 @@ class DemoAccountTests(unittest.TestCase):
             self.run_read()
         self.assertEqual(len(reports), 1)
         self.assertEqual(reports[0]["stage"], "live:parse")
-        self.assertEqual(set(reports[0]), {"schema","stage","sent","elapsed_ms","error_type","http_status","provider_code"})
+        self.assertEqual(set(reports[0]), {"schema","stage","sent","elapsed_ms","error_type",
+            "http_status","provider_code","pending_failure"})
+        self.assertEqual(reports[0]["pending_failure"], dict(reason="invalid_pending_page",
+            shape=dict(data="object", rows="missing", cursor="missing")))
         text = json.dumps(reports)
         for private in ("synthetic", "api", "passphrase", "session_binding", "broker_uid", "entrustedList"):
             self.assertNotIn(private, text)
+
+    def test_pending_diagnostic_classifies_without_copying_ids_or_error_messages(self):
+        from investalo_credential_store.demo_startup_check import pending_failure
+        from investalo_bitget.futures_demo import DemoRejected
+        for cursor, expected in ((None, "null"), ("", "empty_string"), ("0", "zero_string"),
+                                 (0, "zero_integer"), ("private-id", "other")):
+            response = ReadResponse(200, json.dumps(dict(code="00000", requestTime=int(time.time()*1000),
+                data=dict(entrustedList=[], endId=cursor, private="private-data"))).encode())
+            result = pending_failure(DemoRejected("invalid_order_id"), response)
+            self.assertEqual(result, dict(reason="invalid_order_id",
+                shape=dict(data="object", rows="array", row_count=0, cursor=expected)))
+            result = pending_failure(ValueError("private-error"), response)
+            self.assertEqual(result["reason"], "unclassified")
+            self.assertNotIn("private", json.dumps(result))
+
+    def test_native_demo_null_null_empty_page_is_terminal_in_each_family(self):
+        self.startup(lambda r, d: dict(entrustedList=None, endId=None) if r.axis in AXES[2:] else d)
+        with patch("investalo_credential_store.demo_account_sync.time.sleep"):
+            report = self.run_read()
+        self.assertEqual(report["blockers"], [])
+        self.assertTrue(all(o["count"] == 0 and o["pages"] == 1 and o["complete"]
+                            for o in report["orders"]))
+        self.assertFalse(report["pending_scope_verified"])
+        self.assertFalse(report["execution_enabled"])
+
+    def test_null_rows_with_missing_real_or_unexpected_cursor_fields_still_reject(self):
+        variants = ({}, dict(entrustedList=None), dict(endId=None),
+            dict(entrustedList=None, endId="123"), dict(entrustedList=None, endId=""),
+            dict(entrustedList=None, endId=None, otherOrders=[]))
+        for variant in variants:
+            with self.subTest(variant=variant):
+                self.setUp()
+                self.startup(lambda r, d: variant if r.axis == "live" else d)
+                with patch("investalo_credential_store.demo_account_sync.time.sleep"), self.assertRaises(OnboardingRejected):
+                    self.run_read()
+
+    def test_null_null_terminal_page_retains_preceding_pending_orders(self):
+        def pending(request, data):
+            if request.axis == "live":
+                return (dict(entrustedList=[dict(orderId="123", status="live")], endId="123")
+                        if request.cursor is None else dict(entrustedList=None, endId=None))
+            return data
+        self.startup(pending)
+        with patch("investalo_credential_store.demo_account_sync.time.sleep"):
+            report = self.run_read()
+        self.assertEqual(report["orders"][0], dict(category="live", count=1, pages=2, complete=True))
+        self.assertIn("orders_present", report["blockers"])
+
+    def test_empty_page_adapter_preserves_source_clock_and_old_page_contract(self):
+        from investalo_credential_store.demo_startup_check import startup_pending_response
+        from investalo_bitget.futures_demo_account import _pages, DemoPacket, DemoReadPlan
+        from investalo_bitget import parse
+        from investalo_bitget.futures_demo import DemoRejected
+        now = int(time.time()*1000)
+        response = ReadResponse(200, json.dumps(dict(code="00000", requestTime=now-1000,
+            data=dict(entrustedList=None, endId=None))).encode())
+        adapted = startup_pending_response(response)
+        self.assertEqual(parse.envelope(response)[1], parse.envelope(adapted)[1])
+        plan = DemoReadPlan(self.binding, "live")
+        with self.assertRaises(DemoRejected):
+            _pages([DemoPacket(plan, response)], "live", self.binding, self.owner, now)
+        self.assertEqual(_pages([DemoPacket(plan, adapted)], "live", self.binding, self.owner, now), ([], True))
+        with self.assertRaises(DemoRejected):
+            _pages([DemoPacket(plan, adapted)], "live", self.binding, self.owner, now+5000)
 
     def test_native_latency_overlaps_with_three_workers_but_paces_every_get(self):
         self.startup()
@@ -346,6 +413,26 @@ class DemoAccountTests(unittest.TestCase):
         self.assertEqual(len(starts), 15)
         self.assertTrue(all(b-a >= .10 for a,b in zip(starts, starts[1:])))
         self.assertEqual(report["blockers"], [])
+
+    def test_pending_family_uses_free_worker_while_final_config_is_in_flight(self):
+        self.startup()
+        original = self.native.transport
+        final_config, pending_started = threading.Event(), threading.Event()
+        def delayed(request):
+            if request.axis == CONFIGS[-1]:
+                final_config.set()
+                self.assertTrue(pending_started.wait(1), "whole-config barrier delayed pending read")
+            elif request.axis == "live":
+                self.assertTrue(final_config.wait(1))
+                pending_started.set()
+            return original(request)
+        self.native.transport = delayed
+        with patch("investalo_credential_store.demo_account_sync.time.sleep"):
+            report = self.run_read()
+        self.assertTrue(pending_started.is_set())
+        self.assertEqual(report["blockers"], [])
+        self.assertEqual([c["symbol"] for c in report["configurations"]], list(CONFIGS))
+        self.assertEqual([o["category"] for o in report["orders"]], list(AXES[2:]))
 
     def test_parallel_failure_waits_for_workers_and_never_returns_partial_report(self):
         self.startup()

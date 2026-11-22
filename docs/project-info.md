@@ -70,7 +70,12 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 erfolgreiche Bitget-GETs benötigen5265ms und überschreiten5s.
 Der [Fix](bitget-demo-startup-check.md) überlappt unabhängige Lesegruppen
 mit maximal3 Workern bei unveränderten Quoten-/Credential-/Zeitprüfungen.
-153 Offlinefälle grün; nur Executor betroffen, echter Erfolgsabruf folgt.
+Weitere native Antwort in4371ms: `entrustedList:null,endId:null`;
+eigener Startupadapter unterstützt genau diese leere Abschlussseite,
+Originalclock/alte Readverträge erhalten. Weitere5246ms bei15 GETs durch
+gemeinsame Queue ohne Gruppenbarriere behoben.159 Offlinefälle grün; nur Executor
+betroffen. Originaler Nutzerabruf jetzt erfolgreich:15 GETs/4551ms,
+HTTP200/00000 und private Abschlussdiagnose ohne Fehler. Browserbericht folgt.
 
 2026-11-22: PR106 gemergt, Startprüfung nach Nutzerfreigabe ausgerollt.
 Nur zwei Dienste erneuert; TLS/mTLS/Anmeldeschutz und unveränderter Key geprüft.
