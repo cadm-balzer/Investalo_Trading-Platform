@@ -14,7 +14,11 @@ USDT-Futures-Kontowert/freie Margin/UPL/Positionen auf Dashboard und Portfolio,
 keine Migration oder Orders.60 Node/42 Python, Typprüfung/Compose grün.
 Native Vorabprobe vor HTTP gestoppt, da originaler
 Registrierungssitzungskontext abgelaufen; erste tatsächliche Anzeige nach
-Rollout und gültiger Anmeldung prüfen. [Betrieb](../bitget-demo-account-sync.md).
+gültiger Anmeldung prüfen. PR104 am20261122 gemergt, Nutzerfreigabe erhalten,
+öffentlich ausgerollt: beide Flags aktiv, gesunde Dienste/null Neustarts,
+HTTPS200/anonym401/echtes privates mTLS mit falschem MAC403;
+Demo-Key weiterhin active/revision1/storage1. Sync-Overlay künftig beibehalten.
+[Betrieb](../bitget-demo-account-sync.md).
 
 IP-015: erste tatsächliche Demo-Keyregistrierung `DONE`: aktiver verschlüsselter
 Datensatz revision1/storage1 mit passendem completed019-Abschlussbeleg.
