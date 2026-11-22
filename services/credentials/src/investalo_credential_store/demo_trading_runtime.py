@@ -32,7 +32,7 @@ from .demo_trading_passkey_assertion import DemoTradingPasskeyRequestVerifier
 from .demo_trading_passkey_onboarding import DemoTradingPasskeyOnboarding
 from .demo_trading_secret import DemoTradingSecretSpec, PURPOSE
 from .private_asgi import create_private_asgi_server
-from .private_http import DemoTradingCredentialHTTPApplication
+from .private_http import DemoTradingCredentialHTTPApplication, DemoTradingAccountHTTPApplication
 from .request_assertion import OnboardingRejected
 
 ROOT = "/run/demo-trading-executor"
@@ -273,16 +273,26 @@ def create_application():
         oidc_issuer=config["oidc_issuer"], origin=config["origin"], clock=lambda: int(time.time()))
     provision = NativeDemoRegistration(json.loads(raw), guard, diagnostic=_write_native_diagnostic,
                                       identity_diagnostic=_write_native_identity)
+    account_read = None
+    if os.environ.get("DEMO_ACCOUNT_SYNC_ENABLED") == "1":
+        from .demo_account_sync import DemoAccountReader
+        account_read = DemoAccountReader(config, context, connect=connect, keyring=keyring,
+            signing_key=guarded_file("signing-key", config["signing_sha256"], 32), native=provision)
 
     def execute(request_context, action, token, body):
         guard()
+        if action == "account_read":
+            if account_read is None:
+                raise OnboardingRejected("access_denied")
+            return account_read(request_context, token, body)
         if _request(action, body)[0] != config["account_id"]:
             raise OnboardingRejected("invalid_request")
         return DemoTradingPasskeyOnboarding(context, connect=connect, verifier=verifier,
             request_context=request_context, provision=provision, load_keyring=keyring,
             expected_egress_ip=config["egress_ip"]).apply(action, token=token, body=body)
 
-    return config, DemoTradingCredentialHTTPApplication(context, execute, enabled=True)
+    application = DemoTradingAccountHTTPApplication if account_read is not None else DemoTradingCredentialHTTPApplication
+    return config, application(context, execute, enabled=True)
 
 
 def main(argv=None):

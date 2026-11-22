@@ -9,6 +9,11 @@ Die Einrichtung startet keine Orders.
 
 ## Aktueller Betrieb
 
+Der anschließende [Demo-Konto-Sync](bitget-demo-account-sync.md) ergänzt
+eine getrennte lesende Autorisierung und Anzeige im Dashboard. Er verwendet
+den aktiven verschlüsselten Key; die Passkey-Einrichtung bleibt unverändert.
+Das zusätzliche Sync-Overlay wird separat freigeschaltet.
+
 2026-11-21: Der erste tatsächliche Demo-Handelszugang ist **aktiv, Revision1,
 Stand1**. Rechte `coow/cpow/stow`, native UID und Parent stimmen mit der
 privaten Konfiguration überein. Native Prüfung HTTP200/00000 accepted;

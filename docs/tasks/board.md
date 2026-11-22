@@ -8,6 +8,14 @@ konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
+IP-015: Demo-Konto-Sync implementiert: sichere lesende private Anbindung,
+USDT-Futures-Kontowert/freie Margin/UPL/Positionen auf Dashboard und Portfolio,
+30s-Aktualisierung und manueller Abruf. Default-off, vorhandener AEAD-Key,
+keine Migration oder Orders.60 Node/42 Python, Typprüfung/Compose grün.
+Native Vorabprobe vor HTTP gestoppt, da originaler
+Registrierungssitzungskontext abgelaufen; erste tatsächliche Anzeige nach
+Rollout und gültiger Anmeldung prüfen. [Betrieb](../bitget-demo-account-sync.md).
+
 IP-015: erste tatsächliche Demo-Keyregistrierung `DONE`: aktiver verschlüsselter
 Datensatz revision1/storage1 mit passendem completed019-Abschlussbeleg.
 Native200/00000 accepted, UID/Parent und coow/cpow/stow passen. Sechs failed-

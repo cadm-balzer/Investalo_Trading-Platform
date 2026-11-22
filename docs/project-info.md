@@ -66,6 +66,13 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-21: [Demo-Konto-Sync](bitget-demo-account-sync.md) implementiert:
+eigener lesender mTLS-Pfad über den vorhandenen verschlüsselten Demo-Key,
+USDT-Kontowert, freie Margin, UPL und Positionen im Dashboard/Portfolio,
+30s-Aktualisierung mit Quellezeit. Standardmäßig aus; separate
+Rolloutfreigabe und erster tatsächlicher Abruf nach gültiger Anmeldung folgen.
+Keine neue Migration, Keyänderung oder Orderausführung.
+
 2026-11-21: [erste tatsächliche Demo-Keyregistrierung](bitget-demo-trading-runtime.md)
 erfolgreich: active/revision1/storage1, verschlüsselter Datensatz und passender
 completed019-Beleg. Holdings-Recht ergänzt und native Demo-UID/Parent anhand

@@ -17,7 +17,7 @@ from investalo_credential_store.passkey_request_assertion import TARGETS
 from investalo_credential_store.private_asgi import (
     _Application, create_private_asgi_server,
 )
-from investalo_credential_store.private_http import CredentialHTTPApplication
+from investalo_credential_store.private_http import CredentialHTTPApplication, DemoTradingAccountHTTPApplication
 from investalo_credential_store.request_assertion import OnboardingRejected
 import test_private_http as fixture
 from test_passkey_assertions import CONNECTION, KEY, NOW, fixture_body
@@ -37,11 +37,11 @@ class PrivateASGITests(unittest.TestCase):
     response = fixture.PrivateHTTPTests.response
 
     @contextmanager
-    def server(self, *, enabled=True, execute=None, timeout=3, max_workers=4):
+    def server(self, *, enabled=True, execute=None, timeout=3, max_workers=4, application_type=CredentialHTTPApplication):
         service = create_private_asgi_server(
             ("127.0.0.1", 0), tls_context=self.server_context(),
             client_certificate_sha256=frozenset((self.pin,)),
-            application=CredentialHTTPApplication(self.store, execute or self.execute, enabled=enabled),
+            application=application_type(self.store, execute or self.execute, enabled=enabled),
             timeout_seconds=timeout, max_workers=max_workers,
         )
         thread = threading.Thread(target=service.serve_forever, daemon=True)
@@ -81,6 +81,28 @@ class PrivateASGITests(unittest.TestCase):
             self.assertFalse(service.config.proxy_headers)
             self.assertFalse(service.loop.get_debug())
         self.assertEqual(len(self.calls), 3)
+
+    def test_opt_in_readonly_account_path_returns_bounded_large_view_over_actual_mtls(self):
+        from datetime import datetime, timezone
+        from investalo_credential_store.demo_account_sync import PATH, SCHEMA
+        from test_passkey_assertions import TENANT
+        rows = [dict(symbol=f"C{i}USDT", side="long", quantity="1", entry_price="2", mark_price="2",
+            unrealized_pnl="0", leverage="2", margin_mode="isolated", liquidation_price=None) for i in range(40)]
+        view = dict(schema=SCHEMA, tenant_id=str(TENANT), account_id=str(UUID(int=3)),
+            observed_at=datetime.now(timezone.utc).isoformat(), currency="USDT",
+            wallet=dict(equity="50000", available="49000", locked=None, unrealized_pnl="0",
+                isolated_margin="1000", crossed_margin="0"), positions=rows)
+        def execute(context, action, token, body):
+            self.assertEqual(action, "account_read")
+            self.assertEqual(context.subject, fixture.SUBJECT)
+            return view
+        with self.server(execute=execute, application_type=DemoTradingAccountHTTPApplication) as service:
+            wire = self.request().replace(TARGETS["register"].encode(), PATH.encode())
+            status, result = self.response(self.exchange(service, wire))
+            self.assertEqual(status, 200)
+            self.assertEqual(result, view)
+        with self.server(execute=execute) as service:
+            self.assertNotEqual(self.response(self.exchange(service, wire))[0], 200)
 
     def test_mtls_missing_other_ca_wrong_eku_and_unpinned_leaf_never_parse_or_execute(self):
         with self.server() as service:

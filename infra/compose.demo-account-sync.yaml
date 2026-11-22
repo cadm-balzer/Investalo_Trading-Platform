@@ -1,0 +1,8 @@
+# Opt-in readonly sync; existing Demo identity, key store and private network.
+services:
+  demo-trading-executor:
+    environment:
+      DEMO_ACCOUNT_SYNC_ENABLED: "1"
+  cockpit:
+    environment:
+      COCKPIT_DEMO_ACCOUNT_SYNC: "1"

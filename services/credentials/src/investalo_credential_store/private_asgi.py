@@ -28,7 +28,8 @@ from uvicorn.server import ServerState
 from .passkey_request_assertion import MAX_BODY_BYTES
 from .private_http import (
     CONTEXT_HEADER, MAX_HEADER_BYTES, MAX_HEADER_LINE, MAX_RESPONSE_BYTES,
-    CredentialHTTPApplication, _ALLOWED_HEADERS, _ERROR_STATUS, _application_result, _application_targets,
+    CredentialHTTPApplication, DemoTradingAccountHTTPApplication,
+    _ALLOWED_HEADERS, _ERROR_STATUS, _application_result, _application_targets,
     parse_request_context,
 )
 from .request_assertion import OnboardingRejected
@@ -41,9 +42,9 @@ _QUIET.propagate = False
 _QUIET.addHandler(logging.NullHandler())
 
 
-def _json(value):
+def _json(value, limit=MAX_RESPONSE_BYTES):
     body = json.dumps(value, separators=(",", ":"), ensure_ascii=True).encode("ascii")
-    if len(body) > MAX_RESPONSE_BYTES:
+    if len(body) > limit:
         raise OnboardingRejected("invalid_record")
     return body
 
@@ -211,7 +212,8 @@ class _Application:
             awaited = asyncio.wrap_future(future)
             awaited.add_done_callback(_consume_future)
             result = await asyncio.shield(awaited)
-            await self._reply(send, 200, _application_result(app, result, action))
+            limit = 65536 if type(app) is DemoTradingAccountHTTPApplication and action == "account_read" else MAX_RESPONSE_BYTES
+            await self._reply(send, 200, _application_result(app, result, action), limit=limit)
         except asyncio.CancelledError:
             raise
         except OnboardingRejected as error:
@@ -221,9 +223,9 @@ class _Application:
             await self._reply(send, 503, {"error": "unavailable"})
 
     @staticmethod
-    async def _reply(send, status, value):
+    async def _reply(send, status, value, *, limit=MAX_RESPONSE_BYTES):
         try:
-            body = _json(value)
+            body = _json(value, limit)
             await send({
                 "type": "http.response.start", "status": status,
                 "headers": [

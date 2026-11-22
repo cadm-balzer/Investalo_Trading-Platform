@@ -22,6 +22,8 @@ async function fixture(t: Parameters<typeof identityFixture>[0]) {
   const identity = await identityFixture(t);
   await writeFile(join(identity.directory, "config"), JSON.stringify(identity.spec), { flag: "wx", mode: 0o400 });
   const actor = bound(), calls: string[] = [];
+  let contextReady!: () => void;
+  const contextObserved = new Promise<void>(resolve => { contextReady = resolve; });
   const options = {
     directory: identity.directory, ownerUid: process.getuid!(),
     origin: identity.spec.origin, oidcIssuer: identity.spec.oidcIssuer,
@@ -30,8 +32,8 @@ async function fixture(t: Parameters<typeof identityFixture>[0]) {
       calls.push("provider");
       return {
         current: async () => b, now: () => NOW, randomToken: token, randomUuid: randomUUID,
-        context: async () => { calls.push("context"); return {}; },
-        metadata: async () => { calls.push("metadata"); throw new Error("synthetic API stop"); },
+        context: async () => { calls.push("context"); contextReady(); return {}; },
+        metadata: async () => { calls.push("metadata"); await contextObserved; throw new Error("synthetic API stop"); },
         request: async () => { throw new Error("unexpected write"); },
         credentialKey: async () => { throw new Error("unexpected signing"); },
         execute: async () => { throw new Error("unexpected execution"); },

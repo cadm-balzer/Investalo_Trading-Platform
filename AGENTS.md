@@ -7,6 +7,18 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- Demo account sync on feat/m1-demo-account-sync: own default-off read purpose
+  over existing private Trading mTLS/018 AEAD. Original session/current actor/
+  epoch/metadata before and after reads and numeric-only25s cache; private
+  fixed three signed Demo GETs, UID/parent/rights/IP and5s cohort guards.
+  Same native registration limiter, no retry/orders/migration/dependencies.
+  Dashboard/Portfolio USDT equity/available/UPL/locked and full positions,
+  source time,30s visible-tab refresh and manual update; unknown stays unknown.
+  60 pinned Node/42 Python cases, typecheck and full Compose validation green.
+  Native probe stopped before HTTP at expired original registration session;
+  no invented auth/session and no actual balance acceptance claimed.
+  Production rollout requires approval; first valid Dashboard session follows.
+  See docs/bitget-demo-account-sync.md.
 - PR102 merged20e3885, actual Demo Trading registration completed20261121.
   Own account active/revision1/storage1, encrypted envelope present; matching
   completed019 audit and native200/00000 accepted, UID/parent both match.

@@ -1,5 +1,22 @@
 # Entscheidungsprotokoll
 
+## D-143 — Demo-Kontodaten über eigenen lesenden Privatpfad
+
+Der Nutzer bittet nach erfolgreicher Keyregistrierung um Konto-Sync im
+Dashboard. Die erste Umsetzung zeigt echte USDT-Futures-Walletwerte und
+Positionen beim Öffnen, alle30s und manuell; kein Paperwert wird als
+Brokerkontostand verwendet. Eigene15s-Leseassertion über vorhandenes mTLS,
+originale Sitzung/aktuelle SQL-Rolle/Epoche/aktive Keymetadaten, numerischer
+25s-Cache und eigener begrenzter öffentlicher Antwortvertrag.
+
+Der vorhandene Demo-Handelskey bleibt im privaten AEAD-Executor. Drei
+fest signierte native Demo-GETs, gemeinsame Registrierungslimits, keine
+Orders, Migration oder neue Dependency. Sourcezeit und unbekannte Felder
+bleiben sichtbar. Native Vorabprobe stoppt vor HTTP am abgelaufenen
+ursprünglichen Sitzungskontext; keine Sitzung erfunden. Erster tatsächlicher
+Abruf folgt nach gesondertem Rollout und gültiger Anmeldung.
+[Vertrag und Betrieb](../bitget-demo-account-sync.md).
+
 ## D-142 — Native Demo-Identität korrigiert, erste Registrierung erfolgreich
 
 **Status: abgeschlossen, 2026-11-21.** PR102/20e3885 gemerged. Neuer Key

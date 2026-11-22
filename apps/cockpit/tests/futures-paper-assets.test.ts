@@ -125,6 +125,7 @@ test("dashboard reads asset status only behind opt-in and binds parser to curren
     "./icons": { Icon: () => null, Brand: () => null },
     "./login": {}, "./backtest-form": {}, "./backtest-result": {},
     "./paper-status": {}, "./futures-paper-settings": {}, "./futures-recovery": {},
+    "./demo-account": { DemoAccountPanel: () => null },
     "./futures-paper-assets": panel,
     "./bitget-demo-access": load("../src/components/bitget-demo-access.tsx", {
       "next/link": { default: "a" },
