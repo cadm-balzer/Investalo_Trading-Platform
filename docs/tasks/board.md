@@ -8,6 +8,15 @@ konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
+IP-015/IP-016: Nutzer bestätigt am20261122 Demo-Aufladen und übereinstimmende
+10kUSDT-Equity/freie Margin im Cockpit. Guthabenabgleich `DONE` als
+Nutzerbestätigung; volle native Konto-/Order-/Kostenabnahme offen.
+Nächster Block `READY`: lesende Vollabnahme und tatsächlicher Demo-
+Orderdispatcher über vorhandene Outbox/Tradingprovider; danach exakter
+kleiner Testauftrag zur gesonderten Freigabe, H1-RSI/fünf Käufe/fest2× und
+zunächst drei finanzierte parallele Baskets. Keine Orderfreigabe aus
+Guthabenmeldung ableiten. [Ablauf](../bitget-demo-account-sync.md).
+
 IP-015: Demo-Konto-Sync implementiert: sichere lesende private Anbindung,
 USDT-Futures-Kontowert/freie Margin/UPL/Positionen auf Dashboard und Portfolio,
 30s-Aktualisierung und manueller Abruf. Default-off, vorhandener AEAD-Key,

@@ -7,6 +7,14 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- 20261122 user found Demo top-up and confirms10kUSDT Futures equity/available
+  matching Cockpit, UPL/locked0 and fresh source time. User screenshot/report,
+  not independent full-account/order/cost acceptance. Funding ambiguity
+  resolved without S mapping/key change. Next IP-015/016: actual readonly
+  config/order/cost checks and own Demo dispatcher over existing outbox and
+  Trading provider; exact small test-order preview before its approval.
+  Pilot: existing H1 RSI/five-buy ladder/fixed2x, initial3 funded baskets
+  recommended. AI leverage later; no order sent or granted by funding report.
 - PR104 mergedbfd32ae; user explicitly approved and completed Demo sync rollout
   20261122. Both sync flags active, Cockpit healthy and executor running with
   zero restarts; public TLS200/account anonymous401, actual private mTLS wrong
@@ -15,7 +23,7 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   Admin-Mail overlays on future deployments. Private deployment-before/active
   receipts in infra/local/demo-account-sync; old image tags unavailable,
   documented rollback disables sync overlay using default-off tested images.
-  Native wallet/position acceptance still awaits valid Dashboard session.
+  User confirms funded wallet display; full order/cost acceptance remains open.
   See docs/bitget-demo-account-sync.md.
 - Demo account sync on feat/m1-demo-account-sync: own default-off read purpose
   over existing private Trading mTLS/018 AEAD. Original session/current actor/

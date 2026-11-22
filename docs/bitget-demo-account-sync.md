@@ -92,6 +92,29 @@ ist daraus nicht ableitbar: die offizielle Futures-Demo-Anleitung nennt
 BTCUSDT und virtuelles USDT-Guthaben. Aktuelle Nutzerfrage prüft die
 Demo-Vermögensübersicht; keine Übertragung/Anforderung/Profiländerung erfolgt.
 
+**Aufgelöst am 2026-11-22:** Der Nutzer hat die Demo-Aufladefunktion gefunden
+und bestätigt10.000 virtuelle USDT im Futures-Konto sowie die passende
+Cockpit-Anzeige: Equity/freie Margin10.000, UPL/gesperrt0, frische Quellezeit.
+Die vorherigen Untersuchungsstände sind damit überholt. Kein Keywechsel,
+S-Symbol-Mapping oder Änderung des Syncs nötig. Beleg ist die Nutzeranzeige;
+vollständige native Order-/Kosten-/Konfigurationsabnahme folgt.
+
+Nächster Arbeitsblock IP-015/IP-016:
+
+1. Vorhandenen lesenden Vollabgleich für Symbolregeln, Margin-/Hebel-/
+   Positionsmodus, reguläre/Triggerorders und Kostenverfügbarkeit verdrahten.
+2. Tatsächlichen Demo-Orderdispatcher über vorhandene dauerhafte Outbox und
+   privaten Handelskey-Provider implementieren. Exakten kleinen Testauftrag
+   mit Größe/Limit/Hebel zur Freigabe vorbereiten; danach tatsächliche
+   Ausführung, Teilfills, Positions-/Statusabgleich und Wiederanlauf prüfen.
+3. Bestehenden H1-RSI-Kern mit fünf geplanten Käufen je Basket und festem2×
+   verbinden; Pilotempfehlung zunächst drei finanzierte parallele Baskets
+   innerhalb der bestehenden Budget-/Reserveplanung. Demo-Start/Pause und
+   tatsächliche Journal-/Positions-/Nachkaufanzeige im Cockpit ergänzen.
+
+AI-Einstiegscheck und variable Hebel folgen später. Fehlende Kosten bleiben
+unbekannt. Diese Planung/Guthabenmeldung autorisiert keine Testorder.
+
 Explizites, standardmäßig inaktives Overlay:
 `infra/compose.demo-account-sync.yaml`. Es aktiviert ausschließlich
 `DEMO_ACCOUNT_SYNC_ENABLED=1` und `COCKPIT_DEMO_ACCOUNT_SYNC=1`.
