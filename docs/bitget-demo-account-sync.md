@@ -83,6 +83,15 @@ Sein Web-Menü unterscheidet Classic und UTA Demo Trading; unser Adapter
 bleibt Classic. API-Demoguthaben/Spot-vs-Futures-Zuordnung noch klären.
 [Offizielle Anleitung samt Menübildern](https://www.bitget.com/support/articles/12560603790031).
 
+Weiterer Nutzerscreenshot bestätigt jetzt die sichtbare Demo-Kennzeichnung
+bei BTCUSDT und verfügbare Futures-Margin von0USDT. Das passt zur gemeldeten
+Cockpit-Anzeige; ein S-Präfixfehler ist damit nicht nachgewiesen.
+USDT-Gesamtbestand, Demo-Spot-/UTA-Wallet und eine mögliche Testguthaben-
+Anforderung bleiben offen. „Guthaben gibt es ausschließlich bei S-Symbolen“
+ist daraus nicht ableitbar: die offizielle Futures-Demo-Anleitung nennt
+BTCUSDT und virtuelles USDT-Guthaben. Aktuelle Nutzerfrage prüft die
+Demo-Vermögensübersicht; keine Übertragung/Anforderung/Profiländerung erfolgt.
+
 Explizites, standardmäßig inaktives Overlay:
 `infra/compose.demo-account-sync.yaml`. Es aktiviert ausschließlich
 `DEMO_ACCOUNT_SYNC_ENABLED=1` und `COCKPIT_DEMO_ACCOUNT_SYNC=1`.
