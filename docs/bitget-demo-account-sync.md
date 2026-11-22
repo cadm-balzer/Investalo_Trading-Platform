@@ -71,6 +71,18 @@ Rückweg schaltet das zusätzliche Overlay im default-off geprüften Build ab.
 Erste native Wallet-/Positionsabnahme nach gültiger Dashboard-Anmeldung offen.
 Bei künftigen Deployments das aktive Sync-Overlay beibehalten.
 
+Nutzer meldet anschließend sichtbare Nullwerte. Sein Bitget-Screenshot zeigt
+die S-Simulation mit SBTCSUSDT/SUSDT. Öffentliche native Kontraktabfragen
+bestätigen aktuell drei S-Kontrakte unter `SUSDT-FUTURES` ohne Demo-Header,
+dagegen 45 Kontrakte (u.a. BTCUSDT/ETHUSDT) unter `USDT-FUTURES` mit
+`paptrading: 1`. Das ist ein belegter Unterschied der Markträume, noch
+kein Nachweis zur Finanzierung oder UI-Zuordnung des gespeicherten Keys.
+Kein blindes S-Präfix-Mapping, Headerwechsel, Kontoumbinden oder UTA-Upgrade.
+Bitgets offizieller App-Einstieg: Futures → ⋯ → Demo Trading.
+Sein Web-Menü unterscheidet Classic und UTA Demo Trading; unser Adapter
+bleibt Classic. API-Demoguthaben/Spot-vs-Futures-Zuordnung noch klären.
+[Offizielle Anleitung samt Menübildern](https://www.bitget.com/support/articles/12560603790031).
+
 Explizites, standardmäßig inaktives Overlay:
 `infra/compose.demo-account-sync.yaml`. Es aktiviert ausschließlich
 `DEMO_ACCOUNT_SYNC_ENABLED=1` und `COCKPIT_DEMO_ACCOUNT_SYNC=1`.
