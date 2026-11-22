@@ -302,3 +302,16 @@ class DemoAccountTests(unittest.TestCase):
         self.assertEqual(report["orders"][0], dict(category="live", count=10, pages=10, complete=False))
         self.assertEqual(len([r for r in self.sent if r.axis == "live"]), 10)
         self.assertIn("order_pages_incomplete", report["blockers"])
+
+    def test_startup_failure_diagnostic_never_contains_session_keys_or_native_body(self):
+        reports = []
+        self.native.diagnostic = reports.append
+        self.startup(lambda r, d: {} if r.axis == "live" else d)
+        with patch("investalo_credential_store.demo_account_sync.time.sleep"), self.assertRaises(OnboardingRejected):
+            self.run_read()
+        self.assertEqual(len(reports), 1)
+        self.assertEqual(reports[0]["stage"], "live:parse")
+        self.assertEqual(set(reports[0]), {"schema","stage","sent","elapsed_ms","error_type","http_status","provider_code"})
+        text = json.dumps(reports)
+        for private in ("synthetic", "api", "passphrase", "session_binding", "broker_uid", "entrustedList"):
+            self.assertNotIn(private, text)

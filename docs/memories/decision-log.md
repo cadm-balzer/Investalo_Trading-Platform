@@ -1,5 +1,14 @@
 # Entscheidungsprotokoll
 
+## D-145 — Einmaliger Demo-Orderkern mit getrenntem Freigabeadapter
+
+Bestehende registrierte Outbox und Trading-Provider werden für den privaten
+Versandkern verwendet. Eigener dauerhafter genauer Orderconsumer und native
+Kontobasis sind mandatory trusted adapters; alte Key-/Readgrants reichen nicht.
+Unklare Sendungen werden nur abgefragt. Preview20USDT ist ein technischer
+Vorschlag, kein Basketprofil. Native Demo-Maximalmenge ist im tatsächlichen
+Publicabruf leer und bleibt unbekannt. [Vertrag](../bitget-demo-order-dispatch.md).
+
 ## D-144 — Manuelle Demo-Startprüfung vor dem ersten Auftrag
 
 Nach bestätigtem10k-Demoguthaben zeigt das Cockpit Einstellungen pro Coin

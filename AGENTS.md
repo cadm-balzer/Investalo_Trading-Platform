@@ -7,6 +7,22 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR106 merged30ccdbe, user explicitly approved startup rollout. Tested images
+  recreated only Cockpit/Trading-executor; five other running services unchanged.
+  TLS200/both anonymous read401/actual private mTLS405, active key1/1 intact.
+  Private deployment receipts in infra/local/demo-startup-check/rollout-*.
+  User startup read failed; private numeric stage/count/timing diagnostics
+  deployed as necessary rollout fix, actual retry/root cause still pending.
+  Own disabled order core and public BTC preview on feat/m1-demo-order-dispatch:
+  existing registered outbox + actual sealed Trading provider, exact injected
+  durable order consumer/account guard required; no operative grant adapter
+  or HTTP/BFF order route. Unknown-before-POST, no resend, GET-only recovery,
+  retained partial fills/unknown fees. Public Demo maxOrderQty actually empty:
+  preview-only grid preserves unknown;20USDT notional/2x proposed technical test.
+  No native orders, actual outbox setup, budget/strategy/migration change.
+  149 pinned offline cases green, including actual child-exit/restore and AEAD.
+  Final pinned Executor build green; no frontend rebuild or order activation.
+  See docs/bitget-demo-order-dispatch.md.
 - 20261122 Demo startup inspection on feat/m1-demo-startup-check: manual
   Dashboard/Portfolio check over original session/Trading AEAD/mTLS, numeric
   cache bypass. Fixed identity/wallet/positions/seven configs/five pending
@@ -17,8 +33,8 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   coverage. Report flags pending_scope/costs/execution always false.
   50 pinned Node/53 Python including actual synthetic Node/ASGI mTLS and AEAD
   green; typecheck/full Compose/pinned Cockpit+Executor builds green.
-  No orders/native whole-account acceptance or runtime changes.
-  Merge/separate rollout approval then actual session read; dispatcher/exact
+  No orders/native whole-account acceptance. Rollout approved/completed;
+  actual startup failure diagnosis pending. Dispatcher/exact
   small approved test and H1/five-buy/3-basket wiring follow.
   See docs/bitget-demo-startup-check.md.
 - PR104 mergedbfd32ae; user explicitly approved and completed Demo sync rollout

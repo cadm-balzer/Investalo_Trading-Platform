@@ -8,6 +8,13 @@ konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
+IP-015/IP-016: PR106-Rollout `DONE` nach Nutzerfreigabe, nur zwei Dienste
+erneuert, fünf andere unverändert, TLS/anonym/private mTLS geprüft, Key1/1 aktiv.
+Nutzer-Startprüfung unbestätigt: Diagnose `IN_PROGRESS`.
+[Privater Orderkern/Testvorschau](../bitget-demo-order-dispatch.md) implementiert;
+native Orderautorisierung/Accountguard/Outbox-Einrichtung und echte
+Testfreigabe bleiben `READY` als Folgeblock, keine Orderruntime aktiv.
+
 IP-015/IP-016: manuelle [Demo-Startprüfung](../bitget-demo-startup-check.md)
 `DONE` implementiert/geprüft: sieben Coin-Konfigurationen und fünf
 Auftragsfamilien, begrenzte Pagination, datierter Bericht und Vergleich mit
