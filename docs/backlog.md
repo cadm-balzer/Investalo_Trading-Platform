@@ -71,6 +71,8 @@ Nutzerbericht noch unbestätigt; technische Diagnose aktiv. Privater
 implementiert. Eigener realer dauerhafter Orderconsumer und Konto-/Budgetguard
 sowie tatsächliche ursprüngliche Registryeinrichtung vor Aktivierung fehlen.
 Native Demo-Maximalmengenquelle klären; Public `maxOrderQty` ist leer.
+Startdiagnose jetzt konkret: zehn native200/00000 in5265ms; begrenzt
+überlappende Lesegruppen implementiert/geprüft, echte Erfolgsabnahme folgt.
 
 RSI-/Supertrend-/Budget-/Exitentscheidungen Q1–Q31 sind bestätigt.
 Q32 zur H4-Modellpreis-Basis ist ebenfalls bestätigt. Offen bleiben die

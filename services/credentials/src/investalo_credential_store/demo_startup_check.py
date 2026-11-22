@@ -1,7 +1,9 @@
 """Read-only initial Demo checks. This report cannot authorize an order."""
 from decimal import Decimal
 from datetime import datetime, timezone
+from concurrent.futures import ThreadPoolExecutor
 import json
+import threading
 
 from investalo_bitget import parse
 from investalo_bitget.futures_demo_account import CONFIGS, AXES, _pages, DemoPacket, DemoReadPlan
@@ -27,10 +29,30 @@ def inspect_startup(get, binding, owner, account, wallet):
         blockers.add("wallet_collateral")
     if account["positions"]:
         blockers.add("positions_present")
-    for symbol in CONFIGS:
-        response = get(symbol)
+    cancelled, failure_lock, first_failure = threading.Event(), threading.Lock(), []
+
+    def job(function, axis):
+        if cancelled.is_set():
+            raise ValueError()
+        try:
+            return function(axis)
+        except Exception as error:
+            if not hasattr(error, "_demo_startup_stage"):
+                error._demo_startup_stage = axis + ":parse"
+            with failure_lock:
+                if not first_failure:
+                    first_failure.append(error)
+            cancelled.set()
+            raise
+
+    def request(axis, cursor=None):
+        if cancelled.is_set():
+            raise ValueError()
+        return get(axis, cursor)
+
+    def configuration(symbol):
+        response = request(symbol)
         raw, at = parse.envelope(response)
-        clocks.append(at)
         if type(raw) is not dict:
             raise ValueError()
         # The exact requested symbol is bound by the signed GET; some native
@@ -48,19 +70,18 @@ def inspect_startup(get, binding, owner, account, wallet):
         leverage = parse.amount(native_leverage)
         matches = (raw.get("marginCoin") == "USDT" and margin == "isolated"
                    and mode == "one_way_mode" and assets == "single" and leverage == Decimal(2))
-        if not matches:
-            blockers.add("configuration_mismatch")
-        configs.append(dict(symbol=symbol, margin_mode=margin, position_mode=mode, asset_mode=assets,
-            long_leverage=None if leverage is None else format(leverage, "f"), matches=matches))
-    counts, seen_ids = [], set()
-    for axis in AXES[2:]:
+        return dict(symbol=symbol, margin_mode=margin, position_mode=mode, asset_mode=assets,
+            long_leverage=None if leverage is None else format(leverage, "f"), matches=matches), at
+
+    def orders(axis):
+        times = []
         pages, cursor = [], None
         for _ in range(10):
-            response = get(axis, cursor)
+            response = request(axis, cursor)
             packet = DemoPacket(DemoReadPlan(binding, axis, cursor), response)
             pages.append(packet)
             _, at = parse.envelope(response)
-            clocks.append(at)
+            times.append(at)
             # Use the existing bounded, monotonic cursor/ID/status validator.
             rows, complete = _pages(pages, axis, binding, owner,
                                     int(datetime.now(timezone.utc).timestamp() * 1000))
@@ -70,15 +91,36 @@ def inspect_startup(get, binding, owner, account, wallet):
             cursor = raw["endId"]
             if not cursor:
                 break
-        ids = {row["orderId"] for row in rows}
+        return dict(category=axis, count=len(rows), pages=len(pages), complete=complete), {
+            row["orderId"] for row in rows}, times
+
+    # Independent configs/families overlap, at most three sockets. Every GET
+    # still passes the caller's paced, fresh before/after credential guards.
+    with ThreadPoolExecutor(max_workers=3, thread_name_prefix="demo-startup") as pool:
+        try:
+            projected = list(pool.map(lambda axis: job(configuration, axis), CONFIGS))
+            pending = list(pool.map(lambda axis: job(orders, axis), AXES[2:]))
+        except Exception:
+            cancelled.set()
+            if first_failure:
+                raise first_failure[0] from None
+            raise
+    for config, at in projected:
+        configs.append(config)
+        clocks.append(at)
+        if not config["matches"]:
+            blockers.add("configuration_mismatch")
+    counts, seen_ids = [], set()
+    for count, ids, times in pending:
         if seen_ids & ids:
             raise ValueError()
         seen_ids.update(ids)
-        if rows:
+        if count["count"]:
             blockers.add("orders_present")
-        if not complete:
+        if not count["complete"]:
             blockers.add("order_pages_incomplete")
-        counts.append(dict(category=axis, count=len(rows), pages=len(pages), complete=complete))
+        counts.append(count)
+        clocks.extend(times)
     if not 0 <= (datetime.now(timezone.utc) - min(clocks)).total_seconds() <= 5:
         raise ValueError()
     return validate_startup(dict(schema=SCHEMA, account=account, observed_at=min(clocks).isoformat(),

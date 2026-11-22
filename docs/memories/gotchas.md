@@ -1,5 +1,12 @@
 # Technische Fallstricke
 
+- Die Startprüfung mit15 seriellen nativen GETs passt praktisch nicht in5s:
+  tatsächlich5265ms schon nach10 erfolgreichen Anfragen. Unabhängige
+  Konfigurationen/Familien begrenzt überlappen, Starts trotzdem pacing-
+  geschützt und Actor/Storage nach jeder Wartezeit frisch prüfen. Cursorseiten
+  derselben Familie nicht parallelisieren. Worker vor UID-Lockfreigabe joinen;
+  bei Fehlern keine Teilfreigabe. [Fix](../bitget-demo-startup-check.md).
+
 - Native Demo-Kontrakte können `maxOrderQty=""` liefern. Eine öffentliche
   Testvorschau darf daraus keine native Höchstmenge erfinden und benötigt
   einen eigenen unvollständigen Previewrastertyp. Ein Order-ACK ist kein Fill;

@@ -176,7 +176,8 @@ class DemoAccountTests(unittest.TestCase):
         self.startup()
         with patch("investalo_credential_store.demo_account_sync.time.sleep"):
             report = self.run_read()
-        self.assertEqual([r.axis for r in self.sent], ["identity", "wallet", "positions", *CONFIGS, *AXES[2:]])
+        self.assertEqual([r.axis for r in self.sent[:3]], ["identity", "wallet", "positions"])
+        self.assertCountEqual([r.axis for r in self.sent[3:]], [*CONFIGS, *AXES[2:]])
         self.assertEqual(report["blockers"], [])
         self.assertTrue(all(c["matches"] for c in report["configurations"]))
         self.assertTrue(all(o["complete"] and o["count"] == 0 for o in report["orders"]))
@@ -236,7 +237,9 @@ class DemoAccountTests(unittest.TestCase):
         self.startup(bad)
         with patch("investalo_credential_store.demo_account_sync.time.sleep"), self.assertRaises(OnboardingRejected):
             self.run_read()
-        self.assertEqual(len([r for r in self.sent if r.axis == "live"]), 2)
+        counts = [len([r for r in self.sent if r.axis == axis]) for axis in ("live", "partially_filled")]
+        self.assertIn(2, counts)
+        self.assertTrue(all(n <= 2 for n in counts))
 
     def test_startup_revocation_and_native_failure_never_publish_partial_success(self):
         self.startup()
@@ -249,7 +252,8 @@ class DemoAccountTests(unittest.TestCase):
         self.native.transport = revoke
         with patch("investalo_credential_store.demo_account_sync.time.sleep"), self.assertRaises(OnboardingRejected):
             self.run_read()
-        self.assertEqual(self.sent[-1].axis, "BTCUSDT")
+        self.assertIn("BTCUSDT", [r.axis for r in self.sent])
+        self.assertTrue(all(r.axis in ("identity","wallet","positions",*CONFIGS) for r in self.sent))
 
     def test_changed_balance_is_compared_with_original_user_declared_start(self):
         self.startup()
@@ -288,7 +292,8 @@ class DemoAccountTests(unittest.TestCase):
         self.native.transport = stale
         with patch("investalo_credential_store.demo_account_sync.time.sleep"), self.assertRaises(OnboardingRejected):
             self.run_read()
-        self.assertEqual(self.sent[-1].axis, "BTCUSDT")
+        self.assertIn("BTCUSDT", [r.axis for r in self.sent])
+        self.assertTrue(all(r.axis in ("identity","wallet","positions",*CONFIGS) for r in self.sent))
 
     def test_page_cap_is_explicit_incomplete_and_no_eleventh_request(self):
         def many(request, data):
@@ -315,3 +320,70 @@ class DemoAccountTests(unittest.TestCase):
         text = json.dumps(reports)
         for private in ("synthetic", "api", "passphrase", "session_binding", "broker_uid", "entrustedList"):
             self.assertNotIn(private, text)
+
+    def test_native_latency_overlaps_with_three_workers_but_paces_every_get(self):
+        self.startup()
+        original = self.native.transport
+        lock = threading.Lock()
+        starts, active, maximum = [], 0, 0
+        def delayed(request):
+            nonlocal active, maximum
+            with lock:
+                starts.append(time.monotonic())
+                active += 1; maximum = max(maximum, active)
+            try:
+                # Fifteen serial calls at this latency exceed the 5s cohort.
+                time.sleep(.36)
+                return original(request)
+            finally:
+                with lock: active -= 1
+        self.native.transport = delayed
+        started = time.monotonic()
+        report = self.run_read()
+        self.assertLess(time.monotonic()-started, 5)
+        self.assertGreaterEqual(maximum, 2)
+        self.assertLessEqual(maximum, 3)
+        self.assertEqual(len(starts), 15)
+        self.assertTrue(all(b-a >= .10 for a,b in zip(starts, starts[1:])))
+        self.assertEqual(report["blockers"], [])
+
+    def test_parallel_failure_waits_for_workers_and_never_returns_partial_report(self):
+        self.startup()
+        original = self.native.transport
+        active, lock = 0, threading.Lock()
+        def delayed(request):
+            nonlocal active
+            if request.axis in CONFIGS:
+                with lock: active += 1
+                try:
+                    time.sleep(.02)
+                    if request.axis == "BTCUSDT":
+                        raise TimeoutError()
+                    return original(request)
+                finally:
+                    with lock: active -= 1
+            return original(request)
+        self.native.transport = delayed
+        with patch("investalo_credential_store.demo_account_sync.time.sleep"), self.assertRaises(OnboardingRejected):
+            self.run_read()
+        self.assertEqual(active, 0)
+        self.assertFalse(self.native.lock.locked())
+        self.assertFalse(any(r.axis in AXES[2:] for r in self.sent))
+
+    def test_parallel_cross_family_duplicate_ids_reject_whole_report(self):
+        def duplicate(request, data):
+            if request.axis in ("live", "partially_filled") and request.cursor is None:
+                return dict(entrustedList=[dict(orderId="99", status=request.axis)], endId="99")
+            return data
+        self.startup(duplicate)
+        with patch("investalo_credential_store.demo_account_sync.time.sleep"), self.assertRaises(OnboardingRejected):
+            self.run_read()
+
+    def test_success_diagnostic_is_only_completed_timing_and_count(self):
+        reports = []
+        self.native.diagnostic = reports.append
+        self.startup()
+        with patch("investalo_credential_store.demo_account_sync.time.sleep"):
+            self.run_read()
+        self.assertEqual(len(reports), 1)
+        self.assertEqual((reports[0]["stage"], reports[0]["sent"], reports[0]["error_type"]), ("completed",15,None))

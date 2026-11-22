@@ -3,9 +3,13 @@
 PR106/30ccdbe ist gemergt und der ausdrücklich freigegebene Rollout erfolgt:
 Cockpit und Executor erneuert, fünf andere Dienste unverändert; TLS200,
 anonyme Readvarianten401 und echtes privates mTLS405 geprüft.
-Der erste Nutzer-Startabruf bleibt unbestätigt. Rein technische private
-Stage-/Timingdiagnose ist zur Fehlerbehebung aktiv; der erneute originale
-Browserabruf steht noch aus. [Aktueller Stand](bitget-demo-order-dispatch.md).
+Der Nutzerretry liefert den konkreten Fehler: zehn erfolgreiche GETs,
+5265ms, `XRPUSDT:after_request:cohort_timeout`, HTTP200/00000. Die serielle
+Laufzeit überschreitet die unveränderte5s-Kohorte. Der Fix überlappt die
+folgenden unabhängigen Lesegruppen.153 gepinnte Pythonfälle inklusive
+realistischem Latenztest und finaler Executorbuild grün; nur Executor
+innerhalb der bestehenden Freigabe aktualisiert, privates mTLS405 und
+unveränderte andere Dienst-IDs geprüft. Tatsächliche Erfolgsabnahme folgt.
 
 Der Nutzer bestätigt 10.000 virtuelle USDT auf dem API-Demokonto und die
 passende Anzeige im Cockpit. Die neue Schaltfläche „Startprüfung“ auf
@@ -43,8 +47,13 @@ nicht an den Browser weitergegeben. Der Bericht enthält nur Anzahl, Umfang,
 Einstellungen und die älteste Quellezeit. Doppelte/regressive IDs, fehlende
 Antworten, Widerruf oder veraltete Quellen verwerfen den gesamten Bericht.
 
-Alle GETs teilen den ursprünglichen Registrierungs-/Lesemutex und werden
-mit mindestens 110ms Abstand gestartet. Die bestehende 5s-Kohorte und
+Alle GETs teilen den ursprünglichen Registrierungs-/Lesemutex. Die
+Requestzulassung bleibt mit mindestens110ms Abstand gepacet; maximal drei
+Worker überlappen die unabhängigen Coin-Konfigurationen und Auftragsfamilien.
+Native Identitäts-/Wallet-/Positionsprüfung erfolgt zuerst; Cursorseiten
+derselben Familie bleiben in Reihenfolge. Ein Fehler stoppt neue Jobs und
+wartet ausstehende Worker ab, bevor der UID-Mutex freigegeben wird.
+Die bestehende5s-Kohorte und
 5s-Quellfrische bleiben verbindlich. Ein langsamer nativer Lauf kann deshalb
 unbestätigt bleiben; keine automatischen Wiederholungen und kein Rückfall auf
 einen alten erfolgreichen Startbericht. Automatische Kontoabrufe im selben
@@ -77,7 +86,7 @@ H1-RSI/fünf Käufe/drei Anfangsbaskets folgen danach.
 
 ## Prüfung und Rollout
 
-50 gepinnte Node- und 53 Pythonfälle grün: Projektion, ursprüngliche Sitzung
+Ursprünglicher PR106:50 gepinnte Node- und53 Pythonfälle grün: Projektion, ursprüngliche Sitzung
 vor/nach Await, Cachetrennung, exakte Auswahl, echte synthetische Node-/ASGI-
 mTLS-Antworten, reale AEAD-Entschlüsselung synthetischer Keys, Paginierung,
 Grenzwerte, Widerruf und alte Runtime-/Identitätsfälle. Quellen und

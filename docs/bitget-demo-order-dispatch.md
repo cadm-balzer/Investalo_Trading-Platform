@@ -85,7 +85,9 @@ Private Vorher-/Aktivbelege in `infra/local/demo-startup-check/rollout-*`.
 Der erste Nutzer-Startabruf scheitert noch. Eigene rein technische private
 Stage-/Count-/Timing-/Statusdiagnose im bestehenden Executor-tmpfs ausgerollt;
 keine Sitzung, Keydaten, native Rohantwort oder Konto-UID darin.
-Ursache und endgültiger nativer Erfolg bleiben bis zum neuen echten Abruf offen.
+Der neue echte Abruf belegt native200/00000 und5265ms nach zehn GETs:
+serielle Kohorte zu langsam. [Begrenzte Überlappung](bitget-demo-startup-check.md)
+behebt die Ursache bei unveränderten Guards; endgültige native Erfolgsabnahme folgt.
 Normaler Konto-Sync und originale Schutzgrenzen bleiben erhalten.
 
 Tests: tatsächliche private Registry/Outbox, reale AEAD mit synthetischen

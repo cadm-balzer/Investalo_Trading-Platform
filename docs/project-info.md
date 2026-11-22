@@ -66,6 +66,12 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-22: native Startdiagnose bestätigt einen Laufzeitfehler: zehn
+erfolgreiche Bitget-GETs benötigen5265ms und überschreiten5s.
+Der [Fix](bitget-demo-startup-check.md) überlappt unabhängige Lesegruppen
+mit maximal3 Workern bei unveränderten Quoten-/Credential-/Zeitprüfungen.
+153 Offlinefälle grün; nur Executor betroffen, echter Erfolgsabruf folgt.
+
 2026-11-22: PR106 gemergt, Startprüfung nach Nutzerfreigabe ausgerollt.
 Nur zwei Dienste erneuert; TLS/mTLS/Anmeldeschutz und unveränderter Key geprüft.
 Erster Nutzerabruf unbestätigt, private technische Diagnose installiert.

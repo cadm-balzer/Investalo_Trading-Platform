@@ -1,5 +1,14 @@
 # Entscheidungsprotokoll
 
+## D-146 — Native Startprüfung überlappen, Schutzzeiten behalten
+
+Der tatsächliche Nutzerabruf erreicht native200/00000, überschreitet jedoch
+nach zehn seriellen GETs5s. Maximal drei Worker lesen unabhängige Coin-
+Konfigurationen bzw. Auftragsfamilien überlappend, mit110ms-Zulassung und
+frischen Prüfungen vor/nach jedem GET. Originale UIDprüfung zuerst,
+Cursorreihenfolge und finale älteste Quelle≤5s bleiben verbindlich.
+Keine Schutzzeitverlängerung oder Handelsfreigabe. [Fix](../bitget-demo-startup-check.md).
+
 ## D-145 — Einmaliger Demo-Orderkern mit getrenntem Freigabeadapter
 
 Bestehende registrierte Outbox und Trading-Provider werden für den privaten

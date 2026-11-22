@@ -10,7 +10,11 @@ Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
 IP-015/IP-016: PR106-Rollout `DONE` nach Nutzerfreigabe, nur zwei Dienste
 erneuert, fünf andere unverändert, TLS/anonym/private mTLS geprüft, Key1/1 aktiv.
-Nutzer-Startprüfung unbestätigt: Diagnose `IN_PROGRESS`.
+Nutzerretry: native200/00000, zehn GETs/5265ms, serielle5s-Kohorte überschritten.
+Fix: höchstens3 parallele Leseworker mit110ms-Zulassung und unveränderten
+Credential-/Zeitguards;153 Offlinefälle/Executorbuild grün. Fixrollout `DONE`
+innerhalb bestehender Freigabe, mTLS405/andere Dienste unverändert.
+Echte Erfolgsabnahme `IN_PROGRESS`.
 [Privater Orderkern/Testvorschau](../bitget-demo-order-dispatch.md) implementiert;
 native Orderautorisierung/Accountguard/Outbox-Einrichtung und echte
 Testfreigabe bleiben `READY` als Folgeblock, keine Orderruntime aktiv.
