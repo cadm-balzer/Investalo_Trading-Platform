@@ -57,6 +57,20 @@ Quellen: [Bitget Demo REST](https://www.bitget.com/docs/classic/demo-trading/res
 
 ## Betrieb und Abnahme
 
+2026-11-22: PR104 (`bfd32ae`) gemergt und nach ausdrücklicher Nutzerfreigabe
+öffentlich ausgerollt. Nur Cockpit und Demo-Executor wurden neu erstellt.
+Beide Sync-Schalter sind aktiv; Cockpit gesund, Executor läuft, jeweils
+null Neustarts. Öffentliches HTTPS200, nicht angemeldeter Kontoabruf401
+und echter privater mTLS-Aufruf mit falschem MAC403 geprüft.
+Der bestehende Demo-Key bleibt aktiv mit Revision1/Stand1.
+Private Vorher-/Aktivbelege unter
+`infra/local/demo-account-sync/deployment-before.json` und
+`infra/local/demo-account-sync/deployment-active.json`.
+Die früheren Image-Tags waren nicht mehr verfügbar; der dokumentierte
+Rückweg schaltet das zusätzliche Overlay im default-off geprüften Build ab.
+Erste native Wallet-/Positionsabnahme nach gültiger Dashboard-Anmeldung offen.
+Bei künftigen Deployments das aktive Sync-Overlay beibehalten.
+
 Explizites, standardmäßig inaktives Overlay:
 `infra/compose.demo-account-sync.yaml`. Es aktiviert ausschließlich
 `DEMO_ACCOUNT_SYNC_ENABLED=1` und `COCKPIT_DEMO_ACCOUNT_SYNC=1`.

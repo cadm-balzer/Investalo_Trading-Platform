@@ -7,6 +7,16 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR104 mergedbfd32ae; user explicitly approved and completed Demo sync rollout
+  20261122. Both sync flags active, Cockpit healthy and executor running with
+  zero restarts; public TLS200/account anonymous401, actual private mTLS wrong
+  MAC403. Existing Demo credential active/revision1/storage1 unchanged.
+  Preserve compose.demo-account-sync.yaml alongside Public/Paper/Demo-Trading/
+  Admin-Mail overlays on future deployments. Private deployment-before/active
+  receipts in infra/local/demo-account-sync; old image tags unavailable,
+  documented rollback disables sync overlay using default-off tested images.
+  Native wallet/position acceptance still awaits valid Dashboard session.
+  See docs/bitget-demo-account-sync.md.
 - Demo account sync on feat/m1-demo-account-sync: own default-off read purpose
   over existing private Trading mTLS/018 AEAD. Original session/current actor/
   epoch/metadata before and after reads and numeric-only25s cache; private
@@ -18,7 +28,7 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   pinned Cockpit+Demo executor builds green.
   Native probe stopped before HTTP at expired original registration session;
   no invented auth/session and no actual balance acceptance claimed.
-  Production rollout requires approval; first valid Dashboard session follows.
+  Production rollout now approved/completed; first valid Dashboard read follows.
   See docs/bitget-demo-account-sync.md.
 - PR102 merged20e3885, actual Demo Trading registration completed20261121.
   Own account active/revision1/storage1, encrypted envelope present; matching
