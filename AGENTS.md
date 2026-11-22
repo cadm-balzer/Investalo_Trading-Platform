@@ -16,7 +16,8 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   Current official native pending window3months: page completion is not older
   coverage. Report flags pending_scope/costs/execution always false.
   50 pinned Node/53 Python including actual synthetic Node/ASGI mTLS and AEAD
-  green; no orders/native whole-account acceptance or runtime changes.
+  green; typecheck/full Compose/pinned Cockpit+Executor builds green.
+  No orders/native whole-account acceptance or runtime changes.
   Merge/separate rollout approval then actual session read; dispatcher/exact
   small approved test and H1/five-buy/3-basket wiring follow.
   See docs/bitget-demo-startup-check.md.

@@ -75,7 +75,9 @@ vor/nach Await, Cachetrennung, exakte Auswahl, echte synthetische Node-/ASGI-
 mTLS-Antworten, reale AEAD-Entschlüsselung synthetischer Keys, Paginierung,
 Grenzwerte, Widerruf und alte Runtime-/Identitätsfälle. Quellen und
 Brokerantworten synthetisch; keine native Gesamtabnahme behauptet.
-Typecheck, Compose und gepinnte Cockpit-/Executorbuilds werden im PR belegt.
+Typecheck, vollständige Compose-Konfiguration und finale gepinnte
+Cockpit-/Executorbuilds ebenfalls grün. Bestehende laufende Dienste bleiben
+unverändert; neue Images allein aktivieren die Funktion nicht.
 
 Keine neue Dependency, Migration, private Konfiguration oder Portfreigabe.
 Neue Funktion nutzt die vorhandenen Sync-Schalter. Nach Merge und

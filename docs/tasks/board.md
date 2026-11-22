@@ -12,7 +12,8 @@ IP-015/IP-016: manuelle [Demo-Startprüfung](../bitget-demo-startup-check.md)
 `DONE` implementiert/geprüft: sieben Coin-Konfigurationen und fünf
 Auftragsfamilien, begrenzte Pagination, datierter Bericht und Vergleich mit
 Nutzer-Startguthaben10k; keine Handelsfreigabe aus leeren API-Seiten.
-50 Node/53 Python grün. Öffentlicher Rollout/native Prüfung nach
+50 Node/53 Python, Typprüfung/Compose/beide gepinnten Builds grün.
+Öffentlicher Rollout/native Prüfung nach
 Merge/Freigabe; ältere Auftragsabdeckung, tatsächliche Kosten und
 Orderdispatcher/Testvorschau `READY` als Folgeblock.
 
