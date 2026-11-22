@@ -1,5 +1,15 @@
 # Entscheidungsprotokoll
 
+## D-144 — Manuelle Demo-Startprüfung vor dem ersten Auftrag
+
+Nach bestätigtem10k-Demoguthaben zeigt das Cockpit Einstellungen pro Coin
+und produktweite Auftragszahlen über den bestehenden privaten Readpfad.
+Der Bericht umgeht den Walletcache, ändert keine Kontoeinstellung und
+aktiviert keinen Orderversand. Die Nutzerbestätigung liefert die originale
+Startbasis; laufender Handel braucht anschließend seine eigene dauerhafte
+Outbox-/Cashbasis. Native3-Monats-Fenster und ungeprüfte Kosten bleiben
+explizit offen. [Umsetzung und Folgeschritte](../bitget-demo-startup-check.md).
+
 ## D-143 — Demo-Kontodaten über eigenen lesenden Privatpfad
 
 Der Nutzer bittet nach erfolgreicher Keyregistrierung um Konto-Sync im

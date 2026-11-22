@@ -9,10 +9,10 @@ export type DemoAccount = { schema: "investalo-demo-account/1"; tenant_id: strin
     unrealized_pnl: string | null; isolated_margin: string | null; crossed_margin: string | null };
   positions: DemoPosition[] };
 export type DemoAccountTarget = { platform_account_id: string; connection_id: string;
-  credential_revision: 1; storage_version: number };
+  credential_revision: 1; storage_version: number; inspection?: "startup" };
 const fail = () => new Error("DEMO_ACCOUNT_REJECTED");
 // Shared by the browser and BFF; keep this module free of Node/secret imports.
-function exactObject(value: unknown, fields: readonly string[]): Record<string, unknown> {
+export function exactObject(value: unknown, fields: readonly string[]): Record<string, unknown> {
   if (!value || typeof value !== "object" || Array.isArray(value) ||
     ![Object.prototype, null].includes(Object.getPrototypeOf(value))) throw fail();
   const keys = Reflect.ownKeys(value);
@@ -21,7 +21,7 @@ function exactObject(value: unknown, fields: readonly string[]): Record<string, 
       !Object.hasOwn(Object.getOwnPropertyDescriptor(value, key)!, "value"))) throw fail();
   return value as Record<string, unknown>;
 }
-function amount(value: unknown, nullable = true): string | null {
+export function amount(value: unknown, nullable = true): string | null {
   if (value === null && nullable) return null;
   if (typeof value !== "string" || value.length > 96 ||
     !/^-?[0-9]+(?:\.[0-9]+)?$/.test(value) || !Number.isFinite(Number(value)) || Math.abs(Number(value)) > 1e30) throw fail();

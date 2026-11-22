@@ -1,5 +1,10 @@
 # Lokale Compose-Entwicklung
 
+Die manuelle [Demo-Startprüfung](../docs/bitget-demo-startup-check.md) erweitert
+den bestehenden Konto-Readpfad. Rollout nach Merge/Freigabe nur für Cockpit
+und Demo-Trading-Executor; bestehende Public-/Paper-/Trading-/Admin-Mail-/
+Account-Sync-Overlays vollständig erhalten. Keine Migration oder Orders.
+
 `compose.admin-mail.yaml` ergänzt den ausdrücklich zugeordneten
 Plattformadministrator mit eigenem SMTP-Schlüssel und Egress. Vorbereitung:
 `setup-platform-admin.py`; nach PR99/Nutzerfreigabe öffentlich ausgerollt.

@@ -101,6 +101,20 @@ class PrivateASGITests(unittest.TestCase):
             status, result = self.response(self.exchange(service, wire))
             self.assertEqual(status, 200)
             self.assertEqual(result, view)
+            from investalo_bitget.futures_demo_account import CONFIGS, AXES
+            account = {**view, "positions": [], "wallet": dict(equity="10000", available="10000", locked="0",
+                unrealized_pnl="0", isolated_margin="0", crossed_margin="0")}
+            view = dict(schema="investalo-demo-startup/1", account=account, observed_at=account["observed_at"],
+                configurations=[dict(symbol=s, margin_mode="isolated", position_mode="one_way_mode",
+                    asset_mode="single", long_leverage="2", matches=True) for s in CONFIGS],
+                orders=[dict(category=a, count=0, pages=1, complete=True) for a in AXES[2:]],
+                blockers=[], expected_initial_usdt="10000", pending_scope_verified=False,
+                costs_verified=False, execution_enabled=False)
+            status, result = self.response(self.exchange(service, wire))
+            self.assertEqual(status, 200)
+            self.assertEqual(result, view)
+            view["execution_enabled"] = True
+            self.assertNotEqual(self.response(self.exchange(service, wire))[0], 200)
         with self.server(execute=execute) as service:
             self.assertNotEqual(self.response(self.exchange(service, wire))[0], 200)
 

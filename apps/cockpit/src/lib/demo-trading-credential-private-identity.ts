@@ -18,6 +18,7 @@ import { createDemoTradingPasskeyCredentialExecutor } from "./demo-trading-passk
 import type { DemoTradingCredentialIdentityPorts } from "./demo-trading-passkey-credential-provider.ts";
 import { readDemoAccount } from "./demo-account-executor.ts";
 import type { DemoAccount, DemoAccountTarget } from "./demo-account-contract.ts";
+import type { DemoStartup } from "./demo-startup-contract.ts";
 
 export type DemoTradingCredentialPrivateIdentitySpec = Readonly<{
   schema: "investalo-demo-trading-credential-private-identity/1";
@@ -30,7 +31,7 @@ export type DemoTradingCredentialPrivateIdentitySpec = Readonly<{
 }>;
 export type DemoTradingCredentialPrivateIdentity = Readonly<{
   forSession(bound: ProofSession, currentUserId: string): DemoTradingCredentialIdentityPorts;
-  readAccount?(bound: ProofSession, currentUserId: string, target: DemoAccountTarget): Promise<DemoAccount>;
+  readAccount?(bound: ProofSession, currentUserId: string, target: DemoAccountTarget): Promise<DemoAccount | DemoStartup>;
 }>;
 const rejection = () => new Error("DEMO_TRADING_CREDENTIAL_PRIVATE_IDENTITY_REJECTED");
 const sha = (value: Uint8Array) => createHash("sha256").update(value).digest("hex");
