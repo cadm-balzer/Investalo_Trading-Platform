@@ -263,6 +263,30 @@ class DemoAccountTests(unittest.TestCase):
         self.assertIn("initial_balance_changed", report["blockers"])
         self.assertEqual(report["expected_initial_usdt"], "10000")
 
+    def test_unknown_collateral_fields_are_reported_as_unknown_not_funded_margin(self):
+        for field in ("coupon", "grant", "assetMode", "locked", "isolatedMargin",
+                      "crossedMargin", "unrealizedPL"):
+            with self.subTest(field=field):
+                self.setUp()
+                self.startup()
+                del self.wallet[0][field]
+                with patch("investalo_credential_store.demo_account_sync.time.sleep"):
+                    report = self.run_read()
+                self.assertEqual(report["blockers"], ["wallet_unknown"])
+                self.assertFalse(report["execution_enabled"])
+
+    def test_known_nonzero_collateral_or_union_mode_remain_visible(self):
+        for field, value in (("coupon", "1"), ("grant", "1"), ("locked", "1"),
+                ("isolatedMargin", "1"), ("crossedMargin", "1"), ("unrealizedPL", "-1"),
+                ("assetMode", "union")):
+            with self.subTest(field=field):
+                self.setUp()
+                self.startup()
+                self.wallet[0][field] = value
+                with patch("investalo_credential_store.demo_account_sync.time.sleep"):
+                    report = self.run_read()
+                self.assertEqual(report["blockers"], ["wallet_collateral"])
+
     def test_startup_cannot_carry_private_fields_or_execution_grant(self):
         self.startup()
         with patch("investalo_credential_store.demo_account_sync.time.sleep"):

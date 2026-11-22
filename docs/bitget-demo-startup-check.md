@@ -2,7 +2,7 @@
 
 Fix auf PR108: tatsächlicher originaler Nutzerabruf vollständig erfolgreich,
 15 native GETs in4551ms, HTTP200/00000, private Abschlussdiagnose `completed`
-ohne Fehler. Sichtbare Berichtbestätigung folgt; ältere Auftragsabdeckung,
+ohne Fehler. Nutzer bestätigt sichtbaren Bericht; ältere Auftragsabdeckung,
 Kostenkalibrierung und Orderfreigabe bleiben eigenständige Folgeblöcke.
 
 PR106/30ccdbe ist gemergt und der ausdrücklich freigegebene Rollout erfolgt:
@@ -11,7 +11,7 @@ anonyme Readvarianten401 und echtes privates mTLS405 geprüft.
 Der Nutzerretry liefert den konkreten Fehler: zehn erfolgreiche GETs,
 5265ms, `XRPUSDT:after_request:cohort_timeout`, HTTP200/00000. Die serielle
 Laufzeit überschreitet die unveränderte5s-Kohorte. Der Fix überlappt die
-folgenden unabhängigen Lesegruppen.159 gepinnte Pythonfälle inklusive
+folgenden unabhängigen Lesegruppen.161 gepinnte Pythonfälle inklusive
 realistischem Latenztest und finaler Executorbuild grün; nur Executor
 innerhalb der bestehenden Freigabe aktualisiert, privates mTLS405 und
 unveränderte andere Dienst-IDs geprüft. Der weitere Nutzerabruf erreicht
@@ -54,6 +54,14 @@ abweichende Sicherheiten, Positionen und gefundene Aufträge werden gemeldet.
 Dies ist ausschließlich ein Vergleich vor dem ersten Test; für laufende
 Baskets muss anschließend die dauerhafte eigene Cash-/Positions-/Outboxbasis
 maßgeblich werden. Keine Umdeutung späterer Gewinne als Guthabendrift.
+Unbekannte Coupon-/Grantbeträge oder fehlender Assetmodus ergeben
+`wallet_unknown`; sie sind kein Beleg für tatsächlich belegte Margin.
+Bekannte Nichtnullwerte, Unionmodus oder andere Sicherheiten bleiben
+`wallet_collateral`. Beide Varianten bleiben sichtbar und sperren den Start.
+
+Erster sichtbarer nativer Bericht: Coins überwiegend Cross/Hedge/10×,
+BTC isoliert/Hedge/10×. Diese tatsächlichen Einstellungen passen noch nicht
+zu isoliert/one-way/2×; die Prüfung nimmt keine automatische Änderung vor.
 
 Jede nichtleere `endId` wird mit dem bestehenden monotonen Cursor-/ID-/
 Statusprüfer verfolgt, bis eine leere Abschlussseite erreicht wird.

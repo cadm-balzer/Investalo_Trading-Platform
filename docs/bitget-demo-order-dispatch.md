@@ -91,7 +91,9 @@ behebt die Laufzeit bei unveränderten Guards. Weitere native Diagnose belegt
 null/null-Pending-Leerantwort in4371ms; eigener Startupadapter ergänzt diese
 exakte Endseite mit Originalclock. Gemeinsame Queue entfernt weitere Barriere.
 Originaler Startabruf vollständig erfolgreich:15 GETs/4551ms/200/00000,
-private Abschlussdiagnose ohne Fehler; Browserberichtbestätigung folgt.
+private Abschlussdiagnose ohne Fehler; Browserbericht vom Nutzer bestätigt.
+Tatsächliche Cross/Hedge/10×-Einstellungen benötigen separate
+Demo-Konfigurationsvorbereitung für isoliert/one-way/2×.
 Normaler Konto-Sync und originale Schutzgrenzen bleiben erhalten.
 
 Tests: tatsächliche private Registry/Outbox, reale AEAD mit synthetischen

@@ -73,9 +73,11 @@ mit maximal3 Workern bei unveränderten Quoten-/Credential-/Zeitprüfungen.
 Weitere native Antwort in4371ms: `entrustedList:null,endId:null`;
 eigener Startupadapter unterstützt genau diese leere Abschlussseite,
 Originalclock/alte Readverträge erhalten. Weitere5246ms bei15 GETs durch
-gemeinsame Queue ohne Gruppenbarriere behoben.159 Offlinefälle grün; nur Executor
+gemeinsame Queue ohne Gruppenbarriere behoben; nur Executor
 betroffen. Originaler Nutzerabruf jetzt erfolgreich:15 GETs/4551ms,
-HTTP200/00000 und private Abschlussdiagnose ohne Fehler. Browserbericht folgt.
+HTTP200/00000 und private Abschlussdiagnose ohne Fehler. Nutzer bestätigt
+Browserbericht mit Cross/Hedge/10×-Abweichungen. Unbekannte Sicherheiten
+werden als unbekannt gemeldet, nicht als belegte Margin.161 Offlinefälle grün.
 
 2026-11-22: PR106 gemergt, Startprüfung nach Nutzerfreigabe ausgerollt.
 Nur zwei Dienste erneuert; TLS/mTLS/Anmeldeschutz und unveränderter Key geprüft.

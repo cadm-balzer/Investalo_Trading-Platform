@@ -1,5 +1,9 @@
 # Technische Fallstricke
 
+- `None != Decimal(0)` ist wahr, beweist aber keine belegte Margin.
+  Unbekannte Coupon-/Grantwerte oder fehlenden Assetmodus als unbekannt
+  melden; bekannte Nichtnullwerte/Union gesondert als Abweichung.
+
 - Native Demo-Pendinglisten liefern bei leerem Bestand tatsächlich
   `entrustedList:null,endId:null`. Startupadapter akzeptiert ausschließlich
   diese exakte zweifeldrige Variante als leere Abschlussseite; Originalclock

@@ -59,12 +59,12 @@ def inspect_startup(get, binding, owner, account, wallet):
         blockers.add("wallet_unknown")
     elif wallet.available != Decimal("10000") or wallet.account_equity != Decimal("10000"):
         blockers.add("initial_balance_changed")
-    if any(v is None for v in (wallet.locked, wallet.isolated_margin,
-                               wallet.crossed_margin, wallet.unrealized_pnl)):
+    collateral = (wallet.coupon, wallet.grant, wallet.locked,
+                  wallet.isolated_margin, wallet.crossed_margin, wallet.unrealized_pnl)
+    if any(v is None for v in collateral) or wallet.asset_mode is None:
         blockers.add("wallet_unknown")
-    if (wallet.asset_mode != "single" or wallet.assets not in (None, ())
-            or any(v != Decimal(0) for v in (wallet.coupon, wallet.grant, wallet.locked,
-                wallet.isolated_margin, wallet.crossed_margin, wallet.unrealized_pnl))):
+    if (wallet.asset_mode == "union" or wallet.assets not in (None, ())
+            or any(v is not None and v != Decimal(0) for v in collateral)):
         blockers.add("wallet_collateral")
     if account["positions"]:
         blockers.add("positions_present")

@@ -21,14 +21,17 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   variants still reject. Old _pages/Read contract unchanged.
   All15 GETs subsequently reached5246ms: remove the config/pending group
   barrier with one continuous queue, still max3 workers and stable projection.
-  159 pinned offline tests green, including actual barrier/event coverage,
+  161 pinned offline tests green, including actual barrier/event coverage,
   latency/revocation/duplicate/restore.
   Final Executor build green; necessary fix rolled out with actual mTLS405,
   healthy Cockpit and unchanged other container IDs, original overlays retained.
   Rollout within existing explicit startup deployment approval;
   Original user startup read now completed:15 native GETs/4551ms/200/00000,
-  private diagnostic completed/no error. Browser report confirmation follows;
-  older-order scope/costs/execution flags remain false.
+  private diagnostic completed/no error. User confirms visible report:
+  per-coin Cross/Hedge/10x (BTC isolated) differs from target isolated/one-way/2x.
+  Unknown coupon/grant/assetMode now maps to wallet_unknown instead of
+  asserting wallet_collateral; actual nonzero amounts/union remain blocked.
+  Older-order scope/costs/execution flags remain false.
   No frontend/Key/DB/order change.
 - PR106 merged30ccdbe, user explicitly approved startup rollout. Tested images
   recreated only Cockpit/Trading-executor; five other running services unchanged.
