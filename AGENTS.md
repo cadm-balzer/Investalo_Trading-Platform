@@ -25,6 +25,17 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   user's original Dashboard session. Preserve new market-test overlay
   alongside all five existing overlays once activated. See
   docs/bitget-demo-market-runtime.md.
+- Operative Market rollout of199b1fc completed under explicit Demo-test
+  start authorization. Both final pinned images/source hash verified; only
+  Cockpit/Executor renewed, five service IDs unchanged. Original five
+  overlays+market-test retained, both own test flags1. Cockpit healthy,
+  Executor readonly/UID10003/no hostport/log none/restarts0; Demo active1/1.
+  TLS200/account+market anonymous401/all3 POST anonymous401/private mTLS405.
+  Private before/active/rollback-image receipts retained under
+  infra/local/demo-market-test/rollout-*. No broker order by deployment.
+  Original user Dashboard prepare→once submit→observe requested; actual
+  private/native acceptance pending. Do not invent operator OIDC/session
+  context or automatically repeat an unconfirmed POST.
 - PR113 mergedac1246b, GH/fetch verified. User explicitly approves the small
   technical Demo exception and chooses Market, also for future strategy.
   Own BTCMarketIntent/grid/preview preserves unknown maxMarketOrderQty;

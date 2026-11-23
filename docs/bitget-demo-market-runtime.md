@@ -66,3 +66,20 @@ Die tatsächliche private Konto-/Orderabnahme erfolgt anschließend über
 die ursprüngliche angemeldete Dashboard-Sitzung. Eine erfolgreiche
 synthetische Abnahme oder ein gesundes Deployment beweist keine echte
 Bitget-Ausführung.
+
+Autorisierter Rollout2026-11-23 abgeschlossen, Code199b1fc. Beide gepinnten
+Images geprüft, tatsächlicher Paket-/Sourcehash des Executors verifiziert.
+Nur Cockpit und Demo-Executor erneuert; fünf andere Dienst-IDs unverändert.
+Originale Images und numerische Vorher-/Nachherbelege liegen privat unter
+`infra/local/demo-market-test/rollout-*`. Alle bisherigen fünf Overlays
+sowie der neue Markettestoverlay sind aktiv. Beide Testflags1, Executor
+readonly/UID10003/kein Hostport/Logging none, keine Restarts; Cockpit gesund.
+Demo-Key weiterhin active/revision1/storage1. Öffentliches TLS200,
+anonyme Konto-/Marketvorschau und alle drei neuen POSTs401, tatsächliches
+privates mTLS405 geprüft. Kein Brokerauftrag durch den Rollout.
+
+Der Nutzer wurde gebeten, die Vorbereitung und den einzelnen Versand aus
+seiner ursprünglichen Dashboard-Sitzung zu starten und anschließend den
+Status zu lesen. Tatsächliche private Broker-/Fillabnahme ist bis zu
+diesem Originalaufruf offen. Der Rollout ist nicht mit einer Fillbestätigung
+gleichzusetzen.

@@ -20,6 +20,12 @@ Deployment, dann originaler Nutzerstart und tatsächlicher Fill-/Positions-
 Abgleich stehen an. Keine zusätzliche Freigabefrage zum bereits genehmigten
 Testprofil; Originalsession kann nicht durch Chat/Operator erfunden werden.
 
+Rollout199b1fc `DONE`: beide finalen gepinnten Images/Sourcehash, nur
+Cockpit/Executor erneuert; fünf Dienste/Key active1/1 erhalten.
+TLS200/anonyme Konto-/Vorschau-/drei POSTs401/privates mTLS405 geprüft.
+Native Testabnahme `IN_PROGRESS`, Originalnutzerstart aus dem Cockpit
+angefragt. Noch kein tatsächlicher Auftrag bestätigt.
+
 IP-015/IP-016: [Kleiner BTC-Markettest](../bitget-demo-btc-market-test.md)
 `DONE` als Vertrag/Admission/Vorschau nach PR113/mainac1246b:
 Nutzer genehmigt technische Unknown-Ausnahme und wählt Market.
