@@ -16,9 +16,15 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   retain fixed browser Origin/same-origin/CSRF/exact path+query+hash/current
   session/actor/metadata and canonical public signed origin. Regression
   reproduces503 before fix and passes prepare/submit/observe after fix,
-  including forged browser headers.73 affected pinned Node cases green.
-  Cockpit-only build/necessary authorized rollout follows; native test
-  acceptance still requires the original Dashboard request.
+  including forged browser headers.73 affected pinned Node cases/full
+  typecheck/final Cockpit build green. Cockpit-only authorized rollout
+  of861091d completed; six other IDs, Demo active1/1 and empty test journal
+  unchanged. TLS200/all3 anonymous POST401/private mTLS405 checked,
+  all six overlays and private before/active/rollback receipts retained.
+  PR116 prepared; native test acceptance needs original Dashboard request.
+  Small-host builds: final768MiB heap/typecheck23.5s with no concurrent heavy
+  checker succeeded; prior512MiB build with concurrent checker stalled
+  during typecheck94min before reporting the already-corrected test type.
 - PR114 merged563d49c, GH/fetch verified. User explicitly requests actual
   Demo test start. Own operative Next/private mTLS prepare/submit/observe
   routes, original Session/CSRF/current API role/metadata/private material

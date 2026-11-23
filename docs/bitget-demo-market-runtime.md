@@ -100,4 +100,17 @@ bleibt ausschließlich `https://cockpit.investalo.de`.
 Ein Regressionstest reproduziert503 vor der Korrektur und prüft danach
 Vorbereitung, Versand und Status unter der internen Proxy-URL einschließlich
 Ablehnung gefälschter Origin-/CSRF-/Fetch-Site-Header.73 betroffene gepinnte
-Nodefälle grün. Nur das Cockpit benötigt einen neuen Build/Rollout.
+Nodefälle und vollständige Typprüfung grün. Finaler Produktionsbuild
+mit768MiB Heap abgeschlossen; Next-Typprüfung23,5s, keine parallele
+schwere Prüfung. Der vorherige512MiB-Build mit parallel gestarteter
+Typprüfung blieb94min in seiner Typprüfung und meldete noch den bereits
+korrigierten Testtyp. Künftige Builds auf dem kleinen Host sequenziell.
+
+Proxy-Fix861091d im bestehenden Demo-Testauftrag live geschaltet:
+nur Cockpit erneuert, sechs andere Dienst-IDs und Demo-Key active1/1
+unverändert. Alle sechs Overlays erhalten. TLS200, alle drei anonymen
+Order-POSTs401 und tatsächliches privates mTLS405 geprüft.
+Private Vorher-/Nachher-/Rollbackbelege unter `rollout-*` erhalten.
+Alle Testverzeichnisse weiterhin leer; keine Order durch Fehlversuch
+oder Deployment. PR116 erstellt. Originale Dashboard-Vorbereitung
+erneut angefragt; native Fillabnahme weiterhin offen.
