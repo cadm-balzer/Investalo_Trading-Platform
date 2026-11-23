@@ -76,9 +76,18 @@ Rollout offen. PR109/main6d741a3 jetzt verifiziert und nach Nutzerbestätigung
 ausgerollt: nur Cockpit/Executor erneuert, fünf andere Dienste unverändert,
 TLS200/anonyme Reads401/privates mTLS405, Key active1/1. Originaler privater
 BTC-Abruf jetzt erfolgreich:11 GETs/4044ms/200/00000, sichtbare Vorschau
-vom Nutzer bestätigt. BTC isoliert/Hedge/2×; One-way noch nötig.
+vom Nutzer bestätigt. Neue Nutzervorschau12:23:39 bestätigt nun
+BTC isoliert/einseitig/2× und passende Profileinstellung.
 Bonusguthaben/Maximalmenge unbekannt, Kosten/ältere Scopefreigabe offen.
 Kein Auftrag.
+
+2026-11-23: PR110/maina532e07 verifiziert. Der BTC-Lesepfad gleicht
+das dokumentierte Grant-Feld der Kontoliste mit der ohnehin abgefragten
+BTC-Einzelkontoantwort ab. Fehlende Listenwerte können durch bestätigte
+BTC-Werte ergänzt werden; Widersprüche werden abgelehnt. Positive Beträge
+bleiben Sicherheitenwarnungen, beidseitig fehlende Werte unbekannt.
+176 gepinnte Pythonfälle/Executorbuild grün; keine zusätzliche Abfrage,
+Frontendänderung oder Orderfreigabe. Rollout/native Quellenabnahme folgen.
 
 2026-11-22: native Startdiagnose bestätigt einen Laufzeitfehler: zehn
 erfolgreiche Bitget-GETs benötigen5265ms und überschreiten5s.

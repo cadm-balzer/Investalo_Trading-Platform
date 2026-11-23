@@ -1,5 +1,16 @@
 # Entscheidungsprotokoll
 
+## D-148 — Bestätigtes Grant-Feld aus bestehender BTC-Abfrage
+
+Nutzer bestätigt BTC isoliert/einseitig/2×; Bonusguthaben bleibt in der
+Kontoliste unbestätigt. Beide offiziellen Kontoendpunkte dokumentieren
+`grant`. Der gezielte BTC-Lesepfad kann das bestätigte Einzelkontofeld
+verwenden, ohne weitere Anfrage oder Änderung der Quellzeit.
+Bekannte Widersprüche verwerfen den Bericht, positive Werte bleiben
+Sicherheitenwarnungen und fehlende Werte unbekannt. Dies verändert weder
+die allgemeine Startprüfung noch die Orderfreigabe.
+[Umsetzung und Quellen](../bitget-demo-btc-test-preview.md).
+
 ## D-147 — Gezielte BTC-Testvorschau mit produktweiter Kontoprüfung
 
 Der Nutzer meldet BTC auf das geplante Profil eingestellt und möchte

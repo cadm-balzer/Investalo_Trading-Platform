@@ -78,8 +78,11 @@ Originaler nativer Startabruf vollständig erfolgreich:15 GETs/4551ms/200/00000.
 Browserbericht bestätigt: Cross/Hedge/10× weicht vom geplanten Profil ab;
 gezielte Demo-Konfigurationsvorbereitung und ältere Scope-/Kostenabnahme offen.
 Nutzer meldet BTC vorbereitet; [BTC-Testvorschau](bitget-demo-btc-test-preview.md)
-mit gezielter Konfiguration und gesamter Kontoprüfung implementiert/getestet,
-Builds grün; PR109 Review/Rollout folgen.
+mit gezielter Konfiguration und gesamter Kontoprüfung ausgerollt;
+originaler privater BTC-Abruf/Browseranzeige bestätigt. BTC isoliert/
+einseitig/2× passt. Grant-Quellenabgleich aus bestehendem BTC-GET mit176
+Pythonfällen/Executorbuild geprüft; Rollout und nativer Nachweis folgen.
+Native maximale Limitmenge/Kosten/ältere Scopefreigabe weiterhin offen.
 Frontend-Optimierung auf kleinem Host sehr langsam (gemeldete432,8min);
 Builderauslastung und externen Buildpfad vor größeren Frontendblöcken prüfen.
 

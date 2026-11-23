@@ -174,7 +174,7 @@ class DemoAccountReader:
         target, expires = self._authorize(request_context, token, body)
         if not self.native.lock.acquire(blocking=False):
             raise OnboardingRejected("unavailable")
-        phase, sent = threading.local(), 0
+        phase, sent, grant_source = threading.local(), 0, {}
         phase.stage = "scope"
         started = time.time_ns() // 1_000_000
         def report(stage, error=None):
@@ -190,6 +190,8 @@ class DemoAccountReader:
                     provider_code=getattr(self.native, "native_code", None))
                 if error is not None and hasattr(error, "_demo_pending_failure"):
                     value["pending_failure"] = error._demo_pending_failure
+                if target.get("inspection") == "btc-test" and "source" in grant_source:
+                    value["grant_source"] = grant_source["source"]
                 diagnostic(value)
             except Exception:
                 pass
@@ -288,7 +290,8 @@ class DemoAccountReader:
                 return result
             if target.get("inspection") == "btc-test":
                 from .demo_btc_test_check import inspect_btc_test
-                result = inspect_btc_test(get, binding, owner, view, a)
+                result = inspect_btc_test(get, binding, owner, view, a,
+                    on_grant_source=lambda source: grant_source.update(source=source))
                 guard()
                 report("completed")
                 return result

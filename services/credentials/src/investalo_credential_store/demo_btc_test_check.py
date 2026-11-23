@@ -1,4 +1,5 @@
 """Original-account BTC test proposal; read-only and never an order grant."""
+from dataclasses import replace
 from datetime import datetime, timezone
 from decimal import Decimal, localcontext
 import json
@@ -6,7 +7,8 @@ import re
 import time
 
 from investalo_bitget.futures_demo_preview import btc_test_preview
-from .demo_startup_check import _inspect_startup, _validate_startup
+from investalo_bitget import parse
+from .demo_startup_check import _inspect_startup, _validate_startup, wallet_blockers
 
 SCHEMA = "investalo-demo-btc-test/1"
 READINESS_SCHEMA = "investalo-demo-btc-readiness/1"
@@ -14,18 +16,43 @@ WALLET_FIELDS = ("account_equity", "available", "locked", "isolated_margin",
                  "crossed_margin", "unrealized_pnl", "coupon", "grant", "asset_mode")
 
 
-def inspect_btc_test(get, binding, owner, account, wallet):
-    readiness, market = _inspect_startup(get, binding, owner, account, wallet,
+def inspect_btc_test(get, binding, owner, account, wallet, *, on_grant_source=None):
+    # The existing fixed BTC account GET shares the original credential and
+    # five-second cohort. Capture its documented grant without another request.
+    btc_grant = {}
+    def read(axis, cursor=None):
+        response = get(axis, cursor)
+        if axis == "BTCUSDT":
+            raw, _ = parse.envelope(response)
+            if (type(raw) is not dict or raw.get("marginCoin") != "USDT"
+                    or "symbol" in raw and raw["symbol"] != "BTCUSDT"):
+                raise ValueError()
+            btc_grant["amount"] = parse.amount(raw.get("grant"))
+        return response
+    readiness, market = _inspect_startup(read, binding, owner, account, wallet,
         config_symbols=("BTCUSDT",), extra_axes=("contracts", "ticker"), schema=READINESS_SCHEMA)
+    confirmed = btc_grant["amount"]
+    if wallet.grant is not None and confirmed is not None and wallet.grant != confirmed:
+        raise ValueError()
+    source = "wallet" if wallet.grant is not None else "unconfirmed"
+    if wallet.grant is None and confirmed is not None:
+        wallet = replace(wallet, grant=confirmed)
+        source = "btc_account"
+        readiness["blockers"] = sorted(
+            set(readiness["blockers"]) - {"wallet_unknown", "wallet_collateral", "initial_balance_changed"}
+            | wallet_blockers(wallet))
     _validate_startup(readiness, config_symbols=("BTCUSDT",), schema=READINESS_SCHEMA)
     proposal = btc_test_preview(market["contracts"], market["ticker"],
                                now_ms=time.time_ns() // 1_000_000).public()
     observed = min(datetime.fromisoformat(readiness["observed_at"]),
                    datetime.fromtimestamp(proposal["observed_ms"] / 1000, timezone.utc))
-    return validate_btc_test(dict(schema=SCHEMA, observed_at=observed.isoformat(), readiness=readiness,
+    result = validate_btc_test(dict(schema=SCHEMA, observed_at=observed.isoformat(), readiness=readiness,
                 preview=proposal, unknown_wallet_fields=[
                     field for field in WALLET_FIELDS if getattr(wallet, field) is None],
                 execution_enabled=False))
+    if on_grant_source is not None:
+        on_grant_source(source)
+    return result
 
 
 def validate_btc_test(value):
