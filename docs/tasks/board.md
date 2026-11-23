@@ -27,8 +27,10 @@ Widerspruch ablehnen, positiv bleibt blockierend, beidseitig fehlend unbekannt.
 176 gepinnte Pythonfälle/Executorbuild grün, elf GETs unverändert.
 PR111/mainbf5ddbe verifiziert, Grant-Rollout `DONE`: nur Executor erneuert,
 sechs andere Dienste unverändert, TLS200/anonyme Reads401/mTLS405/Key1/1.
-Tatsächliche private Quellenabnahme `READY`; native Maximalmenge/
-Kosten-/ältere Scopeklärung bleiben Folgeblock.
+Originale private Quellenprüfung `DONE`:elf GETs/3952ms/200/00000,
+`unconfirmed`; Nutzer bestätigt Grant/native Maximalmenge weiter unbekannt.
+Es wurde kein Nullbetrag bestätigt. Native Limit-/Kosten-/ältere
+Scopeklärung bleiben Folgeblock.
 Native Kostengrundlage/Orderlimit/Pendingscope und tatsächliche einmalige
 Orderfreigabe bleiben Folgeblock; keine Orders oder Kontoänderungen.
 

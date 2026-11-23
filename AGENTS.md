@@ -12,7 +12,9 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   recreated, six other services unchanged. Original five overlays/env and
   private rollback/before/active receipts retained in infra/local/demo-btc-grant-source.
   TLS200/all3 anonymous variants401/private mTLS405, active key1/1 unchanged.
-  Native grant-source acceptance awaits original fresh Dashboard request.
+  Original fresh Dashboard read completed:11 GETs/3952ms/native200/00000,
+  grant_source=unconfirmed; user confirms Bonus/native max still unknown.
+  Neither native account source supplied grant; no numeric zero inferred.
   DurableDemoOrderConsumer adds actual O_EXCL/fsync/readback consumption of
   a trusted issuer's exact approval before dispatcher AEAD. Private original
   root/UID/inode/PID/actor checks, concurrency/restart/partial-file denial.

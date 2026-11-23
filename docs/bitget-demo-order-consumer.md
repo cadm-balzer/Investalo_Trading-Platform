@@ -53,7 +53,10 @@ Nur der Demo-Executor erneuert; alle sechs anderen Dienste unverändert.
 TLS200, drei anonyme Accountvarianten401, tatsächliches privates mTLS405,
 Key active/revision1/storage1. Originale Overlays/Envdatei erhalten,
 Rückweg und Vorher-/Aktivbelege unter `infra/local/demo-btc-grant-source`.
-Tatsächliche Grant-Quellenabnahme über neue Dashboard-Anfrage noch offen.
+Neue originale Dashboard-Anfrage erfolgreich:elf GETs/3952ms/HTTP200/00000,
+private Quellenklasse `unconfirmed`. Nutzer bestätigt weiterhin unbekanntes
+Bonusguthaben und unbekannte maximale Ordermenge. Damit ist der Abgleich
+tatsächlich ausgeführt, aber kein nativer Nullbetrag bestätigt.
 
 Zwei neue öffentliche Demo-GETs bestätigen weiterhin leere native
 `maxOrderQty`/`maxMarketOrderQty`, Maker0,0002/Taker0,0006,

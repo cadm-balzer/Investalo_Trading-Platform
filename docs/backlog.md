@@ -82,7 +82,9 @@ mit gezielter Konfiguration und gesamter Kontoprüfung ausgerollt;
 originaler privater BTC-Abruf/Browseranzeige bestätigt. BTC isoliert/
 einseitig/2× passt. Grant-Quellenabgleich aus bestehendem BTC-GET mit176
 Pythonfällen/Executorbuild geprüft; PR111 gemergt und Rollout erledigt,
-nativer Grant-Nachweis folgt. [Dauerhafter Orderconsumer](bitget-demo-order-consumer.md)
+originaler Grant-Abgleich bestätigt11 GETs/3952ms/200/00000, beide Quellen
+liefern keinen Betrag. Bestätigtes Grantguthaben bleibt offen.
+[Dauerhafter Orderconsumer](bitget-demo-order-consumer.md)
 mit185 Pythonfällen/Executorbuild geprüft; operative Zustimmungs-/Accountguard-/
 Registry-/Routeanbindung weiterhin offen.
 Native maximale Limitmenge/Kosten/ältere Scopefreigabe weiterhin offen.

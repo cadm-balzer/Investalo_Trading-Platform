@@ -116,11 +116,15 @@ besteht176 gepinnte Pythonfälle inklusive echtem AEAD mit synthetischen
 Brokerantworten: bestätigter Null-/Positivbetrag, unbekannte oder widersprüchliche
 Quellen, ungültige Beträge, fremde Kontosicherung, alte Quellezeit sowie
 unveränderte andere Walletblocker und Sieben-Coin-Startprüfung.
-Executorbuild grün; kein Frontendneubau. Der Abgleich ist noch nicht
-am tatsächlichen privaten Demo-Grant abgenommen. PR111/main `bf5ddbe`
+Executorbuild grün; kein Frontendneubau. Ein bestätigter BTC-Grant als
+Ersatzquelle ist nativ noch nicht beobachtet. PR111/main `bf5ddbe`
 verifiziert und Grant-Rollout abgeschlossen: ausschließlich Executor erneuert,
 sechs andere Dienste unverändert, TLS200/anonyme Reads401/mTLS405/Key1/1.
 Privater Rückweg unter `infra/local/demo-btc-grant-source`.
+Der anschließende originale Nutzerabruf bestätigtelf GETs/3952ms/native200/
+00000 und die private Quellenklasse `unconfirmed`: Grant wird von keiner
+der beiden Kontoquellen geliefert. Nutzer bestätigt die verbleibende
+Bonus-/Maximalmengenwarnung. Kein nativer Nullbetrag oder Orderlimit bestätigt.
 
 Der Cockpit-Build akzeptiert optional
 `COCKPIT_BUILD_HEAP_MB`; Standard768 unverändert, dieser kleine Host baut

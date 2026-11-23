@@ -73,6 +73,9 @@ Anmeldeschutz geprüft. Nutzer wünscht kleinen BTC-Demo-Test. Der
 den Versandkern gegen erneuten Verbrauch nach Konkurrenz/Neustart:
 185 gepinnte Pythonfälle/Executorbuild grün. Operative Orderroute/Issuer/
 Accountbasis und native Limits/Kosten weiterhin offen; kein Auftrag.
+Originaler frischer Grant-Abgleich erfolgreich mitelf GETs/3952ms/200/00000;
+beide nativen Kontoquellen liefern keinen Grantbetrag. Nutzer bestätigt
+weiterhin die Bonus-/Maximalmengenwarnung; kein Nullbetrag erfunden.
 
 2026-11-23: PR108/mainad32086 verifiziert; Nutzer bestätigt vorbereiteten BTC.
 Die [BTC-Testvorschau](bitget-demo-btc-test-preview.md) ergänzt Dashboard/
