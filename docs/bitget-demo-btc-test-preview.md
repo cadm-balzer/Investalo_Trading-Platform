@@ -75,14 +75,39 @@ Finale gepinnte Cockpit-/Executorbuilds grün. Zwei tatsächliche öffentliche
 Demo-GETs liefern eine gültige Vorschau:0,0003 BTC, Limit61519 USDT,
 Positionswert18,4557 USDT, Initialmargin9,22785 USDT; datierter Teststand,
 keine Orderfreigabe. Native Maximalmenge bleibt dabei tatsächlich unbekannt.
-Die private BTC-Kontoprüfung ist noch nicht nativ ausgeführt.
+PR109 ist auf main `6d741a3` gemergt und der angekündigte Rollout nach
+Nutzerbestätigung abgeschlossen. Der tatsächliche Abruf aus der
+Originalanmeldung ist erfolgreich:elf GETs in4044ms, HTTP200/00000,
+private technische Abschlussdiagnose ohne Fehler. Nutzer bestätigt die
+Anzeige vom20261123 12:02:20/22:0,0003 BTC, Limit61482,7 USDT,
+Positionswert18,44481 USDT, Initialmargin9,222405 USDT vor Gebühren.
+Alle fünf abgefragten Pendingfamilien zeigen null Aufträge.
+
+Die aktuelle native BTC-Konfiguration ist **isoliert/Hedge/2×**.
+Der gewünschte One-way-Modus ist noch nicht gesetzt; die Profilwarnung ist
+damit nachvollziehbar. Das Grant-Feld wird nicht bestätigt und bleibt als
+Bonusguthaben unbekannt. Native Maximalmenge ist ebenfalls unbestätigt.
+Es wurden keine Nullbeträge oder Orderlimits daraus abgeleitet.
+Die noch offene Kosten-/ältere Scopeabnahme und einmalige konkrete
+Orderfreigabe bleiben eigenständige nächste Schritte.
 
 Der Cockpit-Build akzeptiert optional
 `COCKPIT_BUILD_HEAP_MB`; Standard768 unverändert, dieser kleine Host baut
 mit512. Keine neue Dependency oder Migration, laufende Dienste unverändert.
-Nach Merge und Rolloutfreigabe nur Cockpit und Demo-Executor neu erstellen;
-Public/Paper/Demo-Trading/Admin-Mail/Account-Sync-Overlays beibehalten.
-Tatsächliche native BTC-Gesamtabnahme folgt dann unter der Originalanmeldung.
+Nur Cockpit und Demo-Executor wurden mit den verifizierten fertigen Images
+erneuert; fünf andere laufende Container-IDs unverändert. Public/Paper/
+Demo-Trading/Admin-Mail/Account-Sync-Overlays und ursprüngliche Envdatei
+beibehalten. Paketierte Python-Hashes entsprechen main, kompilierte
+Frontendmarker sind vorhanden; kein neuer Build für diesen Rollout.
+
+Cockpit gesund und beide Dienste ohne Neustarts, Executor readonly,
+ohne Hostports und Logausgabe. Öffentliches TLS200, drei nicht angemeldete
+Accountvarianten401 und tatsächliches privates mTLS405 geprüft. Bestehender
+Demo-Key bleibt active/revision1/storage1.
+Private ursprüngliche Image-Rollbackoverlays sowie Vorher-/Aktivbelege unter
+`infra/local/demo-btc-test-preview/rollout-*`. Rückweg: dieselben ursprünglichen
+Overlays/Envdatei plus dortiges `rollback-images.yaml`, nur die beiden
+Dienste mit `up -d --no-deps --no-build --force-recreate` erneuern.
 
 Der kleine Host meldete für die Frontend-Optimierung432,8min. Vor weiteren
 größeren Frontendblöcken Buildauslastung/externen Builder prüfen; der

@@ -13,8 +13,14 @@ IP-015/IP-016: [BTC-Testvorschau](../bitget-demo-btc-test-preview.md)
 verifiziert. Gezielte BTC-Konfiguration, gesamtes Konto und fünf
 Pendingfamilien, aktuelle Demo-Quotes und exakte kleine20-USDT-Vorschau.
 167 Python/47 Node/Typprüfung/finale gepinnte Produktionsbuilds grün.
-Tatsächliche öffentliche Demo-Marktprobe erfolgreich; private Abnahme nach
-Merge/Rollout `READY`. PR109 zum Review.
+Tatsächliche öffentliche Demo-Marktprobe erfolgreich; PR109/main6d741a3
+verifiziert und Rollout nach Nutzerbestätigung `DONE`. Originale Images/
+Overlays gesichert, nur zwei Dienste erneuert, fünf andere IDs unverändert,
+HTTPS200/anonyme Reads401/mTLS405 und Key1/1 bestätigt.
+Originaler privater BTC-Leseabruf `DONE`:11 GETs/4044ms/200/00000,
+Nutzer bestätigt sichtbare Vorschau und null Aufträge in fünf Kategorien.
+BTC-Profil derzeit isoliert/Hedge/2×, One-way-Anpassung sowie
+Grant-/native Maximalmenge/Kosten-/ältere Scopeklärung `READY` als Folgeblock.
 Native Kostengrundlage/Orderlimit/Pendingscope und tatsächliche einmalige
 Orderfreigabe bleiben Folgeblock; keine Orders oder Kontoänderungen.
 
