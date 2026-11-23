@@ -16,6 +16,7 @@ import * as consent from "../src/lib/demo-btc-order-consent.ts";
 import * as objects from "../src/lib/passkey-enrollment-state.ts";
 import * as security from "../src/lib/security.ts";
 import * as proof from "../src/lib/demo-trading-passkey-action-proof-state.ts";
+import { ORDER_CATEGORIES } from "../src/lib/demo-startup-contract.ts";
 import { marketReadPacket } from "../src/lib/demo-market-order-executor.ts";
 import { demoTlsFixture } from "./helpers/demo-trading-private-identity-fixture.ts";
 import { SYNTHETIC_DEMO_TLS } from "./helpers/demo-private-tls-material.ts";
@@ -35,6 +36,28 @@ function status(): contracts.MarketStatus {
   return {schema:"investalo-demo-market-status/1",command_id:id(6),state:"filled",requested_quantity_btc:"0.0003",
     filled_quantity_btc:"0.0003",average_price_usdt:"70000",reported_fee_usdt:null,observed_ms:Date.now(),
     position_matched:true,order_resubmit_allowed:false};
+}
+function prepared(consent: contracts.MarketConsent): contracts.MarketPrepared {
+  const observed = Date.now(), at = new Date(observed).toISOString();
+  return { schema: "investalo-demo-market-prepared/1", consent_request: consent, expires_ms: observed + 30000,
+    report: { schema: "investalo-demo-btc-market-preview-report/1", observed_at: at,
+      readiness: { schema: "investalo-demo-btc-readiness/1", observed_at: at,
+        account: { schema: "investalo-demo-account/1", tenant_id: id(1), account_id: id(4),
+          observed_at: at, currency: "USDT", positions: [],
+          wallet: { equity: "10000", available: "10000", locked: "0", unrealized_pnl: "0",
+            isolated_margin: "0", crossed_margin: "0" } },
+        configurations: [{ symbol: "BTCUSDT", margin_mode: "isolated", position_mode: "one_way_mode",
+          asset_mode: "single", long_leverage: "2", matches: true }],
+        orders: ORDER_CATEGORIES.map(category => ({ category, count: 0, pages: 1, complete: true })),
+        blockers: [], expected_initial_usdt: "10000", pending_scope_verified: false,
+        costs_verified: false, execution_enabled: false },
+      preview: { schema: "bitget-classic-btc-demo-market-test/1", symbol: "BTCUSDT", environment: "demo",
+        order_type: "market", side: "long", leverage: 2, margin_mode: "isolated", quantity_btc: "0.0003",
+        reference_price_usdt: "60000", estimated_notional_usdt: "18", estimated_margin_usdt: "9",
+        planning_notional_usdt: "18.18", planning_cap_usdt: "20", price_buffer_percent: "1",
+        execution_price_guaranteed: false, native_max_market_quantity_btc: null,
+        observed_ms: observed, submission_enabled: false },
+      unknown_wallet_fields: [], execution_enabled: false } };
 }
 function fixture() {
   process.env.COCKPIT_DEMO_BTC_MARKET_TEST="1";
@@ -56,11 +79,13 @@ function fixture() {
     "./demo-trading-credential-action-contracts.ts":metadata,"./demo-btc-order-consent.ts":consent,
     "./demo-market-order-contract.ts":contracts,"./security.ts":security,
     "./demo-trading-passkey-credential-browser-server.ts":{runtime:async()=>({accountId:id(4),check:async()=>{},
-      identity:{marketRead:async()=>{f.calls++;f.mutate();return status();},
+      identity:{marketRead:async(phase:string)=>{f.calls++;f.mutate();return phase==="prepare" ? prepared(
+        contracts.parseMarketConsent(target,id(4))) : status();},
         marketSubmit:async(request:Request,deps:any)=>{
           f.calls++;const packet=await consent.prepareDemoBTCMarketConsent(request,{
             ...deps,accountId:id(4),signingKey:new Uint8Array(32).fill(83)});
           assert.equal(packet.context.user_id,id(2));f.mutate();
+          assert.equal(JSON.parse(Buffer.from(packet.token.split(".")[1],"base64url").toString()).origin,ORIGIN);
           return {...status(),state:"acknowledged",filled_quantity_btc:null,average_price_usdt:null,position_matched:false};
         }}})}
   });
@@ -100,6 +125,23 @@ test("Submit sends the own exact consent packet and publishes ACK without invent
   assert.equal(response.status,200);const body=await response.json();
   assert.equal(body.state,"acknowledged");assert.equal(body.filled_quantity_btc,null);
   assert.doesNotMatch(JSON.stringify(body),/Bearer|session_binding|body_sha256/);
+});
+test("All Market phases accept Next's internal proxy URL while checking the browser origin and CSRF",async()=>{
+  for (const phase of ["prepare","submit","observe"] as const) {
+    const f=fixture(), body=phase==="prepare" ? {confirmation:contracts.MARKET_CONFIRMATION} :
+      phase==="submit" ? f.target : {command_id:"latest"};
+    const request=new Request(`https://0.0.0.0:3000/api/bitget-demo/orders/btc-market/${phase}`,f.request(phase,body));
+    assert.equal((await f.server.handleDemoMarketOrder(request,phase)).status,200);
+    assert.equal(f.f.calls,1);
+    const rejectedHeaders: Record<string,string>[] = [
+      {origin:"https://foreign.invalid"},{"x-csrf-token":"foreign"},{"sec-fetch-site":"cross-site"}];
+    for (const header of rejectedHeaders) {
+      const denied=fixture();
+      const forged=new Request(request.url,denied.request(phase,body,header));
+      assert.equal((await denied.server.handleDemoMarketOrder(forged,phase)).status,503);
+      assert.equal(denied.f.calls,0);
+    }
+  }
 });
 test("Session replacement after executor returns discards the result and requests status only",async()=>{
   const f=fixture();f.f.mutate=()=>{f.f.current={...f.original,session:{...f.original.session,authEpoch:4}};};

@@ -83,3 +83,34 @@ seiner ursprünglichen Dashboard-Sitzung zu starten und anschließend den
 Status zu lesen. Tatsächliche private Broker-/Fillabnahme ist bis zu
 diesem Originalaufruf offen. Der Rollout ist nicht mit einer Fillbestätigung
 gleichzusetzen.
+
+Nach PR115/main3ae310e meldet der erste Nutzeraufruf einen Fehler. Die
+private Marketdiagnose fehlt, alle drei Zustandsverzeichnisse sind leer,
+Journalzählung0. Der letzte originale Vorschauabruf ist erfolgreich:
+11GETs/3641ms/native200/00000. Somit wurde kein Orderversand begonnen.
+
+Ursache im tatsächlich installierten Next16.4.5: `attachRequestMeta`
+erzeugt die Request-URL aus dem internen Listenerhostname und Port,
+auch hinter dem öffentlichen Caddy-Proxy. Orderroute und Consentsigner
+verglichen diesen internen URL-Origin fälschlich mit dem öffentlichen
+Cockpit-Origin. Beide verwenden nun die feste Browser-Originprüfung
+mit Same-origin und CSRF sowie den exakten Pfad ohne Query/Fragment.
+Session-/Actor-/Metadatenguards bleiben erhalten; der signierte Origin
+bleibt ausschließlich `https://cockpit.investalo.de`.
+Ein Regressionstest reproduziert503 vor der Korrektur und prüft danach
+Vorbereitung, Versand und Status unter der internen Proxy-URL einschließlich
+Ablehnung gefälschter Origin-/CSRF-/Fetch-Site-Header.73 betroffene gepinnte
+Nodefälle und vollständige Typprüfung grün. Finaler Produktionsbuild
+mit768MiB Heap abgeschlossen; Next-Typprüfung23,5s, keine parallele
+schwere Prüfung. Der vorherige512MiB-Build mit parallel gestarteter
+Typprüfung blieb94min in seiner Typprüfung und meldete noch den bereits
+korrigierten Testtyp. Künftige Builds auf dem kleinen Host sequenziell.
+
+Proxy-Fix861091d im bestehenden Demo-Testauftrag live geschaltet:
+nur Cockpit erneuert, sechs andere Dienst-IDs und Demo-Key active1/1
+unverändert. Alle sechs Overlays erhalten. TLS200, alle drei anonymen
+Order-POSTs401 und tatsächliches privates mTLS405 geprüft.
+Private Vorher-/Nachher-/Rollbackbelege unter `rollout-*` erhalten.
+Alle Testverzeichnisse weiterhin leer; keine Order durch Fehlversuch
+oder Deployment. PR116 erstellt. Originale Dashboard-Vorbereitung
+erneut angefragt; native Fillabnahme weiterhin offen.

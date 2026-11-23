@@ -26,6 +26,16 @@ TLS200/anonyme Konto-/Vorschau-/drei POSTs401/privates mTLS405 geprüft.
 Native Testabnahme `IN_PROGRESS`, Originalnutzerstart aus dem Cockpit
 angefragt. Noch kein tatsächlicher Auftrag bestätigt.
 
+Market-Proxy-Fix `DONE`: PR115/main3ae310e verifiziert; Nutzerfehler
+tritt vor Executor/Journal auf. Tatsächlicher Next-Listenerorigin ist intern;
+beide falschen URL-Originvergleiche korrigiert, Browser-Origin/CSRF und
+signierter öffentlicher Origin bleiben verbindlich. Regression vor Fix503,
+danach alle drei Phasen und Fremdheader geprüft;73 Nodefälle/Typprüfung/
+finaler Build grün. Fix861091d Cockpit-only ausgerollt, sechs Dienste,
+Key active1/1 und leeres Testjournal erhalten; TLS/Auth/mTLS geprüft.
+PR116 erstellt. Native Testabnahme weiter `IN_PROGRESS`: originaler
+Dashboard-Aufruf nach Neuladen angefragt.
+
 IP-015/IP-016: [Kleiner BTC-Markettest](../bitget-demo-btc-market-test.md)
 `DONE` als Vertrag/Admission/Vorschau nach PR113/mainac1246b:
 Nutzer genehmigt technische Unknown-Ausnahme und wählt Market.

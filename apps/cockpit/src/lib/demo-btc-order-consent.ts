@@ -91,8 +91,10 @@ async function prepareConsent(request: Request, deps: BTCOrderConsentDependencie
   inFlight++;
   try {
     const uri = new URL(request.url);
-    if (request.method !== "POST" || uri.origin !== ORIGIN ||
-      uri.pathname !== profile.browserPath || uri.search ||
+    // The reverse proxy leaves Next's request URL on the internal listener.
+    // Bind browser origin and signed consent to the fixed public origin below.
+    if (request.method !== "POST" ||
+      uri.pathname !== profile.browserPath || uri.search || uri.hash ||
       request.headers.get("origin") !== ORIGIN || request.headers.get("sec-fetch-site") !== "same-origin" ||
       request.headers.get("content-type") !== "application/json" ||
       !(deps.signingKey instanceof Uint8Array) || deps.signingKey.byteLength !== 32)
