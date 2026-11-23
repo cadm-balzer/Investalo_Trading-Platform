@@ -172,7 +172,23 @@ class DemoAccountReader:
 
     def __call__(self, request_context, token, body):
         target, expires = self._authorize(request_context, token, body)
-        if not self.native.lock.acquire(blocking=False):
+        return self._read_current(request_context, target, expires)
+
+    def _read_current(self, request_context, target, expires, *, market_basis=False, lock_held=False):
+        """Internal native source after independently verified read/order context.
+
+        No token creation/conversion. Order installation separately verifies its
+        own exact purpose before entering this shared current actor/key reader.
+        """
+        if (type(request_context) is not PasskeyRequestContext or type(market_basis) is not bool
+                or type(lock_held) is not bool or type(expires) is not int
+                or request_context.tenant_id != self.context.tenant_id
+                or request_context.user_id != self.context.user_id or os.getpid() != self.pid
+                or not time.time_ns() // 1_000_000 < expires <= request_context.session_expires_at * 1000
+                or market_basis and target.get("inspection") != "btc-market"
+                or lock_held and not self.native.lock.locked()):
+            raise OnboardingRejected("access_denied")
+        if not lock_held and not self.native.lock.acquire(blocking=False):
             raise OnboardingRejected("unavailable")
         phase, sent, grant_source = threading.local(), 0, {}
         phase.stage = "scope"
@@ -290,11 +306,17 @@ class DemoAccountReader:
                 return result
             if target.get("inspection") in ("btc-test", "btc-market"):
                 from .demo_btc_test_check import inspect_btc_test
+                basis = []
                 result = inspect_btc_test(get, binding, owner, view, a,
                     on_grant_source=lambda source: grant_source.update(source=source),
-                    market_test=target.get("inspection") == "btc-market")
+                    market_test=target.get("inspection") == "btc-market",
+                    capture_basis=(lambda *values: basis.append(values)) if market_basis else None)
                 guard()
                 report("completed")
+                if market_basis:
+                    if len(basis) != 1:
+                        raise ValueError()
+                    return original, store, provider, result, basis[0]
                 return result
             return view
         except Exception as error:
@@ -305,7 +327,8 @@ class DemoAccountReader:
         finally:
             if target.get("inspection") in ("startup", "btc-test", "btc-market"):
                 self.native.last = time.time_ns() // 1_000_000
-            self.native.lock.release()
+            if not lock_held:
+                self.native.lock.release()
 
     def context_account(self):
         return UUID(str(self.config["account_id"]))

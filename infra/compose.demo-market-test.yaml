@@ -1,0 +1,15 @@
+# Explicit user-approved small BTC Demo test. No automatic strategy/live trading.
+services:
+  cockpit:
+    environment:
+      COCKPIT_DEMO_BTC_MARKET_TEST: "1"
+  demo-trading-executor:
+    environment:
+      DEMO_BTC_MARKET_TEST_ENABLED: "1"
+    volumes:
+      - type: bind
+        source: ./local/demo-market-test/state
+        target: /var/lib/investalo-demo-market-test
+        read_only: false
+        bind:
+          create_host_path: false

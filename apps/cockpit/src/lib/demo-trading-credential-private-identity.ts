@@ -20,6 +20,9 @@ import { readDemoAccount } from "./demo-account-executor.ts";
 import type { DemoAccount, DemoAccountTarget } from "./demo-account-contract.ts";
 import type { DemoStartup } from "./demo-startup-contract.ts";
 import type { DemoBTCTest, DemoBTCMarketTest } from "./demo-btc-test-contract.ts";
+import { prepareDemoBTCMarketConsent, type BTCOrderConsentDependencies } from "./demo-btc-order-consent.ts";
+import { marketReadPacket, sendMarketPacket } from "./demo-market-order-executor.ts";
+import type { MarketPrepared, MarketStatus } from "./demo-market-order-contract.ts";
 
 export type DemoTradingCredentialPrivateIdentitySpec = Readonly<{
   schema: "investalo-demo-trading-credential-private-identity/1";
@@ -33,6 +36,9 @@ export type DemoTradingCredentialPrivateIdentitySpec = Readonly<{
 export type DemoTradingCredentialPrivateIdentity = Readonly<{
   forSession(bound: ProofSession, currentUserId: string): DemoTradingCredentialIdentityPorts;
   readAccount?(bound: ProofSession, currentUserId: string, target: DemoAccountTarget): Promise<DemoAccount | DemoStartup | DemoBTCTest | DemoBTCMarketTest>;
+  marketRead?(phase: "prepare" | "observe", bound: ProofSession, currentUserId: string,
+    target: DemoAccountTarget & { command_id?: string }): Promise<MarketPrepared | MarketStatus>;
+  marketSubmit?(request: Request, deps: Omit<BTCOrderConsentDependencies, "accountId" | "signingKey">): Promise<MarketStatus>;
 }>;
 const rejection = () => new Error("DEMO_TRADING_CREDENTIAL_PRIVATE_IDENTITY_REJECTED");
 const sha = (value: Uint8Array) => createHash("sha256").update(value).digest("hex");
@@ -196,6 +202,41 @@ export async function createDemoTradingCredentialPrivateIdentity(
     const initial = await load();
     initial.forEach(value => value.fill(0));
     return Object.freeze({
+      async marketRead(phase: "prepare" | "observe", session: ProofSession, currentUserId: string,
+        target: DemoAccountTarget & { command_id?: string }) {
+        const bound = proofSession(session, clock());
+        if (bound.session.tenantId !== spec.tenantId || canonicalUuid(currentUserId) !== spec.userId ||
+          bound.origin !== spec.origin || bound.session.issuer !== spec.oidcIssuer ||
+          target.platform_account_id !== spec.accountId || Object.hasOwn(target, "inspection") ||
+          phase === "prepare" && Object.hasOwn(target, "command_id") ||
+          phase === "observe" && !target.command_id) throw rejection();
+        let values: Buffer[] = [];
+        try {
+          values = await load(); proofSession(bound, clock());
+          const packet = marketReadPacket({ phase, authorized: bound, userId: spec.userId, target,
+            signingKey: values[0], now: clock() });
+          const result = await sendMarketPacket(spec.executorOrigin,
+            { ca: values[1], certificate: values[2], privateKey: values[3] }, phase, packet);
+          proofSession(bound, clock()); await load().then(v => v.forEach(b => b.fill(0)));
+          return result;
+        } finally { values.forEach(v => v.fill(0)); }
+      },
+      async marketSubmit(request: Request, deps: Omit<BTCOrderConsentDependencies, "accountId" | "signingKey">) {
+        let values: Buffer[] = [];
+        try {
+          values = await load();
+          const packet = await prepareDemoBTCMarketConsent(request, { ...deps, accountId: spec.accountId, signingKey: values[0] });
+          if (packet.context.tenant_id !== spec.tenantId || packet.context.user_id !== spec.userId) throw rejection();
+          await load().then(v => v.forEach(b => b.fill(0)));
+          await deps.checkInstallation();
+          const result = await sendMarketPacket(spec.executorOrigin,
+            { ca: values[1], certificate: values[2], privateKey: values[3] }, "submit", packet);
+          await deps.checkInstallation();
+          await load().then(v => v.forEach(b => b.fill(0)));
+          if (result.schema !== "investalo-demo-market-status/1") throw rejection();
+          return result;
+        } finally { values.forEach(v => v.fill(0)); }
+      },
       async readAccount(session: ProofSession, currentUserId: string, target: DemoAccountTarget) {
         const bound = proofSession(session, clock());
         if (bound.session.tenantId !== spec.tenantId || canonicalUuid(currentUserId) !== spec.userId ||

@@ -50,7 +50,7 @@ function bodyTarget(value: unknown, accountId: string, confirmation: string) {
       head: hash(receipt.head), state_digest: hash(receipt.state_digest) },
     confirmation };
 }
-async function readBody(request: Request): Promise<unknown> {
+export async function readOrderBody(request: Request): Promise<unknown> {
   const announced = request.headers.get("content-length");
   if (announced !== null && (!/^[1-9][0-9]{0,4}$/.test(announced) || Number(announced) > MAX_BODY))
     throw rejected();
@@ -121,7 +121,7 @@ async function prepareConsent(request: Request, deps: BTCOrderConsentDependencie
       return { userId, metadata };
     }
     const before = await actor();
-    const target = bodyTarget(await readBody(request), accountId, profile.confirmation);
+    const target = bodyTarget(await readOrderBody(request), accountId, profile.confirmation);
     if (target.connection_id !== before.metadata.connection!.connection_id ||
       target.storage_version !== before.metadata.connection!.storage_version) throw rejected();
     const after = await actor();

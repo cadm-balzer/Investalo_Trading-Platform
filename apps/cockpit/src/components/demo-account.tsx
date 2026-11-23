@@ -6,10 +6,11 @@ import { parseDemoStartup, type DemoStartup } from "../lib/demo-startup-contract
 import { DemoStartupReport } from "./demo-startup";
 import { parseDemoBTCMarketTest, type DemoBTCMarketTest } from "../lib/demo-btc-test-contract";
 import { DemoBTCTestReport } from "./demo-btc-test";
+import { DemoMarketOrder } from "./demo-market-order";
 
 const money = (v: string | null) => v === null ? "—" :
   `${new Intl.NumberFormat("de-DE", { maximumFractionDigits: 2 }).format(Number(v))} USDT`;
-export function DemoAccountPanel({ tenantId }: { tenantId: string }) {
+export function DemoAccountPanel({ tenantId, csrf, marketTest = false }: { tenantId: string; csrf?: string; marketTest?: boolean }) {
   const [snapshot, setData] = useState<DemoAccount | null>(null), [error, setError] = useState(""),
     [busy, setBusy] = useState(false), [tick, setTick] = useState(0), [now, setNow] = useState(Date.now());
   const [startup, setStartup] = useState<DemoStartup | null>(null), [checking, setChecking] = useState(false),
@@ -108,5 +109,7 @@ export function DemoAccountPanel({ tenantId }: { tenantId: string }) {
       <button type="button" className="button secondary" disabled={busy || checking || !data}
         onClick={() => void inspect("btc-market")}>{checking ? "Wird geprüft …" : "BTC-Testvorschau"}</button></div>
     {proposal && <DemoBTCTestReport data={proposal} />}
+    {marketTest && csrf && data && <DemoMarketOrder key={`${tenantId}:${data.account_id}:${csrf}`}
+      tenantId={tenantId} accountId={data.account_id} csrf={csrf} />}
   </section>;
 }

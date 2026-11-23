@@ -28,7 +28,7 @@ from uvicorn.server import ServerState
 from .passkey_request_assertion import MAX_BODY_BYTES
 from .private_http import (
     CONTEXT_HEADER, MAX_HEADER_BYTES, MAX_HEADER_LINE, MAX_RESPONSE_BYTES,
-    CredentialHTTPApplication, DemoTradingAccountHTTPApplication,
+    CredentialHTTPApplication, DemoTradingAccountHTTPApplication, DemoMarketTestHTTPApplication,
     _ALLOWED_HEADERS, _ERROR_STATUS, _application_result, _application_targets,
     parse_request_context,
 )
@@ -212,7 +212,9 @@ class _Application:
             awaited = asyncio.wrap_future(future)
             awaited.add_done_callback(_consume_future)
             result = await asyncio.shield(awaited)
-            limit = 65536 if type(app) is DemoTradingAccountHTTPApplication and action == "account_read" else MAX_RESPONSE_BYTES
+            limit = 65536 if (
+                type(app) in (DemoTradingAccountHTTPApplication, DemoMarketTestHTTPApplication) and action == "account_read"
+                or type(app) is DemoMarketTestHTTPApplication and action == "market_prepare") else MAX_RESPONSE_BYTES
             await self._reply(send, 200, _application_result(app, result, action), limit=limit)
         except asyncio.CancelledError:
             raise

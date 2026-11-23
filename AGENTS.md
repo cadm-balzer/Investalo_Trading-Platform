@@ -7,6 +7,24 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR114 merged563d49c, GH/fetch verified. User explicitly requests actual
+  Demo test start. Own operative Next/private mTLS prepare/submit/observe
+  routes, original Session/CSRF/current API role/metadata/private material
+  guards, separate short prepare/observe domains and exact Market consent.
+  Original11-GET native source/5s/max3/110ms and actual fresh Trading store/
+  AEAD retained. Source-only authorized GET decrypt precedes POST consumer;
+  persistent consume precedes POST-bound lease and unknown journal prefix.
+  Own UID10003 original registry/outbox/consumer state, partial bootstrap
+  terminal, max16 preparations, exactly one attempted test, GET-only latest
+  recovery across restarts. Actual fill/fee/position projection; no ACK fill
+  inference or resend. Both own flags default off. 134 pinned Python/72 Node/
+  full typecheck green; actual local ASGI/mTLS with real pacing and files/
+  AEAD; actor/DB port/native replies synthetic. Own private state directories
+  prepared; no actual credentials/session/broker call fabricated.
+  User-approved necessary rollout follows builds; actual test requires the
+  user's original Dashboard session. Preserve new market-test overlay
+  alongside all five existing overlays once activated. See
+  docs/bitget-demo-market-runtime.md.
 - PR113 mergedac1246b, GH/fetch verified. User explicitly approves the small
   technical Demo exception and chooses Market, also for future strategy.
   Own BTCMarketIntent/grid/preview preserves unknown maxMarketOrderQty;

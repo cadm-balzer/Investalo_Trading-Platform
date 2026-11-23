@@ -8,6 +8,18 @@ konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
+IP-015/IP-016: [Operativer einzelner Markettest](../bitget-demo-market-runtime.md)
+`IN_PROGRESS`: PR114/main563d49c verifiziert, Nutzer verlangt tatsächlichen
+Demotest. Originale Session-/Actor-/Metadaten-/mTLS-/AEAD-Anbindung für
+prepare/submit/observe, persistente Once-only-Registry/Consumer/Journal,
+native11-GET-Quelle und aktuelle5s-Prüfung implementiert.
+134 Python/72 Node/Typprüfung grün; tatsächliches lokales ASGI/mTLS und
+Neustart/ACK-Verlust, private Brokerantworten synthetisch.
+Eigene UID10003-Verzeichnisse vorbereitet. Produktionsbuilds/autorisiertes
+Deployment, dann originaler Nutzerstart und tatsächlicher Fill-/Positions-
+Abgleich stehen an. Keine zusätzliche Freigabefrage zum bereits genehmigten
+Testprofil; Originalsession kann nicht durch Chat/Operator erfunden werden.
+
 IP-015/IP-016: [Kleiner BTC-Markettest](../bitget-demo-btc-market-test.md)
 `DONE` als Vertrag/Admission/Vorschau nach PR113/mainac1246b:
 Nutzer genehmigt technische Unknown-Ausnahme und wählt Market.
