@@ -87,6 +87,12 @@ liefern keinen Betrag. Bestätigtes Grantguthaben bleibt offen.
 [Dauerhafter Orderconsumer](bitget-demo-order-consumer.md)
 mit185 Pythonfällen/Executorbuild geprüft; operative Zustimmungs-/Accountguard-/
 Registry-/Routeanbindung weiterhin offen.
+Eigene [BTC-Orderzustimmung](bitget-demo-btc-order-consent.md) mit197 Python/
+23 Node/Typprüfung/Executorbuild und tatsächlicher synthetischer Node→Python-
+Paketkette geprüft; operative Verkabelung bleibt offen.
+Einzelner enger [technischer Demotest](bitget-demo-small-test-policy.md)
+als bewusstes eigenes Profil zur Nutzerentscheidung vorgeschlagen;
+normale native Limit-/Kosten-/Auftragsprüfungen bleiben unverändert.
 Native maximale Limitmenge/Kosten/ältere Scopefreigabe weiterhin offen.
 Frontend-Optimierung auf kleinem Host sehr langsam (gemeldete432,8min);
 Builderauslastung und externen Buildpfad vor größeren Frontendblöcken prüfen.

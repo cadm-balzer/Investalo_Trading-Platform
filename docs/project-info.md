@@ -66,6 +66,16 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-23: PR112/main dc879b3 verifiziert. Eigene
+[konkrete BTC-Orderzustimmung](bitget-demo-btc-order-consent.md) bindet
+Original-HTTP/CSRF/Session, aktuelle Rolle/Metadaten und exakten Intent/
+Outboxbeleg.197 Python/23 Node/Typprüfung/Executorbuild grün, tatsächliche
+Node→Python→Consumer→AEAD/Outbox-Kette mit synthetischem Broker-ACK geprüft.
+Kein echter Auftrag oder operative Route. Begrenztes
+[technisches Testprofil](bitget-demo-small-test-policy.md) zur Entscheidung
+vorgeschlagen, um die tatsächlich fehlenden Brokerangaben für einen
+einzelnen20-USDT-Demotest bewusst zu behandeln.
+
 2026-11-23: PR111/mainbf5ddbe verifiziert und Bonusguthaben-Fix ausgerollt.
 Nur Executor erneuert, sechs andere Dienste/Key1/1 unverändert; TLS/mTLS/
 Anmeldeschutz geprüft. Nutzer wünscht kleinen BTC-Demo-Test. Der
