@@ -7,6 +7,14 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- User reaffirms Q42 on2026-11-24: every planned basket-stage amount is
+  own-capital margin; order notional = stage capital × fixed basket leverage,
+  quantity floored to native grid. Existing capital/Paper entry_quantity
+  implements this. Do not divide stage amounts by leverage or reuse the
+  separate technical20USDT-notional test sizing for strategy orders.
+  Actual test18.42771USDT notional/2 =9.213855USDT margin before costs was
+  intentional. Fees/funding remain separately budgeted. See
+  docs/bitget-demo-small-test-policy.md.
 - PR116 mergedc336f86, GH/fetch verified. User confirms first actual BTC
   Demo Market open and native screenshot:0.0003BTC, isolated/one-way2x,
   filled average61425.7USDT, reported signed fee-0.01105662USDT, position
