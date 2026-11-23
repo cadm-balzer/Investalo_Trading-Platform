@@ -66,6 +66,17 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-24: PR116/mainc336f86 verifiziert. Nutzer bestätigt die erste
+tatsächliche Demo-Marketorder mit Screenshot und Cockpit-Positionsabgleich:
+0,0003BTC,2× isoliert, vollständig ausgeführt zu61.425,7USDT,
+gemeldete Gebühr−0,01105662USDT. Dauerhafte Journal-Hashkette und
+Checkpoint lesend bestätigt: Revision4, genau eine Vorbereitung/ein
+Versand/ein ACK/eine Beobachtung/ein verbrauchter Consent.
+Private native Statusdiagnose completed/2132ms/200/00000.
+[Eröffnungsabnahme](bitget-demo-market-runtime.md) abgeschlossen.
+Nächster Schritt ist der kontrollierte Reduce-only-Marketabschluss mit
+Gebühren-/Kontostandsabgleich, danach der H1-Basketablauf im Demokonto.
+
 2026-11-23: PR115/main3ae310e verifiziert. Erster Demotest scheitert
 vor dem Executor, Journal und private Testverzeichnisse leer. Ursache
 ist der Vergleich der internen Next-Requestadresse mit dem öffentlichen

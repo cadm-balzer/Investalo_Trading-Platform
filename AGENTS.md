@@ -7,6 +7,18 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR116 mergedc336f86, GH/fetch verified. User confirms first actual BTC
+  Demo Market open and native screenshot:0.0003BTC, isolated/one-way2x,
+  filled average61425.7USDT, reported signed fee-0.01105662USDT, position
+  match confirmed. Read-only durable journal/checkpoint hashchain verified:
+  revision4, exactly prepare1/dispatch1/ack1/observation1 and consumed
+  grant1; last observation matches all user values. Actual private observe
+  completed2132ms/native200/00000/no error. No new broker request, order,
+  state rewrite or service change during this acceptance audit.
+  Single opening acceptance DONE; next READY is exact owned-position
+  reduce-only Market close with separate confirmation, retained once-only
+  journal and actual flat/fee/balance reconciliation. Automatic H1 basket
+  execution follows the completed open/close test; live remains disabled.
 - PR115 merged3ae310e, GH/fetch verified. First original user Market action
   fails before executor entry: own diagnostic absent, original preview
   completed11 GETs/3641ms/native200/00000, all three state children empty,
