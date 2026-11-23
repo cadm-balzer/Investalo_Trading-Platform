@@ -4,6 +4,7 @@ import { parseDemoAccount, type DemoAccount, type DemoAccountTarget } from "./de
 import type { ProofSession } from "./demo-trading-passkey-action-proof-state.ts";
 import { actionProofBinding } from "./demo-trading-passkey-action-proof-state.ts";
 import { parseDemoStartup, type DemoStartup } from "./demo-startup-contract.ts";
+import { parseDemoBTCTest, type DemoBTCTest } from "./demo-btc-test-contract.ts";
 
 export const DEMO_ACCOUNT_PATH = "/v1/bitget-demo-trading/account-read";
 export async function readDemoAccount(input: {
@@ -11,7 +12,7 @@ export async function readDemoAccount(input: {
   target: DemoAccountTarget; signingKey: Uint8Array;
   tls: { ca: Uint8Array; certificate: Uint8Array; privateKey: Uint8Array };
   now?: number;
-}): Promise<DemoAccount | DemoStartup> {
+}): Promise<DemoAccount | DemoStartup | DemoBTCTest> {
   const now = input.now ?? Math.floor(Date.now() / 1000), s = input.authorized.session;
   const uri = new URL(input.origin);
   if (uri.origin !== "https://demo-trading-executor.cockpit.internal:9443" ||
@@ -62,6 +63,8 @@ export async function readDemoAccount(input: {
           const raw = new TextDecoder("utf-8", { fatal: true }).decode(Buffer.concat(chunks));
           const result = input.target.inspection === "startup" ?
             parseDemoStartup(JSON.parse(raw), s.tenantId, input.target.platform_account_id) :
+            input.target.inspection === "btc-test" ?
+            parseDemoBTCTest(JSON.parse(raw), s.tenantId, input.target.platform_account_id) :
             parseDemoAccount(JSON.parse(raw), s.tenantId, input.target.platform_account_id);
           const observed = Date.parse(result.observed_at) / 1000;
           if (observed > now + 15 || Math.floor(Date.now() / 1000) - observed > 15) throw new Error();

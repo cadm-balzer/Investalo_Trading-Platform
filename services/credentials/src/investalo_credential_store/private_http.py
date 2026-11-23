@@ -135,8 +135,11 @@ def _application_result(application, result, action):
     if type(application) is DemoTradingAccountHTTPApplication and action == "account_read":
         from .demo_account_sync import validate_view
         from .demo_startup_check import SCHEMA, validate_startup
+        from .demo_btc_test_check import SCHEMA as BTC_SCHEMA, validate_btc_test
         if type(result) is dict and result.get("schema") == SCHEMA:
             return validate_startup(result)
+        if type(result) is dict and result.get("schema") == BTC_SCHEMA:
+            return validate_btc_test(result)
         return validate_view(result)
     value = _public_result(result, action)
     if type(application) in (DemoCredentialHTTPApplication, DemoTradingCredentialHTTPApplication,

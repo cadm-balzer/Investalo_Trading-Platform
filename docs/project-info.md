@@ -66,6 +66,12 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-23: PR108/mainad32086 verifiziert; Nutzer bestätigt vorbereiteten BTC.
+Die [BTC-Testvorschau](bitget-demo-btc-test-preview.md) ergänzt Dashboard/
+Portfolio um frische BTC-Konfiguration, vollständige Konto-/Pendingprüfung
+und genaue 20-USDT-Ordervorschau bei2×. Fehlende Kontofelder werden benannt.
+167 Python/47 Node/Typprüfung grün; Builds laufen, kein Rollout oder Auftrag.
+
 2026-11-22: native Startdiagnose bestätigt einen Laufzeitfehler: zehn
 erfolgreiche Bitget-GETs benötigen5265ms und überschreiten5s.
 Der [Fix](bitget-demo-startup-check.md) überlappt unabhängige Lesegruppen

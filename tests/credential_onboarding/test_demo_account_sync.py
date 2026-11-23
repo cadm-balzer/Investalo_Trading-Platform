@@ -498,3 +498,106 @@ class DemoAccountTests(unittest.TestCase):
             self.run_read()
         self.assertEqual(len(reports), 1)
         self.assertEqual((reports[0]["stage"], reports[0]["sent"], reports[0]["error_type"]), ("completed",15,None))
+
+    def btc_test(self, handler=None):
+        self.startup(handler)
+        self.target["inspection"] = "btc-test"
+        self.body = json.dumps(self.target).encode()
+        self.market_axes = []
+        def market(axis):
+            self.market_axes.append(axis)
+            row = dict(symbol="BTCUSDT", baseCoin="BTC", quoteCoin="USDT", symbolStatus="normal",
+                symbolType="perpetual", supportMarginCoins=["USDT"], pricePlace="1", volumePlace="4",
+                priceEndStep="1", sizeMultiplier="0.0001", minTradeNum="0.0001",
+                minTradeUSDT="5", maxOrderQty="") if axis == "contracts" else dict(
+                symbol="BTCUSDT", askPr="60000.1", bidPr="60000.0", ts=str(int(time.time()*1000)))
+            return ReadResponse(200, json.dumps(dict(code="00000",
+                requestTime=int(time.time()*1000), data=[row])).encode())
+        self.reader.market_read = market
+
+    def test_btc_test_reads_only_btc_configuration_but_whole_account_orders(self):
+        self.btc_test()
+        with patch("investalo_credential_store.demo_account_sync.time.sleep"):
+            report = self.run_read()
+        self.assertEqual(report["schema"], "investalo-demo-btc-test/1")
+        self.assertEqual(report["readiness"]["schema"], "investalo-demo-btc-readiness/1")
+        self.assertEqual([c["symbol"] for c in report["readiness"]["configurations"]], ["BTCUSDT"])
+        self.assertCountEqual([r.axis for r in self.sent],
+            ["identity", "wallet", "positions", "BTCUSDT", *AXES[2:]])
+        self.assertCountEqual(self.market_axes, ["contracts", "ticker"])
+        self.assertEqual(report["readiness"]["blockers"], [])
+        self.assertEqual(report["preview"]["quantity_btc"], "0.0003")
+        self.assertEqual(report["preview"]["maximum_notional_usdt"], "18.01803")
+        self.assertIsNone(report["preview"]["native_max_quantity_btc"])
+        self.assertFalse(report["preview"]["account_verified"])
+        self.assertFalse(report["execution_enabled"])
+
+    def test_btc_test_retains_foreign_orders_and_lists_unknown_fields(self):
+        def orders(request, data):
+            if request.axis == "normal_plan":
+                return (dict(entrustedList=[dict(orderId="123", symbol="ETHUSDT")], endId="123")
+                        if request.cursor is None else dict(entrustedList=None, endId=None))
+            return data
+        self.btc_test(orders)
+        del self.wallet[0]["grant"]
+        with patch("investalo_credential_store.demo_account_sync.time.sleep"):
+            report = self.run_read()
+        self.assertEqual(report["unknown_wallet_fields"], ["grant"])
+        self.assertEqual(report["readiness"]["blockers"], ["orders_present", "wallet_unknown"])
+        self.assertEqual(report["readiness"]["orders"][2]["count"], 1)
+        self.assertFalse(report["preview"]["submission_enabled"])
+
+    def test_btc_market_revocation_discards_account_and_quote(self):
+        self.btc_test()
+        original = self.reader.market_read
+        def revoked(axis):
+            result = original(axis)
+            self.revoked = True
+            return result
+        self.reader.market_read = revoked
+        with patch("investalo_credential_store.demo_account_sync.time.sleep"), self.assertRaises(OnboardingRejected):
+            self.run_read()
+        self.assertFalse(self.native.lock.locked())
+
+    def test_btc_stale_market_source_or_unsupported_contract_rejects(self):
+        for field, value in (("ts", "1"), ("symbolStatus", "maintenance")):
+            self.setUp()
+            self.btc_test()
+            original = self.reader.market_read
+            def changed(axis):
+                result = original(axis)
+                if axis == ("ticker" if field == "ts" else "contracts"):
+                    frame = json.loads(result.body)
+                    frame["data"][0][field] = value
+                    result = ReadResponse(200, json.dumps(frame).encode())
+                return result
+            self.reader.market_read = changed
+            with patch("investalo_credential_store.demo_account_sync.time.sleep"), self.assertRaises(OnboardingRejected):
+                self.run_read()
+
+    def test_btc_test_authorization_rejects_extra_asset_before_any_market_read(self):
+        self.btc_test()
+        self.target["symbol"] = "ETHUSDT"
+        self.body = json.dumps(self.target).encode()
+        with self.assertRaises(OnboardingRejected):
+            self.run_read()
+        self.assertEqual(self.sent, [])
+        self.assertEqual(self.market_axes, [])
+
+    def test_btc_private_projection_rejects_false_authority_and_inexact_financial_values(self):
+        from copy import deepcopy
+        from investalo_credential_store.demo_btc_test_check import validate_btc_test
+        self.btc_test()
+        with patch("investalo_credential_store.demo_account_sync.time.sleep"):
+            report = self.run_read()
+        for changes in (dict(submission_enabled=True), dict(account_verified=True),
+                dict(maximum_notional_usdt="20.000000000000000001"),
+                dict(initial_margin_estimate_usdt="9.009015000000000001"),
+                dict(leverage=True), dict(maximum_quantity_verified=True),
+                dict(native_max_quantity_btc="0.0002", maximum_quantity_verified=True),
+                dict(private_key="secret")):
+            with self.subTest(changes=changes):
+                candidate = deepcopy(report)
+                candidate["preview"].update(changes)
+                with self.assertRaises(ValueError):
+                    validate_btc_test(candidate)

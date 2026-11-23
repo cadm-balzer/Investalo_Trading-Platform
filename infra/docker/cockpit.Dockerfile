@@ -1,7 +1,8 @@
 ARG NODE_IMAGE=node:24.22.2-bookworm-slim@sha256:01d566e8d94d8c619591d78652babfccd3c6992a3dffa9ed5ab39e11cf6c70e9
 FROM ${NODE_IMAGE} AS build
+ARG COCKPIT_BUILD_HEAP_MB=768
 WORKDIR /build
-ENV NEXT_TELEMETRY_DISABLED=1 NODE_OPTIONS="--max-old-space-size=768"
+ENV NEXT_TELEMETRY_DISABLED=1 NODE_OPTIONS="--max-old-space-size=${COCKPIT_BUILD_HEAP_MB}"
 COPY apps/cockpit/package.json apps/cockpit/package-lock.json ./
 RUN npm ci --ignore-scripts --no-audit --no-fund
 COPY apps/cockpit/ ./

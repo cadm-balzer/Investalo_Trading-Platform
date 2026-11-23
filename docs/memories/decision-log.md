@@ -1,5 +1,15 @@
 # Entscheidungsprotokoll
 
+## D-147 — Gezielte BTC-Testvorschau mit produktweiter Kontoprüfung
+
+Der Nutzer meldet BTC auf das geplante Profil eingestellt und möchte
+fortfahren. Ein gezielter BTC-Test verlangt die passenden BTC-Einstellungen;
+Positionen und Pendingfamilien werden weiterhin für das gesamte Konto
+geprüft. Die bestehenden öffentlichen Demo-Quotes liefern die kleine
+20-USDT-/2×-Vorschau. Fehlende Walletfelder und native Maximalmengen bleiben
+sichtbar, und eine Vorschau erteilt keine Orderfreigabe.
+[Umsetzung](../bitget-demo-btc-test-preview.md).
+
 ## D-146 — Native Startprüfung überlappen, Schutzzeiten behalten
 
 Der tatsächliche Nutzerabruf erreicht native200/00000, überschreitet jedoch

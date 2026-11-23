@@ -52,7 +52,8 @@ def startup_pending_response(response):
     return response
 
 
-def inspect_startup(get, binding, owner, account, wallet):
+def _inspect_startup(get, binding, owner, account, wallet, *, config_symbols=CONFIGS,
+                     extra_axes=(), schema=SCHEMA):
     configs, clocks = [], [datetime.fromisoformat(account["observed_at"])]
     blockers = set()
     if wallet.available is None or wallet.account_equity is None:
@@ -144,9 +145,15 @@ def inspect_startup(get, binding, owner, account, wallet):
         try:
             # One queue lets a pending family use a free worker while the
             # final independent config is in flight; no whole-group barrier.
-            results = list(pool.map(lambda axis: job(
-                configuration if axis in CONFIGS else orders, axis), (*CONFIGS, *AXES[2:])))
-            projected, pending = results[:len(CONFIGS)], results[len(CONFIGS):]
+            def extra(axis):
+                response = request(axis)
+                _, at = parse.envelope(response)
+                return response, at
+            results = list(pool.map(lambda axis: job(configuration if axis in config_symbols else
+                orders if axis in AXES[2:] else extra, axis), (*config_symbols, *AXES[2:], *extra_axes)))
+            projected = results[:len(config_symbols)]
+            pending = results[len(config_symbols):len(config_symbols) + len(AXES[2:])]
+            market = results[len(config_symbols) + len(AXES[2:]):]
         except Exception:
             cancelled.set()
             if first_failure:
@@ -168,19 +175,30 @@ def inspect_startup(get, binding, owner, account, wallet):
             blockers.add("order_pages_incomplete")
         counts.append(count)
         clocks.extend(times)
+    clocks.extend(at for _, at in market)
     if not 0 <= (datetime.now(timezone.utc) - min(clocks)).total_seconds() <= 5:
         raise ValueError()
-    return validate_startup(dict(schema=SCHEMA, account=account, observed_at=min(clocks).isoformat(),
+    return dict(schema=schema, account=account, observed_at=min(clocks).isoformat(),
         configurations=configs, orders=counts, blockers=sorted(blockers),
-        expected_initial_usdt="10000", pending_scope_verified=False, costs_verified=False, execution_enabled=False))
+        expected_initial_usdt="10000", pending_scope_verified=False, costs_verified=False, execution_enabled=False), {
+            axis: result[0] for axis, result in zip(extra_axes, market)}
+
+
+def inspect_startup(get, binding, owner, account, wallet):
+    value, _ = _inspect_startup(get, binding, owner, account, wallet)
+    return validate_startup(value)
 
 
 def validate_startup(value):
+    return _validate_startup(value, config_symbols=CONFIGS, schema=SCHEMA)
+
+
+def _validate_startup(value, *, config_symbols, schema):
     from .demo_account_sync import validate_view, public_amount
     if (type(value) is not dict or set(value) != {"schema", "account", "observed_at",
             "configurations", "orders", "blockers", "expected_initial_usdt",
             "pending_scope_verified", "costs_verified", "execution_enabled"}
-            or value["schema"] != SCHEMA or value["expected_initial_usdt"] != "10000"
+            or value["schema"] != schema or value["expected_initial_usdt"] != "10000"
             or any(value[k] is not False for k in ("pending_scope_verified", "costs_verified", "execution_enabled"))):
         raise ValueError()
     validate_view(value["account"])
@@ -188,8 +206,8 @@ def validate_startup(value):
     if at.tzinfo is None or at > datetime.fromisoformat(value["account"]["observed_at"]):
         raise ValueError()
     configs = value["configurations"]
-    if (type(configs) is not list or len(configs) != len(CONFIGS)
-            or tuple(c.get("symbol") for c in configs if type(c) is dict) != CONFIGS):
+    if (type(configs) is not list or len(configs) != len(config_symbols)
+            or tuple(c.get("symbol") for c in configs if type(c) is dict) != config_symbols):
         raise ValueError()
     for c in configs:
         if (set(c) != {"symbol", "margin_mode", "position_mode", "asset_mode", "long_leverage", "matches"}

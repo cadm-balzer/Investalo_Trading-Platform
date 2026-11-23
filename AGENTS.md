@@ -7,6 +7,17 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR108 mergedad32086, verified ancestor of current branch
+  feat/m1-demo-btc-test-preview. User confirms manual BTC profile preparation.
+  New Dashboard/Portfolio BTC preview over existing session/metadata/mTLS/
+  Trading AEAD: BTC-only config, full positions/all5 pending families, two
+  fixed public Demo market GETs without keys. Max3/paced110ms/original5s
+  guards retained;11 initial GETs. Exact20USDT-notional/2x preview only,
+  explicit missing wallet fields/native max; no write/outbox/order authority.
+  167 Python/47 pinned Node/typecheck green; actual synthetic ASGI/Node mTLS,
+  original Python→TS report interop on Host Node26.13.0 also green.
+  Production builds pending; no rollout, actual BTC read or broker order.
+  See docs/bitget-demo-btc-test-preview.md.
 - PR107 merged1dcf8a3. User retry proved startup serial latency failure:
   XRPUSDT after tenth GET,5265ms, native200/00000; no rights/key failure.
   Fix on fix/m1-demo-startup-read overlaps seven configs/five order families

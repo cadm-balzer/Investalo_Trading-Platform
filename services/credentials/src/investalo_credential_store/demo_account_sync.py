@@ -12,6 +12,7 @@ from investalo_bitget import OwnerContext, parse
 from investalo_bitget.demo_trading_identity import trading_identity
 from investalo_bitget.futures_demo import DemoBinding
 from investalo_bitget.futures_demo_read import DemoReadCredential, SignedDemoReadRequest
+from investalo_bitget.futures_demo_preview import public_demo_btc_get
 from investalo_bitget.models import AccountBinding, ProductType
 from investalo_credentials import dump_envelope
 
@@ -112,10 +113,12 @@ def validate_view(value):
 
 
 class DemoAccountReader:
-    def __init__(self, config, context, *, connect, keyring, signing_key, native):
+    def __init__(self, config, context, *, connect, keyring, signing_key, native,
+                 market_read=public_demo_btc_get):
         self.config, self.context = config, context
         self.connect, self.keyring, self.signing_key, self.native = connect, keyring, signing_key, native
         self.seen, self.seen_lock, self.pid = {}, threading.Lock(), os.getpid()
+        self.market_read = market_read
 
     def _authorize(self, context, token, body):
         try:
@@ -151,7 +154,7 @@ class DemoAccountReader:
                 raise ValueError()
             target = _json(body)
             if (type(target) is not dict or set(target) not in (TARGET_FIELDS, TARGET_FIELDS | {"inspection"})
-                    or "inspection" in target and target["inspection"] != "startup"
+                    or "inspection" in target and target["inspection"] not in ("startup", "btc-test")
                     or str(UUID(target["platform_account_id"])) != target["platform_account_id"]
                     or target["platform_account_id"] != str(self.config["account_id"])
                     or str(UUID(target["connection_id"])) != target["connection_id"]
@@ -176,10 +179,11 @@ class DemoAccountReader:
         started = time.time_ns() // 1_000_000
         def report(stage, error=None):
             diagnostic = getattr(self.native, "diagnostic", None)
-            if target.get("inspection") != "startup" or not callable(diagnostic):
+            if target.get("inspection") not in ("startup", "btc-test") or not callable(diagnostic):
                 return
             try:
-                value = dict(schema="investalo-demo-startup-diagnostic/1", stage=stage, sent=sent,
+                value = dict(schema=("investalo-demo-btc-test-diagnostic/1" if target.get("inspection") == "btc-test"
+                    else "investalo-demo-startup-diagnostic/1"), stage=stage, sent=sent,
                     elapsed_ms=time.time_ns() // 1_000_000 - started,
                     error_type=None if error is None else type(error).__name__,
                     http_status=getattr(self.native, "native_status", None),
@@ -230,15 +234,18 @@ class DemoAccountReader:
                     # Only starts serialize; network and post-response guards
                     # overlap. Fresh actor/storage checks follow any pacing wait.
                     with start_lock:
-                        if target.get("inspection") == "startup" and last_get is not None:
+                        if target.get("inspection") in ("startup", "btc-test") and last_get is not None:
                             time.sleep(max(0, .11 - (time.monotonic() - last_get)))
                         guard()
                         last_get = time.monotonic()
                         phase.stage = axis + ":native_request"
                         sent += 1
-                        request = SignedDemoReadRequest(credential,
+                        public = target.get("inspection") == "btc-test" and axis in ("contracts", "ticker")
+                        if public and cursor is not None:
+                            raise ValueError()
+                        request = None if public else SignedDemoReadRequest(credential,
                             timestamp_ms=time.time_ns() // 1_000_000, axis=axis, cursor=cursor)
-                    response = native.transport(request)
+                    response = self.market_read(axis) if public else native.transport(request)
                     phase.stage = axis + ":after_request"
                     guard()
                     _, at = parse.envelope(response)
@@ -279,6 +286,12 @@ class DemoAccountReader:
                 guard()
                 report("completed")
                 return result
+            if target.get("inspection") == "btc-test":
+                from .demo_btc_test_check import inspect_btc_test
+                result = inspect_btc_test(get, binding, owner, view, a)
+                guard()
+                report("completed")
+                return result
             return view
         except Exception as error:
             # Fixed stage/count/timing/status and allowlisted shape only. No context, body,
@@ -286,7 +299,7 @@ class DemoAccountReader:
             report(getattr(error, "_demo_startup_stage", phase.stage), error)
             raise OnboardingRejected("unavailable") from None
         finally:
-            if target.get("inspection") == "startup":
+            if target.get("inspection") in ("startup", "btc-test"):
                 self.native.last = time.time_ns() // 1_000_000
             self.native.lock.release()
 
