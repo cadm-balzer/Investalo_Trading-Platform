@@ -18,7 +18,20 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   original Python→TS report interop on Host Node26.13.0 also green.
   Final pinned Cockpit/Executor builds green. Actual public Demo market probe
   valid:0.0003BTC/18.4557USDT-notional/9.22785USDT margin, native maximum unknown.
-  No rollout, actual private BTC read or broker order. PR109 prepared.
+  PR109 merged6d741a3, GH/fetch/ancestor and packaged source hashes verified.
+  User confirms merge after announced deployment; rollout completed with
+  exact tested Cockpit/Executor image IDs, original5 overlays/env retained.
+  Only two services recreated, five other running container IDs unchanged;
+  Cockpit healthy/restarts0, executor readonly/no host ports/no logs/restarts0.
+  Public TLS200/all3 anonymous account variants401/actual private mTLS405;
+  Demo credential still active/revision1/storage1. Private original-image
+  rollback/before/active receipts in infra/local/demo-btc-test-preview/rollout-*.
+  Original private BTC read completed:11 GETs/4044ms/native200/00000,
+  user confirms visible actual proposal0.0003BTC/61482.7 limit/
+  18.44481 notional/9.222405 margin. All5 pending families zero in report.
+  Actual BTC isolated/Hedge/2x; One-way still needed for target profile.
+  Grant is unconfirmed (visible Bonusguthaben); native maximum also unknown.
+  No inferred zero/limit, costs/older scope/order grant remain open; no order.
   Frontend optimization reported432.8min on small host; evaluate builder
   resource pressure/off-host build before bigger Frontend work.
   See docs/bitget-demo-btc-test-preview.md.

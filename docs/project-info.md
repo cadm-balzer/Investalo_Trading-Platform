@@ -72,7 +72,13 @@ Portfolio um frische BTC-Konfiguration, vollständige Konto-/Pendingprüfung
 und genaue 20-USDT-Ordervorschau bei2×. Fehlende Kontofelder werden benannt.
 167 Python/47 Node/Typprüfung/finale gepinnte Builds grün. Öffentliche native
 Demo-Marktprobe liefert gültige0,0003-BTC-Vorschau; private Abnahme nach
-Rollout offen. PR109, kein Deployment oder Auftrag.
+Rollout offen. PR109/main6d741a3 jetzt verifiziert und nach Nutzerbestätigung
+ausgerollt: nur Cockpit/Executor erneuert, fünf andere Dienste unverändert,
+TLS200/anonyme Reads401/privates mTLS405, Key active1/1. Originaler privater
+BTC-Abruf jetzt erfolgreich:11 GETs/4044ms/200/00000, sichtbare Vorschau
+vom Nutzer bestätigt. BTC isoliert/Hedge/2×; One-way noch nötig.
+Bonusguthaben/Maximalmenge unbekannt, Kosten/ältere Scopefreigabe offen.
+Kein Auftrag.
 
 2026-11-22: native Startdiagnose bestätigt einen Laufzeitfehler: zehn
 erfolgreiche Bitget-GETs benötigen5265ms und überschreiten5s.
