@@ -7,6 +7,18 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR115 merged3ae310e, GH/fetch verified. First original user Market action
+  fails before executor entry: own diagnostic absent, original preview
+  completed11 GETs/3641ms/native200/00000, all three state children empty,
+  journal0. Installed Next16.4.5 derives initURL from internal HOSTNAME/port
+  behind public Caddy; own Market route and consent signer incorrectly
+  compared request.url.origin with public origin. Remove that comparison,
+  retain fixed browser Origin/same-origin/CSRF/exact path+query+hash/current
+  session/actor/metadata and canonical public signed origin. Regression
+  reproduces503 before fix and passes prepare/submit/observe after fix,
+  including forged browser headers.73 affected pinned Node cases green.
+  Cockpit-only build/necessary authorized rollout follows; native test
+  acceptance still requires the original Dashboard request.
 - PR114 merged563d49c, GH/fetch verified. User explicitly requests actual
   Demo test start. Own operative Next/private mTLS prepare/submit/observe
   routes, original Session/CSRF/current API role/metadata/private material

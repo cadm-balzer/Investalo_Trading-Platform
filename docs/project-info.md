@@ -66,6 +66,14 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-23: PR115/main3ae310e verifiziert. Erster Demotest scheitert
+vor dem Executor, Journal und private Testverzeichnisse leer. Ursache
+ist der Vergleich der internen Next-Requestadresse mit dem öffentlichen
+Cockpit-Origin. [Proxy-Fix](bitget-demo-market-runtime.md) behält feste
+Browser-Origin-/CSRF-/Sessionguards und öffentlichen Consent-Origin.
+Alle drei Orderphasen und gefälschte Header in73 gepinnten Nodefällen
+geprüft. Notwendiges Cockpit-Deployment folgt, native Abnahme bleibt offen.
+
 2026-11-23: PR114/main563d49c verifiziert. Nutzer verlangt den Demoteststart.
 [Operative Testanbindung](bitget-demo-market-runtime.md) verbindet
 Vorbereitung, exakte Marketzustimmung, dauerhaften einmaligen Versand

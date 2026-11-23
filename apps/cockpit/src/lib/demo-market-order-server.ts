@@ -24,8 +24,10 @@ export async function handleDemoMarketOrder(request: Request, phase: MarketPhase
     const current = await getBoundSession();
     if (!current) return Response.json({ error: "Bitte anmelden." }, { status: 401, headers });
     const original = snapshotAuthorizedSession(current.session), url = new URL(request.url);
-    if (request.method !== "POST" || url.origin !== ORIGIN ||
-      url.pathname !== `/api/bitget-demo/orders/btc-market/${phase}` || url.search ||
+    // Next derives request.url from its internal listener behind the proxy.
+    // Browser origin is checked independently against the fixed public origin.
+    if (request.method !== "POST" ||
+      url.pathname !== `/api/bitget-demo/orders/btc-market/${phase}` || url.search || url.hash ||
       request.headers.get("origin") !== ORIGIN || request.headers.get("sec-fetch-site") !== "same-origin" ||
       request.headers.get("content-type") !== "application/json" ||
       !sameSecret(original.csrf, request.headers.get("x-csrf-token") ?? "")) throw new Error();

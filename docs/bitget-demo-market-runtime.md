@@ -83,3 +83,21 @@ seiner ursprünglichen Dashboard-Sitzung zu starten und anschließend den
 Status zu lesen. Tatsächliche private Broker-/Fillabnahme ist bis zu
 diesem Originalaufruf offen. Der Rollout ist nicht mit einer Fillbestätigung
 gleichzusetzen.
+
+Nach PR115/main3ae310e meldet der erste Nutzeraufruf einen Fehler. Die
+private Marketdiagnose fehlt, alle drei Zustandsverzeichnisse sind leer,
+Journalzählung0. Der letzte originale Vorschauabruf ist erfolgreich:
+11GETs/3641ms/native200/00000. Somit wurde kein Orderversand begonnen.
+
+Ursache im tatsächlich installierten Next16.4.5: `attachRequestMeta`
+erzeugt die Request-URL aus dem internen Listenerhostname und Port,
+auch hinter dem öffentlichen Caddy-Proxy. Orderroute und Consentsigner
+verglichen diesen internen URL-Origin fälschlich mit dem öffentlichen
+Cockpit-Origin. Beide verwenden nun die feste Browser-Originprüfung
+mit Same-origin und CSRF sowie den exakten Pfad ohne Query/Fragment.
+Session-/Actor-/Metadatenguards bleiben erhalten; der signierte Origin
+bleibt ausschließlich `https://cockpit.investalo.de`.
+Ein Regressionstest reproduziert503 vor der Korrektur und prüft danach
+Vorbereitung, Versand und Status unter der internen Proxy-URL einschließlich
+Ablehnung gefälschter Origin-/CSRF-/Fetch-Site-Header.73 betroffene gepinnte
+Nodefälle grün. Nur das Cockpit benötigt einen neuen Build/Rollout.
