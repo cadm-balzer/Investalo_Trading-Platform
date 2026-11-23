@@ -16,7 +16,11 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   explicit missing wallet fields/native max; no write/outbox/order authority.
   167 Python/47 pinned Node/typecheck green; actual synthetic ASGI/Node mTLS,
   original Python→TS report interop on Host Node26.13.0 also green.
-  Production builds pending; no rollout, actual BTC read or broker order.
+  Final pinned Cockpit/Executor builds green. Actual public Demo market probe
+  valid:0.0003BTC/18.4557USDT-notional/9.22785USDT margin, native maximum unknown.
+  No rollout, actual private BTC read or broker order. PR109 prepared.
+  Frontend optimization reported432.8min on small host; evaluate builder
+  resource pressure/off-host build before bigger Frontend work.
   See docs/bitget-demo-btc-test-preview.md.
 - PR107 merged1dcf8a3. User retry proved startup serial latency failure:
   XRPUSDT after tenth GET,5265ms, native200/00000; no rights/key failure.

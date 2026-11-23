@@ -79,7 +79,9 @@ Browserbericht bestätigt: Cross/Hedge/10× weicht vom geplanten Profil ab;
 gezielte Demo-Konfigurationsvorbereitung und ältere Scope-/Kostenabnahme offen.
 Nutzer meldet BTC vorbereitet; [BTC-Testvorschau](bitget-demo-btc-test-preview.md)
 mit gezielter Konfiguration und gesamter Kontoprüfung implementiert/getestet,
-Builds/Review/Rollout folgen.
+Builds grün; PR109 Review/Rollout folgen.
+Frontend-Optimierung auf kleinem Host sehr langsam (gemeldete432,8min);
+Builderauslastung und externen Buildpfad vor größeren Frontendblöcken prüfen.
 
 RSI-/Supertrend-/Budget-/Exitentscheidungen Q1–Q31 sind bestätigt.
 Q32 zur H4-Modellpreis-Basis ist ebenfalls bestätigt. Offen bleiben die

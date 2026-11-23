@@ -71,9 +71,19 @@ Sitzungswechsel nach dem Abruf sind enthalten. Ein tatsächlicher Python-
 Readerbericht wird außerdem unverändert vom TypeScript-Vertrag gelesen
 (Host Node26.13.0; übrige Nodefälle gepinnt24.22.2).
 
-Produktionsbuilds noch in Arbeit. Der Cockpit-Build akzeptiert optional
+Finale gepinnte Cockpit-/Executorbuilds grün. Zwei tatsächliche öffentliche
+Demo-GETs liefern eine gültige Vorschau:0,0003 BTC, Limit61519 USDT,
+Positionswert18,4557 USDT, Initialmargin9,22785 USDT; datierter Teststand,
+keine Orderfreigabe. Native Maximalmenge bleibt dabei tatsächlich unbekannt.
+Die private BTC-Kontoprüfung ist noch nicht nativ ausgeführt.
+
+Der Cockpit-Build akzeptiert optional
 `COCKPIT_BUILD_HEAP_MB`; Standard768 unverändert, dieser kleine Host baut
 mit512. Keine neue Dependency oder Migration, laufende Dienste unverändert.
 Nach Merge und Rolloutfreigabe nur Cockpit und Demo-Executor neu erstellen;
 Public/Paper/Demo-Trading/Admin-Mail/Account-Sync-Overlays beibehalten.
 Tatsächliche native BTC-Gesamtabnahme folgt dann unter der Originalanmeldung.
+
+Der kleine Host meldete für die Frontend-Optimierung432,8min. Vor weiteren
+größeren Frontendblöcken Buildauslastung/externen Builder prüfen; der
+optionale Heapparameter begrenzt RAM, garantiert aber keine kurze Buildzeit.

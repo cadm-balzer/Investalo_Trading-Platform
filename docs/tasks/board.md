@@ -9,10 +9,12 @@ Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
 IP-015/IP-016: [BTC-Testvorschau](../bitget-demo-btc-test-preview.md)
-`IN_PROGRESS`: Nutzer bestätigt BTC manuell vorbereitet, PR108 gemergt/
+`DONE` implementiert/geprüft: Nutzer bestätigt BTC manuell vorbereitet, PR108 gemergt/
 verifiziert. Gezielte BTC-Konfiguration, gesamtes Konto und fünf
 Pendingfamilien, aktuelle Demo-Quotes und exakte kleine20-USDT-Vorschau.
-167 Python/47 Node/Typprüfung grün, Produktionsbuilds laufen.
+167 Python/47 Node/Typprüfung/finale gepinnte Produktionsbuilds grün.
+Tatsächliche öffentliche Demo-Marktprobe erfolgreich; private Abnahme nach
+Merge/Rollout `READY`. PR109 zum Review.
 Native Kostengrundlage/Orderlimit/Pendingscope und tatsächliche einmalige
 Orderfreigabe bleiben Folgeblock; keine Orders oder Kontoänderungen.
 

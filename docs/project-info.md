@@ -70,7 +70,9 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 Die [BTC-Testvorschau](bitget-demo-btc-test-preview.md) ergänzt Dashboard/
 Portfolio um frische BTC-Konfiguration, vollständige Konto-/Pendingprüfung
 und genaue 20-USDT-Ordervorschau bei2×. Fehlende Kontofelder werden benannt.
-167 Python/47 Node/Typprüfung grün; Builds laufen, kein Rollout oder Auftrag.
+167 Python/47 Node/Typprüfung/finale gepinnte Builds grün. Öffentliche native
+Demo-Marktprobe liefert gültige0,0003-BTC-Vorschau; private Abnahme nach
+Rollout offen. PR109, kein Deployment oder Auftrag.
 
 2026-11-22: native Startdiagnose bestätigt einen Laufzeitfehler: zehn
 erfolgreiche Bitget-GETs benötigen5265ms und überschreiten5s.
