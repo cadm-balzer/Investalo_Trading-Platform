@@ -154,7 +154,7 @@ class DemoAccountReader:
                 raise ValueError()
             target = _json(body)
             if (type(target) is not dict or set(target) not in (TARGET_FIELDS, TARGET_FIELDS | {"inspection"})
-                    or "inspection" in target and target["inspection"] not in ("startup", "btc-test")
+                    or "inspection" in target and target["inspection"] not in ("startup", "btc-test", "btc-market")
                     or str(UUID(target["platform_account_id"])) != target["platform_account_id"]
                     or target["platform_account_id"] != str(self.config["account_id"])
                     or str(UUID(target["connection_id"])) != target["connection_id"]
@@ -179,10 +179,10 @@ class DemoAccountReader:
         started = time.time_ns() // 1_000_000
         def report(stage, error=None):
             diagnostic = getattr(self.native, "diagnostic", None)
-            if target.get("inspection") not in ("startup", "btc-test") or not callable(diagnostic):
+            if target.get("inspection") not in ("startup", "btc-test", "btc-market") or not callable(diagnostic):
                 return
             try:
-                value = dict(schema=("investalo-demo-btc-test-diagnostic/1" if target.get("inspection") == "btc-test"
+                value = dict(schema=("investalo-demo-btc-test-diagnostic/1" if target.get("inspection") in ("btc-test", "btc-market")
                     else "investalo-demo-startup-diagnostic/1"), stage=stage, sent=sent,
                     elapsed_ms=time.time_ns() // 1_000_000 - started,
                     error_type=None if error is None else type(error).__name__,
@@ -190,7 +190,7 @@ class DemoAccountReader:
                     provider_code=getattr(self.native, "native_code", None))
                 if error is not None and hasattr(error, "_demo_pending_failure"):
                     value["pending_failure"] = error._demo_pending_failure
-                if target.get("inspection") == "btc-test" and "source" in grant_source:
+                if target.get("inspection") in ("btc-test", "btc-market") and "source" in grant_source:
                     value["grant_source"] = grant_source["source"]
                 diagnostic(value)
             except Exception:
@@ -236,13 +236,13 @@ class DemoAccountReader:
                     # Only starts serialize; network and post-response guards
                     # overlap. Fresh actor/storage checks follow any pacing wait.
                     with start_lock:
-                        if target.get("inspection") in ("startup", "btc-test") and last_get is not None:
+                        if target.get("inspection") in ("startup", "btc-test", "btc-market") and last_get is not None:
                             time.sleep(max(0, .11 - (time.monotonic() - last_get)))
                         guard()
                         last_get = time.monotonic()
                         phase.stage = axis + ":native_request"
                         sent += 1
-                        public = target.get("inspection") == "btc-test" and axis in ("contracts", "ticker")
+                        public = target.get("inspection") in ("btc-test", "btc-market") and axis in ("contracts", "ticker")
                         if public and cursor is not None:
                             raise ValueError()
                         request = None if public else SignedDemoReadRequest(credential,
@@ -288,10 +288,11 @@ class DemoAccountReader:
                 guard()
                 report("completed")
                 return result
-            if target.get("inspection") == "btc-test":
+            if target.get("inspection") in ("btc-test", "btc-market"):
                 from .demo_btc_test_check import inspect_btc_test
                 result = inspect_btc_test(get, binding, owner, view, a,
-                    on_grant_source=lambda source: grant_source.update(source=source))
+                    on_grant_source=lambda source: grant_source.update(source=source),
+                    market_test=target.get("inspection") == "btc-market")
                 guard()
                 report("completed")
                 return result
@@ -302,7 +303,7 @@ class DemoAccountReader:
             report(getattr(error, "_demo_startup_stage", phase.stage), error)
             raise OnboardingRejected("unavailable") from None
         finally:
-            if target.get("inspection") in ("startup", "btc-test"):
+            if target.get("inspection") in ("startup", "btc-test", "btc-market"):
                 self.native.last = time.time_ns() // 1_000_000
             self.native.lock.release()
 

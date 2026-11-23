@@ -12,6 +12,7 @@ from threading import RLock
 from uuid import UUID, uuid4
 
 from .futures_demo import DemoBinding, DemoGrid, DemoIntent, DemoRejected, clock, digest, text
+from .futures_demo_market import BTCMarketGrid, BTCMarketIntent, VERSION as MARKET_VERSION
 from .futures_demo_reconcile import (
     DemoTrace, OrderObservation, FRESH_MS, acknowledge, apply_observation, frame, native_id, observe,
 )
@@ -75,6 +76,11 @@ def _observation(raw):
 
 
 def _intent_record(intent):
+    if type(intent) is BTCMarketIntent:
+        return dict(schema=MARKET_VERSION, command_id=str(intent.command_id), grid=intent.grid.record(),
+            action=intent.action, quantity=text(intent.quantity), reference_price=text(intent.reference_price),
+            before_quantity=text(intent.before_quantity), observed_ms=intent.observed_ms,
+            intent_digest=intent.intent_digest)
     return {"command_id": str(intent.command_id), "grid": intent.grid.record(),
             "action": intent.action, "quantity": text(intent.quantity),
             "limit_price": text(intent.limit_price), "before_quantity": text(intent.before_quantity),
@@ -82,6 +88,21 @@ def _intent_record(intent):
 
 
 def _intent(raw, binding):
+    if type(raw) is dict and raw.get("schema") == MARKET_VERSION:
+        exact(raw, ("schema", "command_id", "grid", "action", "quantity", "reference_price",
+                    "before_quantity", "observed_ms", "intent_digest"))
+        grid = exact(raw["grid"], ("symbol", "quantity_step", "min_quantity",
+                                  "min_notional", "max_market_quantity"))
+        try:
+            intent = BTCMarketIntent(binding, UUID(raw["command_id"]), BTCMarketGrid(**{
+                k: v if k == "symbol" else amount(v) for k, v in grid.items()}),
+                raw["action"], amount(raw["quantity"]), amount(raw["reference_price"]),
+                amount(raw["before_quantity"]), raw["observed_ms"])
+        except (ValueError, TypeError, AttributeError):
+            raise DemoRejected("invalid_market_journal") from None
+        if _intent_record(intent) != raw:
+            raise DemoRejected("intent_digest_mismatch")
+        return intent
     exact(raw, ("command_id", "grid", "action", "quantity", "limit_price",
                 "before_quantity", "intent_digest"))
     grid = exact(raw["grid"], ("symbol", "quantity_step", "price_tick",
@@ -410,7 +431,7 @@ class DemoOutbox:
     def prepare(self, intent, *, context, expected_revision):
         with self._mutex:
             self._check(context, expected_revision)
-            if not isinstance(intent, DemoIntent) or intent.binding != self._binding:
+            if type(intent) not in (DemoIntent, BTCMarketIntent) or intent.binding != self._binding:
                 raise DemoRejected("foreign_order_intent")
             key = str(intent.command_id)
             old = self._traces.get(key)

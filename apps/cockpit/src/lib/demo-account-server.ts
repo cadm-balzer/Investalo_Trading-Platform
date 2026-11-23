@@ -9,7 +9,7 @@ import { exactObject } from "./passkey-enrollment-state.ts";
 import { canonicalUuid } from "./credential-action-contracts.ts";
 import { parseDemoAccount, type DemoAccount } from "./demo-account-contract.ts";
 import { parseDemoStartup, type DemoStartup } from "./demo-startup-contract.ts";
-import { parseDemoBTCTest, type DemoBTCTest } from "./demo-btc-test-contract.ts";
+import { parseDemoBTCTest, type DemoBTCTest, parseDemoBTCMarketTest, type DemoBTCMarketTest } from "./demo-btc-test-contract.ts";
 
 type Cache = { key: string; data: DemoAccount; at: number };
 const symbol = Symbol.for("investalo.demo-account-cache/1");
@@ -25,7 +25,8 @@ export async function handleDemoAccount(request: Request) {
     const original = snapshotAuthorizedSession(current.session), config = await getConfig();
     const url = new URL(request.url);
     const inspection = url.search === "?inspection=startup" ? "startup" :
-      url.search === "?inspection=btc-test" ? "btc-test" : undefined;
+      url.search === "?inspection=btc-test" ? "btc-test" :
+      url.search === "?inspection=btc-market" ? "btc-market" : undefined;
     if (url.pathname !== "/api/bitget-demo/account" || url.search && !inspection ||
       request.headers.get("sec-fetch-site") !== "same-origin" ||
       request.headers.has("origin") && request.headers.get("origin") !== config.origin) throw new Error();
@@ -58,7 +59,7 @@ export async function handleDemoAccount(request: Request) {
     const key = JSON.stringify([original.tenantId, before.userId, original.authEpoch,
       installed.accountId, connection.connection_id, connection.credential_revision, connection.storage_version]);
     const shared = globalThis as Shared;
-    let data: DemoAccount | DemoStartup | DemoBTCTest;
+    let data: DemoAccount | DemoStartup | DemoBTCTest | DemoBTCMarketTest;
     if (!inspection && shared[symbol]?.key === key && Date.now() - shared[symbol]!.at < 25000) {
       data = parseDemoAccount(shared[symbol]!.data, original.tenantId, installed.accountId);
     } else {
@@ -72,6 +73,7 @@ export async function handleDemoAccount(request: Request) {
     await guard();
     if (inspection === "startup") return Response.json(parseDemoStartup(data, original.tenantId, installed.accountId), { headers });
     if (inspection === "btc-test") return Response.json(parseDemoBTCTest(data, original.tenantId, installed.accountId), { headers });
+    if (inspection === "btc-market") return Response.json(parseDemoBTCMarketTest(data, original.tenantId, installed.accountId), { headers });
     data = parseDemoAccount(data, original.tenantId, installed.accountId);
     shared[symbol] = { key, data, at: Math.min(Date.now(), Date.parse(data.observed_at)) };
     return Response.json(data, { headers });

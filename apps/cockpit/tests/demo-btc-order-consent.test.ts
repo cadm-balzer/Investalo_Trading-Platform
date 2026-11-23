@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { createHash, createHmac } from "node:crypto";
 import { BTC_ORDER_CONFIRMATION, BTC_ORDER_PATH, prepareDemoBTCTestConsent,
+  BTC_MARKET_CONFIRMATION, prepareDemoBTCMarketConsent,
   type BTCOrderConsentDependencies } from "../src/lib/demo-btc-order-consent.ts";
 
 const id = (n: number) => `00000000-0000-0000-0000-${String(n).padStart(12, "0")}`;
@@ -116,4 +117,20 @@ test("lease clips at original session expiry and revoked installation rejects", 
   await assert.rejects(prepareDemoBTCTestConsent(f.request(), { ...f.deps, checkInstallation: async () => {
     throw new Error("synthetic revoked installation");
   } }));
+});
+
+test("Market HTTP confirmation signs its own domain and rejects old Limit confirmation", async () => {
+  const f = fixture();
+  const request = () => f.request({ path: "/api/bitget-demo/orders/btc-market/submit",
+    body: JSON.stringify({ ...f.target, confirmation: BTC_MARKET_CONFIRMATION }) });
+  const packet = await prepareDemoBTCMarketConsent(request(), f.deps);
+  const claims = JSON.parse(Buffer.from(packet.token.split(".")[1], "base64url").toString());
+  assert.equal(claims.kind, "investalo-demo-btc-market-order-consent/1");
+  assert.equal(claims.aud, "investalo-demo-btc-market-order");
+  assert.equal(claims.htu, "/v1/bitget-demo-trading/market-order-submit");
+  assert.equal(JSON.parse(packet.body).confirmation, BTC_MARKET_CONFIRMATION);
+  await assert.rejects(prepareDemoBTCTestConsent(request(), f.deps));
+  await assert.rejects(prepareDemoBTCMarketConsent(f.request({
+    path: "/api/bitget-demo/orders/btc-market/submit" }), f.deps));
+  await assert.rejects(prepareDemoBTCMarketConsent(f.request(), f.deps));
 });

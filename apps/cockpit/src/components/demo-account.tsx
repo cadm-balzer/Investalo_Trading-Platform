@@ -4,7 +4,7 @@ import Link from "next/link";
 import { parseDemoAccount, type DemoAccount } from "../lib/demo-account-contract";
 import { parseDemoStartup, type DemoStartup } from "../lib/demo-startup-contract";
 import { DemoStartupReport } from "./demo-startup";
-import { parseDemoBTCTest, type DemoBTCTest } from "../lib/demo-btc-test-contract";
+import { parseDemoBTCMarketTest, type DemoBTCMarketTest } from "../lib/demo-btc-test-contract";
 import { DemoBTCTestReport } from "./demo-btc-test";
 
 const money = (v: string | null) => v === null ? "—" :
@@ -14,7 +14,7 @@ export function DemoAccountPanel({ tenantId }: { tenantId: string }) {
     [busy, setBusy] = useState(false), [tick, setTick] = useState(0), [now, setNow] = useState(Date.now());
   const [startup, setStartup] = useState<DemoStartup | null>(null), [checking, setChecking] = useState(false),
     [startupError, setStartupError] = useState("");
-  const [btcTest, setBTCTest] = useState<DemoBTCTest | null>(null);
+  const [btcTest, setBTCTest] = useState<DemoBTCMarketTest | null>(null);
   const inspecting = useRef(false), startupRequest = useRef<AbortController | null>(null);
   const data = snapshot?.tenant_id === tenantId ? snapshot : null;
   const report = startup?.account.tenant_id === tenantId && startup.account.account_id === data?.account_id ? startup : null;
@@ -24,26 +24,26 @@ export function DemoAccountPanel({ tenantId }: { tenantId: string }) {
     setStartup(null); setStartupError(""); setBTCTest(null);
     return () => { startupRequest.current?.abort(); };
   }, [tenantId]);
-  async function inspect(kind: "startup" | "btc-test") {
+  async function inspect(kind: "startup" | "btc-market") {
     if (busy || inspecting.current) return;
     const controller = new AbortController();
     startupRequest.current = controller; inspecting.current = true; setChecking(true); setStartupError("");
-    if (kind === "btc-test") setBTCTest(null); else setStartup(null);
+    if (kind === "btc-market") setBTCTest(null); else setStartup(null);
     try {
       const response = await fetch(`/api/bitget-demo/account?inspection=${kind}`,
         { cache: "no-store", credentials: "same-origin",
           signal: AbortSignal.any([controller.signal, AbortSignal.timeout(12000)]) });
       if (!response.ok) throw new Error();
       const body = await response.json();
-      if (kind === "btc-test") {
-        const value = parseDemoBTCTest(body, tenantId, data?.account_id);
+      if (kind === "btc-market") {
+        const value = parseDemoBTCMarketTest(body, tenantId, data?.account_id);
         if (!controller.signal.aborted) { setBTCTest(value); setData(value.readiness.account); setNow(Date.now()); }
       } else {
         const value = parseDemoStartup(body, tenantId, data?.account_id);
         if (!controller.signal.aborted) { setStartup(value); setData(value.account); setNow(Date.now()); }
       }
     } catch {
-      if (!controller.signal.aborted) setStartupError(kind === "btc-test" ?
+      if (!controller.signal.aborted) setStartupError(kind === "btc-market" ?
         "BTC-Testvorschau derzeit nicht bestätigt. Bitte später erneut prüfen." :
         "Startprüfung derzeit nicht bestätigt. Bitte später erneut prüfen.");
     } finally { inspecting.current = false; setChecking(false); }
@@ -106,7 +106,7 @@ export function DemoAccountPanel({ tenantId }: { tenantId: string }) {
     <div className="card-heading"><div><h3>Ersten BTC-Test vorbereiten</h3>
       <p>Prüfe BTC und das gesamte Konto und berechne eine kleine Ordervorschau.</p></div>
       <button type="button" className="button secondary" disabled={busy || checking || !data}
-        onClick={() => void inspect("btc-test")}>{checking ? "Wird geprüft …" : "BTC-Testvorschau"}</button></div>
+        onClick={() => void inspect("btc-market")}>{checking ? "Wird geprüft …" : "BTC-Testvorschau"}</button></div>
     {proposal && <DemoBTCTestReport data={proposal} />}
   </section>;
 }

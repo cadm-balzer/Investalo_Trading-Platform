@@ -9,6 +9,14 @@ import { sameSecret } from "./security.ts";
 
 export const BTC_ORDER_CONFIRMATION = "btc-demo-long-isolated-2x-notional-at-most-20-usdt";
 export const BTC_ORDER_PATH = "/v1/bitget-demo-trading/order-submit";
+export const BTC_MARKET_CONFIRMATION = "btc-demo-market-long-isolated-2x-estimate-20-usdt";
+const LIMIT_PROFILE = Object.freeze({ confirmation: BTC_ORDER_CONFIRMATION, path: BTC_ORDER_PATH,
+  browserPath: "/api/bitget-demo/orders/btc-test/submit",
+  kind: "investalo-demo-btc-test-order-consent/1", audience: "investalo-demo-btc-test-order" });
+const MARKET_PROFILE = Object.freeze({ confirmation: BTC_MARKET_CONFIRMATION,
+  path: "/v1/bitget-demo-trading/market-order-submit",
+  browserPath: "/api/bitget-demo/orders/btc-market/submit",
+  kind: "investalo-demo-btc-market-order-consent/1", audience: "investalo-demo-btc-market-order" });
 const ORIGIN = "https://cockpit.investalo.de";
 const MAX_BODY = 16384;
 let inFlight = 0;
@@ -26,13 +34,13 @@ function hash(value: unknown): string {
   if (typeof value !== "string" || !/^[a-f0-9]{64}$/.test(value)) throw rejected();
   return value;
 }
-function bodyTarget(value: unknown, accountId: string) {
+function bodyTarget(value: unknown, accountId: string, confirmation: string) {
   const item = exactObject(value, ["platform_account_id", "connection_id", "credential_revision",
     "storage_version", "command_id", "intent_sha256", "outbox_receipt", "confirmation"]);
   const receipt = exactObject(item.outbox_receipt, ["schema", "outbox_id", "binding_digest",
     "revision", "head", "state_digest"]);
   if (item.platform_account_id !== accountId || item.credential_revision !== 1 ||
-    item.confirmation !== BTC_ORDER_CONFIRMATION || receipt.schema !== "bitget-classic-demo-outbox/1")
+    item.confirmation !== confirmation || receipt.schema !== "bitget-classic-demo-outbox/1")
     throw rejected();
   return { platform_account_id: accountId, connection_id: canonicalUuid(item.connection_id),
     credential_revision: 1, storage_version: credentialInteger(item.storage_version, 1),
@@ -40,7 +48,7 @@ function bodyTarget(value: unknown, accountId: string) {
     outbox_receipt: { schema: receipt.schema, outbox_id: canonicalUuid(receipt.outbox_id),
       binding_digest: hash(receipt.binding_digest), revision: credentialInteger(receipt.revision, 1),
       head: hash(receipt.head), state_digest: hash(receipt.state_digest) },
-    confirmation: BTC_ORDER_CONFIRMATION };
+    confirmation };
 }
 async function readBody(request: Request): Promise<unknown> {
   const announced = request.headers.get("content-length");
@@ -72,12 +80,19 @@ async function readBody(request: Request): Promise<unknown> {
  * A native account guard and durable consumer are still required before POST.
  */
 export async function prepareDemoBTCTestConsent(request: Request, deps: BTCOrderConsentDependencies) {
+  return prepareConsent(request, deps, LIMIT_PROFILE);
+}
+export async function prepareDemoBTCMarketConsent(request: Request, deps: BTCOrderConsentDependencies) {
+  return prepareConsent(request, deps, MARKET_PROFILE);
+}
+async function prepareConsent(request: Request, deps: BTCOrderConsentDependencies,
+  profile: typeof LIMIT_PROFILE | typeof MARKET_PROFILE) {
   if (inFlight >= 8) throw rejected();
   inFlight++;
   try {
     const uri = new URL(request.url);
     if (request.method !== "POST" || uri.origin !== ORIGIN ||
-      uri.pathname !== "/api/bitget-demo/orders/btc-test/submit" || uri.search ||
+      uri.pathname !== profile.browserPath || uri.search ||
       request.headers.get("origin") !== ORIGIN || request.headers.get("sec-fetch-site") !== "same-origin" ||
       request.headers.get("content-type") !== "application/json" ||
       !(deps.signingKey instanceof Uint8Array) || deps.signingKey.byteLength !== 32)
@@ -106,7 +121,7 @@ export async function prepareDemoBTCTestConsent(request: Request, deps: BTCOrder
       return { userId, metadata };
     }
     const before = await actor();
-    const target = bodyTarget(await readBody(request), accountId);
+    const target = bodyTarget(await readBody(request), accountId, profile.confirmation);
     if (target.connection_id !== before.metadata.connection!.connection_id ||
       target.storage_version !== before.metadata.connection!.storage_version) throw rejected();
     const after = await actor();
@@ -118,9 +133,9 @@ export async function prepareDemoBTCTestConsent(request: Request, deps: BTCOrder
     const context = Object.freeze({ tenant_id: original.tenantId, user_id: before.userId, subject: original.subject,
       auth_epoch: original.authEpoch, oidc_auth_time: original.oidcAuthTime,
       session_binding: actionProofBinding(authorized), session_expires_at: original.expiresAt });
-    const claims = { ...context, kind: "investalo-demo-btc-test-order-consent/1",
-      aud: "investalo-demo-btc-test-order", oidc_issuer: original.issuer, origin: ORIGIN,
-      iat: at, exp: expires, jti: randomUUID(), htm: "POST", htu: BTC_ORDER_PATH,
+    const claims = { ...context, kind: profile.kind,
+      aud: profile.audience, oidc_issuer: original.issuer, origin: ORIGIN,
+      iat: at, exp: expires, jti: randomUUID(), htm: "POST", htu: profile.path,
       body_sha256: createHash("sha256").update(body).digest("hex") };
     const header = Buffer.from(JSON.stringify({ alg: "HS256", typ: "JWT" })).toString("base64url");
     const payload = Buffer.from(JSON.stringify(claims)).toString("base64url");

@@ -170,20 +170,26 @@ class DemoRequestPlan:
     headers: tuple[tuple[str, str], ...] = field(init=False)
 
     def __post_init__(self):
-        if not isinstance(self.intent, DemoIntent):
+        from .futures_demo_market import BTCMarketIntent
+        if type(self.intent) not in (DemoIntent, BTCMarketIntent):
             raise DemoRejected("invalid_intent")
         intent = self.intent
         common = (("productType", "USDT-FUTURES"),)
         if self.operation == "place":
             method, target = "POST", PLACE_PATH
-            body = json.dumps({
+            terms = {
                 "symbol": intent.grid.symbol, "productType": "USDT-FUTURES",
                 "marginMode": "isolated", "marginCoin": "USDT",
-                "size": text(intent.quantity), "price": text(intent.limit_price),
+                "size": text(intent.quantity),
                 "side": "buy" if intent.action == "open_long" else "sell",
-                "orderType": "limit", "force": "ioc", "clientOid": intent.client_oid,
+                "clientOid": intent.client_oid,
                 "reduceOnly": "NO" if intent.action == "open_long" else "YES",
-            }, sort_keys=True, separators=(",", ":")).encode("ascii")
+            }
+            if type(intent) is BTCMarketIntent:
+                terms["orderType"] = "market"
+            else:
+                terms.update(orderType="limit", force="ioc", price=text(intent.limit_price))
+            body = json.dumps(terms, sort_keys=True, separators=(",", ":")).encode("ascii")
         elif self.operation == "detail":
             method = "GET"
             target = DETAIL_PATH + "?" + urlencode(
@@ -205,7 +211,8 @@ class DemoRequestPlan:
 
 
 def request_plan(intent, operation, *, context):
-    if not isinstance(intent, DemoIntent):
+    from .futures_demo_market import BTCMarketIntent
+    if type(intent) not in (DemoIntent, BTCMarketIntent):
         raise DemoRejected("invalid_intent")
     intent.binding.check(context)
     return DemoRequestPlan(intent, operation)
