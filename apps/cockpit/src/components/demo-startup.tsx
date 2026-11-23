@@ -1,4 +1,4 @@
-import type { DemoStartup } from "../lib/demo-startup-contract";
+import type { DemoStartup, DemoBTCReadiness } from "../lib/demo-startup-contract";
 
 const reasons: Record<DemoStartup["blockers"][number], string> = {
   initial_balance_changed: "Kontowert oder freie Margin weichen vom bestätigten Startguthaben von 10.000 USDT ab.",
@@ -13,7 +13,7 @@ const categories: Record<DemoStartup["orders"][number]["category"], string> = {
   live: "Offene Limitaufträge", partially_filled: "Teilweise ausgeführte Aufträge",
   normal_plan: "Triggeraufträge", track_plan: "Trailing-Aufträge", profit_loss: "Take-Profit / Stop-Loss",
 };
-export function DemoStartupReport({ data }: { data: DemoStartup }) {
+export function DemoStartupReport({ data }: { data: DemoStartup | DemoBTCReadiness }) {
   return <div className="demo-startup-report">
     <p>Prüfstand: {new Date(data.observed_at).toLocaleString("de-DE", { timeZone: "Europe/Berlin" })}.
       {" "}Vergleich für den ersten Demo-Test mit 10.000 USDT Startguthaben.</p>

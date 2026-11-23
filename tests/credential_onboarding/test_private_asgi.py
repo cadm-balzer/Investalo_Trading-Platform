@@ -115,6 +115,26 @@ class PrivateASGITests(unittest.TestCase):
             self.assertEqual(result, view)
             view["execution_enabled"] = True
             self.assertNotEqual(self.response(self.exchange(service, wire))[0], 200)
+            from copy import deepcopy
+            readiness = deepcopy(view)
+            readiness.update(schema="investalo-demo-btc-readiness/1", execution_enabled=False)
+            readiness["configurations"] = [c for c in readiness["configurations"] if c["symbol"] == "BTCUSDT"]
+            view = dict(schema="investalo-demo-btc-test/1", observed_at=readiness["observed_at"],
+                readiness=readiness, unknown_wallet_fields=[], execution_enabled=False,
+                preview=dict(schema="investalo-demo-btc-test-preview/1", symbol="BTCUSDT", environment="demo",
+                    product_type="USDT-FUTURES", side="long", order_type="limit", force="ioc",
+                    leverage=2, margin_mode="isolated", quantity_btc="0.0003", limit_price_usdt="60060.1",
+                    quote_ask_usdt="60000.1", maximum_notional_usdt="18.01803",
+                    initial_margin_estimate_usdt="9.009015", notional_cap_usdt="20",
+                    fees_verified=False, account_verified=False, submission_enabled=False,
+                    native_max_quantity_btc=None, maximum_quantity_verified=False,
+                    observed_ms=int(datetime.fromisoformat(readiness["observed_at"]).timestamp()*1000)+1,
+                    source_sha256=["a"*64, "b"*64]))
+            status, result = self.response(self.exchange(service, wire))
+            self.assertEqual(status, 200)
+            self.assertEqual(result, view)
+            view["preview"]["submission_enabled"] = True
+            self.assertNotEqual(self.response(self.exchange(service, wire))[0], 200)
         with self.server(execute=execute) as service:
             self.assertNotEqual(self.response(self.exchange(service, wire))[0], 200)
 
