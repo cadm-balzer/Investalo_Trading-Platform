@@ -166,6 +166,7 @@ test("initial actual panel SSR offers refresh and invents no balances or positio
     "../lib/demo-startup-contract": startupContract,
     "./demo-startup": { DemoStartupReport: () => null },
     "./demo-btc-test": { DemoBTCTestReport: () => null },
+    "./demo-market-order": { DemoMarketOrder: () => null },
     "../lib/demo-btc-test-contract": btcContract,
     "next/link": { default: ({ href, children }: any) => React.createElement("a", { href }, children) },
   });

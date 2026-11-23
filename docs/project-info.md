@@ -66,6 +66,24 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-23: PR114/main563d49c verifiziert. Nutzer verlangt den Demoteststart.
+[Operative Testanbindung](bitget-demo-market-runtime.md) verbindet
+Vorbereitung, exakte Marketzustimmung, dauerhaften einmaligen Versand
+und Status-/Positionsabgleich mit Originalsession/mTLS/Trading-AEAD.
+134 Python/72 Node/volle Typprüfung grün, echte lokale ASGI-/mTLS-Kette
+mit realer Quota und privaten Dateien, Broker/Actor synthetisch.
+Private persistente UID10003-Testverzeichnisse vorbereitet. Autorisierte
+Produktionsbuilds/Rollout folgen; echte Bitget-Abnahme anschließend aus
+der ursprünglichen Dashboard-Sitzung. Noch kein tatsächlicher Auftrag.
+
+2026-11-23: Operativer Marketteststand199b1fc ausgerollt. Beide finalen
+Builds/Pakethash geprüft; nur Cockpit/Executor erneuert, fünf andere
+Dienste und Demo-Key active1/1 unverändert. Beide Testflags aktiv,
+TLS200/anonyme Konto-/Vorschau-/alle3 Orderrouten401/privates mTLS405
+geprüft. Originaloverlays und private Rollbackbelege erhalten.
+Nutzerstart aus eigener Dashboard-Sitzung angefragt; kein Auftrag durch
+das Deployment und noch keine tatsächliche Fillbestätigung.
+
 2026-11-23: PR113/mainac1246b verifiziert. Nutzer genehmigt das kleine
 technische Demo-Testprofil und wählt Market. [Market-Testvertrag](bitget-demo-btc-market-test.md)
 ergänzt eigene Mengenprojektion mit1% Planungspuffer, richtige native

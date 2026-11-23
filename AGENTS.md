@@ -7,6 +7,35 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR114 merged563d49c, GH/fetch verified. User explicitly requests actual
+  Demo test start. Own operative Next/private mTLS prepare/submit/observe
+  routes, original Session/CSRF/current API role/metadata/private material
+  guards, separate short prepare/observe domains and exact Market consent.
+  Original11-GET native source/5s/max3/110ms and actual fresh Trading store/
+  AEAD retained. Source-only authorized GET decrypt precedes POST consumer;
+  persistent consume precedes POST-bound lease and unknown journal prefix.
+  Own UID10003 original registry/outbox/consumer state, partial bootstrap
+  terminal, max16 preparations, exactly one attempted test, GET-only latest
+  recovery across restarts. Actual fill/fee/position projection; no ACK fill
+  inference or resend. Both own flags default off. 134 pinned Python/72 Node/
+  full typecheck green; actual local ASGI/mTLS with real pacing and files/
+  AEAD; actor/DB port/native replies synthetic. Own private state directories
+  prepared; no actual credentials/session/broker call fabricated.
+  User-approved necessary rollout follows builds; actual test requires the
+  user's original Dashboard session. Preserve new market-test overlay
+  alongside all five existing overlays once activated. See
+  docs/bitget-demo-market-runtime.md.
+- Operative Market rollout of199b1fc completed under explicit Demo-test
+  start authorization. Both final pinned images/source hash verified; only
+  Cockpit/Executor renewed, five service IDs unchanged. Original five
+  overlays+market-test retained, both own test flags1. Cockpit healthy,
+  Executor readonly/UID10003/no hostport/log none/restarts0; Demo active1/1.
+  TLS200/account+market anonymous401/all3 POST anonymous401/private mTLS405.
+  Private before/active/rollback-image receipts retained under
+  infra/local/demo-market-test/rollout-*. No broker order by deployment.
+  Original user Dashboard prepare→once submit→observe requested; actual
+  private/native acceptance pending. Do not invent operator OIDC/session
+  context or automatically repeat an unconfirmed POST.
 - PR113 mergedac1246b, GH/fetch verified. User explicitly approves the small
   technical Demo exception and chooses Market, also for future strategy.
   Own BTCMarketIntent/grid/preview preserves unknown maxMarketOrderQty;

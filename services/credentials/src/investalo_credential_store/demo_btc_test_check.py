@@ -17,7 +17,8 @@ WALLET_FIELDS = ("account_equity", "available", "locked", "isolated_margin",
                  "crossed_margin", "unrealized_pnl", "coupon", "grant", "asset_mode")
 
 
-def inspect_btc_test(get, binding, owner, account, wallet, *, on_grant_source=None, market_test=False):
+def inspect_btc_test(get, binding, owner, account, wallet, *, on_grant_source=None,
+                     market_test=False, capture_basis=None):
     if type(market_test) is not bool:
         raise ValueError()
     # The existing fixed BTC account GET shares the original credential and
@@ -45,8 +46,9 @@ def inspect_btc_test(get, binding, owner, account, wallet, *, on_grant_source=No
             set(readiness["blockers"]) - {"wallet_unknown", "wallet_collateral", "initial_balance_changed"}
             | wallet_blockers(wallet))
     _validate_startup(readiness, config_symbols=("BTCUSDT",), schema=READINESS_SCHEMA)
-    proposal = (btc_market_preview if market_test else btc_test_preview)(market["contracts"], market["ticker"],
-                               now_ms=time.time_ns() // 1_000_000).public()
+    native_proposal = (btc_market_preview if market_test else btc_test_preview)(
+        market["contracts"], market["ticker"], now_ms=time.time_ns() // 1_000_000)
+    proposal = native_proposal.public()
     observed = min(datetime.fromisoformat(readiness["observed_at"]),
                    datetime.fromtimestamp(proposal["observed_ms"] / 1000, timezone.utc))
     result = (validate_btc_market_test if market_test else validate_btc_test)(dict(
@@ -57,6 +59,10 @@ def inspect_btc_test(get, binding, owner, account, wallet, *, on_grant_source=No
                 execution_enabled=False))
     if on_grant_source is not None:
         on_grant_source(source)
+    if capture_basis is not None:
+        if not market_test or not callable(capture_basis):
+            raise ValueError()
+        capture_basis(readiness, wallet, native_proposal)
     return result
 
 

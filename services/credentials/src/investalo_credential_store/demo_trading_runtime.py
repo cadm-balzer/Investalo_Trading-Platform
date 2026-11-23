@@ -32,7 +32,7 @@ from .demo_trading_passkey_assertion import DemoTradingPasskeyRequestVerifier
 from .demo_trading_passkey_onboarding import DemoTradingPasskeyOnboarding
 from .demo_trading_secret import DemoTradingSecretSpec, PURPOSE
 from .private_asgi import create_private_asgi_server
-from .private_http import DemoTradingCredentialHTTPApplication, DemoTradingAccountHTTPApplication
+from .private_http import DemoTradingCredentialHTTPApplication, DemoTradingAccountHTTPApplication, DemoMarketTestHTTPApplication
 from .request_assertion import OnboardingRejected
 
 ROOT = "/run/demo-trading-executor"
@@ -278,9 +278,19 @@ def create_application():
         from .demo_account_sync import DemoAccountReader
         account_read = DemoAccountReader(config, context, connect=connect, keyring=keyring,
             signing_key=guarded_file("signing-key", config["signing_sha256"], 32), native=provision)
+    market_test = None
+    if os.environ.get("DEMO_BTC_MARKET_TEST_ENABLED") == "1":
+        if account_read is None:
+            raise OnboardingRejected("unavailable")
+        from .demo_market_runtime import DemoMarketTestRuntime
+        market_test = DemoMarketTestRuntime(account_read)
 
     def execute(request_context, action, token, body):
         guard()
+        if action in ("market_prepare", "market_submit", "market_observe"):
+            if market_test is None:
+                raise OnboardingRejected("access_denied")
+            return market_test(request_context, action, token, body)
         if action == "account_read":
             if account_read is None:
                 raise OnboardingRejected("access_denied")
@@ -291,7 +301,8 @@ def create_application():
             request_context=request_context, provision=provision, load_keyring=keyring,
             expected_egress_ip=config["egress_ip"]).apply(action, token=token, body=body)
 
-    application = DemoTradingAccountHTTPApplication if account_read is not None else DemoTradingCredentialHTTPApplication
+    application = (DemoMarketTestHTTPApplication if market_test is not None else
+        DemoTradingAccountHTTPApplication if account_read is not None else DemoTradingCredentialHTTPApplication)
     return config, application(context, execute, enabled=True)
 
 

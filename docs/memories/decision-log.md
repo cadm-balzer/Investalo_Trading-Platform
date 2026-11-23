@@ -1,5 +1,18 @@
 # Entscheidungsprotokoll
 
+## D-152 — Genehmigten einzelnen Demotest operativ anschließen
+
+Nach PR114 verlangt der Nutzer den tatsächlichen Start. Die notwendige
+Installation erhält eigene abgeschaltete Prepare-/Submit-/Observe-Routen
+und persistente Testverzeichnisse. Die bestehende Originalsession,
+CSRF/Actor/Metadaten und eigene HMAC-Zwecke bleiben maßgeblich; keine
+erfundene Session oder Umdeutung eines Readtokens. Der Chat autorisiert
+Testumfang und notwendiges Deployment, ersetzt aber nicht den für den
+Versand benötigten aktuellen Dashboard-Kontext. Nach dem einmaligen
+Versandversuch bleibt ausschließlich der Abgleich des ursprünglichen
+Commands erlaubt, einschließlich Neustart und verlorenem ACK.
+[Umsetzung](../bitget-demo-market-runtime.md).
+
 ## D-151 — Begrenzten Demotest freigegeben und Market gewählt
 
 Der Nutzer bestätigt PR113 und genehmigt den kleinen technischen Demotest

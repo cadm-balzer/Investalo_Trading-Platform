@@ -115,6 +115,10 @@ class DemoTradingAccountHTTPApplication(DemoTradingCredentialHTTPApplication):
     """Explicit operative Trading installation with own readonly account purpose."""
     __slots__ = ()
 
+class DemoMarketTestHTTPApplication(DemoTradingAccountHTTPApplication):
+    """Explicit own single-test installation; never selected by request content."""
+    __slots__ = ()
+
 
 def _application_targets(application):
     if type(application) is CredentialHTTPApplication:
@@ -122,17 +126,25 @@ def _application_targets(application):
     if type(application) is DemoCredentialHTTPApplication:
         from .demo_passkey_assertion import TARGETS as demo_targets
         return demo_targets
-    if type(application) in (DemoTradingCredentialHTTPApplication, DemoTradingAccountHTTPApplication):
+    if type(application) in (DemoTradingCredentialHTTPApplication, DemoTradingAccountHTTPApplication,
+                            DemoMarketTestHTTPApplication):
         from .demo_trading_passkey_assertion import TARGETS as trading_targets
-        if type(application) is DemoTradingAccountHTTPApplication:
+        if type(application) in (DemoTradingAccountHTTPApplication, DemoMarketTestHTTPApplication):
             from .demo_account_sync import PATH
-            return {**trading_targets, "account_read": PATH}
+            result = {**trading_targets, "account_read": PATH}
+            if type(application) is DemoMarketTestHTTPApplication:
+                from .demo_market_runtime import TARGETS as market_targets
+                result.update(market_targets)
+            return result
         return trading_targets
     raise OnboardingRejected("invalid_context") from None
 
 
 def _application_result(application, result, action):
-    if type(application) is DemoTradingAccountHTTPApplication and action == "account_read":
+    if type(application) is DemoMarketTestHTTPApplication and action.startswith("market_"):
+        from .demo_market_runtime import validate_market_result
+        return validate_market_result(action, result)
+    if type(application) in (DemoTradingAccountHTTPApplication, DemoMarketTestHTTPApplication) and action == "account_read":
         from .demo_account_sync import validate_view
         from .demo_startup_check import SCHEMA, validate_startup
         from .demo_btc_test_check import SCHEMA as BTC_SCHEMA, validate_btc_test, validate_btc_market_test
@@ -145,7 +157,7 @@ def _application_result(application, result, action):
         return validate_view(result)
     value = _public_result(result, action)
     if type(application) in (DemoCredentialHTTPApplication, DemoTradingCredentialHTTPApplication,
-                             DemoTradingAccountHTTPApplication) and value["credential_revision"] != 1:
+                             DemoTradingAccountHTTPApplication, DemoMarketTestHTTPApplication) and value["credential_revision"] != 1:
         raise OnboardingRejected("invalid_record") from None
     return value
 
@@ -205,11 +217,11 @@ class _Handler(BaseHTTPRequestHandler):
         self._reply(400, {"error": "invalid_request"})
         return False
 
-    def _reply(self, status, value):
+    def _reply(self, status, value, *, limit=MAX_RESPONSE_BYTES):
         self.close_connection = True
         try:
             body = json.dumps(value, separators=(",", ":"), ensure_ascii=True).encode("ascii")
-            if len(body) > MAX_RESPONSE_BYTES:
+            if len(body) > limit:
                 raise ValueError()
             self.send_response_only(status)
             self.send_header("Content-Type", "application/json")
@@ -300,7 +312,9 @@ class _Handler(BaseHTTPRequestHandler):
             if len(body) != size:
                 raise OnboardingRejected("invalid_request")
             result = app.execute(context, action, authorization[7:], body)
-            self._reply(200, _application_result(app, result, action))
+            limit = 65536 if type(app) is DemoMarketTestHTTPApplication and action in (
+                "account_read", "market_prepare") else MAX_RESPONSE_BYTES
+            self._reply(200, _application_result(app, result, action), limit=limit)
         except OnboardingRejected as error:
             code = (error.code if type(error.code) is str and error.code in OnboardingRejected.CODES
                     else "unavailable")
