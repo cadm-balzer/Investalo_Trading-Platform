@@ -66,6 +66,17 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-23: PR111/mainbf5ddbe verifiziert und Bonusguthaben-Fix ausgerollt.
+Nur Executor erneuert, sechs andere Dienste/Key1/1 unverändert; TLS/mTLS/
+Anmeldeschutz geprüft. Nutzer wünscht kleinen BTC-Demo-Test. Der
+[dauerhafte Freigabeverbrauch](bitget-demo-order-consumer.md) ergänzt
+den Versandkern gegen erneuten Verbrauch nach Konkurrenz/Neustart:
+185 gepinnte Pythonfälle/Executorbuild grün. Operative Orderroute/Issuer/
+Accountbasis und native Limits/Kosten weiterhin offen; kein Auftrag.
+Originaler frischer Grant-Abgleich erfolgreich mitelf GETs/3952ms/200/00000;
+beide nativen Kontoquellen liefern keinen Grantbetrag. Nutzer bestätigt
+weiterhin die Bonus-/Maximalmengenwarnung; kein Nullbetrag erfunden.
+
 2026-11-23: PR108/mainad32086 verifiziert; Nutzer bestätigt vorbereiteten BTC.
 Die [BTC-Testvorschau](bitget-demo-btc-test-preview.md) ergänzt Dashboard/
 Portfolio um frische BTC-Konfiguration, vollständige Konto-/Pendingprüfung
@@ -87,7 +98,7 @@ BTC-Einzelkontoantwort ab. Fehlende Listenwerte können durch bestätigte
 BTC-Werte ergänzt werden; Widersprüche werden abgelehnt. Positive Beträge
 bleiben Sicherheitenwarnungen, beidseitig fehlende Werte unbekannt.
 176 gepinnte Pythonfälle/Executorbuild grün; keine zusätzliche Abfrage,
-Frontendänderung oder Orderfreigabe. Rollout/native Quellenabnahme folgen.
+Frontendänderung oder Orderfreigabe. Rollout erledigt; native Quellenabnahme folgt.
 
 2026-11-22: native Startdiagnose bestätigt einen Laufzeitfehler: zehn
 erfolgreiche Bitget-GETs benötigen5265ms und überschreiten5s.

@@ -7,6 +7,21 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR111 mergedbf5ddbe, GH/fetch verified; user requests small BTC Demo test.
+  Grant fix rolled out with verified packaged image/source, only Executor
+  recreated, six other services unchanged. Original five overlays/env and
+  private rollback/before/active receipts retained in infra/local/demo-btc-grant-source.
+  TLS200/all3 anonymous variants401/private mTLS405, active key1/1 unchanged.
+  Original fresh Dashboard read completed:11 GETs/3952ms/native200/00000,
+  grant_source=unconfirmed; user confirms Bonus/native max still unknown.
+  Neither native account source supplied grant; no numeric zero inferred.
+  DurableDemoOrderConsumer adds actual O_EXCL/fsync/readback consumption of
+  a trusted issuer's exact approval before dispatcher AEAD. Private original
+  root/UID/inode/PID/actor checks, concurrency/restart/partial-file denial.
+  185 pinned Python cases and Executor build green; synthetic consent/native
+  replies only. No operative issuer/accountguard/registry/HTTP route installed,
+  no order. Public Demo limits still empty, generic maker/taker rates present;
+  native max/personal costs/older scope remain open. See docs/bitget-demo-order-consumer.md.
 - PR110 mergeda532e07, GH/fetch verified. User's original BTC preview at
   20261123 12:23:39 confirms isolated/one-way/2x matches, all5 pending zero.
   Grant remains unknown in wallet list; native max/costs/older scope still open.
@@ -16,7 +31,7 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   grant remains collateral blocker, both absent stay unknown. Shared wallet
   checks unchanged; no extra GET/clock renewal/public fields/order authority.
   Private source enum only.176 pinned Python cases and Executor build green,
-  no frontend rebuild/deployment/native fallback acceptance yet.
+  no frontend rebuild; rollout completed above, native fallback acceptance open.
   See docs/bitget-demo-btc-test-preview.md.
 - PR108 mergedad32086, verified ancestor of current branch
   feat/m1-demo-btc-test-preview. User confirms manual BTC profile preparation.

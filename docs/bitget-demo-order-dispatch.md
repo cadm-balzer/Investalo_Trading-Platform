@@ -15,6 +15,10 @@ gegen die eigene ursprüngliche Basis prüfen. Die strukturelle Klasse
 Ihr Konstruktor, ein aktiv gespeicherter Key oder ein Startbericht sind
 kein Beleg einer tatsächlich erteilten Freigabe. Diese operative Verdrahtung
 und ihre Abnahme fehlen noch; es gibt keine öffentliche Orderroute.
+Der [dauerhafte Orderconsumer](bitget-demo-order-consumer.md) implementiert
+jetzt den tatsächlichen einmaligen Dateiverbrauch einer genauen Freigabe.
+Ein operativer eigener Zustimmungsissuer und nativer Accountguard bleiben
+vor Installation erforderlich.
 
 ## Ablauf
 
