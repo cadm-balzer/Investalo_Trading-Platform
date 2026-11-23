@@ -19,8 +19,14 @@ Overlays gesichert, nur zwei Dienste erneuert, fünf andere IDs unverändert,
 HTTPS200/anonyme Reads401/mTLS405 und Key1/1 bestätigt.
 Originaler privater BTC-Leseabruf `DONE`:11 GETs/4044ms/200/00000,
 Nutzer bestätigt sichtbare Vorschau und null Aufträge in fünf Kategorien.
-BTC-Profil derzeit isoliert/Hedge/2×, One-way-Anpassung sowie
-Grant-/native Maximalmenge/Kosten-/ältere Scopeklärung `READY` als Folgeblock.
+BTC-Profilvorbereitung `DONE`: Nutzer bestätigt12:23:39 isoliert/einseitig/2×,
+Profil passt. PR110/maina532e07 verifiziert.
+Grant-Quellenabgleich `DONE` implementiert/geprüft: bestätigtes Feld aus
+bereits abgefragtem BTC-Konto kann fehlendes Listenfeld ergänzen;
+Widerspruch ablehnen, positiv bleibt blockierend, beidseitig fehlend unbekannt.
+176 gepinnte Pythonfälle/Executorbuild grün, elf GETs unverändert.
+Rollout und tatsächliche private Quellenabnahme `READY`; native Maximalmenge/
+Kosten-/ältere Scopeklärung bleiben Folgeblock.
 Native Kostengrundlage/Orderlimit/Pendingscope und tatsächliche einmalige
 Orderfreigabe bleiben Folgeblock; keine Orders oder Kontoänderungen.
 

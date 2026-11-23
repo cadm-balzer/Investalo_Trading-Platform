@@ -52,9 +52,8 @@ def startup_pending_response(response):
     return response
 
 
-def _inspect_startup(get, binding, owner, account, wallet, *, config_symbols=CONFIGS,
-                     extra_axes=(), schema=SCHEMA):
-    configs, clocks = [], [datetime.fromisoformat(account["observed_at"])]
+def wallet_blockers(wallet):
+    """Shared initial-wallet checks; absent amounts never become zero."""
     blockers = set()
     if wallet.available is None or wallet.account_equity is None:
         blockers.add("wallet_unknown")
@@ -67,6 +66,13 @@ def _inspect_startup(get, binding, owner, account, wallet, *, config_symbols=CON
     if (wallet.asset_mode == "union" or wallet.assets not in (None, ())
             or any(v is not None and v != Decimal(0) for v in collateral)):
         blockers.add("wallet_collateral")
+    return blockers
+
+
+def _inspect_startup(get, binding, owner, account, wallet, *, config_symbols=CONFIGS,
+                     extra_axes=(), schema=SCHEMA):
+    configs, clocks = [], [datetime.fromisoformat(account["observed_at"])]
+    blockers = wallet_blockers(wallet)
     if account["positions"]:
         blockers.add("positions_present")
     cancelled, failure_lock, first_failure = threading.Event(), threading.Lock(), []

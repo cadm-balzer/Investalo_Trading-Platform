@@ -7,6 +7,17 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR110 mergeda532e07, GH/fetch verified. User's original BTC preview at
+  20261123 12:23:39 confirms isolated/one-way/2x matches, all5 pending zero.
+  Grant remains unknown in wallet list; native max/costs/older scope still open.
+  On fix/m1-demo-btc-grant-source, reconcile documented grant from the already
+  guarded BTC single-account GET with wallet list. Missing list value can use
+  confirmed BTC value; conflicting known values reject whole report, positive
+  grant remains collateral blocker, both absent stay unknown. Shared wallet
+  checks unchanged; no extra GET/clock renewal/public fields/order authority.
+  Private source enum only.176 pinned Python cases and Executor build green,
+  no frontend rebuild/deployment/native fallback acceptance yet.
+  See docs/bitget-demo-btc-test-preview.md.
 - PR108 mergedad32086, verified ancestor of current branch
   feat/m1-demo-btc-test-preview. User confirms manual BTC profile preparation.
   New Dashboard/Portfolio BTC preview over existing session/metadata/mTLS/
@@ -29,7 +40,7 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   Original private BTC read completed:11 GETs/4044ms/native200/00000,
   user confirms visible actual proposal0.0003BTC/61482.7 limit/
   18.44481 notional/9.222405 margin. All5 pending families zero in report.
-  Actual BTC isolated/Hedge/2x; One-way still needed for target profile.
+  First BTC isolated/Hedge/2x; later user preview confirms one-way/2x matches.
   Grant is unconfirmed (visible Bonusguthaben); native maximum also unknown.
   No inferred zero/limit, costs/older scope/order grant remain open; no order.
   Frontend optimization reported432.8min on small host; evaluate builder

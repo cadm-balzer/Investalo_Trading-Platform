@@ -547,6 +547,132 @@ class DemoAccountTests(unittest.TestCase):
         self.assertEqual(report["readiness"]["orders"][2]["count"], 1)
         self.assertFalse(report["preview"]["submission_enabled"])
 
+    def test_btc_confirmed_grant_uses_existing_get_and_private_source_only(self):
+        self.btc_test(lambda request, data: dict(data, grant="0") if request.axis == "BTCUSDT" else data)
+        del self.wallet[0]["grant"]
+        diagnostics = []
+        self.native.diagnostic = diagnostics.append
+        with patch("investalo_credential_store.demo_account_sync.time.sleep"):
+            report = self.run_read()
+        self.assertEqual(report["unknown_wallet_fields"], [])
+        self.assertEqual(report["readiness"]["blockers"], [])
+        self.assertEqual(len(self.sent) + len(self.market_axes), 11)
+        self.assertEqual(diagnostics[0]["grant_source"], "btc_account")
+        self.assertEqual(diagnostics[0]["sent"], 11)
+        self.assertNotIn("grant_source", json.dumps(report))
+        self.assertEqual(set(diagnostics[0]), {"schema", "stage", "sent", "elapsed_ms",
+            "error_type", "http_status", "provider_code", "grant_source"})
+        self.assertFalse(report["execution_enabled"])
+        self.assertFalse(report["preview"]["maximum_quantity_verified"])
+
+    def test_btc_positive_confirmed_grant_remains_collateral_blocker(self):
+        self.btc_test(lambda request, data: dict(data, grant="12.50") if request.axis == "BTCUSDT" else data)
+        self.wallet[0]["grant"] = ""
+        with patch("investalo_credential_store.demo_account_sync.time.sleep"):
+            report = self.run_read()
+        self.assertEqual(report["unknown_wallet_fields"], [])
+        self.assertEqual(report["readiness"]["blockers"], ["wallet_collateral"])
+        self.assertNotIn("12.50", json.dumps(report))
+
+    def test_btc_grant_unknown_in_both_sources_stays_unknown(self):
+        for value in (None, ""):
+            with self.subTest(value=value):
+                self.setUp()
+                self.btc_test(lambda request, data: dict(data, grant=value)
+                    if request.axis == "BTCUSDT" else data)
+                del self.wallet[0]["grant"]
+                diagnostics = []
+                self.native.diagnostic = diagnostics.append
+                with patch("investalo_credential_store.demo_account_sync.time.sleep"):
+                    report = self.run_read()
+                self.assertEqual(report["unknown_wallet_fields"], ["grant"])
+                self.assertEqual(report["readiness"]["blockers"], ["wallet_unknown"])
+                self.assertEqual(diagnostics[0]["grant_source"], "unconfirmed")
+
+    def test_btc_known_wallet_grant_retained_with_equal_or_absent_btc_value(self):
+        for value in ("0.00", None, ""):
+            with self.subTest(value=value):
+                self.setUp()
+                self.btc_test(lambda request, data: dict(data, grant=value)
+                    if request.axis == "BTCUSDT" else data)
+                diagnostics = []
+                self.native.diagnostic = diagnostics.append
+                with patch("investalo_credential_store.demo_account_sync.time.sleep"):
+                    report = self.run_read()
+                self.assertEqual(report["readiness"]["blockers"], [])
+                self.assertEqual(diagnostics[0]["grant_source"], "wallet")
+
+    def test_btc_grant_conflict_or_invalid_native_value_rejects_whole_report(self):
+        for value in ("1", "-1", "NaN", True, 0, {}, "1e99"):
+            with self.subTest(value=value):
+                self.setUp()
+                self.btc_test(lambda request, data: dict(data, grant=value)
+                    if request.axis == "BTCUSDT" else data)
+                with patch("investalo_credential_store.demo_account_sync.time.sleep"), self.assertRaises(OnboardingRejected):
+                    self.run_read()
+                self.assertFalse(self.native.lock.locked())
+                self.assertLessEqual(len(self.sent) + len(self.market_axes), 11)
+
+    def test_btc_foreign_grant_source_rejected(self):
+        for changes in (dict(symbol="ETHUSDT"), dict(marginCoin="USDC")):
+            with self.subTest(changes=changes):
+                self.setUp()
+                self.btc_test(lambda request, data: dict(data, grant="0", **changes)
+                    if request.axis == "BTCUSDT" else data)
+                del self.wallet[0]["grant"]
+                with patch("investalo_credential_store.demo_account_sync.time.sleep"), self.assertRaises(OnboardingRejected):
+                    self.run_read()
+
+    def test_btc_grant_completion_preserves_other_wallet_checks_and_original_time(self):
+        from datetime import datetime
+        for changes, blockers, unknown in (
+                (dict(coupon=None), ["wallet_unknown"], ["coupon"]),
+                (dict(locked="1"), ["wallet_collateral"], []),
+                (dict(accountEquity="9999"), ["initial_balance_changed"], [])):
+            with self.subTest(changes=changes):
+                self.setUp()
+                self.btc_test(lambda request, data: dict(data, grant="0")
+                    if request.axis == "BTCUSDT" else data)
+                del self.wallet[0]["grant"]
+                self.wallet[0].update(changes)
+                original = self.native.transport
+                source_ms = int(time.time()*1000) - 1000
+                def dated(request):
+                    response = original(request)
+                    if request.axis == "BTCUSDT":
+                        frame = json.loads(response.body)
+                        frame["requestTime"] = source_ms
+                        response = ReadResponse(200, json.dumps(frame).encode())
+                    return response
+                self.native.transport = dated
+                with patch("investalo_credential_store.demo_account_sync.time.sleep"):
+                    report = self.run_read()
+                self.assertEqual(report["readiness"]["blockers"], blockers)
+                self.assertEqual(report["unknown_wallet_fields"], unknown)
+                self.assertEqual(round(datetime.fromisoformat(report["observed_at"]).timestamp()*1000), source_ms)
+
+    def test_btc_stale_grant_source_does_not_complete_wallet(self):
+        self.btc_test(lambda request, data: dict(data, grant="0") if request.axis == "BTCUSDT" else data)
+        del self.wallet[0]["grant"]
+        original = self.native.transport
+        def stale(request):
+            response = original(request)
+            if request.axis == "BTCUSDT":
+                frame = json.loads(response.body)
+                frame["requestTime"] -= 6000
+                response = ReadResponse(200, json.dumps(frame).encode())
+            return response
+        self.native.transport = stale
+        with patch("investalo_credential_store.demo_account_sync.time.sleep"), self.assertRaises(OnboardingRejected):
+            self.run_read()
+
+    def test_seven_coin_startup_does_not_use_btc_grant_fallback(self):
+        self.startup(lambda request, data: dict(data, grant="0") if request.axis == "BTCUSDT" else data)
+        del self.wallet[0]["grant"]
+        with patch("investalo_credential_store.demo_account_sync.time.sleep"):
+            report = self.run_read()
+        self.assertEqual(report["blockers"], ["wallet_unknown"])
+
     def test_btc_market_revocation_discards_account_and_quote(self):
         self.btc_test()
         original = self.reader.market_read

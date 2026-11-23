@@ -52,6 +52,24 @@ ein fehlender Grant-/Couponbetrag konkret benannt, ohne ihn als belegte Margin
 oder als Nullbetrag zu erfinden. Broker-UID, API-Daten, Rohantworten und
 native Order-IDs gelangen nicht in den Browser.
 
+Der BTC-Lesepfad gleicht `grant` aus der Kontoliste mit dem bereits
+abgefragten BTC-Einzelkonto ab. Beide Endpunkte dokumentieren dieses Feld
+als Futures-Airdrop-Voucherbetrag.
+[Bitget Classic-Kontofelder](https://www.bitget.com/docs/catalog/classic-contract-account/classic-contract-account),
+geprüft am 2026-11-23.
+Ein fehlender Listenwert darf durch einen bestätigten BTC-Wert ersetzt werden.
+Bekannte widersprüchliche Beträge verwerfen den gesamten Bericht; positive
+Beträge bleiben eine Sicherheitenwarnung. Fehlt der Wert in beiden Antworten,
+bleibt Bonusguthaben unbekannt. Fremde Coins/Symbole und ungültige Beträge
+werden abgelehnt.
+
+Es entstehen keine zusätzlichen GETs. Originale Quellezeit, Fünfsekunden-
+Kohorte, Credential-/Actorprüfungen und alle anderen Walletchecks bleiben
+erhalten. Der Browservertrag bleibt gleich. Nur die private technische
+Diagnose nennt die feste Quellenklasse `wallet`, `btc_account` oder
+`unconfirmed`; sie enthält keinen Grantbetrag und keine Rohantwort.
+Die allgemeine Sieben-Coin-Startprüfung verwendet weiterhin die Kontoliste.
+
 `execution_enabled`, `submission_enabled`, `account_verified`,
 `fees_verified`, `costs_verified` und `pending_scope_verified` bleiben false.
 Die Kontoprüfung ist ein datierter Lesestand, keine Versandfreigabe.
@@ -83,13 +101,23 @@ Anzeige vom20261123 12:02:20/22:0,0003 BTC, Limit61482,7 USDT,
 Positionswert18,44481 USDT, Initialmargin9,222405 USDT vor Gebühren.
 Alle fünf abgefragten Pendingfamilien zeigen null Aufträge.
 
-Die aktuelle native BTC-Konfiguration ist **isoliert/Hedge/2×**.
-Der gewünschte One-way-Modus ist noch nicht gesetzt; die Profilwarnung ist
-damit nachvollziehbar. Das Grant-Feld wird nicht bestätigt und bleibt als
+Die erste native BTC-Konfiguration war isoliert/Hedge/2×.
+Der Nutzer bestätigt anschließend die Vorschau vom20261123 12:23:39/41:
+**isoliert/einseitig/2×**, Profil passt und alle fünf Pendingfamilien weiterhin
+null Aufträge. Menge0,0003 BTC, Limit61410,6 USDT, Positionswert18,42318 USDT,
+Initialmargin9,21159 USDT vor Gebühren. Das Grant-Feld wird nicht bestätigt und bleibt als
 Bonusguthaben unbekannt. Native Maximalmenge ist ebenfalls unbestätigt.
 Es wurden keine Nullbeträge oder Orderlimits daraus abgeleitet.
 Die noch offene Kosten-/ältere Scopeabnahme und einmalige konkrete
 Orderfreigabe bleiben eigenständige nächste Schritte.
+
+PR110 ist auf main `a532e07` verifiziert. Der ergänzte Grant-Quellenabgleich
+besteht176 gepinnte Pythonfälle inklusive echtem AEAD mit synthetischen
+Brokerantworten: bestätigter Null-/Positivbetrag, unbekannte oder widersprüchliche
+Quellen, ungültige Beträge, fremde Kontosicherung, alte Quellezeit sowie
+unveränderte andere Walletblocker und Sieben-Coin-Startprüfung.
+Executorbuild grün; kein Frontendneubau. Der Abgleich ist noch nicht
+ausgerollt oder am tatsächlichen privaten Demo-Grant abgenommen.
 
 Der Cockpit-Build akzeptiert optional
 `COCKPIT_BUILD_HEAP_MB`; Standard768 unverändert, dieser kleine Host baut
