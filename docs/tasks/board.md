@@ -8,6 +8,18 @@ konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
+IP-015/IP-016: [Konkrete BTC-Orderzustimmung](../bitget-demo-btc-order-consent.md)
+`DONE` implementiert/geprüft nach PR112/main dc879b3: Original-HTTP/CSRF/
+Session/aktuelle Rolle + Metadaten; eigene kurze exakte HMAC-Domain,
+Trading-Snapshotvergleich vor Verbrauch/AEAD.197 Python/23 Node/Typprüfung/
+Executorbuild und unverändertes tatsächliches Node→Python→Consumer→AEAD/
+Outbox-Paket grün; Broker/Actor synthetisch, keine operative Orderroute.
+Native Konto-/Registry-/Handlerintegration `READY`.
+[Einmaliges enges technisches Testprofil](../bitget-demo-small-test-policy.md)
+`WAITING_DECISION`: bekannte fehlende Grant-/Maximalangaben und unbestätigte
+Kosten/ältere Scope für exakt kleinen virtuellen20-USDT-Test akzeptieren;
+normales Handelssystem bleibt streng. Kein Auftrag.
+
 IP-015/IP-016: [BTC-Testvorschau](../bitget-demo-btc-test-preview.md)
 `DONE` implementiert/geprüft: Nutzer bestätigt BTC manuell vorbereitet, PR108 gemergt/
 verifiziert. Gezielte BTC-Konfiguration, gesamtes Konto und fünf

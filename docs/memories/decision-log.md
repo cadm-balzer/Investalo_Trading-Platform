@@ -1,5 +1,17 @@
 # Entscheidungsprotokoll
 
+## D-150 — Eigene kurze exakte BTC-Orderzustimmung
+
+Nach PR112 bindet eine eigene BFF/Python-Domain Original-HTTPbestätigung,
+CSRF/Session/aktuelle Rolle und Metadaten an den exakten BTC-Intent und
+Outboxbeleg, Konto und Key-/Speicherversion.15s-Gültigkeit und unabhängiger
+aktueller Trading-Snapshotvergleich, dann dauerhafter Verbrauch vor AEAD.
+Lese-/Keygrants und synthetische interne Approvalobjekte werden nicht
+als Zustimmung umgedeutet. Kein neuer WebAuthn-Nachweis behauptet.
+Native unbekannte Felder bleiben offen. Ein separates begrenztes Testprofil
+ist nur zur Entscheidung vorgeschlagen, nicht beschlossen oder aktiviert.
+[Vertrag](../bitget-demo-btc-order-consent.md), [Vorschlag](../bitget-demo-small-test-policy.md).
+
 ## D-149 — Orderfreigabe vor Decrypt dauerhaft verbrauchen
 
 Der Nutzer möchte den kleinen BTC-Demo-Test starten. Der vorhandene

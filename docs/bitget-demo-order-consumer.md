@@ -38,6 +38,10 @@ API-Daten, JWTs, Sitzungsclaims oder nativen Orderantworten.
 Issuer, Native-Accountguard, Registryinstallation und geschützter
 Ordertransport müssen weiterhin ausdrücklich verdrahtet werden.
 Die laufende Runtime installiert diesen Consumer noch nicht.
+Der eigene [BTC-Zustimmungsbaustein](bitget-demo-btc-order-consent.md)
+prüft jetzt tatsächliches BFF-HMAC, Originalkontext und aktuelle Trading-
+Snapshots vor dem Dateiverbrauch. Er ist ebenfalls noch nicht operativ
+installiert; fehlende Brokerangaben werden nicht dadurch freigegeben.
 
 ## Prüfung und tatsächlicher Stand
 

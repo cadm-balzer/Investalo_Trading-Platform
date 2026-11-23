@@ -7,6 +7,21 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR112 mergeddc879b3, GH/fetch verified. Own BTC-test BFF/Python consent
+  implemented: original POST/Origin/CSRF/session + independent live role/
+  metadata before/after awaits, body16KiB/10s, admission8 before awaits.
+  Own kind/audience/URI,15s exact body/intent/outbox/credential binding.
+  Issuer validates original independently supplied context and two current
+  Trading snapshots without decrypting; durable consumer precedes AEAD/POST.
+  BTC-only/open-from-zero/fixed2x/20USDT; old Read/Key domains preserved.
+  197 distinct pinned Python/23 Node/typecheck/Executor build/import green;
+  actual unchanged Node packet→Python issuer→consumer→AEAD/outbox→synthetic ACK.
+  Synthetic auth/actor/native replies only; no operative routes, native orders,
+  frontend rebuild, migration/key/dependency/service change. Native accountguard/
+  registry/handlers still need installation; unknown grant/max/costs/older scope
+  remain binding. Concrete bounded technical-test exception proposed for user
+  decision only, not implemented/activated. See docs/bitget-demo-btc-order-consent.md
+  and docs/bitget-demo-small-test-policy.md.
 - PR111 mergedbf5ddbe, GH/fetch verified; user requests small BTC Demo test.
   Grant fix rolled out with verified packaged image/source, only Executor
   recreated, six other services unchanged. Original five overlays/env and
