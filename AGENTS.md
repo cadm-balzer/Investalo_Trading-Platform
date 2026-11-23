@@ -7,6 +7,28 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR113 mergedac1246b, GH/fetch verified. User explicitly approves the small
+  technical Demo exception and chooses Market, also for future strategy.
+  Own BTCMarketIntent/grid/preview preserves unknown maxMarketOrderQty;
+  1% planning buffer/base-quantity floor, estimated20USDT/2x, no guaranteed
+  realized cap. Own Market consent kind/audience/URI rejects Limit/Read/Key
+  tokens. Exact Market POST has no price/force; distinct journal codec,
+  unknown-before-POST/no resend and actual worse-price/partial fills survive
+  restore. Native admission still requires original current actor/key/
+  UID/parent/quota/time,10k/flat, all5 empty complete pending families and
+  isolated/one-way/2x BTC; only approved unknown grant/max/costs/older scope
+  accepted. Original source5s/cohort5s/max3/paced110ms/11GETs retained.
+  Dashboard requests own btc-market preview and labels estimates correctly.
+  215 pinned Python/27 Node/typecheck/final Cockpit+Executor builds green;
+  actual unchanged pinned Node→Python→consumer→AEAD/journal→synthetic ACK.
+  Public native Demo probe0.0003BTC/18.38613USDT/9.193065 margin, market max
+  still unknown; exactly2 keyless GETs. Single Frontend build512MiB/one worker
+  completed on small host. Synthetic private broker/actor only, actual local
+  mTLS/AEAD/registry journal. No operative order
+  routes/registry/consumer installed, deployment or actual order. Next
+  operative original-context source/issuer, persistent setup, submit/observe
+  route and actual single Demo test. See docs/bitget-demo-btc-market-test.md
+  and docs/bitget-demo-small-test-policy.md; D-151 supersedes pending D-150 policy.
 - PR112 mergeddc879b3, GH/fetch verified. Own BTC-test BFF/Python consent
   implemented: original POST/Origin/CSRF/session + independent live role/
   metadata before/after awaits, body16KiB/10s, admission8 before awaits.

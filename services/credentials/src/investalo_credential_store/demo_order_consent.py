@@ -15,6 +15,7 @@ from uuid import UUID
 
 from investalo_bitget import OwnerContext
 from investalo_bitget.futures_demo import DemoIntent, DemoRejected, clock
+from investalo_bitget.futures_demo_market import BTCMarketIntent, CONFIRMATION as MARKET_CONFIRMATION
 from investalo_bitget.futures_demo_outbox import OutboxReceipt
 from investalo_credentials import dump_envelope
 
@@ -49,16 +50,28 @@ class DemoBTCTestConsentVerifier(_PrivateImmutable):
     def verify(self, context, token, body, intent, receipt, now_ms):
         try:
             now_ms = clock(now_ms)
+            market = type(self) is DemoBTCMarketConsentVerifier
+            kind = "investalo-demo-btc-market-order-consent/1" if market else KIND
+            audience = "investalo-demo-btc-market-order" if market else AUDIENCE
+            path = "/v1/bitget-demo-trading/market-order-submit" if market else PATH
+            confirmation = MARKET_CONFIRMATION if market else CONFIRMATION
             if (type(context) is not PasskeyRequestContext or type(token) is not str
                     or len(token) > 8192 or type(body) is not bytes or not 0 < len(body) <= 16384
-                    or type(intent) is not DemoIntent or type(receipt) is not OutboxReceipt):
+                    or type(self) not in (DemoBTCTestConsentVerifier, DemoBTCMarketConsentVerifier)
+                    or type(intent) is not (BTCMarketIntent if market else DemoIntent)
+                    or type(receipt) is not OutboxReceipt):
                 raise ValueError()
             intent.binding.check(OwnerContext(context.tenant_id, context.user_id))
             with localcontext() as precision:
                 precision.prec = 160
                 if (intent.grid.symbol != "BTCUSDT" or intent.action != "open_long"
                         or intent.before_quantity != Decimal(0)
-                        or intent.quantity * intent.limit_price > Decimal(20)):
+                        or not market and intent.quantity * intent.limit_price > Decimal(20)
+                        # A human can confirm a displayed proposal for30s.
+                        # It remains a reference, not current native evidence:
+                        # account_guard must separately recheck a <=5s source
+                        # and the exact quantity at its fresh ask before POST.
+                        or market and not 0 <= now_ms - intent.observed_ms <= 30000):
                     raise ValueError()
             header, payload, signature = token.split(".")
             if _json(_decode(header)) != {"alg": "HS256", "typ": "JWT"}:
@@ -75,9 +88,9 @@ class DemoBTCTestConsentVerifier(_PrivateImmutable):
                     actual = str(actual)
                 if type(claims[name]) is not type(actual) or claims[name] != actual:
                     raise ValueError()
-            if (claims["kind"] != KIND or claims["aud"] != AUDIENCE
+            if (claims["kind"] != kind or claims["aud"] != audience
                     or claims["oidc_issuer"] != self.oidc_issuer or claims["origin"] != self.origin
-                    or claims["htm"] != "POST" or claims["htu"] != PATH
+                    or claims["htm"] != "POST" or claims["htu"] != path
                     or claims["body_sha256"] != hashlib.sha256(body).hexdigest()
                     or type(claims["iat"]) is not int or type(claims["exp"]) is not int
                     or not claims["iat"] * 1000 <= now_ms < claims["exp"] * 1000
@@ -92,7 +105,7 @@ class DemoBTCTestConsentVerifier(_PrivateImmutable):
                     or request["intent_sha256"] != intent.intent_digest
                     or type(request["credential_revision"]) is not int or request["credential_revision"] != 1
                     or type(request["storage_version"]) is not int or not 1 <= request["storage_version"] < 2**53
-                    or request["confirmation"] != CONFIRMATION
+                    or request["confirmation"] != confirmation
                     or request["outbox_receipt"] != receipt.record()
                     or any(type(request["outbox_receipt"].get(key)) is not type(value)
                            for key, value in receipt.record().items())):
@@ -100,6 +113,11 @@ class DemoBTCTestConsentVerifier(_PrivateImmutable):
             return UUID(claims["jti"]), request["storage_version"], claims["iat"] * 1000, claims["exp"] * 1000
         except Exception:
             raise DemoRejected("btc_order_consent_not_confirmed") from None
+
+
+class DemoBTCMarketConsentVerifier(DemoBTCTestConsentVerifier):
+    """Own explicit Market test domain; old Limit/read tokens grant no authority."""
+    __slots__ = ()
 
 
 class DemoBTCTestConsentIssuer(_PrivateImmutable):
@@ -113,7 +131,8 @@ class DemoBTCTestConsentIssuer(_PrivateImmutable):
 
     def __init__(self, verifier, context, token, body, *, read_snapshot, guard,
                  milliseconds=lambda: time.time_ns() // 1_000_000):
-        if (type(verifier) is not DemoBTCTestConsentVerifier or type(context) is not PasskeyRequestContext
+        if (type(verifier) not in (DemoBTCTestConsentVerifier, DemoBTCMarketConsentVerifier)
+                or type(context) is not PasskeyRequestContext
                 or not all(callable(value) for value in (read_snapshot, guard, milliseconds))):
             raise DemoRejected("invalid_btc_order_issuer_installation")
         for name, value in (("verifier", verifier), ("context", context), ("token", token), ("body", body),

@@ -16,6 +16,7 @@ from uuid import UUID
 from investalo_bitget import OwnerContext, parse
 from investalo_bitget.demo_trading_identity import trading_identity
 from investalo_bitget.futures_demo import DemoBinding, DemoIntent, DemoRejected, DemoRequestPlan, clock
+from investalo_bitget.futures_demo_market import BTCMarketIntent
 from investalo_bitget.futures_demo_outbox import OutboxReceipt
 from investalo_bitget.futures_demo_read import DemoReadCredential, SignedDemoReadRequest
 from investalo_bitget.futures_demo_registry import RegisteredDemoOutbox
@@ -35,7 +36,7 @@ class DemoOrderApproval(_PrivateImmutable):
 
     def __init__(self, authorization_id, intent, receipt, *, credential_revision,
                  storage_version, granted_ms, expires_ms):
-        if (type(authorization_id) is not UUID or type(intent) is not DemoIntent
+        if (type(authorization_id) is not UUID or type(intent) not in (DemoIntent, BTCMarketIntent)
                 or type(receipt) is not OutboxReceipt or type(credential_revision) is not int
                 or credential_revision != 1 or type(storage_version) is not int
                 or not 1 <= storage_version < 2**63
@@ -60,7 +61,7 @@ class SignedDemoOrderRequest(_PrivateImmutable):
     __slots__ = ("plan", "url", "method", "target", "body", "headers", "_lock", "_used", "_pid")
 
     def __init__(self, lease, intent, operation, *, timestamp_ms):
-        if (type(lease) is not DemoTradingCredentialLease or type(intent) is not DemoIntent
+        if (type(lease) is not DemoTradingCredentialLease or type(intent) not in (DemoIntent, BTCMarketIntent)
                 or lease.spec.binding != intent.binding
                 or not clock(timestamp_ms) < lease.expires_ms or operation not in ("place", "detail")):
             raise DemoRejected("invalid_order_request")

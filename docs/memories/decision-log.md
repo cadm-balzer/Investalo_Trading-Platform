@@ -1,5 +1,22 @@
 # Entscheidungsprotokoll
 
+## D-151 — Begrenzten Demotest freigegeben und Market gewählt
+
+Der Nutzer bestätigt PR113 und genehmigt den kleinen technischen Demotest
+mit den konkret genannten fehlenden Brokerangaben. Er wählt Market statt
+Limit-IOC, da auch die spätere Strategie Market handeln soll.
+Fehlendes Grantguthaben/Market-Höchstmenge, tatsächliche Kosten und ältere
+Pendingabdeckung dürfen ausschließlich für diesen virtuellen BTC-Test
+unbestätigt bleiben. Andere aktuelle Konto-/UID-/Rechte-/Zeit-/Quotaguards
+bleiben verbindlich. Die feste BTC-Menge wird konservativ mit1% Puffer
+berechnet; der tatsächlich ausgeführte Preis/Wert ist bei Market nicht
+garantiert auf den20-USDT-Schätzwert begrenzt. Eigenes Intent-/Consent-
+Format und native Marketmaximalmenge; kein erfundener DemoGrid-Maximalwert.
+Diese Entscheidung löst die offene Testprofilfrage aus D-150 ab und
+aktiviert keine automatische Basketstrategie oder Echtgeld.
+[Freigabeumfang](../bitget-demo-small-test-policy.md),
+[Implementierung](../bitget-demo-btc-market-test.md).
+
 ## D-150 — Eigene kurze exakte BTC-Orderzustimmung
 
 Nach PR112 bindet eine eigene BFF/Python-Domain Original-HTTPbestätigung,

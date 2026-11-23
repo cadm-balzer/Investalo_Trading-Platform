@@ -90,12 +90,20 @@ Registry-/Routeanbindung weiterhin offen.
 Eigene [BTC-Orderzustimmung](bitget-demo-btc-order-consent.md) mit197 Python/
 23 Node/Typprüfung/Executorbuild und tatsächlicher synthetischer Node→Python-
 Paketkette geprüft; operative Verkabelung bleibt offen.
-Einzelner enger [technischer Demotest](bitget-demo-small-test-policy.md)
-als bewusstes eigenes Profil zur Nutzerentscheidung vorgeschlagen;
-normale native Limit-/Kosten-/Auftragsprüfungen bleiben unverändert.
-Native maximale Limitmenge/Kosten/ältere Scopefreigabe weiterhin offen.
+Einzelner enger [technischer Market-Demotest](bitget-demo-small-test-policy.md)
+vom Nutzer genehmigt (D-151), Market statt Limit-IOC.
+[Eigener Marketvertrag und Admission](bitget-demo-btc-market-test.md)
+mit215 Python/27 Node/Typprüfung/beiden Builds und tatsächlicher
+synthetischer Node→Python-/AEAD-/Journal-Kette geprüft. Öffentliche native
+Probe0,0003BTC/18,38613USDT. Fehlender Grant/Market-Maximalmenge/Kosten/
+älterer Scope ausschließlich für diesen Test akzeptiert, unverändert
+unbekannt dargestellt. Operative ursprüngliche Source-/Issuer-/Registry-/
+Submit-/Observe-Anbindung `READY`, dann tatsächlicher genehmigter Demotest.
+Normale native Konto-/Kosten-/Auftragsprüfungen bleiben bestehen.
 Frontend-Optimierung auf kleinem Host sehr langsam (gemeldete432,8min);
 Builderauslastung und externen Buildpfad vor größeren Frontendblöcken prüfen.
+Aktueller einzelner Marketvorschau-Build mit512MiB Heap/einem Worker
+erfolgreich abgeschlossen; keine zusätzlichen parallelen Builds.
 
 RSI-/Supertrend-/Budget-/Exitentscheidungen Q1–Q31 sind bestätigt.
 Q32 zur H4-Modellpreis-Basis ist ebenfalls bestätigt. Offen bleiben die

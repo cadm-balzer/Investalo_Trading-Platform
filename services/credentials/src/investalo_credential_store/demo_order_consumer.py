@@ -12,6 +12,7 @@ from uuid import UUID
 
 from investalo_bitget import OwnerContext
 from investalo_bitget.futures_demo import DemoIntent, DemoRejected, clock, digest
+from investalo_bitget.futures_demo_market import BTCMarketIntent
 from investalo_bitget.futures_demo_outbox import OutboxReceipt, encode
 from investalo_bitget.futures_demo_registry import _directory, _file, _identity, _named
 
@@ -56,7 +57,7 @@ class DurableDemoOrderConsumer(_PrivateImmutable):
         return len(names)
 
     def __call__(self, intent, receipt, context):
-        if (type(intent) is not DemoIntent or type(receipt) is not OutboxReceipt
+        if (type(intent) not in (DemoIntent, BTCMarketIntent) or type(receipt) is not OutboxReceipt
                 or type(context) is not OwnerContext):
             raise DemoRejected("invalid_order_consume_scope")
         intent.binding.check(context)

@@ -67,6 +67,16 @@ function btcView(): btcContract.DemoBTCTest {
       observed_ms: Date.parse(start.observed_at), source_sha256: ["a".repeat(64), "b".repeat(64)] },
     unknown_wallet_fields: [], execution_enabled: false };
 }
+function marketView(): btcContract.DemoBTCMarketTest {
+  const old = btcView();
+  return { ...old, schema: "investalo-demo-btc-market-preview-report/1", preview: {
+    schema: "bitget-classic-btc-demo-market-test/1", symbol: "BTCUSDT", environment: "demo",
+    order_type: "market", side: "long", leverage: 2, margin_mode: "isolated",
+    quantity_btc: "0.0003", reference_price_usdt: "60000", estimated_notional_usdt: "18",
+    estimated_margin_usdt: "9", planning_notional_usdt: "18.18", planning_cap_usdt: "20",
+    price_buffer_percent: "1", execution_price_guaranteed: false,
+    native_max_market_quantity_btc: null, observed_ms: old.preview.observed_ms, submission_enabled: false } };
+}
 test("contract preserves exact decimals, unknown fields and nullable liquidation price", () => {
   const original = view();
   assert.deepEqual(contract.parseDemoAccount(original, id(1), id(2)), original);
@@ -108,7 +118,8 @@ function fixture() {
       accountId: id(2), check: async () => {}, identity: { readAccount: async (_bound: unknown, _user: unknown, target: any) => {
         f.reads++; f.mutate(); if (f.fail) throw new Error("private broker details");
         return target.inspection === "startup" ? startupView() :
-          target.inspection === "btc-test" ? btcView() : view();
+          target.inspection === "btc-test" ? btcView() :
+          target.inspection === "btc-market" ? marketView() : view();
       } },
     }) },
   });
@@ -163,9 +174,50 @@ test("initial actual panel SSR offers refresh and invents no balances or positio
   assert.match(html, /werden geladen/);
   assert.doesNotMatch(html, /50000|keine offenen|API-Key/);
 });
+
+test("Market report preserves estimates unknown max and rejects guarantees or altered sizing", () => {
+  const report = marketView();
+  assert.deepEqual(btcContract.parseDemoBTCMarketTest(report, id(1), id(2)), report);
+  for (const changes of [{ force: "ioc" }, { execution_price_guaranteed: true },
+    { planning_notional_usdt: "20.01" }, { estimated_notional_usdt: "19" },
+    { native_max_market_quantity_btc: "0.0001" }, { reference_price_usdt: "NaN" },
+    { order_type: "limit" }]) {
+    assert.throws(() => btcContract.parseDemoBTCMarketTest({
+      ...report, preview: { ...report.preview, ...changes } }, id(1), id(2)));
+  }
+  assert.throws(() => btcContract.parseDemoBTCTest(report, id(1), id(2)));
+  assert.throws(() => btcContract.parseDemoBTCMarketTest(report, id(9), id(2)));
+});
+
+test("Market inspection bypasses numeric cache and retains session guard and strict selector", async () => {
+  const { f, server, request } = fixture();
+  const inspect = () => new Request(request().url + "?inspection=btc-market", {
+    headers: { "sec-fetch-site": "same-origin" } });
+  assert.equal((await server.handleDemoAccount(request())).status, 200);
+  for (let i=0; i<2; i++) {
+    const result = await server.handleDemoAccount(inspect());
+    assert.equal(result.status, 200);
+    assert.equal((await result.json()).preview.order_type, "market");
+  }
+  assert.equal(f.reads, 3);
+  assert.equal((await server.handleDemoAccount(new Request(inspect().url + "&symbol=ETHUSDT",
+    { headers: { "sec-fetch-site": "same-origin" } }))).status, 503);
+  f.mutate = () => { f.revoked = true; };
+  assert.equal((await server.handleDemoAccount(inspect())).status, 503);
+});
+
+test("Market preview UI describes estimated amounts without a guaranteed price or send button", () => {
+  const component = load("../src/components/demo-btc-test.tsx", { "./demo-startup": {
+    DemoStartupReport: () => null } });
+  const html = renderToStaticMarkup(React.createElement(component.DemoBTCTestReport, { data: marketView() }));
+  assert.match(html, /Market-Ausführung/);
+  assert.match(html, /Geschätzter Positionswert/);
+  assert.match(html, /1 % Preispuffer/);
+  assert.doesNotMatch(html, /Limitpreis|Maximaler Positionswert|<button/);
+});
 test("readonly adapter sends exact separate signed purpose and independent session over real mTLS", async t => {
-  let calls = 0, published: contract.DemoAccount | startupContract.DemoStartup | btcContract.DemoBTCTest = view(),
-    inspecting: "startup" | "btc-test" | undefined;
+  let calls = 0, published: contract.DemoAccount | startupContract.DemoStartup | btcContract.DemoBTCTest | btcContract.DemoBTCMarketTest = view(),
+    inspecting: "startup" | "btc-test" | "btc-market" | undefined;
   const key = Buffer.alloc(32, 7), now = Math.floor(Date.now()/1000);
   const native = await demoTlsFixture(t, (request, response) => {
     calls++;
@@ -222,7 +274,12 @@ test("readonly adapter sends exact separate signed purpose and independent sessi
   assert.deepEqual(await executor.readDemoAccount(btcInput), published);
   published = startupView();
   await assert.rejects(executor.readDemoAccount(btcInput), /DEMO_ACCOUNT_UNAVAILABLE/);
-  assert.equal(calls, 6);
+  inspecting = "btc-market"; published = marketView();
+  const marketInput = { ...input, target: { ...input.target, inspection: "btc-market" } };
+  assert.deepEqual(await executor.readDemoAccount(marketInput), published);
+  published = btcView();
+  await assert.rejects(executor.readDemoAccount(marketInput), /DEMO_ACCOUNT_UNAVAILABLE/);
+  assert.equal(calls, 8);
 });
 test("startup contract rejects authority flags, leaked IDs, missing axes and a fake matching profile", () => {
   const report = startupView(); report.observed_at = report.account.observed_at;

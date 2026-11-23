@@ -8,6 +8,23 @@ konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
+IP-015/IP-016: [Kleiner BTC-Markettest](../bitget-demo-btc-market-test.md)
+`DONE` als Vertrag/Admission/Vorschau nach PR113/mainac1246b:
+Nutzer genehmigt technische Unknown-Ausnahme und wählt Market.
+Eigene Intent-/Consentdomain, native Marketmaximalmenge bleibt unbekannt,
+1% Planungspuffer/exakte feste Basismenge, POST ohne price/force,
+dauerhafte Outbox/Consumer/AEAD und tatsächliche schlechtere/partielle
+Fills beim Restore geprüft.215 Python/27 Node/Typprüfung/beide Builds grün.
+Unverändertes gepinntes Node→Python→Consumer→AEAD/Journal-Paket abgenommen;
+Broker-ACK synthetisch. Öffentliche native Marketprobe0,0003BTC/
+18,38613USDT ohne Keys, native Höchstmenge unbekannt.
+Originale11-GET-Marketvorschau im Dashboard, tatsächliches lokales mTLS,
+Broker/Actor synthetisch. Operativer Source-/Issueradapter, private
+Registry-/Consumerinstallation und echte Submit-/Observe-Route `READY`;
+anschließend genehmigten einzelnen virtuellen Test durchführen.
+Noch kein Deployment oder tatsächlicher Auftrag. Die frühere
+`WAITING_DECISION`-Testprofilfrage ist durch D-151 entschieden.
+
 IP-015/IP-016: [Konkrete BTC-Orderzustimmung](../bitget-demo-btc-order-consent.md)
 `DONE` implementiert/geprüft nach PR112/main dc879b3: Original-HTTP/CSRF/
 Session/aktuelle Rolle + Metadaten; eigene kurze exakte HMAC-Domain,
@@ -16,8 +33,8 @@ Executorbuild und unverändertes tatsächliches Node→Python→Consumer→AEAD/
 Outbox-Paket grün; Broker/Actor synthetisch, keine operative Orderroute.
 Native Konto-/Registry-/Handlerintegration `READY`.
 [Einmaliges enges technisches Testprofil](../bitget-demo-small-test-policy.md)
-`WAITING_DECISION`: bekannte fehlende Grant-/Maximalangaben und unbestätigte
-Kosten/ältere Scope für exakt kleinen virtuellen20-USDT-Test akzeptieren;
+`DONE` als Nutzerentscheidung in D-151: bekannte fehlende Grant-/Maximalangaben und unbestätigte
+Kosten/ältere Scope für den kleinen virtuellen Markettest mit20-USDT-Ziel akzeptieren;
 normales Handelssystem bleibt streng. Kein Auftrag.
 
 IP-015/IP-016: [BTC-Testvorschau](../bitget-demo-btc-test-preview.md)

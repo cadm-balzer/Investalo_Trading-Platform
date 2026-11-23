@@ -6,6 +6,7 @@ from decimal import Decimal, localcontext
 import re
 
 from .futures_demo import DemoIntent, DemoRejected, clock, number, SYMBOLS
+from .futures_demo_market import BTCMarketIntent
 from .parse import amount, envelope, EPOCH, timestamp_ms
 
 FRESH_MS = 5_000
@@ -13,7 +14,7 @@ TERMINAL = frozenset(("filled", "canceled"))
 
 
 def frame(response, intent, context, now_ms):
-    if not isinstance(intent, DemoIntent):
+    if type(intent) not in (DemoIntent, BTCMarketIntent):
         raise DemoRejected("invalid_intent")
     intent.binding.check(context)
     clock(now_ms)
@@ -43,7 +44,7 @@ class DemoTrace:
     observation: OrderObservation | None = None
 
     def __post_init__(self):
-        if (not isinstance(self.intent, DemoIntent) or self.state not in
+        if (type(self.intent) not in (DemoIntent, BTCMarketIntent) or self.state not in
                 ("prepared", "submission_unknown", "acknowledged", "live",
                  "partially_filled", "filled", "canceled")):
             raise DemoRejected("invalid_trace")
@@ -65,7 +66,7 @@ class DemoTrace:
                     and self.observation.quantity == self.intent.quantity):
                 raise DemoRejected("invalid_trace")
             average = self.observation.average_price
-            if (average is not None and (
+            if (type(self.intent) is DemoIntent and average is not None and (
                 self.intent.action == "open_long" and average > self.intent.limit_price
                 or self.intent.action == "reduce_long" and average < self.intent.limit_price
             )):
@@ -140,10 +141,12 @@ def order_detail(response, intent, *, context, now_ms):
     expected = {
         "symbol": intent.grid.symbol, "clientOid": intent.client_oid,
         "marginCoin": "USDT", "marginMode": "isolated",
-        "posMode": "one_way_mode", "orderType": "limit", "force": "ioc",
+        "posMode": "one_way_mode", "orderType": "market" if type(intent) is BTCMarketIntent else "limit",
         "side": "buy" if intent.action == "open_long" else "sell",
         "reduceOnly": "NO" if intent.action == "open_long" else "YES",
     }
+    if type(intent) is DemoIntent:
+        expected["force"] = "ioc"
     for key, value in expected.items():
         actual = raw.get(key)
         if key in ("symbol", "marginCoin", "reduceOnly") and isinstance(actual, str):
@@ -155,7 +158,7 @@ def order_detail(response, intent, *, context, now_ms):
     if (raw.get("posSide") not in ("net", "long")
             or amount(raw.get("leverage")) != Decimal(2)
             or amount(raw.get("size")) != intent.quantity
-            or amount(raw.get("price")) != intent.limit_price):
+            or type(intent) is DemoIntent and amount(raw.get("price")) != intent.limit_price):
         raise DemoRejected("order_terms_mismatch")
     state = raw.get("state")
     qty = amount(raw.get("baseVolume"))
@@ -172,8 +175,9 @@ def order_detail(response, intent, *, context, now_ms):
             raise DemoRejected("average_without_fill")
         average = None
     elif (average is None or average <= 0
-          or intent.action == "open_long" and average > intent.limit_price
-          or intent.action == "reduce_long" and average < intent.limit_price):
+          or type(intent) is DemoIntent and (
+              intent.action == "open_long" and average > intent.limit_price
+              or intent.action == "reduce_long" and average < intent.limit_price)):
         raise DemoRejected("fill_outside_limit")
     # Fee sign/availability retained exactly; this is NOT a calibrated net-PnL ledger.
     fee = amount(raw.get("fee"), signed=True)

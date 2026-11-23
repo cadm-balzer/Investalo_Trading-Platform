@@ -66,6 +66,19 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-23: PR113/mainac1246b verifiziert. Nutzer genehmigt das kleine
+technische Demo-Testprofil und wählt Market. [Market-Testvertrag](bitget-demo-btc-market-test.md)
+ergänzt eigene Mengenprojektion mit1% Planungspuffer, richtige native
+Market-Höchstmenge/Unknowns, signierte separate Zustimmung, Market-POST,
+dauerhaftes Journal und tatsächliche Fillabnahme. Die Vorschau zeigt
+Schätzungen statt garantierter Limitbeträge.215 Python/27 Node/volle
+Typprüfung/beide gepinnte Builds grün; tatsächliches Node→Python-Market-
+Paket über Consumer/AEAD/Journal mit synthetischem ACK abgenommen.
+Öffentliche native Probe ergibt0,0003 BTC/18,38613 USDT bei2×.
+Keine operative Sendroute oder echten Orders;
+der nächste Schritt verbindet ursprüngliche Quelle/Issuer mit persistentem
+Versand/Status und führt den genehmigten kleinen Demotest aus.
+
 2026-11-23: PR112/main dc879b3 verifiziert. Eigene
 [konkrete BTC-Orderzustimmung](bitget-demo-btc-order-consent.md) bindet
 Original-HTTP/CSRF/Session, aktuelle Rolle/Metadaten und exakten Intent/
