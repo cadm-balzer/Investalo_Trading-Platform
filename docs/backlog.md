@@ -81,7 +81,10 @@ Nutzer meldet BTC vorbereitet; [BTC-Testvorschau](bitget-demo-btc-test-preview.m
 mit gezielter Konfiguration und gesamter Kontoprüfung ausgerollt;
 originaler privater BTC-Abruf/Browseranzeige bestätigt. BTC isoliert/
 einseitig/2× passt. Grant-Quellenabgleich aus bestehendem BTC-GET mit176
-Pythonfällen/Executorbuild geprüft; Rollout und nativer Nachweis folgen.
+Pythonfällen/Executorbuild geprüft; PR111 gemergt und Rollout erledigt,
+nativer Grant-Nachweis folgt. [Dauerhafter Orderconsumer](bitget-demo-order-consumer.md)
+mit185 Pythonfällen/Executorbuild geprüft; operative Zustimmungs-/Accountguard-/
+Registry-/Routeanbindung weiterhin offen.
 Native maximale Limitmenge/Kosten/ältere Scopefreigabe weiterhin offen.
 Frontend-Optimierung auf kleinem Host sehr langsam (gemeldete432,8min);
 Builderauslastung und externen Buildpfad vor größeren Frontendblöcken prüfen.

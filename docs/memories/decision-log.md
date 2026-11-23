@@ -1,5 +1,16 @@
 # Entscheidungsprotokoll
 
+## D-149 — Orderfreigabe vor Decrypt dauerhaft verbrauchen
+
+Der Nutzer möchte den kleinen BTC-Demo-Test starten. Der vorhandene
+Versandkern erhält einen privaten create-only Consumer für die exakte
+Freigabe eines eigenständigen vertrauenswürdigen Issuers.
+Datei-/Verzeichnis-fsync und eigener Readback erfolgen vor AEAD und POST;
+Konkurrenz, Neustart und unvollständige Marker erlauben keinen erneuten
+Verbrauch. Es wird keine Konto-Leseassertion zur Orderfreigabe umgedeutet.
+Operativer Issuer, Accountguard, native Limits/Kosten und Route bleiben
+Voraussetzungen. [Umsetzung](../bitget-demo-order-consumer.md).
+
 ## D-148 — Bestätigtes Grant-Feld aus bestehender BTC-Abfrage
 
 Nutzer bestätigt BTC isoliert/einseitig/2×; Bonusguthaben bleibt in der

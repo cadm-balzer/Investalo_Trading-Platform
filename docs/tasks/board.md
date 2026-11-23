@@ -25,10 +25,20 @@ Grant-Quellenabgleich `DONE` implementiert/geprüft: bestätigtes Feld aus
 bereits abgefragtem BTC-Konto kann fehlendes Listenfeld ergänzen;
 Widerspruch ablehnen, positiv bleibt blockierend, beidseitig fehlend unbekannt.
 176 gepinnte Pythonfälle/Executorbuild grün, elf GETs unverändert.
-Rollout und tatsächliche private Quellenabnahme `READY`; native Maximalmenge/
+PR111/mainbf5ddbe verifiziert, Grant-Rollout `DONE`: nur Executor erneuert,
+sechs andere Dienste unverändert, TLS200/anonyme Reads401/mTLS405/Key1/1.
+Tatsächliche private Quellenabnahme `READY`; native Maximalmenge/
 Kosten-/ältere Scopeklärung bleiben Folgeblock.
 Native Kostengrundlage/Orderlimit/Pendingscope und tatsächliche einmalige
 Orderfreigabe bleiben Folgeblock; keine Orders oder Kontoänderungen.
+
+IP-015/IP-016: [Dauerhafter Orderfreigabe-Verbrauch](../bitget-demo-order-consumer.md)
+`DONE` implementiert/geprüft: private create-only Marker mit fsync/readback,
+exakte Approval-/Outboxbindung vor AEAD, Konkurrenz/Neustart/Teilmarker sperren
+erneuten Verbrauch.185 gepinnte Pythonfälle/Executorbuild grün.
+Nutzer wünscht kleine BTC-Demo-Testorder; eigentlicher Issuer/Accountguard/
+Registryinstallation/Orderroute sowie native Limit-/Kostenabnahme `READY`.
+Kein nativer Versand oder automatische Handelsaktivierung.
 
 IP-015/IP-016: PR106-Rollout `DONE` nach Nutzerfreigabe, nur zwei Dienste
 erneuert, fünf andere unverändert, TLS/anonym/private mTLS geprüft, Key1/1 aktiv.

@@ -117,7 +117,10 @@ Brokerantworten: bestätigter Null-/Positivbetrag, unbekannte oder widersprüchl
 Quellen, ungültige Beträge, fremde Kontosicherung, alte Quellezeit sowie
 unveränderte andere Walletblocker und Sieben-Coin-Startprüfung.
 Executorbuild grün; kein Frontendneubau. Der Abgleich ist noch nicht
-ausgerollt oder am tatsächlichen privaten Demo-Grant abgenommen.
+am tatsächlichen privaten Demo-Grant abgenommen. PR111/main `bf5ddbe`
+verifiziert und Grant-Rollout abgeschlossen: ausschließlich Executor erneuert,
+sechs andere Dienste unverändert, TLS200/anonyme Reads401/mTLS405/Key1/1.
+Privater Rückweg unter `infra/local/demo-btc-grant-source`.
 
 Der Cockpit-Build akzeptiert optional
 `COCKPIT_BUILD_HEAP_MB`; Standard768 unverändert, dieser kleine Host baut

@@ -1,5 +1,16 @@
 # Technische Fallstricke
 
+- Dockerstatus `running` bedeutet noch keinen gebundenen mTLS-Listener.
+  Nach Executor-Recreation vor dem tatsächlichen negativen mTLS-Probe
+  begrenzt die Listenerbereitschaft abwarten; temporäres ECONNREFUSED ist
+  kein Beleg für einen Authfehler. Dabei keine Brokeranfrage wiederholen.
+
+- Ein Orderconsent-Marker wird vor AEAD/POST create-only angelegt.
+  Auch bei fsync-/Readbackfehler, Ablauf oder unvollständiger Datei nach
+  Prozessabbruch nicht löschen und dieselbe Freigabe nicht neu ausstellen.
+  Private Datei und Root synchronisieren, Originalinode separat nachlesen.
+  Ein internes Approvalobjekt ersetzt keinen tatsächlichen Consentissuer.
+
 - `None != Decimal(0)` ist wahr, beweist aber keine belegte Margin.
   Unbekannte Coupon-/Grantwerte oder fehlenden Assetmodus als unbekannt
   melden; bekannte Nichtnullwerte/Union gesondert als Abweichung.
