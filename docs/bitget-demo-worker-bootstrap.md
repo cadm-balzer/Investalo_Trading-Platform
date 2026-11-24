@@ -48,8 +48,9 @@ Paketquellhashes/Kernel-/Workerimporte ohne Netz, Quellmounts oder Credentials
 geprüft. Dispatcher standardmäßig aus; keine native Kontoabnahme aus Fixtures.
 
 Der Bootstraphelper ist verpackt; kein operativer Handelsdaemon gestartet.
-Als Nächstes: bestätigter Konten-/Kerzenproducer, ursprünglicher Strategie-
-Consumer und laufende Kauf-/Ausstiegs-/Fundingkoordination. Unbekannte native
+Die [nativen Konten-/Kerzenproducer](bitget-demo-native-start-source.md)
+sind implementiert und separat geprüft. Als Nächstes: ursprünglicher
+Strategie-Consumer und laufende Kauf-/Ausstiegs-/Fundingkoordination. Unbekannte native
 Maximalmengen, Sicherheiten oder Kosten werden hier nicht freigegeben.
 
 Die gemergte [Dashboard-Steuerung](bitget-demo-dashboard-control.md) ist separat

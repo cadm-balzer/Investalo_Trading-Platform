@@ -8,6 +8,17 @@ konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
+IP-015/IP-016: [Native Startquellen](../bitget-demo-native-start-source.md)
+`DONE` lokal nach PR127/main`e28075e`: originale private Trading-Identität/
+Actor-/Keyprüfung, feste drei Konto-GETs, unbekannte Sicherheiten ausdrücklich
+blockiert; echte H1-Handels-/Markdaten und ursprüngliches Warmupfenster.
+13 neue/133 betroffene gepinnte Fälle in132+final35-Läufen; finaler Executor/
+vier Pakethashes/Imports grün. Tatsächliche öffentliche14-GET-Probe aus dem
+Paket liefert sieben Coins/300 Stundenpaare/4.200 valide native Kerzen.
+Keine native Privatkontoabnahme/Order oder Bereitstellung.
+**Gesamtintegration `IN_PROGRESS`:** ursprünglicher Strategie-Consumer,
+native vollständige Orderzulassung und laufende Handelskoordination.
+
 IP-015/IP-016: [Aktueller Workerstart](../bitget-demo-worker-bootstrap.md)
 `DONE` lokal als Bootstraphelper nach PR126/main`69dffe6`.
 Aktueller Flat-Kontobeleg/originale Quellenzeit/native Teil-Tagesbasis,
