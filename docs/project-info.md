@@ -66,6 +66,16 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-24: PR118/mainfa7f922 verifiziert. Eigenes
+[dauerhaftes H1-Basketjournal](bitget-demo-basket-journal.md) mit vollständigem
+Replay, externer bestätigter Präfixbindung und fsync-Versandmarke vor
+injiziertem Sender implementiert. Neustart nach Versuch ist GET-only;
+unsent Vorbereitung kann ohne Kaufstufe verworfen werden. Echter Kindprozess-
+abbruch/Parallelversuch/Schreibfehler und Datei-/PID-/Inodeänderungen geprüft:
+22 neue/177 verschiedene gepinnte Fälle und82 Subtests vollständig grün.
+Native Quellen-/Orderports und originale Dashboard-Startfreigabe folgen;
+keine neue tatsächliche Order oder Serviceänderung.
+
 2026-11-24: PR117/main89a511c verifiziert; technischer Demo-Roundtrip
 abgeschlossen. Eigener [H1-Basket-Kaufabgleich](bitget-demo-h1-basket-entries.md)
 verbindet RSI/Staffel und Kaufmargin×2 mit tatsächlicher Menge, Fillkurs,
