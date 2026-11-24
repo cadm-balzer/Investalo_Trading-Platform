@@ -2,6 +2,10 @@
 
 Stand2026-11-24, PR124/main`c25c767` verifiziert.
 
+Der aktuelle [native Workerstart](bitget-demo-worker-bootstrap.md) ergänzt
+Journal`/7` mit heutiger Finanzbasis und separatem Indikatorwarmup.
+Die hier beschriebenen gemeinsamen Order-/Fundingabschlüsse bleiben erhalten.
+
 Die native Basketquelle kann eine terminale Order und zeitgleich gebuchte
 Fundingbeträge in einem einzigen bestätigten Journalabschluss verarbeiten.
 Dies ergänzt die einzelnen Kauf-, Verkaufs- und Fundingquellen.

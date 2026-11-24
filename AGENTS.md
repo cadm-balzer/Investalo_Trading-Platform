@@ -7,6 +7,28 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR126 merged69dffe6, GH/fetch verified. Own current-time native worker
+  bootstrap on feat/m1-demo-worker-bootstrap: flat current account/original
+  wallet+position clocks, native-only first partial-day basis; old research/
+  Paper midnight schemas retained. Scoped first-day admission avoids fake
+  midnight cash; subsequent exact midnight binding. Journal/7 persists
+  original account source +300 indicator-only H1 frames in24-hour commits;
+  cash/quotes/fees/fills/profits unchanged during warmup. Original window/
+  progress/full restore/lost ACK resumes next batch, current actor/key guard.
+  First fresh close retains own-margin×2/native floor.13 new/295 affected
+  pinned Python cases green across269+26 runs. Final Executor build/five
+  packaged source hashes/bootstrap+worker imports without net/source/keys
+  green; dispatch default off. Native producer/strategy consumer/ongoing
+  worker remain IN_PROGRESS; no native financial genesis/order fabricated.
+  See docs/bitget-demo-worker-bootstrap.md.
+- Merged Dashboard control rolled out: only Cockpit renewed with tested image,
+  six other running IDs/images unchanged. Original six overlays plus
+  compose.demo-h1-control.yaml retained; preserve all seven on future rollouts.
+  TLS200/control GET+POST/account/signals/all5 technical POST anonymous401/
+  private mTLS405. Demo key active1/1/original private hashes/technical8/two
+  attempts unchanged. Private before/active/rollback-image receipts in
+  infra/local/demo-h1-control. Original Dashboard acceptance pending;
+  worker_state not_installed truthful, no automatic Demo activation.
 - PR125 mergeda2f35c6, GH/fetch verified. Own compact Dashboard control on
   feat/m1-demo-dashboard-control: existing original Session/private pilot/
   current API role+Trading metadata, strict GET/POST/Origin/CSRF, immutable

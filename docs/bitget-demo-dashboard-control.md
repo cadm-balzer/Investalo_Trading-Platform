@@ -67,7 +67,7 @@ Tatsächlicher Next-GET/POST der verpackten Route verweigert Zugriff bei
 Default-off ohne Netz, Quellcode- oder Credentialmounts.
 Lesender Audit bestätigt unveränderte Originaldateihashes, alle sieben
 laufenden Dienste/Images und den technischen Testjournalstand8.
-Kein tatsächlicher Brokerrequest oder Deployment.
+Kein tatsächlicher Brokerrequest durch lokale Implementierung/Prüfung.
 
 Eigenes Opt-in `COCKPIT_DEMO_H1_CONTROL`, standardmäßig aus.
 `infra/compose.demo-h1-control.yaml` aktiviert ausschließlich diese
@@ -75,3 +75,13 @@ Dashboard-Steuerung. Bei einem Rollout zusätzlich zu allen sechs bestehenden
 Overlays verwenden und anschließend erhalten. Der bisherige technische
 Testjournalstand8, Credentials und Services werden durch die lokale
 Implementierung nicht verändert.
+
+Rollout von PR126/main`69dffe6` abgeschlossen: ausschließlich Cockpit mit
+geprüftem Image erneuert, sechs andere laufende Dienste/Images unverändert.
+Sieben Overlays erhalten. Öffentliches TLS200, Control GET/POST, Account,
+Signals und fünf technische POSTs anonym401; privates mTLS405.
+Demokey Revision1/Storage1, ursprüngliche private Datei-Hashes und technisches
+Journal8 mit zwei Versänden unverändert. Keine Order durch Deployment.
+Private Before-/Aktiv-/kompatible Rollbackimagebelege liegen in
+`infra/local/demo-h1-control/rollout-*`. Originale Browserabnahme noch nicht
+bestätigt; der operative Worker bleibt uninstalliert.

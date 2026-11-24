@@ -397,6 +397,14 @@ def prepare_capital_entry(state, symbol, maximum_price, at):
     reasons = [r for r in legacy.reasons if r not in DIAGNOSTIC_REASONS | {
         "initial_margin_requirement", "insufficient_unposted_cash",
     }]
+    # The native first partial day is independently bound to its actual
+    # financial snapshot. Never pretend its cash was observed at midnight.
+    from .futures_broker_bootstrap import BrokerCurrentLedgerState
+    ledger = state.ledger
+    if (type(ledger) is BrokerCurrentLedgerState
+            and ledger.day_started_at == ledger.financial_started_at
+            and at.date() == ledger.financial_started_at.date()):
+        reasons = [r for r in reasons if r != "invalid_day_basis"]
     if at == state.ledger.as_of and state.ledger.phase > PHASES[EntryFill]:
         reasons.append("entry_event_ordering")
     if b.quantity and b.broker_leverage != request.requested_leverage:

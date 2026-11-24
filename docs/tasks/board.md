@@ -8,6 +8,21 @@ konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
+IP-015/IP-016: [Aktueller Workerstart](../bitget-demo-worker-bootstrap.md)
+`DONE` lokal als Bootstraphelper nach PR126/main`69dffe6`.
+Aktueller Flat-Kontobeleg/originale Quellenzeit/native Teil-Tagesbasis,
+300 Indikatorstunden/24er-Journalcommits/Restore ohne historische
+Finanzereignisse.13 neue/295 betroffene gepinnte Fälle in269+26 Läufen,
+finaler Executorbuild/fünf Paketquellhashes/Imports grün.
+**Operative Integration `IN_PROGRESS`:** nativer Producer, ursprünglicher
+Strategie-Consumer und laufende Handelskoordination.
+
+IP-015/IP-016: gemergte Dashboard-Steuerung **live bereitgestellt**:
+Cockpit-only, sechs andere Dienste/Images/Key1/1/Originalhashes/technisches
+Journal8 unverändert. TLS200/control GET+POST anonym401/private mTLS405.
+Sieben Overlays erhalten; originale Browserabnahme noch nicht bestätigt.
+Startwunsch bedeutet weiterhin keinen aktiven Demohandel.
+
 IP-015/IP-016: [Dashboard-Steuerung](../bitget-demo-dashboard-control.md)
 `DONE` lokal für gespeicherten Start-/Pause-Wunsch nach PR125/main`a2f35c6`.
 Coin-Kandidaten/3–7 Basketobergrenze, originale Session/Pilotidentität/aktuelle
