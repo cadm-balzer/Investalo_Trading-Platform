@@ -7,6 +7,25 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR121 merged7f69226, GH/fetch verified. Own native margin producer on
+  feat/m1-demo-basket-margin-reconciliation: fixed signed wallet/positions/
+  full bills GETs, exact before-image persisted in attempt_with_margin,
+  native allocated-margin delta corroborated with account occupied margin/
+  cash excluding UPL/order fees/position fees and unchanged other baskets.
+  No aggregate marginSize or qty×VWAP/2 used as a substituted debit; latter
+  only sanity check. Unknowns/funding/adjustments/transfers remain pending;
+  final actor/credential guard retained. Every nonempty bill cursor incl.
+  short page continues until empty terminal; max8/30day/110ms/source5s.
+  Journal/3 owns durable baseline/clock/digests and full restore;
+  no auto adoption /2, actual technical8 untouched.16 new/331 distinct
+  affected pinned cases green in aggregate; wide330 had one inconsistent
+  Other-Basket fixture, corrected with final77 cases incl. native clock skew.
+  Final pinned Executor build/packaged import+source hashes green, default
+  dispatch off. Read-only audit: all original private hashes and seven running
+  container/image IDs unchanged; technical8 retained. No new dependency/migration/
+  frontend/operative route/native order/running service change.
+  Actual admission/max/strategy issuer/consumer/full exits+funding worker
+  and original Dashboard start remain IN_PROGRESS. See docs/bitget-demo-basket-margin.md.
 - PR120 merged97241f9, GH/fetch verified. User explicitly requests operative
   automatic Demo start via Dashboard and current RSI. On
   feat/m1-demo-start-readiness add own authenticated public Demo H1 monitor:

@@ -8,6 +8,20 @@ konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
+IP-015/IP-016: [Native Stufenmarginquelle](../bitget-demo-basket-margin.md)
+`DONE` als private Producer-/Journalanbindung nach PR121/main7f69226:
+signierte feste GETs, originale Vorzustands-/Versandmarke auf Platte,
+zusätzliche native Margin mit Konto/Positionen/Cash/Gebühren abgeglichen;
+Nachkauf/andere Baskets/Teilfill/Neustart/Pagination/Widerruf geprüft.
+16 neue/331 verschiedene betroffene Pythonfälle grün in Gesamtabdeckung;
+final77 Fälle einschließlich Quellenzeitversatz grün.
+Finaler Build/Import/verpackte Quellhashes grün, Versand standardmäßig aus.
+Lesender Audit: alle ursprünglichen privaten Hashes und sieben laufenden
+Container-/Image-IDs unverändert; technisches Journal8. Keine native Order
+oder Serviceänderung.
+Operative Gesamtintegration bleibt `IN_PROGRESS`; Worker/Startfreigabe und
+native Zulassung sowie Ausstiegs-/Fundingverarbeitung nicht aktiviert.
+
 IP-015/IP-016: [Aktuelle Demo-H1-RSI-Anzeige](../bitget-demo-h1-signals.md)
 `DONE` für Implementierung/Rollout: PR120/main97241f9 verifiziert; originale authentifizierte
 Read-Anbindung und öffentliche sieben Kandidaten/300 geschlossene Kerzen/

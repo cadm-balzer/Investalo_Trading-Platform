@@ -59,7 +59,9 @@ Bitget bezeichnet `marginSize` als Positionsmargin im
 Die Schlussfolgerung für diese Anbindung: Dieser Gesamtwert belegt allein
 keinen einzelnen Kaufdebit. Ein eigener vertrauenswürdiger Marginnachweis
 bindet deshalb ursprüngliche Order, kumulative Fillmenge, native Quelle und
-Frische. Ein solcher Producer ist noch nicht installiert. Ohne ihn bleibt
+Frische. Der [native Producer](bitget-demo-basket-margin.md) ist implementiert:
+gespeicherter Vorzustand sowie native Wallet-/Positions-/Billkorroboration.
+Er ist noch nicht in einem operativen Worker installiert. Ohne ihn bleibt
 die ausgeführte Order ausstehend; es wird weder `marginSize` übernommen noch
 eine berechnete Menge×Preis/2 als bestätigter Kontodebit ausgegeben.
 
@@ -83,10 +85,12 @@ Import ohne Quellmounts/Schlüssel/Netzwerk geprüft. Keine Abhängigkeits- oder
 Migrationsänderung, kein Frontendbuild und keine Dienste neu gestartet.
 
 Die Anbindung ist eine standardmäßig deaktivierte private Komponente.
-Es fehlen noch die operativen native Quellen-/Zulassungs-/Margindebit-Producer,
+Die native Stufenmarginquelle ist implementiert, ihre operative Installation
+und weitere native Quellen-/Zulassungsanbindungen fehlen noch,
 eigener Strategieconsumer/-issuer sowie Worker und originale Dashboard-
 Startfreigabe. Die injizierten Prüfports werden nicht für Produktion verwendet.
 Keine tatsächliche neue Brokerorder oder tatsächliche native Abnahme dieses
 Basketablaufs. Das technische Revision8-Journal und die sechs bisherigen
-Rolloutoverlays bleiben separat erhalten. Basketjournal`/2` bindet die neuen
-nativen Beobachtungsfelder; `/1` wird nicht automatisch adoptiert oder umgeschrieben.
+Rolloutoverlays bleiben separat erhalten. Basketjournal`/3` bindet zusätzlich
+den ursprünglichen Marginvorzustand; frühere Versionen werden nicht automatisch
+adoptiert oder umgeschrieben.

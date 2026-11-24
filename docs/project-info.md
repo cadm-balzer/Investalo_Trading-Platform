@@ -66,6 +66,22 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-24: PR121/main7f69226 verifiziert. Eigener
+[nativer Stufenmargin-Abgleich](bitget-demo-basket-margin.md) ergänzt feste
+signierte Wallet-/Positions-/Bill-GETs, gemeinsame native Konto-/Positions-
+korroboration und Gebührenabgleich ohne UPL als Kaufprincipal.
+Originales Before-Image liegt fsync-bestätigt in Basketjournal`/3`,
+Restore bleibt GET-only; `/2` wird nicht automatisch verändert.
+Funding, Marginänderungen, Transfers und unbekannte Beträge bleiben
+ausstehend statt als Kaufmargin gebucht.16 neue/331 betroffene gepinnte
+Pythonfälle grün in Gesamtabdeckung; finale77-Fall-Gruppe vollständig grün,
+finaler Executorbuild/Paketimport/Quellhashes ohne Netz/Mounts/Keys grün.
+Lesender Audit bestätigt alle ursprünglichen privaten Hashes und sieben
+laufenden Container-/Image-IDs unverändert; technisches Originaljournal8.
+Keine tatsächliche neue Order oder Änderung laufender Dienste.
+Operative native Zulassung/Start-/Pause-Freigabe und vollständiger
+Worker einschließlich Ausstiegen/Funding bleiben in Umsetzung.
+
 2026-11-24: PR120/main97241f9 verifiziert; Nutzer genehmigt automatischen
 Demohandel mit Dashboard-Startfreigabe und wünscht aktuelle RSI-Anzeige.
 Eigene [Demo-H1-Signalbeobachtung](bitget-demo-h1-signals.md) über originalen
