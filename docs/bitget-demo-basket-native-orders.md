@@ -1,5 +1,10 @@
 # Native Marketanbindung für H1-Baskets
 
+Weiterführung nach PR122: [native Strategieausstiege](bitget-demo-basket-exits.md)
+ergänzen eigene Reduce-only-Pakete und tatsächliche Abrechnung im selben
+Dispatcher. Aktuelles neues Basketjournalformat `/4`; frühere Angaben unten
+beschreiben den ursprünglichen Kaufbaustein.
+
 Stand2026-11-24. PR119/main`e6e5b46` verifiziert.
 Die eigene `BasketOrderDispatcher` verbindet das
 [Basketjournal](bitget-demo-basket-journal.md) mit dem vorhandenen

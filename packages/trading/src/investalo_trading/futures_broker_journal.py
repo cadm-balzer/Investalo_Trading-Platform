@@ -17,7 +17,8 @@ from uuid import UUID
 from .allocation import revision
 from .capital_digest import CapitalCanonical, digest
 from .futures_broker_entries import (
-    BrokerEntryBook, BrokerEntryObservation, cancel_broker_preparation,
+    BrokerEntryBook, BrokerEntryObservation, BrokerExitOrder, BrokerExitObservation,
+    cancel_broker_preparation, prepare_broker_exit, observe_broker_exit, validate_broker_exit,
     observe_broker_entry, observe_broker_prices, prepare_broker_entry,
     replay_broker_hour, start_broker_entries,
 )
@@ -37,7 +38,7 @@ from .futures_paper_profit_plan import CapitalPaperProfitPlan
 from .futures_replay_journal import JournalCommitUnknown, _fields, _json, _open, _sha
 from .snapshot import _decode, primitive
 
-VERSION = "bitget-demo-h1-basket-entry-journal/3"
+VERSION = "bitget-demo-h1-basket-entry-journal/4"
 MAX_COMMANDS = 50_000
 PLANS = {p.capital_policy: p for p in (
     CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan,
@@ -46,11 +47,13 @@ ARGUMENTS = {
     "hour": {"frame": CapitalHour},
     "prices": {"trade": tuple[LedgerMark, ...], "marks": tuple[LedgerMark, ...], "event_id": str},
     "prepare": {"symbol": str, "planning_price": Decimal, "command_id": str},
+    "prepare_exit": {"symbol": str, "command_id": str},
     "cancel_preparation": {"order_digest": str},
     "attempt": {"order_digest": str, "authorization_digest": str, "request_digest": str},
     "attempt_with_margin": {"order_digest": str, "authorization_digest": str,
                            "request_digest": str, "margin_baseline": BrokerMarginBaseline},
     "observe": {"observation": BrokerEntryObservation},
+    "observe_exit": {"observation": BrokerExitObservation},
 }
 
 
@@ -194,29 +197,33 @@ def _apply(state, command):
             raise ValueError("original fresh unsent order required; resend forbidden")
         # Recheck the current H1/capital state. A marker cannot extend the
         # original signal window, replace a stage, or bless a now-rejected order.
-        fresh = assess_capital_signal(
-            book.signal, order.request.symbol, order.request.maximum_fill_price, at).capital
-        if (not fresh.allowed or fresh.stage != order.assessment.capital.stage
-                or any(getattr(fresh.request, key) != getattr(order.request, key) for key in (
-                    "tenant_id", "account_id", "plan_digest", "symbol", "quantity",
-                    "maximum_fill_price", "posted_margin", "requested_leverage"))):
-            raise ValueError("basket admission changed before attempt")
+        if type(order) is BrokerExitOrder:
+            validate_broker_exit(book, order, at)
+        else:
+            fresh = assess_capital_signal(
+                book.signal, order.request.symbol, order.request.maximum_fill_price, at).capital
+            if (not fresh.allowed or fresh.stage != order.assessment.capital.stage
+                    or any(getattr(fresh.request, key) != getattr(order.request, key) for key in (
+                        "tenant_id", "account_id", "plan_digest", "symbol", "quantity",
+                        "maximum_fill_price", "posted_margin", "requested_leverage"))):
+                raise ValueError("basket admission changed before attempt")
         attempts += (BrokerEntryAttempt(order.command_id, order.order_digest,
                      args["authorization_digest"], args["request_digest"], at,
                      args.get("margin_baseline")),)
-    elif kind == "observe":
+    elif kind in ("observe", "observe_exit"):
         if state.current_attempt is None:
             raise ValueError("broker observation requires its recorded original attempt")
         if args["observation"].observed_at < state.current_attempt.attempted_at:
             raise ValueError("observation predates the recorded attempt")
-        book = observe_broker_entry(book, args["observation"], book.revision, at)
+        reducer = observe_broker_exit if kind == "observe_exit" else observe_broker_entry
+        book = reducer(book, args["observation"], book.revision, at)
     elif kind == "cancel_preparation":
         if state.current_attempt is not None:
             raise ValueError("attempted order is GET-only; cannot discard exposure")
         book = cancel_broker_preparation(book, args["order_digest"], book.revision, at)
     else:
         functions = {"hour": replay_broker_hour, "prices": observe_broker_prices,
-                     "prepare": prepare_broker_entry}
+                     "prepare": prepare_broker_entry, "prepare_exit": prepare_broker_exit}
         book = functions[kind](book, *args.values(), book.revision, at)
     if kind not in ("attempt", "attempt_with_margin") and book is state.book:
         raise ValueError("duplicate observation or hour needs no journal write")

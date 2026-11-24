@@ -1,5 +1,10 @@
 # Dauerhaftes H1-Basketjournal
 
+Weiterführung nach PR122: [native Strategieausstiege](bitget-demo-basket-exits.md)
+ergänzen `prepare_exit`/`observe_exit` und den gemeinsamen originalen
+Versandversuch im neuen Format `/4`. Ältere Journale werden nicht automatisch
+übernommen; das ursprüngliche technische BTC-Journal bleibt getrennt.
+
 Stand2026-11-24. PR118/main`fa7f922` verifiziert.
 Die [H1-Kaufanbindung](bitget-demo-h1-basket-entries.md) erhält ein eigenes
 `BrokerEntryJournal`. H1-Kerzen, vollständige Bewertungen, Kaufvorbereitung,
