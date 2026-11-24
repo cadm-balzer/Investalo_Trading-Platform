@@ -36,7 +36,7 @@ from .futures_paper_profit_plan import CapitalPaperProfitPlan
 from .futures_replay_journal import JournalCommitUnknown, _fields, _json, _open, _sha
 from .snapshot import _decode, primitive
 
-VERSION = "bitget-demo-h1-basket-entry-journal/1"
+VERSION = "bitget-demo-h1-basket-entry-journal/2"
 MAX_COMMANDS = 50_000
 PLANS = {p.capital_policy: p for p in (
     CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan,
