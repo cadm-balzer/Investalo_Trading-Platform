@@ -1,5 +1,9 @@
 # Native H1-Basket-Ausstiege
 
+Weiterführung nach PR124: [gemeinsamer Order-/Fundingabschluss](bitget-demo-order-funding-settlement.md)
+ergänzt den vollständigen nativen Abschluss mit zeitgleichen Funding-Bills
+im neuen Format `/6`.
+
 Weiterführung nach PR123: [tatsächliche Fundingbuchungen](bitget-demo-basket-funding.md)
 ergänzen die eigene read-only Quelle und die tatsächliche Wallet-/Marginzuordnung
 im aktuellen neuen Basketjournalformat `/5`. Frühere `/4`-Angaben unten

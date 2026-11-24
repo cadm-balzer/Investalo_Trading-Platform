@@ -66,6 +66,20 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-24: PR124/main`c25c767` verifiziert.
+[Gemeinsamer Order-/Fundingabschluss](bitget-demo-order-funding-settlement.md)
+bestätigt Funding anderer Baskets während terminalen Käufen/Verkäufen und
+Funding des vollständig geschlossenen Baskets zusammen mit tatsächlichen
+Bills, Cashsaldo und Nullposition. Keine erfundene Kapitalzuordnung.
+Journal`/6` bestätigt Order, Funding-IDs und Originalprüfzeitraum atomar;
+Restore/ACK-Verlust bleiben GET-only.20 neue/454 betroffene gepinnte Pythonfälle
+grün in Gesamtabdeckung (breite453 + finale88).
+Finaler Executorbuild/Paketimport/zehn Quellhashes ohne Netz/Mounts/Keys grün.
+Originalhashes/sieben laufende Dienste/Images unverändert, technisches
+Journal8. Worker/Start-Pause/native Zulassung und ungeklärte Marginzuordnung
+bei Käufen/Teilverkauf mit Zielasset-Funding bleiben in Umsetzung.
+Automatischer Demo-Handel nicht aktiviert.
+
 2026-11-24: PR123/main`8d78526` verifiziert.
 [Tatsächliche Fundingbuchungen](bitget-demo-basket-funding.md) ergänzen
 gebuchte Billbeträge, konkrete Wallet-/Marginzuordnung, getrennte Brutto-/Netto-

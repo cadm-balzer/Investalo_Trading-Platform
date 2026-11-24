@@ -139,6 +139,23 @@ class BrokerFundingPayment:
 
 
 @dataclass(frozen=True)
+class BrokerFundingCloseFill(ExitFill):
+    """One terminal cash result; concurrent funding pool is not inferred."""
+    funding_amount: Decimal
+    funding_paid: Decimal
+    last_funding_at: datetime
+    evidence_digest: str
+
+    @precise
+    def __post_init__(self):
+        super().__post_init__()
+        number(self.funding_amount); number(self.funding_paid, nonnegative=True)
+        timestamp(self.last_funding_at); identifier(self.evidence_digest)
+        if self.funding_paid < max(ZERO, -self.funding_amount):
+            raise ValueError("actual terminal funding amounts required")
+
+
+@dataclass(frozen=True)
 class MarginPosting:
     symbol: str
     amount: Decimal
@@ -161,9 +178,9 @@ class DailyBasis:
         identifier(self.evidence_digest)
 
 
-Payload = MarkBatch | DailyBasis | FundingSettlement | BrokerFundingPayment | MarginPosting | EntryFill | ExitFill | LiquidationSettlement
+Payload = MarkBatch | DailyBasis | FundingSettlement | BrokerFundingPayment | BrokerFundingCloseFill | MarginPosting | EntryFill | ExitFill | LiquidationSettlement
 PHASES = {MarkBatch: 0, DailyBasis: 1, FundingSettlement: 2, BrokerFundingPayment: 2, MarginPosting: 3,
-          EntryFill: 4, ExitFill: 5, LiquidationSettlement: 5}
+          EntryFill: 4, ExitFill: 5, LiquidationSettlement: 5, BrokerFundingCloseFill: 5}
 
 
 @dataclass(frozen=True)
@@ -250,6 +267,18 @@ class BrokerFundingBasket(LedgerBasket):
         number(self.funding_wallet_cost, nonnegative=True)
         if not self.quantity and self.funding_wallet_cost:
             raise ValueError("flat native basket retains funding cash cost")
+
+
+@dataclass(frozen=True)
+class BrokerFundingClosingBasket(LedgerBasket):
+    """Transient closing cost claim; no assertion about the funding debit pool."""
+    funding_wallet_cost: Decimal = ZERO
+    closing_funding_cost_bound: Decimal = ZERO
+
+    def __post_init__(self):
+        super().__post_init__()
+        number(self.funding_wallet_cost, nonnegative=True)
+        number(self.closing_funding_cost_bound, nonnegative=True)
 
 
 @dataclass(frozen=True)
@@ -430,7 +459,8 @@ def apply_futures_event(state: FuturesLedgerState, command: LedgerCommand) -> Le
     if (isinstance(payload, LiquidationSettlement)
             and not getattr(state.plan, "supports_capital_liquidations", False)):
         raise ValueError("liquidation settlement requires its separate capital research plan")
-    if type(payload) is BrokerFundingPayment and not getattr(state.plan, "supports_capital_liquidations", False):
+    if type(payload) in (BrokerFundingPayment, BrokerFundingCloseFill) and not getattr(
+            state.plan, "supports_capital_liquidations", False):
         raise ValueError("native monetary funding requires own capital profile")
     phase = PHASES[type(payload)]
     if command.occurred_at < state.as_of or command.occurred_at == state.as_of and phase < state.phase:
@@ -486,6 +516,18 @@ def apply_futures_event(state: FuturesLedgerState, command: LedgerCommand) -> Le
             else:
                 if payload.quantity > b.quantity:
                     raise ValueError("exit exceeds actual remaining long quantity")
+                if type(payload) is BrokerFundingCloseFill:
+                    if (payload.quantity != b.quantity or payload.last_funding_at > command.occurred_at
+                            or b.last_funding_at is not None and payload.last_funding_at <= b.last_funding_at):
+                        raise ValueError("complete owned close with new terminal funding required")
+                    original = {f.name: getattr(b, f.name) for f in fields(LedgerBasket)}
+                    b = BrokerFundingClosingBasket(**dict(original,
+                        funding_net=b.funding_net + payload.funding_amount,
+                        charges_in_budget_epoch=b.charges_in_budget_epoch + payload.funding_paid,
+                        last_funding_at=payload.last_funding_at),
+                        funding_wallet_cost=getattr(b, "funding_wallet_cost", ZERO),
+                        closing_funding_cost_bound=payload.funding_paid)
+                    cash += payload.funding_amount
                 fraction = payload.quantity / b.quantity
                 released = b.isolated_balance if fraction == 1 else b.isolated_balance * fraction
                 committed = b.margin_committed if fraction == 1 else b.margin_committed * fraction
@@ -514,6 +556,11 @@ def apply_futures_event(state: FuturesLedgerState, command: LedgerCommand) -> Le
                                           charges_in_budget_epoch=costs)
                         if (state.plan.basket_cost_usage(closing) > state.plan.budgets[index].cost_reserve
                                 and not state.plan.closing_cost_overrun_covered(closing, closed)):
+                            if type(payload) is BrokerFundingCloseFill:
+                                lower=replace(closing,closing_funding_cost_bound=ZERO)
+                                if (state.plan.basket_cost_usage(lower)<=state.plan.budgets[index].cost_reserve
+                                        or state.plan.closing_cost_overrun_covered(lower,closed)):
+                                    raise ValueError("terminal funding pool needed to decide actual cost reserve breach")
                             extra_reasons.append("basket_budget_breach")
                         next_costs = ZERO
                     else:

@@ -14,7 +14,8 @@ from .futures_capital_grid import CapitalGridPlan
 from .futures_paper_plan import CapitalPaperPoolPlan
 from .futures_paper_profit_plan import CapitalPaperProfitPlan
 from .futures_ledger import (
-    DailyBasis, EntryFill, ExitFill, FundingSettlement, BrokerFundingPayment, LedgerMark, LiquidationSettlement,
+    DailyBasis, EntryFill, ExitFill, FundingSettlement, BrokerFundingPayment,
+    BrokerFundingCloseFill, LedgerMark, LiquidationSettlement,
     MarginPosting, MarkBatch, number, timestamp,
 )
 from .futures_signals import IndicatorParameters
@@ -498,7 +499,8 @@ def record_signal_broker_entry(state, assessment, payload, event_id, expected_re
 def record_signal_economic_event(state, payload, event_id, expected_revision, at):
     """Valuation/funding/margin/exit evidence; marks are not trade observations."""
     at = _check(state, expected_revision, at)
-    if type(payload) not in (MarkBatch, FundingSettlement, BrokerFundingPayment, MarginPosting, ExitFill, LiquidationSettlement):
+    if type(payload) not in (MarkBatch, FundingSettlement, BrokerFundingPayment, BrokerFundingCloseFill,
+                            MarginPosting, ExitFill, LiquidationSettlement):
         raise ValueError("typed economic evidence required")
     if type(payload) is MarkBatch:
         economic = record_capital_event(
@@ -509,7 +511,7 @@ def record_signal_economic_event(state, payload, event_id, expected_revision, at
                                evaluate_price=False))
     index = state.profile.plan.symbols.index(payload.symbol)
     before = state.economic.ledger.baskets[index]
-    if (type(payload) is ExitFill
+    if (type(payload) in (ExitFill, BrokerFundingCloseFill)
             and "liquidation_settlement_required" in state.signals[index].exit_reasons):
         raise ValueError("liquidation requires its explicit terminal receipt")
     economic = record_capital_event(

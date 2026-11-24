@@ -1,5 +1,9 @@
 # Tatsächliche Demo-Fundingbuchungen
 
+Weiterführung nach PR124: [gemeinsamer Order-/Fundingabschluss](bitget-demo-order-funding-settlement.md)
+ergänzt belegte parallele Vorgänge im neuen Basketjournalformat `/6`.
+Die folgenden `/5`-Angaben dokumentieren den ursprünglichen Fundingbaustein.
+
 Stand2026-11-24, PR123/main`8d78526` verifiziert.
 
 Die private Basketanbindung liest gebuchte `contract_settle_fee`-Bills und

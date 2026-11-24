@@ -8,6 +8,18 @@ konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
+IP-015/IP-016: [Gemeinsamer Order-/Fundingabschluss](../bitget-demo-order-funding-settlement.md)
+`DONE` für belegte Source-/Ledger-/Journalfälle nach PR124/main`c25c767`:
+Funding anderer Baskets während terminaler Order sowie Funding des vollständig
+geschlossenen Baskets. Ein atomarer Originalabschluss, allseitiger Cash-/
+Positions-/Billabgleich,20 neue/454 gepinnte Fälle in Gesamtabdeckung grün
+(453 breite Regression + finale88), Originalhashes/
+sieben laufende Dienste/Images unverändert, technisches Journal8. Finaler
+Executorbuild/Paketimport/zehn Quellhashes grün, Versand standardmäßig aus.
+**Gesamtintegration bleibt `IN_PROGRESS`:** H1-Worker, dauerhafter ursprünglicher
+Start-/Pause-Consumer, native Zulassung und unabhängiger Marginnachweis bei
+Käufen/Teilverkauf mit Funding desselben Assets. Keine automatische Demoaktivierung.
+
 IP-015/IP-016: [Native Fundingbuchungen](../bitget-demo-basket-funding.md)
 `DONE` als eigener read-only Producer-/Ledger-/Journalbaustein nach
 PR123/main`8d78526`: echte Funding-Billbeträge, native Wallet-/Marginzuordnung,

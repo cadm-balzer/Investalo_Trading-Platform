@@ -7,6 +7,30 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR124 mergedc25c767, GH/fetch verified. Own joint order/funding recovery on
+  feat/m1-demo-order-funding-recovery: complete original native order/bills/
+  account proof, exact persisted attempt baseline, cumulative order clock,
+  current actor/key and one journal settle_order_funding commit. Supports
+  terminal buy/exit with funding on other owned baskets and full own close
+  with concurrent target funding. Full close records exact net cash/PnL/
+  gross funding; original debit pool stays explicitly unallocated. Gross
+  payments bound possible wallet cost only; Q44 own profit must cover any
+  possible overrun, otherwise cost decision remains pending (no presumed
+  budget breach). Q45 actual-wallet-spend retained. No fabricated wallet/isolated
+  split or target buy margin. Target funding on buys/partial exits remains
+  pending absent independent capital allocation evidence. Journal/6 stores
+  all hashed bill IDs + original financial coverage atomically; full restore/
+  lost ACK GET-only/no resend, no old/2–/5 adoption; technical8 separate.
+  20 new/454 distinct affected pinned Python cases green in aggregate:
+  wide453 + final88 incl. unknown-pool reserve decision. Real journal/restore/
+  AEAD/HMAC/native packet/reducers, synthetic actor/broker/consumer. Final
+  pinned Executor build/import/ten packaged source hashes green without
+  network/source mounts/credentials. Read-only
+  audit: original private hashes/all7 running container/image IDs unchanged,
+  technical8. Default dispatch off; no actual order/service change. Original
+  H1 worker/start-pause/native admission and unresolved target allocation
+  remain IN_PROGRESS; no automatic Demo activation. See
+  docs/bitget-demo-order-funding-settlement.md.
 - PR123 merged8d78526, GH/fetch verified. Own native monetary funding on
   feat/m1-demo-basket-native-funding: original read-only scope permits only
   wallet/positions/complete bills GETs, cannot receive order approval/POST.
