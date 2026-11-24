@@ -306,8 +306,9 @@ class FuturesLedgerState:
             raise ValueError("invalid equal-time phase")
         timestamp(self.as_of)
         day = timestamp(self.day_started_at)
-        if day != day.replace(hour=0, minute=0, second=0, microsecond=0) or day > self.as_of:
+        if day > self.as_of:
             raise ValueError("invalid day basis timestamp")
+        self._validate_day_basis(day)
         number(self.day_start_equity, positive=True)
         number(self.unposted_cash)
         number(self.realized_net_pnl)
@@ -323,6 +324,10 @@ class FuturesLedgerState:
             raise ValueError("unique immutable halt reasons required")
         for reason in self.halt_reasons:
             identifier(reason)
+
+    def _validate_day_basis(self, day):
+        if day != day.replace(hour=0, minute=0, second=0, microsecond=0):
+            raise ValueError("invalid day basis timestamp")
 
     @property
     @precise

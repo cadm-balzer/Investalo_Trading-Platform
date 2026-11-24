@@ -66,6 +66,20 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-24: PR126/main`69dffe6` verifiziert.
+[Aktueller Workerstart](bitget-demo-worker-bootstrap.md) trennt heutiges
+Kapital von 300 historischen Indikatorkerzen. Native Teil-Tagesbasis statt
+erfundenem Mitternachtsguthaben; Forschungs-/Paperlayouts unverändert.
+Journal`/7` erhält Kontoquelle/Warmupabschnitte/Vollrestore ohne historische
+Käufe/Gebühren/Profite.13 neue/295 betroffene gepinnte Fälle in269+26 Läufen
+und finaler Executorbuild/fünf Paketquellhashes/Imports ohne Netz/Mounts/Keys
+grün. Producer, Strategie-Consumer und laufender Handelsworker folgen.
+
+Gemergte Dashboard-Steuerung live: Cockpit-only, sechs andere laufende
+Dienste/Images unverändert, sieben Overlays erhalten. TLS200/Control GET+POST
+anonym401/private mTLS405/Key active1/1/Originalhashes/technisches Journal8
+bestätigt. „Start angefordert“ ist gespeicherter Wunsch, noch kein Handel.
+
 2026-11-24: PR125/main`a2f35c6` verifiziert.
 [Dashboard-Demosteuerung](bitget-demo-dashboard-control.md) speichert
 Coin-Kandidaten, Basketobergrenze und Start-/Pause-Wunsch mit originaler

@@ -8,12 +8,13 @@ RUN /opt/venv/bin/python -m pip install --require-hashes --only-binary=:all: \
     -r /locks/services/credentials/requirements.lock
 FROM ${PYTHON_IMAGE} AS runtime
 ENV PATH="/opt/venv/bin:${PATH}" \
-    PYTHONPATH="/app/services/credentials/src:/app/packages/credentials/src:/app/integrations/bitget/src:/app/packages/trading/src" \
+    PYTHONPATH="/app/services/credentials/src:/app/services/workers/src:/app/packages/credentials/src:/app/integrations/bitget/src:/app/packages/trading/src" \
     PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 COPY --from=dependencies /opt/venv /opt/venv
 WORKDIR /app
 COPY packages/credentials/src /app/packages/credentials/src
 COPY services/credentials/src /app/services/credentials/src
+COPY services/workers/src /app/services/workers/src
 COPY integrations/bitget/src /app/integrations/bitget/src
 COPY packages/trading/src /app/packages/trading/src
 USER 10003:10003

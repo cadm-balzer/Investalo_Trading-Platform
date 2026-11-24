@@ -40,13 +40,18 @@ from .futures_paper_plan import CapitalPaperPoolPlan
 from .futures_paper_profit_plan import CapitalPaperProfitPlan
 from .futures_replay_journal import JournalCommitUnknown, _fields, _json, _open, _sha
 from .snapshot import _decode, primitive
+from .futures_broker_bootstrap import (
+    BrokerFlatAccount, BrokerCurrentLedgerState, WARMUP_HOURS,
+    start_current_broker_signals, warm_broker_hours,
+)
 
-VERSION = "bitget-demo-h1-basket-entry-journal/6"
+VERSION = "bitget-demo-h1-basket-entry-journal/7"
 MAX_COMMANDS = 50_000
 PLANS = {p.capital_policy: p for p in (
     CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan,
     CapitalGridPlan, CapitalPaperPoolPlan, CapitalPaperProfitPlan)}
 ARGUMENTS = {
+    "warmup": {"frames": tuple[CapitalHour, ...]},
     "hour": {"frame": CapitalHour},
     "prices": {"trade": tuple[LedgerMark, ...], "marks": tuple[LedgerMark, ...], "event_id": str},
     "prepare": {"symbol": str, "planning_price": Decimal, "command_id": str},
@@ -99,6 +104,7 @@ class BrokerJournalState(CapitalCanonical):
     attempts: tuple[BrokerEntryAttempt, ...]
     funding_checked_ms: int
     funding_ids: IdentityHistory
+    warmed_hours: int
 
     def __post_init__(self):
         revision(self.revision)
@@ -116,6 +122,10 @@ class BrokerJournalState(CapitalCanonical):
         if self.current_attempt is not None and (
                 self.current_attempt.order_digest != self.book.pending.order_digest):
             raise ValueError("pending basket order changed after its attempt")
+        if (type(self.warmed_hours) is not int or not 0 <= self.warmed_hours <= WARMUP_HOURS
+                or not isinstance(self.book.signal.economic.ledger, BrokerCurrentLedgerState)
+                and self.warmed_hours != 0):
+            raise ValueError("own current-genesis warmup count required")
 
     @property
     def current_attempt(self):
@@ -162,7 +172,8 @@ def _profile(raw):
 
 def _genesis(header):
     _fields(header, ("schema_version", "journal_id", "environment", "profile", "initial_trade",
-                     "initial_mark", "at", "evidence_digest", "command_capacity", "execution_enabled"))
+                     "initial_mark", "at", "evidence_digest", "command_capacity", "execution_enabled",
+                     "initial_account"))
     if (header["schema_version"] != VERSION or header["environment"] != "bitget_demo"
             or header["execution_enabled"] is not False):
         raise ValueError("own disabled Demo basket journal required")
@@ -174,9 +185,17 @@ def _genesis(header):
     at = timestamp(_decode(datetime, header["at"]))
     trade = _decode(tuple[LedgerMark, ...], header["initial_trade"])
     marks = _decode(tuple[LedgerMark, ...], header["initial_mark"])
-    economic = start_capital_research(profile.plan, marks, at, header["evidence_digest"])
-    book = start_broker_entries(start_capital_signals(profile, economic, trade))
-    return BrokerJournalState(book, 0, at, (), milliseconds(at), IdentityHistory("event"))
+    if header["initial_account"] is None:
+        economic = start_capital_research(profile.plan, marks, at, header["evidence_digest"])
+        signal = start_capital_signals(profile, economic, trade)
+    else:
+        account = _decode(BrokerFlatAccount, header["initial_account"])
+        if header["evidence_digest"] != account.source_digest:
+            raise ValueError("original account source digest required")
+        signal = start_current_broker_signals(profile, trade, marks, account, at)
+    book = start_broker_entries(signal)
+    covered = at if header["initial_account"] is None else max(account.wallet_at, account.positions_at)
+    return BrokerJournalState(book, 0, at, (), milliseconds(covered), IdentityHistory("event"), 0)
 
 
 def _command(kind, expected_revision, at, arguments):
@@ -200,8 +219,15 @@ def _apply(state, command):
     raw = _fields(command["arguments"], ARGUMENTS[kind])
     args = {key: _decode(cls, raw[key]) for key, cls in ARGUMENTS[kind].items()}
     book, attempts = state.book, state.attempts
+    warmed = state.warmed_hours
+    if (isinstance(book.signal.economic.ledger, BrokerCurrentLedgerState)
+            and warmed < WARMUP_HOURS and kind != "warmup"):
+        raise ValueError("current native bootstrap must complete indicator warmup first")
     funding_checked, funding_ids = state.funding_checked_ms, state.funding_ids
-    if kind in ("attempt", "attempt_with_margin"):
+    if kind == "warmup":
+        book = warm_broker_hours(book, args["frames"], warmed, at)
+        warmed += len(args["frames"])
+    elif kind in ("attempt", "attempt_with_margin"):
         order = book.pending
         if (order is None or order.order_digest != args["order_digest"]
                 or state.current_attempt is not None or book.observation is not None
@@ -268,7 +294,7 @@ def _apply(state, command):
         book = functions[kind](book, *args.values(), book.revision, at)
     if kind not in ("attempt", "attempt_with_margin") and book is state.book:
         raise ValueError("duplicate observation or hour needs no journal write")
-    return BrokerJournalState(book, state.revision + 1, at, attempts, funding_checked, funding_ids)
+    return BrokerJournalState(book, state.revision + 1, at, attempts, funding_checked, funding_ids, warmed)
 
 
 class BrokerEntryJournal(CapitalReplayJournal):
@@ -348,12 +374,12 @@ class BrokerEntryJournal(CapitalReplayJournal):
 
     @classmethod
     def create(cls, path, profile, initial_trade, initial_mark, at, evidence_digest, *,
-               journal_id, command_capacity=MAX_COMMANDS):
+               journal_id, command_capacity=MAX_COMMANDS, initial_account=None):
         header = dict(schema_version=VERSION, journal_id=str(journal_id), environment="bitget_demo",
                       profile=primitive(profile), initial_trade=primitive(initial_trade),
                       initial_mark=primitive(initial_mark), at=timestamp(at).isoformat(),
                       evidence_digest=evidence_digest, command_capacity=command_capacity,
-                      execution_enabled=False)
+                      execution_enabled=False, initial_account=primitive(initial_account))
         state = _genesis(header)
         handle = _open(path, create=True)
         journal = cls(handle, header, state, digest((VERSION, header)), 0, path=path)
@@ -368,6 +394,14 @@ class BrokerEntryJournal(CapitalReplayJournal):
         except BaseException:
             journal.close()
             raise
+
+    @classmethod
+    def create_current(cls, path, profile, initial_trade, initial_mark, account, at, *, journal_id,
+                       command_capacity=MAX_COMMANDS):
+        if type(account) is not BrokerFlatAccount:
+            raise ValueError("original confirmed native flat account required")
+        return cls.create(path, profile, initial_trade, initial_mark, at, account.source_digest,
+            journal_id=journal_id, command_capacity=command_capacity, initial_account=account)
 
     @classmethod
     def restore(cls, path, *, journal_id, profile_digest, minimum_receipt):
