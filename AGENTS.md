@@ -7,6 +7,24 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- Own BTC Demo close on feat/m1-demo-market-close continues confirmed
+  original opening. Own close prepare/submit HMAC/consent purposes and
+  exact journal-filled quantity, fresh full native quantity/entry/profile/
+  all5 pending checks. Same outbox/once consumer/unknown-before-POST;
+  at most one close attempt, no opening rearm or journal rewrite.
+  Growing close notional is allowed only for reduce_long; open cap unchanged.
+  GET-only original clientOid recovery handles missing reduce-only ACK ID;
+  latest selects unambiguous newest dispatch across open/close.
+  Fresh original3-GET settlement shows fees/wallet/count/source; filled +
+  matched + known flat collateral required for completed close. Partial/
+  unknown remain visible. Local actual ASGI/Node mTLS and AEAD/journal
+  tests use synthetic native/actor ports. Native closing awaits original
+  Dashboard consent; no operator session/context fabrication.
+  172 distinct affected Python/75 pinned Node/full typecheck/final two
+  production builds green. Actual original journal still revision4;
+  necessary Demo-test rollout follows. Before-close old image rollback
+  only; after close journal commands preserve state and use compatible fix.
+  See docs/bitget-demo-market-close.md.
 - User reaffirms Q42 on2026-11-24: every planned basket-stage amount is
   own-capital margin; order notional = stage capital × fixed basket leverage,
   quantity floored to native grid. Existing capital/Paper entry_quantity

@@ -3,15 +3,16 @@ import { createHash, createHmac, randomUUID } from "node:crypto";
 import { actionProofBinding, type ProofSession } from "./demo-trading-passkey-action-proof-state.ts";
 import type { DemoAccountTarget } from "./demo-account-contract.ts";
 import { parseEnrollmentJson } from "./passkey-enrollment-state.ts";
-import { parseMarketPrepared, parseMarketStatus, type MarketPrepared, type MarketStatus } from "./demo-market-order-contract.ts";
-export type MarketPhase = "prepare" | "submit" | "observe";
+import { parseMarketPrepared, parseMarketClosePrepared, parseMarketOutcome, type MarketPreparation, type MarketOutcome } from "./demo-market-order-contract.ts";
+export type MarketPhase = "prepare" | "submit" | "observe" | "close-prepare" | "close-submit";
 export type MarketTLS = { ca: Uint8Array; certificate: Uint8Array; privateKey: Uint8Array };
 export type MarketPacket = { context: { tenant_id: string; user_id: string; subject: string; auth_epoch: number;
   oidc_auth_time: number; session_binding: string; session_expires_at: number }; body: string; token: string };
 const paths = { prepare: "/v1/bitget-demo-trading/market-order-prepare",
-  submit: "/v1/bitget-demo-trading/market-order-submit", observe: "/v1/bitget-demo-trading/market-order-observe" };
+  submit: "/v1/bitget-demo-trading/market-order-submit", observe: "/v1/bitget-demo-trading/market-order-observe",
+  "close-prepare": "/v1/bitget-demo-trading/market-close-prepare", "close-submit": "/v1/bitget-demo-trading/market-close-submit" };
 const fail = () => new Error("DEMO_MARKET_UNCONFIRMED");
-export function marketReadPacket(input: { phase: "prepare" | "observe"; authorized: ProofSession; userId: string;
+export function marketReadPacket(input: { phase: "prepare" | "observe" | "close-prepare"; authorized: ProofSession; userId: string;
   target: DemoAccountTarget & { command_id?: string }; signingKey: Uint8Array; now: number }): MarketPacket {
   const { session: s, origin } = input.authorized, now = input.now;
   if (input.signingKey.byteLength !== 32 || origin !== "https://cockpit.investalo.de" ||
@@ -20,7 +21,7 @@ export function marketReadPacket(input: { phase: "prepare" | "observe"; authoriz
     auth_epoch: s.authEpoch, oidc_auth_time: s.oidcAuthTime,
     session_binding: actionProofBinding(input.authorized), session_expires_at: s.expiresAt };
   const body = JSON.stringify(input.target);
-  const suffix = input.phase === "prepare" ? "prepare" : "observe";
+  const suffix = input.phase;
   const claims = { ...context, kind: `investalo-demo-btc-market-${suffix}/1`,
     aud: `investalo-demo-btc-market-${suffix}`, oidc_issuer: s.issuer, origin,
     iat: now, exp: Math.min(now+15, s.expiresAt), jti: randomUUID(), htm: "POST",
@@ -31,10 +32,10 @@ export function marketReadPacket(input: { phase: "prepare" | "observe"; authoriz
     .update(`${header}.${payload}`).digest("base64url")}` };
 }
 export function sendMarketPacket(origin: string, tls: MarketTLS, phase: MarketPhase, packet: MarketPacket):
-  Promise<MarketPrepared | MarketStatus> {
+  Promise<MarketPreparation | MarketOutcome> {
   if (origin !== "https://demo-trading-executor.cockpit.internal:9443" || !Object.hasOwn(paths, phase)) throw fail();
   const input = parseEnrollmentJson(packet.body) as { platform_account_id: string; command_id?: string };
-  const maximum = phase === "prepare" ? 65536 : 4096, timeout = phase === "submit" ? 18000 : 10000;
+  const maximum = phase === "prepare" ? 65536 : 4096, timeout = phase.endsWith("submit") ? 18000 : 10000;
   return new Promise((resolve, reject) => {
     let done = false, timer: ReturnType<typeof setTimeout> | undefined;
     const denied = () => { if (!done) { done = true; clearTimeout(timer); reject(fail()); } };
@@ -64,7 +65,8 @@ export function sendMarketPacket(origin: string, tls: MarketTLS, phase: MarketPh
           if (size !== Number(length)) throw fail();
           const body = parseEnrollmentJson(new TextDecoder("utf-8", { fatal: true }).decode(Buffer.concat(chunks)));
           const result = phase === "prepare" ? parseMarketPrepared(body, packet.context.tenant_id, input.platform_account_id)
-            : parseMarketStatus(body, input.command_id === "latest" ? undefined : input.command_id);
+            : phase === "close-prepare" ? parseMarketClosePrepared(body,packet.context.tenant_id,input.platform_account_id)
+            : parseMarketOutcome(body, input.command_id === "latest" ? undefined : input.command_id);
           done = true; clearTimeout(timer); resolve(result);
         } catch { denied(); }
       });

@@ -59,6 +59,18 @@ function prepared(consent: contracts.MarketConsent): contracts.MarketPrepared {
         observed_ms: observed, submission_enabled: false },
       unknown_wallet_fields: [], execution_enabled: false } };
 }
+function closePrepared(target: contracts.MarketConsent): contracts.MarketClosePrepared {
+  const observed=Date.now();
+  return {schema:"investalo-demo-market-close-prepared/1",tenant_id:id(1),account_id:id(4),
+    quantity_btc:"0.0003",reference_price_usdt:"70000",estimated_notional_usdt:"21",observed_ms:observed,
+    expires_ms:observed+30000,consent_request:{...target,confirmation:contracts.MARKET_CLOSE_CONFIRMATION}};
+}
+function closeStatus(): contracts.MarketCloseStatus {
+  return {schema:"investalo-demo-market-close-status/1",order:status(),settlement:{
+    observed_at:new Date().toISOString(),wallet:{equity:"10000.1",available:"10000.1",locked:"0",
+      isolated_margin:"0",crossed_margin:"0",unrealized_pnl:"0"},open_position_count:0,position_closed:true,
+    opening_reported_fee_usdt:"-0.01"}};
+}
 function fixture() {
   process.env.COCKPIT_DEMO_BTC_MARKET_TEST="1";
   const now=Math.floor(Date.now()/1000);
@@ -80,13 +92,18 @@ function fixture() {
     "./demo-market-order-contract.ts":contracts,"./security.ts":security,
     "./demo-trading-passkey-credential-browser-server.ts":{runtime:async()=>({accountId:id(4),check:async()=>{},
       identity:{marketRead:async(phase:string)=>{f.calls++;f.mutate();return phase==="prepare" ? prepared(
-        contracts.parseMarketConsent(target,id(4))) : status();},
-        marketSubmit:async(request:Request,deps:any)=>{
-          f.calls++;const packet=await consent.prepareDemoBTCMarketConsent(request,{
+        contracts.parseMarketConsent(target,id(4))) : phase==="close-prepare" ? closePrepared(
+          contracts.parseMarketConsent(target,id(4))) : status();},
+        marketSubmit:async(request:Request,deps:any,phase="submit")=>{
+          const closing=phase==="close-submit",sign=closing ? consent.prepareDemoBTCMarketCloseConsent : consent.prepareDemoBTCMarketConsent;
+          f.calls++;const packet=await sign(request,{
             ...deps,accountId:id(4),signingKey:new Uint8Array(32).fill(83)});
           assert.equal(packet.context.user_id,id(2));f.mutate();
           assert.equal(JSON.parse(Buffer.from(packet.token.split(".")[1],"base64url").toString()).origin,ORIGIN);
-          return {...status(),state:"acknowledged",filled_quantity_btc:null,average_price_usdt:null,position_matched:false};
+          assert.equal(JSON.parse(Buffer.from(packet.token.split(".")[1],"base64url").toString()).kind,
+            closing ? "investalo-demo-btc-market-close-consent/1" : "investalo-demo-btc-market-order-consent/1");
+          const order={...status(),state:"acknowledged",filled_quantity_btc:null,average_price_usdt:null,position_matched:false};
+          return closing ? {schema:"investalo-demo-market-close-status/1",order,settlement:null} : order;
         }}})}
   });
   const target={platform_account_id:id(4),connection_id:id(5),credential_revision:1,storage_version:1,
@@ -127,9 +144,10 @@ test("Submit sends the own exact consent packet and publishes ACK without invent
   assert.doesNotMatch(JSON.stringify(body),/Bearer|session_binding|body_sha256/);
 });
 test("All Market phases accept Next's internal proxy URL while checking the browser origin and CSRF",async()=>{
-  for (const phase of ["prepare","submit","observe"] as const) {
-    const f=fixture(), body=phase==="prepare" ? {confirmation:contracts.MARKET_CONFIRMATION} :
-      phase==="submit" ? f.target : {command_id:"latest"};
+  for (const phase of ["prepare","submit","observe","close-prepare","close-submit"] as const) {
+    const f=fixture(),confirmation=phase.startsWith("close") ? contracts.MARKET_CLOSE_CONFIRMATION : contracts.MARKET_CONFIRMATION;
+    const body=phase.endsWith("prepare") ? {confirmation} :
+      phase.endsWith("submit") ? {...f.target,confirmation} : {command_id:"latest"};
     const request=new Request(`https://0.0.0.0:3000/api/bitget-demo/orders/btc-market/${phase}`,f.request(phase,body));
     assert.equal((await f.server.handleDemoMarketOrder(request,phase)).status,200);
     assert.equal(f.f.calls,1);
@@ -152,7 +170,24 @@ test("Initial Market controls expose preparation and GET-only recovery; no auto-
   const module=load("../src/components/demo-market-order.tsx",{"../lib/demo-market-order-contract":contracts});
   const html=renderToStaticMarkup(React.createElement(module.DemoMarketOrder,{tenantId:id(1),accountId:id(4),csrf:"synthetic"}));
   assert.match(html,/Demotest vorbereiten/);assert.match(html,/Teststatus prüfen/);
+  assert.match(html,/Abschluss der Testposition vorbereiten/);
   assert.doesNotMatch(html,/Marketorder einmal senden|Vollständig ausgeführt/);
+});
+test("Closing preparation keeps full owned quantity above20 USDT and rejects opening consent or foreign accounts",()=>{
+  const f=fixture(),p=closePrepared(contracts.parseMarketConsent(f.target,id(4)));
+  assert.deepEqual(contracts.parseMarketClosePrepared(p,id(1),id(4)),p);
+  for(const change of [{tenant_id:id(9)},{account_id:id(9)},{estimated_notional_usdt:"20"},
+    {consent_request:f.target},{quantity_btc:"0.0004"}])
+    assert.throws(()=>contracts.parseMarketClosePrepared({...p,...change},id(1),id(4)));
+});
+test("Closing status preserves fees and unknown wallet; a fill alone cannot claim flatness",()=>{
+  const s=closeStatus();assert.deepEqual(contracts.parseMarketOutcome(s,id(6)),s);
+  const unknown={...s,settlement:{...s.settlement!,wallet:{...s.settlement!.wallet,locked:null},position_closed:false}};
+  assert.deepEqual(contracts.parseMarketOutcome(unknown),unknown);
+  for(const change of [{open_position_count:1},{wallet:{...s.settlement!.wallet,locked:null}},
+    {wallet:{...s.settlement!.wallet,isolated_margin:"1"}}])
+    assert.throws(()=>contracts.parseMarketOutcome({...s,settlement:{...s.settlement,...change}}));
+  assert.throws(()=>contracts.parseMarketOutcome({...s,order:{...s.order,position_matched:false}}));
 });
 test("Actual mTLS observer carries independent context and own domain; wrong command never publishes",async t=>{
   const f=fixture(),now=Math.floor(Date.now()/1000), key=new Uint8Array(32).fill(83);
@@ -160,14 +195,18 @@ test("Actual mTLS observer carries independent context and own domain; wrong com
     target:{platform_account_id:id(4),connection_id:id(5),credential_revision:1,storage_version:1,command_id:id(6)},
     signingKey:key,now});
   let published=status(),calls=0;
+  const close=closePrepared(contracts.parseMarketConsent(f.target,id(4)));
   const native=await demoTlsFixture(t,(request,response)=>{
-    calls++;assert.equal(request.url,"/v1/bitget-demo-trading/market-order-observe");
+    calls++;const closing=request.url==="/v1/bitget-demo-trading/market-close-prepare";
+    assert.ok(closing || request.url==="/v1/bitget-demo-trading/market-order-observe");
     const [a,b,c]=request.headers.authorization!.slice(7).split(".");
     assert.equal(c,createHmac("sha256",key).update(a+"."+b).digest("base64url"));
-    assert.equal(JSON.parse(Buffer.from(b,"base64url").toString()).kind,"investalo-demo-btc-market-observe/1");
+    const claims=JSON.parse(Buffer.from(b,"base64url").toString());
+    assert.equal(claims.kind,closing ? "investalo-demo-btc-market-close-prepare/1" : "investalo-demo-btc-market-observe/1");
+    assert.equal(claims.htu,request.url);
     const context=JSON.parse(Buffer.from(request.headers["x-investalo-credential-context"] as string,"base64url").toString());
     assert.equal(context.subject,f.original.session.subject);
-    request.resume();request.on("end",()=>{const body=JSON.stringify(published);
+    request.resume();request.on("end",()=>{const body=JSON.stringify(closing ? close : published);
       response.writeHead(200,{"Content-Type":"application/json","Content-Length":Buffer.byteLength(body)});response.end(body);});
   });
   const executor=load("../src/lib/demo-market-order-executor.ts",{
@@ -179,5 +218,8 @@ test("Actual mTLS observer carries independent context and own domain; wrong com
   assert.deepEqual(await executor.sendMarketPacket("https://demo-trading-executor.cockpit.internal:9443",tls,"observe",packet),published);
   published={...status(),command_id:id(99)};
   await assert.rejects(executor.sendMarketPacket("https://demo-trading-executor.cockpit.internal:9443",tls,"observe",packet));
-  assert.equal(calls,2);
+  const closing=marketReadPacket({phase:"close-prepare",authorized:{...f.original,origin:ORIGIN},userId:id(2),
+    target:{platform_account_id:id(4),connection_id:id(5),credential_revision:1,storage_version:1},signingKey:key,now});
+  assert.deepEqual(await executor.sendMarketPacket("https://demo-trading-executor.cockpit.internal:9443",tls,"close-prepare",closing),close);
+  assert.equal(calls,3);
 });

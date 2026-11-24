@@ -66,6 +66,17 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-24: [Abschluss-Test](bitget-demo-market-close.md) implementiert:
+eigene Vorbereitung/Zustimmung, exakt bestätigte ursprüngliche BTC-Menge,
+Market Reduce-only, derselbe einmalige Journal-/Consumerablauf.
+Frische Originalposition und Pendingfamilien geprüft; Preisanstieg über
+den20USDT-Testwert verhindert keine Reduzierung. Nullposition, gemeldete
+Ein-/Ausstiegsgebühren und aktueller Kontowert werden separat abgeglichen.
+Teilfill/Unknown werden nicht als vollständiger Abschluss ausgegeben.
+172 Python-/75 Nodefälle, volle Typprüfung und beide Produktionsbuilds
+grün. Bestehendes tatsächliches Eröffnungsjournal unverändert Revision4.
+Operativer Rollout und echte Abnahme folgen im bestehenden Demo-Testumfang.
+
 2026-11-24: PR116/mainc336f86 verifiziert. Nutzer bestätigt die erste
 tatsächliche Demo-Marketorder mit Screenshot und Cockpit-Positionsabgleich:
 0,0003BTC,2× isoliert, vollständig ausgeführt zu61.425,7USDT,

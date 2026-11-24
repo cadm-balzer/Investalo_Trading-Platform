@@ -7,7 +7,7 @@ import { canonicalUuid } from "./credential-action-contracts.ts";
 import { exactObject } from "./demo-account-contract.ts";
 import { parseDemoTradingCredentialActionMetadata } from "./demo-trading-credential-action-contracts.ts";
 import { readOrderBody } from "./demo-btc-order-consent.ts";
-import { MARKET_CONFIRMATION, parseMarketPrepared, parseMarketStatus } from "./demo-market-order-contract.ts";
+import { MARKET_CONFIRMATION, MARKET_CLOSE_CONFIRMATION, parseMarketPrepared, parseMarketClosePrepared, parseMarketOutcome } from "./demo-market-order-contract.ts";
 import { sameSecret } from "./security.ts";
 import type { MarketPhase } from "./demo-market-order-executor.ts";
 import type { ProofSession } from "./demo-trading-passkey-action-proof-state.ts";
@@ -20,7 +20,7 @@ export async function handleDemoMarketOrder(request: Request, phase: MarketPhase
   if (inFlight >= 8) return Response.json({ error: "Bitte später erneut prüfen." }, { status: 503, headers });
   inFlight++;
   try {
-    if (!["prepare", "submit", "observe"].includes(phase)) throw new Error();
+    if (!["prepare", "submit", "observe", "close-prepare", "close-submit"].includes(phase)) throw new Error();
     const current = await getBoundSession();
     if (!current) return Response.json({ error: "Bitte anmelden." }, { status: 401, headers });
     const original = snapshotAuthorizedSession(current.session), url = new URL(request.url);
@@ -61,12 +61,13 @@ export async function handleDemoMarketOrder(request: Request, phase: MarketPhase
     }
     const before = await actor(), connection = before.metadata.connection!;
     let result: unknown;
-    if (phase === "submit") {
+    if (phase === "submit" || phase === "close-submit") {
       result = await installed.identity.marketSubmit(request, {
-        getSession: getBoundSession, getActor: actor, checkInstallation: guard });
+        getSession: getBoundSession, getActor: actor, checkInstallation: guard }, phase);
     } else {
-      const input = exactObject(await readOrderBody(request), phase === "prepare" ? ["confirmation"] : ["command_id"]);
-      if (phase === "prepare" && input.confirmation !== MARKET_CONFIRMATION) throw new Error();
+      const input = exactObject(await readOrderBody(request), phase === "observe" ? ["command_id"] : ["confirmation"]);
+      if (phase !== "observe" && input.confirmation !==
+        (phase === "close-prepare" ? MARKET_CLOSE_CONFIRMATION : MARKET_CONFIRMATION)) throw new Error();
       const command = phase === "observe" ? (input.command_id === "latest" ? "latest" : canonicalUuid(input.command_id)) : undefined;
       await guard();
       result = await installed.identity.marketRead(phase, { ...current, session: original, origin: ORIGIN }, before.userId,
@@ -78,9 +79,10 @@ export async function handleDemoMarketOrder(request: Request, phase: MarketPhase
     if (JSON.stringify(before) !== JSON.stringify(after)) throw new Error();
     await guard();
     return Response.json(phase === "prepare" ?
-      parseMarketPrepared(result, original.tenantId, installed.accountId) : parseMarketStatus(result), { headers });
+      parseMarketPrepared(result, original.tenantId, installed.accountId) : phase === "close-prepare" ?
+      parseMarketClosePrepared(result, original.tenantId, installed.accountId) : parseMarketOutcome(result), { headers });
   } catch {
-    return Response.json({ error: phase === "submit" ?
+    return Response.json({ error: phase.endsWith("submit") ?
       "Ergebnis nicht bestätigt. Bitte den Teststatus prüfen; keinen zweiten Auftrag senden." :
       "Demotest derzeit nicht bestätigt. Bitte später erneut prüfen." }, { status: 503, headers });
   } finally { inFlight--; }

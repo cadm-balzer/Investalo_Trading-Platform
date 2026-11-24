@@ -30,10 +30,15 @@ Checkpoint Revision4 geprüft: prepare1/dispatch1/ack1/observation1,
 verbrauchter Consent1. Private native Beobachtung completed/2132ms/
 HTTP200/00000. Kein zusätzlicher Brokeraufruf im Abnahmeaudit.
 
-IP-015/IP-016: Abschluss derselben Testposition `READY`.
-Eigener Reduce-only-Marketabschluss nach aktueller Mengen-/Eigentums-
-prüfung und gesonderter Dashboardbestätigung; einmaliger Versand,
-danach Nullposition/Abschlussgebühr/Kontostand abgleichen.
+IP-015/IP-016: [Abschluss derselben Testposition](../bitget-demo-market-close.md) `IN_PROGRESS`.
+Eigener Reduce-only-Marketabschluss implementiert: aktuelle Mengen-/
+Einstands-/Profilprüfung und gesonderte Dashboardbestätigung; einmaliger
+Versand im bestehenden Journal. Frische Nullposition und Ein-/Ausstiegs-
+gebühren/Kontostand werden getrennt abgeglichen. Teilfill/Unknown,
+fehlendes ACK-ID, Restore und falsche Menge/Zwecke geprüft.
+172 Python-/75 Nodefälle/volle Typprüfung/beide finalen Builds grün.
+Eröffnungsjournal tatsächlich unverändert Revision4; operativer Rollout
+und Originalnutzerabschluss folgen.
 Anschließend operativer H1-Demobasketablauf mit tatsächlichen Nachkäufen
 und Exits; Gesamtintegration bleibt `IN_PROGRESS`.
 
