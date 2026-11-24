@@ -8,6 +8,18 @@ konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
+IP-015/IP-016: [Dashboard-Steuerung](../bitget-demo-dashboard-control.md)
+`DONE` lokal für gespeicherten Start-/Pause-Wunsch nach PR125/main`a2f35c6`.
+Coin-Kandidaten/3–7 Basketobergrenze, originale Session/Pilotidentität/aktuelle
+Rolle/Keymetadaten, eigene signierte private Datei/CAS/fsync/Readback.
+11 neue/41 betroffene gepinnte Nodefälle/volle Typprüfung grün.
+Finaler Cockpitbuild/tatsächlicher Next-GET/POST default-off ohne Netz/Mounts
+grün; Originalhashes/sieben laufende Dienste/Images/technisches Journal8
+unverändert. Eigener Opt-in standardmäßig aus. Keine native Anfrage/
+Order/Dienständerung. **Gesamtintegration `IN_PROGRESS`:** Worker,
+Strategie-Consumer und native Zulassung. Status lautet „Start angefordert“,
+kein aktiver Handel und keine native Orderfreigabe aus gespeicherten Wünschen.
+
 IP-015/IP-016: [Gemeinsamer Order-/Fundingabschluss](../bitget-demo-order-funding-settlement.md)
 `DONE` für belegte Source-/Ledger-/Journalfälle nach PR124/main`c25c767`:
 Funding anderer Baskets während terminaler Order sowie Funding des vollständig

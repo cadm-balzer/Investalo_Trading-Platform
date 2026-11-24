@@ -89,6 +89,10 @@ test("unavailable source stays unknown instead of RSI zero or a buy condition", 
 });
 const panel = load("../src/components/demo-signals.tsx", {
   "../lib/demo-signals-contract": signals,
+  "./demo-control": load("../src/components/demo-control.tsx", {
+    "../lib/demo-signals-contract": signals,
+    "../lib/demo-control-contract": await import("../src/lib/demo-control-contract.ts"),
+  }),
 });
 test("RSI table shows threshold distance, last-close time and no prediction of purchase time", () => {
   const html = renderToStaticMarkup(React.createElement(panel.DemoSignalRows, {
@@ -106,13 +110,13 @@ test("stale table and existing foreign/unknown stage never claim a fresh executa
   assert.match(html, /Datenstand veraltet/); assert.doesNotMatch(html, /Wartet auf RSI unter 30/);
   assert.match(html, /Nachkaufstaffel noch nicht zugeordnet/);
 });
-test("start gate remains explicit and disabled until operative worker and margin producer exist", () => {
+test("control remains explicit and cannot claim an operative worker", () => {
   const html = renderToStaticMarkup(React.createElement(panel.DemoSignalsPanel, {
     tenantId: tenant, accountId: ownAccount, positions: [],
   }));
   assert.match(html, /NOCH NICHT GESTARTET/);
-  assert.match(html, /disabled=""[^>]*>Automatischen Demohandel starten/);
-  assert.match(html, /Kontobuchungen/);
+  assert.match(html, /disabled=""[^>]*>Demo-Start anfordern/);
+  assert.match(html, /Handelsworker wird noch angebunden/);
   assert.match(html, /sechste Stufe manuell/);
   assert.doesNotMatch(html, /DEMOHANDEL AKTIV/);
 });

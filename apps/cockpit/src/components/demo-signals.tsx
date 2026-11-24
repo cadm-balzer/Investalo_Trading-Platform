@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { parseDemoSignals, rsiRelation, type DemoSignals, type DemoSignalAsset } from "../lib/demo-signals-contract";
 import type { DemoPosition } from "../lib/demo-account-contract";
+import { DemoControlPanel } from "./demo-control";
 
 const format = (value: string) => new Intl.NumberFormat("de-DE", { maximumFractionDigits: 2,
   minimumFractionDigits: 2 }).format(Number(value));
@@ -45,8 +46,8 @@ export function DemoSignalRows({ data, stale, positions }: {
   </table></div>;
 }
 
-export function DemoSignalsPanel({ tenantId, accountId, positions }: {
-  tenantId: string; accountId: string; positions: DemoPosition[];
+export function DemoSignalsPanel({ tenantId, accountId, positions, csrf }: {
+  tenantId: string; accountId: string; positions: DemoPosition[]; csrf?: string;
 }) {
   const [data, setData] = useState<DemoSignals | null>(null), [error, setError] = useState(""),
     [busy, setBusy] = useState(false), [tick, setTick] = useState(0), [now, setNow] = useState(Date.now());
@@ -92,16 +93,6 @@ export function DemoSignalsPanel({ tenantId, accountId, positions }: {
     <p className="panel-intro">Erstkauf: zwei aufeinanderfolgende H1-Schlüsse mit RSI unter 30.
       Nachkauf: RSI zwischenzeitlich über 30, danach wieder unter 30 und mindestens 5 % unter dem
       letzten tatsächlichen Kaufpreis. Der RSI-Abstand ist keine Zeit- oder Kaufprognose.</p>
-    <div className="demo-start-gate" role="status">
-      <div className="card-heading"><h3>Startfreigabe für automatischen Demohandel</h3>
-        <span className="badge neutral">NOCH NICHT GESTARTET</span></div>
-      <p>Der automatische Handel wird eingerichtet. Käufe, Ausstiege, Gebühren und Funding müssen
-        noch vollständig mit den tatsächlichen Demo-Ausführungen und Kontobuchungen verbunden werden.</p>
-      <button type="button" className="button secondary" disabled aria-describedby="demo-start-unavailable">
-        Automatischen Demohandel starten</button>
-      <p id="demo-start-unavailable" className="panel-intro">Die Startfreigabe wird hier verfügbar,
-        sobald diese Anbindung und die Prüfung deiner ausgewählten Coin-Einstellungen abgeschlossen sind.
-        Profil: Long · 2× · isolierte Margin · fünf Käufe, sechste Stufe manuell.</p>
-    </div>
+    <DemoControlPanel key={`${tenantId}:${accountId}:${csrf}`} tenantId={tenantId} accountId={accountId} csrf={csrf} />
   </div>;
 }

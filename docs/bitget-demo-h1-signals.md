@@ -59,12 +59,12 @@ Ordermutex und ändert dessen Quoten nicht.
 
 ## Startfreigabe
 
-Der Startbereich nennt den tatsächlichen Stand „Noch nicht gestartet“.
-Sein Startbutton ist ausdrücklich deaktiviert, solange operative
-Kaufmarginquelle, vollständige Kauf-/Ausstiegs-/Fundingverarbeitung und
-ursprüngliche dauerhafte Strategiefreigabe nicht installiert sind.
-Dies ist eine Statusanzeige, keine funktionsfähige Start-/Pause-Freigabe.
-Sie meldet weder laufenden Demohandel noch simulierte Ausführungen als echt.
+Der Startbereich wird durch die
+[gespeicherte Dashboard-Steuerung](bitget-demo-dashboard-control.md) ergänzt:
+Coin-Auswahl, Basketobergrenze und Start-/Pause-Wunsch. Bei aktiviertem
+eigenem Opt-in zeigt er „Start angefordert“ nach dem bestätigten Speichern.
+Der operative Worker ist weiterhin nicht installiert; der Status behauptet
+keinen aktiven Demohandel. Native Orderfreigabe und Worker folgen separat.
 
 Weiterhin offen: native Basketzulassung einschließlich bekannter
 Marketgrenzen, aktuell ausgewähltes Coinprofil, bestätigte Stufenmargin,

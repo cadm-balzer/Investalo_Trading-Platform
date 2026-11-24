@@ -7,6 +7,23 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR125 mergeda2f35c6, GH/fetch verified. Own compact Dashboard control on
+  feat/m1-demo-dashboard-control: existing original Session/private pilot/
+  current API role+Trading metadata, strict GET/POST/Origin/CSRF, immutable
+  original handle across awaits. Own signed private intent file with CAS/
+  single Cockpit writer/fsync/rename/readback; persists candidates/3–7 ceiling
+  and start/pause, invalidates old start on actor/epoch/connection/key change.
+  No credentials/session tokens saved. Start reports requested, not running;
+  worker_state not_installed/execution false, not a broker approval. Pause
+  retains saved settings; status-only recovery after unknown POST.11 new/
+  41 affected pinned Node cases and full typecheck green; own default-off
+  Cockpit-only control overlay, no migration/dependency/native request/order/
+  service change. Final pinned Cockpit build and packaged actual Next GET/
+  POST default-off checks without network/source/credential mounts green.
+  Read-only audit retains original private hashes/all7 running IDs/images/
+  technical8. H1 worker/native admission/
+  strategy consumer remain IN_PROGRESS. See
+  docs/bitget-demo-dashboard-control.md.
 - PR124 mergedc25c767, GH/fetch verified. Own joint order/funding recovery on
   feat/m1-demo-order-funding-recovery: complete original native order/bills/
   account proof, exact persisted attempt baseline, cumulative order clock,

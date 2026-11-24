@@ -1,0 +1,5 @@
+# Dashboard user intent only; installs no worker and grants no broker order.
+services:
+  cockpit:
+    environment:
+      COCKPIT_DEMO_H1_CONTROL: "1"
