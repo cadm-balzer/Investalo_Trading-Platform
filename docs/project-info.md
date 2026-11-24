@@ -79,7 +79,11 @@ Worker/Marginabgleich weiterhin offen.87 betroffene Python-/40 Nodefälle
 grün, tatsächlicher schlüsselloser BTC-Abruf RSI44,90848 bestätigt.
 Volle Typprüfung/beide finalen Produktionsbuilds grün; gepackter öffentlicher
 Collector bestätigt alle sieben Assets mit tatsächlichem Python→TS-Vertrag.
-Autorisierter Rollout folgt.
+Autorisierter Rollout2db8a86 abgeschlossen: nur Cockpit/Executor erneuert,
+fünf Dienste und alle6 Overlays/Flags/privaten Dateihashes unverändert,
+Credential active1/1/technisches Journal8 erhalten. TLS200/anonyme neue
+Signalroute und Account/alle5 technischen POSTs401, privates mTLS405.
+Keine Order durch Deployment; originale Dashboardabnahme angefordert.
 
 2026-11-24: PR119/maine6e5b46 verifiziert. Eigene
 [native Basket-Marketanbindung](bitget-demo-basket-native-orders.md)

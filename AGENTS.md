@@ -22,8 +22,14 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   Full pinned typecheck/final two builds green. Packaged keyless collector
   confirms all7 and actual Python→TS output; synthetic contract identity only,
   no native account authorization claim. Signals also actual Node mTLS tested.
-  Authorized rollout follows. No new native order,
-  technical journal8 unchanged. Actual margin/admission/own strategy
+  Authorized rollout2db8a86 completed: Cockpit+Executor renewed/five unchanged,
+  all6 overlays/flags, credential active1/1 and all original private hashes
+  identical; technical journal8/two dispatches retained. TLS200/new signals
+  and account/five technical POSTs anonymous401/actual private mTLS405.
+  Healthy/UID10003/readonly/no ports/log none/restarts0. Private receipts in
+  infra/local/demo-h1-signals/rollout-*. Original Dashboard acceptance asked/
+  pending, no fabricated OIDC/context or deployment order.
+  Actual margin/admission/own strategy
   issuer/consumer/full worker including exits+funding still IN_PROGRESS.
   See docs/bitget-demo-h1-signals.md; do not claim activated automatic trading.
 - PR119 mergede6e5b46, GH/fetch verified. Own native Basket Market bridge

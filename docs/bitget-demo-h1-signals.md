@@ -102,7 +102,17 @@ Interoptest synthetisch, keine native Kontoautorisierung behauptet.
 Der Signalszweig wurde zusätzlich im realen Node-mTLS-Transport getestet;
 gewöhnliche Walletantwort kann keinen Signalbericht ersetzen.
 
-Autorisierter Rollout folgt vor Abschluss. Es gibt keine neue Migration/
-Dependency und keine neue tatsächliche Order. Originales technisches
-Journal Revision8, Credential active1/1 und alle sechs Composeoverlays
-bleiben zu erhalten.
+Autorisierter Rollout von `2db8a86` abgeschlossen: ausschließlich Cockpit und
+Demo-Executor mit den finalen unveränderlichen Image-IDs erneuert, fünf
+andere laufende Dienste unverändert. Alle sechs ursprünglichen Overlays und
+Flags bleiben erhalten. Private Before-/Aktiv-/kompatible Rollbackbelege
+unter `infra/local/demo-h1-signals/rollout-*`.
+
+Öffentliches TLS200, neue Signalsroute/Account und alle fünf technischen
+Order-POSTs anonym401; tatsächliches privates mTLS405. Cockpit gesund,
+Executor UID10003/read-only/keine Hostports/Logdriver none/Restarts0.
+Credential active1/1, originales technisches Journal Revision8 mit genau
+zwei Versänden und sämtliche ursprünglichen privaten Datei-Hashes gleich.
+Keine neue Migration/Dependency oder Deploymentorder. Automatischer
+Demohandel weiterhin nicht gestartet. Originale Dashboard-Signalabnahme
+angefordert und noch offen; kein Operator-OIDC/Sessionkontext erfunden.

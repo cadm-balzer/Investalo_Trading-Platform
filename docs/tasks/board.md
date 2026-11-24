@@ -9,13 +9,16 @@ Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
 IP-015/IP-016: [Aktuelle Demo-H1-RSI-Anzeige](../bitget-demo-h1-signals.md)
-`IN_PROGRESS`: PR120/main97241f9 verifiziert; originale authentifizierte
+`DONE` für Implementierung/Rollout: PR120/main97241f9 verifiziert; originale authentifizierte
 Read-Anbindung und öffentliche sieben Kandidaten/300 geschlossene Kerzen/
 gemeinsame Wilderberechnung, Quellzeitcache, individuelle Unknowns und
 RSI-/Schwellen-/Bestätigungsanzeige implementiert.13 neue/87 betroffene
 Python und11 neue/40 Nodefälle grün; tatsächlicher keyloser BTC-Abruf gültig.
 Typprüfung/beide finale Images/gepackter tatsächlicher7-Asset-Collector
-mit Python→TS-Vertrag grün; autorisiertes Deployment offen.
+mit Python→TS-Vertrag grün; autorisiertes Deployment2db8a86 abgeschlossen.
+Nur Cockpit/Executor erneuert, fünf Dienste/Key1/1/Originaljournal8 und
+private Hashes/alle6 Overlays unverändert; TLS200/Signals+Account+5POSTs
+anonym401/privates mTLS405. Originale Dashboardabnahme noch offen.
 **Automatischer Demo-Start bleibt IN_PROGRESS:** native Margin-/Zulassungs-
 quelle, ursprünglicher dauerhafter Start-/Pause-Consumer und kompletter
 Worker einschließlich Ausstiegen/Funding noch zu installieren.
