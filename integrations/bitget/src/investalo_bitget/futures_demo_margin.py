@@ -10,7 +10,7 @@ import hashlib
 
 from . import parse
 from .futures_demo import DemoRejected, SYMBOLS, clock, number
-from .futures_demo_basket import _frame, basket_position_match
+from .futures_demo_basket import _frame, basket_position_match, BasketMarketIntent, BasketExitIntent
 from .futures_demo_reconcile import OrderObservation, native_id, position_quantities
 from investalo_trading.futures_broker_margin import BrokerMarginBaseline, BrokerMarginPosition
 from investalo_trading.capital_digest import digest
@@ -133,9 +133,8 @@ def parse_bill_page(response, intent, *, context, now_ms, start_ms, end_ms, curs
 
 
 @precise
-def reconcile_margin(baseline, wallet_response, positions_response, bill_pages, intent, observation, *,
-                     context, now_ms, expected_positions, attempted_ms):
-    """Return (allocated margin, source digest, evidence time), or unknown."""
+def _settlement_sources(baseline, wallet_response, positions_response, bill_pages, intent, observation, *,
+                        context, now_ms, expected_positions, attempted_ms):
     if (type(baseline) is not BrokerMarginBaseline
             or baseline.order_digest != intent.order_digest or baseline.intent_digest != intent.intent_digest
             or type(observation) is not OrderObservation or observation.intent_digest != intent.intent_digest
@@ -173,6 +172,20 @@ def reconcile_margin(baseline, wallet_response, positions_response, bill_pages, 
         hashes.append(hashlib.sha256(response.body).hexdigest())
     if cursor is not None:
         return None  # Page count is not proof of completion.
+    return after, bills, hashes, last_at
+
+
+@precise
+def reconcile_margin(baseline, wallet_response, positions_response, bill_pages, intent, observation, *,
+                     context, now_ms, expected_positions, attempted_ms):
+    """Return (allocated margin, source digest, evidence time), or unknown."""
+    if type(intent) is not BasketMarketIntent:
+        raise DemoRejected("entry_margin_requires_own_buy_intent")
+    sources = _settlement_sources(baseline, wallet_response, positions_response, bill_pages, intent, observation,
+        context=context, now_ms=now_ms, expected_positions=expected_positions, attempted_ms=attempted_ms)
+    if sources is None:
+        return None
+    after, bills, hashes, last_at = sources
     before_positions = {p.symbol: p for p in baseline.positions}
     after_positions = {p.symbol: p for p in after.positions}
     target = intent.grid.symbol
@@ -212,3 +225,53 @@ def reconcile_margin(baseline, wallet_response, positions_response, bill_pages, 
         if abs(delta - observation.quantity * observation.average_price / 2) > MONEY_TOLERANCE:
             return None
     return delta, digest((baseline, after, hashes, observation)), last_at
+
+
+@precise
+def reconcile_exit(baseline, wallet_response, positions_response, bill_pages, intent, observation, *,
+                   context, now_ms, expected_positions, attempted_ms):
+    """Corroborate released native margin AND native realized PnL, excluding UPL."""
+    if type(intent) is not BasketExitIntent:
+        raise DemoRejected("exit_settlement_requires_own_reduce_intent")
+    sources = _settlement_sources(baseline, wallet_response, positions_response, bill_pages, intent, observation,
+        context=context, now_ms=now_ms, expected_positions=expected_positions, attempted_ms=attempted_ms)
+    if sources is None:
+        return None
+    after, bills, hashes, last_at = sources
+    before_positions = {p.symbol: p for p in baseline.positions}
+    after_positions = {p.symbol: p for p in after.positions}
+    target = intent.grid.symbol
+    if ({s: p for s, p in before_positions.items() if s != target} !=
+            {s: p for s, p in after_positions.items() if s != target}):
+        return None
+    old, new = before_positions.get(target), after_positions.get(target)
+    if old is None:
+        return None
+    if not observation.quantity:
+        if (observation.reported_fee != 0 or bills or old != new
+                or abs(after.collateral_without_upl - baseline.collateral_without_upl) > MONEY_TOLERANCE
+                or abs(after.isolated_margin - baseline.isolated_margin) > MONEY_TOLERANCE):
+            return None
+        return Decimal(0), Decimal(0), digest((baseline, after, hashes, observation)), last_at
+    if not bills or any(row["kind"] != "sell" or row["symbol"] != target or row["fee"] > 0
+            or row["coupon_fee"] not in (None, Decimal(0))
+            or row["created_ms"] < observation.created_ms for row in bills):
+        return None
+    bill_fee = sum((row["fee"] for row in bills), Decimal(0))
+    pnl = sum((row["amount"] for row in bills), Decimal(0))
+    remaining = Decimal(0) if new is None else new.allocated_margin
+    released = old.allocated_margin - remaining
+    if (released <= 0 or abs(bill_fee - observation.reported_fee) > Q
+            or abs(after.collateral_without_upl - baseline.collateral_without_upl - pnl - bill_fee) > MONEY_TOLERANCE
+            or abs(baseline.isolated_margin - after.isolated_margin - released) > MONEY_TOLERANCE
+            or abs(pnl - observation.quantity * (observation.average_price - intent.before_average)) > MONEY_TOLERANCE
+            or abs(released - old.allocated_margin * observation.quantity / old.quantity) > MONEY_TOLERANCE):
+        return None
+    if new is not None and (new.funding_total != old.funding_total
+            or abs(new.deducted_fees - old.deducted_fees + bill_fee) > Q
+            or abs(new.realized_pnl - old.realized_pnl - pnl) > MONEY_TOLERANCE):
+        return None
+    # Flat positions have no persistent per-position fee/PnL counters. The
+    # complete sell bills plus whole-wallet cash and released-margin deltas
+    # corroborate them instead; a computed PnL alone never confirms settlement.
+    return released, pnl, digest((baseline, after, hashes, observation)), last_at

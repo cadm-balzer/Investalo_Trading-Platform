@@ -1,5 +1,10 @@
 # Nativer Stufenmargin-Abgleich
 
+Weiterführung nach PR122: [native Basket-Ausstiege](bitget-demo-basket-exits.md)
+nutzen dieselben originalen Vorzustände und vollständigen Quellen.
+Das aktuelle neue Basketjournalformat ist `/4`; die folgenden `/3`-Angaben
+beschreiben den ursprünglichen Marginbaustein.
+
 Stand 24.11.2026. PR121/main `7f69226` verifiziert. Nutzer möchte mit der
 operativen automatischen Demo-Anbindung fortfahren.
 

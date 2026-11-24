@@ -66,6 +66,19 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-24: PR122/main`eada41c` verifiziert.
+[Native Basket-Ausstiege](bitget-demo-basket-exits.md) verbinden eigene
+Reduce-only-Marketpakete, gemeinsame Stopplogik, Basketjournal`/4` und
+tatsächliche Konto-/Bill-/Positionsabrechnung. Teilfills behalten die
+Restmenge; erst bestätigter Vollabschluss zählt als geschlossener Basket.
+Realisierte Verluste werden ebenso tatsächlich erfasst.
+20 neue/351 betroffene gepinnte Pythonfälle und finaler Executorbuild/
+Paketimport/sechs Quellhashes ohne Netz/Mounts/Keys grün. Lesender Audit:
+alle ursprünglichen privaten Hashes und sieben laufenden Container-/Image-IDs
+unverändert, technisches Journal8. Automatik noch nicht aktiviert:
+operative Fundingbuchungen, native Zulassung, ursprünglicher dauerhafter
+Start-/Pause-Consumer und vollständiger H1-Worker bleiben in Umsetzung.
+
 2026-11-24: PR121/main7f69226 verifiziert. Eigener
 [nativer Stufenmargin-Abgleich](bitget-demo-basket-margin.md) ergänzt feste
 signierte Wallet-/Positions-/Bill-GETs, gemeinsame native Konto-/Positions-

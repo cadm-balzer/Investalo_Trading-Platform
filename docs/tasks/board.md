@@ -8,6 +8,20 @@ konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
+IP-015/IP-016: [Native Basket-Ausstiege](../bitget-demo-basket-exits.md)
+`DONE` als privater Dispatcher-/Ledger-/Journalbaustein nach PR122/main`eada41c`:
+eigene Stoppevidenz und bestätigte Restmenge, Reduce-only-Market/sell, separates
+ivx/Exit-Purpose, originale Vorzustands-/Versandmarke, vollständiger native
+Cash-/Margin-/Bill-/Positionsabgleich. Terminale Teilfills einmal gebucht,
+Restposition erhalten; vollständiger Abschluss setzt nächsten RSI-Zyklus
+zurück. Journal`/4` wiederherstellbar/GET-only, keine ältere Adoption.
+20 neue/351 verschiedene betroffene gepinnte Pythonfälle und finaler
+Executorbuild/Paketimport/sechs Quellhashes grün. Lesender Audit:
+Originalhashes und sieben Dienste/Images unverändert, technisches Journal8.
+**Operative Gesamtintegration bleibt `IN_PROGRESS`:** Fundingbuchungen, native
+Zulassung, ursprünglicher dauerhafter Start-/Pause-Consumer und H1-Worker.
+Kein aktivierter automatischer Demo-Handel.
+
 IP-015/IP-016: [Native Stufenmarginquelle](../bitget-demo-basket-margin.md)
 `DONE` als private Producer-/Journalanbindung nach PR121/main7f69226:
 signierte feste GETs, originale Vorzustands-/Versandmarke auf Platte,

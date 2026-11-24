@@ -96,8 +96,51 @@ class BasketMarketIntent:
 
 
 @dataclass(frozen=True, repr=False)
+class BasketExitIntent:
+    binding: DemoBinding
+    journal_id: UUID
+    command_id: str
+    order_digest: str
+    grid: BasketMarketGrid
+    cycle: int
+    quantity: Decimal
+    planning_price: Decimal
+    before_quantity: Decimal
+    before_average: Decimal
+    prepared_ms: int
+    client_oid: str = field(init=False)
+    intent_digest: str = field(init=False)
+
+    def __post_init__(self):
+        if (type(self.binding) is not DemoBinding or type(self.journal_id) is not UUID
+                or type(self.command_id) is not str or not 1 <= len(self.command_id) <= 128
+                or self.command_id.strip() != self.command_id
+                or type(self.grid) is not BasketMarketGrid
+                or type(self.cycle) is not int or self.cycle < 1
+                or type(self.order_digest) is not str or len(self.order_digest) != 64
+                or any(c not in "0123456789abcdef" for c in self.order_digest)):
+            raise DemoRejected("invalid_basket_exit_intent")
+        clock(self.prepared_ms)
+        self.grid.check(self.quantity, self.planning_price)
+        number(self.before_quantity); number(self.before_average)
+        if self.quantity != self.before_quantity:
+            raise DemoRejected("exit_must_use_exact_owned_long_quantity")
+        key = dict(version="bitget-classic-demo-basket-exit/1", binding=self.binding.record(),
+                   journal=str(self.journal_id), command=self.command_id)
+        object.__setattr__(self, "client_oid", "ivx" + digest(key)[:29])
+        terms = dict(key, order=self.order_digest, grid=self.grid.record(), cycle=self.cycle,
+            quantity=text(self.quantity), planning_price=text(self.planning_price),
+            before_quantity=text(self.before_quantity), before_average=text(self.before_average),
+            prepared_ms=self.prepared_ms)
+        object.__setattr__(self, "intent_digest", digest(terms))
+
+    def __repr__(self):
+        return "BasketExitIntent(<private>)"
+
+
+@dataclass(frozen=True, repr=False)
 class BasketRequestPlan:
-    intent: BasketMarketIntent
+    intent: BasketMarketIntent | BasketExitIntent
     operation: str
     start_ms: int | None = None
     end_ms: int | None = None
@@ -107,7 +150,7 @@ class BasketRequestPlan:
     body: bytes = field(init=False)
 
     def __post_init__(self):
-        if type(self.intent) is not BasketMarketIntent:
+        if type(self.intent) not in (BasketMarketIntent, BasketExitIntent):
             raise DemoRejected("own_basket_intent_required")
         intent = self.intent
         if self.operation != "bills" and any(v is not None for v in (self.start_ms, self.end_ms, self.cursor)):
@@ -116,7 +159,8 @@ class BasketRequestPlan:
             method, target = "POST", PLACE_PATH
             body = json.dumps(dict(symbol=intent.grid.symbol, productType="USDT-FUTURES",
                 marginMode="isolated", marginCoin="USDT", size=text(intent.quantity),
-                side="buy", orderType="market", reduceOnly="NO", clientOid=intent.client_oid),
+                side="sell" if type(intent) is BasketExitIntent else "buy", orderType="market",
+                reduceOnly="YES" if type(intent) is BasketExitIntent else "NO", clientOid=intent.client_oid),
                 sort_keys=True, separators=(",", ":")).encode("ascii")
         elif self.operation == "detail":
             method, body = "GET", b""
@@ -154,7 +198,7 @@ class BasketRequestPlan:
 
 
 def _frame(response, intent, context, now_ms):
-    if type(intent) is not BasketMarketIntent:
+    if type(intent) not in (BasketMarketIntent, BasketExitIntent):
         raise DemoRejected("own_basket_intent_required")
     intent.binding.check(context)
     clock(now_ms)
@@ -180,7 +224,8 @@ def basket_order_detail(response, intent, *, context, now_ms, attempted_ms):
         raise DemoRejected("invalid_basket_order_detail")
     expected = dict(symbol=intent.grid.symbol, clientOid=intent.client_oid, marginCoin="USDT",
                     marginMode="isolated", posMode="one_way_mode", orderType="market",
-                    side="buy", reduceOnly="NO")
+                    side="sell" if type(intent) is BasketExitIntent else "buy",
+                    reduceOnly="YES" if type(intent) is BasketExitIntent else "NO")
     for key, value in expected.items():
         actual = raw.get(key)
         if key in ("symbol", "marginCoin", "reduceOnly") and type(actual) is str and actual.isascii():
@@ -231,10 +276,16 @@ def basket_position_match(response, intent, observation, *, context, now_ms, exp
         raise DemoRejected("basket_original_position_mismatch")
     with localcontext() as precision:
         precision.prec = 160
-        total = intent.before_quantity + observation.quantity
-        average = ((intent.before_quantity * intent.before_average
-                    + observation.quantity * observation.average_price) / total
-                   if observation.quantity else intent.before_average)
+        if type(intent) is BasketExitIntent:
+            total = intent.before_quantity - observation.quantity
+            if total < 0:
+                raise DemoRejected("exit_exceeds_original_long_position")
+            average = intent.before_average if total else Decimal(0)
+        else:
+            total = intent.before_quantity + observation.quantity
+            average = ((intent.before_quantity * intent.before_average
+                        + observation.quantity * observation.average_price) / total
+                       if observation.quantity else intent.before_average)
         expected[intent.grid.symbol] = total, average
         if {symbol: q for symbol, (q, _) in expected.items() if q} != {
                 symbol: q for symbol, q in quantities.items() if q}:

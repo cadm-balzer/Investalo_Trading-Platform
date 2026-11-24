@@ -274,7 +274,7 @@ class NativeMarginTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 BrokerEntryAttempt(original.command_id, original.order_digest, original.authorization_digest,
                                    original.request_digest, original.attempted_at, changed)
-        self.assertEqual(VERSION, "bitget-demo-h1-basket-entry-journal/3")
+        self.assertEqual(VERSION, "bitget-demo-h1-basket-entry-journal/4")
 
     def test_second_purchase_uses_native_delta_not_whole_position_and_retains_other_basket(self):
         self.dispatch()

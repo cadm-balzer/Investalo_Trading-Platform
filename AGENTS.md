@@ -7,6 +7,26 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR122 mergedeada41c, GH/fetch verified. Own Basket reduce-only exits on
+  feat/m1-demo-basket-native-exits: shared single pending entry/exit book,
+  exact owned remainder/cycle/fixed2x, fresh5s strategy stop; no RSI/buy-budget
+  admission for exit. Ordinary exits cannot settle liquidation. Own ivx
+  intent/exit-purpose, native Market sell/reduceOnlyYES, original clientOid
+  GET-only recovery even missing ACK ID. Durable baseline/attempt before POST;
+  before cash/margin/funding/fees/PnL must match owned ledger. Complete native
+  sell bills + wallet excluding UPL + allocated-margin release + whole product
+  confirm actual PnL/fees/remaining or flat. Unknowns/foreign activity remain
+  pending; terminal partial books actual fraction, preserves remainder;
+  full confirmed close resets only next-cycle RSI confirmation. Journal/4
+  full entry+exit replay, no automatic old/2-/3 adoption, actual technical8
+  separate.20 new/351 distinct affected pinned Python cases green; real
+  IO/restore/AEAD/HMAC, synthetic actor/native/consumer ports. Final pinned
+  Executor build/import/six packaged source hashes green without network/
+  source mounts/credentials; default dispatch off. Read-only audit:
+  original private hashes and all7 running container/image IDs unchanged,
+  technical8. Native strategy admission/funding/worker/start-pause issuer
+  remain IN_PROGRESS; automatic trading not activated. See
+  docs/bitget-demo-basket-exits.md.
 - PR121 merged7f69226, GH/fetch verified. Own native margin producer on
   feat/m1-demo-basket-margin-reconciliation: fixed signed wallet/positions/
   full bills GETs, exact before-image persisted in attempt_with_margin,

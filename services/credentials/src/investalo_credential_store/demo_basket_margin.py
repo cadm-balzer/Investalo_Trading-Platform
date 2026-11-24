@@ -7,9 +7,10 @@ from investalo_bitget import parse
 from investalo_bitget.models import BitgetRejected
 from investalo_bitget.futures_demo import DemoRejected
 from investalo_bitget.futures_demo_margin import (
-    MAX_PAGES, capture_margin_baseline, parse_bill_page, reconcile_margin,
+    MAX_PAGES, capture_margin_baseline, parse_bill_page, reconcile_margin, reconcile_exit,
 )
-from .demo_basket_orders import SignedBasketRequest, BasketMarginEvidence
+from investalo_bitget.futures_demo_basket import BasketExitIntent
+from .demo_basket_orders import SignedBasketRequest, BasketMarginEvidence, BasketExitEvidence
 from .models import _PrivateImmutable
 
 
@@ -62,7 +63,8 @@ class BasketNativeMarginSource(_PrivateImmutable):
                     start_ms=baseline.start_ms, end_ms=end_ms, cursor=cursor)
                 if cursor is None:
                     break
-            result = reconcile_margin(baseline, wallet, positions, tuple(pages), intent, observation,
+            reducer = reconcile_exit if type(intent) is BasketExitIntent else reconcile_margin
+            result = reducer(baseline, wallet, positions, tuple(pages), intent, observation,
                 context=context, now_ms=self.now(), expected_positions=expected_positions,
                 attempted_ms=attempted_ms)
         except (ValueError, BitgetRejected, OSError):
@@ -71,5 +73,8 @@ class BasketNativeMarginSource(_PrivateImmutable):
             return None
         if result is None:
             return None
+        if type(intent) is BasketExitIntent:
+            margin, pnl, source, at = result
+            return BasketExitEvidence(intent.order_digest, source, observation.quantity, margin, pnl, at)
         margin, source, at = result
         return BasketMarginEvidence(intent.order_digest, source, observation.quantity, margin, at)

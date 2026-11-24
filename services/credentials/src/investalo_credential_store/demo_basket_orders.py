@@ -20,7 +20,7 @@ from investalo_bitget import OwnerContext, parse
 from investalo_bitget.demo_trading_identity import trading_identity
 from investalo_bitget.futures_demo import DemoRejected, clock
 from investalo_bitget.futures_demo_basket import (
-    BasketMarketGrid, BasketMarketIntent, BasketRequestPlan, basket_ack,
+    BasketMarketGrid, BasketMarketIntent, BasketExitIntent, BasketRequestPlan, basket_ack,
     basket_order_detail, basket_position_match,
 )
 from investalo_bitget.futures_demo_read import DemoReadCredential, SignedDemoReadRequest, HTTPSDemoReadTransport
@@ -28,16 +28,18 @@ from investalo_bitget.models import AccountBinding
 from investalo_bitget.signing import ORIGIN, RedactedHeaders, hmac_sha256_base64
 from investalo_bitget.transport import MAX_RESPONSE_BYTES, ReadResponse, _NoRedirect
 from investalo_trading.capital_digest import digest
-from investalo_trading.futures_broker_entries import BrokerEntryObservation
+from investalo_trading.futures_broker_entries import BrokerEntryObservation, BrokerExitOrder, BrokerExitObservation
 from investalo_trading.futures_broker_journal import (
     BrokerEntryJournal, BrokerSubmissionUnknown, VERSION as JOURNAL_VERSION,
 )
 from investalo_trading.futures_replay_journal import _fields, _sha
+from investalo_trading.models import precise
 
 from .demo_trading_provider import DemoTradingCredentialLease, SealedDemoTradingProvider
 from .models import _PrivateImmutable
 
 PURPOSE = "bitget-demo-h1-basket-entry/1"
+EXIT_PURPOSE = "bitget-demo-h1-basket-exit/1"
 
 
 def milliseconds(at):
@@ -48,7 +50,7 @@ def milliseconds(at):
 class BasketOrderApproval(_PrivateImmutable):
     """Only the installed durable own-purpose consumer supplies this result."""
     __slots__ = ("authorization_id", "intent_digest", "receipt_digest", "request_digest",
-                 "credential_revision", "storage_version", "granted_ms", "expires_ms")
+                 "credential_revision", "storage_version", "granted_ms", "expires_ms", "purpose")
 
     def __init__(self, authorization_id, intent, receipt, *, credential_revision,
                  storage_version, granted_ms, expires_ms):
@@ -56,7 +58,7 @@ class BasketOrderApproval(_PrivateImmutable):
                           "state_digest", "execution_enabled"))
         for key in ("context_digest", "head", "state_digest"):
             _sha(receipt[key])
-        if (type(authorization_id) is not UUID or type(intent) is not BasketMarketIntent
+        if (type(authorization_id) is not UUID or type(intent) not in (BasketMarketIntent, BasketExitIntent)
                 or receipt["schema_version"] != JOURNAL_VERSION or receipt["execution_enabled"] is not False
                 or type(credential_revision) is not int or credential_revision != 1
                 or type(storage_version) is not int or not 1 <= storage_version < 2**63
@@ -65,17 +67,20 @@ class BasketOrderApproval(_PrivateImmutable):
         values = dict(authorization_id=authorization_id, intent_digest=intent.intent_digest,
                       receipt_digest=digest(receipt), request_digest=BasketRequestPlan(intent, "place").request_digest,
                       credential_revision=credential_revision, storage_version=storage_version,
-                      granted_ms=granted_ms, expires_ms=expires_ms)
+                      granted_ms=granted_ms, expires_ms=expires_ms,
+                      purpose=EXIT_PURPOSE if type(intent) is BasketExitIntent else PURPOSE)
         for name, value in values.items():
             object.__setattr__(self, name, value)
 
     @property
     def authorization_digest(self):
-        return digest((PURPOSE, tuple(getattr(self, name) for name in self.__slots__
+        return digest((self.purpose, tuple(getattr(self, name) for name in self.__slots__
                       if name != "authorization_id"), str(self.authorization_id)))
 
     def check(self, intent, receipt, now_ms):
-        if (intent.intent_digest != self.intent_digest or digest(receipt) != self.receipt_digest
+        if (type(intent) not in (BasketMarketIntent, BasketExitIntent)
+                or self.purpose != (EXIT_PURPOSE if type(intent) is BasketExitIntent else PURPOSE)
+                or intent.intent_digest != self.intent_digest or digest(receipt) != self.receipt_digest
                 or BasketRequestPlan(intent, "place").request_digest != self.request_digest
                 or not self.granted_ms <= clock(now_ms) < self.expires_ms):
             raise DemoRejected("basket_order_approval_changed_or_expired")
@@ -85,7 +90,7 @@ class SignedBasketRequest(_PrivateImmutable):
     __slots__ = ("plan", "url", "method", "target", "body", "headers", "_lock", "_used", "_pid")
 
     def __init__(self, lease, intent, operation, *, timestamp_ms, **window):
-        if (type(lease) is not DemoTradingCredentialLease or type(intent) is not BasketMarketIntent
+        if (type(lease) is not DemoTradingCredentialLease or type(intent) not in (BasketMarketIntent, BasketExitIntent)
                 or lease.spec.binding != intent.binding or not clock(timestamp_ms) < lease.expires_ms):
             raise DemoRejected("own_basket_lease_and_intent_required")
         plan = BasketRequestPlan(intent, operation, **window)
@@ -172,6 +177,39 @@ class BasketMarginEvidence:
         clock(self.observed_ms)
 
 
+@dataclass(frozen=True, repr=False)
+class BasketExitEvidence:
+    order_digest: str
+    source_digest: str
+    filled_quantity: Decimal
+    released_margin: Decimal
+    realized_pnl: Decimal
+    observed_ms: int
+
+    def __post_init__(self):
+        from investalo_bitget.futures_demo import number
+        _sha(self.order_digest); _sha(self.source_digest)
+        number(self.filled_quantity, zero=True); number(self.released_margin, zero=True)
+        number(abs(self.realized_pnl), zero=True)
+        clock(self.observed_ms)
+
+
+@precise
+def _check_exit_baseline(baseline, ledger):
+    from investalo_bitget.futures_demo_margin import MONEY_TOLERANCE
+    if abs(baseline.collateral_without_upl - ledger.unposted_cash
+           - sum((b.isolated_balance for b in ledger.baskets), Decimal(0))) > MONEY_TOLERANCE:
+        raise DemoRejected("native_exit_cash_disagrees_with_owned_ledger")
+    for basket in ledger.baskets:
+        native = next((p for p in baseline.positions if p.symbol == basket.symbol), None)
+        if basket.quantity and (native is None
+                or abs(native.allocated_margin - basket.isolated_balance) > MONEY_TOLERANCE
+                or abs(native.funding_total - basket.funding_net) > MONEY_TOLERANCE
+                or abs(native.deducted_fees - basket.entry_fees - basket.exit_fees) > MONEY_TOLERANCE
+                or abs(native.realized_pnl - basket.realized_price_pnl) > MONEY_TOLERANCE):
+            raise DemoRejected("native_exit_before_image_disagrees_with_owned_ledger")
+
+
 class BasketOrderDispatcher(_PrivateImmutable):
     __slots__ = ("journal", "provider", "read_transport", "order_transport", "native_guard",
                  "account_guard", "authorize_once", "margin_resolver", "margin_source",
@@ -213,6 +251,10 @@ class BasketOrderDispatcher(_PrivateImmutable):
         contract, rule = plan.contracts[index], rules[index]
         grid = BasketMarketGrid(contract.symbol, contract.quantity_step, rule.price_tick, contract.minimum_quantity,
                                 contract.minimum_notional, rule.maximum_market_quantity)
+        if type(order) is BrokerExitOrder:
+            return BasketExitIntent(binding, UUID(self.journal._header["journal_id"]), order.command_id,
+                order.order_digest, grid, order.cycle, order.request.quantity, order.request.maximum_fill_price,
+                order.before_quantity, order.before_average, milliseconds(order.prepared_at))
         return BasketMarketIntent(binding, UUID(self.journal._header["journal_id"]), order.command_id,
             order.order_digest, grid, order.assessment.capital.stage, order.cycle, order.request.quantity,
             order.request.maximum_fill_price, order.request.posted_margin, order.before_quantity,
@@ -265,6 +307,8 @@ class BasketOrderDispatcher(_PrivateImmutable):
                 raise DemoRejected("basket_resend_denied")
             self.native_guard()
             self.account_guard(intent, receipt, context)  # Complete native admission, including unresolved max/costs.
+            if type(intent) is BasketExitIntent and self.margin_source is None:
+                raise DemoRejected("exit_requires_native_settlement_source")
             approval = self.authorize_once(intent, receipt, context)
             if type(approval) is not BasketOrderApproval:
                 raise DemoRejected("own_basket_order_approval_required")
@@ -284,6 +328,9 @@ class BasketOrderDispatcher(_PrivateImmutable):
                                        state.book.signal.profile.plan.grid_rules, strict=True))
                 baseline = self.margin_source.capture(lease, intent, context=context,
                     expected_positions=expected, guard=lambda: self._lease(intent, context, lease))
+                if type(intent) is BasketExitIntent:
+                    # Never adopt an unnoticed native margin/funding/fee change at close.
+                    _check_exit_baseline(baseline, state.book.signal.economic.ledger)
                 self._lease(intent, context, lease)
             approval.check(intent, receipt, self.now())
 
@@ -349,23 +396,28 @@ class BasketOrderDispatcher(_PrivateImmutable):
                 else:
                     evidence = self.margin_resolver(intent, observation, positions, context)
                 if evidence is not None:
-                    if (type(evidence) is not BasketMarginEvidence or evidence.order_digest != intent.order_digest
+                    expected_type = BasketExitEvidence if type(intent) is BasketExitIntent else BasketMarginEvidence
+                    if (type(evidence) is not expected_type or evidence.order_digest != intent.order_digest
                             or evidence.filled_quantity != observation.quantity
                             or not 0 <= self.now() - evidence.observed_ms <= 5000
                             or not milliseconds(state.current_attempt.attempted_at) <= evidence.observed_ms):
                         raise DemoRejected("invalid_basket_margin_evidence")
-                    margin = evidence.posted_margin
+                    margin = evidence.released_margin if type(intent) is BasketExitIntent else evidence.posted_margin
             self._lease(intent, context, lease)
             if not 0 <= self.now() - started <= 5000:
                 raise DemoRejected("basket_observation_cohort_expired")
-            proof = BrokerEntryObservation(intent.order_digest, observation.state, observation.quantity,
-                observation.average_price, observation.reported_fee, margin, matched,
-                parse.EPOCH + timedelta(milliseconds=observation.response_ms),
-                digest((PURPOSE, intent.intent_digest, observation, evidence)),
-                digest((PURPOSE, observation.order_id, observation.created_ms)), observation.updated_ms)
+            purpose = EXIT_PURPOSE if type(intent) is BasketExitIntent else PURPOSE
+            common = (intent.order_digest, observation.state, observation.quantity,
+                      observation.average_price, observation.reported_fee, margin)
+            tail = (matched, parse.EPOCH + timedelta(milliseconds=observation.response_ms),
+                digest((purpose, intent.intent_digest, observation, evidence)),
+                digest((purpose, observation.order_id, observation.created_ms)), observation.updated_ms)
+            proof = (BrokerExitObservation(*common, evidence.realized_pnl if evidence is not None else None, *tail)
+                     if type(intent) is BasketExitIntent else BrokerEntryObservation(*common, *tail))
             if proof == state.book.observation:
                 return state  # Identical poll does not rewrite evidence or renew a source clock.
-            return self.journal.append("observe", expected_revision=expected_revision,
+            return self.journal.append("observe_exit" if type(intent) is BasketExitIntent else "observe",
+                expected_revision=expected_revision,
                 at=parse.EPOCH + timedelta(milliseconds=self.now()), observation=proof)
         finally:
             self.lock.release()
