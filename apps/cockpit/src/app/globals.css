@@ -25,4 +25,10 @@
 .rsi-track { position: relative; height: 5px; background: #27334b; border-radius: 4px; margin-top: .5rem; overflow: hidden; }
 .rsi-track span { display: block; height: 100%; background: #5eb9aa; }
 .rsi-track i { position: absolute; left: 30%; top: 0; bottom: 0; width: 2px; background: #f4c773; }
+.demo-signals { margin: 2rem 0; border-top: 1px solid var(--border); padding-top: 1rem; }
+.demo-signal-table { min-width: 770px; }
+.demo-signal-table td { vertical-align: top; }
+.demo-signal-table small { display: block; margin-top: .35rem; }
+.demo-signal-table td:nth-child(2) { min-width: 130px; }
+.demo-start-gate { padding: 1rem; margin-top: 1.5rem; background: #f3f7fa; border-radius: 10px; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }

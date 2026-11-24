@@ -7,6 +7,31 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR120 merged97241f9, GH/fetch verified. User explicitly requests operative
+  automatic Demo start via Dashboard and current RSI. On
+  feat/m1-demo-start-readiness add own authenticated public Demo H1 monitor:
+  seven candidates/300 completed contiguous bars/shared Decimal Wilder,
+  current bar excluded, original source times/hour cache and per-asset unknown.
+  Original Read/session/actor/metadata/mTLS/current Trading snapshots before/
+  after; no broker decrypt/account mutex/order authority. Actual launcher
+  account_read retained. UI threshold distance/first confirmations/H1 clock,
+  existing positions never invent last-buy from average. Dashboard explicitly
+  says auto not started; disabled button is status only, not operative grant.
+  13 new/87 affected pinned Python and11 new/40 Node cases green; source BTC
+  keyless GET proves RSI44.9084789 at20261124 13UTC close60403.5.
+  Full pinned typecheck/final two builds green. Packaged keyless collector
+  confirms all7 and actual Python→TS output; synthetic contract identity only,
+  no native account authorization claim. Signals also actual Node mTLS tested.
+  Authorized rollout2db8a86 completed: Cockpit+Executor renewed/five unchanged,
+  all6 overlays/flags, credential active1/1 and all original private hashes
+  identical; technical journal8/two dispatches retained. TLS200/new signals
+  and account/five technical POSTs anonymous401/actual private mTLS405.
+  Healthy/UID10003/readonly/no ports/log none/restarts0. Private receipts in
+  infra/local/demo-h1-signals/rollout-*. Original Dashboard acceptance asked/
+  pending, no fabricated OIDC/context or deployment order.
+  Actual margin/admission/own strategy
+  issuer/consumer/full worker including exits+funding still IN_PROGRESS.
+  See docs/bitget-demo-h1-signals.md; do not claim activated automatic trading.
 - PR119 mergede6e5b46, GH/fetch verified. Own native Basket Market bridge
   on feat/m1-demo-basket-native-orders: separate7-symbol/fixed2x/own-margin
   sizing, stable ivb clientOid, Market buy/no price/no force/NO reduce.

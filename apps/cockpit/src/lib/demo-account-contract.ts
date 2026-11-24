@@ -9,7 +9,7 @@ export type DemoAccount = { schema: "investalo-demo-account/1"; tenant_id: strin
     unrealized_pnl: string | null; isolated_margin: string | null; crossed_margin: string | null };
   positions: DemoPosition[] };
 export type DemoAccountTarget = { platform_account_id: string; connection_id: string;
-  credential_revision: 1; storage_version: number; inspection?: "startup" | "btc-test" | "btc-market" };
+  credential_revision: 1; storage_version: number; inspection?: "startup" | "btc-test" | "btc-market" | "signals" };
 const fail = () => new Error("DEMO_ACCOUNT_REJECTED");
 // Shared by the browser and BFF; keep this module free of Node/secret imports.
 export function exactObject(value: unknown, fields: readonly string[]): Record<string, unknown> {

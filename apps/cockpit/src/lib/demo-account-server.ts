@@ -10,13 +10,14 @@ import { canonicalUuid } from "./credential-action-contracts.ts";
 import { parseDemoAccount, type DemoAccount } from "./demo-account-contract.ts";
 import { parseDemoStartup, type DemoStartup } from "./demo-startup-contract.ts";
 import { parseDemoBTCTest, type DemoBTCTest, parseDemoBTCMarketTest, type DemoBTCMarketTest } from "./demo-btc-test-contract.ts";
+import { parseDemoSignals, type DemoSignals } from "./demo-signals-contract.ts";
 
 type Cache = { key: string; data: DemoAccount; at: number };
 const symbol = Symbol.for("investalo.demo-account-cache/1");
 type Shared = typeof globalThis & { [symbol]?: Cache };
 const headers = { "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff", "Referrer-Policy": "no-referrer" };
 
-export async function handleDemoAccount(request: Request) {
+export async function handleDemoAccount(request: Request, signals = false) {
   if (request.method !== "GET") return Response.json({ error: "Nicht verfügbar." }, { status: 405, headers });
   if (process.env.COCKPIT_DEMO_ACCOUNT_SYNC !== "1") return Response.json({ error: "Nicht verfügbar." }, { status: 404, headers });
   try {
@@ -24,10 +25,11 @@ export async function handleDemoAccount(request: Request) {
     if (!current) return Response.json({ error: "Bitte anmelden." }, { status: 401, headers });
     const original = snapshotAuthorizedSession(current.session), config = await getConfig();
     const url = new URL(request.url);
-    const inspection = url.search === "?inspection=startup" ? "startup" :
+    const inspection = signals ? "signals" : url.search === "?inspection=startup" ? "startup" :
       url.search === "?inspection=btc-test" ? "btc-test" :
       url.search === "?inspection=btc-market" ? "btc-market" : undefined;
-    if (url.pathname !== "/api/bitget-demo/account" || url.search && !inspection ||
+    if (url.pathname !== (signals ? "/api/bitget-demo/signals" : "/api/bitget-demo/account") ||
+      signals && url.search || url.hash || url.search && !inspection ||
       request.headers.get("sec-fetch-site") !== "same-origin" ||
       request.headers.has("origin") && request.headers.get("origin") !== config.origin) throw new Error();
     const installed = await runtime();
@@ -59,7 +61,7 @@ export async function handleDemoAccount(request: Request) {
     const key = JSON.stringify([original.tenantId, before.userId, original.authEpoch,
       installed.accountId, connection.connection_id, connection.credential_revision, connection.storage_version]);
     const shared = globalThis as Shared;
-    let data: DemoAccount | DemoStartup | DemoBTCTest | DemoBTCMarketTest;
+    let data: DemoAccount | DemoStartup | DemoBTCTest | DemoBTCMarketTest | DemoSignals;
     if (!inspection && shared[symbol]?.key === key && Date.now() - shared[symbol]!.at < 25000) {
       data = parseDemoAccount(shared[symbol]!.data, original.tenantId, installed.accountId);
     } else {
@@ -71,6 +73,7 @@ export async function handleDemoAccount(request: Request) {
     const after = await metadata();
     if (after.userId !== before.userId || JSON.stringify(after.metadata) !== JSON.stringify(before.metadata)) throw new Error();
     await guard();
+    if (inspection === "signals") return Response.json(parseDemoSignals(data, original.tenantId, installed.accountId), { headers });
     if (inspection === "startup") return Response.json(parseDemoStartup(data, original.tenantId, installed.accountId), { headers });
     if (inspection === "btc-test") return Response.json(parseDemoBTCTest(data, original.tenantId, installed.accountId), { headers });
     if (inspection === "btc-market") return Response.json(parseDemoBTCMarketTest(data, original.tenantId, installed.accountId), { headers });
@@ -78,7 +81,8 @@ export async function handleDemoAccount(request: Request) {
     shared[symbol] = { key, data, at: Math.min(Date.now(), Date.parse(data.observed_at)) };
     return Response.json(data, { headers });
   } catch {
-    return Response.json({ error: "Demo-Kontodaten derzeit nicht bestätigt. Bitte erneut aktualisieren." },
+    return Response.json({ error: signals ? "H1-Marktdaten derzeit nicht bestätigt. Bitte erneut aktualisieren." :
+      "Demo-Kontodaten derzeit nicht bestätigt. Bitte erneut aktualisieren." },
       { status: 503, headers });
   }
 }

@@ -20,6 +20,7 @@ import { readDemoAccount } from "./demo-account-executor.ts";
 import type { DemoAccount, DemoAccountTarget } from "./demo-account-contract.ts";
 import type { DemoStartup } from "./demo-startup-contract.ts";
 import type { DemoBTCTest, DemoBTCMarketTest } from "./demo-btc-test-contract.ts";
+import type { DemoSignals } from "./demo-signals-contract.ts";
 import { prepareDemoBTCMarketConsent, prepareDemoBTCMarketCloseConsent, type BTCOrderConsentDependencies } from "./demo-btc-order-consent.ts";
 import { marketReadPacket, sendMarketPacket } from "./demo-market-order-executor.ts";
 import type { MarketPreparation, MarketOutcome } from "./demo-market-order-contract.ts";
@@ -35,7 +36,7 @@ export type DemoTradingCredentialPrivateIdentitySpec = Readonly<{
 }>;
 export type DemoTradingCredentialPrivateIdentity = Readonly<{
   forSession(bound: ProofSession, currentUserId: string): DemoTradingCredentialIdentityPorts;
-  readAccount?(bound: ProofSession, currentUserId: string, target: DemoAccountTarget): Promise<DemoAccount | DemoStartup | DemoBTCTest | DemoBTCMarketTest>;
+  readAccount?(bound: ProofSession, currentUserId: string, target: DemoAccountTarget): Promise<DemoAccount | DemoStartup | DemoBTCTest | DemoBTCMarketTest | DemoSignals>;
   marketRead?(phase: "prepare" | "observe" | "close-prepare", bound: ProofSession, currentUserId: string,
     target: DemoAccountTarget & { command_id?: string }): Promise<MarketPreparation | MarketOutcome>;
   marketSubmit?(request: Request, deps: Omit<BTCOrderConsentDependencies, "accountId" | "signingKey">,
