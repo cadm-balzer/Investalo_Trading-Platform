@@ -21,6 +21,7 @@ from .futures_broker_entries import (
     observe_broker_entry, observe_broker_prices, prepare_broker_entry,
     replay_broker_hour, start_broker_entries,
 )
+from .futures_broker_margin import BrokerMarginBaseline
 from .futures_capital_grid import CapitalGridPlan
 from .futures_capital_journal import CapitalReplayJournal, MAX_FILE_BYTES, MAX_LINE_BYTES
 from .futures_capital_research import (
@@ -36,7 +37,7 @@ from .futures_paper_profit_plan import CapitalPaperProfitPlan
 from .futures_replay_journal import JournalCommitUnknown, _fields, _json, _open, _sha
 from .snapshot import _decode, primitive
 
-VERSION = "bitget-demo-h1-basket-entry-journal/2"
+VERSION = "bitget-demo-h1-basket-entry-journal/3"
 MAX_COMMANDS = 50_000
 PLANS = {p.capital_policy: p for p in (
     CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan,
@@ -47,6 +48,8 @@ ARGUMENTS = {
     "prepare": {"symbol": str, "planning_price": Decimal, "command_id": str},
     "cancel_preparation": {"order_digest": str},
     "attempt": {"order_digest": str, "authorization_digest": str, "request_digest": str},
+    "attempt_with_margin": {"order_digest": str, "authorization_digest": str,
+                           "request_digest": str, "margin_baseline": BrokerMarginBaseline},
     "observe": {"observation": BrokerEntryObservation},
 }
 
@@ -62,6 +65,7 @@ class BrokerEntryAttempt(CapitalCanonical):
     authorization_digest: str
     request_digest: str
     attempted_at: datetime
+    margin_baseline: BrokerMarginBaseline | None = None
 
     def __post_init__(self):
         from .allocation import identifier
@@ -69,6 +73,14 @@ class BrokerEntryAttempt(CapitalCanonical):
         for value in (self.order_digest, self.authorization_digest, self.request_digest):
             _sha(value)
         timestamp(self.attempted_at)
+        if self.margin_baseline is not None:
+            ms = int((self.attempted_at - datetime.fromisoformat("1970-01-01T00:00:00+00:00"))
+                     // timedelta(milliseconds=1))
+            if (type(self.margin_baseline) is not BrokerMarginBaseline
+                    or self.margin_baseline.order_digest != self.order_digest
+                    or not 0 <= ms - self.margin_baseline.start_ms <= 5000
+                    or self.margin_baseline.observed_ms > ms):
+                raise ValueError("original fresh margin baseline must precede the attempt")
 
 
 @dataclass(frozen=True)
@@ -174,7 +186,7 @@ def _apply(state, command):
     raw = _fields(command["arguments"], ARGUMENTS[kind])
     args = {key: _decode(cls, raw[key]) for key, cls in ARGUMENTS[kind].items()}
     book, attempts = state.book, state.attempts
-    if kind == "attempt":
+    if kind in ("attempt", "attempt_with_margin"):
         order = book.pending
         if (order is None or order.order_digest != args["order_digest"]
                 or state.current_attempt is not None or book.observation is not None
@@ -190,7 +202,8 @@ def _apply(state, command):
                     "maximum_fill_price", "posted_margin", "requested_leverage"))):
             raise ValueError("basket admission changed before attempt")
         attempts += (BrokerEntryAttempt(order.command_id, order.order_digest,
-                     args["authorization_digest"], args["request_digest"], at),)
+                     args["authorization_digest"], args["request_digest"], at,
+                     args.get("margin_baseline")),)
     elif kind == "observe":
         if state.current_attempt is None:
             raise ValueError("broker observation requires its recorded original attempt")
@@ -205,7 +218,7 @@ def _apply(state, command):
         functions = {"hour": replay_broker_hour, "prices": observe_broker_prices,
                      "prepare": prepare_broker_entry}
         book = functions[kind](book, *args.values(), book.revision, at)
-    if kind != "attempt" and book is state.book:
+    if kind not in ("attempt", "attempt_with_margin") and book is state.book:
         raise ValueError("duplicate observation or hour needs no journal write")
     return BrokerJournalState(book, state.revision + 1, at, attempts)
 
@@ -381,7 +394,7 @@ class BrokerEntryJournal(CapitalReplayJournal):
             return candidate
 
     def invoke_once(self, sender, *, expected_revision, at, order_digest,
-                    authorization_digest, request_digest):
+                    authorization_digest, request_digest, margin_baseline=None):
         """Persist/fsync unknown-before-send; ACK alone does not book an entry.
 
         Trusted production sender must enforce the actual authorization and exact
@@ -391,9 +404,11 @@ class BrokerEntryJournal(CapitalReplayJournal):
         if not callable(sender):
             raise ValueError("trusted callable sender required")
         with self._lock:
-            state = self.append("attempt", expected_revision=expected_revision, at=at,
+            extra = {} if margin_baseline is None else {"margin_baseline": margin_baseline}
+            state = self.append("attempt" if margin_baseline is None else "attempt_with_margin",
+                                expected_revision=expected_revision, at=at,
                                 order_digest=order_digest, authorization_digest=authorization_digest,
-                                request_digest=request_digest)
+                                request_digest=request_digest, **extra)
             order, attempt = state.book.pending, state.current_attempt
         try:
             return sender(order, attempt)

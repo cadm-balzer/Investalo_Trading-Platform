@@ -84,11 +84,11 @@ class BasketOrderApproval(_PrivateImmutable):
 class SignedBasketRequest(_PrivateImmutable):
     __slots__ = ("plan", "url", "method", "target", "body", "headers", "_lock", "_used", "_pid")
 
-    def __init__(self, lease, intent, operation, *, timestamp_ms):
+    def __init__(self, lease, intent, operation, *, timestamp_ms, **window):
         if (type(lease) is not DemoTradingCredentialLease or type(intent) is not BasketMarketIntent
                 or lease.spec.binding != intent.binding or not clock(timestamp_ms) < lease.expires_ms):
             raise DemoRejected("own_basket_lease_and_intent_required")
-        plan = BasketRequestPlan(intent, operation)
+        plan = BasketRequestPlan(intent, operation, **window)
         signature = hmac_sha256_base64(lease.credentials._secret_key,
             str(timestamp_ms).encode() + plan.method.encode() + plan.target.encode() + plan.body)
         values = dict(plan=plan, url=ORIGIN + plan.target, method=plan.method, target=plan.target, body=plan.body,
@@ -103,7 +103,8 @@ class SignedBasketRequest(_PrivateImmutable):
         if self._pid != os.getpid():
             raise DemoRejected("fork_inherited_basket_packet")
         with self._lock:
-            expected = BasketRequestPlan(self.plan.intent, self.plan.operation)
+            expected = BasketRequestPlan(self.plan.intent, self.plan.operation, self.plan.start_ms,
+                                         self.plan.end_ms, self.plan.cursor)
             if (self._used or self.url != ORIGIN + expected.target or self.method != expected.method
                     or self.target != expected.target or self.body != expected.body
                     or self.headers["paptrading"] != "1"):
@@ -149,7 +150,7 @@ class HTTPSBasketReadTransport:
     def __call__(self, request):
         if type(request) is SignedDemoReadRequest:
             return HTTPSDemoReadTransport(timeout_seconds=self.timeout_seconds)(request)
-        if type(request) is SignedBasketRequest and request.plan.operation in ("detail", "positions"):
+        if type(request) is SignedBasketRequest and request.plan.operation in ("detail", "positions", "wallet", "bills"):
             return HTTPSBasketTransport(self.timeout_seconds)(request)
         raise DemoRejected("basket_read_transport_get_only")
 
@@ -173,22 +174,27 @@ class BasketMarginEvidence:
 
 class BasketOrderDispatcher(_PrivateImmutable):
     __slots__ = ("journal", "provider", "read_transport", "order_transport", "native_guard",
-                 "account_guard", "authorize_once", "margin_resolver", "enabled", "lock", "ip_binding", "now", "pid")
+                 "account_guard", "authorize_once", "margin_resolver", "margin_source",
+                 "enabled", "lock", "ip_binding", "now", "pid")
 
     def __init__(self, journal, provider, *, read_transport, order_transport, native_guard,
                  account_guard, shared_lock, ip_binding, authorize_once=None, margin_resolver=None,
-                 enabled=False, milliseconds=lambda: time.time_ns() // 1_000_000):
+                 margin_source=None, enabled=False, milliseconds=lambda: time.time_ns() // 1_000_000):
+        from .demo_basket_margin import BasketNativeMarginSource
         if (type(journal) is not BrokerEntryJournal or type(provider) is not SealedDemoTradingProvider
                 or type(enabled) is not bool or type(shared_lock) is not type(threading.Lock())
                 or ip_binding not in ("single_ip", "unavailable_in_demo")
                 or not all(callable(p) for p in (read_transport, order_transport, native_guard, account_guard, milliseconds))
                 or authorize_once is not None and not callable(authorize_once)
-                or margin_resolver is not None and not callable(margin_resolver)):
+                or margin_resolver is not None and not callable(margin_resolver)
+                or margin_source is not None and type(margin_source) is not BasketNativeMarginSource
+                or margin_source is not None and margin_resolver is not None):
             raise DemoRejected("invalid_basket_dispatch_installation")
         for name, value in dict(journal=journal, provider=provider, read_transport=read_transport,
                 order_transport=order_transport, native_guard=native_guard, account_guard=account_guard,
                 lock=shared_lock, ip_binding=ip_binding, authorize_once=authorize_once,
-                margin_resolver=margin_resolver, enabled=enabled, now=milliseconds, pid=os.getpid()).items():
+                margin_resolver=margin_resolver, margin_source=margin_source,
+                enabled=enabled, now=milliseconds, pid=os.getpid()).items():
             object.__setattr__(self, name, value)
 
     def _intent(self, state, context):
@@ -271,6 +277,14 @@ class BasketOrderDispatcher(_PrivateImmutable):
             self._identity(lease, intent, context)
             self._lease(intent, context, lease)
             self.account_guard(intent, receipt, context)
+            baseline = None
+            if self.margin_source is not None:
+                expected = tuple((b.symbol, b.quantity, b.average_entry, rule.price_tick)
+                    for b, rule in zip(state.book.signal.economic.ledger.baskets,
+                                       state.book.signal.profile.plan.grid_rules, strict=True))
+                baseline = self.margin_source.capture(lease, intent, context=context,
+                    expected_positions=expected, guard=lambda: self._lease(intent, context, lease))
+                self._lease(intent, context, lease)
             approval.check(intent, receipt, self.now())
 
             def send(order, marker):
@@ -289,7 +303,8 @@ class BasketOrderDispatcher(_PrivateImmutable):
             try:
                 return self.journal.invoke_once(send, expected_revision=expected_revision,
                     at=parse.EPOCH + timedelta(milliseconds=self.now()), order_digest=intent.order_digest,
-                    authorization_digest=approval.authorization_digest, request_digest=approval.request_digest)
+                    authorization_digest=approval.authorization_digest, request_digest=approval.request_digest,
+                    margin_baseline=baseline)
             except BrokerSubmissionUnknown:
                 return "outcome_unknown"
         finally:
@@ -325,8 +340,14 @@ class BasketOrderDispatcher(_PrivateImmutable):
                 pass
             margin = None
             evidence = None
-            if matched and self.margin_resolver is not None:
-                evidence = self.margin_resolver(intent, observation, positions, context)
+            if matched and (self.margin_resolver is not None or self.margin_source is not None):
+                if self.margin_source is not None:
+                    evidence = self.margin_source.resolve(lease, intent, observation, positions,
+                        baseline=state.current_attempt.margin_baseline, context=context,
+                        expected_positions=expected, attempted_ms=milliseconds(state.current_attempt.attempted_at),
+                        guard=lambda: self._lease(intent, context, lease))
+                else:
+                    evidence = self.margin_resolver(intent, observation, positions, context)
                 if evidence is not None:
                     if (type(evidence) is not BasketMarginEvidence or evidence.order_digest != intent.order_digest
                             or evidence.filled_quantity != observation.quantity

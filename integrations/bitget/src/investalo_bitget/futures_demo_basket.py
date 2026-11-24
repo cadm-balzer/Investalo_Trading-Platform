@@ -99,6 +99,9 @@ class BasketMarketIntent:
 class BasketRequestPlan:
     intent: BasketMarketIntent
     operation: str
+    start_ms: int | None = None
+    end_ms: int | None = None
+    cursor: str | None = None
     method: str = field(init=False)
     target: str = field(init=False)
     body: bytes = field(init=False)
@@ -107,6 +110,8 @@ class BasketRequestPlan:
         if type(self.intent) is not BasketMarketIntent:
             raise DemoRejected("own_basket_intent_required")
         intent = self.intent
+        if self.operation != "bills" and any(v is not None for v in (self.start_ms, self.end_ms, self.cursor)):
+            raise DemoRejected("unexpected_basket_window")
         if self.operation == "place":
             method, target = "POST", PLACE_PATH
             body = json.dumps(dict(symbol=intent.grid.symbol, productType="USDT-FUTURES",
@@ -122,6 +127,20 @@ class BasketRequestPlan:
             method, body = "GET", b""
             target = POSITIONS_PATH + "?" + urlencode((
                 ("productType", "USDT-FUTURES"), ("marginCoin", "USDT")))
+        elif self.operation == "wallet":
+            method, body = "GET", b""
+            target = "/api/v2/mix/account/accounts?productType=USDT-FUTURES"
+        elif self.operation == "bills":
+            if (not clock(self.start_ms) < clock(self.end_ms)
+                    or self.end_ms - self.start_ms > 30 * 86400000
+                    or self.cursor is not None and native_id(self.cursor) != self.cursor):
+                raise DemoRejected("bounded_original_basket_bill_window_required")
+            method, body = "GET", b""
+            query = [("productType", "USDT-FUTURES"), ("onlyFunding", "no"),
+                     ("startTime", str(self.start_ms)), ("endTime", str(self.end_ms)), ("limit", "100")]
+            if self.cursor is not None:
+                query.append(("idLessThan", self.cursor))
+            target = "/api/v2/mix/account/bill?" + urlencode(query)
         else:
             raise DemoRejected("unsupported_basket_operation")
         object.__setattr__(self, "method", method)
