@@ -139,8 +139,38 @@ class BasketExitIntent:
 
 
 @dataclass(frozen=True, repr=False)
+class BasketFundingIntent:
+    """Read-only original journal window; cannot be converted into an order."""
+    binding: DemoBinding
+    journal_id: UUID
+    book_digest: str
+    from_ms: int
+    prepared_ms: int
+    intent_digest: str = field(init=False)
+
+    def __post_init__(self):
+        if (type(self.binding) is not DemoBinding or type(self.journal_id) is not UUID
+                or type(self.book_digest) is not str or len(self.book_digest) != 64
+                or any(c not in "0123456789abcdef" for c in self.book_digest)
+                or not clock(self.from_ms) <= clock(self.prepared_ms)
+                or self.prepared_ms - self.from_ms > 30 * 86400000):
+            raise DemoRejected("invalid_basket_funding_read_scope")
+        object.__setattr__(self, "intent_digest", digest(dict(version="bitget-demo-basket-funding-read/1",
+            binding=self.binding.record(), journal=str(self.journal_id), book=self.book_digest,
+            from_ms=self.from_ms, prepared_ms=self.prepared_ms)))
+
+    @property
+    def order_digest(self):
+        # Shared immutable snapshot codec binds this read to the original book.
+        return self.book_digest
+
+    def __repr__(self):
+        return "BasketFundingIntent(<private>)"
+
+
+@dataclass(frozen=True, repr=False)
 class BasketRequestPlan:
-    intent: BasketMarketIntent | BasketExitIntent
+    intent: BasketMarketIntent | BasketExitIntent | BasketFundingIntent
     operation: str
     start_ms: int | None = None
     end_ms: int | None = None
@@ -150,9 +180,13 @@ class BasketRequestPlan:
     body: bytes = field(init=False)
 
     def __post_init__(self):
-        if type(self.intent) not in (BasketMarketIntent, BasketExitIntent):
+        if type(self.intent) not in (BasketMarketIntent, BasketExitIntent, BasketFundingIntent):
             raise DemoRejected("own_basket_intent_required")
         intent = self.intent
+        if type(intent) is BasketFundingIntent and (
+                self.operation not in ("wallet", "positions", "bills")
+                or self.operation == "bills" and self.start_ms != intent.from_ms):
+            raise DemoRejected("funding_scope_original_window_get_only")
         if self.operation != "bills" and any(v is not None for v in (self.start_ms, self.end_ms, self.cursor)):
             raise DemoRejected("unexpected_basket_window")
         if self.operation == "place":
@@ -198,7 +232,7 @@ class BasketRequestPlan:
 
 
 def _frame(response, intent, context, now_ms):
-    if type(intent) not in (BasketMarketIntent, BasketExitIntent):
+    if type(intent) not in (BasketMarketIntent, BasketExitIntent, BasketFundingIntent):
         raise DemoRejected("own_basket_intent_required")
     intent.binding.check(context)
     clock(now_ms)
@@ -211,6 +245,8 @@ def _frame(response, intent, context, now_ms):
 
 
 def basket_ack(response, intent, *, context, now_ms):
+    if type(intent) not in (BasketMarketIntent, BasketExitIntent):
+        raise DemoRejected("funding_read_has_no_order_authority")
     raw, _ = _frame(response, intent, context, now_ms)
     if type(raw) is not dict or raw.get("clientOid") != intent.client_oid:
         raise DemoRejected("basket_ack_identity_mismatch")
@@ -218,6 +254,8 @@ def basket_ack(response, intent, *, context, now_ms):
 
 
 def basket_order_detail(response, intent, *, context, now_ms, attempted_ms):
+    if type(intent) not in (BasketMarketIntent, BasketExitIntent):
+        raise DemoRejected("funding_read_has_no_order_authority")
     raw, response_ms = _frame(response, intent, context, now_ms)
     clock(attempted_ms)
     if type(raw) is not dict:
@@ -259,6 +297,8 @@ def basket_order_detail(response, intent, *, context, now_ms, attempted_ms):
 
 def basket_position_match(response, intent, observation, *, context, now_ms, expected_positions):
     """Compare the complete product, including every other owned basket."""
+    if type(intent) not in (BasketMarketIntent, BasketExitIntent):
+        raise DemoRejected("funding_read_has_no_order_authority")
     raw, at_ms = _frame(response, intent, context, now_ms)
     if (type(observation) is not OrderObservation or observation.intent_digest != intent.intent_digest
             or type(expected_positions) is not tuple):

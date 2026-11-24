@@ -1,5 +1,9 @@
 # Dauerhaftes H1-Basketjournal
 
+Weiterführung nach PR123: [native Fundingbuchungen](bitget-demo-basket-funding.md)
+ergänzen den vollständigen Fundingprüfzeitraum und gehashte Bill-Identitäten
+im neuen Format `/5`.
+
 Weiterführung nach PR122: [native Strategieausstiege](bitget-demo-basket-exits.md)
 ergänzen `prepare_exit`/`observe_exit` und den gemeinsamen originalen
 Versandversuch im neuen Format `/4`. Ältere Journale werden nicht automatisch

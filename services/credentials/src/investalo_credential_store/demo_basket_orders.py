@@ -20,7 +20,7 @@ from investalo_bitget import OwnerContext, parse
 from investalo_bitget.demo_trading_identity import trading_identity
 from investalo_bitget.futures_demo import DemoRejected, clock
 from investalo_bitget.futures_demo_basket import (
-    BasketMarketGrid, BasketMarketIntent, BasketExitIntent, BasketRequestPlan, basket_ack,
+    BasketMarketGrid, BasketMarketIntent, BasketExitIntent, BasketFundingIntent, BasketRequestPlan, basket_ack,
     basket_order_detail, basket_position_match,
 )
 from investalo_bitget.futures_demo_read import DemoReadCredential, SignedDemoReadRequest, HTTPSDemoReadTransport
@@ -90,7 +90,8 @@ class SignedBasketRequest(_PrivateImmutable):
     __slots__ = ("plan", "url", "method", "target", "body", "headers", "_lock", "_used", "_pid")
 
     def __init__(self, lease, intent, operation, *, timestamp_ms, **window):
-        if (type(lease) is not DemoTradingCredentialLease or type(intent) not in (BasketMarketIntent, BasketExitIntent)
+        if (type(lease) is not DemoTradingCredentialLease
+                or type(intent) not in (BasketMarketIntent, BasketExitIntent, BasketFundingIntent)
                 or lease.spec.binding != intent.binding or not clock(timestamp_ms) < lease.expires_ms):
             raise DemoRejected("own_basket_lease_and_intent_required")
         plan = BasketRequestPlan(intent, operation, **window)
@@ -168,6 +169,7 @@ class BasketMarginEvidence:
     filled_quantity: Decimal
     posted_margin: Decimal
     observed_ms: int
+    covered_through_ms: int | None = None
 
     def __post_init__(self):
         from investalo_bitget.futures_demo import number
@@ -175,6 +177,8 @@ class BasketMarginEvidence:
         number(self.filled_quantity, zero=True)
         number(self.posted_margin, zero=True)
         clock(self.observed_ms)
+        if self.covered_through_ms is not None and not clock(self.covered_through_ms) <= self.observed_ms:
+            raise DemoRejected("invalid_native_financial_coverage")
 
 
 @dataclass(frozen=True, repr=False)
@@ -185,6 +189,7 @@ class BasketExitEvidence:
     released_margin: Decimal
     realized_pnl: Decimal
     observed_ms: int
+    covered_through_ms: int | None = None
 
     def __post_init__(self):
         from investalo_bitget.futures_demo import number
@@ -192,6 +197,8 @@ class BasketExitEvidence:
         number(self.filled_quantity, zero=True); number(self.released_margin, zero=True)
         number(abs(self.realized_pnl), zero=True)
         clock(self.observed_ms)
+        if self.covered_through_ms is not None and not clock(self.covered_through_ms) <= self.observed_ms:
+            raise DemoRejected("invalid_native_financial_coverage")
 
 
 @precise
@@ -213,12 +220,14 @@ def _check_exit_baseline(baseline, ledger):
 class BasketOrderDispatcher(_PrivateImmutable):
     __slots__ = ("journal", "provider", "read_transport", "order_transport", "native_guard",
                  "account_guard", "authorize_once", "margin_resolver", "margin_source",
-                 "enabled", "lock", "ip_binding", "now", "pid")
+                 "funding_source", "enabled", "lock", "ip_binding", "now", "pid")
 
     def __init__(self, journal, provider, *, read_transport, order_transport, native_guard,
                  account_guard, shared_lock, ip_binding, authorize_once=None, margin_resolver=None,
-                 margin_source=None, enabled=False, milliseconds=lambda: time.time_ns() // 1_000_000):
+                 margin_source=None, funding_source=None, enabled=False,
+                 milliseconds=lambda: time.time_ns() // 1_000_000):
         from .demo_basket_margin import BasketNativeMarginSource
+        from .demo_basket_funding import BasketNativeFundingSource
         if (type(journal) is not BrokerEntryJournal or type(provider) is not SealedDemoTradingProvider
                 or type(enabled) is not bool or type(shared_lock) is not type(threading.Lock())
                 or ip_binding not in ("single_ip", "unavailable_in_demo")
@@ -226,12 +235,14 @@ class BasketOrderDispatcher(_PrivateImmutable):
                 or authorize_once is not None and not callable(authorize_once)
                 or margin_resolver is not None and not callable(margin_resolver)
                 or margin_source is not None and type(margin_source) is not BasketNativeMarginSource
+                or funding_source is not None and type(funding_source) is not BasketNativeFundingSource
                 or margin_source is not None and margin_resolver is not None):
             raise DemoRejected("invalid_basket_dispatch_installation")
         for name, value in dict(journal=journal, provider=provider, read_transport=read_transport,
                 order_transport=order_transport, native_guard=native_guard, account_guard=account_guard,
                 lock=shared_lock, ip_binding=ip_binding, authorize_once=authorize_once,
                 margin_resolver=margin_resolver, margin_source=margin_source,
+                funding_source=funding_source,
                 enabled=enabled, now=milliseconds, pid=os.getpid()).items():
             object.__setattr__(self, name, value)
 
@@ -411,7 +422,8 @@ class BasketOrderDispatcher(_PrivateImmutable):
                       observation.average_price, observation.reported_fee, margin)
             tail = (matched, parse.EPOCH + timedelta(milliseconds=observation.response_ms),
                 digest((purpose, intent.intent_digest, observation, evidence)),
-                digest((purpose, observation.order_id, observation.created_ms)), observation.updated_ms)
+                digest((purpose, observation.order_id, observation.created_ms)), observation.updated_ms,
+                evidence.covered_through_ms if evidence is not None else None)
             proof = (BrokerExitObservation(*common, evidence.realized_pnl if evidence is not None else None, *tail)
                      if type(intent) is BasketExitIntent else BrokerEntryObservation(*common, *tail))
             if proof == state.book.observation:
@@ -419,5 +431,37 @@ class BasketOrderDispatcher(_PrivateImmutable):
             return self.journal.append("observe_exit" if type(intent) is BasketExitIntent else "observe",
                 expected_revision=expected_revision,
                 at=parse.EPOCH + timedelta(milliseconds=self.now()), observation=proof)
+        finally:
+            self.lock.release()
+
+    def funding(self, *, context, expected_revision):
+        """Actual journal/AEAD GET-only funding producer; no consent consumption or POST."""
+        if not self.enabled or self.pid != os.getpid() or self.funding_source is None:
+            raise DemoRejected("basket_funding_disabled_or_source_missing")
+        if not self.lock.acquire(blocking=False):
+            raise DemoRejected("demo_uid_busy")
+        try:
+            state, receipt = self.journal.checkpoint()
+            binding = self.provider._spec.binding
+            binding.check(context)
+            plan = state.book.signal.profile.plan
+            if (state.revision != expected_revision or state.book.pending is not None
+                    or (plan.tenant_id, plan.account_id) != (str(binding.owner.tenant_id), str(binding.account_id))):
+                raise DemoRejected("original_idle_funding_journal_required")
+            intent = BasketFundingIntent(binding, UUID(self.journal._header["journal_id"]),
+                state.book.state_digest, state.funding_checked_ms, self.now())
+            started = self.now()
+            lease = self._lease(intent, context)
+            self._identity(lease, intent, context)
+            self._lease(intent, context, lease)
+            batch = self.funding_source.read(lease, intent, context=context,
+                book=state.book, guard=lambda: self._lease(intent, context, lease))
+            self._lease(intent, context, lease)
+            if not 0 <= self.now() - started <= 5000:
+                raise DemoRejected("basket_funding_cohort_expired")
+            if batch is None:
+                return None  # Cursor and economic state remain unchanged.
+            return self.journal.append("funding", expected_revision=expected_revision,
+                at=parse.EPOCH + timedelta(milliseconds=self.now()), batch=batch)
         finally:
             self.lock.release()

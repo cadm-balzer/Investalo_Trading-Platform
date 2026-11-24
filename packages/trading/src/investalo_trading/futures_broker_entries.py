@@ -75,6 +75,7 @@ class BrokerEntryObservation(CapitalCanonical):
     evidence_digest: str
     native_order_digest: str | None = None
     native_updated_ms: int | None = None
+    funding_through_ms: int | None = None
 
     def __post_init__(self):
         for value in (self.order_digest, self.evidence_digest):
@@ -87,6 +88,12 @@ class BrokerEntryObservation(CapitalCanonical):
             _sha(self.native_order_digest)
             if type(self.native_updated_ms) is not int or not 0 <= self.native_updated_ms < 10**15:
                 raise ValueError("bounded native update clock required")
+        if self.funding_through_ms is not None:
+            from .futures_broker_funding import milliseconds
+            if (self.native_order_digest is None or type(self.funding_through_ms) is not int
+                    or not milliseconds(self.observed_at) <= self.funding_through_ms
+                    <= milliseconds(self.observed_at) + 5000):
+                raise ValueError("original bounded native financial coverage required")
         number(self.quantity, nonnegative=True)
         if self.average_price is not None:
             number(self.average_price, positive=True)
@@ -170,12 +177,13 @@ class BrokerExitObservation(CapitalCanonical):
     evidence_digest: str
     native_order_digest: str | None = None
     native_updated_ms: int | None = None
+    funding_through_ms: int | None = None
 
     def __post_init__(self):
         # Keep cumulative identity/clock/quantity rules identical to actual entries.
         BrokerEntryObservation(self.order_digest, self.state, self.quantity, self.average_price,
             self.signed_fee, self.released_margin, self.position_matches, self.observed_at,
-            self.evidence_digest, self.native_order_digest, self.native_updated_ms)
+            self.evidence_digest, self.native_order_digest, self.native_updated_ms, self.funding_through_ms)
         if self.realized_pnl is not None:
             number(self.realized_pnl)
 

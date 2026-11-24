@@ -7,7 +7,7 @@ from decimal import Decimal
 from .allocation import identifier, revision
 from .futures_economics import LongPosition
 from .futures_ledger import (
-    ClosedBasket, DailyBasis, EntryFill, ExitFill, FundingSettlement, FuturesLedgerState,
+    ClosedBasket, DailyBasis, EntryFill, ExitFill, FundingSettlement, BrokerFundingPayment, FuturesLedgerState,
     LedgerCommand, LedgerMark, LiquidationSettlement, MarginPosting, MarkBatch, PHASES,
     apply_futures_event, number, start_futures_ledger, timestamp,
 )
@@ -108,7 +108,8 @@ class CapitalReservedCashPlan(CapitalRealizedCashPlan):
 
     @precise
     def basket_cost_usage(self, basket):
-        return basket.entry_fees + basket.exit_fees + basket.cost_restored
+        return (basket.entry_fees + basket.exit_fees + basket.cost_restored
+                + getattr(basket, "funding_wallet_cost", ZERO))
 
     @precise
     def cost_restoration_capacity(self, basket):
@@ -417,7 +418,8 @@ def prepare_capital_entry(state, symbol, maximum_price, at):
         # Keep principal restoration backing separate from unused cost reserve.
         if isinstance(plan, CapitalCashPlan):
             reserves += max(ZERO, plan.basket_cost_usage(row)
-                            - row.entry_fees - row.exit_fees - row.cost_restored)
+                            - row.entry_fees - row.exit_fees - row.cost_restored
+                            - getattr(row, "funding_wallet_cost", ZERO))
         else:
             reserves += max(ZERO, row.margin_committed - row.isolated_balance)
     if legacy.unposted_cash_after < reserves:
@@ -508,7 +510,7 @@ def record_capital_broker_fill(state, assessment, payload, event_id, expected_re
 def record_capital_event(state, payload, event_id, expected_revision, at):
     """Trusted complete economic evidence; no invented fills, funding or topups."""
     at = _check(state, expected_revision, at)
-    if type(payload) not in (MarkBatch, DailyBasis, FundingSettlement, ExitFill,
+    if type(payload) not in (MarkBatch, DailyBasis, FundingSettlement, BrokerFundingPayment, ExitFill,
                             LiquidationSettlement, MarginPosting):
         raise ValueError("unsupported capital event; entries require model admission")
     if isinstance(payload, MarginPosting) and not payload.cost_restoration:
