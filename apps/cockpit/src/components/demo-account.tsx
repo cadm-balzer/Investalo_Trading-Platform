@@ -7,6 +7,7 @@ import { DemoStartupReport } from "./demo-startup";
 import { parseDemoBTCMarketTest, type DemoBTCMarketTest } from "../lib/demo-btc-test-contract";
 import { DemoBTCTestReport } from "./demo-btc-test";
 import { DemoMarketOrder } from "./demo-market-order";
+import { DemoSignalsPanel } from "./demo-signals";
 
 const money = (v: string | null) => v === null ? "—" :
   `${new Intl.NumberFormat("de-DE", { maximumFractionDigits: 2 }).format(Number(v))} USDT`;
@@ -98,6 +99,8 @@ export function DemoAccountPanel({ tenantId, csrf, marketTest = false }: { tenan
             <td>{p.leverage === null ? "—" : `${Number(p.leverage)}×`}</td>
             <td>{p.margin_mode === "isolated" ? "Isoliert" : "Cross"}</td><td>{money(p.liquidation_price)}</td></tr>)}</tbody></table></div>}
     </>}
+    {data && <DemoSignalsPanel key={`${tenantId}:${data.account_id}`} tenantId={tenantId}
+      accountId={data.account_id} positions={data.positions} />}
     <div className="card-heading"><div><h3>Demo-Handelsstart vorbereiten</h3>
       <p>Prüfe Kontoeinstellungen und offene Aufträge für den ersten Test mit 2× Hebel und isolierter Margin.</p></div>
       <button type="button" className="button secondary" disabled={busy || checking || !data} onClick={() => void inspect("startup")}>

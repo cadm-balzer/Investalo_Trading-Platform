@@ -6,6 +6,7 @@ import ts from "typescript";
 import * as contract from "../src/lib/demo-account-contract.ts";
 import * as startupContract from "../src/lib/demo-startup-contract.ts";
 import * as btcContract from "../src/lib/demo-btc-test-contract.ts";
+import * as signalContract from "../src/lib/demo-signals-contract.ts";
 import * as authorization from "../src/lib/authorized-session.ts";
 import * as metadataContract from "../src/lib/demo-trading-credential-action-contracts.ts";
 import * as objectContract from "../src/lib/passkey-enrollment-state.ts";
@@ -110,6 +111,7 @@ function fixture() {
     "./credential-action-contracts.ts": uuidContract, "./demo-account-contract.ts": contract,
     "./demo-startup-contract.ts": startupContract,
     "./demo-btc-test-contract.ts": btcContract,
+    "./demo-signals-contract.ts": signalContract,
     "./demo-trading-credential-action-contracts.ts": metadataContract,
     "./backend.ts": { apiRequest: async (_session: unknown, path: string) => path === "/v1/me" ?
       { user: { id: id(4), subject: "synthetic", auth_epoch: 3 },
@@ -167,6 +169,7 @@ test("initial actual panel SSR offers refresh and invents no balances or positio
     "./demo-startup": { DemoStartupReport: () => null },
     "./demo-btc-test": { DemoBTCTestReport: () => null },
     "./demo-market-order": { DemoMarketOrder: () => null },
+    "./demo-signals": { DemoSignalsPanel: () => null },
     "../lib/demo-btc-test-contract": btcContract,
     "next/link": { default: ({ href, children }: any) => React.createElement("a", { href }, children) },
   });
@@ -217,8 +220,8 @@ test("Market preview UI describes estimated amounts without a guaranteed price o
   assert.doesNotMatch(html, /Limitpreis|Maximaler Positionswert|<button/);
 });
 test("readonly adapter sends exact separate signed purpose and independent session over real mTLS", async t => {
-  let calls = 0, published: contract.DemoAccount | startupContract.DemoStartup | btcContract.DemoBTCTest | btcContract.DemoBTCMarketTest = view(),
-    inspecting: "startup" | "btc-test" | "btc-market" | undefined;
+  let calls = 0, published: contract.DemoAccount | startupContract.DemoStartup | btcContract.DemoBTCTest | btcContract.DemoBTCMarketTest | signalContract.DemoSignals = view(),
+    inspecting: "startup" | "btc-test" | "btc-market" | "signals" | undefined;
   const key = Buffer.alloc(32, 7), now = Math.floor(Date.now()/1000);
   const native = await demoTlsFixture(t, (request, response) => {
     calls++;
@@ -249,6 +252,7 @@ test("readonly adapter sends exact separate signed purpose and independent sessi
   const executor = load("../src/lib/demo-account-executor.ts", {
     "./demo-account-contract.ts": contract, "./demo-startup-contract.ts": startupContract,
     "./demo-btc-test-contract.ts": btcContract,
+    "./demo-signals-contract.ts": signalContract,
     "./demo-trading-passkey-action-proof-state.ts": proof,
     "node:https": { default: { request: (_uri: URL, options: any, callback: any) =>
       https.request(new URL(native.origin), options, callback) } },
@@ -280,7 +284,19 @@ test("readonly adapter sends exact separate signed purpose and independent sessi
   assert.deepEqual(await executor.readDemoAccount(marketInput), published);
   published = btcView();
   await assert.rejects(executor.readDemoAccount(marketInput), /DEMO_ACCOUNT_UNAVAILABLE/);
-  assert.equal(calls, 8);
+  inspecting = "signals";
+  const observed = new Date(), closed = Math.floor(observed.getTime()/3600000)*3600000;
+  published = { schema: "investalo-demo-signals/1", tenant_id: id(1), account_id: id(2),
+    source: "bitget_classic_demo", execution_enabled: false, observed_at: observed.toISOString(),
+    timeframe: "H1", rsi_period: 14, warmup_bars: 300, next_candle_close: new Date(closed+3600000).toISOString(),
+    assets: signalContract.DEMO_SIGNAL_SYMBOLS.map(symbol => ({ symbol, status: "confirmed",
+      rsi: "0", previous_rsi: "0", below_count: 2, close_price: "100",
+      candle_closed_at: new Date(closed).toISOString(), fetched_at: observed.toISOString(), entry_condition: "confirmed" })) };
+  const signalsInput = { ...input, target: { ...input.target, inspection: "signals" } };
+  assert.deepEqual(await executor.readDemoAccount(signalsInput), published);
+  published = view();
+  await assert.rejects(executor.readDemoAccount(signalsInput), /DEMO_ACCOUNT_UNAVAILABLE/);
+  assert.equal(calls, 10);
 });
 test("startup contract rejects authority flags, leaked IDs, missing axes and a fake matching profile", () => {
   const report = startupView(); report.observed_at = report.account.observed_at;

@@ -66,6 +66,21 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-24: PR120/main97241f9 verifiziert; Nutzer genehmigt automatischen
+Demohandel mit Dashboard-Startfreigabe und wünscht aktuelle RSI-Anzeige.
+Eigene [Demo-H1-Signalbeobachtung](bitget-demo-h1-signals.md) über originalen
+Session-/Actor-/Tradingmetadaten-/mTLS-Leseweg: sieben Kandidaten,
+300 abgeschlossene H1-Kerzen, gemeinsame Decimal-Wilder-Berechnung,
+Originalzeiten/Stundencache und einzeln unbekannte Quellen. Anzeige von
+RSI/Vorwert/Abstand zu30 und Erstkaufbestätigungen; keine erfundene
+Nachkaufgrenze aus Durchschnittseinstand. Startbereich bleibt wahrheitsgetreu
+„Noch nicht gestartet“; operative Start-/Pause-Freigabe und vollständiger
+Worker/Marginabgleich weiterhin offen.87 betroffene Python-/40 Nodefälle
+grün, tatsächlicher schlüsselloser BTC-Abruf RSI44,90848 bestätigt.
+Volle Typprüfung/beide finalen Produktionsbuilds grün; gepackter öffentlicher
+Collector bestätigt alle sieben Assets mit tatsächlichem Python→TS-Vertrag.
+Autorisierter Rollout folgt.
+
 2026-11-24: PR119/maine6e5b46 verifiziert. Eigene
 [native Basket-Marketanbindung](bitget-demo-basket-native-orders.md)
 verbindet Journal mit Trading-AEAD/HMAC, eigener stabiler Clientkennung,

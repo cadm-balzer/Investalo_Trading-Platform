@@ -114,11 +114,13 @@ def validate_view(value):
 
 class DemoAccountReader:
     def __init__(self, config, context, *, connect, keyring, signing_key, native,
-                 market_read=public_demo_btc_get):
+                 market_read=public_demo_btc_get, signal_monitor=None):
         self.config, self.context = config, context
         self.connect, self.keyring, self.signing_key, self.native = connect, keyring, signing_key, native
         self.seen, self.seen_lock, self.pid = {}, threading.Lock(), os.getpid()
         self.market_read = market_read
+        from investalo_bitget.futures_demo_signals import DemoSignalMonitor
+        self.signal_monitor = signal_monitor or DemoSignalMonitor()
 
     def _authorize(self, context, token, body):
         try:
@@ -154,7 +156,7 @@ class DemoAccountReader:
                 raise ValueError()
             target = _json(body)
             if (type(target) is not dict or set(target) not in (TARGET_FIELDS, TARGET_FIELDS | {"inspection"})
-                    or "inspection" in target and target["inspection"] not in ("startup", "btc-test", "btc-market")
+                    or "inspection" in target and target["inspection"] not in ("startup", "btc-test", "btc-market", "signals")
                     or str(UUID(target["platform_account_id"])) != target["platform_account_id"]
                     or target["platform_account_id"] != str(self.config["account_id"])
                     or str(UUID(target["connection_id"])) != target["connection_id"]
@@ -172,7 +174,47 @@ class DemoAccountReader:
 
     def __call__(self, request_context, token, body):
         target, expires = self._authorize(request_context, token, body)
+        if target.get("inspection") == "signals":
+            return self._read_signals(request_context, target, expires)
         return self._read_current(request_context, target, expires)
+
+    def _read_signals(self, request_context, target, expires):
+        """Read public market data after current actor/Trading metadata checks.
+
+        Does not decrypt the broker triple or acquire the account/order mutex.
+        The source cache cannot cache an actor or credential authorization.
+        """
+        try:
+            owner = OwnerContext(self.context.tenant_id, self.context.user_id)
+            binding = DemoBinding(owner, self.context_account(), UUID(target["connection_id"]),
+                                  self.config["broker_uid"])
+            store = DemoTradingCredentialStore(DemoStoreAuthority(self.context,
+                auth_epoch=request_context.auth_epoch,
+                auth_time_ms=request_context.oidc_auth_time * 1000, expires_ms=expires),
+                connect=self.connect)
+
+            def guard():
+                self.native.guard()
+                if os.getpid() != self.pid or time.time_ns() // 1_000_000 >= expires:
+                    raise ValueError()
+                current = store.read_snapshot(binding, owner)
+                if (current.storage_version != target["storage_version"]
+                        or current.spec.parent_uid != self.config["parent_uid"]
+                        or current.spec.egress_ip != self.config["egress_ip"]):
+                    raise ValueError()
+                return current
+
+            before = guard()
+            source = self.signal_monitor()
+            after = guard()
+            if (before.spec.record() != after.spec.record()
+                    or dump_envelope(before.envelope) != dump_envelope(after.envelope)):
+                raise ValueError()
+            return dict(schema="investalo-demo-signals/1", tenant_id=str(owner.tenant_id),
+                account_id=str(binding.account_id), source="bitget_classic_demo",
+                execution_enabled=False, **source)
+        except Exception:
+            raise OnboardingRejected("unavailable") from None
 
     def _read_current(self, request_context, target, expires, *, market_basis=False, lock_held=False):
         """Internal native source after independently verified read/order context.
