@@ -467,6 +467,44 @@ def _book(state, payload, event_id, at):
 
 
 @precise
+def record_capital_broker_fill(state, assessment, payload, event_id, expected_revision, at):
+    """Book reconciled terminal entry evidence against an earlier admitted order.
+
+    Market VWAP need not be on a price tick or below the planning price.
+    Reported margin and fees are evidence, never inferred from model rates.
+    The caller owns durable order consumption and pending/partial reconciliation.
+    """
+    at = _check(state, expected_revision, at)
+    if type(assessment) is not CapitalAssessment or not assessment.allowed or type(payload) is not EntryFill:
+        raise ValueError("admitted order and actual typed entry fill required")
+    plan, request = state.ledger.plan, assessment.request
+    if (request.tenant_id, request.account_id, request.plan_digest) != (
+            plan.tenant_id, plan.account_id, plan.plan_digest):
+        raise ValueError("foreign broker entry")
+    index = plan.symbols.index(request.symbol)
+    basket = state.ledger.baskets[index]
+    cycle = basket.cycle if basket.quantity else basket.cycle + 1
+    stage = 1 + sum((r.symbol, r.cycle) == (request.symbol, cycle) for r in state.stages)
+    decisions = tuple(r for r in state.decisions if (r.symbol, r.cycle) == (request.symbol, cycle))
+    if (stage != assessment.stage or stage > 5 or len(decisions) != 1
+            or decisions[0].leverage != request.requested_leverage
+            or payload.symbol != request.symbol or payload.quantity > request.quantity
+            or payload.broker_leverage != request.requested_leverage or payload.posted_margin <= 0):
+        raise ValueError("broker fill differs from admitted stage")
+    command = LedgerCommand(
+        plan.tenant_id, plan.account_id, plan.plan_digest, state.ledger.revision,
+        event_id, at, payload,
+    )
+    # Research grid validation assumes a single modeled price. Native VWAP can
+    # fall between ticks; the ledger still validates actual base quantity.
+    transition = apply_futures_event(state.ledger, command)
+    receipt = StageReceipt(payload.symbol, cycle, stage, payload.quantity,
+                           payload.price, payload.posted_margin, event_id)
+    return _finish(state, at, event_id, ("broker-entry", assessment, payload),
+                   ledger=transition.state, stages=(*state.stages, receipt))
+
+
+@precise
 def record_capital_event(state, payload, event_id, expected_revision, at):
     """Trusted complete economic evidence; no invented fills, funding or topups."""
     at = _check(state, expected_revision, at)

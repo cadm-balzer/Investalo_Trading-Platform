@@ -66,6 +66,16 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-24: PR117/main89a511c verifiziert; technischer Demo-Roundtrip
+abgeschlossen. Eigener [H1-Basket-Kaufabgleich](bitget-demo-h1-basket-entries.md)
+verbindet RSI/Staffel und Kaufmargin×2 mit tatsächlicher Menge, Fillkurs,
+Gebühr und bestätigtem Stufendebit. Kumulative Teilfills zählen einmal;
+fehlende Belege bleiben ausstehend, Marketabweichungen werden wahrheitsgetreu
+gebucht. Fünf reguläre Stufen/manuelle sechste, finanzierte Plätze und
+6-/8-%-Warnungen geprüft.21 neue/155 verschiedene gepinnte Fälle plus69
+Subtests grün; eigene dauerhafte
+Worker-/Orderanbindung und originale Dashboard-Startfreigabe folgen.
+
 2026-11-24: [Abschluss-Test](bitget-demo-market-close.md) implementiert:
 eigene Vorbereitung/Zustimmung, exakt bestätigte ursprüngliche BTC-Menge,
 Market Reduce-only, derselbe einmalige Journal-/Consumerablauf.

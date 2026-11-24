@@ -8,6 +8,18 @@ konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
+IP-015/IP-016: [H1-Basket-Kaufabgleich](../bitget-demo-h1-basket-entries.md)
+`DONE` als Domainanbindung nach PR117/main89a511c:
+gemeinsame RSI-/Kapitalprüfung, Stufenmargin×2/fester Baskethebel,
+fünf tatsächliche Kaufstufen und manuelle sechste. Kumulative Teilfills/
+Unknowns bleiben ausstehend; terminale Teilfills zählen einmal, gemeldete
+Gebühren/Margin/VWAP werden gebucht. Rastermaxima verkleinern die Staffel
+nicht still,6-/8-% bleiben Warnungen.21 neue/155 verschiedene gepinnte Fälle
+und69 Subtests grün.
+Operative Gesamtanbindung `IN_PROGRESS`: eigenes dauerhaftes Basketjournal/
+Restore, nativer H1-/Konto-/Orderadapter und Dashboard-Startfreigabe folgen.
+Keine neuen nativen Orders, kein Deployment zur Aktivierung dieses Reducers.
+
 IP-015/IP-016: [Operativer einzelner Markettest](../bitget-demo-market-runtime.md)
 `IN_PROGRESS`: PR114/main563d49c verifiziert, Nutzer verlangt tatsächlichen
 Demotest. Originale Session-/Actor-/Metadaten-/mTLS-/AEAD-Anbindung für
