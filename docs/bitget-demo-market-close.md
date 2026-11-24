@@ -108,3 +108,29 @@ Der Nutzer wurde gebeten, den Abschluss aus seiner ursprünglichen
 Dashboard-Sitzung vorzubereiten, einmal zu bestätigen und anschließend
 den Teststatus abzufragen. Die tatsächliche Abschluss-/Nullpositions-
 abnahme ist bis zu diesem Originalaufruf offen.
+
+## Tatsächlicher Abschluss bestätigt
+
+Der Nutzer bestätigt anschließend vollständige Ausführung und Nullposition
+im Cockpit. Die unabhängige lesende Journalkontrolle bestätigt die
+kanonische Hashkette und den Checkpoint Revision8:
+prepare2/dispatch2/ack2/observation2, genau zwei verbrauchte Zustimmungen.
+Eröffnung und Abschluss sind jeweils vollständig mit0,0003BTC gespeichert.
+Eröffnung Ø61.425,7USDT/Gebühr−0,01105662USDT; Reduce-only-Abschluss
+Ø61.207USDT/Gebühr−0,01101726USDT. Keine zweite Eröffnung oder
+Wiederholung des Abschlusses.
+
+Letzte tatsächliche private Diagnose `market_observe/completed`,
+3822ms, HTTP200/native00000/kein Fehler. Der erfolgreiche Abschlussaufruf
+enthält den separaten frischen Kontoabruf; die vom Nutzer bestätigte
+Nullpositionsanzeige verlangt die bekannten Nullbeträge und den echten
+Positionsabgleich. Der konkrete Equitybetrag wurde vom Nutzer nicht
+übermittelt und wird hier nicht aus den Fills oder Gebühren erfunden.
+Der Audit selbst stellt keine native Anfrage und schreibt das Journal
+nicht um.
+
+Der einzelne technische Eröffnungs-/Abschlusstest ist `DONE`.
+Nächster Schritt ist die operative Anbindung des bestehenden H1-RSI-/
+Basketkerns: feste Eigenkapitalbeträge je Kauf × Baskethebel, echte
+gestaffelte Nachkäufe und Supertrend-Ausstiege. Die technische20USDT-
+Testbudgetierung wird dafür nicht übernommen.

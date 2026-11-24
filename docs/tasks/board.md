@@ -30,7 +30,7 @@ Checkpoint Revision4 geprüft: prepare1/dispatch1/ack1/observation1,
 verbrauchter Consent1. Private native Beobachtung completed/2132ms/
 HTTP200/00000. Kein zusätzlicher Brokeraufruf im Abnahmeaudit.
 
-IP-015/IP-016: [Abschluss derselben Testposition](../bitget-demo-market-close.md) `IN_PROGRESS`.
+IP-015/IP-016: [Abschluss derselben Testposition](../bitget-demo-market-close.md) `DONE`.
 Eigener Reduce-only-Marketabschluss implementiert: aktuelle Mengen-/
 Einstands-/Profilprüfung und gesonderte Dashboardbestätigung; einmaliger
 Versand im bestehenden Journal. Frische Nullposition und Ein-/Ausstiegs-
@@ -41,8 +41,13 @@ Eröffnungsjournal tatsächlich unverändert Revision4. Rollout `DONE`:
 Cockpit+Executor und notwendige Executor-only-Launcherweiterleitung0ad9681,
 sechs Originaloverlays/Key1/1/alle Journaldateihashes erhalten.
 TLS/Auth/mTLS geprüft, private Originalimage-/Aktivbelege vorhanden.
-PR117 bereit; native Abschlussabnahme `IN_PROGRESS`, Originalnutzerstart
-mit Abschlussvorbereitung/einmaligem Versand/Status angefragt.
+PR117 bereit; native Abschlussabnahme `DONE`: Nutzer bestätigt vollständige
+Ausführung/Nullposition, tatsächlicher Journalcheckpoint Revision8 mit
+genau zwei Versänden/ACKs/Fills, Verbrauch2. Abschluss0,0003BTC/
+Ø61.207USDT/Gebühr−0,01101726USDT. Private Beobachtung+Kontolesen
+completed/3822ms/200/00000. Lesender Audit ohne zusätzlichen Brokeraufruf.
+Operative H1-/Basketanbindung `READY`, Eigenkapital-Kaufstaffel×Hebel
+und gestaffelte Nachkäufe/Exits aus bestehendem Kern übernehmen.
 Anschließend operativer H1-Demobasketablauf mit tatsächlichen Nachkäufen
 und Exits; Gesamtintegration bleibt `IN_PROGRESS`.
 

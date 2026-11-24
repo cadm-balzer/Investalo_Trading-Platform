@@ -37,6 +37,14 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   redeployment. Healthy Cockpit, readonly UID10003/no ports/log none/restarts0.
   PR117 prepared; original Dashboard close/observe requested, native close
   acceptance pending. No deployment broker order or fabricated session.
+  User original close subsequently succeeded: complete fill and flat
+  confirmed. Read-only original journal/checkpoint hashchain revision8:
+  prepare2/dispatch2/ack2/observation2, consumed grants2. Exactly0.0003BTC
+  open61425.7/fee-0.01105662, reduce_long close61207/fee-0.01101726.
+  Actual observe+fresh settlement completed3822ms/native200/00000/no error.
+  No native request or ledger rewrite by acceptance audit; concrete equity
+  value not reported, no synthetic PnL/cash attestation. Technical roundtrip
+  DONE; next operative H1/own-margin×leverage/basket integration READY.
   See docs/bitget-demo-market-close.md.
 - User reaffirms Q42 on2026-11-24: every planned basket-stage amount is
   own-capital margin; order notional = stage capital × fixed basket leverage,
