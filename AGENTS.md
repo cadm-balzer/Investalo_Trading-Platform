@@ -20,10 +20,15 @@ Working Project Folder: /opt/Investalo_Trading-Platform
   unknown remain visible. Local actual ASGI/Node mTLS and AEAD/journal
   tests use synthetic native/actor ports. Native closing awaits original
   Dashboard consent; no operator session/context fabrication.
-  172 distinct affected Python/75 pinned Node/full typecheck/final two
+  173 distinct affected Python/75 pinned Node/full typecheck/final two
   production builds green. Actual original journal still revision4;
   necessary Demo-test rollout follows. Before-close old image rollback
   only; after close journal commands preserve state and use compatible fix.
+  Final actual launcher closure test catches old3-action forwarding list;
+  production closure now uses exact own Market TARGETS, rejects unknown/
+  uninstalled actions. Actual ASGI close runs through same launcher closure;
+  focused70 launcher/HTTP/Market cases green, Executor rebuilt. Necessary
+  executor-only correction follows first rollout; original journal4 retained.
   See docs/bitget-demo-market-close.md.
 - User reaffirms Q42 on2026-11-24: every planned basket-stage amount is
   own-capital margin; order notional = stage capital × fixed basket leverage,

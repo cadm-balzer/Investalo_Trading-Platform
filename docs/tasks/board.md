@@ -36,7 +36,7 @@ Einstands-/Profilprüfung und gesonderte Dashboardbestätigung; einmaliger
 Versand im bestehenden Journal. Frische Nullposition und Ein-/Ausstiegs-
 gebühren/Kontostand werden getrennt abgeglichen. Teilfill/Unknown,
 fehlendes ACK-ID, Restore und falsche Menge/Zwecke geprüft.
-172 Python-/75 Nodefälle/volle Typprüfung/beide finalen Builds grün.
+173 Python-/75 Nodefälle/volle Typprüfung/beide finalen Builds grün.
 Eröffnungsjournal tatsächlich unverändert Revision4; operativer Rollout
 und Originalnutzerabschluss folgen.
 Anschließend operativer H1-Demobasketablauf mit tatsächlichen Nachkäufen

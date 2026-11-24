@@ -147,6 +147,16 @@ class CloseRuntimeTests(unittest.TestCase):
         c.call("market_close_submit",p["consent_request"])
         self.assertEqual(len(c.posts),2)
 
+    def test_launcher_market_dispatch_requires_installed_service_and_exact_known_action(self):
+        from investalo_credential_store.demo_trading_runtime import _application_executor
+        c=self.case
+        for service,action in ((None,"market_close_prepare"),(c.runtime,"market_unknown")):
+            execute=_application_executor(c.f.config,c.f.reader.context,connect=None,verifier=None,
+                provision=c.f.native,keyring=c.f.reader.keyring,guard=c.runtime._guard,
+                account_read=c.f.reader,market_test=service)
+            with self.assertRaises(OnboardingRejected):execute(c.f.context,action,"",b"")
+        self.assertFalse(c.posts)
+
 
 class CloseASGITests(base.MarketASGITests):
     test_actual_asgi_mtls_prepare_submit_observe_retains_original_actor_context = None
@@ -162,7 +172,13 @@ class CloseASGITests(base.MarketASGITests):
 
     def test_actual_asgi_mtls_owned_close_and_original_account_settlement(self):
         from investalo_credential_store.private_http import DemoMarketTestHTTPApplication
-        with self.server(execute=self.case.runtime,application_type=DemoMarketTestHTTPApplication) as service:
+        from investalo_credential_store.demo_trading_runtime import _application_executor
+        # Exercise the actual launcher dispatch closure, rather than wiring
+        # the Market service straight into the TLS adapter.
+        execute=_application_executor(self.case.f.config,self.store,connect=None,verifier=None,
+            provision=self.case.f.native,keyring=self.case.f.reader.keyring,guard=self.case.runtime._guard,
+            account_read=self.case.f.reader,market_test=self.case.runtime)
+        with self.server(execute=execute,application_type=DemoMarketTestHTTPApplication) as service:
             def call(action,body):
                 code,data=self.response(self.exchange(service,self.wire(action,body)))
                 self.assertEqual(code,200);return data

@@ -73,7 +73,7 @@ Frische Originalposition und Pendingfamilien geprüft; Preisanstieg über
 den20USDT-Testwert verhindert keine Reduzierung. Nullposition, gemeldete
 Ein-/Ausstiegsgebühren und aktueller Kontowert werden separat abgeglichen.
 Teilfill/Unknown werden nicht als vollständiger Abschluss ausgegeben.
-172 Python-/75 Nodefälle, volle Typprüfung und beide Produktionsbuilds
+173 Python-/75 Nodefälle, volle Typprüfung und beide Produktionsbuilds
 grün. Bestehendes tatsächliches Eröffnungsjournal unverändert Revision4.
 Operativer Rollout und echte Abnahme folgen im bestehenden Demo-Testumfang.
 

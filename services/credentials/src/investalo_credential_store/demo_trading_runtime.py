@@ -285,10 +285,20 @@ def create_application():
         from .demo_market_runtime import DemoMarketTestRuntime
         market_test = DemoMarketTestRuntime(account_read)
 
+    execute = _application_executor(config, context, connect=connect, verifier=verifier,
+        provision=provision, keyring=keyring, guard=guard, account_read=account_read, market_test=market_test)
+    application = (DemoMarketTestHTTPApplication if market_test is not None else
+        DemoTradingAccountHTTPApplication if account_read is not None else DemoTradingCredentialHTTPApplication)
+    return config, application(context, execute, enabled=True)
+
+
+def _application_executor(config, context, *, connect, verifier, provision, keyring, guard, account_read, market_test):
+    """The same fixed trusted dispatch closure used by the operative launcher."""
     def execute(request_context, action, token, body):
         guard()
-        if action in ("market_prepare", "market_submit", "market_observe"):
-            if market_test is None:
+        if action.startswith("market_"):
+            from .demo_market_runtime import TARGETS
+            if market_test is None or action not in TARGETS:
                 raise OnboardingRejected("access_denied")
             return market_test(request_context, action, token, body)
         if action == "account_read":
@@ -301,9 +311,7 @@ def create_application():
             request_context=request_context, provision=provision, load_keyring=keyring,
             expected_egress_ip=config["egress_ip"]).apply(action, token=token, body=body)
 
-    application = (DemoMarketTestHTTPApplication if market_test is not None else
-        DemoTradingAccountHTTPApplication if account_read is not None else DemoTradingCredentialHTTPApplication)
-    return config, application(context, execute, enabled=True)
+    return execute
 
 
 def main(argv=None):

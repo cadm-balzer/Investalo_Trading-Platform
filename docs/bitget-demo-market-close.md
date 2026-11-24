@@ -59,10 +59,16 @@ AEAD, Registry, Consentverbrauch, Journalrestore, fehlendes Reduce-only-ACK,
 Unknown/Teilfill, falsche Menge/Zweck/Actor und steigenden Notionalwert.
 Die Actor-/DB-Ports und nativen Brokerantworten dieser Tests sind synthetisch.
 Es werden keine realen Brokeraufträge aus Test-/Operator-Kontexten erzeugt.
-172 unterschiedliche betroffene Pythonfälle und75 gepinnte Nodefälle
+173 unterschiedliche betroffene Pythonfälle und75 gepinnte Nodefälle
 bestanden. Vollständige Typprüfung und beide finalen Produktionsbuilds
 grün; Next-Produktions-Typprüfung18,3s. Vor Rollout ist das tatsächliche
 Eröffnungsjournal weiterhin Revision4 mit genau einem Versuch/ACK/Fill.
+Die abschließende Launcherprüfung fand die noch auf drei Eröffnungsaktionen
+begrenzte Weiterleitung. Die produktive Closure verwendet jetzt dieselbe
+exakte Market-Actionliste wie der HTTP-Adapter. Der tatsächliche ASGI-/mTLS-
+Abschlusstest läuft durch diese Launcher-Closure; fehlende Installation und
+unbekannte Aktionen werden vor Weiterleitung abgewiesen.70 betroffene
+Launcher-/HTTP-/Marktfälle anschließend grün, finaler Executor neu gebaut.
 
 Beide Produktionsimages werden auf dem kleinen Host nacheinander gebaut.
 Der bestehende einzelne Demo-Testumfang und die ursprünglichen sechs
