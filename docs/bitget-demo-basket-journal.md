@@ -1,5 +1,8 @@
 # Dauerhaftes H1-Basketjournal
 
+Weiterführung nach PR124: [gemeinsamer Order-/Fundingabschluss](bitget-demo-order-funding-settlement.md)
+ergänzt `settle_order_funding` im neuen Format `/6`.
+
 Weiterführung nach PR123: [native Fundingbuchungen](bitget-demo-basket-funding.md)
 ergänzen den vollständigen Fundingprüfzeitraum und gehashte Bill-Identitäten
 im neuen Format `/5`.

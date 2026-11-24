@@ -29,6 +29,7 @@ from investalo_bitget.signing import ORIGIN, RedactedHeaders, hmac_sha256_base64
 from investalo_bitget.transport import MAX_RESPONSE_BYTES, ReadResponse, _NoRedirect
 from investalo_trading.capital_digest import digest
 from investalo_trading.futures_broker_entries import BrokerEntryObservation, BrokerExitOrder, BrokerExitObservation
+from investalo_trading.futures_broker_settlement import BrokerOrderFundingSettlement
 from investalo_trading.futures_broker_journal import (
     BrokerEntryJournal, BrokerSubmissionUnknown, VERSION as JOURNAL_VERSION,
 )
@@ -403,10 +404,16 @@ class BasketOrderDispatcher(_PrivateImmutable):
                     evidence = self.margin_source.resolve(lease, intent, observation, positions,
                         baseline=state.current_attempt.margin_baseline, context=context,
                         expected_positions=expected, attempted_ms=milliseconds(state.current_attempt.attempted_at),
-                        guard=lambda: self._lease(intent, context, lease))
+                        guard=lambda: self._lease(intent, context, lease),book=state.book)
                 else:
                     evidence = self.margin_resolver(intent, observation, positions, context)
                 if evidence is not None:
+                    if type(evidence) is BrokerOrderFundingSettlement:
+                        self._lease(intent,context,lease)
+                        if not 0<=self.now()-started<=5000:
+                            raise DemoRejected("basket_observation_cohort_expired")
+                        return self.journal.append("settle_order_funding",expected_revision=expected_revision,
+                            at=parse.EPOCH+timedelta(milliseconds=self.now()),settlement=evidence)
                     expected_type = BasketExitEvidence if type(intent) is BasketExitIntent else BasketMarginEvidence
                     if (type(evidence) is not expected_type or evidence.order_digest != intent.order_digest
                             or evidence.filled_quantity != observation.quantity

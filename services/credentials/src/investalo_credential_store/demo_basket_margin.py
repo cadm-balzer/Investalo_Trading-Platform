@@ -10,6 +10,7 @@ from investalo_bitget.futures_demo_margin import (
     MAX_PAGES, capture_margin_baseline, parse_bill_page, reconcile_margin, reconcile_exit,
 )
 from investalo_bitget.futures_demo_basket import BasketExitIntent
+from investalo_bitget.futures_demo_settlement import reconcile_order_funding
 from .demo_basket_orders import SignedBasketRequest, BasketMarginEvidence, BasketExitEvidence
 from .models import _PrivateImmutable
 
@@ -44,7 +45,7 @@ class BasketNativeMarginSource(_PrivateImmutable):
             now_ms=self.now(), expected_positions=expected_positions)
 
     def resolve(self, lease, intent, observation, positions, *, baseline,
-                context, expected_positions, attempted_ms, guard):
+                context, expected_positions, attempted_ms, guard, book=None):
         if baseline is None or observation.state not in ("filled", "canceled"):
             return None
         try:
@@ -67,6 +68,10 @@ class BasketNativeMarginSource(_PrivateImmutable):
             result = reducer(baseline, wallet, positions, tuple(pages), intent, observation,
                 context=context, now_ms=self.now(), expected_positions=expected_positions,
                 attempted_ms=attempted_ms)
+            if result is None and book is not None:
+                return reconcile_order_funding(baseline,wallet,positions,tuple(pages),intent,observation,book,
+                    context=context,now_ms=self.now(),expected_positions=expected_positions,
+                    attempted_ms=attempted_ms)
         except (ValueError, BitgetRejected, OSError):
             # The order fill remains observable with unknown margin. A separate
             # final dispatcher lease/actor guard still prevents revoked publication.

@@ -24,6 +24,7 @@ from .futures_broker_entries import (
 )
 from .futures_broker_margin import BrokerMarginBaseline
 from .futures_broker_funding import BrokerFundingBatch, record_broker_funding, milliseconds
+from .futures_broker_settlement import BrokerOrderFundingSettlement, record_order_funding
 from .identity_history import IdentityHistory
 from .futures_capital_grid import CapitalGridPlan
 from .futures_capital_journal import CapitalReplayJournal, MAX_FILE_BYTES, MAX_LINE_BYTES
@@ -40,7 +41,7 @@ from .futures_paper_profit_plan import CapitalPaperProfitPlan
 from .futures_replay_journal import JournalCommitUnknown, _fields, _json, _open, _sha
 from .snapshot import _decode, primitive
 
-VERSION = "bitget-demo-h1-basket-entry-journal/5"
+VERSION = "bitget-demo-h1-basket-entry-journal/6"
 MAX_COMMANDS = 50_000
 PLANS = {p.capital_policy: p for p in (
     CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan,
@@ -57,6 +58,7 @@ ARGUMENTS = {
     "observe": {"observation": BrokerEntryObservation},
     "observe_exit": {"observation": BrokerExitObservation},
     "funding": {"batch": BrokerFundingBatch},
+    "settle_order_funding": {"settlement": BrokerOrderFundingSettlement},
 }
 
 
@@ -235,6 +237,19 @@ def _apply(state, command):
             if args["observation"].funding_through_ms > milliseconds(at):
                 raise ValueError("future native financial coverage")
             funding_checked = max(funding_checked, args["observation"].funding_through_ms)
+    elif kind == "settle_order_funding":
+        settlement=args["settlement"]
+        attempt=state.current_attempt
+        if (attempt is None or attempt.margin_baseline is None
+                or settlement.baseline!=attempt.margin_baseline
+                or settlement.observation.observed_at<attempt.attempted_at
+                or any(b.id_digest in funding_ids or milliseconds(b.settled_at)<=funding_checked
+                       for b in settlement.bills)):
+            raise ValueError("original attempted baseline and unseen concurrent funding required")
+        book=record_order_funding(book,settlement,book.revision,at)
+        for bill in settlement.bills:
+            funding_ids=funding_ids.append(bill.id_digest)
+        funding_checked=max(funding_checked,settlement.snapshot.observed_ms)
     elif kind == "funding":
         batch = args["batch"]
         if batch.from_ms != funding_checked or any(b.id_digest in funding_ids for b in batch.bills):
