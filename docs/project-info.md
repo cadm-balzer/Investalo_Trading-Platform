@@ -66,6 +66,19 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-24: PR123/main`8d78526` verifiziert.
+[Tatsächliche Fundingbuchungen](bitget-demo-basket-funding.md) ergänzen
+gebuchte Billbeträge, konkrete Wallet-/Marginzuordnung, getrennte Brutto-/Netto-
+Kosten und einmalige atomare Verarbeitung samt originalem Quellenzeitfenster
+im Basketjournal`/5`. Historische simulierte Basket-/Fundinglayouts bleiben
+erhalten.22 neue/434 betroffene gepinnte Pythonfälle grün in Gesamtabdeckung
+(breite433-Fall-Regression + finale68-Fall-Gruppe).
+Finaler Executorbuild/Paketimport/elf Quellhashes ohne Netz/Mounts/Keys grün.
+Lesender Audit: Originalhashes und sieben laufende Dienste/Images unverändert,
+technisches Journal8. Nächste operative Schritte: Start-/Pause-Consumer und
+H1-Worker einschließlich gemeinsamen Funding-/Orderabgleichs bei offenen
+Versandversuchen. Automatischer Demo-Handel weiterhin nicht aktiviert.
+
 2026-11-24: PR122/main`eada41c` verifiziert.
 [Native Basket-Ausstiege](bitget-demo-basket-exits.md) verbinden eigene
 Reduce-only-Marketpakete, gemeinsame Stopplogik, Basketjournal`/4` und

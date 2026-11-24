@@ -14,7 +14,7 @@ from .futures_capital_grid import CapitalGridPlan
 from .futures_paper_plan import CapitalPaperPoolPlan
 from .futures_paper_profit_plan import CapitalPaperProfitPlan
 from .futures_ledger import (
-    DailyBasis, EntryFill, ExitFill, FundingSettlement, LedgerMark, LiquidationSettlement,
+    DailyBasis, EntryFill, ExitFill, FundingSettlement, BrokerFundingPayment, LedgerMark, LiquidationSettlement,
     MarginPosting, MarkBatch, number, timestamp,
 )
 from .futures_signals import IndicatorParameters
@@ -498,7 +498,7 @@ def record_signal_broker_entry(state, assessment, payload, event_id, expected_re
 def record_signal_economic_event(state, payload, event_id, expected_revision, at):
     """Valuation/funding/margin/exit evidence; marks are not trade observations."""
     at = _check(state, expected_revision, at)
-    if type(payload) not in (MarkBatch, FundingSettlement, MarginPosting, ExitFill, LiquidationSettlement):
+    if type(payload) not in (MarkBatch, FundingSettlement, BrokerFundingPayment, MarginPosting, ExitFill, LiquidationSettlement):
         raise ValueError("typed economic evidence required")
     if type(payload) is MarkBatch:
         economic = record_capital_event(

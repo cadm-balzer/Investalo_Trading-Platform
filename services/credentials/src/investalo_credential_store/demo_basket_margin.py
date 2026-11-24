@@ -75,6 +75,6 @@ class BasketNativeMarginSource(_PrivateImmutable):
             return None
         if type(intent) is BasketExitIntent:
             margin, pnl, source, at = result
-            return BasketExitEvidence(intent.order_digest, source, observation.quantity, margin, pnl, at)
+            return BasketExitEvidence(intent.order_digest, source, observation.quantity, margin, pnl, at, end_ms)
         margin, source, at = result
-        return BasketMarginEvidence(intent.order_digest, source, observation.quantity, margin, at)
+        return BasketMarginEvidence(intent.order_digest, source, observation.quantity, margin, at, end_ms)

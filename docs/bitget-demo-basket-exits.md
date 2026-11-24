@@ -1,5 +1,10 @@
 # Native H1-Basket-Ausstiege
 
+Weiterführung nach PR123: [tatsächliche Fundingbuchungen](bitget-demo-basket-funding.md)
+ergänzen die eigene read-only Quelle und die tatsächliche Wallet-/Marginzuordnung
+im aktuellen neuen Basketjournalformat `/5`. Frühere `/4`-Angaben unten
+beschreiben den Ausstiegsbaustein bei dessen ursprünglicher Implementierung.
+
 Stand 2026-11-24, nach verifiziertem PR122/main`eada41c`.
 
 Die private Anbindung kann eigene Strategieausstiege als

@@ -23,6 +23,8 @@ from .futures_broker_entries import (
     replay_broker_hour, start_broker_entries,
 )
 from .futures_broker_margin import BrokerMarginBaseline
+from .futures_broker_funding import BrokerFundingBatch, record_broker_funding, milliseconds
+from .identity_history import IdentityHistory
 from .futures_capital_grid import CapitalGridPlan
 from .futures_capital_journal import CapitalReplayJournal, MAX_FILE_BYTES, MAX_LINE_BYTES
 from .futures_capital_research import (
@@ -38,7 +40,7 @@ from .futures_paper_profit_plan import CapitalPaperProfitPlan
 from .futures_replay_journal import JournalCommitUnknown, _fields, _json, _open, _sha
 from .snapshot import _decode, primitive
 
-VERSION = "bitget-demo-h1-basket-entry-journal/4"
+VERSION = "bitget-demo-h1-basket-entry-journal/5"
 MAX_COMMANDS = 50_000
 PLANS = {p.capital_policy: p for p in (
     CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan,
@@ -54,6 +56,7 @@ ARGUMENTS = {
                            "request_digest": str, "margin_baseline": BrokerMarginBaseline},
     "observe": {"observation": BrokerEntryObservation},
     "observe_exit": {"observation": BrokerExitObservation},
+    "funding": {"batch": BrokerFundingBatch},
 }
 
 
@@ -92,6 +95,8 @@ class BrokerJournalState(CapitalCanonical):
     revision: int
     as_of: datetime
     attempts: tuple[BrokerEntryAttempt, ...]
+    funding_checked_ms: int
+    funding_ids: IdentityHistory
 
     def __post_init__(self):
         revision(self.revision)
@@ -102,6 +107,10 @@ class BrokerJournalState(CapitalCanonical):
                        or a.attempted_at > self.as_of for a in self.attempts)
                 or len({a.command_id for a in self.attempts}) != len(self.attempts)):
             raise ValueError("own immutable once-only basket journal state required")
+        if (type(self.funding_checked_ms) is not int
+                or not 0 <= self.funding_checked_ms <= milliseconds(self.as_of)
+                or type(self.funding_ids) is not IdentityHistory or self.funding_ids.namespace != "event"):
+            raise ValueError("durable original funding cursor and bill identities required")
         if self.current_attempt is not None and (
                 self.current_attempt.order_digest != self.book.pending.order_digest):
             raise ValueError("pending basket order changed after its attempt")
@@ -165,7 +174,7 @@ def _genesis(header):
     marks = _decode(tuple[LedgerMark, ...], header["initial_mark"])
     economic = start_capital_research(profile.plan, marks, at, header["evidence_digest"])
     book = start_broker_entries(start_capital_signals(profile, economic, trade))
-    return BrokerJournalState(book, 0, at, ())
+    return BrokerJournalState(book, 0, at, (), milliseconds(at), IdentityHistory("event"))
 
 
 def _command(kind, expected_revision, at, arguments):
@@ -189,6 +198,7 @@ def _apply(state, command):
     raw = _fields(command["arguments"], ARGUMENTS[kind])
     args = {key: _decode(cls, raw[key]) for key, cls in ARGUMENTS[kind].items()}
     book, attempts = state.book, state.attempts
+    funding_checked, funding_ids = state.funding_checked_ms, state.funding_ids
     if kind in ("attempt", "attempt_with_margin"):
         order = book.pending
         if (order is None or order.order_digest != args["order_digest"]
@@ -217,6 +227,22 @@ def _apply(state, command):
             raise ValueError("observation predates the recorded attempt")
         reducer = observe_broker_exit if kind == "observe_exit" else observe_broker_entry
         book = reducer(book, args["observation"], book.revision, at)
+        if (book.pending is None and state.current_attempt.margin_baseline is not None
+                and args["observation"].funding_through_ms is not None):
+            # Use the actual financial snapshot end, never the later page/
+            # recognition clock. Funding after the snapshot still belongs to
+            # the next window, even if its bill precedes ledger recognition.
+            if args["observation"].funding_through_ms > milliseconds(at):
+                raise ValueError("future native financial coverage")
+            funding_checked = max(funding_checked, args["observation"].funding_through_ms)
+    elif kind == "funding":
+        batch = args["batch"]
+        if batch.from_ms != funding_checked or any(b.id_digest in funding_ids for b in batch.bills):
+            raise ValueError("original continuous funding cursor and unseen bill IDs required")
+        book = record_broker_funding(book, batch, book.revision, at)
+        for bill in batch.bills:
+            funding_ids = funding_ids.append(bill.id_digest)
+        funding_checked = batch.through_ms
     elif kind == "cancel_preparation":
         if state.current_attempt is not None:
             raise ValueError("attempted order is GET-only; cannot discard exposure")
@@ -227,7 +253,7 @@ def _apply(state, command):
         book = functions[kind](book, *args.values(), book.revision, at)
     if kind not in ("attempt", "attempt_with_margin") and book is state.book:
         raise ValueError("duplicate observation or hour needs no journal write")
-    return BrokerJournalState(book, state.revision + 1, at, attempts)
+    return BrokerJournalState(book, state.revision + 1, at, attempts, funding_checked, funding_ids)
 
 
 class BrokerEntryJournal(CapitalReplayJournal):

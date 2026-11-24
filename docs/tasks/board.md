@@ -8,6 +8,19 @@ konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
+IP-015/IP-016: [Native Fundingbuchungen](../bitget-demo-basket-funding.md)
+`DONE` als eigener read-only Producer-/Ledger-/Journalbaustein nach
+PR123/main`8d78526`: echte Funding-Billbeträge, native Wallet-/Marginzuordnung,
+getrennte Brutto-/Nettokosten, atomare Originalfenster und gehashte Bill-IDs,
+Restore und anschließender nativer Reduce-only-Abschluss geprüft.
+22 neue/434 verschiedene gepinnte Fälle grün in Gesamtabdeckung
+(433 breite Regression, finale68-Fall-Gruppe); Originalhashes/sieben laufende
+Dienste/Images unverändert, technisches Journal8. Finaler Executorbuild/
+Paketimport/elf Quellhashes grün, Versand standardmäßig aus.
+**Operative Gesamtintegration `IN_PROGRESS`:** ursprünglicher dauerhafter
+Start-/Pause-Consumer, H1-Worker/native Zulassung und gemeinsamer
+Funding-/Orderabgleich bei ungeklärtem Versand. Kein aktivierter Demohandel.
+
 IP-015/IP-016: [Native Basket-Ausstiege](../bitget-demo-basket-exits.md)
 `DONE` als privater Dispatcher-/Ledger-/Journalbaustein nach PR122/main`eada41c`:
 eigene Stoppevidenz und bestätigte Restmenge, Reduce-only-Market/sell, separates

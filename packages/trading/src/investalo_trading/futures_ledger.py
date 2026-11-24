@@ -1,7 +1,7 @@
 """Pure reconciled-event research ledger; no order authority, broker or persistence."""
 from __future__ import annotations
 
-from dataclasses import dataclass, replace
+from dataclasses import dataclass, fields, replace
 from datetime import datetime, timedelta
 from decimal import Decimal
 
@@ -115,6 +115,30 @@ class FundingSettlement:
 
 
 @dataclass(frozen=True)
+class BrokerFundingPayment:
+    """Confirmed native amount and capital location; no inferred mark/rate."""
+    symbol: str
+    cycle: int
+    quantity: Decimal
+    amount: Decimal
+    isolated_change: Decimal
+    gross_paid: Decimal
+    settled_at: datetime
+    evidence_digest: str
+
+    @precise
+    def __post_init__(self):
+        identifier(self.symbol); identifier(self.evidence_digest)
+        revision(self.cycle); timestamp(self.settled_at)
+        number(self.quantity, positive=True); number(self.amount); number(self.isolated_change)
+        number(self.gross_paid, nonnegative=True)
+        if (not self.cycle or self.gross_paid < max(ZERO, -self.amount)
+                or not -self.gross_paid - D(".00000004") <= self.isolated_change
+                <= self.amount + self.gross_paid + D(".00000004")):
+            raise ValueError("actual funding cycle required")
+
+
+@dataclass(frozen=True)
 class MarginPosting:
     symbol: str
     amount: Decimal
@@ -137,8 +161,8 @@ class DailyBasis:
         identifier(self.evidence_digest)
 
 
-Payload = MarkBatch | DailyBasis | FundingSettlement | MarginPosting | EntryFill | ExitFill | LiquidationSettlement
-PHASES = {MarkBatch: 0, DailyBasis: 1, FundingSettlement: 2, MarginPosting: 3,
+Payload = MarkBatch | DailyBasis | FundingSettlement | BrokerFundingPayment | MarginPosting | EntryFill | ExitFill | LiquidationSettlement
+PHASES = {MarkBatch: 0, DailyBasis: 1, FundingSettlement: 2, BrokerFundingPayment: 2, MarginPosting: 3,
           EntryFill: 4, ExitFill: 5, LiquidationSettlement: 5}
 
 
@@ -214,6 +238,18 @@ class LedgerBasket:
     @precise
     def equity(self):
         return self.isolated_balance + self.quantity * (self.mark - self.average_entry)
+
+
+@dataclass(frozen=True)
+class BrokerFundingBasket(LedgerBasket):
+    """Native-only extension; historical simulated basket schemas stay intact."""
+    funding_wallet_cost: Decimal = ZERO
+
+    def __post_init__(self):
+        super().__post_init__()
+        number(self.funding_wallet_cost, nonnegative=True)
+        if not self.quantity and self.funding_wallet_cost:
+            raise ValueError("flat native basket retains funding cash cost")
 
 
 @dataclass(frozen=True)
@@ -394,6 +430,8 @@ def apply_futures_event(state: FuturesLedgerState, command: LedgerCommand) -> Le
     if (isinstance(payload, LiquidationSettlement)
             and not getattr(state.plan, "supports_capital_liquidations", False)):
         raise ValueError("liquidation settlement requires its separate capital research plan")
+    if type(payload) is BrokerFundingPayment and not getattr(state.plan, "supports_capital_liquidations", False):
+        raise ValueError("native monetary funding requires own capital profile")
     phase = PHASES[type(payload)]
     if command.occurred_at < state.as_of or command.occurred_at == state.as_of and phase < state.phase:
         raise ValueError("backdated or ambiguous equal-time event ordering")
@@ -490,6 +528,20 @@ def apply_futures_event(state: FuturesLedgerState, command: LedgerCommand) -> Le
                                 isolated_balance=b.isolated_balance - released,
                                 realized_price_pnl=b.realized_price_pnl + pnl,
                                 exit_fees=b.exit_fees + payload.fee, charges_in_budget_epoch=costs)
+        elif type(payload) is BrokerFundingPayment:
+            if ((b.cycle, b.quantity) != (payload.cycle, payload.quantity)
+                    or b.opened_at is None or payload.settled_at > command.occurred_at
+                    or b.last_funding_at is not None and payload.settled_at <= b.last_funding_at):
+                raise ValueError("original quantity/cycle and new native funding time required")
+            wallet_change = payload.amount - payload.isolated_change
+            cost = max(ZERO, getattr(b, "funding_wallet_cost", ZERO) - wallet_change)
+            cash += wallet_change
+            native = {f.name: getattr(b, f.name) for f in fields(LedgerBasket)}
+            b = BrokerFundingBasket(**dict(native,
+                isolated_balance=b.isolated_balance + payload.isolated_change,
+                funding_net=b.funding_net + payload.amount,
+                charges_in_budget_epoch=b.charges_in_budget_epoch + payload.gross_paid,
+                last_funding_at=payload.settled_at), funding_wallet_cost=cost)
         elif isinstance(payload, MarginPosting):
             if not b.quantity:
                 raise ValueError("margin posting needs an existing position")

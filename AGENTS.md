@@ -7,6 +7,29 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR123 merged8d78526, GH/fetch verified. Own native monetary funding on
+  feat/m1-demo-basket-native-funding: original read-only scope permits only
+  wallet/positions/complete bills GETs, cannot receive order approval/POST.
+  Actual contract_settle_fee amounts + signed cumulative position funding +
+  wallet excluding UPL prove actual cash versus isolated changes. Quantity/
+  cycles/stages/principal/leverage unchanged; gross paid and net funding
+  distinct. Native-only BrokerFundingBasket tracks wallet funding cost,
+  counted once in own reserve without imaginary restoration backing; legacy
+  basket layout/rate settlements retain old behavior. Journal/5 persists
+  original continuous window and all hashed bill IDs in one atomic command,
+  actual recognition/native settlement clocks separate, complete order
+  financial snapshot end retained (never later pagination/recognition time).
+  Whole product/counters/cash mismatches/foreign activity/incomplete pages
+  do not advance cursor.22 new/434 distinct affected pinned Python cases
+  green in aggregate: wide433 + final68 including mixed gross/net case.
+  Real files/restore/AEAD/HMAC, synthetic actor/native ports. Final pinned
+  Executor build/import/eleven packaged source hashes green without network/
+  mounts/credentials. Read-only audit
+  retains all original private hashes/all7 running container/image IDs and
+  technical journal8. Default dispatch off; no actual account/order/service
+  change. Original strategy start/pause/worker and combined pending-order
+  funding recovery remain IN_PROGRESS; no automatic Demo activation. See
+  docs/bitget-demo-basket-funding.md.
 - PR122 mergedeada41c, GH/fetch verified. Own Basket reduce-only exits on
   feat/m1-demo-basket-native-exits: shared single pending entry/exit book,
   exact owned remainder/cycle/fixed2x, fresh5s strategy stop; no RSI/buy-budget
