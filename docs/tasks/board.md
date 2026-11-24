@@ -1,6 +1,6 @@
 # Git-basiertes Ticketboard
 
-Stand 2026-11-23. Dieses Board ist das initiale Task-/Ticketsystem ohne
+Stand 2026-11-24. Dieses Board ist das initiale Task-/Ticketsystem ohne
 zusätzliche Tools oder externe Veröffentlichung.
 
 Status: `READY` ausführbar, `IN_PROGRESS` aktiv, `WAITING_DECISION` benötigt
@@ -23,8 +23,33 @@ Testprofil; Originalsession kann nicht durch Chat/Operator erfunden werden.
 Rollout199b1fc `DONE`: beide finalen gepinnten Images/Sourcehash, nur
 Cockpit/Executor erneuert; fünf Dienste/Key active1/1 erhalten.
 TLS200/anonyme Konto-/Vorschau-/drei POSTs401/privates mTLS405 geprüft.
-Native Testabnahme `IN_PROGRESS`, Originalnutzerstart aus dem Cockpit
-angefragt. Noch kein tatsächlicher Auftrag bestätigt.
+Native Eröffnungsabnahme `DONE`: nach PR116/mainc336f86 Nutzerbericht
+und Bitget-Screenshot bestätigt;0,0003BTC/2× isoliert/Ø61.425,7USDT/
+Gebühr−0,01105662USDT/Positionsabgleich passt. Journal-Hashkette und
+Checkpoint Revision4 geprüft: prepare1/dispatch1/ack1/observation1,
+verbrauchter Consent1. Private native Beobachtung completed/2132ms/
+HTTP200/00000. Kein zusätzlicher Brokeraufruf im Abnahmeaudit.
+
+IP-015/IP-016: [Abschluss derselben Testposition](../bitget-demo-market-close.md) `DONE`.
+Eigener Reduce-only-Marketabschluss implementiert: aktuelle Mengen-/
+Einstands-/Profilprüfung und gesonderte Dashboardbestätigung; einmaliger
+Versand im bestehenden Journal. Frische Nullposition und Ein-/Ausstiegs-
+gebühren/Kontostand werden getrennt abgeglichen. Teilfill/Unknown,
+fehlendes ACK-ID, Restore und falsche Menge/Zwecke geprüft.
+173 Python-/75 Nodefälle/volle Typprüfung/beide finalen Builds grün.
+Eröffnungsjournal tatsächlich unverändert Revision4. Rollout `DONE`:
+Cockpit+Executor und notwendige Executor-only-Launcherweiterleitung0ad9681,
+sechs Originaloverlays/Key1/1/alle Journaldateihashes erhalten.
+TLS/Auth/mTLS geprüft, private Originalimage-/Aktivbelege vorhanden.
+PR117 bereit; native Abschlussabnahme `DONE`: Nutzer bestätigt vollständige
+Ausführung/Nullposition, tatsächlicher Journalcheckpoint Revision8 mit
+genau zwei Versänden/ACKs/Fills, Verbrauch2. Abschluss0,0003BTC/
+Ø61.207USDT/Gebühr−0,01101726USDT. Private Beobachtung+Kontolesen
+completed/3822ms/200/00000. Lesender Audit ohne zusätzlichen Brokeraufruf.
+Operative H1-/Basketanbindung `READY`, Eigenkapital-Kaufstaffel×Hebel
+und gestaffelte Nachkäufe/Exits aus bestehendem Kern übernehmen.
+Anschließend operativer H1-Demobasketablauf mit tatsächlichen Nachkäufen
+und Exits; Gesamtintegration bleibt `IN_PROGRESS`.
 
 Market-Proxy-Fix `DONE`: PR115/main3ae310e verifiziert; Nutzerfehler
 tritt vor Executor/Journal auf. Tatsächlicher Next-Listenerorigin ist intern;
@@ -33,8 +58,8 @@ signierter öffentlicher Origin bleiben verbindlich. Regression vor Fix503,
 danach alle drei Phasen und Fremdheader geprüft;73 Nodefälle/Typprüfung/
 finaler Build grün. Fix861091d Cockpit-only ausgerollt, sechs Dienste,
 Key active1/1 und leeres Testjournal erhalten; TLS/Auth/mTLS geprüft.
-PR116 erstellt. Native Testabnahme weiter `IN_PROGRESS`: originaler
-Dashboard-Aufruf nach Neuladen angefragt.
+PR116/mainc336f86 verifiziert; originaler Dashboard-Aufruf erfolgreich,
+native Eröffnungsabnahme siehe oben.
 
 IP-015/IP-016: [Kleiner BTC-Markettest](../bitget-demo-btc-market-test.md)
 `DONE` als Vertrag/Admission/Vorschau nach PR113/mainac1246b:
@@ -235,8 +260,8 @@ erfordert zusätzlich operative Anbindung.
 | IP-012 | P0 / P2 | IN_PROGRESS | Tradingkern und unabhängige Risk Engine | Crypto-Core: 31 Tests; Offlineworker nutzt denselben Kern; MT5, Broker-/Paper-Riskintegration folgen |
 | IP-013 | P1 / P3 | IN_PROGRESS | Kosten-/Fillmodell, reproduzierbare Backtests und kontrolliertes Feintuning | Gefrorene Dreijahresresultate IP-046; Nutzerpriorität2026-11-09: geringe Kontorendite anhand Kapitalnutzung, RSI-Einstiegen, Ausstiegen, Kosten und Benchmark erklären. Danach begrenzte Kandidatenprüfung mit chronologischer Validierung; Regeländerungen separat abstimmen, Auswahl vor unabhängiger Holdoutabnahme einfrieren. [Forschungsplan](../long-history-backtests.md#geplantes-feintuning) |
 | IP-014 | P1 / P3 | IN_PROGRESS | Cockpit, Portfolio und Journal | MFA/Portfolio/Journal plus Datasetwahl, tatsächliche Nettoergebnisse und Equitykurven; visuelle Browserabnahme und Paperbedienung folgen |
-| IP-015 | P0 / P4 | IN_PROGRESS | Bitget-Anbindung für Paper/Demo | Registry/signierte Readgates, eigener Demo-AEAD-/SealedProviderkern und dauerhafter DB-/Actor-/Epoch-/Readyreader/CAS/Audit in Fixture014 vorhanden;31 neue/229 Fälle/204 Subtests grün. Eigene Demo-Passkey-Zweckfreigabe/Assertion-/Consume-/Lockclient in Fixture015 ergänzt. Eigener privater Demo-Executor/atomarer Completion in Fixture016 ergänzt. Eigene Default-off-Demo-Proof-/Consent-API geprüft,52 neue/163 verschiedene gepinnte Fälle grün. Eigener privater BFF/WebAuthn/Consent/Signer/mTLStransport geprüft;194 neue/434 verschiedene gepinnte Fälle+111 Interopchecks grün. Eigener Default-off-Metadaten-GET/Fixture017 und aktueller Cockpit-Serveradapter ergänzt;54 neue/348 verschiedene gepinnte Fälle. Eigener geschützter Demo-Browserablauf/Formular/Next-Routen ergänzt;101 neue/881 gesamte gepinnte Cockpitfälle, Typecheck/Build grün. Runtime fest aus. Eigener privater Dateiprovider/Serverfactory mit tatsächlicher Datei-/mTLSprüfung ergänzt;33 neue/914 gesamte Cockpitfälle grün. [Private Identität](../bitget-demo-private-identity.md). Gemeinsame isolierte Abnahme mit438 Prüfungen bestanden; operative/native Abnahme folgt. [Gemeinsame Abnahme](../bitget-demo-local-acceptance.md). [Browserablauf](../bitget-demo-browser-flow.md). [Metadaten](../bitget-demo-metadata-provider.md). [BFF](../bitget-demo-bff-flow.md). [API](../bitget-demo-passkey-api.md). [Executor](../bitget-demo-passkey-executor.md). Separate Demo-/spätere Livekeys bestätigt. Kein Orderdispatcher. [Freigabe](../bitget-demo-passkey-purpose.md) |
-| IP-016 | P0 / P4 | IN_PROGRESS | Outbox, Executionjournal und Reconciliation | Eigene private bounded Outbox/CAS/fsync/Mindestreceipt/Crashrestore und readonly Account-/Pending-/Trigger-/Cash-/Mengencheck unter tatsächlichem Receipt. Unknown/Teilfill/Storno bleiben erhalten;22 neue Accountfälle/92 Gesamtfälle grün. Ursprüngliche shared-root UID-/Kontopfadregistry und bound Wrapper vorhanden;29 neue tatsächliche Registryfälle/121 Gesamtfälle grün. Getrennter registrierter signierter Readtransport geprüft,22 neue/143 Gesamtfälle grün. Tatsächlicher Demo-Provider/native Readabnahme, alte Orderabdeckung/Kosten/Funding und Ordertransport fehlen; keine neue Finanzbuchung oder Versandfreigabe. [Outbox](../bitget-demo-outbox.md), [Abgleich](../bitget-demo-account-check.md) |
+| IP-015 | P0 / P4 | IN_PROGRESS | Bitget-Anbindung für Paper/Demo | Registry/signierte Readgates, eigener Demo-AEAD-/SealedProviderkern und dauerhafter DB-/Actor-/Epoch-/Readyreader/CAS/Audit in Fixture014 vorhanden;31 neue/229 Fälle/204 Subtests grün. Eigene Demo-Passkey-Zweckfreigabe/Assertion-/Consume-/Lockclient in Fixture015 ergänzt. Eigener privater Demo-Executor/atomarer Completion in Fixture016 ergänzt. Eigene Default-off-Demo-Proof-/Consent-API geprüft,52 neue/163 verschiedene gepinnte Fälle grün. Eigener privater BFF/WebAuthn/Consent/Signer/mTLStransport geprüft;194 neue/434 verschiedene gepinnte Fälle+111 Interopchecks grün. Eigener Default-off-Metadaten-GET/Fixture017 und aktueller Cockpit-Serveradapter ergänzt;54 neue/348 verschiedene gepinnte Fälle. Eigener geschützter Demo-Browserablauf/Formular/Next-Routen ergänzt;101 neue/881 gesamte gepinnte Cockpitfälle, Typecheck/Build grün. Runtime fest aus. Eigener privater Dateiprovider/Serverfactory mit tatsächlicher Datei-/mTLSprüfung ergänzt;33 neue/914 gesamte Cockpitfälle grün. [Private Identität](../bitget-demo-private-identity.md). Gemeinsame isolierte Abnahme mit438 Prüfungen bestanden; operative/native Abnahme folgt. [Gemeinsame Abnahme](../bitget-demo-local-acceptance.md). [Browserablauf](../bitget-demo-browser-flow.md). [Metadaten](../bitget-demo-metadata-provider.md). [BFF](../bitget-demo-bff-flow.md). [API](../bitget-demo-passkey-api.md). [Executor](../bitget-demo-passkey-executor.md). Separate Demo-/spätere Livekeys bestätigt. Erster tatsächlicher BTC-Market-Demoauftrag nach PR116 vollständig ausgeführt und abgeglichen; kontrollierter Abschluss und Strategieausführung folgen. [Freigabe](../bitget-demo-passkey-purpose.md) |
+| IP-016 | P0 / P4 | IN_PROGRESS | Outbox, Executionjournal und Reconciliation | Eigene private bounded Outbox/CAS/fsync/Mindestreceipt/Crashrestore und readonly Account-/Pending-/Trigger-/Cash-/Mengencheck unter tatsächlichem Receipt. Unknown/Teilfill/Storno bleiben erhalten;22 neue Accountfälle/92 Gesamtfälle grün. Ursprüngliche shared-root UID-/Kontopfadregistry und bound Wrapper vorhanden;29 neue tatsächliche Registryfälle/121 Gesamtfälle grün. Getrennter registrierter signierter Readtransport geprüft,22 neue/143 Gesamtfälle grün. Tatsächlicher Demo-Provider/native Kontolesen und einmaliger BTC-Markettransport abgenommen; Journalrevision4 mit genau einem Versand/ACK/Fill belegt. Reduce-only-Abschluss, breiter Strategieablauf sowie vollständige Kosten-/Funding-/alte Orderabdeckung bleiben offen. [Outbox](../bitget-demo-outbox.md), [Abgleich](../bitget-demo-account-check.md) |
 | IP-017 | P0 / P4 | BLOCKED | Kill-Switch, Schutz und Fachalarmierung | IP-016; neue Exposition, Cancel und Flatten getrennt nachweisen |
 | IP-018 | P0 / P4 | BLOCKED | Backup/Restore und Betriebsabnahme | IP-007/016; extern/offline verschlüsselt, Schlüssel getrennt, RPO 24h/RTO 4h, Restore isoliert mit Brokerabgleich |
 | IP-019 | P0 / P5 | BLOCKED | Livepilot vorbereiten und Freigabe einholen | IP-013/017/018; vorher vereinbarte Nettonachweise, Konto/Budget/Production konkret |

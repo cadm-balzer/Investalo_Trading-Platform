@@ -66,6 +66,38 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-24: [Abschluss-Test](bitget-demo-market-close.md) implementiert:
+eigene Vorbereitung/Zustimmung, exakt bestätigte ursprüngliche BTC-Menge,
+Market Reduce-only, derselbe einmalige Journal-/Consumerablauf.
+Frische Originalposition und Pendingfamilien geprüft; Preisanstieg über
+den20USDT-Testwert verhindert keine Reduzierung. Nullposition, gemeldete
+Ein-/Ausstiegsgebühren und aktueller Kontowert werden separat abgeglichen.
+Teilfill/Unknown werden nicht als vollständiger Abschluss ausgegeben.
+173 Python-/75 Nodefälle, volle Typprüfung und beide Produktionsbuilds
+grün. Bestehendes tatsächliches Eröffnungsjournal unverändert Revision4.
+Operativer Rollout inklusive finaler Launcherweiterleitung0ad9681
+abgeschlossen: sechs Originaloverlays/Key active1/1 und sämtliche
+Journaldateihashes erhalten, Revision4. TLS/Auth/mTLS geprüft;
+Abschluss aus originaler Dashboard-Sitzung angefragt. PR117 bereit.
+Nutzer bestätigt anschließend vollständigen Abschluss und Nullposition.
+Journal-/Checkpoint-Hashkette Revision8: genau zwei Vorbereitungen/
+Versände/ACKs/Fills und zwei verbrauchte Zustimmungen.
+Abschluss0,0003BTC zu61.207USDT, Gebühr−0,01101726USDT;
+private native Beobachtung+Kontolesen completed/3822ms/200/00000.
+Technischer Eröffnungs-/Abschlusstest `DONE`; nächster Schritt ist die
+operative H1-/Basketanbindung mit Kaufmargin×Hebel.
+
+2026-11-24: PR116/mainc336f86 verifiziert. Nutzer bestätigt die erste
+tatsächliche Demo-Marketorder mit Screenshot und Cockpit-Positionsabgleich:
+0,0003BTC,2× isoliert, vollständig ausgeführt zu61.425,7USDT,
+gemeldete Gebühr−0,01105662USDT. Dauerhafte Journal-Hashkette und
+Checkpoint lesend bestätigt: Revision4, genau eine Vorbereitung/ein
+Versand/ein ACK/eine Beobachtung/ein verbrauchter Consent.
+Private native Statusdiagnose completed/2132ms/200/00000.
+[Eröffnungsabnahme](bitget-demo-market-runtime.md) abgeschlossen.
+Nächster Schritt ist der kontrollierte Reduce-only-Marketabschluss mit
+Gebühren-/Kontostandsabgleich, danach der H1-Basketablauf im Demokonto.
+
 2026-11-23: PR115/main3ae310e verifiziert. Erster Demotest scheitert
 vor dem Executor, Journal und private Testverzeichnisse leer. Ursache
 ist der Vergleich der internen Next-Requestadresse mit dem öffentlichen

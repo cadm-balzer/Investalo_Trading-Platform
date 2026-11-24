@@ -9,6 +9,7 @@ from .futures_demo_preview import _row
 
 VERSION = "bitget-classic-btc-demo-market-test/1"
 CONFIRMATION = "btc-demo-market-long-isolated-2x-estimate-20-usdt"
+CLOSE_CONFIRMATION = "btc-demo-market-close-owned-long-reduce-only"
 PLANNING_CAP = Decimal(20)
 PRICE_BUFFER = Decimal("1.01")
 
@@ -68,7 +69,7 @@ class BTCMarketIntent:
         number(self.before_quantity, zero=True)
         with localcontext() as precision:
             precision.prec = 160
-            if (self.quantity * self.reference_price * PRICE_BUFFER > PLANNING_CAP
+            if (self.action == "open_long" and self.quantity * self.reference_price * PRICE_BUFFER > PLANNING_CAP
                     or self.action == "reduce_long" and self.quantity > self.before_quantity):
                 raise DemoRejected("market_test_outside_budget")
         key = dict(version=VERSION, owner=str(self.binding.owner.tenant_id),

@@ -15,7 +15,7 @@ from uuid import UUID
 
 from investalo_bitget import OwnerContext
 from investalo_bitget.futures_demo import DemoIntent, DemoRejected, clock
-from investalo_bitget.futures_demo_market import BTCMarketIntent, CONFIRMATION as MARKET_CONFIRMATION
+from investalo_bitget.futures_demo_market import BTCMarketIntent, CONFIRMATION as MARKET_CONFIRMATION, CLOSE_CONFIRMATION
 from investalo_bitget.futures_demo_outbox import OutboxReceipt
 from investalo_credentials import dump_envelope
 
@@ -50,22 +50,24 @@ class DemoBTCTestConsentVerifier(_PrivateImmutable):
     def verify(self, context, token, body, intent, receipt, now_ms):
         try:
             now_ms = clock(now_ms)
-            market = type(self) is DemoBTCMarketConsentVerifier
-            kind = "investalo-demo-btc-market-order-consent/1" if market else KIND
-            audience = "investalo-demo-btc-market-order" if market else AUDIENCE
-            path = "/v1/bitget-demo-trading/market-order-submit" if market else PATH
-            confirmation = MARKET_CONFIRMATION if market else CONFIRMATION
+            closing = type(self) is DemoBTCMarketCloseConsentVerifier
+            market = closing or type(self) is DemoBTCMarketConsentVerifier
+            kind = "investalo-demo-btc-market-close-consent/1" if closing else "investalo-demo-btc-market-order-consent/1" if market else KIND
+            audience = "investalo-demo-btc-market-close" if closing else "investalo-demo-btc-market-order" if market else AUDIENCE
+            path = "/v1/bitget-demo-trading/market-close-submit" if closing else "/v1/bitget-demo-trading/market-order-submit" if market else PATH
+            confirmation = CLOSE_CONFIRMATION if closing else MARKET_CONFIRMATION if market else CONFIRMATION
             if (type(context) is not PasskeyRequestContext or type(token) is not str
                     or len(token) > 8192 or type(body) is not bytes or not 0 < len(body) <= 16384
-                    or type(self) not in (DemoBTCTestConsentVerifier, DemoBTCMarketConsentVerifier)
+                    or type(self) not in (DemoBTCTestConsentVerifier, DemoBTCMarketConsentVerifier, DemoBTCMarketCloseConsentVerifier)
                     or type(intent) is not (BTCMarketIntent if market else DemoIntent)
                     or type(receipt) is not OutboxReceipt):
                 raise ValueError()
             intent.binding.check(OwnerContext(context.tenant_id, context.user_id))
             with localcontext() as precision:
                 precision.prec = 160
-                if (intent.grid.symbol != "BTCUSDT" or intent.action != "open_long"
-                        or intent.before_quantity != Decimal(0)
+                if (intent.grid.symbol != "BTCUSDT" or intent.action != ("reduce_long" if closing else "open_long")
+                        or not closing and intent.before_quantity != Decimal(0)
+                        or closing and (intent.before_quantity <= 0 or intent.quantity != intent.before_quantity)
                         or not market and intent.quantity * intent.limit_price > Decimal(20)
                         # A human can confirm a displayed proposal for30s.
                         # It remains a reference, not current native evidence:
@@ -119,6 +121,10 @@ class DemoBTCMarketConsentVerifier(DemoBTCTestConsentVerifier):
     """Own explicit Market test domain; old Limit/read tokens grant no authority."""
     __slots__ = ()
 
+class DemoBTCMarketCloseConsentVerifier(DemoBTCTestConsentVerifier):
+    """Separate exact owned-position closing purpose; opening tokens cannot close."""
+    __slots__ = ()
+
 
 class DemoBTCTestConsentIssuer(_PrivateImmutable):
     """Verify own signed consent plus actual current actor and encrypted state.
@@ -131,7 +137,7 @@ class DemoBTCTestConsentIssuer(_PrivateImmutable):
 
     def __init__(self, verifier, context, token, body, *, read_snapshot, guard,
                  milliseconds=lambda: time.time_ns() // 1_000_000):
-        if (type(verifier) not in (DemoBTCTestConsentVerifier, DemoBTCMarketConsentVerifier)
+        if (type(verifier) not in (DemoBTCTestConsentVerifier, DemoBTCMarketConsentVerifier, DemoBTCMarketCloseConsentVerifier)
                 or type(context) is not PasskeyRequestContext
                 or not all(callable(value) for value in (read_snapshot, guard, milliseconds))):
             raise DemoRejected("invalid_btc_order_issuer_installation")

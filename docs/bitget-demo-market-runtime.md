@@ -114,3 +114,32 @@ Private Vorher-/Nachher-/Rollbackbelege unter `rollout-*` erhalten.
 Alle Testverzeichnisse weiterhin leer; keine Order durch Fehlversuch
 oder Deployment. PR116 erstellt. Originale Dashboard-Vorbereitung
 erneut angefragt; native Fillabnahme weiterhin offen.
+
+## Erste tatsächliche Eröffnungsabnahme
+
+Am2026-11-24 bestätigt der Nutzer nach Merge von PR116/mainc336f86
+die originale Cockpit-Vorbereitung, den einmaligen Versand und den
+Status-/Positionsabgleich. Bitget-Screenshot zeigt dieselbe Position:
+BTCUSDT Long,0,0003BTC,2× isoliert, Ø61.425,7USDT.
+Der bestätigte Positionswert beträgt18,42771USDT; die gemeldete
+Ordergebühr bleibt mit nativem Vorzeichen−0,01105662USDT erhalten.
+Der Positionsabgleich im Cockpit ist bestätigt.
+
+Unabhängige lesende Kontrolle des vorhandenen privaten Journals:
+kanonische Hashkette und aktueller Checkpoint stimmen überein, Revision4,
+genau prepare1/dispatch1/ack1/observation1 und ein verbrauchter Consent.
+Gespeicherte Beobachtung `filled`, Menge, Durchschnittspreis und Gebühr
+stimmen mit dem Nutzerbericht überein. Letzte private Diagnose:
+`market_observe/completed`,2132ms, HTTP200/native00000, kein Fehler.
+Dieser Audit sendet keine Brokeranfrage und verändert weder Journal
+noch Dienste. Die Eröffnung des einzelnen Demo-Testauftrags ist
+damit tatsächlich abgenommen.
+
+Als Nächstes wird genau diese bestätigte Testposition per Reduce-only-
+Marketorder geschlossen. Dafür ist ein eigener Abschlussablauf nötig:
+frische Originalposition und Eigentums-/Mengenabgleich, separate
+Dashboardbestätigung, einmaliger persistenter Versand, danach echte
+Nullposition sowie Abschlussgebühren und Kontostand prüfen.
+Der aktuelle Eröffnungsablauf wird dafür nicht wieder freigeschaltet.
+Die operativen Signale/Nachkäufe/Exits für H1-Demobaskets folgen nach
+diesem vollständigen Eröffnungs-/Abschlusstest.

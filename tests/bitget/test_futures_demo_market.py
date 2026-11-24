@@ -78,6 +78,14 @@ class MarketTests(unittest.TestCase):
                 orderType="market", reduceOnly=reduce, clientOid=order.client_oid))
             self.assertEqual(dict(plan.headers)["paptrading"], "1")
 
+    def test_price_growth_cannot_block_reducing_existing_quantity_or_enlarge_it(self):
+        closing = market_intent(action="reduce_long", before_quantity=D("0.0003"))
+        grown = replace(closing, reference_price=D(80000))
+        self.assertEqual(grown.quantity,D("0.0003"))
+        self.assertEqual(json.loads(request_plan(grown,"place",context=OWNER).body)["reduceOnly"],"YES")
+        with self.assertRaises(DemoRejected): replace(grown,quantity=D("0.0004"))
+        with self.assertRaises(DemoRejected): replace(grown,action="open_long",before_quantity=D(0))
+
     def test_reference_changed_payload_and_order_domain_change_digests(self):
         order = market_intent()
         changed = replace(order, reference_price=D(61000))

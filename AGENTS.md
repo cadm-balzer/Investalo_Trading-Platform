@@ -7,6 +7,65 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- Own BTC Demo close on feat/m1-demo-market-close continues confirmed
+  original opening. Own close prepare/submit HMAC/consent purposes and
+  exact journal-filled quantity, fresh full native quantity/entry/profile/
+  all5 pending checks. Same outbox/once consumer/unknown-before-POST;
+  at most one close attempt, no opening rearm or journal rewrite.
+  Growing close notional is allowed only for reduce_long; open cap unchanged.
+  GET-only original clientOid recovery handles missing reduce-only ACK ID;
+  latest selects unambiguous newest dispatch across open/close.
+  Fresh original3-GET settlement shows fees/wallet/count/source; filled +
+  matched + known flat collateral required for completed close. Partial/
+  unknown remain visible. Local actual ASGI/Node mTLS and AEAD/journal
+  tests use synthetic native/actor ports. Native closing awaits original
+  Dashboard consent; no operator session/context fabrication.
+  173 distinct affected Python/75 pinned Node/full typecheck/final two
+  production builds green. Actual original journal still revision4;
+  necessary Demo-test rollout follows. Before-close old image rollback
+  only; after close journal commands preserve state and use compatible fix.
+  Final actual launcher closure test catches old3-action forwarding list;
+  production closure now uses exact own Market TARGETS, rejects unknown/
+  uninstalled actions. Actual ASGI close runs through same launcher closure;
+  focused70 launcher/HTTP/Market cases green, Executor rebuilt. Necessary
+  executor-only correction completed after first rollout; original journal4 retained.
+  Rollout complete: first Cockpit+Executor/five unchanged, final0ad9681
+  Executor-only/six unchanged. Original6 overlays, key active1/1 and all
+  journal/registry/consent filehashes identical, revision4/open only.
+  TLS200/all5 anonymous POST401/private mTLS405; transient initial readiness
+  probe subsequently verified, active private receipt completed without
+  redeployment. Healthy Cockpit, readonly UID10003/no ports/log none/restarts0.
+  PR117 prepared; original Dashboard close/observe requested, native close
+  acceptance pending. No deployment broker order or fabricated session.
+  User original close subsequently succeeded: complete fill and flat
+  confirmed. Read-only original journal/checkpoint hashchain revision8:
+  prepare2/dispatch2/ack2/observation2, consumed grants2. Exactly0.0003BTC
+  open61425.7/fee-0.01105662, reduce_long close61207/fee-0.01101726.
+  Actual observe+fresh settlement completed3822ms/native200/00000/no error.
+  No native request or ledger rewrite by acceptance audit; concrete equity
+  value not reported, no synthetic PnL/cash attestation. Technical roundtrip
+  DONE; next operative H1/own-margin×leverage/basket integration READY.
+  See docs/bitget-demo-market-close.md.
+- User reaffirms Q42 on2026-11-24: every planned basket-stage amount is
+  own-capital margin; order notional = stage capital × fixed basket leverage,
+  quantity floored to native grid. Existing capital/Paper entry_quantity
+  implements this. Do not divide stage amounts by leverage or reuse the
+  separate technical20USDT-notional test sizing for strategy orders.
+  Actual test18.42771USDT notional/2 =9.213855USDT margin before costs was
+  intentional. Fees/funding remain separately budgeted. See
+  docs/bitget-demo-small-test-policy.md.
+- PR116 mergedc336f86, GH/fetch verified. User confirms first actual BTC
+  Demo Market open and native screenshot:0.0003BTC, isolated/one-way2x,
+  filled average61425.7USDT, reported signed fee-0.01105662USDT, position
+  match confirmed. Read-only durable journal/checkpoint hashchain verified:
+  revision4, exactly prepare1/dispatch1/ack1/observation1 and consumed
+  grant1; last observation matches all user values. Actual private observe
+  completed2132ms/native200/00000/no error. No new broker request, order,
+  state rewrite or service change during this acceptance audit.
+  Single opening acceptance DONE; next READY is exact owned-position
+  reduce-only Market close with separate confirmation, retained once-only
+  journal and actual flat/fee/balance reconciliation. Automatic H1 basket
+  execution follows the completed open/close test; live remains disabled.
 - PR115 merged3ae310e, GH/fetch verified. First original user Market action
   fails before executor entry: own diagnostic absent, original preview
   completed11 GETs/3641ms/native200/00000, all three state children empty,

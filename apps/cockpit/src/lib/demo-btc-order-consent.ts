@@ -17,6 +17,9 @@ const MARKET_PROFILE = Object.freeze({ confirmation: BTC_MARKET_CONFIRMATION,
   path: "/v1/bitget-demo-trading/market-order-submit",
   browserPath: "/api/bitget-demo/orders/btc-market/submit",
   kind: "investalo-demo-btc-market-order-consent/1", audience: "investalo-demo-btc-market-order" });
+const CLOSE_PROFILE = Object.freeze({ confirmation: "btc-demo-market-close-owned-long-reduce-only",
+  path: "/v1/bitget-demo-trading/market-close-submit", browserPath: "/api/bitget-demo/orders/btc-market/close-submit",
+  kind: "investalo-demo-btc-market-close-consent/1", audience: "investalo-demo-btc-market-close" });
 const ORIGIN = "https://cockpit.investalo.de";
 const MAX_BODY = 16384;
 let inFlight = 0;
@@ -85,8 +88,11 @@ export async function prepareDemoBTCTestConsent(request: Request, deps: BTCOrder
 export async function prepareDemoBTCMarketConsent(request: Request, deps: BTCOrderConsentDependencies) {
   return prepareConsent(request, deps, MARKET_PROFILE);
 }
+export async function prepareDemoBTCMarketCloseConsent(request: Request, deps: BTCOrderConsentDependencies) {
+  return prepareConsent(request, deps, CLOSE_PROFILE);
+}
 async function prepareConsent(request: Request, deps: BTCOrderConsentDependencies,
-  profile: typeof LIMIT_PROFILE | typeof MARKET_PROFILE) {
+  profile: typeof LIMIT_PROFILE | typeof MARKET_PROFILE | typeof CLOSE_PROFILE) {
   if (inFlight >= 8) throw rejected();
   inFlight++;
   try {
