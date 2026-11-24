@@ -8,13 +8,13 @@ from .allocation import identifier, revision
 from .futures_capital_research import (
     CapitalAssessment, CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan,
     CapitalResearchState, freeze_basket_leverage,
-    prepare_capital_entry, record_capital_event, simulate_capital_fill,
+    prepare_capital_entry, record_capital_event, record_capital_broker_fill, simulate_capital_fill,
 )
 from .futures_capital_grid import CapitalGridPlan
 from .futures_paper_plan import CapitalPaperPoolPlan
 from .futures_paper_profit_plan import CapitalPaperProfitPlan
 from .futures_ledger import (
-    DailyBasis, ExitFill, FundingSettlement, LedgerMark, LiquidationSettlement,
+    DailyBasis, EntryFill, ExitFill, FundingSettlement, LedgerMark, LiquidationSettlement,
     MarginPosting, MarkBatch, number, timestamp,
 )
 from .futures_signals import IndicatorParameters
@@ -475,6 +475,24 @@ def simulate_signal_entry(state, assessment, price, event_id, expected_revision,
                     if i == index else s for i, s in enumerate(state.signals))
     # Fills are not price observations; never reuse the preceding close to activate protection.
     return _finish(state, at, ("entry", event_id), economic=economic, signals=signals)
+
+
+def record_signal_broker_entry(state, assessment, payload, event_id, expected_revision, at):
+    """Actual terminal fill; admission precedes dispatch, reconciliation follows it."""
+    at = _check(state, expected_revision, at)
+    if (type(assessment) is not CapitalSignalAssessment or type(payload) is not EntryFill
+            or assessment.profile_digest != state.profile.profile_digest
+            or assessment.signal_time > at):
+        raise ValueError("own admitted signal and actual entry required")
+    economic = record_capital_broker_fill(
+        state.economic, assessment.capital, payload, event_id, state.economic.revision, at)
+    index = state.profile.plan.symbols.index(payload.symbol)
+    signals = tuple(replace(s, rearmed=False, below_count=0, manual_notice=assessment.capital.stage == 5)
+                    if i == index else s for i, s in enumerate(state.signals))
+    # No re-evaluation of an expired pre-dispatch signal, and no activation of
+    # trailing protection from an old quote mistaken for a new price observation.
+    return _finish(state, at, ("broker-entry", event_id, assessment, payload),
+                   economic=economic, signals=signals)
 
 
 def record_signal_economic_event(state, payload, event_id, expected_revision, at):

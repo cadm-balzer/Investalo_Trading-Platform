@@ -7,6 +7,24 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR117 merged89a511c, GH/fetch verified. Technical native BTC roundtrip
+  complete; next H1 bridge on feat/m1-demo-h1-basket-entries.
+  Own immutable broker-entry reducer uses original H1 RSI/capital admission,
+  fixed basket2x/stage own-margin×leverage and full quantity floor.
+  Actual terminal quantity/VWAP/confirmed stage margin/signed fee feed the
+  shared economic core, not Paper full-fill simulation. Pending cumulative
+  partials/unknown fee/margin/position/rebate stop further entry planning;
+  terminal partial consumes one stage, unfilled cancellation no stage and
+  command cannot be reused. Market slippage/overrun and between-tick VWAP
+  remain truthful, no post-dispatch stale-signal denial. Native max requires
+  explicit splitting rather than shrinking a stage.21 new pinned cases:
+  all5 real RSI stages/manual6, actual last-fill drop, capacity,6/8 warning
+  buys, partial/duplicate/unknown/actual unsafe evidence. Combined155 distinct
+  pinned Python cases/69 subtests green in104.71s.
+  Pure domain state only; durable own Basket journal/native source/order
+  adapter/original Dashboard strategy start follow. No operative runtime
+  or actual broker request added. Preserve original technical revision8
+  outbox/consents and all six overlays. See docs/bitget-demo-h1-basket-entries.md.
 - Own BTC Demo close on feat/m1-demo-market-close continues confirmed
   original opening. Own close prepare/submit HMAC/consent purposes and
   exact journal-filled quantity, fresh full native quantity/entry/profile/
