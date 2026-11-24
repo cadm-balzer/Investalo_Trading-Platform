@@ -66,6 +66,16 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-24: PR119/maine6e5b46 verifiziert. Eigene
+[native Basket-Marketanbindung](bitget-demo-basket-native-orders.md)
+verbindet Journal mit Trading-AEAD/HMAC, eigener stabiler Clientkennung,
+separater Approval-/Packetdomäne und GET-only nach Versuch. Native Fill-/
+Gebühren-/Gesamtpositionsabgleich einschließlich RSI-Nachkauf/gemittelter
+Position implementiert; ungeklärte Margin bleibt ausstehend.
+18 neue/263 verschiedene gepinnte Pythonfälle grün; Executorbuild/Import
+ohne Mounts grün. Keine tatsächliche neue Order oder Serviceänderung.
+Operative Quellen-/Margin-/Strategiefreigabe und Worker folgen.
+
 2026-11-24: PR118/mainfa7f922 verifiziert. Eigenes
 [dauerhaftes H1-Basketjournal](bitget-demo-basket-journal.md) mit vollständigem
 Replay, externer bestätigter Präfixbindung und fsync-Versandmarke vor

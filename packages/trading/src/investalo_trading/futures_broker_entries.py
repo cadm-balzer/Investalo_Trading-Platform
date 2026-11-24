@@ -70,11 +70,20 @@ class BrokerEntryObservation(CapitalCanonical):
     position_matches: bool
     observed_at: datetime
     evidence_digest: str
+    native_order_digest: str | None = None
+    native_updated_ms: int | None = None
 
     def __post_init__(self):
         for value in (self.order_digest, self.evidence_digest):
             identifier(value)
         timestamp(self.observed_at)
+        if (self.native_order_digest is None) != (self.native_updated_ms is None):
+            raise ValueError("complete native order identity and clock required")
+        if self.native_order_digest is not None:
+            from .futures_replay_journal import _sha
+            _sha(self.native_order_digest)
+            if type(self.native_updated_ms) is not int or not 0 <= self.native_updated_ms < 10**15:
+                raise ValueError("bounded native update clock required")
         number(self.quantity, nonnegative=True)
         if self.average_price is not None:
             number(self.average_price, positive=True)
@@ -212,6 +221,14 @@ def observe_broker_entry(book, observation, expected_revision, at):
         raise ValueError("broker order size mismatch")
     previous = book.observation
     if previous is not None:
+        if previous.native_order_digest is not None and (
+                observation.native_order_digest != previous.native_order_digest
+                or observation.native_updated_ms < previous.native_updated_ms
+                or observation.native_updated_ms == previous.native_updated_ms
+                and ((observation.state, observation.quantity, observation.average_price)
+                     != (previous.state, previous.quantity, previous.average_price)
+                     or previous.signed_fee is not None and observation.signed_fee != previous.signed_fee)):
+            raise ValueError("native order changed or cumulative native clock regressed")
         if (observation.observed_at < previous.observed_at or observation.quantity < previous.quantity
                 or previous.state in TERMINAL and observation.state != previous.state
                 or observation.quantity == previous.quantity

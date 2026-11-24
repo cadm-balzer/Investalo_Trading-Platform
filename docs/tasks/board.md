@@ -8,6 +8,16 @@ konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
+IP-015/IP-016: [Native H1-Basket-Marketanbindung](../bitget-demo-basket-native-orders.md)
+`DONE` als privater, standardmäßig deaktivierter Adapter nach PR119/maine6e5b46:
+eigene Market-/Approval-/Signaturpakete, Trading-AEAD und Originaljournal,
+POST-Markierung vor Versand, ACK ohne Fill, GET-only-Restart.
+Native Menge/VWAP/Gebühr und Gesamtpositionsabgleich für Erst-/Nachkauf,
+dauerhafte native Order-/Updatebindung im Basketjournal`/2`.
+18 neue/263 verschiedene gepinnte Fälle und Executorbuild/Import grün;
+Native-/Actor-/Consumer-/Marginports synthetisch. Operative native Producer,
+eigene Strategie-Startfreigabe und Worker weiterhin `IN_PROGRESS`.
+
 IP-015/IP-016: [Dauerhaftes H1-Basketjournal](../bitget-demo-basket-journal.md)
 `DONE` als Persistenzanbindung nach PR118/mainfa7f922: eigene Header/Commands/Vollrestore,
 externer Minimumreceipt, private exklusive IO, PID/Inode/Dateigeneration,

@@ -7,6 +7,26 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR119 mergede6e5b46, GH/fetch verified. Own native Basket Market bridge
+  on feat/m1-demo-basket-native-orders: separate7-symbol/fixed2x/own-margin
+  sizing, stable ivb clientOid, Market buy/no price/no force/NO reduce.
+  Own approval/packet domain, actual Trading AEAD/HMAC/current credential/
+  native identity checks, journal unknown prefix before POST and GET-only
+  restart; ACK never books fill. Whole-product quantity/profile/weighted
+  average checks (native reported unit capped at frozen tick).
+  Native ID+created digest/update clock persist in pending observation;
+  Basket journal/2 rejects automatic /1 adoption. Original technical8
+  ledger untouched. Stage margin evidence separately source/order/quantity/
+  freshness bound; no marginSize or qty×price inference as native cash.
+  18 new/263 distinct pinned Python cases green; actual encrypted files/
+  HMAC/journal/full restore, native/actor/consumer/margin ports synthetic.
+  First wide run had one missing worker test source path, corrected with
+  final38 Native+Worker cases green. Executor includes Trading source;
+  pinned build/packaged import green. No dependency/migration/frontend/
+  running service change, new actual native call/order or installed route.
+  Default off; operative native admission/margin source, own strategy
+  issuer/consumer, worker/original Dashboard start follow. Preserve six
+  overlays and actual original technical revision8. See docs/bitget-demo-basket-native-orders.md.
 - PR118 mergedfa7f922, GH/fetch verified. Own H1 Basket journal on
   feat/m1-demo-basket-journal folds exact original H1 book from flat genesis.
   Separate Demo/profile/UUID/header/command/hashchain and external minimum
