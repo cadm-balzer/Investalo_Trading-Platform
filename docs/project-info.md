@@ -66,6 +66,19 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-24: PR125/main`a2f35c6` verifiziert.
+[Dashboard-Demosteuerung](bitget-demo-dashboard-control.md) speichert
+Coin-Kandidaten, Basketobergrenze und Start-/Pause-Wunsch mit originaler
+Session/Pilotidentität/aktueller Rolle und Keymetadaten. Eigene private
+signierte Datei/CAS/fsync/atomarer Rename/Readback, Neustart und Statusabruf
+nach unbestätigter Änderung geprüft.11 neue/41 betroffene gepinnte Nodefälle
+und volle Typprüfung grün. Finaler Cockpitbuild und tatsächlicher
+Next-GET/POST mit Default-off ohne Netz/Quell-/Credentialmounts grün.
+Originalhashes/sieben laufende Dienste/Images/technisches Journal8 unverändert.
+Keine Migration/Abhängigkeit/native Anfrage/Order oder Dienständerung.
+Start angefordert bedeutet noch nicht laufender Handel. Eigener Worker/
+Consumer/native Zulassung bleiben in Umsetzung.
+
 2026-11-24: PR124/main`c25c767` verifiziert.
 [Gemeinsamer Order-/Fundingabschluss](bitget-demo-order-funding-settlement.md)
 bestätigt Funding anderer Baskets während terminalen Käufen/Verkäufen und

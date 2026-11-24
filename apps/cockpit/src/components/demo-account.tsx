@@ -100,7 +100,7 @@ export function DemoAccountPanel({ tenantId, csrf, marketTest = false }: { tenan
             <td>{p.margin_mode === "isolated" ? "Isoliert" : "Cross"}</td><td>{money(p.liquidation_price)}</td></tr>)}</tbody></table></div>}
     </>}
     {data && <DemoSignalsPanel key={`${tenantId}:${data.account_id}`} tenantId={tenantId}
-      accountId={data.account_id} positions={data.positions} />}
+      accountId={data.account_id} positions={data.positions} csrf={csrf} />}
     <div className="card-heading"><div><h3>Demo-Handelsstart vorbereiten</h3>
       <p>Prüfe Kontoeinstellungen und offene Aufträge für den ersten Test mit 2× Hebel und isolierter Margin.</p></div>
       <button type="button" className="button secondary" disabled={busy || checking || !data} onClick={() => void inspect("startup")}>
