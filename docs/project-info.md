@@ -75,7 +75,11 @@ Ein-/Ausstiegsgebühren und aktueller Kontowert werden separat abgeglichen.
 Teilfill/Unknown werden nicht als vollständiger Abschluss ausgegeben.
 173 Python-/75 Nodefälle, volle Typprüfung und beide Produktionsbuilds
 grün. Bestehendes tatsächliches Eröffnungsjournal unverändert Revision4.
-Operativer Rollout und echte Abnahme folgen im bestehenden Demo-Testumfang.
+Operativer Rollout inklusive finaler Launcherweiterleitung0ad9681
+abgeschlossen: sechs Originaloverlays/Key active1/1 und sämtliche
+Journaldateihashes erhalten, Revision4. TLS/Auth/mTLS geprüft;
+Abschluss aus originaler Dashboard-Sitzung angefragt. PR117 bereit.
+Tatsächliche Abschluss-/Nullpositionsabnahme bleibt bis dahin offen.
 
 2026-11-24: PR116/mainc336f86 verifiziert. Nutzer bestätigt die erste
 tatsächliche Demo-Marketorder mit Screenshot und Cockpit-Positionsabgleich:

@@ -37,8 +37,12 @@ Versand im bestehenden Journal. Frische Nullposition und Ein-/Ausstiegs-
 gebühren/Kontostand werden getrennt abgeglichen. Teilfill/Unknown,
 fehlendes ACK-ID, Restore und falsche Menge/Zwecke geprüft.
 173 Python-/75 Nodefälle/volle Typprüfung/beide finalen Builds grün.
-Eröffnungsjournal tatsächlich unverändert Revision4; operativer Rollout
-und Originalnutzerabschluss folgen.
+Eröffnungsjournal tatsächlich unverändert Revision4. Rollout `DONE`:
+Cockpit+Executor und notwendige Executor-only-Launcherweiterleitung0ad9681,
+sechs Originaloverlays/Key1/1/alle Journaldateihashes erhalten.
+TLS/Auth/mTLS geprüft, private Originalimage-/Aktivbelege vorhanden.
+PR117 bereit; native Abschlussabnahme `IN_PROGRESS`, Originalnutzerstart
+mit Abschlussvorbereitung/einmaligem Versand/Status angefragt.
 Anschließend operativer H1-Demobasketablauf mit tatsächlichen Nachkäufen
 und Exits; Gesamtintegration bleibt `IN_PROGRESS`.
 

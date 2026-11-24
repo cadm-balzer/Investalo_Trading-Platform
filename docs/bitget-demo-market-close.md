@@ -83,3 +83,28 @@ kompatiblen Version gelesen werden. Keine Rücksetzung des Journals.
 Die [offizielle Bitget-Orderdokumentation](https://www.bitget.com/docs/catalog/classic-contract-trade/classic-contract-trade)
 bestätigt One-way `reduceOnly`, Market ohne Limitpreis und mögliche
 fehlende orderId; geprüft2026-11-24.
+
+## Operativer Stand
+
+Der freigegebene Demo-Testrollout ist abgeschlossen. Zunächst Cockpit und
+Executor erneuert, fünf andere Dienst-IDs erhalten. Die abschließend
+geprüfte Launcherweiterleitung0ad9681 anschließend Executor-only ausgerollt;
+sechs andere Dienst-IDs einschließlich Cockpit unverändert.
+Finale Images und Paket-/Sourcehashes von Launcher, Marketdienst und
+Abschlussmodul geprüft. Die erste mTLS-Bereitschaftsprobe nach Neustart
+war transient; anschließend tatsächliches405 bestätigt und aktiver
+Rolloutbeleg abgeschlossen, ohne erneutes Deployment.
+
+Alle sechs Originaloverlays erhalten; Cockpit gesund, Executor readonly/
+UID10003/kein Hostport/Logging none/keine Restarts. TLS200, anonyme
+Kontovarianten sowie alle fünf Order-POSTs401, privates mTLS405.
+Demo-Key unverändert active/revision1/storage1. Sämtliche ursprünglichen
+Journal-/Registry-/Consent-Dateihashes vor/nach identisch; Revision4,
+weiterhin nur die ursprüngliche Eröffnung. Private Originalimage-/Vorher-/
+Aktivbelege unter `infra/local/demo-market-test/rollout-*` aufbewahrt.
+Das Deployment sendet keine Brokerorder.
+
+Der Nutzer wurde gebeten, den Abschluss aus seiner ursprünglichen
+Dashboard-Sitzung vorzubereiten, einmal zu bestätigen und anschließend
+den Teststatus abzufragen. Die tatsächliche Abschluss-/Nullpositions-
+abnahme ist bis zu diesem Originalaufruf offen.
