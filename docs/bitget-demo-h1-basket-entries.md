@@ -89,9 +89,9 @@ grün:155 verschiedene gepinnte Pythonfälle und69 Subtests in104,71s.
 Bestehende Paperfills oder Papergewinne können nicht als tatsächliche Positionen
 übernommen werden. Die bestehende technische Orderjournalidentität bleibt separat.
 
-Der neue Zustand ist derzeit ein reiner, unveränderlicher In-Memory-Reducer:
-`execution_enabled=False`. Nächster Schritt sind eigenes persistentes
-Basketjournal/Restore, native H1-Quellen-/Kontoanbindung und die Strategie-
+Der unveränderliche Reducer wird durch ein eigenes
+[persistentes Basketjournal/Restore](bitget-demo-basket-journal.md) ergänzt;
+`execution_enabled=False`. Offen bleiben native H1-Quellen-/Kontoanbindung und die Strategie-
 Startfreigabe aus der originalen Dashboard-Sitzung. Der vorhandene kleine
 BTC-Testconsent darf hierfür nicht verwendet werden. Die ungeklärten nativen
 Maxima/Kosten/Kontofelder erhalten keine erfundenen Standardwerte.

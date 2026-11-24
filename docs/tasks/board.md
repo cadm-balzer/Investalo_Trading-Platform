@@ -8,6 +8,16 @@ konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
+IP-015/IP-016: [Dauerhaftes H1-Basketjournal](../bitget-demo-basket-journal.md)
+`DONE` als Persistenzanbindung nach PR118/mainfa7f922: eigene Header/Commands/Vollrestore,
+externer Minimumreceipt, private exklusive IO, PID/Inode/Dateigeneration,
+fsync-Versandmarke vor injiziertem Sender und GET-only nach Versuch.
+Keine doppelte Ausführung nach ACK-Verlust; verworfene unsent Vorbereitung
+verbraucht keine Stufe. Echte Prozesse/Threads/Dateien mit synthetischem
+Sender;22 neue/177 verschiedene gepinnte Fälle und82 Subtests grün.
+Native Adapter und Dashboard-Start bleiben nächste operative Schritte;
+Gesamtintegration weiterhin `IN_PROGRESS`.
+
 IP-015/IP-016: [H1-Basket-Kaufabgleich](../bitget-demo-h1-basket-entries.md)
 `DONE` als Domainanbindung nach PR117/main89a511c:
 gemeinsame RSI-/Kapitalprüfung, Stufenmargin×2/fester Baskethebel,

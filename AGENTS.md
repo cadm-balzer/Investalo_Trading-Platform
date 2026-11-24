@@ -7,6 +7,22 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR118 mergedfa7f922, GH/fetch verified. Own H1 Basket journal on
+  feat/m1-demo-basket-journal folds exact original H1 book from flat genesis.
+  Separate Demo/profile/UUID/header/command/hashchain and external minimum
+  receipt; original Capital/Paper/technical journals unchanged.
+  Persist/fsync attempt before injected sender; no fill from ACK, no resend
+  after marker/restart/unknown ACK. Native observation requires original
+  recorded attempt. Unsent preparation may cancel without stage, ID retained;
+  attempted exposure cannot discard. Original30s H1 signal never renewed.
+  Private600/UID/nlink/exclusive writer/RLock/PID/inode/generation guards,
+  unknown write stops state/receipt; full original-prefix replay before recovery.
+  Actual file/thread/child-exit tests, synthetic send/auth/Broker ports only.
+  22 new/177 distinct pinned Python cases/82 subtests green in117.84s.
+  No operative sender, strategy grant issuer, Dashboard route, native request
+  or deployment. Preserve technical revision8 and six overlays. Next native
+  source/order/current credential+actor/own original strategy consent and
+  actual stage margin debit reconciliation. See docs/bitget-demo-basket-journal.md.
 - PR117 merged89a511c, GH/fetch verified. Technical native BTC roundtrip
   complete; next H1 bridge on feat/m1-demo-h1-basket-entries.
   Own immutable broker-entry reducer uses original H1 RSI/capital admission,

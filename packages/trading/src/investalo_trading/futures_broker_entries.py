@@ -141,6 +141,7 @@ def start_broker_entries(signal):
     if (type(signal) is not CapitalSignalState or type(signal.profile) is not CapitalH1SignalProfile
             or signal.economic.stages or signal.economic.stopped
             or signal.economic.ledger.closed_baskets
+            or getattr(signal.profile.plan, "epochs", ())
             or any(b.quantity or b.margin_committed for b in signal.economic.ledger.baskets)):
         raise ValueError("flat own H1 genesis without simulated entries required")
     return BrokerEntryBook(signal, 0, signal.as_of, IdentityHistory("order"),
@@ -253,6 +254,15 @@ def replay_broker_hour(book, frame, expected_revision, at):
         raise ValueError("settle outstanding exposure before replaying H1 strategy")
     signal = replay_capital_hour(book.signal, frame, book.signal.revision, at)
     return _finish(book, at, ("hour", frame), signal=signal)
+
+
+def cancel_broker_preparation(book, order_digest, expected_revision, at):
+    """Discard an unsent preparation. The owning journal must exclude attempts."""
+    at = _check(book, expected_revision, at)
+    if (book.pending is None or book.pending.order_digest != order_digest
+            or book.observation is not None):
+        raise ValueError("original unobserved preparation required")
+    return _finish(book, at, ("cancel-preparation", order_digest), pending=None)
 
 
 def observe_broker_prices(book, trade, marks, event_id, expected_revision, at):
