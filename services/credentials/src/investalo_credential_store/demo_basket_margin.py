@@ -13,21 +13,26 @@ from investalo_bitget.futures_demo_basket import BasketExitIntent
 from investalo_bitget.futures_demo_settlement import reconcile_order_funding
 from .demo_basket_orders import SignedBasketRequest, BasketMarginEvidence, BasketExitEvidence
 from .models import _PrivateImmutable
+from investalo_bitget.futures_demo_policy import ApprovedDemoStrategyPolicy
 
 
 class BasketNativeMarginSource(_PrivateImmutable):
-    __slots__ = ("transport", "now", "pid", "_last_start", "_pacing_lock")
+    __slots__ = ("transport", "now", "pid", "_last_start", "_pacing_lock", "policy")
 
-    def __init__(self, *, transport, milliseconds=lambda: time.time_ns() // 1_000_000):
+    def __init__(self, *, transport, milliseconds=lambda: time.time_ns() // 1_000_000, policy=None):
         if not callable(transport) or not callable(milliseconds):
             raise DemoRejected("invalid_native_margin_source")
+        if policy is not None and type(policy) is not ApprovedDemoStrategyPolicy:
+            raise DemoRejected("own_approved_demo_strategy_policy_required")
         for name, value in dict(transport=transport, now=milliseconds, pid=os.getpid(),
-                                _last_start=None, _pacing_lock=threading.Lock()).items():
+                                _last_start=None, _pacing_lock=threading.Lock(), policy=policy).items():
             object.__setattr__(self, name, value)
 
     def _get(self, lease, intent, operation, guard, **window):
         if self.pid != os.getpid():
             raise DemoRejected("fork_inherited_margin_source")
+        if self.policy:
+            self.policy.check(intent.binding, lease.spec.credential_revision)
         with self._pacing_lock:
             if self._last_start is not None:
                 time.sleep(max(0, .11 - (time.monotonic() - self._last_start)))
@@ -42,7 +47,7 @@ class BasketNativeMarginSource(_PrivateImmutable):
         wallet = self._get(lease, intent, "wallet", guard)
         positions = self._get(lease, intent, "positions", guard)
         return capture_margin_baseline(wallet, positions, intent, context=context,
-            now_ms=self.now(), expected_positions=expected_positions)
+            now_ms=self.now(), expected_positions=expected_positions, policy=self.policy)
 
     def resolve(self, lease, intent, observation, positions, *, baseline,
                 context, expected_positions, attempted_ms, guard, book=None):
@@ -67,11 +72,11 @@ class BasketNativeMarginSource(_PrivateImmutable):
             reducer = reconcile_exit if type(intent) is BasketExitIntent else reconcile_margin
             result = reducer(baseline, wallet, positions, tuple(pages), intent, observation,
                 context=context, now_ms=self.now(), expected_positions=expected_positions,
-                attempted_ms=attempted_ms)
+                attempted_ms=attempted_ms, policy=self.policy)
             if result is None and book is not None:
                 return reconcile_order_funding(baseline,wallet,positions,tuple(pages),intent,observation,book,
                     context=context,now_ms=self.now(),expected_positions=expected_positions,
-                    attempted_ms=attempted_ms)
+                    attempted_ms=attempted_ms, policy=self.policy)
         except (ValueError, BitgetRejected, OSError):
             # The order fill remains observable with unknown margin. A separate
             # final dispatcher lease/actor guard still prevents revoked publication.

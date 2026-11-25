@@ -23,7 +23,7 @@ def _bind(config, signal, plan):
 def refresh_profit_budgets(config, signal):
     """Only flat reusable candidates adopt the latest budget; old ladders stay frozen."""
     plan = config.profile.plan
-    if type(plan) is not CapitalPaperProfitPlan:
+    if not isinstance(plan, CapitalPaperProfitPlan):
         return config, signal
     stopped = {s.symbol for s in signal.economic.stopped}
     occupied = tuple(bool(b.quantity) or b.symbol in stopped for b in signal.economic.ledger.baskets)
@@ -51,7 +51,7 @@ class PaperProfitAssessment:
 def assess_profit_epoch(state, *, now):
     now = timestamp(now)
     plan, signal = state.config.profile.plan, state.signal
-    if type(plan) is not CapitalPaperProfitPlan:
+    if not isinstance(plan, CapitalPaperProfitPlan):
         return PaperProfitAssessment(("profit_profile_required",))
     ledger = signal.economic.ledger
     previous = plan.epochs[-1] if plan.epochs else None

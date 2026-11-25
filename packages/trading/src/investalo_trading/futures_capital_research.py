@@ -298,10 +298,11 @@ class CapitalAssessment:
 
 
 def start_capital_research(plan, marks, at, evidence_digest, *, identity_capacity=50000):
+    from .futures_broker_plan import CapitalBrokerPlan
     from .futures_capital_grid import CapitalGridPlan
     from .futures_paper_plan import CapitalPaperPoolPlan
     from .futures_paper_profit_plan import CapitalPaperProfitPlan
-    if type(plan) not in (CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan, CapitalGridPlan, CapitalPaperPoolPlan, CapitalPaperProfitPlan):
+    if type(plan) not in (CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan, CapitalGridPlan, CapitalPaperPoolPlan, CapitalPaperProfitPlan, CapitalBrokerPlan):
         raise ValueError("explicit capital plan required")
     ledger = start_futures_ledger(plan, marks, at, evidence_digest)
     return CapitalResearchState(
@@ -369,7 +370,7 @@ def prepare_capital_entry(state, symbol, maximum_price, at):
     from .futures_paper_plan import CapitalPaperPoolPlan
     from .futures_paper_profit_plan import CapitalPaperProfitPlan
     occupied = sum(bool(row.quantity) for row in state.ledger.baskets)
-    if type(plan) is CapitalPaperProfitPlan:
+    if isinstance(plan, CapitalPaperProfitPlan):
         occupied += len(state.stopped)
     if (type(plan) in (CapitalPaperPoolPlan, CapitalPaperProfitPlan) and not b.quantity
             and occupied >= plan.simultaneous_limit):
@@ -404,6 +405,9 @@ def prepare_capital_entry(state, symbol, maximum_price, at):
     if (type(ledger) is BrokerCurrentLedgerState
             and ledger.day_started_at == ledger.financial_started_at
             and at.date() == ledger.financial_started_at.date()):
+        reasons = [r for r in reasons if r != "invalid_day_basis"]
+    from .futures_broker_plan import CapitalBrokerPlan
+    if type(plan) is CapitalBrokerPlan and ledger.day_started_at.date() == at.date():
         reasons = [r for r in reasons if r != "invalid_day_basis"]
     if at == state.ledger.as_of and state.ledger.phase > PHASES[EntryFill]:
         reasons.append("entry_event_ordering")

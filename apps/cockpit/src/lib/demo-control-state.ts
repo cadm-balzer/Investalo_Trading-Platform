@@ -36,16 +36,19 @@ export class DemoControlStore {
     this.#directory = directory;
     this.#key = createHmac("sha256", secret).update("investalo-demo-h1-intent-signing/1").digest();
   }
+  #shared() { return process.env.COCKPIT_DEMO_H1_WORKER === "1"; }
   async #root() {
     if (this.#pid !== process.pid) throw fail();
     const parent = this.#directory.slice(0, this.#directory.lastIndexOf("/"));
     const s = await lstat(parent);
     if (!s.isDirectory() || s.uid !== process.getuid!() || (s.mode & 0o022) !== 0) throw fail();
-    await mkdir(this.#directory, { mode: 0o700 }).catch(e => {
+    await mkdir(this.#directory, { mode: this.#shared() ? 0o2750 : 0o700 }).catch(e => {
       if (e.code !== "EEXIST") throw fail();
     });
     const held = await open(this.#directory, directories), current = await held.stat();
-    if (!current.isDirectory() || current.uid !== process.getuid!() || (current.mode & 0o7777) !== 0o700) {
+    if (!current.isDirectory() || current.uid !== process.getuid!() ||
+      (current.mode & 0o7777) !== (this.#shared() ? 0o2750 : 0o700) ||
+      this.#shared() && current.gid !== 10003) {
       await held.close(); throw fail();
     }
     return held;
@@ -59,7 +62,9 @@ export class DemoControlStore {
     catch (e) { if ((e as NodeJS.ErrnoException).code === "ENOENT") return null; throw fail(); }
     try {
       const before = await file.stat({ bigint: true });
-      if (!before.isFile() || before.uid !== BigInt(process.getuid!()) || (before.mode & 0o7777n) !== 0o600n ||
+      if (!before.isFile() || before.uid !== BigInt(process.getuid!()) ||
+        (before.mode & 0o7777n) !== (this.#shared() ? 0o640n : 0o600n) ||
+        this.#shared() && before.gid !== 10003n ||
         before.nlink !== 1n || before.size < 1n || before.size > 8192n) throw fail();
       const bytes = Buffer.alloc(8193), count = (await file.read(bytes, 0, bytes.length, 0)).bytesRead;
       const after = await file.stat({ bigint: true });
@@ -88,9 +93,44 @@ export class DemoControlStore {
         s.action === "start" ? "start_requested" : "paused", requested_at: s?.requested_at ?? null,
       worker_state: "not_installed", execution_enabled: false }, b.tenant_id, b.account_id);
   }
+  async #worker(summary: DemoControl, b: DemoControlBinding): Promise<DemoControl> {
+    if (!this.#shared()) return summary;
+    const path = this.#directory.slice(0, this.#directory.lastIndexOf("/"))+"/demo-h1-worker-status/status.json";
+    let file;
+    try {
+      file = await open(path, constants.O_RDONLY | constants.O_NOFOLLOW | constants.O_NONBLOCK);
+      const stat = await file.stat({ bigint: true });
+      if (!stat.isFile() || stat.uid !== 10003n || stat.gid !== 10002n ||
+        (stat.mode & 0o7777n) !== 0o640n || stat.nlink !== 1n || stat.size > 8192n) throw fail();
+      const raw = Buffer.alloc(8193), count = (await file.read(raw, 0, raw.length, 0)).bytesRead;
+      const after = await file.stat({ bigint: true });
+      if (BigInt(count) !== stat.size || after.mtimeNs !== stat.mtimeNs || after.ctimeNs !== stat.ctimeNs) throw fail();
+      const wire = exactObject(parseEnrollmentJson(new TextDecoder("utf-8", { fatal: true }).decode(raw.subarray(0, count))),
+        ["payload", "mac"]);
+      if (typeof wire.payload !== "string" || typeof wire.mac !== "string" || !/^[a-f0-9]{64}$/.test(wire.mac)) throw fail();
+      const purpose = "investalo-demo-h1-worker-status/1";
+      const mac = createHmac("sha256", this.#key).update(purpose+"\0"+wire.payload).digest("hex");
+      if (!timingSafeEqual(Buffer.from(mac, "hex"), Buffer.from(wire.mac, "hex"))) throw fail();
+      const w = exactObject(parseEnrollmentJson(wire.payload), ["schema", "tenant_id", "account_id", "connection_id",
+        "storage_version", "auth_epoch", "control_revision", "state", "detail", "execution_enabled", "observed_at", "journal_revision"]);
+      if (w.schema !== purpose || w.tenant_id !== b.tenant_id || w.account_id !== b.account_id ||
+        w.connection_id !== b.connection_id || w.storage_version !== b.storage_version || w.auth_epoch !== b.auth_epoch ||
+        w.control_revision !== summary.revision || typeof w.observed_at !== "string" ||
+        !["waiting", "running", "paused", "blocked"].includes(w.state as string) ||
+        typeof w.execution_enabled !== "boolean" || typeof w.detail !== "string" || w.detail.length > 128) throw fail();
+      const age = Date.now()-Date.parse(w.observed_at);
+      if (!Number.isFinite(age) || age < 0 || age > 30000) throw fail();
+      return parseDemoControl({ ...summary, worker_state: w.state,
+        execution_enabled: w.execution_enabled && summary.status === "start_requested",
+        worker_detail: w.detail, worker_seen_at: w.observed_at }, b.tenant_id, b.account_id);
+    } catch {
+      return parseDemoControl({ ...summary, worker_state: "offline", execution_enabled: false,
+        worker_detail: "worker_status_unconfirmed", worker_seen_at: null }, b.tenant_id, b.account_id);
+    } finally { await file?.close(); }
+  }
   async summary(input: DemoControlBinding) {
     const b = binding(input), root = await this.#root();
-    try { return this.#summary(await this.#read(root.fd, b), b); } finally { await root.close(); }
+    try { return await this.#worker(this.#summary(await this.#read(root.fd, b), b), b); } finally { await root.close(); }
   }
   async change(input: DemoControlBinding, request: DemoControlInput, now: number, guard: () => Promise<void>) {
     if (this.#busy) throw fail();
@@ -110,7 +150,8 @@ export class DemoControlStore {
         requested_at: new Date(now * 1000).toISOString() };
       const payload = JSON.stringify(next), wire = JSON.stringify({ payload, mac: this.#mac(payload) });
       temporary = `/proc/self/fd/${root.fd}/.${randomUUID()}.tmp`;
-      const file = await open(temporary, constants.O_WRONLY | constants.O_CREAT | constants.O_EXCL | constants.O_NOFOLLOW, 0o600);
+      const file = await open(temporary, constants.O_WRONLY | constants.O_CREAT | constants.O_EXCL | constants.O_NOFOLLOW,
+        this.#shared() ? 0o640 : 0o600);
       try { await file.writeFile(wire); await file.sync(); } finally { await file.close(); }
       await guard(); // Recheck current actor/key immediately before publishing user intent.
       await rename(temporary, `/proc/self/fd/${root.fd}/${this.#name(b)}`); temporary = undefined;

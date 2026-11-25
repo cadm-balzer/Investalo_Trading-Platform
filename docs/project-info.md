@@ -66,6 +66,17 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+25.11.2026: [Automatischer H1-Demohandel](bitget-demo-h1-worker.md)
+operativ aktiv. Originalstart1/sieben Kandidaten/Obergrenze3,
+native Profile vorbereitet,300 Indikatorstunden verarbeitet.
+Tatsächlicher Status15:56UTC running/waiting_for_h1_signal/execution true;
+echter Neustart15:57UTC bestätigt identisches Journal/Receipt13.
+Bis dahin keine Strategieorder; kein erzwungenes RSI-Signal.
+196 gepinnte Python-/12 Nodefälle/Typprüfung/finale Builds grün.
+Cockpit+neuer Worker ausgerollt, sechs andere Dienste/Images und
+Schlüssel active1/1/technisches Journal8/Originalhashes erhalten.
+Künftige Deployments behalten alle acht Overlays einschließlich H1-Worker.
+
 25.11.2026: PR128/main`0d07c13` bestätigt. Nutzer autorisiert automatischen
 Demohandel, originaler Dashboard-Start1 gespeichert. [Dauerhafte Freigabe](
 bitget-demo-worker-authorization.md) verbindet eigenen einmaligen

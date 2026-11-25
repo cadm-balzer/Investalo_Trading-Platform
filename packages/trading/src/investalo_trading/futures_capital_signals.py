@@ -38,7 +38,8 @@ class CapitalSignalProfile(CapitalCanonical):
     assumptions_digest: str
 
     def __post_init__(self):
-        if type(self.plan) not in (CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan, CapitalGridPlan, CapitalPaperPoolPlan, CapitalPaperProfitPlan):
+        from .futures_broker_plan import CapitalBrokerPlan
+        if type(self.plan) not in (CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan, CapitalGridPlan, CapitalPaperPoolPlan, CapitalPaperProfitPlan, CapitalBrokerPlan):
             raise ValueError("separate capital plan required")
         if type(self.protection_hours) is not int or self.protection_hours not in (1, 4):
             raise ValueError("closed H1 or H4 protection required")
@@ -64,7 +65,8 @@ class CapitalH1SignalProfile(CapitalSignalProfile):
 
     def __post_init__(self):
         super().__post_init__()
-        if type(self.plan) not in (CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan, CapitalGridPlan, CapitalPaperPoolPlan, CapitalPaperProfitPlan) or self.protection_hours != 1:
+        from .futures_broker_plan import CapitalBrokerPlan
+        if type(self.plan) not in (CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan, CapitalGridPlan, CapitalPaperPoolPlan, CapitalPaperProfitPlan, CapitalBrokerPlan) or self.protection_hours != 1:
             raise ValueError("H1 entry comparison requires corrected cash and H1 protection")
 
     @property
@@ -310,6 +312,13 @@ def observe_capital_prices(state, trade, mark, event_id, expected_revision, at):
     _prices(mark, state.profile.plan.symbols)
     economic = record_capital_event(
         state.economic, MarkBatch(mark), event_id, state.economic.revision, at)
+    from .futures_broker_plan import CapitalBrokerPlan
+    if (type(state.profile.plan) is CapitalBrokerPlan
+            and economic.ledger.day_started_at.date() < at.date()):
+        # Native runtime uses the first actual observation of the new day.
+        # It does not fabricate a midnight account snapshot after an outage.
+        economic = record_capital_event(economic, DailyBasis(economic.ledger.equity, event_id),
+            "native-day-"+event_id, economic.revision, at)
     return _finish(state, at, ("prices", event_id, trade, mark), economic=economic,
                    trade_prices=trade, trade_at=at,
                    signals=_protected(state.profile, economic, state.signals, trade))

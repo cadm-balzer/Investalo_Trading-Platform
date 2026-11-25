@@ -57,11 +57,7 @@ class CapitalPaperProfitPlan(CapitalPaperPoolPlan):
                 or not D(0) < self.cost_ratio < D(1)):
             raise ValueError("own initial3–5/ceiling3–7 profit profile required")
         number(self.cost_ratio, positive=True)
-        if (type(self.grid_rules) is not tuple
-                or tuple(r.symbol for r in self.grid_rules if type(r) is CapitalGridRule) != self.symbols
-                or len(self.grid_rules) != len(self.symbols)
-                or any(r.maximum_market_quantity < c.minimum_quantity
-                       for r, c in zip(self.grid_rules, self.contracts, strict=True))):
+        if not self._valid_grid_rules():
             raise ValueError("complete ordered own profit grids required")
         _sha(self.grid_source_digest)
         if (type(self.epochs) is not tuple or len(self.epochs) > MAX_EPOCHS
@@ -95,6 +91,13 @@ class CapitalPaperProfitPlan(CapitalPaperPoolPlan):
     @precise
     def original_range(self):
         return floor_step(self.initial_equity / self.initial_slots, self.quantum)
+
+    def _valid_grid_rules(self):
+        return (type(self.grid_rules) is tuple
+                and tuple(r.symbol for r in self.grid_rules if type(r) is CapitalGridRule) == self.symbols
+                and len(self.grid_rules) == len(self.symbols)
+                and all(r.maximum_market_quantity >= c.minimum_quantity
+                        for r, c in zip(self.grid_rules, self.contracts, strict=True)))
 
     @property
     @precise

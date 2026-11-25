@@ -15,6 +15,7 @@ from .futures_demo_reconcile import OrderObservation, native_id, position_quanti
 from investalo_trading.futures_broker_margin import BrokerMarginBaseline, BrokerMarginPosition
 from investalo_trading.capital_digest import digest
 from investalo_trading.models import precise
+from .futures_demo_policy import ApprovedDemoStrategyPolicy
 
 Q = Decimal(".00000001")
 MONEY_TOLERANCE = 4 * Q
@@ -29,7 +30,11 @@ def _amount(raw, name, *, signed=False):
 
 
 @precise
-def margin_snapshot(wallet_response, positions_response, intent, *, context, now_ms):
+def margin_snapshot(wallet_response, positions_response, intent, *, context, now_ms, policy=None):
+    if policy is not None:
+        if type(policy) is not ApprovedDemoStrategyPolicy:
+            raise DemoRejected("own_approved_demo_strategy_policy_required")
+        policy.check(intent.binding)
     wallet, wallet_ms = _frame(wallet_response, intent, context, now_ms)
     raw, positions_ms = _frame(positions_response, intent, context, now_ms)
     if (type(wallet) is not list or len(wallet) != 1 or type(wallet[0]) is not dict
@@ -38,6 +43,8 @@ def margin_snapshot(wallet_response, positions_response, intent, *, context, now
     wallet = wallet[0]
     # Known zero collateral extras are required; no absence-as-zero defaults.
     for key in ("locked", "crossedMargin", "coupon", "grant"):
+        if key == "grant" and policy is not None and parse.amount(wallet.get(key)) is None:
+            continue
         if _amount(wallet, key) != 0:
             raise DemoRejected("native_margin_wallet_not_isolated_own_capital")
     equity = _amount(wallet, "accountEquity", signed=True)
@@ -74,8 +81,8 @@ def margin_snapshot(wallet_response, positions_response, intent, *, context, now
 
 @precise
 def capture_margin_baseline(wallet_response, positions_response, intent, *,
-                            context, now_ms, expected_positions):
-    baseline = margin_snapshot(wallet_response, positions_response, intent, context=context, now_ms=now_ms)
+                            context, now_ms, expected_positions, policy=None):
+    baseline = margin_snapshot(wallet_response, positions_response, intent, context=context, now_ms=now_ms, policy=policy)
     if (type(expected_positions) is not tuple or not 3 <= len(expected_positions) <= 7
             or len({row[0] for row in expected_positions}) != len(expected_positions)):
         raise DemoRejected("own_complete_margin_position_baseline_required")
@@ -134,7 +141,7 @@ def parse_bill_page(response, intent, *, context, now_ms, start_ms, end_ms, curs
 
 @precise
 def _settlement_sources(baseline, wallet_response, positions_response, bill_pages, intent, observation, *,
-                        context, now_ms, expected_positions, attempted_ms):
+                        context, now_ms, expected_positions, attempted_ms, policy=None):
     if (type(baseline) is not BrokerMarginBaseline
             or baseline.order_digest != intent.order_digest or baseline.intent_digest != intent.intent_digest
             or type(observation) is not OrderObservation or observation.intent_digest != intent.intent_digest
@@ -149,7 +156,7 @@ def _settlement_sources(baseline, wallet_response, positions_response, bill_page
         return None
     basket_position_match(positions_response, intent, observation, context=context,
                           now_ms=now_ms, expected_positions=expected_positions)
-    after = margin_snapshot(wallet_response, positions_response, intent, context=context, now_ms=now_ms)
+    after = margin_snapshot(wallet_response, positions_response, intent, context=context, now_ms=now_ms, policy=policy)
     if min(after.wallet_ms, after.positions_ms) < observation.response_ms:
         raise DemoRejected("margin_sources_precede_terminal_order")
     end_ms = after.observed_ms
@@ -177,12 +184,12 @@ def _settlement_sources(baseline, wallet_response, positions_response, bill_page
 
 @precise
 def reconcile_margin(baseline, wallet_response, positions_response, bill_pages, intent, observation, *,
-                     context, now_ms, expected_positions, attempted_ms):
+                     context, now_ms, expected_positions, attempted_ms, policy=None):
     """Return (allocated margin, source digest, evidence time), or unknown."""
     if type(intent) is not BasketMarketIntent:
         raise DemoRejected("entry_margin_requires_own_buy_intent")
     sources = _settlement_sources(baseline, wallet_response, positions_response, bill_pages, intent, observation,
-        context=context, now_ms=now_ms, expected_positions=expected_positions, attempted_ms=attempted_ms)
+        context=context, now_ms=now_ms, expected_positions=expected_positions, attempted_ms=attempted_ms, policy=policy)
     if sources is None:
         return None
     after, bills, hashes, last_at = sources
@@ -229,12 +236,12 @@ def reconcile_margin(baseline, wallet_response, positions_response, bill_pages, 
 
 @precise
 def reconcile_exit(baseline, wallet_response, positions_response, bill_pages, intent, observation, *,
-                   context, now_ms, expected_positions, attempted_ms):
+                   context, now_ms, expected_positions, attempted_ms, policy=None):
     """Corroborate released native margin AND native realized PnL, excluding UPL."""
     if type(intent) is not BasketExitIntent:
         raise DemoRejected("exit_settlement_requires_own_reduce_intent")
     sources = _settlement_sources(baseline, wallet_response, positions_response, bill_pages, intent, observation,
-        context=context, now_ms=now_ms, expected_positions=expected_positions, attempted_ms=attempted_ms)
+        context=context, now_ms=now_ms, expected_positions=expected_positions, attempted_ms=attempted_ms, policy=policy)
     if sources is None:
         return None
     after, bills, hashes, last_at = sources

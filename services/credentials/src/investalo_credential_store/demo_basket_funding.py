@@ -39,6 +39,6 @@ class BasketNativeFundingSource(_PrivateImmutable):
                 if cursor is None:
                     break
             return funding_batch(wallet, positions, tuple(pages), intent, book,
-                                 context=context, now_ms=self.reader.now())
+                                 context=context, now_ms=self.reader.now(), policy=self.reader.policy)
         except (ValueError, BitgetRejected, OSError):
             return None  # Missing sources never advance the original durable cursor.

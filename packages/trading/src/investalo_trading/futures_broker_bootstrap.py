@@ -25,6 +25,11 @@ ZERO = Decimal(0)
 
 
 @dataclass(frozen=True)
+class _NativeProfileProjection:
+    profile: CapitalH1SignalProfile
+
+
+@dataclass(frozen=True)
 class BrokerFlatAccount(CapitalCanonical):
     """An independent native producer must confirm all these current amounts."""
     equity: Decimal
@@ -58,6 +63,11 @@ class BrokerCurrentLedgerState(FuturesLedgerState):
 
     def _validate_day_basis(self, day):
         started = timestamp(self.financial_started_at)
+        from .futures_broker_plan import CapitalBrokerPlan
+        if type(self.plan) is CapitalBrokerPlan:
+            if started > self.as_of or day < started or day > self.as_of:
+                raise ValueError("actual native observation day basis required")
+            return
         if (started > self.as_of or day < started
                 or day != started and day != day.replace(hour=0, minute=0, second=0, microsecond=0)):
             raise ValueError("native first-day basis or subsequent exact midnight required")
@@ -128,3 +138,59 @@ def warm_broker_hours(book, frames, already_warmed, at):
         audit_head=digest((VERSION, signal.audit_head, frames, already_warmed, at)))
     return replace(book, signal=next_signal, revision=book.revision+1, as_of=at,
         audit_head=digest((VERSION, book.audit_head, next_signal.state_digest)))
+
+
+@precise
+def advance_native_hour(book, frame, at):
+    """Advance closed native indicators without backdating current money/fills."""
+    from .futures_broker_plan import CapitalBrokerPlan
+    at = timestamp(at)
+    s = book.signal
+    if (type(s.profile.plan) is not CapitalBrokerPlan or type(frame) is not CapitalHour
+            or s.last_hour is None or frame.trade[0].open_time != s.last_hour.close_time
+            or frame.close_time > at or at < book.as_of
+            or tuple(b.symbol for b in frame.trade) != tuple(f"{n}:USDT-M:trade" for n in s.profile.plan.symbols)
+            or tuple(b.symbol for b in frame.mark) != tuple(f"{n}:USDT-M:mark" for n in s.profile.plan.symbols)):
+        raise ValueError("original contiguous completed native hour required")
+    updated = []
+    for old, bar, basket in zip(s.signals, frame.trade, s.economic.ledger.baskets, strict=True):
+        indicator = advance(old.entry_indicator, bar, IndicatorParameters())
+        below = indicator.rsi is not None and indicator.rsi < 30
+        updated.append(replace(old, entry_indicator=indicator,
+            protection_indicator=advance(old.protection_indicator, bar, IndicatorParameters()),
+            below_count=min(2, old.below_count+1) if below else 0,
+            rearmed=old.rearmed or bool(basket.quantity and indicator.rsi is not None and indicator.rsi > 30)))
+    fresh = timedelta(0) <= at-frame.close_time <= timedelta(seconds=30)
+    next_signal = replace(s, revision=s.revision+1, as_of=at, signals=tuple(updated), last_hour=frame,
+        h4_buffer=(), last_entry_at=frame.close_time if fresh else None,
+        audit_head=digest(("native-hour/1", s.audit_head, frame, at)))
+    return replace(book, signal=next_signal, revision=book.revision+1, as_of=at,
+        audit_head=digest(("native-hour/1", book.audit_head, next_signal.state_digest)))
+
+
+def native_plan_update(book, at, *, limit=None, profit=False):
+    from .futures_broker_plan import CapitalBrokerPlan
+    from .futures_paper_profit import assess_profit_epoch, refresh_profit_budgets
+    from types import SimpleNamespace
+    if type(book.signal.profile.plan) is not CapitalBrokerPlan or book.pending is not None:
+        raise ValueError("idle own native plan required")
+    plan = book.signal.profile.plan
+    if limit is not None:
+        if type(limit) is not int or not 3 <= limit <= 7:
+            raise ValueError("native basket ceiling required")
+        plan = replace(plan, configured_limit=limit)
+    if profit:
+        state = SimpleNamespace(config=SimpleNamespace(profile=book.signal.profile), signal=book.signal,
+            warmed=True, observed_at=book.as_of)
+        assessment = assess_profit_epoch(state, now=at)
+        if assessment.reasons:
+            raise ValueError("native profit allocation not eligible")
+        plan = replace(plan, epochs=(*plan.epochs, assessment.epoch))
+    profile = replace(book.signal.profile, plan=plan)
+    economic = replace(book.signal.economic, ledger=replace(book.signal.economic.ledger, plan=plan))
+    signal = replace(book.signal, profile=profile, economic=economic)
+    _, signal = refresh_profit_budgets(_NativeProfileProjection(profile), signal)
+    signal = replace(signal, revision=signal.revision+1, as_of=at,
+        audit_head=digest(("native-plan/1", signal.audit_head, plan, at)))
+    return replace(book, signal=signal, revision=book.revision+1, as_of=at,
+        audit_head=digest(("native-plan/1", book.audit_head, signal.state_digest)))

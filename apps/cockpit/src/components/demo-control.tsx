@@ -30,12 +30,17 @@ export function DemoControlPanel({ tenantId, accountId, csrf }: {
       setError("Steuerung derzeit nicht bestätigt. Bitte den Status neu laden.");
     } finally { pending.current = false; setBusy(false); }
   }
-  useEffect(() => { void call(); }, []); // Parent keys this panel by tenant/account/session.
+  useEffect(() => {
+    void call();
+    const timer = setInterval(() => { if (document.visibilityState === "visible") void call(); }, 10000);
+    return () => clearInterval(timer);
+  }, []); // Parent keys this panel by tenant/account/session.
   const labels: Record<DemoControl["status"], string> = { not_started: "NOCH NICHT GESTARTET",
     start_requested: "START ANGEFORDERT", paused: "PAUSIERT", authorization_changed: "ERNEUTE STARTFREIGABE NÖTIG" };
   return <div className="demo-start-gate">
     <div className="card-heading"><h3>Automatischer Demohandel</h3>
-      <span className="badge neutral">{state ? labels[state.status] : "NOCH NICHT GESTARTET"}</span></div>
+      <span className="badge neutral">{state?.execution_enabled ? "DEMOHANDEL AKTIV" :
+        state?.worker_state === "blocked" ? "PRÜFUNG NÖTIG" : state ? labels[state.status] : "NOCH NICHT GESTARTET"}</span></div>
     <p>Long · H1 · 2× · isolierte Margin. Fünf Käufe, sechste Stufe manuell.
       Jeder Kauf verwendet die geplante Eigenkapital-Margin; der Hebel verdoppelt das Marktvolumen.</p>
     {available ? <>
@@ -53,13 +58,21 @@ export function DemoControlPanel({ tenantId, accountId, csrf }: {
         Mehr Coin-Kandidaten schaffen mehr Signalchancen; sie erhöhen die Basketzahl nicht.</p>
       <div className="card-heading" style={{ flexWrap: "wrap" }}>
         <button className="button primary" type="button" disabled={busy || !state || !csrf || !assets.length ||
-          uncertain.current || state.status === "start_requested"} onClick={() => void call("start")}>Demo-Start anfordern</button>
+          uncertain.current || state.status === "start_requested" && limit === state.basket_limit &&
+          JSON.stringify([...assets].sort()) === JSON.stringify(state.assets)} onClick={() => void call("start")}>Demo-Start anfordern</button>
         <button className="button secondary" type="button" disabled={busy || !state || !csrf || uncertain.current}
           onClick={() => void call("pause")}>Pausieren</button>
         <button className="button secondary" type="button" disabled={busy} onClick={() => void call()}>Status neu laden</button>
       </div>
     </> : <p>Die Dashboard-Steuerung wird mit dem nächsten Deployment verfügbar.</p>}
-    <p role="status">{state?.status === "start_requested" ?
+    <p role="status">{state?.execution_enabled ?
+      "Demohandel aktiv. Der Worker prüft geschlossene H1-RSI-Signale und verwaltet eigene Positionen." :
+      state?.worker_state === "waiting" && state.worker_detail?.includes("reconciliation") ?
+        "Die Orderausführung wird mit Bitget abgeglichen. Es erfolgt kein erneuter Versand." :
+      state?.worker_state === "waiting" ? "Der Worker bereitet die nativen Kontoeinstellungen und H1-Indikatoren vor." :
+      state?.worker_state === "blocked" ? "Der native Konto- oder Orderabgleich ist noch nicht bestätigt. Neue Käufe bleiben gesperrt; der Worker prüft erneut." :
+      state?.worker_state === "offline" ? "Der Workerstatus ist derzeit nicht bestätigt. Neue Käufe sind nicht freigegeben." :
+      state?.status === "start_requested" ?
       "Dein Startwunsch ist gespeichert. Der Handelsworker wird noch angebunden; es werden noch keine Strategieorders gesendet." :
       state?.status === "paused" ? "Der Startwunsch ist pausiert. Bestehende Positionen werden dadurch nicht geschlossen." :
       state?.status === "authorization_changed" ? "Kontozugang oder Anmeldung haben sich geändert. Der frühere Startwunsch gilt nicht mehr." :

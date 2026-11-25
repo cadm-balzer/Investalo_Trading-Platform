@@ -10,10 +10,10 @@ from investalo_trading.capital_digest import digest
 from investalo_trading.futures_broker_funding import BrokerFundingBill, BrokerFundingBatch, milliseconds
 
 
-def funding_batch(wallet, positions, pages, intent, book, *, context, now_ms):
+def funding_batch(wallet, positions, pages, intent, book, *, context, now_ms, policy=None):
     if type(intent) is not BasketFundingIntent or intent.book_digest != book.state_digest or book.pending is not None:
         raise DemoRejected("original_idle_funding_scope_required")
-    snapshot = margin_snapshot(wallet, positions, intent, context=context, now_ms=now_ms)
+    snapshot = margin_snapshot(wallet, positions, intent, context=context, now_ms=now_ms, policy=policy)
     end = snapshot.observed_ms
     if end <= intent.from_ms:
         return None

@@ -7,6 +7,30 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR129 merged6016037, GH/fetch verified. User explicitly requests full
+  operative H1 worker/strategy integration. Own daemon installed20261125;
+  original live Control1/all7/ceiling3, same020/Trading AEAD/current actor/
+  epoch/key, only scoped RO control directory/derived key, no browser/session
+  fabrication. Native plan preserves unknown Market max under approved Q50,
+  real own-margin×2/full stages; current grant policy also in margin/funding.
+  Native indicators progress without backdating money; actual observed day
+  basis fixes native midday fill halts, old profiles unchanged. Original
+  consumer/unknown-before-POST/GET-only recovery/exact reduce-only exits.
+  Settings/profit epochs preserve open budgets.12 once-only native settings
+  attempts confirmed by GET; transient read failure recovered.196 pinned
+  Python/12 Node/full typecheck/final builds green. Actual public7-source
+  market valid. Eight overlays now required incl.demo-h1-worker.
+  Rollout renews Cockpit/adds own worker; six other running IDs/images,
+  original private hashes/key active1/1/technical8 retained. TLS200/control
+  anonymousGET+POST401. UID10003/readonly/no hostport/lognone worker.
+  Actual warmup300 complete, journal13; running/execution true/waiting H1
+  at20261125 15:56:09.873UTC. Actual restart15:57:15.685UTC returns running,
+  journal/receipt byteidentical13. Auto Demo ACTIVE, no strategy order at
+  that acceptance. Never force an entry or claim a fill before native proof.
+  Preserve own native journal/consumers/profiles on fixes; after actual
+  orders no rollback to older incapable worker, pause buys/manage positions.
+  Private receipts infra/local/demo-h1-worker/rollout-*.
+  See docs/bitget-demo-h1-worker.md.
 - PR128 merged0d07c13, GH/fetch verified. User explicitly authorizes auto
   Demo and saves original signed Dashboard Start1 at20261125 13:20:31CET,
   seven candidates/ceiling3/fixed2x. Own durable consumer verifies original
