@@ -489,6 +489,20 @@ Vor Pilotrollout müssen Domain/TLS, SMTP/Empfänger, Terminalbindung,
 externes Backupziel/Schlüssel und Recoverytests konkret geprüft sein. Eine
 Planentscheidung veröffentlicht keine Dienste und versendet keine Nachrichten.
 
+### Q50: automatische Demo-Ausführung und unbestätigte Nativefelder
+
+25.11.2026, ausdrücklich bestätigt. Der Nutzer autorisiert automatischen
+Bitget-Demohandel und speichert den Originalstart im Dashboard (Stand1).
+Zusätzlich bestätigt er die Akzeptanz derselben unbestätigten Angaben wie
+beim erfolgreichen technischen Test für automatische Demo-Baskets:
+fehlendes Bonusfeld, fehlende Market-Maximalmenge, vorab unbekannte
+tatsächliche Gebühren und ältere Orderhistorie außerhalb des API-Fensters.
+Die Werte werden weiterhin als unbekannt angezeigt. Vereinbarte
+Basketbudgets, maximal2×, isolierte Longs, aktuelle Konto-/Orderprüfungen
+und kein erneuter Versand unbestätigter Orders bleiben verbindlich.
+Echtgeld bleibt aus. Keine Wiederverwendung des20USDT-Techniktests als
+Strategiegrößenbudget. [Umsetzung](bitget-demo-worker-authorization.md).
+
 Umweltfakten recherchieren die Agents selbst. Entscheidungen und Risikotoleranz
 gehören dem Nutzer. Offene Fakten dürfen abhängige Fragen verzögern, aber
 unabhängige Planung nicht blockieren.
