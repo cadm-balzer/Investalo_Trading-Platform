@@ -481,10 +481,12 @@ def apply_futures_event(state: FuturesLedgerState, command: LedgerCommand) -> Le
                    for b, m in zip(baskets, payload.marks, strict=True)]
     elif isinstance(payload, DailyBasis):
         midnight = command.occurred_at.replace(hour=0, minute=0, second=0, microsecond=0)
-        if (command.occurred_at != midnight or midnight <= state.day_started_at
-                or any(b.marked_at != midnight for b in baskets) or payload.equity != state.equity):
+        native = getattr(state.plan, "native_observed_day_basis", False)
+        basis = command.occurred_at if native else midnight
+        if (not native and command.occurred_at != midnight or basis <= state.day_started_at
+                or any(b.marked_at != basis for b in baskets) or payload.equity != state.equity):
             raise ValueError("day basis needs exact fresh pre-mutation midnight evidence")
-        changes = {"day_started_at": midnight, "day_start_equity": state.equity,
+        changes = {"day_started_at": basis, "day_start_equity": state.equity,
                    "day_evidence_digest": payload.evidence_digest}
     else:
         if payload.symbol not in state.plan.symbols:
@@ -497,8 +499,11 @@ def apply_futures_event(state: FuturesLedgerState, command: LedgerCommand) -> Le
             if isinstance(payload, EntryFill):
                 if state.halted:
                     extra_reasons.append("entry_fill_after_halt")
-                if state.day_started_at != command.occurred_at.replace(
-                        hour=0, minute=0, second=0, microsecond=0):
+                current_day = (state.day_started_at.date() == command.occurred_at.date()
+                               if getattr(state.plan, "native_observed_day_basis", False)
+                               else state.day_started_at == command.occurred_at.replace(
+                                   hour=0, minute=0, second=0, microsecond=0))
+                if not current_day:
                     extra_reasons.append("entry_fill_without_current_day_basis")
                 if any(not timedelta(0) <= command.occurred_at - row.marked_at <= timedelta(seconds=30)
                        for row in baskets):

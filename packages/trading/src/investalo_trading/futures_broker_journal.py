@@ -38,21 +38,27 @@ from .futures_capital_signals import (
 from .futures_ledger import LedgerMark, timestamp
 from .futures_paper_plan import CapitalPaperPoolPlan
 from .futures_paper_profit_plan import CapitalPaperProfitPlan
+from .futures_broker_plan import CapitalBrokerPlan
 from .futures_replay_journal import JournalCommitUnknown, _fields, _json, _open, _sha
 from .snapshot import _decode, primitive
 from .futures_broker_bootstrap import (
     BrokerFlatAccount, BrokerCurrentLedgerState, WARMUP_HOURS,
     start_current_broker_signals, warm_broker_hours,
+    advance_native_hour,
+    native_plan_update,
 )
 
 VERSION = "bitget-demo-h1-basket-entry-journal/7"
 MAX_COMMANDS = 50_000
 PLANS = {p.capital_policy: p for p in (
     CapitalPlan, CapitalCashPlan, CapitalRealizedCashPlan, CapitalReservedCashPlan,
-    CapitalGridPlan, CapitalPaperPoolPlan, CapitalPaperProfitPlan)}
+    CapitalGridPlan, CapitalPaperPoolPlan, CapitalPaperProfitPlan, CapitalBrokerPlan)}
 ARGUMENTS = {
     "warmup": {"frames": tuple[CapitalHour, ...]},
     "hour": {"frame": CapitalHour},
+    "native_hour": {"frame": CapitalHour},
+    "native_limit": {"limit": int},
+    "native_profit": {},
     "prices": {"trade": tuple[LedgerMark, ...], "marks": tuple[LedgerMark, ...], "event_id": str},
     "prepare": {"symbol": str, "planning_price": Decimal, "command_id": str},
     "prepare_exit": {"symbol": str, "command_id": str},
@@ -288,6 +294,12 @@ def _apply(state, command):
         if state.current_attempt is not None:
             raise ValueError("attempted order is GET-only; cannot discard exposure")
         book = cancel_broker_preparation(book, args["order_digest"], book.revision, at)
+    elif kind in ("native_limit", "native_profit"):
+        book = native_plan_update(book, at, limit=args.get("limit"), profit=kind == "native_profit")
+    elif kind == "native_hour":
+        if warmed != WARMUP_HOURS:
+            raise ValueError("native indicators must be completely initialized")
+        book = advance_native_hour(book, args["frame"], at)
     else:
         functions = {"hour": replay_broker_hour, "prices": observe_broker_prices,
                      "prepare": prepare_broker_entry, "prepare_exit": prepare_broker_exit}

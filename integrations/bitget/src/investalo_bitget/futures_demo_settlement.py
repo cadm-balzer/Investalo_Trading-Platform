@@ -17,11 +17,11 @@ D=Decimal
 
 @precise
 def reconcile_order_funding(baseline,wallet,positions,pages,intent,observation,book,*,
-                            context,now_ms,expected_positions,attempted_ms):
+                            context,now_ms,expected_positions,attempted_ms,policy=None):
     if type(intent) not in (BasketMarketIntent,BasketExitIntent) or book.pending is None:
         raise DemoRejected("own_pending_order_funding_required")
     sources=_settlement_sources(baseline,wallet,positions,pages,intent,observation,
-        context=context,now_ms=now_ms,expected_positions=expected_positions,attempted_ms=attempted_ms)
+        context=context,now_ms=now_ms,expected_positions=expected_positions,attempted_ms=attempted_ms,policy=policy)
     if sources is None:
         return None
     after,rows,hashes,last_at=sources

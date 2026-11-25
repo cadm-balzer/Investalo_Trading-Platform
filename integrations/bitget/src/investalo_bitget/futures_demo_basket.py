@@ -21,26 +21,38 @@ class BasketMarketGrid:
     price_tick: Decimal
     min_quantity: Decimal
     min_notional: Decimal
-    max_market_quantity: Decimal
+    max_market_quantity: Decimal | None
+    approved_policy_digest: str | None = None
 
     def __post_init__(self):
         if self.symbol not in SYMBOLS:
             raise DemoRejected("unsupported_basket_symbol")
-        for value in (self.quantity_step, self.price_tick, self.min_quantity, self.min_notional, self.max_market_quantity):
+        for value in (self.quantity_step, self.price_tick, self.min_quantity, self.min_notional):
             number(value)
-        if self.max_market_quantity < self.min_quantity:
+        if self.approved_policy_digest is not None and (
+                type(self.approved_policy_digest) is not str or len(self.approved_policy_digest) != 64
+                or any(c not in "0123456789abcdef" for c in self.approved_policy_digest)):
+            raise DemoRejected("invalid_approved_native_policy")
+        if self.max_market_quantity is None:
+            if self.approved_policy_digest is None:
+                raise DemoRejected("unconfirmed_market_maximum_not_approved")
+        else:
+            number(self.max_market_quantity)
+        if self.max_market_quantity is not None and self.max_market_quantity < self.min_quantity:
             raise DemoRejected("invalid_basket_native_maximum")
 
     def check(self, quantity, price):
         number(quantity); number(price)
         with localcontext() as precision:
             precision.prec = 160
-            if (quantity % self.quantity_step or not self.min_quantity <= quantity <= self.max_market_quantity
+            if (quantity % self.quantity_step or quantity < self.min_quantity
+                    or self.max_market_quantity is not None and quantity > self.max_market_quantity
                     or quantity * price < self.min_notional):
                 raise DemoRejected("basket_order_outside_native_grid")
 
     def record(self):
-        return {key: text(value) if isinstance(value, Decimal) else value for key, value in vars(self).items()}
+        return {key: text(value) if isinstance(value, Decimal) else value for key, value in vars(self).items()
+                if key != "approved_policy_digest" or value is not None}
 
 
 @dataclass(frozen=True, repr=False)

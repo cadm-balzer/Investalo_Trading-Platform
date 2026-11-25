@@ -8,6 +8,17 @@ konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
+IP-015/IP-016: [Operativer H1-Worker](../bitget-demo-h1-worker.md) `DONE`
+für autorisierten ersten automatischen Demolauf: Originalcontrol/020/AEAD/
+nativer Plan/Margin-/Fundingpolicy/Orderconsumer/H1-Koordination/Heartbeat,
+208 gepinnte Fälle inklusive196 Python+12 Node/Typprüfung/Builds grün.
+Echte Profile/Warmup300/Runningstatus sowie tatsächlicher Neustart mit
+unverändertem Journal13 bestätigt. Acht Overlays, sechs übrige Dienste/
+Originalhashes/Key1/1/technisches8 erhalten.
+**Native Strategie-Fillabnahme `IN_PROGRESS`:** erstes echtes bestätigtes
+H1-RSI-Signal abwarten, tatsächlichen Einstieg/Fee/Margin/Position und
+späteren Nachkauf/Ausstieg prüfen. Keine erzwungene Teststrategieorder.
+
 IP-015/IP-016: [Dauerhafte Freigabe/native Startkette](
 ../bitget-demo-worker-authorization.md) `DONE` als eigener Consumer/
 Read-only-020-/AEADbaustein. Originaler Nutzer-Start1 und tatsächlicher

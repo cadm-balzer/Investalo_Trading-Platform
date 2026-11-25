@@ -63,7 +63,8 @@ def basket_journal_intent(journal, binding, state, context):
         raise DemoRejected("basket_requires_confirmed_native_market_grid")
     contract, rule = plan.contracts[index], rules[index]
     grid = BasketMarketGrid(contract.symbol, contract.quantity_step, rule.price_tick, contract.minimum_quantity,
-                            contract.minimum_notional, rule.maximum_market_quantity)
+                            contract.minimum_notional, rule.maximum_market_quantity,
+                            getattr(plan, "approved_policy_digest", None))
     if type(order) is BrokerExitOrder:
         return BasketExitIntent(binding, UUID(journal._header["journal_id"]), order.command_id,
             order.order_digest, grid, order.cycle, order.request.quantity, order.request.maximum_fill_price,
@@ -445,7 +446,7 @@ class BasketOrderDispatcher(_PrivateImmutable):
         finally:
             self.lock.release()
 
-    def funding(self, *, context, expected_revision):
+    def funding(self, *, context, expected_revision, commit_empty=True):
         """Actual journal/AEAD GET-only funding producer; no consent consumption or POST."""
         if not self.enabled or self.pid != os.getpid() or self.funding_source is None:
             raise DemoRejected("basket_funding_disabled_or_source_missing")
@@ -472,6 +473,11 @@ class BasketOrderDispatcher(_PrivateImmutable):
                 raise DemoRejected("basket_funding_cohort_expired")
             if batch is None:
                 return None  # Cursor and economic state remain unchanged.
+            if not commit_empty and not batch.bills:
+                from investalo_trading.futures_broker_funding import record_broker_funding
+                record_broker_funding(state.book, batch, state.book.revision,
+                    parse.EPOCH + timedelta(milliseconds=self.now()))
+                return state  # Fresh native reconciliation, no redundant empty journal command.
             return self.journal.append("funding", expected_revision=expected_revision,
                 at=parse.EPOCH + timedelta(milliseconds=self.now()), batch=batch)
         finally:

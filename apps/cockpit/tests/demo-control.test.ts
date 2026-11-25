@@ -18,6 +18,16 @@ import * as metadata from "../src/lib/demo-trading-credential-action-contracts.t
 import * as security from "../src/lib/security.ts";
 import * as bodyReader from "../src/lib/demo-btc-order-consent.ts";
 const id = (n: number) => `00000000-0000-0000-0000-${String(n).padStart(12, "0")}`;
+test("operative worker projection permits active execution only in eligible worker states", () => {
+  const v = { schema:"investalo-demo-h1-control/1", tenant_id:id(1), account_id:id(2), revision:1,
+    basket_limit:3, assets:["BTCUSDT"], status:"start_requested", requested_at:new Date().toISOString(),
+    worker_state:"running", execution_enabled:true, worker_detail:"waiting_for_h1_signal",
+    worker_seen_at:new Date().toISOString() };
+  assert.equal(controls.parseDemoControl(v,id(1),id(2)).execution_enabled,true);
+  for (const state of ["blocked","offline","paused","not_installed"])
+    assert.throws(() => controls.parseDemoControl({...v,worker_state:state},id(1),id(2)));
+  assert.equal(controls.parseDemoControl({...v,worker_state:"blocked",execution_enabled:false},id(1),id(2)).worker_state,"blocked");
+});
 const b: states.DemoControlBinding = { tenant_id: id(1), account_id: id(2), user_id: id(3), subject: "synthetic",
   auth_epoch: 1, connection_id: id(4), credential_revision: 1, storage_version: 1 };
 const NOW = 1800000000, secret = "synthetic-control-secret-of-at-least-32-bytes";
