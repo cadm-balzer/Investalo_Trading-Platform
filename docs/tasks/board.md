@@ -1,12 +1,24 @@
 # Git-basiertes Ticketboard
 
-Stand 2026-11-24. Dieses Board ist das initiale Task-/Ticketsystem ohne
+Stand 2026-11-25. Dieses Board ist das initiale Task-/Ticketsystem ohne
 zusätzliche Tools oder externe Veröffentlichung.
 
 Status: `READY` ausführbar, `IN_PROGRESS` aktiv, `WAITING_DECISION` benötigt
 konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
+
+IP-015/IP-016: [Dauerhafte Freigabe/native Startkette](
+../bitget-demo-worker-authorization.md) `DONE` als eigener Consumer/
+Read-only-020-/AEADbaustein. Originaler Nutzer-Start1 und tatsächlicher
+Worker-LOGIN/Native-GET-Abruf bestätigt; genehmigte Strategie-Demo-Ausnahme
+am echten Flat-Konto mit9.999,91047862USDT geprüft.151 gepinnte Fälle/build/
+Paketquellhashes grün.020 mit Backup installiert; sieben Dienste/Images/
+Originalhashes/technisches8 unverändert, keine Order.
+**Aktivierung `IN_PROGRESS`**: laufender H1-Worker, operative
+Kontrollübergabe/Status und vollständige native Strategiegrid-/Margin-/
+Fundingzulassung. Keine weitere Nutzerklärung zur bestätigten Demo-Ausnahme
+nötig; keine aktive automatische Ausführung behaupten.
 
 IP-015/IP-016: [Native Startquellen](../bitget-demo-native-start-source.md)
 `DONE` lokal nach PR127/main`e28075e`: originale private Trading-Identität/

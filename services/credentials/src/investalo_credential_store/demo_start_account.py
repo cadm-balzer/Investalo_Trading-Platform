@@ -12,11 +12,12 @@ from investalo_bitget.futures_demo import DemoRejected
 from investalo_bitget.futures_demo_bootstrap import native_start_account
 from investalo_bitget.futures_demo_read import DemoReadCredential, SignedDemoReadRequest, HTTPSDemoReadTransport
 from .demo_trading_provider import SealedDemoTradingProvider
+from investalo_bitget.futures_demo_policy import ApprovedDemoStrategyPolicy
 
 
 class NativeStartAccountSource:
     def __init__(self, provider, *, guard, shared_lock, ip_binding, transport=None,
-                 milliseconds=lambda: time.time_ns()//1_000_000):
+                 milliseconds=lambda: time.time_ns()//1_000_000, policy=None):
         if (type(provider) is not SealedDemoTradingProvider or not callable(guard)
                 or shared_lock is None or ip_binding not in ("single_ip", "unavailable_in_demo")
                 or not callable(milliseconds) or transport is not None and not callable(transport)):
@@ -24,6 +25,11 @@ class NativeStartAccountSource:
         self.provider, self.guard, self.lock = provider, guard, shared_lock
         self.ip_binding, self.transport = ip_binding, transport or HTTPSDemoReadTransport(timeout_seconds=3)
         self.now, self.pid, self.last = milliseconds, os.getpid(), None
+        if policy is not None:
+            if type(policy) is not ApprovedDemoStrategyPolicy:
+                raise DemoRejected("own_approved_demo_strategy_policy_required")
+            policy.check(provider._spec.binding, provider._spec.credential_revision, provider._storage)
+        self.policy = policy
 
     def read(self, *, context):
         if self.pid != os.getpid() or not self.lock.acquire(blocking=False):
@@ -75,7 +81,8 @@ class NativeStartAccountSource:
                     or not bound and identity.ip_whitelist not in (None, ())):
                 raise DemoRejected("native_start_identity_changed")
             wallet, positions = get("wallet"), get("positions")
-            result = native_start_account(wallet, positions, binding, context=context, now_ms=self.now())
+            result = native_start_account(wallet, positions, binding, context=context, now_ms=self.now(),
+                                          policy=self.policy)
             check()
             return result
         finally:

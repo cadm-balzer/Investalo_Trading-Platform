@@ -48,6 +48,32 @@ def milliseconds(at):
     return delta.days * 86400000 + delta.seconds * 1000 + delta.microseconds // 1000
 
 
+def basket_journal_intent(journal, binding, state, context):
+    """One original journal/grid decoder, shared by dispatcher and consumer."""
+    binding.check(context)
+    order = state.book.pending
+    if (type(context) is not OwnerContext or order is None
+            or (order.request.tenant_id, order.request.account_id) != (
+                str(binding.owner.tenant_id), str(binding.account_id))):
+        raise DemoRejected("foreign_basket_journal")
+    plan = state.book.signal.profile.plan
+    index = plan.symbols.index(order.request.symbol)
+    rules = getattr(plan, "grid_rules", ())
+    if len(rules) != len(plan.symbols):
+        raise DemoRejected("basket_requires_confirmed_native_market_grid")
+    contract, rule = plan.contracts[index], rules[index]
+    grid = BasketMarketGrid(contract.symbol, contract.quantity_step, rule.price_tick, contract.minimum_quantity,
+                            contract.minimum_notional, rule.maximum_market_quantity)
+    if type(order) is BrokerExitOrder:
+        return BasketExitIntent(binding, UUID(journal._header["journal_id"]), order.command_id,
+            order.order_digest, grid, order.cycle, order.request.quantity, order.request.maximum_fill_price,
+            order.before_quantity, order.before_average, milliseconds(order.prepared_at))
+    return BasketMarketIntent(binding, UUID(journal._header["journal_id"]), order.command_id,
+        order.order_digest, grid, order.assessment.capital.stage, order.cycle, order.request.quantity,
+        order.request.maximum_fill_price, order.request.posted_margin, order.before_quantity,
+        order.before_average, milliseconds(order.prepared_at))
+
+
 class BasketOrderApproval(_PrivateImmutable):
     """Only the installed durable own-purpose consumer supplies this result."""
     __slots__ = ("authorization_id", "intent_digest", "receipt_digest", "request_digest",
@@ -248,29 +274,7 @@ class BasketOrderDispatcher(_PrivateImmutable):
             object.__setattr__(self, name, value)
 
     def _intent(self, state, context):
-        binding = self.provider._spec.binding
-        binding.check(context)
-        order = state.book.pending
-        if (type(context) is not OwnerContext or order is None
-                or (order.request.tenant_id, order.request.account_id) != (
-                    str(binding.owner.tenant_id), str(binding.account_id))):
-            raise DemoRejected("foreign_basket_journal")
-        plan = state.book.signal.profile.plan
-        index = plan.symbols.index(order.request.symbol)
-        rules = getattr(plan, "grid_rules", ())
-        if len(rules) != len(plan.symbols):
-            raise DemoRejected("basket_requires_confirmed_native_market_grid")
-        contract, rule = plan.contracts[index], rules[index]
-        grid = BasketMarketGrid(contract.symbol, contract.quantity_step, rule.price_tick, contract.minimum_quantity,
-                                contract.minimum_notional, rule.maximum_market_quantity)
-        if type(order) is BrokerExitOrder:
-            return BasketExitIntent(binding, UUID(self.journal._header["journal_id"]), order.command_id,
-                order.order_digest, grid, order.cycle, order.request.quantity, order.request.maximum_fill_price,
-                order.before_quantity, order.before_average, milliseconds(order.prepared_at))
-        return BasketMarketIntent(binding, UUID(self.journal._header["journal_id"]), order.command_id,
-            order.order_digest, grid, order.assessment.capital.stage, order.cycle, order.request.quantity,
-            order.request.maximum_fill_price, order.request.posted_margin, order.before_quantity,
-            order.before_average, milliseconds(order.prepared_at))
+        return basket_journal_intent(self.journal, self.provider._spec.binding, state, context)
 
     def _lease(self, intent, context, original=None):
         self.native_guard()

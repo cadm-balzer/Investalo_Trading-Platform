@@ -7,6 +7,28 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR128 merged0d07c13, GH/fetch verified. User explicitly authorizes auto
+  Demo and saves original signed Dashboard Start1 at20261125 13:20:31CET,
+  seven candidates/ceiling3/fixed2x. Own durable consumer verifies original
+  HMAC/actor/key/clock, monotonic control with immutable accepted markers,
+  O_EXCL/fsync/readback per-command spend before POST; pause blocks buys,
+  exact owned reduce-only exits allowed. Shared dispatcher/consumer intent
+  decoder, no forged session/auth_time or technical20USDT grant reuse.
+  Own read-only020 worker SQL/AEAD adapter checks current restricted LOGIN/
+  actual actor/epoch/reauth/account/key.151 pinned cases84+67/final build/
+  six package hashes green.020 installed under explicit start authorization
+  after fixture/preflight/full private DB backup;001–019 immutable.
+  Actual original Start1 -> restricted LOGIN/AEAD/three native GETs succeeds.
+  User explicitly extends missing grant/Market max/pre-fill costs/older
+  pending scope exception to automatic Demo only. Approved policy binds own
+  account/key; startup missing grant stays unknown, other blockers strict.
+  Actual approved native startup20261125 12:36:55.818UTC confirms flat and
+  equity9999.91047862USDT, grant unknown/no blockers. Seven running IDs/images/
+  original private hashes/technical8 unchanged, no order. Private receipts/
+  backup under infra/local/demo-h1-worker/start-inspect-*. Ongoing H1 worker/
+  operative control handoff/heartbeat and native strategy grid/margin/funding
+  policy wiring still IN_PROGRESS. Auto Demo NOT active; do not claim it is.
+  See docs/bitget-demo-worker-authorization.md.
 - PR127 mergede28075e, GH/fetch verified. Native startup producers on
   feat/m1-demo-native-start-source: original Trading AEAD/actor/key snapshots/
   UID-parent-rights-IP, shared account mutex/PID/1s quota/110ms GET pacing/

@@ -66,6 +66,18 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+25.11.2026: PR128/main`0d07c13` bestätigt. Nutzer autorisiert automatischen
+Demohandel, originaler Dashboard-Start1 gespeichert. [Dauerhafte Freigabe](
+bitget-demo-worker-authorization.md) verbindet eigenen einmaligen
+Strategie-Consumer und read-only020 Worker-SQL/AEAD mit ursprünglicher
+Zustimmung; kein erfundener OIDC-Kontext.151 gepinnte Fälle/finaler Build grün.
+Produktive020 nach privatem Backup; originale001–019/unveränderte sieben
+Dienste/Images/privaten Hashes/technisches Journal8 geprüft.
+Native drei GETs mit ausdrücklich genehmigter Demo-Ausnahme bestätigen
+Flat und9.999,91047862USDT, Bonusfeld bleibt unbekannt.
+Kontinuierlicher Worker/native Gesamtzulassung noch in Umsetzung;
+automatischer Demohandel noch nicht aktiv.
+
 2026-11-24: PR127/main`e28075e` verifiziert.
 [Native Startquellen](bitget-demo-native-start-source.md) verbinden bestehende
 Trading-AEAD/Identitäts-/Actorprüfungen mit eigenem Flat-Kontobeleg sowie

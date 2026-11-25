@@ -9,6 +9,7 @@ from test_futures_demo_signals import END, NOW, rows, response as candles_respon
 from investalo_bitget.futures_demo import DemoRejected
 from investalo_bitget.models import BitgetRejected
 from investalo_bitget.futures_demo_bootstrap import native_start_account
+from investalo_bitget.futures_demo_policy import ApprovedDemoStrategyPolicy
 from investalo_bitget.futures_demo_signals import signal_url
 from investalo_bitget.futures_demo_warmup import DemoWarmupSource
 from investalo_bitget.futures_demo_read import SignedDemoReadRequest
@@ -83,6 +84,25 @@ class NativeStartSourceTests(unittest.TestCase):
             self.f.now += 1000
             result = self.source.read(context=OWNER)
             self.assertIsNone(result.account); self.assertIn(reason, result.blockers)
+
+    def test_approved_demo_missing_grant_remains_unknown_and_is_bound_to_account_key(self):
+        policy = ApprovedDemoStrategyPolicy(self.f.spec.binding, 1, 1)
+        source = NativeStartAccountSource(self.f.provider, guard=lambda: None, shared_lock=self.f.mutex,
+            ip_binding="unavailable_in_demo", transport=self.transport, milliseconds=lambda: self.f.now, policy=policy)
+        self.wallet_changes = {"grant": None}
+        report = source.read(context=OWNER)
+        self.assertEqual(report.account.equity, D(10000))
+        self.assertEqual(report.unconfirmed_fields, ("grant",))
+        self.assertEqual(report.policy_digest, policy.policy_digest)
+        self.assertEqual(report.blockers, ())
+        for values in ({"grant": "1"}, {"grant": None, "coupon": None},
+                       {"grant": None, "crossedMargin": "1"}, {"grant": None, "available": None}):
+            self.wallet_changes = values
+            self.f.now += 1000
+            self.assertIsNone(source.read(context=OWNER).account)
+        with self.assertRaises(DemoRejected):
+            NativeStartAccountSource(self.f.provider, guard=lambda: None, shared_lock=self.f.mutex,
+                ip_binding="unavailable_in_demo", policy=ApprovedDemoStrategyPolicy(self.f.spec.binding, 1, 2))
 
     def test_existing_native_position_is_not_adopted_even_when_wallet_claims_flat(self):
         self.positions = [dict(symbol="BTCUSDT", marginCoin="USDT", holdSide="long",
