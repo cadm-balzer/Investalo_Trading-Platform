@@ -1,5 +1,50 @@
 # H1-RSI-Anzeige und tatsächlicher Startstatus
 
+## Antwortkorrektur am 25.11.2026
+
+PR130/main`7121439` ist gemergt. Der automatische H1-Handelsworker ist
+[operativ aktiv](bitget-demo-h1-worker.md) und verarbeitet die abgeschlossenen
+Stunden unabhängig vom separaten Dashboard-RSI-Abruf. Tatsächlicher
+Workerstatus25.11.2026 20:39UTC: `running / waiting_for_h1_signal`,
+Ausführung freigegeben, Journalrevision44.
+
+Der ursprüngliche `account_read`-Ergebnisrouter erkannte Wallet-, Startup-
+und BTC-Testformate, aber keinen `investalo-demo-signals/1`-Bericht.
+Der gültige Signalbericht fiel dadurch in die Walletprüfung und wurde
+zu503. Eine tatsächliche öffentliche Probe im laufenden Executor lieferte
+alle sieben Coins bestätigt; die neue lokale ASGI/mTLS-Regression reproduziert
+vor dem Fix genau503. Bisherige Quell-, BFF- und Launcher-Tests hatten diese
+abschließende Antwortgrenze nicht abgedeckt.
+
+`demo_signal_view.py` prüft ausschließlich den vorhandenen öffentlichen
+Signalvertrag: exakte Felder und sieben geordnete Symbole, kanonische
+Kontobindung, UTC-/H1-Zeitbezug, unbekannte Werte als null und vollständige
+abgeschlossene Kerzen. RSI-Grenzen und Bestätigungszählung verwenden die
+unveränderten Decimalwerte. Wilder liefert36-stellige Präzision; die strengere
+Skalengrenze für native Kontobeträge darf diesen berechneten RSI nicht
+ablehnen. Read-/Order-/Walletverträge und Browsercode bleiben unverändert.
+
+121 gepinnte Pythonfälle inklusive neuer echter lokaler ASGI/mTLS-Abdeckung
+für beide installierbaren Read-/Market-Anwendungen,30 bestehende Nodefälle
+und der finale Executorbuild sind grün. Eine tatsächliche schlüssellose
+Bitget-Probe aus dem finalen Image liefert sieben bestätigte Berichte,
+die sowohl die neue Pythonprüfung als auch den unveränderten gepinnten
+TypeScript-Parser passieren. Ausschließlich die Kontobindung dieser reinen
+öffentlichen Interopprobe ist synthetisch; keine Kontositzung wird erfunden.
+
+Notwendiger Executor-only-Rollout abgeschlossen. Die sieben anderen
+Dienste/Images einschließlich laufendem Handelsworker und Cockpit bleiben
+gleich; ursprüngliche private Dateien, Freigabe, Key active1/1 und technisches
+Journal8 erhalten. Der laufende Strategie-Journalpräfix bleibt erhalten;
+normale neue Workerbuchungen laufen weiter. TLS200, Signals/Account anonym401
+und tatsächliches privates mTLS405 bestätigt.
+Private Image-/Before-/Aktivbelege liegen unter
+`infra/local/demo-h1-signals/response-fix-*`.
+Der originale Dashboard-RSI-Abruf nach dem Fix bleibt als Browserabnahme offen.
+Ein RSI-Bericht selbst erteilt weiterhin keine Orderfreigabe.
+
+## Ursprüngliche Implementierung und Abnahme
+
 Stand: 24.11.2026. PR120/main `97241f9` verifiziert. Der Nutzer möchte
 automatischen Demohandel mit Startfreigabe im Dashboard und aktuelle
 RSI-Werte. Die ursprüngliche operative Basketfreigabe bleibt noch in Arbeit;

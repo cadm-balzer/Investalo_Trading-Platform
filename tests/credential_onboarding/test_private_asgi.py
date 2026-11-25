@@ -82,6 +82,26 @@ class PrivateASGITests(unittest.TestCase):
             self.assertFalse(service.loop.get_debug())
         self.assertEqual(len(self.calls), 3)
 
+    def test_signal_read_survives_actual_mtls_account_and_installed_market_response(self):
+        from investalo_credential_store.demo_account_sync import PATH
+        from investalo_credential_store.private_http import DemoMarketTestHTTPApplication
+        from test_demo_signal_reader import signal_view
+        view = signal_view()
+        calls = []
+        def execute(context, action, token, body):
+            self.assertEqual(action, "account_read")
+            self.assertEqual(context.subject, fixture.SUBJECT)
+            calls.append(action)
+            return view
+        for cls in (DemoTradingAccountHTTPApplication, DemoMarketTestHTTPApplication):
+            with self.server(execute=execute, application_type=cls) as service:
+                wire = self.request().replace(TARGETS["register"].encode(), PATH.encode())
+                status, result = self.response(self.exchange(service, wire))
+                self.assertEqual(status, 200)
+                self.assertEqual(result, view)
+                self.assertIs(result["execution_enabled"], False)
+        self.assertEqual(calls, ["account_read", "account_read"])
+
     def test_opt_in_readonly_account_path_returns_bounded_large_view_over_actual_mtls(self):
         from datetime import datetime, timezone
         from investalo_credential_store.demo_account_sync import PATH, SCHEMA
