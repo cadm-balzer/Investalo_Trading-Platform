@@ -154,6 +154,9 @@ def _application_result(application, result, action):
             return validate_btc_test(result)
         if type(result) is dict and result.get("schema") == "investalo-demo-btc-market-preview-report/1":
             return validate_btc_market_test(result)
+        if type(result) is dict and result.get("schema") == "investalo-demo-signals/1":
+            from .demo_signal_view import validate_signals
+            return validate_signals(result)
         return validate_view(result)
     value = _public_result(result, action)
     if type(application) in (DemoCredentialHTTPApplication, DemoTradingCredentialHTTPApplication,

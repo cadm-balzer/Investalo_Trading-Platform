@@ -7,6 +7,23 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR130 merged7121439, GH/fetch verified. User reports Dashboard RSI503
+  while automatic Demo remains running. Actual keyless monitor confirms
+  seven assets; installed private HTTP result router wrongly sends signal
+  schema through wallet validator. Actual local ASGI/mTLS reproduces503.
+  Own strict demo_signal_view and exact readonly response branch fix this;
+  no wallet validator relaxation, order grant or rounded RSI comparisons.
+  Unknown/nulls, exact seven symbols/public fields/UTC H1 clocks and
+  unrounded36-digit Wilder values checked.121 pinned Python/30 Node green,
+  final Executor build and actual keyless7->Python->TS projection green.
+  Necessary executor-only rollout completed; seven other service IDs/images
+  including active H1 worker retained, original private hashes/key1/1/
+  technical8 unchanged, running native journal prefix preserved.
+  TLS200/signals+account anonymous401/actual private mTLS405 verified.
+  Automatic Demo remains active. Original browser RSI acceptance pending;
+  no operator session or strategy order created by the fix.
+  Private receipts infra/local/demo-h1-signals/response-fix-*.
+  See docs/bitget-demo-h1-signals.md.
 - PR129 merged6016037, GH/fetch verified. User explicitly requests full
   operative H1 worker/strategy integration. Own daemon installed20261125;
   original live Control1/all7/ceiling3, same020/Trading AEAD/current actor/

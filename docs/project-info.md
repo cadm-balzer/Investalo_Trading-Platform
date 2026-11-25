@@ -66,6 +66,16 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+25.11.2026: PR130/main`7121439` bestätigt; automatischer Demohandel weiterhin
+aktiv. Der [RSI-Leseweg](bitget-demo-h1-signals.md) hatte einen eigenen
+Antwortfehler: gültige Signalberichte wurden im privaten HTTP-Dienst gegen
+das Walletformat geprüft und als503 verworfen. Eigene strikte Signalprüfung
+und passende Antwortweiterleitung korrigiert,121 Python-/30 Nodefälle grün.
+Echte öffentliche sieben Coinberichte passieren finales Pythonimage und
+unveränderten Browserparser. Executor-only ausgerollt; Cockpit/aktiver Worker/
+fünf übrige Dienste, originale Freigaben/Keys/technisches8 und laufender
+Journalpräfix erhalten. Originale Dashboard-RSI-Abnahme bleibt ausstehend.
+
 25.11.2026: [Automatischer H1-Demohandel](bitget-demo-h1-worker.md)
 operativ aktiv. Originalstart1/sieben Kandidaten/Obergrenze3,
 native Profile vorbereitet,300 Indikatorstunden verarbeitet.

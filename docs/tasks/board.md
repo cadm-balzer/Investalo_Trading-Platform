@@ -8,6 +8,16 @@ konkrete Nutzerentscheidung, `BLOCKED` benötigt Voraussetzung, `DONE` geprüft.
 Ein Ticket wird mit Ergebnis, Prüfbeleg und gegebenenfalls Commit abgeschlossen.
 Priorität `P0` ist kritisch, `P1` Kernumfang, `P2` Ausbau.
 
+IP-015/IP-016: [RSI-Antwortkorrektur](../bitget-demo-h1-signals.md) `DONE`
+und Executor-only ausgerollt nach PR130/main`7121439`. Tatsächlich aktiver
+H1-Worker unabhängig vom defekten Dashboard-Lesepfad bestätigt. Lokaler
+ASGI/mTLS reproduziert503 durch fehlenden Signalzweig im Ergebnisrouter;
+eigene strikte öffentliche Signalvalidierung behebt den Fehler.
+121 Python-/30 Nodefälle und echte sieben native Coinberichte durch
+finales Pythonimage/Browserparser grün. Sieben andere Dienste/Images,
+Key1/1/Originalhashes/technisches8 und laufender Journalpräfix erhalten;
+TLS200/Read anonym401/private mTLS405. Originale Browserabnahme `IN_PROGRESS`.
+
 IP-015/IP-016: [Operativer H1-Worker](../bitget-demo-h1-worker.md) `DONE`
 für autorisierten ersten automatischen Demolauf: Originalcontrol/020/AEAD/
 nativer Plan/Margin-/Fundingpolicy/Orderconsumer/H1-Koordination/Heartbeat,
