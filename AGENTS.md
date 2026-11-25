@@ -7,6 +7,23 @@ Working Project Folder: /opt/Investalo_Trading-Platform
 ## Project state and navigation
 
 - Current phase: local M1 implementation, approved in Q31.
+- PR127 mergede28075e, GH/fetch verified. Native startup producers on
+  feat/m1-demo-native-start-source: original Trading AEAD/actor/key snapshots/
+  UID-parent-rights-IP, shared account mutex/PID/1s quota/110ms GET pacing/
+  original5s cohort; fixed identity/wallet/full positions GETs only. Known
+  flat single-USDT capital -> original BrokerFlatAccount; missing collateral/
+  amounts remain blockers, no zero inference/foreign position adoption.
+  No order admission/grant. Shared existing candle parser yields native
+  trade+mark H1 frames, max3/110ms/4.5s, original300-hour window/hash/fetched
+  time and24-hour slices; no cache of actor/credentials.13 new/133 affected
+  pinned cases green in aggregate (wide132 + final35 incl. actor/HMAC).
+  Final Executor build/four packaged source hashes/imports without net/
+  mounts/keys green. Actual packaged keyless Demo probe14GET/seven symbols/
+  300 hour pairs/4200 native candles valid, end20261124 21UTC; no private
+  account/order acceptance claimed. Dispatcher default off; no deployment/
+  actual private read/order. Original durable strategy consumer and ongoing
+  worker remain IN_PROGRESS. Read-only audit retains original private hashes/
+  all7 running IDs/images/technical8. See docs/bitget-demo-native-start-source.md.
 - PR126 merged69dffe6, GH/fetch verified. Own current-time native worker
   bootstrap on feat/m1-demo-worker-bootstrap: flat current account/original
   wallet+position clocks, native-only first partial-day basis; old research/

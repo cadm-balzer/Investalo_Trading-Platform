@@ -66,6 +66,17 @@ Als erstes erstelle die Projekt Struktur und erweitere die bestehenden .md (AGEN
 
 # Arbeitsstand und ergänzende Dokumentation
 
+2026-11-24: PR127/main`e28075e` verifiziert.
+[Native Startquellen](bitget-demo-native-start-source.md) verbinden bestehende
+Trading-AEAD/Identitäts-/Actorprüfungen mit eigenem Flat-Kontobeleg sowie
+native H1-Handels-/Markserien mit dem Workerwarmup. Unbekannte Sicherheiten
+bleiben Blocker; keine historischen Käufe/Guthaben.13 neue/133 betroffene
+gepinnte Fälle in Gesamtabdeckung (132+final35), finaler Executorbuild/
+vier Quellhashes/Imports grün. Echte verpackte öffentliche Demo-Probe:
+14 GETs/sieben Coins/300 Stundenpaare/4.200 Kerzen, Ende24.11.2026 21UTC.
+Keine private Konto-/Orderabnahme, kein Deployment. Ursprünglicher
+Strategie-Consumer und laufende Handelskoordination folgen.
+
 2026-11-24: PR126/main`69dffe6` verifiziert.
 [Aktueller Workerstart](bitget-demo-worker-bootstrap.md) trennt heutiges
 Kapital von 300 historischen Indikatorkerzen. Native Teil-Tagesbasis statt

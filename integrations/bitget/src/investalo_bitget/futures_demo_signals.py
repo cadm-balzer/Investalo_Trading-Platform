@@ -38,21 +38,21 @@ def milliseconds(now):
     return int((now - parse.EPOCH) // timedelta(milliseconds=1))
 
 
-def signal_url(symbol, end):
-    if symbol not in SYMBOLS or end != boundary(end):
+def signal_url(symbol, end, kind="trade"):
+    if symbol not in SYMBOLS or end != boundary(end) or kind not in ("trade", "mark"):
         raise ValueError("fixed Demo symbol and H1 boundary required")
     return ORIGIN + "/api/v2/mix/market/candles?" + urlencode({
         "symbol": symbol, "productType": "USDT-FUTURES", "granularity": "1H",
         "endTime": str(milliseconds(end) - 1), "limit": str(WARM_BARS + 1),
-        "kLineType": "market",
+        "kLineType": "market" if kind == "trade" else "mark",
     })
 
 
-def public_demo_signals_get(symbol, end, *, timeout_seconds=3):
+def public_demo_signals_get(symbol, end, *, timeout_seconds=3, kind="trade"):
     """Fixed keyless GET, Demo header, bounded body, no redirect/proxy/retry."""
     if type(timeout_seconds) not in (float, int) or not .05 <= timeout_seconds <= 3:
         raise ValueError("bounded public request timeout required")
-    request = Request(signal_url(symbol, end), headers={
+    request = Request(signal_url(symbol, end, kind), headers={
         "Accept": "application/json", "paptrading": "1",
         "User-Agent": "Investalo-demo-h1-monitor/1",
     }, method="GET")
@@ -74,6 +74,28 @@ def signal_asset(response, symbol, *, end, received_at):
     """Reject gaps/duplicate bars and never consume the unfinished current H1."""
     if symbol not in SYMBOLS or end != boundary(end) or boundary(received_at) != end:
         raise ValueError("own current closed H1 window required")
+    bars = closed_signal_candles(response, symbol, end=end, received_at=received_at)
+    state, previous, below = IndicatorState(), None, 0
+    for bar in bars:
+        previous = state.rsi
+        state = advance(state, bar, IndicatorParameters())
+        below = min(2, below + 1) if state.rsi is not None and state.rsi < 30 else 0
+    if state.rsi is None or previous is None:
+        raise ValueError("warmed Wilder RSI required")
+    return {
+        "symbol": symbol, "status": "confirmed", "rsi": format(state.rsi, "f"),
+        "previous_rsi": format(previous, "f"), "below_count": below,
+        "close_price": format(bars[-1].close, "f"), "candle_closed_at": end.isoformat(),
+        "fetched_at": received_at.isoformat(),
+        "entry_condition": ("confirmed" if below == 2 else
+                            "waiting_confirmation" if below == 1 else "waiting_rsi"),
+    }
+
+
+def closed_signal_candles(response, symbol, *, end, received_at):
+    """Shared native parser; an original restart window may precede today's hour."""
+    if symbol not in SYMBOLS or end != boundary(end) or end > boundary(received_at):
+        raise ValueError("own completed original H1 window required")
     rows, server_at = parse.envelope(response)
     if (not timedelta(0) <= received_at - server_at <= timedelta(seconds=5)
             or type(rows) is not list or not WARM_BARS <= len(rows) <= WARM_BARS + 1):
@@ -103,21 +125,7 @@ def signal_asset(response, symbol, *, end, received_at):
     expected_start = end - WARM_BARS * H1
     if any(bar.open_time != expected_start + i * H1 for i, bar in enumerate(bars)):
         raise ValueError("complete latest consecutive closed H1 window required")
-    state, previous, below = IndicatorState(), None, 0
-    for bar in bars:
-        previous = state.rsi
-        state = advance(state, bar, IndicatorParameters())
-        below = min(2, below + 1) if state.rsi is not None and state.rsi < 30 else 0
-    if state.rsi is None or previous is None:
-        raise ValueError("warmed Wilder RSI required")
-    return {
-        "symbol": symbol, "status": "confirmed", "rsi": format(state.rsi, "f"),
-        "previous_rsi": format(previous, "f"), "below_count": below,
-        "close_price": format(bars[-1].close, "f"), "candle_closed_at": end.isoformat(),
-        "fetched_at": received_at.isoformat(),
-        "entry_condition": ("confirmed" if below == 2 else
-                            "waiting_confirmation" if below == 1 else "waiting_rsi"),
-    }
+    return tuple(bars)
 
 
 def unavailable_asset(symbol):
